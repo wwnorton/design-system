@@ -1,0 +1,14 @@
+{
+  "name": "components-react",
+  "version": "0.0.0",
+  "description": "React components for the Norton Design System",
+  "main": "dist/index.js",
+  "homepage": "https://gitlab.com/wwnorton/platform/design-system",
+  "keywords": [
+    "react",
+    "component",
+    "library"
+  ],
+  "author": "W. W. Norton & Company",
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,27 @@
+image: node-10
+
+stages:
+  - codequality
+  # - test
+  # - build
+
+eslint:
+  stage: codequality
+  before_script:
+    - npm ci
+  script:
+    - npm run lint:es
+
+stylelint:
+  stage: codequality
+  before_script:
+    - npm ci
+  script:
+    - npm run lint:style
+
+prettier:
+  stage: codequality
+  before_script:
+    - npm ci
+  script:
+    - npm run lint:prettier
