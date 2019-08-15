@@ -6,22 +6,20 @@ A button allows a user to perform an action.
 
 Text-Only Buttons include:
 1. A Text Label
-2. A Container
+2. Padding
 
 Text + Icon Buttons include:
 1. A Text Label
-2. A Container
+2. Padding
 3. An Icon (before or after the label)
 
 Icon-Only Buttons include:
 1. An Icon
-2. A Container
+2. Padding
 
 ## Usage
-
-- A button submits an action or data, toggles something on the interface, or may navigate to another section or page. 
 - A button is a standalone call-to-action with space or visual emphasis around it. 
-- A button should have a meaningful label that communicates the action that users can take.
+- A button has a meaningful label that communicates the action that users can take.
 - `Accessibility` Space (Up) and Enter (Down) activates the button. Buttons may move or retain focus when activated.
 
 ### Button Dos:
@@ -40,7 +38,7 @@ Consider using links if...
 - It would be useful to "Copy", "Open in a new tab", or "Bookmark" the destination URL.
 - The label is embedded in a sentence, and does not need margins or padding.
 - The label conveys location, not an action (for example: a link that references a resource).
-- Only Enter (Down) activates the link. Links always move focus when activated.
+- `Accessibility` Only Enter (Down) activates the link. Links always move focus when activated.
 
 ### Caution: Buttons for navigation
 - Use a button if the component is styled like a button. (See _Don't create links that look like buttons_, above).
