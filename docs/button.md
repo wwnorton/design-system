@@ -32,7 +32,7 @@ Icon-Only Buttons include:
 - Don't wrap text in a button.
 - Don't use labels that are too long. A button's label should be very concise.
 - Don't choose default button colors that could be confused with disabled buttons.
-- Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.
+- `Accessibility` Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.
 
 ### Caution: Links for navigation
 Consider using links if...
