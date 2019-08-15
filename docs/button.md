@@ -5,11 +5,11 @@ A button allows a user to perform an action.
 ## Anatomy
 
 Text-Only Buttons include:
-1. A Label
+1. A Text Label
 2. A Container
 
 Text + Icon Buttons include:
-1. A Label
+1. A Text Label
 2. A Container
 3. An Icon (before or after the label)
 
@@ -22,7 +22,7 @@ Icon-Only Buttons include:
 - A button submits an action or data, toggles something on the interface, or may navigate to another section or page. 
 - A button is a standalone call-to-action with space or visual emphasis around it. 
 - A button should have a meaningful label that communicates the action that users can take.
-- Space (Up) and Enter (Down) activates the button. Buttons may move or retain focus when activated.
+- `Accessibility` Space (Up) and Enter (Down) activates the button. Buttons may move or retain focus when activated.
 
 ### Button Dos:
 - Do indicate the most important action on a page or region with a high-emphasis Primary button.
