@@ -1,9 +1,12 @@
 image: node:10
 
+variables:
+  SCOPE: "@nds"
+
 stages:
   - codequality
   # - test
-  # - build
+  - build
 
 before_script:
   - npm ci
@@ -22,3 +25,12 @@ prettier:
   stage: codequality
   script:
     - npm run lint:prettier
+
+build:components:
+  stage: build
+  script:
+    - npm run build -- --scope $SCOPE/components
+  artifacts:
+    paths:
+      - packages/components/dist
+    expire_in: 30 days
