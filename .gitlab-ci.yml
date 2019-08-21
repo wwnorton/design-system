@@ -41,6 +41,8 @@ pages:
   environment:
     name: docs
     url: $CI_PAGES_URL
+  variables:
+    VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
   script:
     - npm run docs:build -- --dest public
   artifacts:
