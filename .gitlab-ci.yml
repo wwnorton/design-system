@@ -10,6 +10,7 @@ stages:
 
 before_script:
   - npm ci
+  - npm run lerna:bootstrap
 
 eslint:
   stage: codequality
