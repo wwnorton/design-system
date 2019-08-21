@@ -3,48 +3,58 @@ image: node:10
 variables:
   SCOPE: "@nds"
 
+debug:
+  stage: debug
+  script:
+    - echo CI_PROJECT_NAME = $CI_PROJECT_NAME
+    - echo CI_PROJECT_NAMESPACE = $CI_PROJECT_NAMESPACE
+    - echo CI_PROJECT_PATH = $CI_PROJECT_PATH
+    - echo CI_PAGES_URL = $CI_PAGES_URL
+
 stages:
-  - codequality
+  - debug
+  # - codequality
   # - test
-  - build
+  # - build
+# before_script:
+#   - npm ci
+#   - npm run lerna:bootstrap
 
-before_script:
-  - npm ci
-  - npm run lerna:bootstrap
+# eslint:
+#   stage: codequality
+#   script:
+#     - npm run lint:es
 
-eslint:
-  stage: codequality
-  script:
-    - npm run lint:es
+# stylelint:
+#   stage: codequality
+#   script:
+#     - npm run lint:style
 
-stylelint:
-  stage: codequality
-  script:
-    - npm run lint:style
+# prettier:
+#   stage: codequality
+#   script:
+#     - npm run lint:prettier
 
-prettier:
-  stage: codequality
-  script:
-    - npm run lint:prettier
+# build:components:
+#   stage: build
+#   script:
+#     - npm run build -- --scope $SCOPE/components
+#   artifacts:
+#     paths:
+#       - packages/components/dist
+#     expire_in: 30 days
 
-build:components:
-  stage: build
-  script:
-    - npm run build -- --scope $SCOPE/components
-  artifacts:
-    paths:
-      - packages/components/dist
-    expire_in: 30 days
-
-pages:
-  stage: build
-  environment:
-    name: docs
-    url: $CI_PAGES_URL
-  script:
-    - npm run docs:build -- --dest public
-  artifacts:
-    paths:
-      - public
-  only:
-    - master
+# pages:
+#   stage: build
+#   environment:
+#     name: docs
+#     url: $CI_PAGES_URL
+#   variables:
+#     VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
+#   script:
+#     - npm run docs:build -- --dest public
+#   artifacts:
+#     paths:
+#       - public
+#   only:
+#     - master
