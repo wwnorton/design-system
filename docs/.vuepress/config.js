@@ -1,11 +1,16 @@
+const { URL } = require('url');
 const componentsSidebar = require('./sidebars/components');
 
+let base = '/'
+if (process.env.CI_PAGES_URL) {
+	const { pathname } = new URL(process.env.CI_PAGES_URL);
+	base = `${pathname}/`;
+}
+
 module.exports = {
+	base,
 	title: 'The Norton Design System',
 	description: 'Usage guides for the Norton Design System.',
-	base: (process.env.CI_PAGES_URL)
-		? `${process.env.CI_PAGES_URL.replace('https://wwnorton.gitlab.io', '')}/`
-		: '/',
 	themeConfig: {
 		nav: [
 			{ text: 'Home', link: '/' },
