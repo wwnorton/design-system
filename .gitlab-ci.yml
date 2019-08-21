@@ -3,58 +3,50 @@ image: node:10
 variables:
   SCOPE: "@nds"
 
-debug:
-  stage: debug
-  script:
-    - echo CI_PROJECT_NAME = $CI_PROJECT_NAME
-    - echo CI_PROJECT_NAMESPACE = $CI_PROJECT_NAMESPACE
-    - echo CI_PROJECT_PATH = $CI_PROJECT_PATH
-    - echo CI_PAGES_URL = $CI_PAGES_URL
-
 stages:
-  - debug
-  # - codequality
+  - codequality
   # - test
-  # - build
-# before_script:
-#   - npm ci
-#   - npm run lerna:bootstrap
+  - build
 
-# eslint:
-#   stage: codequality
-#   script:
-#     - npm run lint:es
+before_script:
+  - npm ci
+  - npm run lerna:bootstrap
 
-# stylelint:
-#   stage: codequality
-#   script:
-#     - npm run lint:style
+eslint:
+  stage: codequality
+  script:
+    - npm run lint:es
 
-# prettier:
-#   stage: codequality
-#   script:
-#     - npm run lint:prettier
+stylelint:
+  stage: codequality
+  script:
+    - npm run lint:style
 
-# build:components:
-#   stage: build
-#   script:
-#     - npm run build -- --scope $SCOPE/components
-#   artifacts:
-#     paths:
-#       - packages/components/dist
-#     expire_in: 30 days
+prettier:
+  stage: codequality
+  script:
+    - npm run lint:prettier
 
-# pages:
-#   stage: build
-#   environment:
-#     name: docs
-#     url: $CI_PAGES_URL
-#   variables:
-#     VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
-#   script:
-#     - npm run docs:build -- --dest public
-#   artifacts:
-#     paths:
-#       - public
-#   only:
-#     - master
+build:components:
+  stage: build
+  script:
+    - npm run build -- --scope $SCOPE/components
+  artifacts:
+    paths:
+      - packages/components/dist
+    expire_in: 30 days
+
+pages:
+  stage: build
+  environment:
+    name: docs
+    url: $CI_PAGES_URL
+  variables:
+    VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
+  script:
+    - npm run docs:build -- --dest public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
