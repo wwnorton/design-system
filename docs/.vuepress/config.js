@@ -1,14 +1,7 @@
-const { URL } = require('url');
 const componentsSidebar = require('./sidebars/components');
 
-let base = '/'
-if (process.env.CI_PAGES_URL) {
-	const { pathname } = new URL(process.env.CI_PAGES_URL);
-	base = `${pathname}/`;
-}
-
 module.exports = {
-	base,
+	base: process.env.VUEPRESS_BASE || '/',
 	title: 'The Norton Design System',
 	description: 'Usage guides for the Norton Design System.',
 	themeConfig: {
