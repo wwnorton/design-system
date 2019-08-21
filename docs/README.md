@@ -1,3 +1,6 @@
-# The Norton Design System
-
-Homepage stuff goes here...
+---
+home: true
+actionText: Components →
+actionLink: /components/
+footer: Copyright © 2019-present W. W. Norton & Company
+---
