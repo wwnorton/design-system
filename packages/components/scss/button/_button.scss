@@ -1,0 +1,9 @@
+@mixin button-base {
+	display: inline-flex;
+
+	/* other button styles... */
+}
+
+.btn {
+	@include button-base;
+}
