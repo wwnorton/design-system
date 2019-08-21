@@ -26,12 +26,12 @@ Icon-Only Buttons include:
 - A button has a meaningful label that communicates the action that users can take.
 - `Accessibility` Space (keyup) and Enter (keydown) activates the button.
 
-### Button Dos:
+### Dos:
 
 - Do indicate the most important action on a page or region with a high-emphasis Primary button.
 - Do indicate less important actions with medium-emphasis Secondary buttons or low-emphasis Tertiary buttons.
 
-### Button Don'ts:
+### Don'ts:
 
 - Don't wrap text inside a button.
 - Don't use labels that are too long. A button's label should be very concise.
