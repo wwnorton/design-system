@@ -13,7 +13,7 @@ const copyrightYear = `2019-${(new Date()).getFullYear()}`;
 module.exports = {
 	banner:
 		`/***
-		 * @nds/${name} v${version}
+		 * ${name} v${version}
 		 * Copyright ${copyrightYear} ${author}
 		 * ${license}
 		 ***/
