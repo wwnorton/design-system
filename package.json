@@ -76,13 +76,13 @@
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
-    "concurrently": "^4.1.1",
-    "eslint": "^6.1.0",
+    "concurrently": "^4.1.2",
+    "eslint": "^6.2.1",
     "eslint-config-norton": "^3.0.1",
     "eslint-plugin-import": "^2.18.2",
-    "husky": "^3.0.1",
-    "lerna": "^3.16.0",
-    "lint-staged": "^9.2.0",
+    "husky": "^3.0.4",
+    "lerna": "^3.16.4",
+    "lint-staged": "^9.2.3",
     "prettier": "^1.18.2",
     "stylelint": "^10.1.0",
     "stylelint-config-norton": "^2.1.3"
