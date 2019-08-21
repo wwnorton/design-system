@@ -41,8 +41,6 @@ pages:
   environment:
     name: pages
     url: $CI_PAGES_URL
-  variables:
-    PATH_PREFIX: /product/$CI_PROJECT_NAME
   script:
     - npm run docs:build -- --dest public
   artifacts:
