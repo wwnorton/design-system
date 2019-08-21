@@ -1,6 +1,6 @@
 # Button
 
-A button allows a user to perform an action.
+> A button allows a user to perform an action.
 
 ## Anatomy
 
@@ -26,19 +26,23 @@ Icon-Only Buttons include:
 - A button has a meaningful label that communicates the action that users can take.
 - `Accessibility` Space (keyup) and Enter (keydown) activates the button.
 
-### Dos:
+::: tip Dos
 
 - Do indicate the most important action on a page or region with a high-emphasis Primary button.
 - Do indicate less important actions with medium-emphasis Secondary buttons or low-emphasis Tertiary buttons.
 
-### Don'ts:
+:::
+
+::: danger Don'ts
 
 - Don't wrap text inside a button.
 - Don't use labels that are too long. A button's label should be very concise.
 - Don't choose default button colors that could be confused with disabled buttons.
 - `Accessibility` Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.
 
-### Caution: Links for navigation
+:::
+
+::: warning Caution: Links for navigation
 
 Links are similar to buttons but the two are not interchangeable. Consider using links if...
 
@@ -49,8 +53,12 @@ Links are similar to buttons but the two are not interchangeable. Consider using
 - The label conveys location, not an action (for example: a link that references a resource).
 - `Accessibility` Only Enter (keydown) activates the link. Links always move focus when activated.
 
-### Caution: Buttons for navigation
+:::
+
+::: warning Caution: Buttons for navigation
 
 - Use a button if the component is styled like a button. (See _Don't create links that look like buttons_, above).
 - If a button navigates the user to a new page or section, it might not meet the user's expectations.
 - Consider the overall navigation of the site. Links help define the structure, architecture and hierarchy of the site&mdash;buttons don't.
+
+:::

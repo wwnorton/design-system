@@ -1,0 +1,43 @@
+{
+  "name": "@nds/components",
+  "version": "0.0.0",
+  "description": "Vanilla components for the Norton Design System",
+  "keywords": [
+    "component",
+    "components",
+    "css",
+    "html",
+    "ibm",
+    "javascript",
+    "js",
+    "library",
+    "pattern",
+    "patterns",
+    "sass",
+    "scss"
+  ],
+  "homepage": "https://gitlab.com/wwnorton/platform/design-system",
+  "bugs": "https://gitlab.com/wwnorton/platform/design-system/issues",
+  "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/components",
+  "license": "UNLICENSED",
+  "author": "W. W. Norton & Company",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "gulp build",
+    "dev": "gulp dev"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "fibers": "^4.0.1",
+    "gulp": "^4.0.2",
+    "gulp-header": "^2.0.9",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "sass": "^1.22.10"
+  }
+}

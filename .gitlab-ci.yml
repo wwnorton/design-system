@@ -1,27 +1,50 @@
 image: node:10
 
+variables:
+  SCOPE: "@nds"
+
 stages:
   - codequality
   # - test
-  # - build
+  - build
+
+before_script:
+  - npm ci
+  - npm run lerna:bootstrap
 
 eslint:
   stage: codequality
-  before_script:
-    - npm ci
   script:
     - npm run lint:es
 
 stylelint:
   stage: codequality
-  before_script:
-    - npm ci
   script:
     - npm run lint:style
 
 prettier:
   stage: codequality
-  before_script:
-    - npm ci
   script:
     - npm run lint:prettier
+
+build:components:
+  stage: build
+  script:
+    - npm run build -- --scope $SCOPE/components
+  artifacts:
+    paths:
+      - packages/components/dist
+    expire_in: 30 days
+
+pages:
+  stage: build
+  environment:
+    name: docs
+    url: $CI_PAGES_URL
+  script:
+    - npm run docs:build -- --dest public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
