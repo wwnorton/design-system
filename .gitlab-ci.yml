@@ -39,7 +39,7 @@ build:components:
 pages:
   stage: build
   environment:
-    name: pages
+    name: docs
     url: $CI_PAGES_URL
   script:
     - npm run docs:build -- --dest public
