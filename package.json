@@ -54,16 +54,19 @@
     "extends": [
       "norton"
     ],
-    "overrides": {
-      "files": [
-        "**/test/*.{js,jsx}",
-        "**/rollup.config.js",
-        "**/gulpfile?(.babel).js"
-      ],
-      "rules": {
-        "import/no-extraneous-dependencies": "off"
+    "overrides": [
+      {
+        "files": [
+          "**/test/*.{js,jsx}",
+          "**/rollup.config.js",
+          "**/gulpfile?(.babel).js",
+          "**/build/*.js"
+        ],
+        "rules": {
+          "import/no-extraneous-dependencies": "off"
+        }
       }
-    }
+    ]
   },
   "stylelint": {
     "extends": [
