@@ -27,7 +27,7 @@ Icon-Only Buttons include:
 - Do indicate less important actions with medium-emphasis Secondary buttons or low-emphasis Tertiary buttons.
 
 ### Button Don'ts: 
-- Don't wrap text in a button.
+- Don't wrap text inside a button.
 - Don't use labels that are too long. A button's label should be very concise.
 - Don't choose default button colors that could be confused with disabled buttons.
 - `Accessibility` Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.
