@@ -35,3 +35,18 @@ build:components:
     paths:
       - packages/components/dist
     expire_in: 30 days
+
+pages:
+  stage: build
+  environment:
+    name: pages
+    url: $CI_PAGES_URL
+  variables:
+    PATH_PREFIX: /product/$CI_PROJECT_NAME
+  script:
+    - npm run docs:build -- --dest public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
