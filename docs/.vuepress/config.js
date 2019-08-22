@@ -27,5 +27,14 @@ module.exports = {
 				},
 			],
 		},
+
+		// Repository info to enable the "edit this page" links
+		repo: 'https://gitlab.com/wwnorton/platform/design-system',
+		docsDir: 'docs',
+    	docsBranch: 'master',
+		editLinks: true,
+
+		// Enable the "Last Updated" timestamp
+		lastUpdated: true,
 	},
 };
