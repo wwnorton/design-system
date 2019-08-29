@@ -16,6 +16,7 @@ module.exports = {
 		nav: [
 			{ text: 'Home', link: '/' },
 			{ text: 'Components', link: '/components/' },
+			{ text: 'Zeplin', link: 'https://app.zeplin.io/project/5d66e28439bbe3139aa846ad' }
 		],
 		sidebar: {
 			'/components/': [
