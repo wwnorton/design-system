@@ -78,6 +78,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
+    "@vuepress/plugin-pwa": "^1.0.0-rc.1",
     "concurrently": "^4.1.2",
     "eslint": "^6.2.1",
     "eslint-config-norton": "^3.0.1",

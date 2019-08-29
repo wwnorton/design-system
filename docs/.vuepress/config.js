@@ -4,7 +4,6 @@ module.exports = {
 	base: process.env.VUEPRESS_BASE || '/',
 	title: 'The Norton Design System',
 	description: 'Usage guides for the Norton Design System.',
-	serviceWorker: true,
 	head: [
 		['link', { rel: 'icon', href: '/assets/images/seagull.svg' }],
 		['link', { rel: 'icon', href: '/assets/images/favicon.32x32.png' }],
@@ -37,4 +36,10 @@ module.exports = {
 		// Enable the "Last Updated" timestamp
 		lastUpdated: true,
 	},
+	plugins: [
+		['@vuepress/pwa', {
+			serviceWorker: true,
+			updatePopup: true,
+		}],
+	],
 };
