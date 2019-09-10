@@ -59,10 +59,9 @@
     "overrides": [
       {
         "files": [
-          "**/test/*.{js,jsx}",
+          "**/{tasks,test}/*.{js,jsx}",
           "**/rollup.config.js",
-          "**/gulpfile?(.babel).js",
-          "**/build/*.js"
+          "**/gulpfile?(.babel).js"
         ],
         "rules": {
           "import/no-extraneous-dependencies": "off"

@@ -1,6 +1,6 @@
 const { series, parallel } = require('gulp');
-const { sassTask, sassWatch } = require('./build/sass');
-const { clean } = require('./build/utilities');
+const { sassTask, sassWatch } = require('./tasks/sass');
+const { clean } = require('./tasks/utilities');
 
 // Grouped Task Definitions
 const build = series(clean, parallel(sassTask));
