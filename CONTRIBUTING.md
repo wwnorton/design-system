@@ -1,9 +1,12 @@
 # Contributing
 
 Anyone who would like to contribute is welcome and encouraged to help in any way shape or form.
-To contribute code, edits, or any other type of modification, make changes in a separate branch and create a merge request to allow maintainers to review your changes.
+To contribute code, copy edits, or any other type of modification, make changes in a branch and create a merge request to allow maintainers to review your changes.
 
-Read the [branching strategy wiki page](wikis/Branching-Strategy) for more details on branches and merge requests.
+**Note**: contributions are meant to be easy and low-stakes.
+Don't worry about making mistakes or getting things wrong&mdash;every contribution is helpful.
+
+Read [getting started with GitLab](https://gitlab.com/wwnorton/platform/design-system/wikis/Guides/Git%20&%20GitLab#getting-started-with-gitlab) for more details on how to contribute.
 
 Issues labelled [good first issue](https://gitlab.com/wwnorton/platform/design-system/issues?label_name[]=good+first+issue) are a great place to start if you'd like to contribute but aren't sure how.
 To get started, write a message in that issue to let the maintainers know you'd like to tackle it and they will help you through the process.
