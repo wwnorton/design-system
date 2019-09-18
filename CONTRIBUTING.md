@@ -103,7 +103,7 @@ When used, all instances MUST conform to the following requirements:
   - If a block needs to be ignored, it MUST be re-enabled after the end of the block via `/* {eslint,stylelint}-enable <rule_name> */`
 - The override MUST disable only the specific rule (i.e., no `/* {eslint,stylelint}-disable */` without a rule name)
 
-#### Examples of acceptible overrides
+#### Examples of acceptable overrides
 
 A third-party library provides a required method that has a leading underscore, so the [no-underscore-dangle rule](https://eslint.org/docs/rules/no-underscore-dangle#disallow-dangling-underscores-in-identifiers-no-underscore-dangle) is disabled via the only on the line where it occurs:
 
@@ -132,7 +132,7 @@ function foo(arg) {
 }
 ```
 
-#### Examples of inacceptible overrides
+#### Examples of unacceptable overrides
 
 Overriding the [no-underscore-dangle rule](https://eslint.org/docs/rules/no-underscore-dangle#disallow-dangling-underscores-in-identifiers-no-underscore-dangle) at the document level because a third-party library provides a method with a leading underscore:
 
