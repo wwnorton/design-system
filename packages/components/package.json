@@ -30,6 +30,9 @@
     "> 1%",
     "last 2 versions"
   ],
+  "dependencies": {
+    "@nds/tokens": "file:../tokens"
+  },
   "devDependencies": {
     "autoprefixer": "^9.6.1",
     "fibers": "^4.0.1",
