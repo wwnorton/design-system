@@ -1,0 +1,28 @@
+{
+  "name": "@nds/tokens",
+  "version": "0.0.0",
+  "description": "Token variables for the Norton Design System",
+  "keywords": [
+    "design",
+    "sass",
+    "scss",
+    "tokens"
+  ],
+  "homepage": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/tokens#readme",
+  "bugs": "https://gitlab.com/wwnorton/platform/design-system/issues",
+  "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/tokens",
+  "license": "UNLICENSED",
+  "author": "W. W. Norton & Company",
+  "style": "scss/index.scss",
+  "scripts": {
+    "test": "nyc ava"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-norton"
+    ],
+    "rules": {
+      "scss/dollar-variable-default": true
+    }
+  }
+}

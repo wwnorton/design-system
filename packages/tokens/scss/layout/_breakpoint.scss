@@ -1,0 +1,23 @@
+// Device breakpoint tokens
+//
+// The minimum width of various devices
+
+// Extra small: a handset
+$device-xs: 0 !default;
+// Small: a large handset or small tablet
+$device-sm: 600px !default;
+// Medium: a large tablet or laptop
+$device-md: 960px !default;
+// Large: a desktop
+$device-lg: 1280px !default;
+// Extra large: a high-definition screen
+$device-xl: 1920px !default;
+
+// Responsive breakpoints to be used in a layout grid
+$grid-breakpoints: (
+	xs: $device-xs,
+	sm: $device-sm,
+	md: $device-md,
+	lg: $device-lg,
+	xl: $device-xl,
+) !default;
