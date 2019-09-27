@@ -59,6 +59,7 @@ Links are similar to buttons but the two are not interchangeable. Consider using
 
 - Use a button if the component is styled like a button. (See _Don't create links that look like buttons_, above).
 - If a button navigates the user to a new page or section, it might not meet the user's expectations.
+- A button will not record the navigation in the user's browser history, so they will not be able to return to the previous location using their browser's back button.
 - Consider the overall navigation of the site. Links help define the structure, architecture and hierarchy of the site&mdash;buttons don't.
 
 :::
