@@ -1,9 +1,189 @@
-@mixin button-base {
-	display: inline-flex;
+@import '../../../tokens/scss/index';
+@import '../../../tokens/scss/themes/norton/index';
 
-	/* other button styles... */
+@mixin button-base {
+	@include webkit-fix();
+
+	display: inline-flex;
+	padding: map-get($button-props, padding);
+	font-size: map-get($button-props, base-font-size);
+	font-weight: bold;
+	line-height: 1.5;
+	text-align: center;
+	border: 0;
+	border-radius: 2px;
+	outline: none;
+	justify-content: center;
+	align-items: center;
+
+	&::-moz-focus-inner {
+		border: 0;
+	}
+
+	&:focus {
+		box-shadow: map-get($button-props, shadow-focus);
+	}
+}
+
+@mixin button-primary {
+	color: map-get($button-props, key-white);
+	cursor: pointer;
+	background: map-get($button-props, key-dark);
+	transition: map-get($button-props, transition);
+
+	&::-moz-focus-inner {
+		border: 0;
+	}
+
+	&:active {
+		background: scale-color(map-get($button-props, key-dark), $lightness: -40%);
+	}
+
+	&:hover {
+		background: scale-color(map-get($button-props, key-dark), $lightness: -20%);
+		box-shadow: map-get($button-props, shadow-hover);
+
+		&:focus {
+			box-shadow: map-get($button-props, shadow-hover), map-get($button-props, shadow-focus);
+		}
+	}
+}
+
+@mixin button-secondary {
+	color: map-get($button-props, key-dark);
+	cursor: pointer;
+	background: map-get($button-props, key-white);
+	border: 2px solid map-get($button-props, key-dark);
+	transition: map-get($button-props, transition);
+
+	&:active {
+		color: scale-color(map-get($button-props, key-dark), $lightness: -40%);
+		border-color: scale-color(map-get($button-props, key-dark), $lightness: -40%);
+	}
+
+	&:hover {
+		color: scale-color(map-get($button-props, key-dark), $lightness: -20%);
+		border-color: scale-color(map-get($button-props, key-dark), $lightness: -20%);
+		box-shadow: map-get($button-props, shadow-hover);
+
+		&:focus {
+			box-shadow: map-get($button-props, shadow-hover), map-get($button-props, shadow-focus);
+		}
+	}
+}
+
+@mixin button-tertiary {
+	color: map-get($button-props, key-dark);
+	cursor: pointer;
+	background-color: transparent;
+	transition: map-get($button-props, transition);
+
+	&:active {
+		color: scale-color(map-get($button-props, key-dark), $lightness: -40%);
+	}
+
+	&:hover {
+		color: scale-color(map-get($button-props, key-dark), $lightness: -20%);
+		background-color: map-get($gray, 10);
+	}
+}
+
+@mixin button-icon {
+	.icon {
+		width: 16px;
+		height: 16px;
+		background: map-get($button-props, key-white);
+	}
+}
+
+.btn-icon {
+	@include button-base;
+	@include button-primary;
+	@include button-icon;
+
+	.icon {
+		margin-right: 0.625rem;
+	}
+}
+
+.btn-icon-right {
+	@include button-base;
+	@include button-primary;
+	@include button-icon;
+
+	.icon {
+		order: 2;
+		margin-left: 1rem;
+	}
+}
+
+.btn-icon-only {
+	@include button-base;
+	@include button-primary;
+	@include button-icon;
+
+	padding: 1rem;
 }
 
 .btn {
 	@include button-base;
+}
+
+.btn-primary {
+	@include button-base;
+	@include button-primary;
+}
+
+.btn-primary-disabled {
+	@include button-base;
+
+	color: map-get($button-props, key-light-2);
+	pointer-events: none;
+	background: map-get($button-props, key-light-1);
+}
+
+.btn-primary-rounded {
+	@include button-base;
+	@include button-primary;
+
+	border-radius: map-get($button-props, border-radius);
+}
+
+.btn-secondary {
+	@include button-base;
+	@include button-secondary;
+}
+
+.btn-secondary-disabled {
+	@include button-base;
+
+	color: map-get($button-props, key-light-2);
+	pointer-events: none;
+	border: 2px solid map-get($button-props, key-light-2);
+}
+
+.btn-secondary-rounded {
+	@include button-base;
+	@include button-secondary;
+
+	border-radius: map-get($button-props, border-radius);
+}
+
+.btn-tertiary {
+	@include button-base;
+	@include button-tertiary;
+}
+
+.btn-tertiary-disabled {
+	@include button-base;
+
+	color: map-get($button-props, key-light-2);
+	pointer-events: none;
+}
+
+.btn-tertiary-rounded {
+	@include button-base;
+	@include button-tertiary;
+
+	border-radius: map-get($button-props, border-radius);
 }

@@ -1,5 +1,6 @@
 // All Norton Design Tokens
-@import 'node_modules/@nds/tokens/scss/index';
+// relative path to sibling projects
+@import '../../tokens/scss/index';
 
 // Components
 @import 'button/button';
