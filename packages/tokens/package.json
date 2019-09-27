@@ -1,6 +1,6 @@
 {
   "name": "@nds/tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Token variables for the Norton Design System",
   "keywords": [
     "design",
