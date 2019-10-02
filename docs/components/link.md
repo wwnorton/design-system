@@ -1,10 +1,10 @@
-# Links
+# Link
 
 > A link allows a user to navigate to another place.
 
 ## Anatomy
 
-Links include:
+A link includes:
 
 1. Text Content
 2. A Destination/URL
@@ -20,7 +20,7 @@ Links include:
 
 ::: tip Dos
 
-- Do use links when…
+- Do use a link when…
   - It would be useful to "Copy", "Open in a new tab", or "Bookmark" the destination URL.
   - The text content is embedded in a sentence, and does not need margins or padding.
   - The text content conveys location, not an action (for example: a link that references a resource).
