@@ -1,0 +1,29 @@
+/// Material Design Motion
+// https://material.io/design/motion/understanding-motion.html
+
+// Durations
+// https://material.io/design/motion/speed.html#duration
+// Complexity-based
+$duration-simple: 100ms !default;
+$duration-simple-enter: 150ms !default;
+$duration-simple-exit: 75ms !default;
+$duration-complex: 200ms !default;
+$duration-detailed: 500ms !default;
+// Exits and closing
+$duration-open: 250ms !default;
+$duration-close: 200ms !default;
+$duration-expand: 300ms !default;
+$duration-collapse: 250ms !default;
+// Area-based
+$duration-small: $duration-simple !default;
+$duration-medium-expand: $duration-open !default;
+$duration-medium-collapse: $duration-close !default;
+$duration-large-expand: $duration-expand !default;
+$duration-large-collapse: $duration-collapse !default;
+
+// Easings
+// https://material.io/design/motion/speed.html#easing
+$easing-deceleration: cubic-bezier(0, 0, 0.2, 1) !default;
+$easing-standard: cubic-bezier(0.4, 0, 0.2, 1) !default;
+$easing-acceleration: cubic-bezier(0.4, 0, 1, 1) !default;
+$easing-sharp: cubic-bezier(0.4, 0, 0.6, 1) !default;
