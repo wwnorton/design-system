@@ -1,3 +1,3 @@
-# Overview
+# Components
 
 Text about components...

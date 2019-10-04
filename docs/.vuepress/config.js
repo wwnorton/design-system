@@ -22,6 +22,7 @@ module.exports = {
 			'/components/': [
 				{
 					title: 'Components',
+					path: '/components/',
 					collapsable: false,
 					children: componentsSidebar,
 				},
