@@ -50,7 +50,7 @@ $font-size: 1rem !default;
 $line-height: 1.5 !default;
 
 $button-black: map-get($black, 100) !default;
-$button-dark: #757575 !default;
+$button-dark: map-get($gray, 60) !default;
 $button-white: map-get($white, 0) !default;
 $button-border-radius: 2px !default;
 $button-border-rounded: 5rem !default;
