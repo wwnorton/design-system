@@ -1,0 +1,18 @@
+$button-border-radius: 0.125rem !default;
+$button-border-width: 2px !default;
+$button-color-step: 6 !default;
+$button-color: $gray !default;
+$button-font-family: sans-serif !default;
+$button-font-size: 1rem !default;
+$button-font-weight: 700 !default;
+$button-line-height: 1.5 !default;
+$button-padding-h: 1rem !default;
+$button-padding-v: 0.5rem !default;
+$button-transition-duration: $duration-simple !default;
+$button-transition-easing: $easing-standard !default;
+$button-transition: (
+	color $button-transition-duration $button-transition-easing,
+	background-color $button-transition-duration $button-transition-easing,
+	border-color $button-transition-duration $button-transition-easing,
+	box-shadow $button-transition-duration $button-transition-easing
+) !default;
