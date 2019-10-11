@@ -1,3 +1,5 @@
+@import '../node_modules/@nds/tokens/scss/shadow';
+
 @mixin focus-indicator {
 	outline: none;
 	box-shadow: $focus-indicator;
