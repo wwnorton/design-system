@@ -1,4 +1,5 @@
 @import './tokens';
+@import '../mixins';
 
 @function increment-color($color-map, $current-step: 6, $amount: 1) {
 	$val: 10 * ($current-step + $amount);
