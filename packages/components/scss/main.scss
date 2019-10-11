@@ -2,5 +2,8 @@
 // relative path to sibling projects
 @import '../../tokens/scss/index';
 
+// global mixins
+@import 'mixins';
+
 // Components
 @import 'button/index';
