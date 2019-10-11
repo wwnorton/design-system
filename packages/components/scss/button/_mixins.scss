@@ -64,7 +64,7 @@
 }
 
 @mixin button-primary (
-	$color-map: $button-color,
+	$color-map: $button-color-primary,
 	$color-step: 6,
 ) {
 	$color-key: color-key-from-step($color-map, $color-step);
@@ -98,7 +98,7 @@
 }
 
 @mixin button-secondary (
-	$color-map: $button-color,
+	$color-map: $button-color-secondary,
 	$color-step: 6,
 ) {
 	$color-key: color-key-from-step($color-map, $color-step);
@@ -132,7 +132,7 @@
 }
 
 @mixin button-tertiary (
-	$color-map: $button-color,
+	$color-map: $button-color-tertiary,
 	$color-step: 6,
 ) {
 	$color-key: color-key-from-step($color-map, $color-step);
