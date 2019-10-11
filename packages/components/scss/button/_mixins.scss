@@ -1,19 +1,32 @@
 @import './tokens';
 
-@function increase-step($color-map, $current-step: 6, $increase: 1) {
-	@return map-get($color-map, min(10 * ($current-step + $increase), 100));
+@function increment-color($color-map, $current-step: 6, $amount: 1) {
+	$val: 10 * ($current-step + $amount);
+	$key: if($amount > 0, min($val, 100), max($val, 10));
+
+	@return map-get($color-map, $key);
 }
 
-@function decrease-step($color-map, $current-step: 6, $decrease: 1) {
-	@return map-get($color-map, max(10 * ($current-step - $decrease), 10));
+@function decrement-color($color-map, $current-step: 6, $amount: -1) {
+	@return increment-color($color-map, $current-step, $amount);
 }
 
-@function hover-color($color-map, $current-step) {
-	@return increase-step($color-map, $current-step);
+@function hover-color($color-map, $current-step: 6) {
+	@return increment-color($color-map, $current-step);
 }
 
-@function active-color($color-map, $current-step) {
-	@return increase-step($color-map, $current-step, 2);
+@function active-color($color-map, $current-step: 6) {
+	@return increment-color($color-map, $current-step, 2);
+}
+
+@function color-key-from-step($color-map, $color-step) {
+	$color-key: $color-step * 10;
+
+	@if (map-has-key($color-map, $color-key) == false) {
+		@warn '#{$color-map} does not have a #{$color-key} value.';
+	}
+
+	@return $color-key;
 }
 
 @mixin button-base {
@@ -53,11 +66,7 @@
 	$color-map: $button-color,
 	$color-step: 6,
 ) {
-	$color-key: $color-step * 10;
-
-	@if (map-has-key($color-map, $color-key) == false) {
-		@warn '';
-	}
+	$color-key: color-key-from-step($color-map, $color-step);
 
 	$background: map-get($color-map, $color-key);
 	$color: if($color-step > 5, $white, $black);
@@ -91,11 +100,7 @@
 	$color-map: $button-color,
 	$color-step: 6,
 ) {
-	$color-key: $color-step * 10;
-
-	@if (map-has-key($color-map, $color-key) == false) {
-		@warn '';
-	}
+	$color-key: color-key-from-step($color-map, $color-step);
 
 	$background: if($color-step > 5, $white, $black);
 	$color: map-get($color-map, $color-key);
@@ -129,11 +134,7 @@
 	$color-map: $button-color,
 	$color-step: 6,
 ) {
-	$color-key: $color-step * 10;
-
-	@if (map-has-key($color-map, $color-key) == false) {
-		@warn '';
-	}
+	$color-key: color-key-from-step($color-map, $color-step);
 
 	$background: if($color-step > 5, $white, $black);
 	$color: map-get($color-map, $color-key);
