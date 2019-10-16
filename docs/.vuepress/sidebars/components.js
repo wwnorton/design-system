@@ -4,4 +4,5 @@ module.exports = [
 	'toggle',
 	'text-field',
 	'radio-buttons',
+	'layout-grid',
 ];
