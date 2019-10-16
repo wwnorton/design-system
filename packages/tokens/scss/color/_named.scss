@@ -1,5 +1,8 @@
 // Named color tokens
 
+$white: #fdfdfd !default;
+$black: #101010 !default;
+
 $gray: (
 	10: #f5f5f5,
 	20: #e8e8e8,
@@ -99,4 +102,6 @@ $color-maps: (
 	green: $green,
 	teal: $teal,
 	cyan: $cyan,
+	white: $white,
+	black: $black,
 ) !default;

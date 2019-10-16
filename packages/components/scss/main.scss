@@ -1,6 +1,9 @@
 // All Norton Design Tokens
 // relative path to sibling projects
-@import '../../tokens/scss/index';
+@import '../node_modules/@nds/tokens/scss/index';
+
+// global mixins
+@import 'mixins';
 
 // Components
-@import 'button/button';
+@import 'button/index';

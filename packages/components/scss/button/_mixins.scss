@@ -1,0 +1,158 @@
+@import './tokens';
+@import '../mixins';
+
+@function increment-color($color-map, $current-step: 6, $amount: 1) {
+	$val: 10 * ($current-step + $amount);
+	$key: if($amount > 0, min($val, 100), max($val, 10));
+
+	@return map-get($color-map, $key);
+}
+
+@function decrement-color($color-map, $current-step: 6, $amount: -1) {
+	@return increment-color($color-map, $current-step, $amount);
+}
+
+@function hover-color($color-map, $current-step: 6) {
+	@return increment-color($color-map, $current-step);
+}
+
+@function active-color($color-map, $current-step: 6) {
+	@return increment-color($color-map, $current-step, 2);
+}
+
+@function color-key-from-step($color-map, $color-step) {
+	$color-key: $color-step * 10;
+
+	@if (map-has-key($color-map, $color-key) == false) {
+		@warn '#{$color-map} does not have a #{$color-key} value.';
+	}
+
+	@return $color-key;
+}
+
+@mixin button-base {
+	display: inline-flex;
+	padding: $button-padding-v $button-padding-h;
+	font-family: $button-font-family;
+	font-size: $button-font-size;
+	font-weight: $button-font-weight;
+	line-height: $button-line-height;
+	cursor: pointer;
+	border: $button-border-radius solid transparent;
+	border-radius: $button-border-radius;
+	transition: $button-transition;
+	justify-content: center;
+	align-items: center;
+
+	&::-moz-focus-inner {
+		border: 0;
+	}
+
+	&:focus,
+	.focus {
+		@include focus-indicator;
+	}
+
+	&:disabled,
+	&.disabled {
+		color: map-get($gray, 40);
+		pointer-events: none;
+	}
+}
+
+@mixin button-primary (
+	$color-map: $button-color-primary,
+	$color-step: 6,
+) {
+	$color-key: color-key-from-step($color-map, $color-step);
+
+	$background: map-get($color-map, $color-key);
+	$color: if($color-step > 5, $white, $black);
+	$active: active-color($color-map, $color-step);
+	$hover: hover-color($color-map, $color-step);
+
+	color: $color;
+	background-color: $background;
+	border-color: $background;
+
+	&:disabled,
+	&.disabled {
+		background-color: map-get($gray, 20);
+		border-color: map-get($gray, 20);
+	}
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: $hover;
+		border-color: $hover;
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		background-color: $active;
+		border-color: $active;
+	}
+}
+
+@mixin button-secondary (
+	$color-map: $button-color-secondary,
+	$color-step: 6,
+) {
+	$color-key: color-key-from-step($color-map, $color-step);
+
+	$background: if($color-step > 5, $white, $black);
+	$color: map-get($color-map, $color-key);
+
+	$active: active-color($color-map, $color-step);
+	$hover: hover-color($color-map, $color-step);
+
+	color: $color;
+	background-color: $background;
+	border-color: $color;
+
+	&:disabled,
+	&.disabled {
+		border-color: map-get($gray, 20);
+	}
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		color: $hover;
+		border-color: $hover;
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		color: $active;
+		border-color: $active;
+	}
+}
+
+@mixin button-tertiary (
+	$color-map: $button-color-tertiary,
+	$color-step: 6,
+) {
+	$color-key: color-key-from-step($color-map, $color-step);
+
+	$background: if($color-step > 5, $white, $black);
+	$color: map-get($color-map, $color-key);
+
+	$active: active-color($color-map, $color-step);
+	$hover: hover-color($color-map, $color-step);
+
+	color: $color;
+	background-color: $background;
+	border-color: $background;
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		color: $hover;
+		background-color: map-get($gray, 10);
+		border-color: map-get($gray, 10);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		color: $active;
+	}
+}

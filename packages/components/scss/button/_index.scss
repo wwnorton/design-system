@@ -1,0 +1,22 @@
+@import './tokens';
+@import './mixins';
+
+/* base button */
+.button {
+	@include button-base;
+}
+
+/* primary button */
+.button-primary {
+	@include button-primary();
+}
+
+/* secondary button */
+.button-secondary {
+	@include button-secondary();
+}
+
+/* tertiary button */
+.button-tertiary {
+	@include button-tertiary();
+}
