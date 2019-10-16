@@ -3,4 +3,5 @@ module.exports = [
 	'link',
 	'toggle',
 	'text-field',
+	'radio-buttons',
 ];

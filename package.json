@@ -16,7 +16,7 @@
     "lint:prettier-fix": "npm run prettier -- --write",
     "lint:style": "stylelint **/*.{css,sass,scss}",
     "lint:style-fix": "npm run lint:style -- --fix",
-    "prettier": "prettier {.,**}/*.{html,xhtml,md,json,yaml,yml}",
+    "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}'",
     "report": "nyc report --reporter html",
     "test": "nyc ava"
   },
