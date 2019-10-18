@@ -5,4 +5,5 @@ module.exports = [
 	'text-field',
 	'radio-buttons',
 	'layout-grid',
+	'disclosure',
 ];

@@ -1,0 +1,44 @@
+# Disclosure
+
+> A disclosure allows the user to show and hide additional content.
+
+## Anatomy
+
+A disclosure includes:
+
+An expandable button with
+
+1. A text label
+2. An icon
+3. Content
+
+## Usage
+
+- A disclosure has two states: collapsed and expanded. A disclosure is collapsed by default.
+- A disclosure should include an icon that conveys that it can be activated for more information.
+- A disclosure’s label should clearly and succinctly describe its hidden content, so that the user can choose to expand it.
+- `Accessibility` When a disclosure has focus, <kbd>Enter</kbd> and <kbd>Space</kbd> activate the disclosure and toggle the visibility of content.
+- `Accessibility` All focusable elements inside a disclosure are included in the tab order, if the disclosure is expanded.
+
+::: tip Dos
+
+- Do use a disclosure to make the page easier to scan, and hide lower-priority information that only some users will need.
+- Do ensure that the entire expandable button (label and icon) is clickable.
+- Do display the expanded content directly after the expandable button.
+
+:::
+
+::: danger Don’ts
+
+- Don’t use a disclosure if most or all users need to see the content. When content is hidden, users may ignore that information.
+- Don’t display a disabled disclosure if there is no content to reveal. Instead, do not display the disclosure at all, or include a message explaining why there is no content when the user activates it.
+- Don’t use an icon that has multiple meanings within the same system.
+
+:::
+
+::: warning Caution
+
+- If there is only one section of content, then use a disclosure.
+- If there are multiple sections of content, then use an accordion or tabs.
+
+:::
