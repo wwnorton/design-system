@@ -6,4 +6,5 @@ module.exports = [
 	'radio-buttons',
 	'layout-grid',
 	'disclosure',
+	'dropdown',
 ];
