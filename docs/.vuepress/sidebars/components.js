@@ -7,4 +7,5 @@ module.exports = [
 	'layout-grid',
 	'disclosure',
 	'dropdown',
+	'checkbox',
 ];
