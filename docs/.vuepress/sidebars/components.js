@@ -8,4 +8,5 @@ module.exports = [
 	'disclosure',
 	'dropdown',
 	'checkbox',
+	'accordion',
 ];

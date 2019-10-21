@@ -1,0 +1,35 @@
+# Accordion
+
+> An accordion allows the user to show and hide sections within a list.
+
+## Anatomy
+
+An accordion includes two or more vertically stacked [disclosures](disclosure).
+
+## Usage
+
+- Use an accordion to allow users to expand/collapse related sections of content.
+- `Accessibility` <kbd>Down Arrow</kbd>/<kbd>Up Arrow</kbd> moves focus to the next/previous section summaries, respectively. <kbd>Home</kbd> and <kbd>End</kbd> move focus to the first/last section summaries, respectively.
+
+::: tip Dos
+
+- Do use accordions if users only need to see specific section(s) of content on the page.
+- Do ensure that the entire section summary (label and icon) is clickable.
+
+:::
+
+::: danger Don’ts
+
+- Don’t display all disclosures within an accordion in an expanded state by default.
+
+:::
+
+::: warning Caution
+
+<!-- - If users need to see most or all of the content, display the content on load and allow the user to scan more easily. -->
+
+- Use an accordion if users might need to view more than one section at a time.
+- If users are likely to want all sections open most of the time, consider using standard document structure (headings and paragraphs) instead.
+- If users only need to view one section at a time, consider using tabs.
+
+:::
