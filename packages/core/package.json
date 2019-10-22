@@ -1,0 +1,55 @@
+{
+  "name": "@nds/core",
+  "version": "0.1.0",
+  "description": "Framework-independent components, tokens, and utilities for the Norton Design System",
+  "keywords": [
+    "component",
+    "components",
+    "css",
+    "design",
+    "html",
+    "ibm",
+    "javascript",
+    "js",
+    "library",
+    "pattern",
+    "patterns",
+    "sass",
+    "scss",
+    "tokens"
+  ],
+  "homepage": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core#readme",
+  "bugs": "https://gitlab.com/wwnorton/platform/design-system/issues",
+  "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core",
+  "license": "UNLICENSED",
+  "author": "W. W. Norton & Company",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "gulp build",
+    "dev": "gulp dev",
+    "storybook": "start-storybook"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "eslintConfig": {
+    "env": {
+      "browser": true
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@storybook/html": "^5.2.1",
+    "autoprefixer": "^9.6.1",
+    "babel-loader": "^8.0.6",
+    "fibers": "^4.0.1",
+    "gulp": "^4.0.2",
+    "gulp-header": "^2.0.9",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "sass": "^1.23.0",
+    "sass-loader": "^8.0.0"
+  }
+}
