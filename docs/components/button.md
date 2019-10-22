@@ -20,6 +20,12 @@ Icon-Only Buttons include:
 1. An Icon
 2. Padding
 
+## Examples
+
+<button class="button button-primary">Primary</button>
+<button class="button button-secondary">Secondary</button>
+<button class="button button-tertiary">Tertiary</button>
+
 ## Usage
 
 - A button is a standalone call-to-action with space or visual emphasis around it.
@@ -63,3 +69,7 @@ Links are similar to buttons but the two are not interchangeable. Consider using
 - Consider the overall navigation of the site. Links help define the structure, architecture and hierarchy of the site&mdash;buttons don't.
 
 :::
+
+<style lang="scss">
+@import '~@nds/core/src/components/button/index';
+</style>
