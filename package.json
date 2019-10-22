@@ -53,28 +53,6 @@
     "firefox >= 52",
     "safari >= 8"
   ],
-  "eslintConfig": {
-    "extends": [
-      "norton"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/{tasks,test}/*.{js,jsx}",
-          "**/rollup.config.js",
-          "**/gulpfile?(.babel).js"
-        ],
-        "rules": {
-          "import/no-extraneous-dependencies": "off"
-        }
-      }
-    ]
-  },
-  "stylelint": {
-    "extends": [
-      "stylelint-config-norton"
-    ]
-  },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
