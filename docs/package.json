@@ -21,8 +21,13 @@
     "build": "vuepress build .",
     "dev": "vuepress dev ."
   },
+  "dependencies": {
+    "@nds/core": "file:../packages/core"
+  },
   "devDependencies": {
     "@vuepress/plugin-pwa": "^1.2.0",
+    "sass": "^1.23.0",
+    "sass-loader": "^8.0.0",
     "vuepress": "^1.2.0"
   }
 }
