@@ -2,7 +2,7 @@
   "name": "nds",
   "private": true,
   "scripts": {
-    "build": "npm run lerna:run -- build",
+    "build": "lerna exec --scope=@nds/core -- npm run build",
     "docs:dev": "lerna exec --scope=nds-docs -- npm run dev",
     "docs:build": "lerna exec --scope=nds-docs -- npm run build",
     "fix": "concurrently npm:lint:*-fix",
