@@ -39,7 +39,7 @@
     }
   },
   "devDependencies": {
-    "autoprefixer": "^9.6.1",
+    "autoprefixer": "^9.6.5",
     "fibers": "^4.0.1",
     "gulp": "^4.0.2",
     "gulp-header": "^2.0.9",

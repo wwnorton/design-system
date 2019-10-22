@@ -83,7 +83,7 @@
     "eslint-config-norton": "^3.0.1",
     "eslint-plugin-import": "^2.18.2",
     "husky": "^3.0.5",
-    "lerna": "^3.16.4",
+    "lerna": "^3.18.3",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "stylelint": "^11.0.0",
