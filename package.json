@@ -4,7 +4,7 @@
   "scripts": {
     "build": "lerna exec --scope=@nds/core -- npm run build",
     "docs:dev": "lerna exec --scope=nds-docs -- npm run dev",
-    "docs:build": "lerna exec --scope=nds-docs -- npm run build",
+    "docs:build": "lerna exec --scope=nds-docs -- npm run build -- --dest ../public",
     "fix": "concurrently npm:lint:*-fix",
     "lerna:bootstrap": "lerna bootstrap",
     "lerna:publish": "lerna publish --registry https://npm.wwnorton.com",

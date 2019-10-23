@@ -41,7 +41,7 @@ pages:
   variables:
     VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
   script:
-    - npm run docs:build -- --dest public
+    - npm run docs:build
   artifacts:
     paths:
       - public
