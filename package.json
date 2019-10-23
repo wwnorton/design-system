@@ -18,6 +18,7 @@
     "lint:style-fix": "npm run lint:style -- --fix",
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}'",
     "report": "nyc report --reporter html",
+    "storybook": "lerna exec --scope=@nds/react -- npm run storybook",
     "test": "nyc ava"
   },
   "husky": {
@@ -56,16 +57,23 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
     "concurrently": "^5.0.0",
-    "eslint": "^6.4.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-norton": "^3.0.1",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "husky": "^3.0.5",
     "lerna": "^3.18.3",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "stylelint": "^11.0.0",
-    "stylelint-config-norton": "^2.2.1"
+    "stylelint-config-norton": "^2.2.1",
+    "typescript": "^3.6.4"
   },
   "engines": {
     "node": ">=8.9.0",
