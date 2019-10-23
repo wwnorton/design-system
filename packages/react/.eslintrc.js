@@ -37,5 +37,13 @@ module.exports = {
 				defaultProps: 'static public field'
 			}
 		]
-	}
+	},
+	overrides: [
+		{
+			files: ['**/*.stories.{js,jsx,ts,tsx}'],
+			rules: {
+				'import/no-extraneous-dependencies': 'off'
+			}
+		}
+	]
 };
