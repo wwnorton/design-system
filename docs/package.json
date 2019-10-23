@@ -1,0 +1,33 @@
+{
+  "name": "nds-docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Documentation site for the Norton Design System",
+  "keywords": [
+    "documentation",
+    "site",
+    "www"
+  ],
+  "homepage": "https://gitlab.com/wwnorton/platform/design-system/tree/master/docs#readme",
+  "bugs": "https://gitlab.com/wwnorton/platform/design-system/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/wwnorton/platform/design-system/tree/master/docs.git"
+  },
+  "license": "UNLICENSED",
+  "author": "W. W. Norton & Company",
+  "main": "README.md",
+  "scripts": {
+    "build": "vuepress build .",
+    "dev": "vuepress dev ."
+  },
+  "dependencies": {
+    "@nds/core": "file:../packages/core"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-pwa": "^1.2.0",
+    "sass": "^1.23.0",
+    "sass-loader": "^8.0.0",
+    "vuepress": "^1.2.0"
+  }
+}

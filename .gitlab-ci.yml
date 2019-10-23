@@ -1,8 +1,5 @@
 image: node:10
 
-variables:
-  SCOPE: "@nds"
-
 stages:
   - codequality
   # - test
@@ -30,7 +27,7 @@ prettier:
 build:components:
   stage: build
   script:
-    - npm run build -- --scope $SCOPE/components
+    - npm run build
   artifacts:
     paths:
       - packages/components/dist

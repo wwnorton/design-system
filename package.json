@@ -2,9 +2,9 @@
   "name": "nds",
   "private": true,
   "scripts": {
-    "build": "npm run lerna:run -- build",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "build": "lerna exec --scope=@nds/core -- npm run build",
+    "docs:dev": "lerna exec --scope=nds-docs -- npm run dev",
+    "docs:build": "lerna exec --scope=nds-docs -- npm run build",
     "fix": "concurrently npm:lint:*-fix",
     "lerna:bootstrap": "lerna bootstrap",
     "lerna:publish": "lerna publish --registry https://npm.wwnorton.com",
@@ -53,43 +53,19 @@
     "firefox >= 52",
     "safari >= 8"
   ],
-  "eslintConfig": {
-    "extends": [
-      "norton"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/{tasks,test}/*.{js,jsx}",
-          "**/rollup.config.js",
-          "**/gulpfile?(.babel).js"
-        ],
-        "rules": {
-          "import/no-extraneous-dependencies": "off"
-        }
-      }
-    ]
-  },
-  "stylelint": {
-    "extends": [
-      "stylelint-config-norton"
-    ]
-  },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "@vuepress/plugin-pwa": "^1.1.0",
     "concurrently": "^5.0.0",
     "eslint": "^6.4.0",
     "eslint-config-norton": "^3.0.1",
     "eslint-plugin-import": "^2.18.2",
     "husky": "^3.0.5",
-    "lerna": "^3.16.5",
+    "lerna": "^3.18.3",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "stylelint": "^11.0.0",
-    "stylelint-config-norton": "^2.2.1",
-    "vuepress": "^1.1.0"
+    "stylelint-config-norton": "^2.2.1"
   },
   "engines": {
     "node": ">=8.9.0",

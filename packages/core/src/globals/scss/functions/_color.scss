@@ -1,0 +1,54 @@
+////
+/// @group color
+////
+
+/// Increment a color by a specified number of steps.
+/// @param {Map} $color-map - Any color map conforming to the color system.
+/// @param {Number} $current-step [6] - The current color step.
+/// @param {Number} $amount [1] - The number of steps to increment.
+/// @return {String} The incremented color value.
+@function increment-color($color-map, $current-step: 6, $amount: 1) {
+	$val: 10 * ($current-step + $amount);
+	$key: if($amount > 0, min($val, 100), max($val, 10));
+
+	@return map-get($color-map, $key);
+}
+
+/// Decrement a color by a specified number of steps.
+/// @param {Map} $color-map - Any color map conforming to the color system.
+/// @param {Number} $current-step [6] - The current color step.
+/// @param {Number} $amount [1] - The number of steps to decrement.
+/// @return {String} The decremented color value.
+@function decrement-color($color-map, $current-step: 6, $amount: 1) {
+	@return increment-color($color-map, $current-step, -#{$amount});
+}
+
+/// Get a 2-digit color key from a 1-digit color step
+/// @param {Map} $color-map - Any color map conforming to the color system.
+/// @param {Number} $color-step - A one-digit color step.
+/// @return {String} The corresponding key.
+@function color-key-from-step($color-map, $color-step) {
+	$color-key: $color-step * 10;
+
+	@if (map-has-key($color-map, $color-key) == false) {
+		@warn '#{$color-map} does not have a #{$color-key} value.';
+	}
+
+	@return $color-key;
+}
+
+/// Get the color that should be used on hover.
+/// @param {Map} $color-map - Any color map conforming to the color system.
+/// @param {Number} $current-step [6] - The current color step.
+/// @return {String} A color that is one step away from the current color.
+@function hover-color($color-map, $current-step: 6) {
+	@return increment-color($color-map, $current-step);
+}
+
+/// Get the color that should be used on hover.
+/// @param {Map} $color-map - Any color map conforming to the color system.
+/// @param {Number} $current-step [6] - The current color step.
+/// @return {String} A color that is two steps away from the current color.
+@function active-color($color-map, $current-step: 6) {
+	@return increment-color($color-map, $current-step, 2);
+}

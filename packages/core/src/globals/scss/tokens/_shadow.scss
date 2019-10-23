@@ -1,0 +1,14 @@
+////
+/// Box Shadows
+/// @group shadow
+////
+
+@import 'color-system';
+@import 'color-functional';
+
+/// The focus indicator box shadow uses a `$white` inner ring and an outer ring
+/// colored by with `$focus-ring-color`.
+$focus-indicator: (
+	0 0 0 2px $white,
+	0 0 0 4px $focus-ring-color,
+) !default;
