@@ -1,5 +1,5 @@
 // Components
-export * from './components/button/BaseButton';
+export * from './components/button';
 
 // Utilities
 export * from './utilities/events';
