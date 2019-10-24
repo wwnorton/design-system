@@ -7,7 +7,8 @@ module.exports = {
 	rules: {
 		indent: 'off',
 		'no-tabs': 'off',
-		'react/jsx-indent': [2, 'tab'],
+		'react/jsx-indent': ['error', 'tab'],
+		'react/jsx-indent-props': ['error', 'tab'],
 		'lines-between-class-members': [
 			'error',
 			'always',

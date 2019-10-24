@@ -1,33 +1,43 @@
 import * as React from 'react';
-import { mergeClasses } from '../../utilities/className';
+import classNames from 'classnames';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary';
+export type ButtonKind = 'primary' | 'secondary' | 'tertiary';
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	/** Button variant conveys the button's level of visual emphasis. */
-	variant?: ButtonVariant;
+	/** The base class name according to BEM conventions */
+	baseName?: string;
+	/** Button kind conveys the button's level of visual emphasis. */
+	kind?: ButtonKind;
+	/** A reference to the inner <button> element. */
+	ref?: React.Ref<HTMLButtonElement>;
 }
 
 export const defaultProps: Partial<BaseButtonProps> = {
+	baseName: 'button',
 	type: 'button',
 };
 
-export const BaseButton: React.FunctionComponent<BaseButtonProps> = (props: BaseButtonProps) => {
+export const BaseButton: React.ComponentType<BaseButtonProps> = React.forwardRef((
+	props: BaseButtonProps,
+	ref?: React.Ref<HTMLButtonElement>,
+) => {
 	// merge props into default props and extract the relevant values
 	const {
+		baseName,
+		kind,
 		type,
-		variant,
 		className,
 		children,
 		...attributes
 	} = { ...defaultProps, ...props };
 
-	// 1. set .button
-	// 2. if a variant was specified, set .button-${variant}
-	// 3. if an additional className was included, add it
-	const classList = mergeClasses(
-		'button',
-		variant && `button-${variant}`,
+	const classes = classNames(
+		{
+			[`${baseName}`]: true,
+			[`${baseName}-primary`]: kind === 'primary',
+			[`${baseName}-secondary`]: kind === 'secondary',
+			[`${baseName}-tertiary`]: kind === 'tertiary',
+		},
 		className,
 	);
 
@@ -38,10 +48,15 @@ export const BaseButton: React.FunctionComponent<BaseButtonProps> = (props: Base
 		 * @see https://github.com/yannickcr/eslint-plugin-react/issues/1846
 		 */
 		/* eslint-disable react/button-has-type */
-		<button className={classList} type={type} {...attributes}>
+		<button
+			className={classes}
+			type={type}
+			ref={ref}
+			{...attributes}
+		>
 			{ children }
 		</button>
 	);
-};
+});
 
 export default BaseButton;
