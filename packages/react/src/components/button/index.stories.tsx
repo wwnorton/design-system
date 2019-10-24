@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 import { BaseButton, ToggleButton } from '.';
 import '@nds/core/src/components/button/index.scss';
-import { ButtonVariant } from './BaseButton';
+import { ButtonKind } from './BaseButton';
 
 export default {
 	title: 'Button',
@@ -12,17 +12,17 @@ export default {
 	decorators: [withKnobs],
 };
 
-const variantOptions = {
+const kindOptions = {
 	Primary: 'primary',
 	Secondary: 'secondary',
 	Tertiary: 'tertiary',
 	None: undefined,
 };
 
-export const variantButton = (): JSX.Element => (
-	<BaseButton variant={select('Variant', variantOptions, 'primary') as ButtonVariant} onClick={action('clicked')}>Variant Button</BaseButton>
+export const button = (): JSX.Element => (
+	<BaseButton kind={select('Kind', kindOptions, 'primary') as ButtonKind} onClick={action('onClick')}>Button</BaseButton>
 );
 
 export const toggleButton = (): JSX.Element => (
-	<ToggleButton initiallyOn={boolean('Initially on', false)} onToggle={action('toggled')}>Toggle Button</ToggleButton>
+	<ToggleButton initiallyOn={boolean('Initially on', false)} onToggle={action('onToggle')}>Toggle Button</ToggleButton>
 );
