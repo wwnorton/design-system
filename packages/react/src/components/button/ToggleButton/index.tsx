@@ -7,6 +7,8 @@ export interface ToggleButtonProps extends BaseButtonProps {
 	initiallyOn: boolean;
 	/** A function to call when the button is toggled. */
 	onToggle: (on: ToggleButtonState['on']) => void;
+	/** A reference to the inner <button> element. */
+	buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
 export interface ToggleButtonState {
@@ -36,12 +38,26 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 	}
 
 	render(): JSX.Element {
-		const { children, variant } = this.props;
+		const {
+			buttonRef,
+			children,
+			className,
+			kind,
+		} = this.props;
 		const { on } = this.state;
 		const ariaChecked = (on) ? 'true' : 'false';
 
+		const classes = classNames('button-toggle', className);
+
 		return (
-			<BaseButton className="button-toggle" role="switch" variant={variant} aria-checked={ariaChecked} onClick={this.toggle}>
+			<BaseButton
+				role="switch"
+				className={classes}
+				kind={kind}
+				ref={buttonRef}
+				aria-checked={ariaChecked}
+				onClick={this.toggle}
+			>
 				{ children }
 			</BaseButton>
 		);
