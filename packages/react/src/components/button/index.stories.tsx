@@ -2,8 +2,8 @@ import * as React from 'react';
 // import { withInfo } from '@storybook/addon-info';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
-import { BaseButton, ToggleButton } from '.';
 import '@nds/core/src/components/button/index.scss';
+import { BaseButton, ToggleButton } from '.';
 import { ButtonKind } from './BaseButton';
 
 export default {
