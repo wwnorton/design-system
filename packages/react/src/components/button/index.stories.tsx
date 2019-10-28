@@ -32,7 +32,7 @@ export const button = (): JSX.Element => (
 export const toggleButton = (): JSX.Element => (
 	<ToggleButton
 		onToggle={action('onToggle')}
-		initiallyOn={boolean('Initially on', false)}
+		on={boolean('On', true)}
 		disabled={boolean('Disabled', false)}
 	>
 		Toggle Button
