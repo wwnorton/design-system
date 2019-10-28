@@ -44,6 +44,7 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 			children,
 			className,
 			kind,
+			...attributes
 		} = this.props;
 		const { on } = this.state;
 		const ariaChecked = (on) ? 'true' : 'false';
@@ -58,6 +59,7 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 				ref={buttonRef}
 				aria-checked={ariaChecked}
 				onClick={this.toggle}
+				{...attributes}
 			>
 				{ children }
 			</BaseButton>
