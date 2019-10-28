@@ -24,13 +24,7 @@ module.exports = {
 				extensions: ['.jsx', '.tsx']
 			}
 		],
-		'react/jsx-props-no-spreading': [
-			'error',
-			{
-				html: 'ignore',
-				custom: 'enforce'
-			}
-		],
+		'react/jsx-props-no-spreading': ['off'],
 		'react/static-property-placement': [
 			'error',
 			'property assignment',
