@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 import '@nds/core/src/components/button/index.scss';
 import { BaseButton, ToggleButton } from '.';
-import { ButtonKind } from './BaseButton';
+import { ButtonVariant } from './BaseButton';
 
 export default {
 	title: 'Button',
@@ -12,7 +12,7 @@ export default {
 	decorators: [withKnobs],
 };
 
-const kindOptions = {
+const variantOptions = {
 	Primary: 'primary',
 	Secondary: 'secondary',
 	Tertiary: 'tertiary',
@@ -22,7 +22,7 @@ const kindOptions = {
 export const button = (): JSX.Element => (
 	<BaseButton
 		onClick={action('onClick')}
-		kind={select('Kind', kindOptions, 'primary') as ButtonKind}
+		variant={select('Variant', variantOptions, 'primary') as ButtonVariant}
 		disabled={boolean('Disabled', false)}
 	>
 		Button

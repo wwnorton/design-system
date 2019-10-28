@@ -1,13 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-export type ButtonKind = 'primary' | 'secondary' | 'tertiary';
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary';
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	/** The base class name according to BEM conventions */
 	baseName?: string;
-	/** Button kind conveys the button's level of visual emphasis. */
-	kind?: ButtonKind;
+	/** Button variant conveys the button's level of visual emphasis. */
+	variant?: ButtonVariant;
 	/** A reference to the inner <button> element. */
 	ref?: React.Ref<HTMLButtonElement>;
 }
@@ -24,7 +24,7 @@ export const BaseButton: React.ComponentType<BaseButtonProps> = React.forwardRef
 	// merge props into default props and extract the relevant values
 	const {
 		baseName,
-		kind,
+		variant,
 		type,
 		className,
 		children,
@@ -34,9 +34,9 @@ export const BaseButton: React.ComponentType<BaseButtonProps> = React.forwardRef
 	const classes = classNames(
 		{
 			[`${baseName}`]: true,
-			[`${baseName}-primary`]: kind === 'primary',
-			[`${baseName}-secondary`]: kind === 'secondary',
-			[`${baseName}-tertiary`]: kind === 'tertiary',
+			[`${baseName}-primary`]: variant === 'primary',
+			[`${baseName}-secondary`]: variant === 'secondary',
+			[`${baseName}-tertiary`]: variant === 'tertiary',
 		},
 		className,
 	);
