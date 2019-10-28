@@ -19,7 +19,7 @@ A dropdown can also include:
 - Use a dropdown to select one option from a collapsed set of available options.
 - By default, dropdown options are mutually exclusive.
 - When an option is selected, the selected option area updates to display that item.
-- `Accessibility` <kbd>Down Arrow</kbd>/<kbd>Up Arrow</kbd> moves focus to the next/previous options, respectively. Selection may also move with focus. <kbd>Home</kdb> and <kbd>End</kbd> moves focus to the first/last options, respectively.
+- `Accessibility` <kbd>Down Arrow</kbd>/<kbd>Up Arrow</kbd> moves focus to the next/previous options, respectively. Selection may also move with focus. <kbd>Home</kbd> and <kbd>End</kbd> moves focus to the first/last options, respectively.
 
 ::: tip Dos
 
