@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 
 export interface ToggleButtonProps extends BaseButtonProps {
-	/** Whether the button should be toggled "on" initially */
+	/** Whether the button's initial state should be toggled "on". */
 	initiallyOn: boolean;
 	/** A function to call when the button is toggled. */
 	onToggle: (on: ToggleButtonState['on']) => void;
@@ -12,6 +12,7 @@ export interface ToggleButtonProps extends BaseButtonProps {
 }
 
 export interface ToggleButtonState {
+	/** The button's toggle state, which represents "on" or "off". */
 	on: boolean;
 }
 
