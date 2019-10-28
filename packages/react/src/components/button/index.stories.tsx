@@ -20,9 +20,21 @@ const kindOptions = {
 };
 
 export const button = (): JSX.Element => (
-	<BaseButton kind={select('Kind', kindOptions, 'primary') as ButtonKind} onClick={action('onClick')}>Button</BaseButton>
+	<BaseButton
+		onClick={action('onClick')}
+		kind={select('Kind', kindOptions, 'primary') as ButtonKind}
+		disabled={boolean('Disabled', false)}
+	>
+		Button
+	</BaseButton>
 );
 
 export const toggleButton = (): JSX.Element => (
-	<ToggleButton initiallyOn={boolean('Initially on', false)} onToggle={action('onToggle')}>Toggle Button</ToggleButton>
+	<ToggleButton
+		onToggle={action('onToggle')}
+		initiallyOn={boolean('Initially on', false)}
+		disabled={boolean('Disabled', false)}
+	>
+		Toggle Button
+	</ToggleButton>
 );
