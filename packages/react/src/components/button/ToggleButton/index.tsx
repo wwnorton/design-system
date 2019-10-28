@@ -4,7 +4,7 @@ import { BaseButton, BaseButtonProps } from '../BaseButton';
 
 export interface ToggleButtonProps extends BaseButtonProps {
 	/** Whether the button's initial state should be toggled "on". */
-	initiallyOn: boolean;
+	on: boolean;
 	/** A function to call when the button is toggled. */
 	onToggle: (on: ToggleButtonState['on']) => void;
 	/** A reference to the inner <button> element. */
@@ -18,7 +18,7 @@ export interface ToggleButtonState {
 
 export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButtonState> {
 	static defaultProps = {
-		initiallyOn: false,
+		on: false,
 		onToggle: (): void => {},
 	};
 
@@ -26,7 +26,7 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 		super(props);
 
 		this.state = {
-			on: props.initiallyOn,
+			on: props.on,
 		};
 	}
 
