@@ -43,7 +43,6 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 			buttonRef,
 			children,
 			className,
-			variant,
 			...attributes
 		} = this.props;
 		const { on } = this.state;
@@ -55,7 +54,6 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 			<BaseButton
 				role="switch"
 				className={classes}
-				variant={variant}
 				ref={buttonRef}
 				aria-checked={ariaChecked}
 				onClick={this.toggle}
