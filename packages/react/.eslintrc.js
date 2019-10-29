@@ -40,5 +40,11 @@ module.exports = {
 				'import/no-extraneous-dependencies': 'off'
 			}
 		}
-	]
+	],
+	settings: {
+		react: {
+			// explicitly set react version so it's available when eslint is run from root
+			version: '^16.10',
+		},
+	},
 };
