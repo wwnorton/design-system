@@ -7,7 +7,7 @@ stages:
 
 before_script:
   - npm ci
-  - npm run lerna:bootstrap
+  - npm run bootstrap
 
 eslint:
   stage: codequality
@@ -24,13 +24,13 @@ prettier:
   script:
     - npm run lint:prettier
 
-build:components:
+build:core:
   stage: build
   script:
-    - npm run build
+    - npm run build:core
   artifacts:
     paths:
-      - packages/components/dist
+      - packages/core/dist
     expire_in: 30 days
 
 pages:
@@ -41,7 +41,7 @@ pages:
   variables:
     VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
   script:
-    - npm run docs:build
+    - npm run build:docs
   artifacts:
     paths:
       - public
