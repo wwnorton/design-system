@@ -13,7 +13,7 @@
     "dev:react": "lerna exec --scope=@nds/react -- npm run dev",
     "fix": "concurrently npm:lint:*-fix",
     "lint": "concurrently npm:lint:{es,prettier,style}",
-    "lint:es": "eslint .",
+    "lint:es": "eslint '**/*.{js,jsx,ts,tsx}'",
     "lint:es-fix": "npm run lint:es -- --fix",
     "lint:prettier": "npm run prettier -- --check",
     "lint:prettier-fix": "npm run prettier -- --write",
