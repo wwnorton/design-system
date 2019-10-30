@@ -15,7 +15,7 @@
   "main": "dist/index.js",
   "types": "src/index.ts",
   "scripts": {
-    "build": "npm run build:ts && npm run build:stories",
+    "build": "npm run build:ts",
     "build:stories": "build-storybook",
     "build:ts": "tsc -p .",
     "dev": "npm run storybook",
