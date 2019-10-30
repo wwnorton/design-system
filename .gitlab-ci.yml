@@ -33,6 +33,15 @@ build:core:
       - packages/core/dist
     expire_in: 30 days
 
+build:react:
+  stage: build
+  script:
+    - npm run build:react
+  artifacts:
+    paths:
+      - packages/react/dist
+    expire_in: 30 days
+
 pages:
   stage: build
   environment:

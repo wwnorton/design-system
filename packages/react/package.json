@@ -12,5 +12,42 @@
   "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react",
   "license": "UNLICENSED",
   "author": "W. W. Norton & Company",
-  "main": "dist/index.js"
+  "main": "dist/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "npm run build:ts",
+    "build:stories": "build-storybook",
+    "build:ts": "tsc -p .",
+    "dev": "npm run storybook",
+    "storybook": "start-storybook"
+  },
+  "dependencies": {
+    "@nds/core": "^0.1.0",
+    "classnames": "^2.2.6",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@storybook/addon-a11y": "^5.2.5",
+    "@storybook/addon-actions": "^5.2.5",
+    "@storybook/addon-info": "^5.2.5",
+    "@storybook/addon-knobs": "^5.2.5",
+    "@storybook/addon-storysource": "^5.2.5",
+    "@storybook/react": "^5.2.5",
+    "@types/classnames": "^2.2.9",
+    "@types/node": "^12.11.5",
+    "@types/react": "^16.9.9",
+    "@types/react-dom": "^16.9.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
+    "react-docgen-typescript-loader": "^3.3.0",
+    "sass": "^1.23.1",
+    "sass-loader": "^8.0.0",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^6.2.0",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  }
 }
