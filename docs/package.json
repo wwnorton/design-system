@@ -1,6 +1,6 @@
 {
   "name": "nds-docs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Documentation site for the Norton Design System",
   "keywords": [
@@ -22,7 +22,7 @@
     "dev": "vuepress dev ."
   },
   "dependencies": {
-    "@nds/core": "^0.1.0"
+    "@nds/core": "^0.2.0"
   },
   "devDependencies": {
     "@vuepress/plugin-pwa": "^1.2.0",
