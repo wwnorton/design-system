@@ -13,7 +13,7 @@
   "license": "UNLICENSED",
   "author": "W. W. Norton & Company",
   "main": "dist/index.js",
-  "types": "src/index.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "npm run build:ts",
     "build:stories": "build-storybook",
