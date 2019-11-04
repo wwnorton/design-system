@@ -12,6 +12,9 @@
   "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react",
   "license": "UNLICENSED",
   "author": "W. W. Norton & Company",
+  "files": [
+    "/dist"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,6 +22,7 @@
     "build:stories": "build-storybook",
     "build:ts": "tsc -p .",
     "dev": "npm run storybook",
+    "prepublishOnly": "npm run build:ts",
     "storybook": "start-storybook"
   },
   "dependencies": {
