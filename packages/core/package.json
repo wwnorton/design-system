@@ -24,8 +24,8 @@
   "license": "UNLICENSED",
   "author": "W. W. Norton & Company",
   "files": [
-    "dist",
-    "src"
+    "/dist",
+    "/src"
   ],
   "main": "dist/index.js",
   "scripts": {
