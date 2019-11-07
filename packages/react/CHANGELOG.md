@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.2.0...v0.2.1) (2019-11-07)
+
+### Bug Fixes
+
+- **react:** output and use type declarations ([a1e1dc9](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/a1e1dc9601108e06361dceba9b0f82f93e8319db))
+
 # [0.2.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.1.0...v0.2.0) (2019-10-31)
 
 ### Features
