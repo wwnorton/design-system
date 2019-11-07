@@ -23,10 +23,15 @@
   "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core",
   "license": "UNLICENSED",
   "author": "W. W. Norton & Company",
+  "files": [
+    "dist",
+    "src"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "build": "gulp build",
     "dev": "gulp dev",
+    "prepublishOnly": "NODE_ENV=production npm run build",
     "storybook": "start-storybook"
   },
   "browserslist": [
