@@ -4,7 +4,8 @@
   "npmClient": "npm",
   "command": {
     "publish": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "registry": "https://npm.wwnorton.com"
     }
   }
 }
