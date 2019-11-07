@@ -22,7 +22,6 @@
     "build:stories": "build-storybook",
     "build:ts": "tsc -p .",
     "dev": "npm run storybook",
-    "prepublishOnly": "npm run build:ts",
     "storybook": "start-storybook"
   },
   "dependencies": {

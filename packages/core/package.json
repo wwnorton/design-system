@@ -31,7 +31,6 @@
   "scripts": {
     "build": "gulp build",
     "dev": "gulp dev",
-    "prepublishOnly": "NODE_ENV=production npm run build",
     "storybook": "start-storybook"
   },
   "browserslist": [

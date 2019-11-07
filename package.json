@@ -19,6 +19,7 @@
     "lint:prettier-fix": "npm run prettier -- --write",
     "lint:style": "stylelint **/*.{css,sass,scss}",
     "lint:style-fix": "npm run lint:style -- --fix",
+    "prepublishOnly": "NODE_ENV=production npm run build",
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}'",
     "publish": "lerna publish --registry https://npm.wwnorton.com",
     "report": "nyc report --reporter html",
