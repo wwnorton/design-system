@@ -1,5 +1,8 @@
 // Global abstracts: functions, mixins, and tokens
 @import 'globals/scss/abstracts';
 
+// Reset
+@import 'globals/scss/reset';
+
 // Components
 @import 'components/button/index';
