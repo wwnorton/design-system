@@ -1,0 +1,22 @@
+////
+/// @group Utilities
+////
+
+@import '../tokens/device';
+
+/// High Resolution
+/// A media selector for high resolution/definition screens.
+/// @param {Number} $dpi [$dpi-hd] The dpi of a high-resolution (HD) screen
+/// @param {Number} $dppx [$dppx-hd] The dppx of a high-resolution (HD) screen
+/// @alias hd
+/// @see https://medium.com/@micjamking/hd-retina-display-media-queries-b5562b5430d6
+@mixin high-resolution($dpi: $dpi-hd, $dppx: $dppx-hd) {
+	@media only screen and (min-resolution: #{$dpi}dpi), only screen and (min-resolution: #{$dppx}dppx) {
+		@content;
+	}
+}
+
+/// @alias high-resolution
+@mixin hd($args...) {
+	@include high-resolution($args...);
+}
