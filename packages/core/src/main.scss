@@ -1,5 +1,10 @@
-// Global abstracts: functions, mixins, and tokens
-@import 'globals/scss/abstracts';
+// Required global abstracts: functions, mixins, and tokens
+@import 'globals/scss/functions';
+@import 'globals/scss/mixins';
+@import 'globals/scss/tokens';
+
+// Reset
+@import 'globals/scss/reset';
 
 // Components
 @import 'components/button/index';

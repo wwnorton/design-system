@@ -1,0 +1,10 @@
+////
+/// Reset for HTML elements
+/// @group Reset
+////
+
+@import 'mixins';
+
+body {
+	@include font-smoothing;
+}

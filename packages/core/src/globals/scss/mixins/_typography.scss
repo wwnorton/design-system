@@ -1,0 +1,14 @@
+////
+/// @group Typography
+////
+
+@import 'utilities';
+
+/// Font smoothing
+/// @see http://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/
+@mixin font-smoothing {
+	@include high-resolution {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+	}
+}

@@ -23,3 +23,8 @@ $grid-breakpoints: (
 	lg: $device-lg,
 	xl: $device-xl,
 ) !default;
+
+/// The minimum dots per inch (dpi) of a high-resolution screen
+$dpi-hd: 200 !default;
+/// The minimum dots per pixel unit (dppx) for a high-resolution screen
+$dppx-hd: 1.25 !default;
