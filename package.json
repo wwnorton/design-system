@@ -1,102 +1,105 @@
 {
-  "name": "nds",
-  "private": true,
-  "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "build": "concurrently npm:build:*",
-    "build:core": "lerna exec --scope=@nds/core -- npm run build",
-    "build:docs": "lerna exec --scope=nds-docs -- npm run build -- --dest ../public",
-    "build:react": "lerna exec --scope=@nds/react -- npm run build",
-    "dev": "concurrently npm:dev:*",
-    "dev:core": "lerna exec --scope=@nds/core -- npm run dev",
-    "dev:docs": "lerna exec --scope=nds-docs -- npm run dev",
-    "dev:react": "lerna exec --scope=@nds/react -- npm run dev",
-    "fix": "concurrently npm:lint:*-fix",
-    "lint": "concurrently npm:lint:{es,prettier,style}",
-    "lint:es": "eslint '**/*.{js,jsx,ts,tsx}'",
-    "lint:es-fix": "npm run lint:es -- --fix",
-    "lint:prettier": "npm run prettier -- --check",
-    "lint:prettier-fix": "npm run prettier -- --write",
-    "lint:style": "stylelint **/*.{css,sass,scss}",
-    "lint:style-fix": "npm run lint:style -- --fix",
-    "prepublishOnly": "rm -rf packages/react/dist && NODE_ENV=production concurrently npm:build:{core,react}",
-    "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}'",
-    "publish": "lerna publish --registry https://npm.wwnorton.com",
-    "report": "nyc report --reporter html",
-    "storybook": "lerna exec --scope=@nds/react -- npm run storybook",
-    "test": "nyc ava"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "lint-staged": {
-    "*.{css,sass,scss,html}": [
-      "stylelint --fix",
-      "git add"
-    ],
-    "*.{html,xhtml,md,json,yaml,yml}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "browserslist": [
-    "android >= 30",
-    "chrome >= 35",
-    "edge >= 14",
-    "ie >= 9",
-    "firefox >= 52",
-    "safari >= 8"
-  ],
-  "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
-    "concurrently": "^5.0.0",
-    "eslint": "^6.1.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-norton": "^3.0.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^1.7.0",
-    "husky": "^3.0.5",
-    "lerna": "^3.18.3",
-    "lint-staged": "^9.4.2",
-    "prettier": "^1.18.2",
-    "stylelint": "^11.0.0",
-    "stylelint-config-norton": "^2.3.0",
-    "typescript": "^3.7.2"
-  },
-  "engines": {
-    "node": ">=8.9.0",
-    "npm": ">=5"
-  },
-  "ava": {
-    "files": [
-      "test/*.{js,jsx}",
-      "**/test/*.{js,jsx}",
-      "**/*{.,_}{test,spec}.{js,jsx}"
-    ]
-  },
-  "nyc": {
-    "all": true,
-    "exclude": [
-      "**/{.,gulpfile,rollup}*.js",
-      "**/*.{spec,test}.{js,jsx}",
-      "**/{dist,test}"
-    ]
-  }
+	"name": "nds",
+	"private": true,
+	"maintainers": [
+		"Evan Yamanishi <eyamanishi@wwnorton.com>"
+	],
+	"scripts": {
+		"bootstrap": "lerna bootstrap",
+		"build": "concurrently npm:build:*",
+		"build:core": "lerna exec --scope=@nds/core -- npm run build",
+		"build:docs": "lerna exec --scope=nds-docs -- npm run build -- --dest ../public",
+		"build:react": "lerna exec --scope=@nds/react -- npm run build",
+		"dev": "concurrently npm:dev:*",
+		"dev:core": "lerna exec --scope=@nds/core -- npm run dev",
+		"dev:docs": "lerna exec --scope=nds-docs -- npm run dev",
+		"dev:react": "lerna exec --scope=@nds/react -- npm run dev",
+		"fix": "concurrently npm:lint:*-fix",
+		"lint": "concurrently npm:lint:{es,prettier,style}",
+		"lint:es": "eslint '**/*.{js,jsx,ts,tsx}'",
+		"lint:es-fix": "npm run lint:es -- --fix",
+		"lint:prettier": "npm run prettier -- --check",
+		"lint:prettier-fix": "npm run prettier -- --write",
+		"lint:style": "stylelint **/*.{css,sass,scss}",
+		"lint:style-fix": "npm run lint:style -- --fix",
+		"prepublishOnly": "rm -rf packages/react/dist && NODE_ENV=production concurrently npm:build:{core,react}",
+		"prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}'",
+		"publish": "lerna publish --registry https://npm.wwnorton.com",
+		"report": "nyc report --reporter html",
+		"storybook": "lerna exec --scope=@nds/react -- npm run storybook",
+		"test": "nyc ava"
+	},
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+			"pre-commit": "lint-staged"
+		}
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"lint-staged": {
+		"*.{css,sass,scss,html}": [
+			"stylelint --fix",
+			"git add"
+		],
+		"*.{html,xhtml,md,json,yaml,yml}": [
+			"prettier --write",
+			"git add"
+		],
+		"*.{js,jsx,ts,tsx}": [
+			"eslint --fix",
+			"git add"
+		]
+	},
+	"browserslist": [
+		"android >= 30",
+		"chrome >= 35",
+		"edge >= 14",
+		"ie >= 9",
+		"firefox >= 52",
+		"safari >= 8"
+	],
+	"devDependencies": {
+		"@commitlint/cli": "^8.2.0",
+		"@commitlint/config-conventional": "^8.2.0",
+		"@typescript-eslint/eslint-plugin": "^2.6.1",
+		"@typescript-eslint/parser": "^2.6.1",
+		"concurrently": "^5.0.0",
+		"eslint": "^6.1.0",
+		"eslint-config-airbnb": "^18.0.1",
+		"eslint-config-norton": "^3.0.1",
+		"eslint-plugin-import": "^2.18.2",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-react": "^7.16.0",
+		"eslint-plugin-react-hooks": "^1.7.0",
+		"husky": "^3.0.5",
+		"lerna": "^3.18.3",
+		"lint-staged": "^9.4.2",
+		"prettier": "^1.18.2",
+		"stylelint": "^11.0.0",
+		"stylelint-config-norton": "^2.3.0",
+		"typescript": "^3.7.2"
+	},
+	"engines": {
+		"node": ">=8.9.0",
+		"npm": ">=5"
+	},
+	"ava": {
+		"files": [
+			"test/*.{js,jsx}",
+			"**/test/*.{js,jsx}",
+			"**/*{.,_}{test,spec}.{js,jsx}"
+		]
+	},
+	"nyc": {
+		"all": true,
+		"exclude": [
+			"**/{.,gulpfile,rollup}*.js",
+			"**/*.{spec,test}.{js,jsx}",
+			"**/{dist,test}"
+		]
+	}
 }
