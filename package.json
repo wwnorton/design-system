@@ -1,9 +1,6 @@
 {
 	"name": "nds",
 	"private": true,
-	"maintainers": [
-		"Evan Yamanishi <eyamanishi@wwnorton.com>"
-	],
 	"scripts": {
 		"bootstrap": "lerna bootstrap",
 		"build": "concurrently npm:build:*",
@@ -94,6 +91,9 @@
 			"**/*{.,_}{test,spec}.{js,jsx}"
 		]
 	},
+	"maintainers": [
+		"Evan Yamanishi <eyamanishi@wwnorton.com>"
+	],
 	"nyc": {
 		"all": true,
 		"exclude": [
