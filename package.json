@@ -91,6 +91,9 @@
       "**/*{.,_}{test,spec}.{js,jsx}"
     ]
   },
+  "maintainers": [
+    "Evan Yamanishi <eyamanishi@wwnorton.com>"
+  ],
   "nyc": {
     "all": true,
     "exclude": [
