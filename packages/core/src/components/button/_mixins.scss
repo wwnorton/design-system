@@ -34,12 +34,10 @@
 
 @mixin button-primary (
 	$color-map: $button-color-primary,
-	$color-step: 6,
+	$color-step: 60,
 ) {
-	$color-key: color-key-from-step($color-map, $color-step);
-
-	$background: map-get($color-map, $color-key);
-	$color: if($color-step > 5, $white, $black);
+	$background: map-get($color-map, $color-step);
+	$color: if($color-step > 50, $white, $black);
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
 
@@ -68,12 +66,10 @@
 
 @mixin button-secondary (
 	$color-map: $button-color-secondary,
-	$color-step: 6,
+	$color-step: 60,
 ) {
-	$color-key: color-key-from-step($color-map, $color-step);
-
-	$background: if($color-step > 5, $white, $black);
-	$color: map-get($color-map, $color-key);
+	$background: if($color-step > 50, $white, $black);
+	$color: map-get($color-map, $color-step);
 
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
@@ -102,12 +98,10 @@
 
 @mixin button-tertiary (
 	$color-map: $button-color-tertiary,
-	$color-step: 6,
+	$color-step: 60,
 ) {
-	$color-key: color-key-from-step($color-map, $color-step);
-
-	$background: if($color-step > 5, $white, $black);
-	$color: map-get($color-map, $color-key);
+	$background: if($color-step > 50, $white, $black);
+	$color: map-get($color-map, $color-step);
 
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
