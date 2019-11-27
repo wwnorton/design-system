@@ -1,6 +1,7 @@
 @import './tokens';
 @import '../../globals/scss/functions';
 @import '../../globals/scss/mixins';
+@import '../../globals/scss/tokens';
 
 @mixin button-base {
 	display: inline-flex;
@@ -27,7 +28,7 @@
 
 	&:disabled,
 	&.disabled {
-		color: map-get($gray, 40);
+		color: map-get($color-disabled, 40);
 		pointer-events: none;
 	}
 }
@@ -47,8 +48,8 @@
 
 	&:disabled,
 	&.disabled {
-		background-color: map-get($gray, 20);
-		border-color: map-get($gray, 20);
+		background-color: map-get($color-disabled, 20);
+		border-color: map-get($color-disabled, 20);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
@@ -80,7 +81,7 @@
 
 	&:disabled,
 	&.disabled {
-		border-color: map-get($gray, 20);
+		border-color: map-get($color-disabled, 20);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
@@ -113,8 +114,8 @@
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
 		color: $hover;
-		background-color: map-get($gray, 10);
-		border-color: map-get($gray, 10);
+		background-color: map-get($color-disabled, 10);
+		border-color: map-get($color-disabled, 10);
 	}
 
 	&:not(:disabled):not(.disabled):active,
