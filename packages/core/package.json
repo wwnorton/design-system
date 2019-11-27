@@ -43,13 +43,13 @@
     }
   },
   "devDependencies": {
-    "autoprefixer": "^9.6.5",
+    "autoprefixer": "^9.7.2",
     "fibers": "^4.0.1",
     "gulp": "^4.0.2",
     "gulp-header": "^2.0.9",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "sass": "^1.23.0"
+    "sass": "^1.23.7"
   }
 }
