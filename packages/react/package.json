@@ -12,6 +12,9 @@
   "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react",
   "license": "UNLICENSED",
   "author": "W. W. Norton & Company",
+  "contributors": [
+    "Evan Yamanishi <eyamanishi@wwnorton.com>"
+  ],
   "files": [
     "/dist",
     "/src"
