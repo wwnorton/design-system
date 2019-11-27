@@ -7,7 +7,7 @@ $button-color-base: $gray !default;
 $button-color-primary: $button-color-base !default;
 $button-color-secondary: $button-color-base !default;
 $button-color-tertiary: $button-color-base !default;
-$button-font-family: sans-serif !default;
+$button-font-family: $font-family-sans-serif !default;
 $button-font-size: 1rem !default;
 $button-font-weight: 700 !default;
 $button-line-height: 1.5 !default;

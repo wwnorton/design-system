@@ -1,6 +1,7 @@
 @import './tokens';
 @import '../../globals/scss/functions';
 @import '../../globals/scss/mixins';
+@import '../../globals/scss/tokens';
 
 @mixin button-base {
 	display: inline-flex;
@@ -27,19 +28,17 @@
 
 	&:disabled,
 	&.disabled {
-		color: map-get($gray, 40);
+		color: map-get($color-disabled, 40);
 		pointer-events: none;
 	}
 }
 
 @mixin button-primary (
 	$color-map: $button-color-primary,
-	$color-step: 6,
+	$color-step: 60,
 ) {
-	$color-key: color-key-from-step($color-map, $color-step);
-
-	$background: map-get($color-map, $color-key);
-	$color: if($color-step > 5, $white, $black);
+	$background: map-get($color-map, $color-step);
+	$color: if($color-step > 50, $white, $black);
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
 
@@ -49,8 +48,8 @@
 
 	&:disabled,
 	&.disabled {
-		background-color: map-get($gray, 20);
-		border-color: map-get($gray, 20);
+		background-color: map-get($color-disabled, 20);
+		border-color: map-get($color-disabled, 20);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
@@ -68,12 +67,10 @@
 
 @mixin button-secondary (
 	$color-map: $button-color-secondary,
-	$color-step: 6,
+	$color-step: 60,
 ) {
-	$color-key: color-key-from-step($color-map, $color-step);
-
-	$background: if($color-step > 5, $white, $black);
-	$color: map-get($color-map, $color-key);
+	$background: if($color-step > 50, $white, $black);
+	$color: map-get($color-map, $color-step);
 
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
@@ -84,7 +81,7 @@
 
 	&:disabled,
 	&.disabled {
-		border-color: map-get($gray, 20);
+		border-color: map-get($color-disabled, 20);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
@@ -102,12 +99,10 @@
 
 @mixin button-tertiary (
 	$color-map: $button-color-tertiary,
-	$color-step: 6,
+	$color-step: 60,
 ) {
-	$color-key: color-key-from-step($color-map, $color-step);
-
-	$background: if($color-step > 5, $white, $black);
-	$color: map-get($color-map, $color-key);
+	$background: if($color-step > 50, $white, $black);
+	$color: map-get($color-map, $color-step);
 
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
@@ -119,8 +114,8 @@
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
 		color: $hover;
-		background-color: map-get($gray, 10);
-		border-color: map-get($gray, 10);
+		background-color: map-get($color-disabled, 10);
+		border-color: map-get($color-disabled, 10);
 	}
 
 	&:not(:disabled):not(.disabled):active,

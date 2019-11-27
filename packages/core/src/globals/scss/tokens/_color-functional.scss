@@ -7,3 +7,12 @@
 
 /// The color of the focus indicator.
 $focus-ring-color: #09f !default;
+
+/// Passing, on, good, something went well
+$color-success: $green !default;
+/// Danger, caution, intermediary, something may have gone wrong, not good but not also not always bad
+$color-warning: $yellow !default;
+/// Not passing, off, bad, something went wrong
+$color-error: $red !default;
+/// Not operable but still visible
+$color-disabled: $gray !default;

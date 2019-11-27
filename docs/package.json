@@ -1,6 +1,6 @@
 {
   "name": "nds-docs",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "description": "Documentation site for the Norton Design System",
   "keywords": [
@@ -16,17 +16,21 @@
   },
   "license": "UNLICENSED",
   "author": "W. W. Norton & Company",
+  "contributors": [
+    "Annie Hirshman <ahirshman@wwnorton.com>",
+    "Evan Yamanishi <eyamanishi@wwnorton.com>"
+  ],
   "main": "README.md",
   "scripts": {
     "build": "vuepress build .",
     "dev": "vuepress dev ."
   },
   "dependencies": {
-    "@nds/core": "^0.2.1"
+    "@nds/core": "^0.3.0"
   },
   "devDependencies": {
     "@vuepress/plugin-pwa": "^1.2.0",
-    "sass": "^1.23.0",
+    "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
     "vuepress": "^1.2.0"
   }
