@@ -94,4 +94,4 @@ typings/
 # Distribution files
 dist
 public
-!docs/**/public
+!.vuepress/public
