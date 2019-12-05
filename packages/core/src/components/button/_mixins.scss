@@ -4,16 +4,14 @@
 @import '../../globals/scss/tokens';
 
 @mixin button-base {
+	position: relative;
 	display: inline-flex;
 	padding: $button-padding-v $button-padding-h;
 	font-family: $button-font-family;
 	font-size: $button-font-size;
-	font-weight: $button-font-weight;
 	line-height: $button-line-height;
-	cursor: pointer;
 	border: $button-border-radius solid transparent;
 	border-radius: $button-border-radius;
-	transition: $button-transition;
 	justify-content: center;
 	align-items: center;
 
@@ -21,15 +19,28 @@
 		border: 0;
 	}
 
-	&:focus,
-	.focus {
-		@include focus-indicator;
-	}
-
 	&:disabled,
 	&.disabled {
 		color: map-get($color-disabled, 40);
 		pointer-events: none;
+	}
+}
+
+@mixin button-variant (
+	$color,
+	$background-color,
+	$border-color
+) {
+	font-weight: $button-font-weight;
+	color: $color;
+	cursor: pointer;
+	background-color: $background-color;
+	border-color: $border-color;
+	transition: $button-transition;
+
+	&:focus,
+	.focus {
+		@include focus-indicator;
 	}
 }
 
@@ -42,9 +53,7 @@
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
 
-	color: $color;
-	background-color: $background;
-	border-color: $background;
+	@include button-variant($color, $background, $background);
 
 	&:disabled,
 	&.disabled {
@@ -71,13 +80,10 @@
 ) {
 	$background: if($color-step > 50, $white, $black);
 	$color: map-get($color-map, $color-step);
-
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
 
-	color: $color;
-	background-color: $background;
-	border-color: $color;
+	@include button-variant($color, $background, $color);
 
 	&:disabled,
 	&.disabled {
@@ -103,13 +109,10 @@
 ) {
 	$background: if($color-step > 50, $white, $black);
 	$color: map-get($color-map, $color-step);
-
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
 
-	color: $color;
-	background-color: $background;
-	border-color: $background;
+	@include button-variant($color, $background, $background);
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
