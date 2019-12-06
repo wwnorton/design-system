@@ -4,10 +4,11 @@ import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { noop, ClickEvent } from '../../../utilities/events';
 
 export interface ToggleButtonProps extends BaseButtonProps {
-	/** Whether the button's initial state should be toggled "on". */
+	/** The button's initial "on" state. */
 	on: boolean;
 	/** A function to call when the button is toggled. */
-	onToggle: (on: ToggleButtonState['on']) => void;
+	onToggle: (event: ToggleEvent) => void;
+	/** Whether or not "on/off" should be visible in the control. */
 	textualState: boolean;
 	/** A reference to the inner <button> element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
@@ -16,6 +17,10 @@ export interface ToggleButtonProps extends BaseButtonProps {
 export interface ToggleButtonState {
 	/** The button's toggle state, which represents "on" or "off". */
 	on: boolean;
+}
+
+export interface ToggleEvent extends ClickEvent {
+	state: ToggleButtonState;
 }
 
 export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButtonState> {
@@ -33,12 +38,11 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 		};
 	}
 
-	toggle = (): void => {
-		this.setState((state, { onToggle }) => {
-			const on = !state.on;
-			onToggle(on);
-			return { on };
-		});
+	toggle = (e: ClickEvent): void => {
+		const { onToggle } = this.props;
+		const { on } = this.state;
+		// flip the `on` state and then call the callback with the event and state attached
+		this.setState({ on: !on }, () => onToggle({ ...e, state: this.state }));
 	}
 
 	render(): JSX.Element {
