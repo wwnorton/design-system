@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
+import { noop, ClickEvent } from '../../../utilities/events';
 
 export interface ToggleButtonProps extends BaseButtonProps {
 	/** Whether the button's initial state should be toggled "on". */
@@ -44,14 +45,16 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 		const {
 			textualState,
 			buttonRef,
+			disabled,
 			children,
 			className,
 			...attributes
 		} = this.props;
 		const { on } = this.state;
 		const ariaChecked = (on) ? 'true' : 'false';
-
-		const classes = classNames('button-toggle', className);
+		const classes = classNames('button-toggle', { disabled }, className);
+		// do nothing on click if the component is disabled
+		const onClick = (disabled) ? noop : this.toggle;
 
 		return (
 			<BaseButton
@@ -59,7 +62,7 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 				className={classes}
 				ref={buttonRef}
 				aria-checked={ariaChecked}
-				onClick={this.toggle}
+				onClick={onClick}
 				{...attributes}
 			>
 				{ textualState && <div className="toggle-state" /> }
