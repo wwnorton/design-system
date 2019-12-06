@@ -7,6 +7,7 @@ export interface ToggleButtonProps extends BaseButtonProps {
 	on: boolean;
 	/** A function to call when the button is toggled. */
 	onToggle: (on: ToggleButtonState['on']) => void;
+	textualState: boolean;
 	/** A reference to the inner <button> element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
 }
@@ -17,9 +18,10 @@ export interface ToggleButtonState {
 }
 
 export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButtonState> {
-	static defaultProps = {
+	static defaultProps: Partial<ToggleButtonProps> = {
 		on: false,
 		onToggle: (): void => {},
+		textualState: true,
 	};
 
 	constructor(props: ToggleButtonProps) {
@@ -40,6 +42,7 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 
 	render(): JSX.Element {
 		const {
+			textualState,
 			buttonRef,
 			children,
 			className,
@@ -59,6 +62,7 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 				onClick={this.toggle}
 				{...attributes}
 			>
+				{ textualState && <div className="toggle-state" /> }
 				{ children }
 			</BaseButton>
 		);
