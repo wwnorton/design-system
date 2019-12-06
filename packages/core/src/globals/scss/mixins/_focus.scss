@@ -5,4 +5,8 @@
 @mixin focus-indicator ($current-shadows...) {
 	outline: none;
 	box-shadow: $current-shadows, $focus-indicator;
+
+	&:not(:focus-visible) {
+		box-shadow: none;
+	}
 }
