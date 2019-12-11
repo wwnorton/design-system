@@ -2,7 +2,6 @@
 
 $button-border-radius: 0.125rem !default;
 $button-border-width: 2px !default;
-$button-color-step: 6 !default;
 $button-color-base: $gray !default;
 $button-color-primary: $button-color-base !default;
 $button-color-secondary: $button-color-base !default;
@@ -21,3 +20,14 @@ $button-transition: (
 	border-color $button-transition-duration $button-transition-easing,
 	box-shadow $button-transition-duration $button-transition-easing
 ) !default;
+
+$toggle-bg-on: $teal !default;
+$toggle-bg-off: $gray !default;
+$toggle-bg-on-disabled: $toggle-bg-on !default;
+$toggle-bg-off-disabled: $gray !default;
+$toggle-control-size: 1.75rem !default;
+$toggle-control-border-width: 2px !default;
+$toggle-spacing: 3px !default;
+$toggle-rail-height: $toggle-control-size !default;
+$toggle-rail-width: calc(2 * (#{$toggle-control-size} + #{$toggle-spacing})) !default;
+$toggle-control-border-radius: $toggle-rail-height !default;

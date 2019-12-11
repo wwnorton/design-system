@@ -33,6 +33,7 @@ export const toggleButton = (): JSX.Element => (
 	<ToggleButton
 		onToggle={action('onToggle')}
 		on={boolean('On', true)}
+		textualState={boolean('Textual state', true)}
 		disabled={boolean('Disabled', false)}
 	>
 		Toggle Button

@@ -20,3 +20,8 @@
 .button-tertiary {
 	@include button-tertiary();
 }
+
+/* toggle button */
+.button-toggle {
+	@include button-toggle;
+}

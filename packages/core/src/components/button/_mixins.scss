@@ -4,16 +4,14 @@
 @import '../../globals/scss/tokens';
 
 @mixin button-base {
+	position: relative;
 	display: inline-flex;
 	padding: $button-padding-v $button-padding-h;
 	font-family: $button-font-family;
 	font-size: $button-font-size;
-	font-weight: $button-font-weight;
 	line-height: $button-line-height;
-	cursor: pointer;
 	border: $button-border-radius solid transparent;
 	border-radius: $button-border-radius;
-	transition: $button-transition;
 	justify-content: center;
 	align-items: center;
 
@@ -21,15 +19,28 @@
 		border: 0;
 	}
 
-	&:focus,
-	.focus {
-		@include focus-indicator;
-	}
-
 	&:disabled,
 	&.disabled {
 		color: map-get($color-disabled, 40);
 		pointer-events: none;
+	}
+}
+
+@mixin button-variant (
+	$color,
+	$background-color,
+	$border-color
+) {
+	font-weight: $button-font-weight;
+	color: $color;
+	cursor: pointer;
+	background-color: $background-color;
+	border-color: $border-color;
+	transition: $button-transition;
+
+	&:focus,
+	.focus {
+		@include focus-indicator;
 	}
 }
 
@@ -42,9 +53,7 @@
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
 
-	color: $color;
-	background-color: $background;
-	border-color: $background;
+	@include button-variant($color, $background, $background);
 
 	&:disabled,
 	&.disabled {
@@ -71,13 +80,10 @@
 ) {
 	$background: if($color-step > 50, $white, $black);
 	$color: map-get($color-map, $color-step);
-
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
 
-	color: $color;
-	background-color: $background;
-	border-color: $color;
+	@include button-variant($color, $background, $color);
 
 	&:disabled,
 	&.disabled {
@@ -103,13 +109,10 @@
 ) {
 	$background: if($color-step > 50, $white, $black);
 	$color: map-get($color-map, $color-step);
-
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
 
-	color: $color;
-	background-color: $background;
-	border-color: $background;
+	@include button-variant($color, $background, $background);
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
@@ -121,5 +124,124 @@
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
 		color: $active;
+	}
+}
+
+@mixin toggle-box {
+	display: inline-flex;
+	width: $toggle-rail-width;
+	height: $toggle-rail-height;
+	padding: $toggle-spacing;
+	cursor: pointer;
+	border-radius: $toggle-control-border-radius;
+	align-items: center;
+}
+
+@mixin button-toggle (
+	$color-on: $toggle-bg-on,
+	$color-off: $toggle-bg-off,
+	$color-on-disabled: $toggle-bg-on-disabled,
+	$color-off-disabled: $toggle-bg-off-disabled,
+) {
+	padding: 0;
+	background-color: transparent;
+
+	// the toggle control's "rail" that the control moves back and forth on
+	&::before {
+		@include toggle-box;
+
+		margin-right: 0.5rem;
+		content: '';
+		background-color: map-get($color-off, 30);
+		transition: background-color $duration-simple $easing-standard;
+	}
+
+	&[aria-checked=true]::before {
+		background-color: map-get($color-on, 60);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus::before,
+	&.focus::before {
+		@include focus-indicator;
+	}
+
+	// the textual state container, which sits directly on top of the "rail"
+	.toggle-state {
+		@include toggle-box;
+
+		position: absolute;
+		left: 0;
+		font-size: 0.75em;
+		font-weight: 700;
+		color: $black;
+		text-transform: uppercase;
+	}
+
+	.toggle-state::before,
+	.toggle-state::after {
+		width: 50%;
+		transition:
+			color $duration-simple $easing-standard,
+			opacity $duration-simple $easing-standard;
+	}
+
+	// the "on" text that appears when the control is on
+	.toggle-state::before {
+		content: 'on';
+		opacity: 0;
+	}
+
+	// the "off" text that appears when the control is off
+	.toggle-state::after {
+		content: 'off';
+	}
+
+	&[aria-checked=true] .toggle-state {
+		color: $white;
+	}
+
+	&[aria-checked=true] .toggle-state::before {
+		opacity: 1;
+	}
+
+	&[aria-checked=true] .toggle-state::after {
+		opacity: 0;
+	}
+
+	&:disabled .toggle-state,
+	&.disabled .toggle-state {
+		background-color: map-get($color-off-disabled, 20);
+	}
+
+	&[aria-checked=true]:disabled .toggle-state,
+	&[aria-checked=true].disabled .toggle-state {
+		background-color: map-get($color-on-disabled, 20);
+	}
+
+	// the toggle control that moves back and forth on top of the "rail"
+	&::after {
+		position: absolute;
+		top: $toggle-spacing;
+		left: $toggle-spacing;
+		width: $toggle-control-size;
+		height: $toggle-control-size;
+		box-sizing: border-box;
+		margin-right: auto;
+		cursor: pointer;
+		content: '';
+		background: $white;
+		border-radius: $toggle-control-border-radius;
+		box-shadow: 0 0 1px 1px rgba($black, 0.1);
+		transition:
+			border-color $duration-simple $easing-standard,
+			transform $duration-simple $easing-standard;
+	}
+
+	&[aria-checked=true]::after {
+		transform: translateX(calc(#{$toggle-control-size} + #{2 * $toggle-spacing}));
 	}
 }
