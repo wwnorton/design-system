@@ -4,20 +4,20 @@
 
 ## Anatomy
 
+![A diagram of the text field's various pieces, defined below.](/assets/images/comp_text-field.png)
+
 A text field includes:
 
-1. A Text Label
-2. An Input Area
-
-A text field can also include:
-
-3. Placeholder Text
-4. Error Text
-5. A Character Counter
-
-A numeric text field can also include:
-
-6. Step arrows
+1. Label
+2. Container
+3. Optional Field Indicator (optional)
+4. Help Text (optional)
+5. Icon - Left (optional)
+6. Text
+7. Icon/Control - Right (optional)
+   - An icon or control can go in this space. A text field can have multiple right-side icons/controls
+8. Error Text (optional)
+9. Character count (optional)
 
 ## Usage
 
@@ -36,7 +36,7 @@ A numeric text field can also include:
 
 ::: danger Don’ts
 
-- Don’t use labels that are too long. A text field’s label should be very concise.
+- Don’t use labels that are too long. Labels should be very concise.
 - Don’t include instructions in a label&mdash;use help text instead.
 - Don’t disable the user’s ability to select, copy or paste.
 - Don’t require users to write paragraphs of text in a single-line text field.
