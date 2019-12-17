@@ -44,7 +44,7 @@ module.exports = {
 	settings: {
 		react: {
 			// explicitly set react version so it's available when eslint is run from root
-			version: '^16.10',
+			version: '16.12',
 		},
 	},
 };
