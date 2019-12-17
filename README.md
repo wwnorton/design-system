@@ -58,7 +58,7 @@ Lorem, ipsum dolor sit amet consectetur adipisicing elit...
 
 ## Examples
 
-<button class="button button-primary">Primary Button</button>
+<button class="button button--primary">Primary Button</button>
 
 <style lang"scss">
 @import '~@nds/core/src/components/button/index';

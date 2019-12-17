@@ -56,7 +56,7 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 		} = this.props;
 		const { on } = this.state;
 		const ariaChecked = (on) ? 'true' : 'false';
-		const classes = classNames('button-toggle', { disabled }, className);
+		const classes = classNames('button--toggle', { disabled }, className);
 		// do nothing on click if the component is disabled
 		const onClick = (disabled) ? noop : this.toggle;
 
