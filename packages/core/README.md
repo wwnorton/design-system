@@ -60,7 +60,7 @@ For instance, in a React component with [sass-loader](https://webpack.js.org/loa
 import "@nds/core/src/components/button/index.scss";
 
 export const MyButton = () => (
-  <button className="button button-primary">My Button</button>
+  <button className="button button--primary">My Button</button>
 );
 ```
 

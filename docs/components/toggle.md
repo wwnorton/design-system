@@ -13,19 +13,19 @@ A toggle includes:
 
 The standard toggle has two states: "on" and "off," which are conveyed by a toggle control moving right and left.
 
-<button class="button button-toggle" type="button" role="switch" aria-checked="true">Toggle Button</button>
-<button class="button button-toggle" type="button" role="switch" aria-checked="false">Toggle Button</button>
+<button class="button button--toggle" type="button" role="switch" aria-checked="true">Toggle Button</button>
+<button class="button button--toggle" type="button" role="switch" aria-checked="false">Toggle Button</button>
 
 ### Textual State
 
 By including a `.toggle-state` inside your toggle, you can make the "on" and "off" explicit.
 This is highly recommended to remove any ambiguity about which state is on and which is off.
 
-<button class="button button-toggle" type="button" role="switch" aria-checked="true">
+<button class="button button--toggle" type="button" role="switch" aria-checked="true">
   <div class="toggle-state"></div>
   Toggle Button
 </button>
-<button class="button button-toggle" type="button" role="switch" aria-checked="false">
+<button class="button button--toggle" type="button" role="switch" aria-checked="false">
   <div class="toggle-state"></div>
   Toggle Button
 </button>

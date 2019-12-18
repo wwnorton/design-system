@@ -7,21 +7,21 @@
 }
 
 /* primary button */
-.button-primary {
+.button--primary {
 	@include button-primary();
 }
 
 /* secondary button */
-.button-secondary {
+.button--secondary {
 	@include button-secondary();
 }
 
 /* tertiary button */
-.button-tertiary {
+.button--tertiary {
 	@include button-tertiary();
 }
 
 /* toggle button */
-.button-toggle {
+.button--toggle {
 	@include button-toggle;
 }

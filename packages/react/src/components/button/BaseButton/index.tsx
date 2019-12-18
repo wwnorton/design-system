@@ -34,9 +34,9 @@ export const BaseButton: React.ComponentType<BaseButtonProps> = React.forwardRef
 	const classes = classNames(
 		{
 			[`${baseName}`]: true,
-			[`${baseName}-primary`]: variant === 'primary',
-			[`${baseName}-secondary`]: variant === 'secondary',
-			[`${baseName}-tertiary`]: variant === 'tertiary',
+			[`${baseName}--primary`]: variant === 'primary',
+			[`${baseName}--secondary`]: variant === 'secondary',
+			[`${baseName}--tertiary`]: variant === 'tertiary',
 		},
 		className,
 	);

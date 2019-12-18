@@ -2,6 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
-    "hex-ci.stylelint-plus"
+    "thibaudcolas.stylelint"
   ]
 }
