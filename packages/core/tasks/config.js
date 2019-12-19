@@ -27,4 +27,9 @@ module.exports = {
 		dest: `${destRoot}/css`,
 		watch: `${srcRoot}/**/*.scss`,
 	},
+	js: {
+		src: `${srcRoot}/index.js`,
+		dest: `${destRoot}/js/index.js`,
+		watch: `${srcRoot}/**/*.js`,
+	},
 };
