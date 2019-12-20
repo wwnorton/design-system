@@ -19,6 +19,22 @@ A text field includes:
 8. Error Text (optional)
 9. Character count (optional)
 
+## Examples
+
+Note: the standard Text Field does not typically display all elements at once.
+
+<div class="textfield">
+  <label for="input" class="textfield__label">
+    Label <span class="textfield__optional">(optional)</span>
+  </label>
+  <div class="textfield__help">This is the help text that the textfield can display. it is optional!</div>
+  <input id="input" class="textfield__input" type="text" />
+  <div class="textfield__feedback">
+    <div class="textfield__error">This is the error text that can be displayed.</div>
+    <div class="textfield__count">25 characters remaining</div>
+  </div>
+</div>
+
 ## Usage
 
 - A text field allows a user to freeform type or paste their own response to a prompt.
@@ -136,3 +152,7 @@ Three options are provided to address this need.
 - Text longer than the input area wraps onto a new line, and scrolls vertically when the cursor reaches the bottom of the input area.
 - The large size of the input area indicates that longer responses are possible and encouraged.
 - Use text area text fields for: free response inputs with additional formatting capabilities.
+
+<style lang="scss">
+@import '~@nds/core/src/components/textfield/index';
+</style>
