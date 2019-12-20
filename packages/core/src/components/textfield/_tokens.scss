@@ -1,0 +1,66 @@
+@import '../../globals/scss/tokens';
+
+//Textfield component
+$textfield-flex-direction: column;
+
+//Label element
+$textfield-label-font-family: $font-family-sans-serif !default;
+$textfield-label-font-size: 1rem !default;
+$textfield-label-font-weight: 600 !default;
+$textfield-label-font-color: map-get($navy, 90) !default;
+$textfield-label-line-height: 20px !default;
+
+//Optional element
+$textfield-optional-font-family: $font-family-sans-serif !default;
+$textfield-optional-font-size: 1rem !default;
+$textfield-optional-font-weight: 400 !default;
+$textfield-optional-font-color: map-get($navy, 90) !default;
+$textfield-optional-line-height: 20px !default;
+
+//Helptext element
+$textfield-help-font-family: $font-family-sans-serif !default;
+$textfield-help-font-size: 0.875rem !default;
+$textfield-help-font-weight: 400 !default;
+$textfield-help-font-color: map-get($navy, 60) !default;
+$textfield-help-line-height: 17.5px !default;
+
+//Input element
+$textfield-input-top-margin: 0.5rem !default;
+$textfield-input-padding: 0.5rem 0.75rem !default;
+$textfield-input-font-family: $font-family-sans-serif !default;
+$textfield-input-font-size: 1rem !default;
+$textfield-input-font-weight: 400 !default;
+$textfield-input-font-color: map-get($navy, 90) !default;
+$textfield-input-background-color: $white !default;
+$textfield-input-border-radius: 1px !default;
+$textfield-input-border-color: map-get($navy, 40) !default;
+$textfield-input-border-width: 1px !default;
+
+//Input element focus
+$textfield-input-focus-border-color: map-get($teal, 50) !default;
+
+//Input element error
+$textfield-input-error-border-color: map-get($red, 60) !default;
+$textfield-input-error-background-color: map-get($red, 10) !default;
+
+//Input element disabled
+$textfield-input-disabled-background-color: map-get($navy, 10) !default;
+$textfield-input-disabled-border-color: map-get($navy, 40) !default;
+$textfield-input-disabled-font-color: map-get($navy, 40) !default;
+
+//Feedback container element
+$textfield-feedback-top-margin: 0.375rem !default;
+
+//Feedback element
+$textfield-error-text-color: map-get($red, 60) !default;
+$textfield-error-font-family: $font-family-sans-serif !default;
+$textfield-error-font-size: 0.875rem !default;
+$textfield-error-font-weight: 600 !default;
+$textfield-error-line-height: 17px !default;
+
+//Count element
+$textfield-count-text-color: map-get($navy, 60) !default;
+$textfield-count-font-family: $font-family-sans-serif !default;
+$textfield-count-font-size: 0.875rem !default;
+$textfield-count-font-weight: 400 !default;
+$textfield-count-line-height: 17px !default;
