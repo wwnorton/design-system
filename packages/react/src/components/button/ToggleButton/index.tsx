@@ -26,7 +26,7 @@ export interface ToggleEvent extends ClickEvent {
 export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButtonState> {
 	static defaultProps: Partial<ToggleButtonProps> = {
 		on: false,
-		onToggle: (): void => {},
+		onToggle: noop,
 		textualState: true,
 	};
 
