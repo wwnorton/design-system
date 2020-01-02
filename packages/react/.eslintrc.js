@@ -31,19 +31,34 @@ module.exports = {
 			{
 				defaultProps: 'static public field'
 			}
-		]
+		],
+		'import/no-extraneous-dependencies': [
+			'off',
+			{
+				devDependencies: [
+					'.storybook/**',
+					'test/**',
+					'**/*.stories.{js,jsx,ts,tsx}',
+				],
+				optionalDependencies: false,
+			},
+		],
+		'import/extensions': [
+			'error',
+			'ignorePackages',
+			{
+				js: 'never',
+				mjs: 'never',
+				jsx: 'never',
+				ts: 'never',
+				tsx: 'never',
+			},
+		],
 	},
-	overrides: [
-		{
-			files: ['**/*.stories.{js,jsx,ts,tsx}'],
-			rules: {
-				'import/no-extraneous-dependencies': 'off'
-			}
-		}
-	],
 	settings: {
 		react: {
 			// explicitly set react version so it's available when eslint is run from root
+			// https://github.com/yannickcr/eslint-plugin-react/issues/2218
 			version: '16.12',
 		},
 	},
