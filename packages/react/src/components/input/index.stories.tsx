@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { withInfo } from "@storybook/addon-info";
 import { action } from '@storybook/addon-actions';
 import {
 	withKnobs,
