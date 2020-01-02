@@ -13,7 +13,9 @@
   "license": "UNLICENSED",
   "author": "W. W. Norton & Company",
   "contributors": [
-    "Evan Yamanishi <eyamanishi@wwnorton.com>"
+    "Evan Yamanishi <eyamanishi@wwnorton.com>",
+    "Rumbaut, Gabriel <grumbaut@wwnorton.com>",
+    "Chen, HonChih <hchen@wwnorton.com>"
   ],
   "files": [
     "/dist",
