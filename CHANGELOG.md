@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.3.0...v0.4.0) (2020-01-02)
+
+### Bug Fixes
+
+- update colors saturation ([816a3a2](https://gitlab.com/wwnorton/platform/design-system/commit/816a3a219c79d3717c6997d9bebc4fc0822e52ff))
+- update react version in eslintrc file ([f192fe4](https://gitlab.com/wwnorton/platform/design-system/commit/f192fe46286ab14d46ab2703d3f9bcd222a470ed))
+- use bem-style class names ([bd92dcd](https://gitlab.com/wwnorton/platform/design-system/commit/bd92dcdb04958edafdc4537f964331fe3b20a14f))
+
+### Features
+
+- **core:** add :focus-visible for the future 🚀 ([56695c9](https://gitlab.com/wwnorton/platform/design-system/commit/56695c90e5fff148b1001c791ec24ebaac0fbe47))
+- **core:** initial textfield implementation ([15a66c4](https://gitlab.com/wwnorton/platform/design-system/commit/15a66c46758c659ab04c36966429a639c8310c93))
+- **core:** initial toggle/switch styling ([6c847fd](https://gitlab.com/wwnorton/platform/design-system/commit/6c847fd3f480599fc1541434b8240fda0e3d3bb0))
+- **react:** add textualState prop to toggle ([b280067](https://gitlab.com/wwnorton/platform/design-system/commit/b28006702859eab8eb5b5ee73ca1260ee36c24a6))
+- **react:** initial disclosure implementation ([f1ca740](https://gitlab.com/wwnorton/platform/design-system/commit/f1ca7401ce1bc04d29143811e4281691aab13783))
+- **react:** initial text field ([d7ec06c](https://gitlab.com/wwnorton/platform/design-system/commit/d7ec06cf9fd4ebfc9a11ce4d7e619929453addd5))
+- **react:** more consistent callbacks ([34bddfc](https://gitlab.com/wwnorton/platform/design-system/commit/34bddfc38221f5170b60d5e6bc3ae5e71278ed7f))
+
 # [0.3.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.2.1...v0.3.0) (2019-11-27)
 
 ### Features

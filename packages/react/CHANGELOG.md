@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.3.0...v0.4.0) (2020-01-02)
+
+### Bug Fixes
+
+- update react version in eslintrc file ([f192fe4](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/f192fe46286ab14d46ab2703d3f9bcd222a470ed))
+- use bem-style class names ([bd92dcd](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/bd92dcdb04958edafdc4537f964331fe3b20a14f))
+
+### Features
+
+- **core:** initial textfield implementation ([15a66c4](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/15a66c46758c659ab04c36966429a639c8310c93))
+- **react:** add textualState prop to toggle ([b280067](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/b28006702859eab8eb5b5ee73ca1260ee36c24a6))
+- **react:** initial disclosure implementation ([f1ca740](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/f1ca7401ce1bc04d29143811e4281691aab13783))
+- **react:** initial text field ([d7ec06c](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/d7ec06cf9fd4ebfc9a11ce4d7e619929453addd5))
+- **react:** more consistent callbacks ([34bddfc](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/34bddfc38221f5170b60d5e6bc3ae5e71278ed7f))
+
 # [0.3.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.2.1...v0.3.0) (2019-11-27)
 
 **Note:** Version bump only for package @nds/react
