@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/docs/compare/v0.3.0...v0.4.0) (2020-01-02)
+
+### Bug Fixes
+
+- use bem-style class names ([bd92dcd](https://gitlab.com/wwnorton/platform/design-system/tree/master/docs/commit/bd92dcdb04958edafdc4537f964331fe3b20a14f))
+
+### Features
+
+- **core:** initial textfield implementation ([15a66c4](https://gitlab.com/wwnorton/platform/design-system/tree/master/docs/commit/15a66c46758c659ab04c36966429a639c8310c93))
+
 # [0.3.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/docs/compare/v0.2.1...v0.3.0) (2019-11-27)
 
 **Note:** Version bump only for package nds-docs

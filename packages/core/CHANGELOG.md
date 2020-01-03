@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.3.0...v0.4.0) (2020-01-02)
+
+### Bug Fixes
+
+- update colors saturation ([816a3a2](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/816a3a219c79d3717c6997d9bebc4fc0822e52ff))
+- use bem-style class names ([bd92dcd](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/bd92dcdb04958edafdc4537f964331fe3b20a14f))
+
+### Features
+
+- **core:** add :focus-visible for the future 🚀 ([56695c9](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/56695c90e5fff148b1001c791ec24ebaac0fbe47))
+- **core:** initial textfield implementation ([15a66c4](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/15a66c46758c659ab04c36966429a639c8310c93))
+- **core:** initial toggle/switch styling ([6c847fd](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/6c847fd3f480599fc1541434b8240fda0e3d3bb0))
+- **react:** initial disclosure implementation ([f1ca740](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/f1ca7401ce1bc04d29143811e4281691aab13783))
+
 # [0.3.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.2.1...v0.3.0) (2019-11-27)
 
 ### Features

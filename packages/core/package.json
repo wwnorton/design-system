@@ -1,6 +1,6 @@
 {
   "name": "@nds/core",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Framework-independent components, tokens, and utilities for the Norton Design System",
   "keywords": [
     "component",
@@ -25,7 +25,9 @@
   "author": "W. W. Norton & Company",
   "contributors": [
     "HonChih Chen <hchen@wwnorton.com>",
-    "Evan Yamanishi <eyamanishi@wwnorton.com>"
+    "Evan Yamanishi <eyamanishi@wwnorton.com>",
+    "Trama, Darian <dtrama@wwnorton.com>",
+    "Porter, Kellie <kporter@wwnorton.com>"
   ],
   "files": [
     "/dist",
@@ -47,20 +49,22 @@
     }
   },
   "devDependencies": {
-    "autoprefixer": "^9.7.2",
+    "@babel/core": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
+    "autoprefixer": "^9.7.3",
     "babel-preset-airbnb": "^4.4.0",
-    "fibers": "^4.0.1",
+    "fibers": "^4.0.2",
     "gulp": "^4.0.2",
     "gulp-header": "^2.0.9",
     "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^1.4.0",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.0.2",
-    "rollup": "^1.27.12",
+    "rollup": "^1.27.14",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.3",
-    "sass": "^1.23.7"
+    "sass": "^1.24.0"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8"
