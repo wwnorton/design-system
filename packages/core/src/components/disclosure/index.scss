@@ -1,0 +1,52 @@
+@import './mixins';
+
+.disclosure {
+	@include disclosure-base;
+}
+
+.disclosure__summary {
+	@include summary-base;
+}
+
+.details-marker {
+	@include details-marker;
+}
+
+.details-marker.caret {
+	@include marker-transform(
+		rotate(90deg),
+		rotate(0),
+	);
+
+	margin-right: calc(#{$disclosure-padding-left} - #{$disclosure-marker-width});
+}
+
+*::-webkit-details-marker {
+	display: none;
+}
+
+.disclosure__container {
+	@include disclosure-container;
+}
+
+.disclosure__contents {
+	@include disclosure-contents;
+}
+
+.disclosure--panel {
+	@include disclosure--panel;
+}
+
+.details-marker.chevron {
+	@include marker-transform(
+		rotate3d(1, 0, 0, 180deg),
+		rotate3d(1, 0, 0, 0),
+	);
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+	.disclosure__contents,
+	.details-marker {
+		transition: none !important;
+	}
+}
