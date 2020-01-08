@@ -9,15 +9,14 @@ const srcRoot = './src';
 const destRoot = './dist';
 const prod = ['ci', 'production'].includes(process.env.NODE_ENV);
 const copyrightYear = `2019-${(new Date()).getFullYear()}`;
+const banner = `/***
+* ${name} v${version}
+* Copyright ${copyrightYear} ${author}
+* ${license}
+***/`;
 
 module.exports = {
-	banner:
-		`/***
-		 * ${name} v${version}
-		 * Copyright ${copyrightYear} ${author}
-		 * ${license}
-		 ***/
-		`.replace(/\t/g, ''),
+	banner,
 	prod,
 	sourcemaps: !prod,
 	srcRoot,
