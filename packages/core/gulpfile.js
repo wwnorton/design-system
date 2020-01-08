@@ -1,17 +1,17 @@
 const { series, parallel } = require('gulp');
 const { sassTask, sassWatch } = require('./tasks/sass');
-const { jsTask, jsWatch } = require('./tasks/javascript');
+const { tsTask, tsWatch } = require('./tasks/typescript');
 const { clean } = require('./tasks/utilities');
 
 // Grouped Task Definitions
-const build = series(clean, parallel(sassTask, jsTask));
-const watch = parallel(sassWatch, jsWatch);
+const build = series(clean, parallel(sassTask, tsTask));
+const watch = parallel(sassWatch, tsWatch);
 const dev = series(build, watch);
 
 // Individual tasks
 exports.clean = clean;
 exports.sass = sassTask;
-exports.js = jsTask;
+exports.ts = tsTask;
 
 // Grouped tasks
 exports.build = build;

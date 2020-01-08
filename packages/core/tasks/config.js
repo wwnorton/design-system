@@ -27,9 +27,12 @@ module.exports = {
 		dest: `${destRoot}/css`,
 		watch: `${srcRoot}/**/*.scss`,
 	},
-	js: {
-		src: `${srcRoot}/index.js`,
+	typescript: {
+		src: `${srcRoot}/**/*.ts`,
 		dest: `${destRoot}/js/index.js`,
-		watch: `${srcRoot}/**/*.js`,
+		watch: [
+			`${srcRoot}/**/*.ts`,
+			'./tsconfig.json',
+		],
 	},
 };
