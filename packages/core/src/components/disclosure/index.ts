@@ -280,6 +280,8 @@ export default class Disclosure {
 	public disable(): this {
 		if (!this.enabled) return this;
 
+		this.removeHeight();
+
 		this.details.removeEventListener('toggle', this.onToggle);
 		if (this.summary) this.summary.removeEventListener('click', this.onSummaryClick);
 		this.container.removeEventListener('transitionend', this.onTransitionend);
