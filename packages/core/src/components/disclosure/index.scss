@@ -44,9 +44,8 @@
 	);
 }
 
-@media screen and (prefers-reduced-motion: reduce) {
-	.disclosure__contents,
-	.details-marker {
-		transition: none !important;
-	}
-}
+// when requested, disable all motion on the following elements
+@include reduce-motion(
+	'.disclosure__container',
+	'.details-marker path',
+);
