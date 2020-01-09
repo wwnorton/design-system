@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { Disclosure as CoreDisclosure } from '@nds/core';
+import { Disclosure as CoreDisclosure } from '@nds/core';	// eslint-disable import/no-unresolved
 import BaseDetails, { BaseDetailsProps, DetailsToggleEvent } from '../BaseDetails';
 import BaseSummary from '../BaseDetails/BaseSummary';
 import DetailsMarker from './DetailsMarker';
