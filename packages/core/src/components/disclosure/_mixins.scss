@@ -70,8 +70,4 @@
 			box-shadow: $disclosure-panel-focus-indicator;
 		}
 	}
-
-	&[open] .disclosure__summary {
-		border-bottom: $disclosure-panel-border;
-	}
 }
