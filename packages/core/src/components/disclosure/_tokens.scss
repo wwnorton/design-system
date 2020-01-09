@@ -1,4 +1,5 @@
 @import '../../globals/scss/tokens/motion';
+@import '../../globals/scss/tokens/typography';
 @import '../../globals/scss/tokens/color-system';
 @import '../../globals/scss/tokens/color-functional';
 
@@ -10,13 +11,16 @@ $disclosure-padding-bottom: $disclosure-padding-base !default;
 
 $disclosure-marker-width: 1em !default;
 
+$summary-font-color: $black !default;
+$summary-font-family: $font-family-base !default;
+
 $disclosure-collapse-duration: $duration-collapse !default;
 $disclosure-collapse-easing: $easing-standard !default;
 
 $disclosure-expand-duration: $duration-expand !default;
 $disclosure-expand-easing: $easing-standard !default;
 
-$disclosure-panel-border-color: map-get($gray, 100) !default;
+$disclosure-panel-border-color: $black !default;
 $disclosure-panel-border: 1px solid $disclosure-panel-border-color !default;
 
-$disclosure-panel-focus-indicator: 0 0 0 2px $focus-ring-color !default;
+$disclosure-panel-background-color: map-get($gray, 10) !default;

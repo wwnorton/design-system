@@ -28,7 +28,7 @@
 }
 
 @mixin disclosure-contents {
-	margin:
+	padding:
 		$disclosure-padding-top
 		$disclosure-padding-right
 		$disclosure-padding-bottom
@@ -59,15 +59,20 @@
 }
 
 @mixin disclosure--panel {
-	border: $disclosure-panel-border;
-
 	.disclosure__summary {
 		padding: $disclosure-padding-top $disclosure-padding-right;
 		justify-content: space-between;
+		background-color: $disclosure-panel-background-color;
+		border: $disclosure-panel-border;
+	}
 
-		&:focus,
-		.focus {
-			box-shadow: $disclosure-panel-focus-indicator;
-		}
+	&[open] .disclosure__summary {
+		border-bottom: $disclosure-panel-border;
+	}
+
+	.disclosure__container {
+		border-right: $disclosure-panel-border;
+		border-bottom: $disclosure-panel-border;
+		border-left: $disclosure-panel-border;
 	}
 }
