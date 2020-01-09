@@ -8,6 +8,7 @@ stages:
 before_script:
   - npm ci
   - npm run bootstrap
+  - npm run bootstrap
 
 eslint:
   stage: codequality
