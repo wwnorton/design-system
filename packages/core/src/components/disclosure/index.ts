@@ -316,6 +316,7 @@ export default class Disclosure {
 			if (el.tagName.toUpperCase() === 'DETAILS') {
 				Disclosure.enhance(el as HTMLDetailsElement, options);
 			} else {
+				// eslint-disable-next-line no-console
 				console.warn('Disclosures must be a `<details>` element.');
 			}
 		});
