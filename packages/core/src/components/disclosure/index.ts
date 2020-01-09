@@ -285,7 +285,7 @@ export default class Disclosure {
 		this.details.removeEventListener('toggle', this.onToggle);
 		if (this.summary) this.summary.removeEventListener('click', this.onSummaryClick);
 		this.container.removeEventListener('transitionend', this.onTransitionend);
-		if (this.options.updateOnResize) window.removeEventListener('resize', this.onWindowresize);
+		window.removeEventListener('resize', this.onWindowresize);
 
 		this.enabled = false;
 		return this;
