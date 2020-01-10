@@ -1,0 +1,78 @@
+@import './tokens';
+@import '../../globals/scss/mixins';
+
+@mixin disclosure-base {
+	position: relative;
+	display: block;
+}
+
+@mixin summary-base {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	&:focus,
+	.focus {
+		@include focus-indicator;
+	}
+}
+
+@mixin disclosure-container {
+	overflow-y: hidden;
+	transition: height $disclosure-expand-duration $disclosure-expand-easing;
+
+	[open] & {
+		box-sizing: content-box;
+		transition: height $disclosure-collapse-duration $disclosure-collapse-easing;
+	}
+}
+
+@mixin disclosure-contents {
+	padding:
+		$disclosure-padding-top
+		$disclosure-padding-right
+		$disclosure-padding-bottom
+		$disclosure-padding-left;
+}
+
+@mixin details-marker {
+	width: $disclosure-marker-width;
+	max-height: 1em;
+
+	// animate the svg's path to ensure that it doesn't affect the box size
+	> path {
+		transition: transform $disclosure-expand-duration $disclosure-expand-easing;
+		transform-origin: center;
+	}
+}
+
+@mixin marker-transform($open-transform, $close-transform) {
+	[open] & > path {
+		transition: transform $disclosure-collapse-duration $disclosure-collapse-easing;
+		transform: $open-transform;
+	}
+
+	[open].closing & > path {
+		transition: transform $disclosure-collapse-duration $disclosure-collapse-easing;
+		transform: $close-transform;
+	}
+}
+
+@mixin disclosure--panel {
+	.disclosure__summary {
+		padding: $disclosure-padding-top $disclosure-padding-right;
+		justify-content: space-between;
+		background-color: $disclosure-panel-background-color;
+		border: $disclosure-panel-border;
+	}
+
+	&[open] .disclosure__summary {
+		border-bottom: $disclosure-panel-border;
+	}
+
+	.disclosure__container {
+		border-right: $disclosure-panel-border;
+		border-bottom: $disclosure-panel-border;
+		border-left: $disclosure-panel-border;
+	}
+}

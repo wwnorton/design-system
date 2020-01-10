@@ -3,38 +3,66 @@ import { action } from '@storybook/addon-actions';
 import {
 	withKnobs, text, select, boolean,
 } from '@storybook/addon-knobs';
-import { BaseDetails, Disclosure, DisclosureVariant } from '.';
+import '@nds/core/src/components/disclosure/index.scss';
+import { Disclosure, DisclosureVariant } from '.';
+import BaseSummary from './BaseDetails/BaseSummary';
 
 export default {
-	title: 'Details',
-	component: BaseDetails,
+	title: 'Disclosure',
+	component: Disclosure,
 	decorators: [withKnobs],
 };
 
 const variantOptions = {
-	Default: 'default',
+	Default: undefined,
 	Panel: 'panel',
-	None: undefined,
 };
 
-export const baseDetails = (): JSX.Element => (
-	<BaseDetails
-		disabled={boolean('Disabled', false)}
-		summary={text('Summary', 'Summary')}
+const contents = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae velit, quibusdam culpa, consequuntur quos voluptate esse explicabo ipsa perspiciatis illo molestias dolorem atque praesentium modi saepe hic suscipit, deserunt debitis.';
+
+const { defaultProps } = Disclosure;
+
+export const Default = (): JSX.Element => (
+	<Disclosure
+		summary={text('Summary', 'More information')}
+		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
+		animate={boolean('Animate', defaultProps.animate)}
+		onToggle={action('onToggle')}
 	>
-		<p>{text('Details Text', 'Details Text')}</p>
-	</BaseDetails>
+		<p>{text('Contents', contents)}</p>
+	</Disclosure>
 );
 
-export const disclosure = (): JSX.Element => (
+export const open = (): JSX.Element => (
 	<Disclosure
-		summary={text('Summary', 'Summary')}
-		variant={select('Variant', variantOptions, 'default') as DisclosureVariant}
-		animate={boolean('Animate', true)}
+		summary={text('Summary', 'More information')}
+		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
+		animate={boolean('Animate', defaultProps.animate)}
 		onToggle={action('onToggle')}
-		disabled={boolean('Disabled', false)}
-		open={boolean('Open', false)}
+		open
 	>
-		<p>{text('Disclosure Text', 'Disclosure Text')}</p>
+		<p>{text('Contents', contents)}</p>
+	</Disclosure>
+);
+
+export const withBaseSummary = (): JSX.Element => (
+	<Disclosure
+		summary={<BaseSummary className="disclosure__summary">Base summary</BaseSummary>}
+		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
+		animate={boolean('Animate', defaultProps.animate)}
+		onToggle={action('onToggle')}
+	>
+		<p>{text('Contents', contents)}</p>
+	</Disclosure>
+);
+
+export const withHTMLSummary = (): JSX.Element => (
+	<Disclosure
+		summary={<summary className="disclosure__summary">HTML summary</summary>}
+		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
+		animate={boolean('Animate', defaultProps.animate)}
+		onToggle={action('onToggle')}
+	>
+		<p>{text('Contents', contents)}</p>
 	</Disclosure>
 );

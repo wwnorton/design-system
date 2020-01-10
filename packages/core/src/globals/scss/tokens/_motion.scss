@@ -7,25 +7,28 @@
 /// @source https://material.io/design/motion/speed.html#easing Material Design: Easings
 ////
 
+/// A multiplier utility for increasing/decreasing all motion speed.
+$duration-multiplier: 1 !default;
+
 /// A duration used for simple animations such as selection controls.
-$duration-simple: 100ms !default;
+$duration-simple: 100ms * $duration-multiplier !default;
 /// A duration used for simple entrances such as fade-ins.
-$duration-simple-enter: 150ms !default;
+$duration-simple-enter: 150ms * $duration-multiplier !default;
 /// A duration used for simple exits such as fade-outs.
-$duration-simple-exit: 75ms !default;
+$duration-simple-exit: 75ms * $duration-multiplier !default;
 /// A duration used for complex animations such as shape changes.
-$duration-complex: 200ms !default;
+$duration-complex: 200ms * $duration-multiplier !default;
 /// A duration used for detailed animations such as icon transformations.
-$duration-detailed: 500ms !default;
+$duration-detailed: 500ms * $duration-multiplier !default;
 
 /// A duration used for elements that open from a closed state, such as a sidebar.
-$duration-open: 250ms !default;
+$duration-open: 250ms * $duration-multiplier !default;
 /// A duration used for elements that close from an opened state, such as a sidebar.
-$duration-close: 200ms !default;
+$duration-close: 200ms * $duration-multiplier !default;
 /// A duration used when an element expands (grows).
-$duration-expand: 300ms !default;
+$duration-expand: 300ms * $duration-multiplier !default;
 /// A duration used when an element collapses (shrinks).
-$duration-collapse: 250ms !default;
+$duration-collapse: 250ms * $duration-multiplier !default;
 
 /// A duration used for elements that traverse a short distance.
 $duration-small: $duration-simple !default;

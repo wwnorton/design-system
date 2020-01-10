@@ -4,6 +4,7 @@
 ////
 
 @import 'mixins';
+@import 'tokens';
 
 body {
 	@include font-smoothing;

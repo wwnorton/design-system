@@ -20,3 +20,26 @@
 @mixin hd($args...) {
 	@include high-resolution($args...);
 }
+
+/// Reduce Motion
+/// Disable animations and transitions on the given selectors when they are
+/// either children of `.reduced-motion` or the user has specified that they
+/// prefer reduced motion at their operating system level.
+/// @param {String[]} $selectors - One or more CSS selectors.
+@mixin reduce-motion ($selectors...) {
+	@for $i from 0 to length($selectors) {
+		@media screen and (prefers-reduced-motion: reduce) {
+			#{nth($selectors, $i + 1)} {
+				transition: none !important;
+				animation: none !important;
+			}
+		}
+
+		.reduced-motion {
+			#{nth($selectors, $i + 1)} {	// stylelint-disable max-nesting-depth
+				transition: none !important;
+				animation: none !important;
+			}
+		}
+	}
+}
