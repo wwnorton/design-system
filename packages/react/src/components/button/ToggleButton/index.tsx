@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { BaseButton, BaseButtonProps } from '../BaseButton';
+import BaseButton, { BaseButtonProps } from '../BaseButton';
 import { noop, ClickEvent } from '../../../utilities/events';
 
 export interface ToggleButtonProps extends BaseButtonProps {
@@ -38,11 +38,11 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 		};
 	}
 
-	toggle = (e: ClickEvent): void => {
+	toggle = async (e: ClickEvent): Promise<void> => {
 		const { onToggle } = this.props;
 		const { on } = this.state;
-		// flip the `on` state and then call the callback with the event and state attached
-		this.setState({ on: !on }, () => onToggle({ ...e, state: this.state }));
+		await this.setState({ on: !on });
+		if (onToggle) onToggle({ ...e, state: this.state });
 	}
 
 	render(): JSX.Element {
@@ -56,7 +56,11 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 		} = this.props;
 		const { on } = this.state;
 		const ariaChecked = (on) ? 'true' : 'false';
-		const classes = classNames('button--toggle', { disabled }, className);
+		const classes = classNames({
+			disabled,
+			button: true,
+			'button--toggle': true,
+		}, className);
 		// do nothing on click if the component is disabled
 		const onClick = (disabled) ? noop : this.toggle;
 
