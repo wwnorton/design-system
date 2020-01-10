@@ -12,11 +12,13 @@ stages:
   # - test
   - build
 
+before_script:
+  - npm run bootstrap
+
 install:
   stage: install
   script:
     - npm install
-    - npm run bootstrap
 
 eslint:
   stage: codequality
