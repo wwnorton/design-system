@@ -1,5 +1,13 @@
 image: node:10
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - docs/node_modules/
+    - packages/core/node_modules/
+    - packages/react/node_modules/
+
 stages:
   - prepare
   - codequality
@@ -11,13 +19,6 @@ install:
   script:
     - npm install
     - npm run bootstrap
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - node_modules/
-      - docs/node_modules/
-      - packages/core/node_modules/
-      - packages/react/node_modules/
 
 eslint:
   stage: codequality
@@ -40,8 +41,7 @@ build:
     - npm run build
   artifacts:
     paths:
-      - packages/core/dist
-      - packages/react/dist
+      - packages/*/dist
     expire_in: 30 days
 
 pages:
