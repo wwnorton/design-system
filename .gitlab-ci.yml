@@ -4,7 +4,7 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
-    - packages/**/node_modules/
+    - packages/*/node_modules/
 
 stages:
   - prepare
@@ -39,7 +39,7 @@ build:
     - npm run build
   artifacts:
     paths:
-      - packages/**/dist
+      - packages/*/dist
     expire_in: 30 days
 
 pages:
