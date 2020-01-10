@@ -4,7 +4,7 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
-    - "**/node_modules/"
+    - packages/**/node_modules/
 
 stages:
   - install
@@ -12,13 +12,11 @@ stages:
   # - test
   - build
 
-before_script:
-  - npm run bootstrap
-
 install:
   stage: install
   script:
     - npm install
+    - npm run bootstrap
 
 eslint:
   stage: codequality
@@ -41,7 +39,7 @@ build:
     - npm run build
   artifacts:
     paths:
-      - "**/dist"
+      - packages/**/dist
     expire_in: 30 days
 
 pages:
