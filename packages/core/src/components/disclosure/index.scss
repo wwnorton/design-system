@@ -21,8 +21,20 @@
 	margin-right: calc(#{$disclosure-padding-left} - #{$disclosure-marker-width});
 }
 
-*::-webkit-details-marker {
+// disable the user agent's marker (triangle/caret)
+summary::-moz-details-marker,
+summary::-ms-details-marker,
+summary::-o-details-marker, {
 	display: none;
+}
+
+summary::-webkit-details-marker {
+	display: none;
+}
+
+summary::marker {
+	display: none;
+	content: '';
 }
 
 .disclosure__container {
