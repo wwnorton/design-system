@@ -47,7 +47,7 @@ Alternatively, import the component mixins and use them on your own declarations
 
 .my-btn {
   @include button-base;
-  @include button-primary($green);
+  @include button-solid($green);
 }
 ```
 
@@ -60,7 +60,7 @@ For instance, in a React component with [sass-loader](https://webpack.js.org/loa
 import "@nds/core/src/components/button/index.scss";
 
 export const MyButton = () => (
-  <button className="button button--primary">My Button</button>
+  <button className="button button--solid">My Button</button>
 );
 ```
 

@@ -1,0 +1,123 @@
+@import './tokens';
+@import '../../globals/scss/functions';
+@import '../../globals/scss/mixins';
+@import '../../globals/scss/tokens';
+
+@mixin switch-box {
+	display: inline-flex;
+	width: $switch-rail-width;
+	height: $switch-rail-height;
+	padding: $switch-spacing;
+	cursor: pointer;
+	border-radius: $switch-control-border-radius;
+	align-items: center;
+}
+
+@mixin switch (
+	$color-on: $switch-bg-on,
+	$color-off: $switch-bg-off,
+	$color-on-disabled: $switch-bg-on-disabled,
+	$color-off-disabled: $switch-bg-off-disabled,
+) {
+	padding: 0;
+	background-color: transparent;
+
+	// the toggle control's "rail" that the control moves back and forth on
+	&::before {
+		@include switch-box;
+
+		margin-right: 0.5rem;
+		content: '';
+		background-color: map-get($color-off, 30);
+		transition: background-color $duration-simple $easing-standard;
+	}
+
+	&[aria-checked=true]::before {
+		background-color: map-get($color-on, 60);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus::before,
+	&.focus::before {
+		@include focus-indicator;
+	}
+
+	// the textual state container, which sits directly on top of the "rail"
+	.switch-state {
+		@include switch-box;
+
+		position: absolute;
+		left: 0;
+		font-size: 0.75em;
+		font-weight: 700;
+		color: $black;
+		text-transform: uppercase;
+	}
+
+	.switch-state::before,
+	.switch-state::after {
+		width: 50%;
+		transition:
+			color $duration-simple $easing-standard,
+			opacity $duration-simple $easing-standard;
+	}
+
+	// the "on" text that appears when the control is on
+	.switch-state::before {
+		content: 'on';
+		opacity: 0;
+	}
+
+	// the "off" text that appears when the control is off
+	.switch-state::after {
+		content: 'off';
+	}
+
+	&[aria-checked=true] .switch-state {
+		color: $white;
+	}
+
+	&[aria-checked=true] .switch-state::before {
+		opacity: 1;
+	}
+
+	&[aria-checked=true] .switch-state::after {
+		opacity: 0;
+	}
+
+	&:disabled .switch-state,
+	&.disabled .switch-state {
+		background-color: map-get($color-off-disabled, 20);
+	}
+
+	&[aria-checked=true]:disabled .switch-state,
+	&[aria-checked=true].disabled .switch-state {
+		background-color: map-get($color-on-disabled, 20);
+	}
+
+	// the toggle control that moves back and forth on top of the "rail"
+	&::after {
+		position: absolute;
+		top: $switch-spacing;
+		left: $switch-spacing;
+		width: $switch-control-size;
+		height: $switch-control-size;
+		box-sizing: border-box;
+		margin-right: auto;
+		cursor: pointer;
+		content: '';
+		background: $white;
+		border-radius: $switch-control-border-radius;
+		box-shadow: 0 0 1px 1px rgba($black, 0.1);
+		transition:
+			border-color $duration-simple $easing-standard,
+			transform $duration-simple $easing-standard;
+	}
+
+	&[aria-checked=true]::after {
+		transform: translateX(calc(#{$switch-control-size} + #{2 * $switch-spacing}));
+	}
+}

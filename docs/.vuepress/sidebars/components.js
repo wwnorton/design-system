@@ -1,7 +1,7 @@
 module.exports = [
 	'button',
 	'link',
-	'toggle',
+	'switch',
 	'text-field',
 	'radio-buttons',
 	'layout-grid',

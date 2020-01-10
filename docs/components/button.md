@@ -22,9 +22,9 @@ Icon-Only Buttons include:
 
 ## Examples
 
-<button class="button button--primary">Primary</button>
-<button class="button button--secondary">Secondary</button>
-<button class="button button--tertiary">Tertiary</button>
+<button class="button button--solid">Solid</button>
+<button class="button button--outline">Outline</button>
+<button class="button button--ghost">Ghost</button>
 
 ## Usage
 
