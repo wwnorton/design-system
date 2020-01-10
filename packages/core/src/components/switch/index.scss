@@ -1,0 +1,9 @@
+@import './tokens';
+@import './mixins';
+@import '../button/mixins';
+
+/* switch */
+.switch {
+	@include button-base;
+	@include switch;
+}
