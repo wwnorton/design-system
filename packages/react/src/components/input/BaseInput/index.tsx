@@ -8,6 +8,7 @@ export const DICTIONARY = {
 	INPUT: 'input',
 	COUNT: 'count',
 	TEXTFIELD: 'textfield',
+	CHECKBOX: 'checkbox',
 	HELP: 'help',
 	ERROR: 'error',
 	FEEDBACK: 'feedback',
