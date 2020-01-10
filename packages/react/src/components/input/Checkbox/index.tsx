@@ -8,7 +8,7 @@ import { noop } from '../../../utilities/events';
  * BEM element names inside this component. These values will be used to
  * construct the final class names for each corresponding element.
  */
-export const ELEMENTS = {
+export const CHECKBOX_ELEMENTS = {
 	TYPE: 'checkbox',
 	LABEL: 'label',
 	HELP: 'help',
@@ -63,13 +63,13 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	static defaultProps = {
 		baseName: 'checkbox',
 		get labelClass(): string {
-			return `${this.baseName}__${ELEMENTS.LABEL}`;
+			return `${this.baseName}__${CHECKBOX_ELEMENTS.LABEL}`;
 		},
 		get helpClass(): string {
-			return `${this.baseName}__${ELEMENTS.HELP}`;
+			return `${this.baseName}__${CHECKBOX_ELEMENTS.HELP}`;
 		},
 		get errorClass(): string {
-			return `${this.baseName}__${ELEMENTS.ERROR}`;
+			return `${this.baseName}__${CHECKBOX_ELEMENTS.ERROR}`;
 		},
 		validateOnChange: false,
 		onChange: noop,
@@ -182,7 +182,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		return (
 			<div className={DICTIONARY.CHECKBOX}>
 				<BaseInput
-					type={ELEMENTS.TYPE}
+					type={CHECKBOX_ELEMENTS.TYPE}
 					ref={checkboxRef}
 					onChange={this.onChange}
 					id={this.uid}
