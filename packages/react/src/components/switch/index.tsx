@@ -66,6 +66,7 @@ export class Switch extends React.Component<SwitchProps, SwitchState> {
 		return (
 			<BaseButton
 				role="switch"
+				disabled={disabled}
 				className={classes}
 				ref={buttonRef}
 				aria-checked={ariaChecked}
