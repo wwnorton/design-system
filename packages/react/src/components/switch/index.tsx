@@ -1,12 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import BaseButton, { BaseButtonProps } from '../BaseButton';
-import { noop, ClickEvent } from '../../../utilities/events';
+import BaseButton, { BaseButtonProps } from '../button/BaseButton';
+import { noop, ClickEvent } from '../../utilities/events';
 
-export interface ToggleButtonProps extends BaseButtonProps {
-	/** The button's initial "on" state. */
+export interface SwitchProps extends BaseButtonProps {
+	/** The switch's initial "on" state. */
 	on: boolean;
-	/** A function to call when the button is toggled. */
+	/** A function to call when the switch is toggled. */
 	onToggle: (event: ToggleEvent) => void;
 	/** Whether or not "on/off" should be visible in the control. */
 	textualState: boolean;
@@ -14,23 +14,23 @@ export interface ToggleButtonProps extends BaseButtonProps {
 	buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
-export interface ToggleButtonState {
-	/** The button's toggle state, which represents "on" or "off". */
+export interface SwitchState {
+	/** The switch's current state, which represents "on" or "off". */
 	on: boolean;
 }
 
 export interface ToggleEvent extends ClickEvent {
-	state: ToggleButtonState;
+	state: SwitchState;
 }
 
-export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButtonState> {
-	static defaultProps: Partial<ToggleButtonProps> = {
+export class Switch extends React.Component<SwitchProps, SwitchState> {
+	static defaultProps: Partial<SwitchProps> = {
 		on: false,
 		onToggle: noop,
 		textualState: true,
 	};
 
-	constructor(props: ToggleButtonProps) {
+	constructor(props: SwitchProps) {
 		super(props);
 
 		this.state = {
@@ -58,8 +58,7 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 		const ariaChecked = (on) ? 'true' : 'false';
 		const classes = classNames({
 			disabled,
-			button: true,
-			'button--toggle': true,
+			switch: true,
 		}, className);
 		// do nothing on click if the component is disabled
 		const onClick = (disabled) ? noop : this.toggle;
@@ -73,11 +72,11 @@ export class ToggleButton extends React.Component<ToggleButtonProps, ToggleButto
 				onClick={onClick}
 				{...attributes}
 			>
-				{ textualState && <div className="toggle-state" /> }
+				{ textualState && <div className="switch-state" /> }
 				{ children }
 			</BaseButton>
 		);
 	}
 }
 
-export default ToggleButton;
+export default Switch;

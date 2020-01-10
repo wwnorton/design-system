@@ -2,8 +2,7 @@ import * as React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 import '@nds/core/src/components/button/index.scss';
-import { Button, ButtonVariant, ToggleButton } from '.';
-// import { ButtonVariant } from './BaseButton';
+import { Button, ButtonVariant } from '.';
 
 export default {
 	title: 'Button',
@@ -26,15 +25,4 @@ export const Default = (): JSX.Element => (
 	>
 		Button
 	</Button>
-);
-
-export const toggleButton = (): JSX.Element => (
-	<ToggleButton
-		onToggle={action('onToggle')}
-		on={boolean('On', true)}
-		textualState={boolean('Textual state', true)}
-		disabled={boolean('Disabled', false)}
-	>
-		Toggle Button
-	</ToggleButton>
 );

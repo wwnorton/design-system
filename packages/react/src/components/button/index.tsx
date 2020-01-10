@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import BaseButton, { BaseButtonProps } from '../BaseButton';
+import BaseButton, { BaseButtonProps } from './BaseButton';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary';
 
