@@ -4,7 +4,9 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
-    - packages/*/node_modules/
+    - docs/node_modules/
+    - packages/core/node_modules/
+    - packages/react/node_modules/
 
 stages:
   - prepare
