@@ -36,9 +36,8 @@
   "main": "dist/js/index.js",
   "types": "dist/js/index.d.ts",
   "scripts": {
-    "build": "gulp build",
-    "dev": "gulp dev",
-    "storybook": "start-storybook"
+    "build": "echo all build scripts should be run from root",
+    "dev": "echo all dev scripts should be run from root"
   },
   "browserslist": [
     "> 1%",
@@ -48,16 +47,6 @@
     "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
-    "@types/lodash.debounce": "^4.0.6",
-    "autoprefixer": "^9.7.3",
-    "fibers": "^4.0.2",
-    "gulp": "^4.0.2",
-    "gulp-header": "^2.0.9",
-    "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-typescript": "^5.0.1",
-    "sass": "^1.24.0",
-    "typescript": "^3.7.4"
+    "@types/lodash.debounce": "^4.0.6"
   }
 }
