@@ -7,13 +7,13 @@ cache:
     - packages/**/node_modules/
 
 stages:
-  - install
+  - prepare
   - codequality
   # - test
   - build
 
 install:
-  stage: install
+  stage: prepare
   script:
     - npm install
     - npm run bootstrap
