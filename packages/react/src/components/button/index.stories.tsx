@@ -11,16 +11,16 @@ export default {
 };
 
 const variantOptions = {
-	Primary: 'primary',
-	Secondary: 'secondary',
-	Tertiary: 'tertiary',
+	Solid: 'solid',
+	Outline: 'outline',
+	Ghost: 'ghost',
 	None: undefined,
 };
 
 export const Default = (): JSX.Element => (
 	<Button
 		onClick={action('onClick')}
-		variant={select('Variant', variantOptions, 'primary') as ButtonVariant}
+		variant={select('Variant', variantOptions, 'solid') as ButtonVariant}
 		disabled={boolean('Disabled', false)}
 	>
 		Button

@@ -3,9 +3,9 @@
 $button-border-radius: 0.125rem !default;
 $button-border-width: 2px !default;
 $button-color-base: $gray !default;
-$button-color-primary: $button-color-base !default;
-$button-color-secondary: $button-color-base !default;
-$button-color-tertiary: $button-color-base !default;
+$button-color-solid: $button-color-base !default;
+$button-color-outline: $button-color-base !default;
+$button-color-ghost: $button-color-base !default;
 $button-font-family: $font-family-sans-serif !default;
 $button-font-size: 1rem !default;
 $button-font-weight: 700 !default;

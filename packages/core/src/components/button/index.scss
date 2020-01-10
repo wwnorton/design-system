@@ -6,17 +6,17 @@
 	@include button-base;
 }
 
-/* primary button */
-.button--primary {
-	@include button-primary();
+/* solid button */
+.button--solid {
+	@include button-solid();
 }
 
-/* secondary button */
-.button--secondary {
-	@include button-secondary();
+/* outline button */
+.button--outline {
+	@include button-outline();
 }
 
-/* tertiary button */
-.button--tertiary {
-	@include button-tertiary();
+/* ghost button */
+.button--ghost {
+	@include button-ghost();
 }

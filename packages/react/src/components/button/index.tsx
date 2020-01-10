@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import BaseButton, { BaseButtonProps } from './BaseButton';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary';
+export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
 export interface ButtonProps extends BaseButtonProps {
 	/** The base class name according to BEM conventions */
@@ -32,9 +32,9 @@ export class Button extends React.Component<ButtonProps> {
 		const classes = classNames(
 			{
 				[`${baseName}`]: true,
-				[`${baseName}--primary`]: variant === 'primary',
-				[`${baseName}--secondary`]: variant === 'secondary',
-				[`${baseName}--tertiary`]: variant === 'tertiary',
+				[`${baseName}--solid`]: variant === 'solid',
+				[`${baseName}--outline`]: variant === 'outline',
+				[`${baseName}--ghost`]: variant === 'ghost',
 			},
 			className,
 		);
