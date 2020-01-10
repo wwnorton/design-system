@@ -41,7 +41,7 @@ export class Disclosure extends React.Component<DisclosureProps, DisclosureState
 	public detailsRef: React.RefObject<HTMLDetailsElement>;
 
 	/* eslint-disable react/sort-comp */
-	public static bemBase: 'disclosure';
+	public static bemBase = 'disclosure';
 	public static bemElements: Record<DisclosureContent, string> = {
 		summary: 'summary',
 		detailsMarker: 'details-marker',
