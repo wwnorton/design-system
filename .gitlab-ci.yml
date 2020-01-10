@@ -1,13 +1,22 @@
 image: node:10
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - "**/node_modules/"
+
 stages:
+  - install
   - codequality
   # - test
   - build
 
-before_script:
-  - npm ci
-  - npm run bootstrap
+install:
+  stage: install
+  script:
+    - npm install
+    - npm run bootstrap
 
 eslint:
   stage: codequality
