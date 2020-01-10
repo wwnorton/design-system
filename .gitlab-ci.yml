@@ -41,7 +41,8 @@ build:
     - npm run build
   artifacts:
     paths:
-      - packages/*/dist
+      - packages/core/dist
+      - packages/react/dist
     expire_in: 30 days
 
 pages:
