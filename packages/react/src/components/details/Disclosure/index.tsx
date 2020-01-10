@@ -36,25 +36,28 @@ export interface DisclosureState {
 	open: boolean;
 }
 
-const BEM_BASE = 'disclosure';
-const BEM_ELEMENTS: Record<DisclosureContent, string> = {
-	summary: 'summary',
-	detailsMarker: 'details-marker',
-	contentsContainer: 'contents',
-};
-
 export class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
 	public coreDisclosure?: CoreDisclosure;
 	public detailsRef: React.RefObject<HTMLDetailsElement>;
+
+	/* eslint-disable react/sort-comp */
+	public static bemBase: 'disclosure';
+	public static bemElements: Record<DisclosureContent, string> = {
+		summary: 'summary',
+		detailsMarker: 'details-marker',
+		contentsContainer: 'contents',
+	}
+	/* eslint-enable react/sort-comp */
+
 	public static defaultProps = {
-		baseName: BEM_BASE,
+		baseName: Disclosure.bemBase,
 		animate: true,
 		open: false,
 		onToggle: noop,
 		detailsRef: React.createRef<HTMLDetailsElement>(),
-		summaryClass: `${BEM_BASE}__${BEM_ELEMENTS.summary}`,
-		markerClass: BEM_ELEMENTS.detailsMarker,
-		contentsClass: `${BEM_BASE}__${BEM_ELEMENTS.contentsContainer}`,
+		summaryClass: `${Disclosure.bemBase}__${Disclosure.bemElements.summary}`,
+		markerClass: Disclosure.bemElements.detailsMarker,
+		contentsClass: `${Disclosure.bemBase}__${Disclosure.bemElements.contentsContainer}`,
 	};
 
 	constructor(props: DisclosureProps) {
@@ -78,8 +81,6 @@ export class Disclosure extends React.Component<DisclosureProps, DisclosureState
 		await this.setState({ open: target.open });
 		if (onToggle) onToggle({ ...e, state: this.state });
 	}
-
-	private static bemElements = BEM_ELEMENTS;
 
 	render(): JSX.Element {
 		const {
