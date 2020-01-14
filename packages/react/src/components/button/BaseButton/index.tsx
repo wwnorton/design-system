@@ -1,33 +1,44 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { useActive } from '../../../utilities/hooks';
 
-export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	/** Whether the button is currently depressed. Polyfill for :active on keydown. */
+	active?: boolean;
+	/** A class to convey :active. */
+	activeClass?: string;
+}
+
+export const BaseButtonDefaults = {
+	active: false,
+	activeClass: 'active',
+};
 
 const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
+	active = BaseButtonDefaults.active,
+	activeClass = BaseButtonDefaults.activeClass,
 	onKeyDown,
 	onKeyUp,
+	onBlur,
 	className,
 	children,
 	...attributes
 }: BaseButtonProps, ref) => {
-	const [isActive, setActive] = React.useState(false);
+	const { active: stateActive, activate, deactivate } = useActive(active);
 
-	const activate = (cb?: React.DOMAttributes<HTMLButtonElement>['onKeyDown']) => (
-		e: React.KeyboardEvent<HTMLButtonElement>,
-	): void => {
-		if ('key' in e && e.key === ' ') {
-			setActive(true);
-		}
-		if (cb) cb(e);
+	const handleKeydown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
+		if (e.key === ' ') activate();
+		if (onKeyDown) onKeyDown(e);
 	};
 
-	const deactivate = (cb?: React.DOMAttributes<HTMLButtonElement>['onKeyUp']) => (
-		e: React.KeyboardEvent<HTMLButtonElement>,
-	): void => {
-		if ('key' in e && e.key === ' ') {
-			setActive(false);
-		}
-		if (cb) cb(e);
+	const handleKeyup = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
+		if (e.key === ' ') deactivate();
+		if (onKeyUp) onKeyUp(e);
+	};
+
+	const handleBlur = (e: React.FocusEvent<HTMLButtonElement>): void => {
+		deactivate();
+		if (onBlur) onBlur(e);
 	};
 
 	return (
@@ -38,9 +49,10 @@ const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 		 */
 		/* eslint-disable react/button-has-type */
 		<button
-			className={classNames({ active: isActive }, className)}
-			onKeyDown={activate(onKeyDown)}
-			onKeyUp={deactivate(onKeyUp)}
+			className={classNames({ [activeClass]: stateActive }, className)}
+			onKeyDown={handleKeydown}
+			onKeyUp={handleKeyup}
+			onBlur={handleBlur}
 			ref={ref}
 			{...attributes}
 		>
