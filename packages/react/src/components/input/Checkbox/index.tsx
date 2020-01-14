@@ -44,7 +44,7 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
 	errorClass?: string;
 	/** Whether the valid state should be update on `change` events. */
 	validateOnChange?: string;
-	/** A reference to the inner `<details>` element. */
+	/** A reference to the inner `<input>` element. */
 	checkboxRef?: React.RefObject<HTMLInputElement>;
 	/** Mark the checkbox as indeterminate. */
 	mixed?: boolean;
