@@ -100,7 +100,7 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		const { onChange, checkboxRef, validateOnChange } = this.props;
 		if (checkboxRef && checkboxRef.current) {
 			const { checked } = checkboxRef.current;
-			this.setState({ checked });
+			await this.setState({ checked });
 		}
 		if (validateOnChange) await this.validate();
 		if (onChange) onChange(event);
