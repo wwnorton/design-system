@@ -12,6 +12,8 @@ stages:
   - prepare
   - codequality
   - build
+  - test
+  # - deploy
 
 install:
   stage: prepare
@@ -33,13 +35,6 @@ prettier:
   stage: codequality
   script:
     - npm run lint:prettier
-
-test:unit:
-  stage: codequality
-  before_script:
-    - npm run bootstrap
-  script:
-    - npm run test
 
 build:
   stage: build
@@ -64,3 +59,10 @@ pages:
       - public
   only:
     - master
+
+test:unit:
+  stage: test
+  script:
+    - npm run test
+  dependencies:
+    - build
