@@ -45,7 +45,7 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
 	/** Whether the valid state should be update on `change` events. */
 	validateOnChange?: string;
 	/** A reference to the inner `<details>` element. */
-	checkboxRef?: React.Ref<HTMLInputElement>;
+	checkboxRef?: React.RefObject<HTMLInputElement>;
 	/** Mark the checkbox as indeterminate. */
 	mixed?: boolean;
 	/** Triggered any time the validity of the `<input>` is checked. */
@@ -97,7 +97,11 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	}
 
 	onChange = async (event: CheckboxChangeEvent): Promise<void> => {
-		const { onChange, validateOnChange } = this.props;
+		const { onChange, checkboxRef, validateOnChange } = this.props;
+		if (checkboxRef && checkboxRef.current) {
+			const { checked } = checkboxRef.current;
+			this.setState({ checked });
+		}
 		if (validateOnChange) await this.validate();
 		if (onChange) onChange(event);
 	}
@@ -111,7 +115,6 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		 */
 		const classes = classNames({
 			[`${labelClass}--mixed`]: mixed,
-			[`${labelClass}--checkmark`]: !mixed,
 		}, labelClass);
 		const labelProps = {
 			htmlFor: this.uid,
