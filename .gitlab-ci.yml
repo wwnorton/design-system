@@ -11,7 +11,6 @@ cache:
 stages:
   - prepare
   - codequality
-  # - test
   - build
 
 install:
@@ -34,6 +33,11 @@ prettier:
   stage: codequality
   script:
     - npm run lint:prettier
+
+test:unit:
+  stage: codequality
+  script:
+    - npm run test
 
 build:
   stage: build
