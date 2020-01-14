@@ -11,8 +11,9 @@ cache:
 stages:
   - prepare
   - codequality
-  # - test
   - build
+  - test
+  # - deploy
 
 install:
   stage: prepare
@@ -58,3 +59,10 @@ pages:
       - public
   only:
     - master
+
+test:unit:
+  stage: test
+  script:
+    - npm run test
+  dependencies:
+    - build
