@@ -36,6 +36,8 @@ prettier:
 
 test:unit:
   stage: codequality
+  before_script:
+    - npm run bootstrap
   script:
     - npm run test
 
