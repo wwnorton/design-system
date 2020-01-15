@@ -105,7 +105,7 @@ test('BaseButton: event callbacks are triggered in addition to internal activati
 	t.is(btn.props.children, actions.blur);
 });
 
-test('BaseButton: a custom `defaultActiveClass` is set on keydown.space', (t) => {
+test('BaseButton: a custom `activeClass` is set on keydown.space', (t) => {
 	const active = 'custom-active';
 	const component = renderer.create(<BaseButton activeClass={active} />);
 	const btn = component.root.findByType('button');
