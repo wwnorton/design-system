@@ -12,54 +12,8 @@ test('BaseButton: renders its defaults', (t) => {
 	t.snapshot(component.toJSON());
 });
 
-test('BaseButton: keydown.space adds the `active` class', (t) => {
-	const component = renderer.create(<BaseButton />);
-	const btn = component.root.findByType('button');
-	btn.props.onKeyDown({ key: ' ' });
-	t.is(btn.props.className, defaultActiveClass);
-	t.snapshot(component.toJSON());
-});
-
-test('BaseButton: non-space keydown does not add the `active` class', (t) => {
-	const component = renderer.create(<BaseButton />);
-	const btn = component.root.findByType('button');
-	btn.props.onKeyDown({ key: 'Enter' });
-	t.not(btn.props.className, defaultActiveClass);
-	t.snapshot(component.toJSON());
-});
-
-test('BaseButton: keyup.space removes the `active` class', (t) => {
-	const component = renderer.create(<BaseButton />);
-	const btn = component.root.findByType('button');
-	btn.props.onKeyDown({ key: ' ' });
-	t.is(btn.props.className, defaultActiveClass);
-	btn.props.onKeyUp({ key: ' ' });
-	t.is(btn.props.className, '');
-	t.snapshot(component.toJSON());
-});
-
-test('BaseButton: non-space keyup does not remove the `active` class', (t) => {
-	const component = renderer.create(<BaseButton />);
-	const btn = component.root.findByType('button');
-	btn.props.onKeyDown({ key: ' ' });
-	t.is(btn.props.className, defaultActiveClass);
-	btn.props.onKeyUp({ key: 'Enter' });
-	t.is(btn.props.className, defaultActiveClass);
-	t.snapshot(component.toJSON());
-});
-
-test('BaseButton: blur removes the `active` class', (t) => {
-	const component = renderer.create(<BaseButton />);
-	const btn = component.root.findByType('button');
-	btn.props.onKeyDown({ key: ' ' });
-	t.is(btn.props.className, defaultActiveClass);
-	btn.props.onBlur();
-	t.is(btn.props.className, '');
-	t.snapshot(component.toJSON());
-});
-
 test('BaseButton: event callbacks are triggered in addition to internal activation behavior', (t) => {
-	t.plan(8);
+	t.plan(13);
 	const actions = {
 		keydown: 'keydown',
 		keyup: 'keyup',
@@ -71,7 +25,6 @@ test('BaseButton: event callbacks are triggered in addition to internal activati
 
 		return (
 			<BaseButton
-				data-current={current}
 				onKeyDown={update(actions.keydown)}
 				onKeyUp={update(actions.keyup)}
 				onBlur={update(actions.blur)}
@@ -81,6 +34,8 @@ test('BaseButton: event callbacks are triggered in addition to internal activati
 		);
 	};
 	const component = renderer.create(<ButtonTest />);
+	t.snapshot(component.toJSON(), 'initial render');
+
 	const btn = component.root.findByType('button');
 
 	const activate = (): void => {
@@ -91,18 +46,54 @@ test('BaseButton: event callbacks are triggered in addition to internal activati
 	};
 
 	activate();
+	t.snapshot(component.toJSON(), 'first keydown.space');
 
 	// trigger keyup and check className & contents
 	btn.props.onKeyUp({ key: ' ' });
 	t.is(btn.props.className, '');
 	t.is(btn.props.children, actions.keyup);
+	t.snapshot(component.toJSON(), 'keyup.space');
 
 	activate();
+	t.snapshot(component.toJSON(), 'second keydown.space');
 
 	// trigger blur and check className & contents
 	btn.props.onBlur();
 	t.is(btn.props.className, '');
 	t.is(btn.props.children, actions.blur);
+	t.snapshot(component.toJSON(), 'blur');
+});
+
+test('BaseButton: blur removes the `active` class', (t) => {
+	const component = renderer.create(<BaseButton />);
+	const btn = component.root.findByType('button');
+	btn.props.onKeyDown({ key: ' ' });
+	t.is(btn.props.className, defaultActiveClass);
+	t.snapshot(component.toJSON(), 'keydown.space');
+
+	btn.props.onBlur();
+	t.is(btn.props.className, '');
+	t.snapshot(component.toJSON(), 'blur');
+});
+
+test('BaseButton: non-space keydown does not add the `active` class', (t) => {
+	const component = renderer.create(<BaseButton />);
+	const btn = component.root.findByType('button');
+	btn.props.onKeyDown({ key: 'Enter' });
+	t.not(btn.props.className, defaultActiveClass);
+	t.snapshot(component.toJSON(), 'keydown.enter');
+});
+
+test('BaseButton: non-space keyup does not remove the `active` class', (t) => {
+	const component = renderer.create(<BaseButton />);
+	const btn = component.root.findByType('button');
+	btn.props.onKeyDown({ key: ' ' });
+	t.is(btn.props.className, defaultActiveClass);
+	t.snapshot(component.toJSON(), 'keydown.space');
+
+	btn.props.onKeyUp({ key: 'Enter' });
+	t.is(btn.props.className, defaultActiveClass);
+	t.snapshot(component.toJSON(), 'keyup.enter');
 });
 
 test('BaseButton: a custom `activeClass` is set on keydown.space', (t) => {
