@@ -5,7 +5,7 @@ import { BaseInput } from '../input/BaseInput';
 import { noop } from '../../utilities/events';
 
 const DICTIONARY = {
-	PREFIX: '-nds',
+	PREFIX: 'nds-',
 	CHECKBOX: 'checkbox',
 	INPUT: 'input',
 };
