@@ -64,7 +64,7 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
 	onChange: (event: CheckboxChangeEvent) => void;
 }
 
-export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	private uid: string = uniqueId(`${DICTIONARY.PREFIX}${DICTIONARY.CHECKBOX}-`);
 	static defaultProps = {
 		baseName: 'checkbox',
