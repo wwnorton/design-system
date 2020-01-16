@@ -1,8 +1,14 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { BaseInput, DICTIONARY } from '../BaseInput';
-import { noop } from '../../../utilities/events';
+import { BaseInput } from '../input/BaseInput';
+import { noop } from '../../utilities/events';
+
+const DICTIONARY = {
+	PREFIX: '-nds',
+	CHECKBOX: 'checkbox',
+	INPUT: 'input',
+};
 
 /**
  * BEM element names inside this component. These values will be used to
@@ -43,7 +49,7 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
 	/** The className for the Checkbox's error container. */
 	errorClass?: string;
 	/** Whether the valid state should be update on `change` events. */
-	validateOnChange?: string;
+	validateOnChange?: boolean;
 	/** A reference to the inner `<input>` element. */
 	checkboxRef?: React.RefObject<HTMLInputElement>;
 	/** Mark the checkbox as indeterminate. */
