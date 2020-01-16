@@ -5,7 +5,7 @@ import {
 	boolean,
 	text,
 } from '@storybook/addon-knobs';
-import { Checkbox } from '.';
+import Checkbox from '.';
 
 export default {
 	title: 'Checkbox',
