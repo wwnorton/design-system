@@ -186,6 +186,7 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
 		const classes = classNames({
 			[`${DICTIONARY.CHECKBOX}__${DICTIONARY.INPUT}`]: true,
+			[`${DICTIONARY.CHECKBOX}__${DICTIONARY.INPUT}--error`]: error && !valid,
 		}, className);
 
 		return (
