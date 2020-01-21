@@ -20,6 +20,7 @@ export const CheckboxDefault = (): JSX.Element => (
 	<Checkbox
 		label={text('Label', 'Checkbox')}
 		disabled={boolean('Disabled', false)}
+		mixed={boolean('Mixed', false)}
 		help={text('Help', 'Help Text')}
 		error={text('Error', 'This must be selected in order to proceed.')}
 		required={boolean('Required', false)}
