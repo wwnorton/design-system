@@ -22,7 +22,7 @@ export const CheckboxDefault = (): JSX.Element => (
 		disabled={boolean('Disabled', false)}
 		mixed={boolean('Mixed', false)}
 		help={text('Help', 'Help Text')}
-		error={text('Error', 'This must be selected in order to proceed.')}
+		error={text('Error', 'Error Text')}
 		required={boolean('Required', false)}
 		validateOnChange={boolean('Validate on change', defaultProps.validateOnChange)}
 		onValidate={action('onValidate')}
