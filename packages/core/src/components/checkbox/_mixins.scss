@@ -36,6 +36,7 @@
 
 @mixin checkbox-control-error {
 	background-color: $checkbox-bg-unchecked-error;
+	border: $checkbox-border-width solid $checkbox-border-color-error;
 }
 
 @mixin checkbox-control-checked {

@@ -25,6 +25,10 @@
 	@include checkbox-control;
 }
 
+.checkbox__input--error + .checkbox__label::before {
+	@include checkbox-control-error;
+}
+
 .checkbox__input:focus + .checkbox__label::before {
 	@include focus-indicator;
 }
