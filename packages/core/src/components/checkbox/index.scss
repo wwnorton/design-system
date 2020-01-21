@@ -1,0 +1,30 @@
+@import './tokens';
+@import './mixins';
+
+.checkbox {
+	@include checkbox-container;
+}
+
+.checkbox__error {
+	@include checkbox-error;
+}
+
+.checkbox__help {
+	@include checkbox-help;
+}
+
+.checkbox__input {
+	@include checkbox-input;
+}
+
+.checkbox__label {
+	@include checkbox-label;
+}
+
+.checkbox__label::before {
+	@include checkbox-control;
+}
+
+.checkbox .checkbox__input:checked + .checkbox__label::before {
+	@include checkbox-control-checked;
+}

@@ -1,0 +1,44 @@
+@import '../../globals/scss/tokens';
+
+
+// .checkbox__label:before element
+$checkbox-bg-checked: #1a8082 !default;
+$checkbox-bg-checked-disabled: #63768a !default;
+$checkbox-bg-checked-error: #c93f3c !default;
+$checkbox-bg-unchecked: #fdfdfd !default;
+$checkbox-bg-unchecked-disabled: #ced7e0 !default;
+$checkbox-bg-unchecked-error: #fff2f2 !default;
+$checkbox-border-color: #8493a3 !default;
+$checkbox-border-color-error: #c93f3c !default;
+$checkbox-border-radius: 2px !default;
+$checkbox-border-width: 2px !default;
+$checkbox-gap: 0.5rem !default;
+$checkbox-glyph-color: #fff !default;
+$checkbox-height: 1rem !default;
+$checkbox-width: 1rem !default;
+
+// glyphs
+$checkbox-checkmark: url('data:image/svg+xml; utf8,<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" class="svg-inline--fa fa-check fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="white" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg>') !default;
+$checkbox-indeterminate: url('data:image/svg+xml;utf8,<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="minus" class="svg-inline--fa fa-minus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="white" d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>') !default;
+
+// Container element
+$checkbox-container-font-family: $font-family-sans-serif !default;
+$checkbox-container-line-height: 1.25 !default;
+$checkbox-container-padding: calc(#{$checkbox-width} + #{$checkbox-gap}) !default;
+
+// Error element
+$checkbox-error-color: #c93f3c !default;
+$checkbox-error-font-size: 0.875rem !default;
+$checkbox-error-font-style: italic !default;
+$checkbox-error-font-weight: 600 !default;
+$checkbox-error-letter-spacing: 0.00875rem !default;
+
+// Help element
+$checkbox-help-color: #63768a !default;
+$checkbox-help-font-size: 0.875rem !default;
+$checkbox-help-letter-spacing: 0.00875rem !default;
+
+// Label Element
+$checkbox-label-color: #243547 !default;
+$checkbox-label-font-size: 1rem !default;
+$checkbox-label-letter-spacing: 0.01rem !default;
