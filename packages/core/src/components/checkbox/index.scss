@@ -25,6 +25,26 @@
 	@include checkbox-control;
 }
 
-.checkbox .checkbox__input:checked + .checkbox__label::before {
+.checkbox__input:focus + .checkbox__label::before {
+	@include focus-indicator;
+}
+
+.checkbox__input:checked + .checkbox__label::before {
 	@include checkbox-control-checked;
+}
+
+.checkbox__input:disabled + .checkbox__label::before {
+	@include checkbox-control-disabled;
+}
+
+.checkbox__input:disabled + .checkbox__label {
+	@include checkbox-label-disabled;
+}
+
+.checkbox__input:disabled:checked + .checkbox__label::before {
+	@include checkbox-control-checked-disabled;
+}
+
+.checkbox__input:checked + .checkbox__label--mixed::before {
+	@include checkbox-indeterminate;
 }
