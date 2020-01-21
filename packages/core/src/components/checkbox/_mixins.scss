@@ -46,6 +46,7 @@
 
 @mixin checkbox-control-checked-disabled {
 	background-color: $checkbox-bg-checked-disabled;
+	border: $checkbox-border-width solid $checkbox-bg-checked-disabled;
 }
 
 @mixin checkbox-control-checked-error {
@@ -57,6 +58,11 @@
 	color: $checkbox-label-color;
 	letter-spacing: $checkbox-label-letter-spacing;
 	vertical-align: top;
+	cursor: $checkbox-cursor;
+}
+
+@mixin checkbox-label-disabled {
+	cursor: $checkbox-cursor-disabled;
 }
 
 @mixin checkbox-help {
