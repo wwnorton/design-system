@@ -41,10 +41,6 @@
 	@include checkbox-control-disabled;
 }
 
-.checkbox__input:disabled + .checkbox__label {
-	@include checkbox-label-disabled;
-}
-
 .checkbox__input:disabled:checked + .checkbox__label::before {
 	@include checkbox-control-checked-disabled;
 }
