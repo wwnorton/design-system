@@ -53,7 +53,7 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
 	/** A reference to the inner `<input>` element. */
 	checkboxRef?: React.RefObject<HTMLInputElement>;
 	/** Mark the checkbox as indeterminate. */
-	mixed?: boolean;
+	indeterminate?: boolean;
 	/** Triggered any time the validity of the `<input>` is checked. */
 	onValidate: (state: CheckboxState) => void;
 	/**
@@ -80,7 +80,7 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		validateOnChange: true,
 		onChange: noop,
 		onValidate: noop,
-		mixed: false,
+		indeterminate: false,
 		required: true,
 		checkboxRef: React.createRef<HTMLInputElement>(),
 	};
@@ -114,18 +114,11 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	}
 
 	private Label(value: string | JSX.Element): JSX.Element {
-		const { labelClass, mixed } = this.props;
-		/**
-		 * Determine how to fill the checkbox when the input element is checked.
-		 * The checkbox sighted users will see will be a `:before` element on the <label>.
-		 * If the component has the "mixed" prop, an em-dash will be used in place of a checkmark.
-		 */
-		const classes = classNames({
-			[`${labelClass}--mixed`]: mixed,
-		}, labelClass);
+		const { labelClass } = this.props;
+
 		const labelProps = {
 			htmlFor: this.uid,
-			className: classes,
+			className: labelClass,
 		};
 		if (typeof value !== 'string' && value.type().type === 'label') {
 			return React.cloneElement(value, labelProps);
@@ -179,7 +172,7 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			baseName, labelClass, helpClass, onValidate,
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			errorClass, validateOnChange, mixed, onChange,
+			errorClass, validateOnChange, indeterminate, onChange,
 			...attributes
 		} = this.props;
 
@@ -189,6 +182,11 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 			[`${DICTIONARY.CHECKBOX}__${DICTIONARY.INPUT}`]: true,
 			[`${DICTIONARY.CHECKBOX}__${DICTIONARY.INPUT}--error`]: error && !valid,
 		}, className);
+
+		/** `indeterminate` is a property, not an attribute. It must be toggled on the ref. */
+		if (checkboxRef && checkboxRef.current) {
+			checkboxRef.current.indeterminate = !!indeterminate;
+		}
 
 		return (
 			<div className={DICTIONARY.CHECKBOX}>
