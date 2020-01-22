@@ -23,7 +23,7 @@ export const CheckboxDefault = (): JSX.Element => (
 		mixed={boolean('Mixed', false)}
 		help={text('Help', 'Help Text')}
 		error={text('Error', 'Error Text')}
-		required={boolean('Required', false)}
+		required={boolean('Required', true)}
 		validateOnChange={boolean('Validate on change', defaultProps.validateOnChange)}
 		onValidate={action('onValidate')}
 	/>
