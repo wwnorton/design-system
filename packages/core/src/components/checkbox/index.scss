@@ -29,6 +29,7 @@
 	@include checkbox-control-error;
 }
 
+.checkbox__input.focus + .checkbox__label::before,
 .checkbox__input:focus + .checkbox__label::before {
 	@include focus-indicator;
 }
@@ -41,10 +42,11 @@
 	@include checkbox-control-disabled;
 }
 
-.checkbox__input:disabled:checked + .checkbox__label::before {
-	@include checkbox-control-checked-disabled;
+.checkbox__input.indeterminate + .checkbox__label::before,
+.checkbox__input:indeterminate + .checkbox__label::before {
+	@include checkbox-indeterminate;
 }
 
-.checkbox__input:checked + .checkbox__label--mixed::before {
-	@include checkbox-indeterminate;
+.checkbox__input:disabled:checked + .checkbox__label::before {
+	@include checkbox-control-checked-disabled;
 }
