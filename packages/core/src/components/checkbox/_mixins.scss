@@ -25,6 +25,8 @@
 	overflow: hidden;
 	content: '';
 	background-color: $checkbox-bg-unchecked;
+	background-repeat: no-repeat;
+	background-position: center;
 	border: $checkbox-border-width solid $checkbox-border-color;
 	border-radius: $checkbox-border-radius;
 }
@@ -39,8 +41,8 @@
 }
 
 @mixin checkbox-control-checked {
-	content: $checkbox-checkmark;
 	background-color: $checkbox-bg-checked;
+	background-image: $checkbox-checkmark;
 	border: $checkbox-border-width solid $checkbox-bg-checked;
 }
 
@@ -61,10 +63,6 @@
 	cursor: $checkbox-cursor;
 }
 
-@mixin checkbox-label-disabled {
-	cursor: $checkbox-cursor-disabled;
-}
-
 @mixin checkbox-help {
 	font-size: $checkbox-help-font-size;
 	color: $checkbox-help-color;
@@ -80,5 +78,5 @@
 }
 
 @mixin checkbox-indeterminate {
-	content: $checkbox-indeterminate;
+	background-image: $checkbox-indeterminate;
 }
