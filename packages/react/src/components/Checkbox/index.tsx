@@ -77,10 +77,11 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		get errorClass(): string {
 			return `${this.baseName}__${CHECKBOX_ELEMENTS.ERROR}`;
 		},
-		validateOnChange: false,
+		validateOnChange: true,
 		onChange: noop,
 		onValidate: noop,
 		mixed: false,
+		required: true,
 		checkboxRef: React.createRef<HTMLInputElement>(),
 	};
 
