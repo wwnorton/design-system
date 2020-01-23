@@ -1,15 +1,14 @@
 @import '../../globals/scss/tokens';
 
-
 // .checkbox__label:before element
-$checkbox-bg-checked: #1a8082 !default;
-$checkbox-bg-checked-disabled: #63768a !default;
-$checkbox-bg-checked-error: #c93f3c !default;
-$checkbox-bg-unchecked: #fdfdfd !default;
-$checkbox-bg-unchecked-disabled: #ced7e0 !default;
-$checkbox-bg-unchecked-error: #fff2f2 !default;
-$checkbox-border-color: #8493a3 !default;
-$checkbox-border-color-error: #c93f3c !default;
+$checkbox-bg-checked: $teal !default;
+$checkbox-bg-checked-disabled: $navy !default;
+$checkbox-bg-checked-error: $color-error !default;
+$checkbox-bg-unchecked: $white !default;
+$checkbox-bg-unchecked-disabled: $navy !default;
+$checkbox-bg-unchecked-error: $color-error !default;
+$checkbox-border-color: $navy !default;
+$checkbox-border-color-error: $color-error !default;
 $checkbox-border-radius: 2px !default;
 $checkbox-border-width: 2px !default;
 $checkbox-gap: 0.75rem !default;
@@ -26,19 +25,19 @@ $checkbox-container-line-height: 1.25 !default;
 $checkbox-container-padding: calc(#{$checkbox-width} + #{$checkbox-gap}) !default;
 
 // Error element
-$checkbox-error-color: #c93f3c !default;
+$checkbox-error-color: $color-error !default;
 $checkbox-error-font-size: 0.875rem !default;
 $checkbox-error-font-style: italic !default;
 $checkbox-error-font-weight: 600 !default;
 $checkbox-error-letter-spacing: 0.00875rem !default;
 
 // Help element
-$checkbox-help-color: #63768a !default;
+$checkbox-help-color: $navy !default;
 $checkbox-help-font-size: 0.875rem !default;
 $checkbox-help-letter-spacing: 0.00875rem !default;
 
 // Label Element
-$checkbox-label-color: #243547 !default;
+$checkbox-label-color: $black !default;
 $checkbox-label-font-size: 1rem !default;
 $checkbox-label-letter-spacing: 0.01rem !default;
 
