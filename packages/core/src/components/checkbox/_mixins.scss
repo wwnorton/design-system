@@ -51,15 +51,11 @@
 @mixin checkbox-label {
 	font-size: $checkbox-label-font-size;
 	color: $checkbox-label-color;
-	letter-spacing: $checkbox-label-letter-spacing;
-	vertical-align: top;
-	cursor: $checkbox-cursor;
 }
 
 @mixin checkbox-help {
 	font-size: $checkbox-help-font-size;
 	color: map-get($checkbox-help-color, 60);
-	letter-spacing: $checkbox-help-letter-spacing;
 }
 
 @mixin checkbox-error {
@@ -67,7 +63,6 @@
 	font-style: $checkbox-error-font-style;
 	font-weight: $checkbox-error-font-weight;
 	color: map-get($checkbox-error-color, 60);
-	letter-spacing: $checkbox-error-letter-spacing;
 }
 
 @mixin checkbox-indeterminate {
