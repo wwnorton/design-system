@@ -9,13 +9,6 @@
 	line-height: $checkbox-container-line-height;
 }
 
-@mixin checkbox-input {
-	position: absolute;
-	width: 0;
-	height: 0;
-	opacity: 0;
-}
-
 @mixin checkbox-control {
 	position: absolute;
 	left: 0;

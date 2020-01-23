@@ -1,5 +1,6 @@
 @import './tokens';
 @import './mixins';
+@import '../../globals/scss/mixins/screen-reader';
 
 .checkbox {
 	@include checkbox-container;
@@ -14,7 +15,7 @@
 }
 
 .checkbox__input {
-	@include checkbox-input;
+	@include sr-only;
 }
 
 .checkbox__label {
