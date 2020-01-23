@@ -26,7 +26,7 @@
 	@include checkbox-control;
 }
 
-.checkbox__input--error + .checkbox__label::before {
+.checkbox__input[aria-invalid=true] + .checkbox__label::before {
 	@include checkbox-control-error;
 }
 

@@ -66,6 +66,8 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
 
 class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	private uid: string = uniqueId(`${DICTIONARY.PREFIX}${DICTIONARY.CHECKBOX}-`);
+	private descId = `${this.uid}-desc`;
+	private errId = `${this.uid}-err`;
 	static defaultProps = {
 		baseName: 'checkbox',
 		get labelClass(): string {
@@ -135,6 +137,7 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		const { helpClass } = this.props;
 		const helpProps = {
 			className: helpClass,
+			id: this.descId,
 		};
 		if (typeof value !== 'string') {
 			return React.cloneElement(value, helpProps);
@@ -150,6 +153,8 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		const { errorClass } = this.props;
 		const errorProps = {
 			className: errorClass,
+			id: this.errId,
+			role: 'alert',
 		};
 		if (typeof value !== 'string') {
 			return React.cloneElement(value, errorProps);
@@ -180,7 +185,6 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
 		const classes = classNames({
 			[`${DICTIONARY.CHECKBOX}__${DICTIONARY.INPUT}`]: true,
-			[`${DICTIONARY.CHECKBOX}__${DICTIONARY.INPUT}--error`]: error && !valid,
 		}, className);
 
 		/** `indeterminate` is a property, not an attribute. It must be toggled on the ref. */
@@ -195,6 +199,9 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 					ref={checkboxRef}
 					onChange={this.onChange}
 					id={this.uid}
+					aria-describedby={(help) ? this.descId : undefined}
+					aria-invalid={(!valid) ? 'true' : undefined}
+					aria-errormessage={(error && !valid) ? this.errId : undefined}
 					className={classes}
 					{...attributes}
 				/>
