@@ -39,6 +39,7 @@
 	@include checkbox-control-checked;
 }
 
+.checkbox__input.disabled + .checkbox__label::before,
 .checkbox__input:disabled + .checkbox__label::before {
 	@include checkbox-control-disabled;
 }

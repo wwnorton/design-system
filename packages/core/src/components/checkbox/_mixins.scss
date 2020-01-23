@@ -25,6 +25,7 @@
 }
 
 @mixin checkbox-control-disabled {
+	cursor: not-allowed;
 	background-color: map-get($checkbox-bg-unchecked-disabled, 30);
 }
 
