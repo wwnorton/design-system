@@ -1,0 +1,54 @@
+@import './tokens';
+@import './mixins';
+@import '../../globals/scss/mixins/screen-reader';
+
+.checkbox {
+	@include checkbox-container;
+}
+
+.checkbox__error {
+	@include checkbox-error;
+}
+
+.checkbox__help {
+	@include checkbox-help;
+}
+
+.checkbox__input {
+	@include sr-only;
+}
+
+.checkbox__label {
+	@include checkbox-label;
+}
+
+.checkbox__label::before {
+	@include checkbox-control;
+}
+
+.checkbox__input[aria-invalid=true] + .checkbox__label::before {
+	@include checkbox-control-error;
+}
+
+.checkbox__input.focus + .checkbox__label::before,
+.checkbox__input:focus + .checkbox__label::before {
+	@include focus-indicator;
+}
+
+.checkbox__input:checked + .checkbox__label::before {
+	@include checkbox-control-checked;
+}
+
+.checkbox__input.disabled + .checkbox__label::before,
+.checkbox__input:disabled + .checkbox__label::before {
+	@include checkbox-control-disabled;
+}
+
+.checkbox__input.indeterminate + .checkbox__label::before,
+.checkbox__input:indeterminate + .checkbox__label::before {
+	@include checkbox-indeterminate;
+}
+
+.checkbox__input:disabled:checked + .checkbox__label::before {
+	@include checkbox-control-checked-disabled;
+}

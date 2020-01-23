@@ -1,0 +1,71 @@
+@import './tokens';
+@import '../../globals/scss/functions';
+@import '../../globals/scss/mixins';
+
+@mixin checkbox-container {
+	padding-right: $checkbox-container-padding;
+	padding-left: $checkbox-container-padding;
+	font-family: $checkbox-container-font-family;
+	line-height: $checkbox-container-line-height;
+}
+
+@mixin checkbox-control {
+	position: absolute;
+	left: 0;
+	display: inline-block;
+	width: $checkbox-width;
+	height: $checkbox-height;
+	overflow: hidden;
+	content: '';
+	background-color: $checkbox-bg-unchecked;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: $checkbox-border-width solid map-get($checkbox-border-color, 60);
+	border-radius: $checkbox-border-radius;
+}
+
+@mixin checkbox-control-disabled {
+	cursor: not-allowed;
+	background-color: map-get($checkbox-bg-unchecked-disabled, 30);
+}
+
+@mixin checkbox-control-error {
+	background-color: map-get($checkbox-bg-unchecked-error, 60);
+	border: $checkbox-border-width solid map-get($checkbox-border-color-error, 60);
+}
+
+@mixin checkbox-control-checked {
+	background-color: map-get($checkbox-bg-checked, 60);
+	background-image: $checkbox-checkmark;
+	border: $checkbox-border-width solid map-get($checkbox-bg-checked, 60);
+}
+
+@mixin checkbox-control-checked-disabled {
+	background-color: map-get($checkbox-bg-checked-disabled, 60);
+	border: $checkbox-border-width solid map-get($checkbox-bg-checked-disabled, 60);
+}
+
+@mixin checkbox-control-checked-error {
+	background-color: map-get($checkbox-bg-checked-error, 60);
+}
+
+@mixin checkbox-label {
+	font-size: $checkbox-label-font-size;
+	color: $checkbox-label-color;
+}
+
+@mixin checkbox-help {
+	font-size: $checkbox-help-font-size;
+	color: map-get($checkbox-help-color, 60);
+}
+
+@mixin checkbox-error {
+	font-size: $checkbox-error-font-size;
+	font-style: $checkbox-error-font-style;
+	font-weight: $checkbox-error-font-weight;
+	color: map-get($checkbox-error-color, 60);
+}
+
+@mixin checkbox-indeterminate {
+	background-image: $checkbox-indeterminate;
+}
