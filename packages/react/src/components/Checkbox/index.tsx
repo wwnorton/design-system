@@ -65,10 +65,6 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		indeterminate: false,
 		includeDefaultValidators: true,
 		baseName: Checkbox.bemBase,
-		labelClass: `${Checkbox.bemBase}__${Checkbox.bemElements.label}`,
-		helpClass: `${Checkbox.bemBase}__${Checkbox.bemElements.help}`,
-		inputClass: `${Checkbox.bemBase}__${Checkbox.bemElements.input}`,
-		errorClass: `${Checkbox.bemBase}__${Checkbox.bemElements.error}`,
 	};
 
 	constructor(props: CheckboxProps) {
@@ -118,7 +114,7 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 			label,
 			baseName,
 			required,
-			labelClass,
+			labelClass = `${baseName}__${Checkbox.bemElements.label}`,
 		} = this.props;
 		if (isElement(label, 'label')) {
 			return React.cloneElement(label as JSX.Element, { htmlFor: this.uid });
@@ -134,14 +130,14 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
 	/** The text field's help/description element. */
 	private get Help(): JSX.Element | null {
-		const { help, helpClass } = this.props;
+		const { baseName, help, helpClass = `${baseName}__${Checkbox.bemElements.help}` } = this.props;
 		if (!help) return null;
 		return <div className={helpClass} id={this.descId}>{ help }</div>;
 	}
 
 	/** An unordered list of validation errors. */
 	private get Error(): JSX.Element | null {
-		const { errorClass } = this.props;
+		const { baseName, errorClass = `${baseName}__${Checkbox.bemElements.error}` } = this.props;
 		const { errors } = this.state;
 		if (!errors.length) return null;
 		return (
@@ -159,7 +155,8 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	render(): JSX.Element {
 		const {
 			// classes
-			className, baseName, inputClass,
+			className, baseName,
+			inputClass = `${baseName}__${Checkbox.bemElements.input}`,
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			labelClass, helpClass, errorClass,
 			// contents

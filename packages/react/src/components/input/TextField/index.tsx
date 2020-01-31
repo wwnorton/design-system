@@ -93,12 +93,6 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 		counter: ({ remaining, max }) => `${remaining}/${max} characters remaining.`,
 		includeDefaultValidators: true,
 		baseName: TextField.bemBase,
-		labelClass: `${TextField.bemBase}__${TextField.bemElements.label}`,
-		helpClass: `${TextField.bemBase}__${TextField.bemElements.help}`,
-		inputClass: `${TextField.bemBase}__${TextField.bemElements.input}`,
-		feedbackClass: `${TextField.bemBase}__${TextField.bemElements.feedback}`,
-		errorClass: `${TextField.bemBase}__${TextField.bemElements.error}`,
-		counterClass: `${TextField.bemBase}__${TextField.bemElements.counter}`,
 	}
 
 	constructor(props: TextFieldProps) {
@@ -130,7 +124,7 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 			label,
 			baseName,
 			required,
-			labelClass,
+			labelClass = `${baseName}__${TextField.bemElements.label}`,
 		} = this.props;
 		if (isElement(label, 'label')) {
 			return React.cloneElement(label as JSX.Element, { htmlFor: this.uid });
@@ -146,14 +140,14 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 
 	/** The text field's help/description element. */
 	private get Help(): JSX.Element | null {
-		const { help, helpClass } = this.props;
+		const { baseName, help, helpClass = `${baseName}__${TextField.bemElements.help}` } = this.props;
 		if (!help) return null;
 		return <div className={helpClass} id={this.descId}>{ help }</div>;
 	}
 
 	/** An unordered list of validation errors. */
 	private get Error(): JSX.Element | null {
-		const { errorClass } = this.props;
+		const { baseName, errorClass = `${baseName}__${TextField.bemElements.error}` } = this.props;
 		const { errors } = this.state;
 		if (!errors.length) return null;
 		return (
@@ -171,9 +165,10 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 	/** The text field's remaining characters element. */
 	private get Counter(): JSX.Element | null {
 		const {
+			baseName,
 			counter,
 			counterStart,
-			counterClass,
+			counterClass = `${baseName}__${TextField.bemElements.counter}`,
 			maxLength,
 		} = this.props;
 		const { remaining } = this.state;
@@ -219,7 +214,8 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 	render(): JSX.Element {
 		const {
 			// classes
-			className, baseName, inputClass, feedbackClass,
+			className, baseName, feedbackClass,
+			inputClass = `${baseName}__${TextField.bemElements.input}`,
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			labelClass, helpClass, errorClass, counterClass,
 			// contents
