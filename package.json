@@ -1,6 +1,7 @@
 {
   "name": "nds",
   "private": true,
+  "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "gulp build",
@@ -22,10 +23,9 @@
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}'",
     "publish": "lerna publish --registry https://npm.wwnorton.com",
-    "report": "nyc report --reporter html",
+    "report": "nyc report --reporter=html --reporter=text",
     "storybook": "lerna exec --scope=@nds/react -- npm run storybook",
-    "test": "nyc ava",
-    "test:react": "ava --config ava.react.js"
+    "test": "ava"
   },
   "husky": {
     "hooks": {
@@ -40,16 +40,13 @@
   },
   "lint-staged": {
     "*.{css,sass,scss,html}": [
-      "stylelint --fix",
-      "git add"
+      "stylelint --fix"
     ],
     "*.{html,xhtml,md,json,yaml,yml}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   },
   "browserslist": [
@@ -80,42 +77,39 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
+    "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.2.0",
-    "@typescript-eslint/eslint-plugin": "^2.14.0",
-    "@typescript-eslint/parser": "^2.14.0",
-    "autoprefixer": "^9.7.3",
-    "ava": "^3.0.0-beta.2",
-    "concurrently": "^5.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "autoprefixer": "^9.7.4",
+    "ava": "^3.1.0",
+    "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-norton": "^3.0.1",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.17.0",
-    "eslint-plugin-react-hooks": "^1.7.0",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "fibers": "^4.0.2",
     "gulp": "^4.0.2",
     "gulp-header": "^2.0.9",
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
-    "husky": "^3.1.0",
+    "husky": "^4.2.1",
     "lerna": "^3.20.2",
-    "lint-staged": "^9.5.0",
+    "lint-staged": "^10.0.7",
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
-    "sass": "^1.24.4",
-    "stylelint": "^12.0.1",
-    "stylelint-config-norton": "^2.4.0",
+    "sass": "^1.25.0",
+    "stylelint": "^13.0.0",
+    "stylelint-config-norton": "^3.0.0",
     "ts-node": "^8.6.1",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   },
   "engines": {
-    "node": ">=8.9.0",
+    "node": ">=10.13.0",
     "npm": ">=5"
-  },
-  "maintainers": [
-    "Evan Yamanishi <eyamanishi@wwnorton.com>"
-  ]
+  }
 }

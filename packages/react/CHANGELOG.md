@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.4.0...v0.5.0) (2020-01-31)
+
+### Bug Fixes
+
+- **textfield:** apply class to the textfield, not input ([5567278](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/5567278d074017688ea0dc24735230bfe0510998))
+- include props on forwardref generc ([99b2843](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/99b2843b4b54c66ff0be76a232f140c1778fbc18))
+- **a11y:** actually disable the switch ([d8e340c](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/d8e340c8fa7be6654302a05c69dccc86ae4a11dc))
+- **button:** deactivate on blur ([0b22096](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/0b22096dc01b155b67a7a2bd396c80c0bf080458))
+
+### Features
+
+- **react:** update text field to use new validation api ([34de3ef](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/34de3efc61979646df307b0e4f56d838d5b0d7b5))
+- utilities for form validation feedback ([948ea6a](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/948ea6abdaf51600a9ff995307df2b1f28648b8b))
+- **a11y:** improve aria markup of checkbox ([134f466](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/134f466737c2ada8d2ed874fe5c2b8d35934a2b5))
+- add initial testing framework ([a80f1a9](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/a80f1a99443aa7eb6bdaa87945cf055ab4231a81))
+- add react checkbox implementation ([e51f78a](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/e51f78af45d785d8114bb11fc1188f751e3835ed))
+
 # [0.4.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.3.0...v0.4.0) (2020-01-02)
 
 ### Bug Fixes
