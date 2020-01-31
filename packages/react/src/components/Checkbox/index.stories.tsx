@@ -20,7 +20,6 @@ export const Default = (): JSX.Element => (
 		help={text('Help', 'Additional information about this checkbox.')}
 		disabled={boolean('Disabled', false)}
 		required={boolean('Required', false)}
-		onChangeNative={action('onChangeNative')}
 		onValidate={action('onValidate')}
 	/>
 );
