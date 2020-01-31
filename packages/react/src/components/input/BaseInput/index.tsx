@@ -44,7 +44,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	type?: InputType;
 }
 
-export const BaseInput = React.forwardRef<HTMLInputElement>(({
+export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(({
 	onChangeNative = noop,
 	onChange = noop,
 	onValidate = noop,
