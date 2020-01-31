@@ -1,6 +1,7 @@
 {
   "name": "nds",
   "private": true,
+  "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "gulp build",
@@ -114,8 +115,5 @@
   "engines": {
     "node": ">=8.9.0",
     "npm": ">=5"
-  },
-  "maintainers": [
-    "Evan Yamanishi <eyamanishi@wwnorton.com>"
-  ]
+  }
 }
