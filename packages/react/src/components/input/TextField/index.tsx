@@ -49,15 +49,11 @@ export interface TextFieldProps extends BaseInputProps {
 	errorClass?: string;
 	/** The className for the TextField's character counter element. */
 	counterClass?: string;
-	/** Whether the valid state should be updated on `change` events. */
-	validateOnChange?: boolean;
-	/** Whether the valid state should be updated on `input` events. */
-	validateOnInput?: boolean;
 	/** A reference to the internal `<input>` element. */
 	inputRef?: React.RefObject<HTMLInputElement>;
 	/** Triggered any time the number of characters remaining is updated. */
 	onCount?: (state: TextFieldState) => void;
-	/** Whether the default validators should. */
+	/** Whether the default validators should be applied. */
 	includeDefaultValidators?: boolean;
 }
 
@@ -95,8 +91,6 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 		required: true,
 		counterStart: 25,
 		counter: ({ remaining, max }) => `${remaining}/${max} characters remaining.`,
-		validateOnChangeNative: true,
-		validateOnInput: false,
 		includeDefaultValidators: true,
 		baseName: TextField.bemBase,
 		labelClass: `${TextField.bemBase}__${TextField.bemElements.label}`,
