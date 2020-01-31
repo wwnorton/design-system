@@ -1,36 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { BaseInput } from '../input/BaseInput';
-import { noop } from '../../utilities/events';
+import { BaseInput, BaseInputProps } from '../input/BaseInput';
+import { isElement } from '../../utilities/events';
+import { ValidatorError, defaultValidators } from '../../utilities/validation';
 
-const DICTIONARY = {
-	PREFIX: 'nds-',
-	CHECKBOX: 'checkbox',
-	INPUT: 'input',
-};
+export type CheckboxContent = 'input' | 'label' | 'help' | 'error';
 
-/**
- * BEM element names inside this component. These values will be used to
- * construct the final class names for each corresponding element.
- */
-export const CHECKBOX_ELEMENTS = {
-	TYPE: 'checkbox',
-	LABEL: 'label',
-	HELP: 'help',
-	ERROR: 'error',
-};
-
-export interface CheckboxState {
-	/** The checked state of the component. */
-	checked: boolean;
-	/** The checkbox component is only invalid if it is given the `required` prop and is unchecked. */
-	valid: boolean;
-}
-
-export type CheckboxChangeEvent = React.ChangeEvent<HTMLInputElement> | Event;
-
-export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface CheckboxProps extends BaseInputProps {
 	/**
 	 * The label for the input field.
 	 * The checkbox sighted users will see will be a ":before" element on the label.
@@ -38,176 +15,192 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
 	label: string | JSX.Element;
 	/** The secondary help text or element. */
 	help?: string | JSX.Element;
-	/** The error text or element to display when the checkbox component is required. */
-	error?: string | JSX.Element;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
-	/** The className for the Checkbox's <label> element. */
+	/** The className for the Checkbox's `<label>` element. */
 	labelClass?: string;
-	/** The className for the Checkbox's help text container. */
+	/** The className for the Checkbox's help container. */
 	helpClass?: string;
+	/** The className for the Checkbox's `<input>` element. */
+	inputClass?: string;
 	/** The className for the Checkbox's error container. */
 	errorClass?: string;
-	/** Whether the valid state should be update on `change` events. */
-	validateOnChange?: boolean;
 	/** A reference to the inner `<input>` element. */
-	checkboxRef?: React.RefObject<HTMLInputElement>;
-	/** Mark the checkbox as indeterminate. */
-	indeterminate?: boolean;
-	/** Triggered any time the validity of the `<input>` is checked. */
-	onValidate: (state: CheckboxState) => void;
+	inputRef?: React.RefObject<HTMLInputElement>;
 	/**
-	 * Triggered when the DOM `change` event is triggered on the `<input>`.
-	 * Note that this differs from React's normal onChange event to bring it in
-	 * line with the DOM standard for `onchange`.
+	 * Mark the checkbox as indeterminate.
+	 * @MDN https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Indeterminate_state_checkboxes
 	 */
-	onChange: (event: CheckboxChangeEvent) => void;
+	indeterminate?: boolean;
+}
+
+export interface CheckboxState {
+	/** The checked state of the component. */
+	checked: boolean;
+	/** A list of validation errors. An empty array means there are no errors. */
+	errors: ValidatorError[];
+	indeterminate: boolean;
+	/** Whether the current value is valid. */
+	valid: boolean;
 }
 
 class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
-	private uid: string = uniqueId(`${DICTIONARY.PREFIX}${DICTIONARY.CHECKBOX}-`);
+	private inputRef: React.RefObject<HTMLInputElement>;
+	private validators = defaultValidators(this.props);
+	private uid: string = uniqueId(`${Checkbox.bemBase}-`);
 	private descId = `${this.uid}-desc`;
 	private errId = `${this.uid}-err`;
+
+	/* eslint-disable react/sort-comp */
+	public static bemBase = 'checkbox';
+	public static bemElements: Record<CheckboxContent, string> = {
+		input: 'input',
+		label: 'label',
+		help: 'help',
+		error: 'error',
+	}
+	/* eslint-enable react/sort-comp */
+
 	static defaultProps = {
-		baseName: 'checkbox',
-		get labelClass(): string {
-			return `${this.baseName}__${CHECKBOX_ELEMENTS.LABEL}`;
-		},
-		get helpClass(): string {
-			return `${this.baseName}__${CHECKBOX_ELEMENTS.HELP}`;
-		},
-		get errorClass(): string {
-			return `${this.baseName}__${CHECKBOX_ELEMENTS.ERROR}`;
-		},
-		validateOnChange: true,
-		onChange: noop,
-		onValidate: noop,
+		checked: false,
 		indeterminate: false,
-		required: true,
-		checkboxRef: React.createRef<HTMLInputElement>(),
+		includeDefaultValidators: true,
+		baseName: Checkbox.bemBase,
+		labelClass: `${Checkbox.bemBase}__${Checkbox.bemElements.label}`,
+		helpClass: `${Checkbox.bemBase}__${Checkbox.bemElements.help}`,
+		inputClass: `${Checkbox.bemBase}__${Checkbox.bemElements.input}`,
+		errorClass: `${Checkbox.bemBase}__${Checkbox.bemElements.error}`,
 	};
 
 	constructor(props: CheckboxProps) {
 		super(props);
 
+		const initialChecked = (props.indeterminate)
+			? false
+			: props.checked || Checkbox.defaultProps.checked;
+
 		this.state = {
-			checked: false,
+			checked: initialChecked,
+			errors: [],
+			indeterminate: props.indeterminate || false,
 			valid: true,
 		};
+		this.inputRef = props.inputRef || React.createRef<HTMLInputElement>();
 	}
 
-	validate = async (): Promise<void> => {
-		const { onValidate, required } = this.props;
-		const { checked } = this.state;
-		if (required) {
-			this.setState({ valid: checked });
-		}
-		onValidate(this.state);
+	componentDidMount(): void {
+		this.updateIndeterminate();
 	}
 
-	onChange = async (event: CheckboxChangeEvent): Promise<void> => {
-		const { onChange, checkboxRef, validateOnChange } = this.props;
-		if (checkboxRef && checkboxRef.current) {
-			const { checked } = checkboxRef.current;
-			await this.setState({ checked });
+	/** `indeterminate` is a property, not an attribute. It must be toggled on the ref. */
+	private updateIndeterminate(): void {
+		const { indeterminate } = this.state;
+		if (this.inputRef.current && indeterminate !== undefined) {
+			this.inputRef.current.indeterminate = indeterminate;
 		}
-		if (validateOnChange) await this.validate();
+	}
+
+	onChange: BaseInputProps['onChange'] = async (event): Promise<void> => {
+		const { onChange } = this.props;
+		if (this.inputRef.current) {
+			const { checked } = this.inputRef.current;
+			await this.setState({ checked, indeterminate: false });
+		}
 		if (onChange) onChange(event);
 	}
 
-	private Label(value: string | JSX.Element): JSX.Element {
-		const { labelClass } = this.props;
+	onValidate: BaseInputProps['onValidate'] = async ({ errors, validity }): Promise<void> => {
+		const { onValidate } = this.props;
+		this.setState({ errors });
+		if (onValidate) onValidate({ errors, validity });
+	}
 
-		const labelProps = {
-			htmlFor: this.uid,
-			className: labelClass,
-		};
-		if (typeof value !== 'string' && value.type().type === 'label') {
-			return React.cloneElement(value, labelProps);
+	/** The text field's `<label>`. */
+	private get Label(): JSX.Element {
+		const {
+			label,
+			baseName,
+			required,
+			labelClass,
+		} = this.props;
+		if (isElement(label, 'label')) {
+			return React.cloneElement(label as JSX.Element, { htmlFor: this.uid });
 		}
 		return (
-			// eslint-disable-next-line jsx-a11y/label-has-associated-control
-			<label {...labelProps}>
-				{ value }
+			<label htmlFor={this.uid} className={labelClass}>
+				{ label }
+				{ !required && ' ' }
+				{ !required && <span className={`${baseName}__optional`}>(optional)</span> }
 			</label>
 		);
 	}
 
-	private Help(value: string | JSX.Element): JSX.Element {
-		const { helpClass } = this.props;
-		const helpProps = {
-			className: helpClass,
-			id: this.descId,
-		};
-		if (typeof value !== 'string') {
-			return React.cloneElement(value, helpProps);
-		}
-		return (
-			<div {...helpProps}>
-				{ value }
-			</div>
-		);
+	/** The text field's help/description element. */
+	private get Help(): JSX.Element | null {
+		const { help, helpClass } = this.props;
+		if (!help) return null;
+		return <div className={helpClass} id={this.descId}>{ help }</div>;
 	}
 
-	private ErrorFeedback(value: string | JSX.Element): JSX.Element {
+	/** An unordered list of validation errors. */
+	private get Error(): JSX.Element | null {
 		const { errorClass } = this.props;
-		const errorProps = {
-			className: errorClass,
-			id: this.errId,
-			role: 'alert',
-		};
-		if (typeof value !== 'string') {
-			return React.cloneElement(value, errorProps);
-		}
+		const { errors } = this.state;
+		if (!errors.length) return null;
 		return (
-			<div {...errorProps}>
-				{ value }
-			</div>
+			<ul className={errorClass} id={this.errId} aria-label="Errors">
+				{ errors.map((err: ValidatorError): JSX.Element => {
+					const key = (typeof err === 'string')
+						? err
+						: (err.key || err.props.children);
+					return <li key={key}>{ err }</li>;
+				}) }
+			</ul>
 		);
 	}
 
 	render(): JSX.Element {
 		const {
-			label,
-			help,
-			error,
-			className,
-			checkboxRef,
-			// props that are used elsewhere
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			baseName, labelClass, helpClass, onValidate,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			errorClass, validateOnChange, indeterminate, onChange,
+			// classes
+			className, baseName, inputClass,
+			/* eslint-disable @typescript-eslint/no-unused-vars */
+			labelClass, helpClass, errorClass,
+			// contents
+			label, help,
+			// options
+			indeterminate,
+			// events
+			onChange, onValidate,
+			// references
+			inputRef,
+			checked: checkedProp,
+			/* eslint-enable @typescript-eslint/no-unused-vars */
+			// everything else
 			...attributes
 		} = this.props;
+		const { checked, valid } = this.state;
 
-		const { valid } = this.state;
-
-		const classes = classNames({
-			[`${DICTIONARY.CHECKBOX}__${DICTIONARY.INPUT}`]: true,
-		}, className);
-
-		/** `indeterminate` is a property, not an attribute. It must be toggled on the ref. */
-		if (checkboxRef && checkboxRef.current) {
-			checkboxRef.current.indeterminate = !!indeterminate;
-		}
+		this.updateIndeterminate();
 
 		return (
-			<div className={DICTIONARY.CHECKBOX}>
+			<div className={classNames(baseName, className)}>
 				<BaseInput
-					type={CHECKBOX_ELEMENTS.TYPE}
-					ref={checkboxRef}
+					type="checkbox"
+					checked={checked || undefined}
+					validators={this.validators}
+					onValidate={this.onValidate}
+					ref={this.inputRef}
 					onChange={this.onChange}
 					id={this.uid}
+					className={inputClass}
 					aria-describedby={(help) ? this.descId : undefined}
 					aria-invalid={(!valid) ? 'true' : undefined}
-					aria-errormessage={(error && !valid) ? this.errId : undefined}
-					className={classes}
+					aria-errormessage={(!valid) ? this.errId : undefined}
 					{...attributes}
 				/>
-				{ this.Label(label) }
-				{ help && this.Help(help) }
-				{ error && !valid && this.ErrorFeedback(error) }
+				{this.Label}
+				{this.Help}
+				{this.Error}
 			</div>
 		);
 	}
