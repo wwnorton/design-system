@@ -5,6 +5,8 @@ export type ValidationElement = HTMLInputElement | HTMLTextAreaElement;
 /** All ValidityState keys except `valid`. */
 export type ValidityStateInvalidKeys = Exclude<keyof ValidityState, 'valid'>;
 
+export type ValidatorError = string | JSX.Element;
+
 /** A validator test and message to use when the validator returns `false`. */
 export interface ValidatorEntry {
 	/** An optional name for the validator. */
@@ -12,7 +14,7 @@ export interface ValidatorEntry {
 	/** `true` if the supplied value is valid, `false` if it is invalid. */
 	test: (value: string, validity?: ValidityState) => boolean;
 	/** An error message for when a form element's value is invalid. */
-	message: string | JSX.Element | ((value: string) => string | JSX.Element);
+	message: ValidatorError | ((value: string) => ValidatorError);
 }
 
 /**

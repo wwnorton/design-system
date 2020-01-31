@@ -1,9 +1,9 @@
 import React from 'react';
 import { noop } from '../../../utilities/events';
-import { InputType, ValidatorEntry } from '../../../utilities/validation';
+import { InputType, ValidatorEntry, ValidatorError } from '../../../utilities/validation';
 
 export interface ValidationState {
-	errors: (string | JSX.Element)[];
+	errors: ValidatorError[];
 	validity?: ValidityState;
 }
 
@@ -68,7 +68,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(({
 	React.useEffect(() => {
 		if (validate) {
 			const val = String(value);
-			const err = new Set<string | JSX.Element>();
+			const err = new Set<ValidatorError>();
 			validators.forEach(({ message, test }) => {
 				// ensure that the message is a string or JSX Element
 				const msg = (typeof message === 'function') ? message(val) : message;
@@ -110,7 +110,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(({
 		}
 	}, [inputRef]);
 
-	const changeListener = (e: React.ChangeEvent<HTMLInputElement>): void => {
+	const changeListener = (e: Parameters<typeof onChange>[0]): void => {
 		const { target } = e;
 		const parser = (type === 'number') ? Number : String;
 		setValue(parser(target.value));
