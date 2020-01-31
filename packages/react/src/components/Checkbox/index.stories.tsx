@@ -14,17 +14,22 @@ export default {
 	decorators: [withKnobs],
 };
 
-const { defaultProps } = Checkbox;
-
-export const CheckboxDefault = (): JSX.Element => (
+export const Default = (): JSX.Element => (
 	<Checkbox
 		label={text('Label', 'Checkbox')}
+		help={text('Help', 'Additional information about this checkbox.')}
 		disabled={boolean('Disabled', false)}
-		indeterminate={boolean('Indeterminate', false)}
-		help={text('Help', 'Help Text')}
-		error={text('Error', 'Error Text')}
-		required={boolean('Required', true)}
-		validateOnChange={boolean('Validate on change', defaultProps.validateOnChange)}
+		required={boolean('Required', false)}
 		onValidate={action('onValidate')}
+	/>
+);
+
+export const Indeterminate = (): JSX.Element => (
+	<Checkbox
+		label={text('Label', 'Checkbox')}
+		help={text('Help', 'This checkbox starts out in the indeterminate/mixed state.')}
+		indeterminate
+		disabled={boolean('Disabled', false)}
+		required={boolean('Required', false)}
 	/>
 );

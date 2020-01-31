@@ -1,252 +1,264 @@
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { BaseInput, DICTIONARY } from '../BaseInput';
-import { noop } from '../../../utilities/events';
+import { BaseInput, BaseInputProps } from '../BaseInput';
+import { isElement } from '../../../utilities/events';
+import { ValidatorEntry, defaultValidators, ValidatorError } from '../../../utilities/validation';
 
-/**
- * BEM element names inside this component. These values will be used to
- * construct the final class names for each corresponding element.
- */
-export const ELEMENTS = {
-	LABEL: 'label',
-	HELP: 'help',
-	INPUT: 'input',
-	FEEDBACK: 'feedback',
-	ERROR: 'error',
-	COUNT: 'count',
-};
+export type TextFieldContent = 'label' | 'help' | 'input' | 'feedback' | 'error' | 'counter';
+export type TextFieldType = 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
 
-export type ChangeEvent = React.ChangeEvent<HTMLInputElement> | Event;
+interface TextInputCounterProps {
+	remaining: number;
+	max: number;
+}
 
-export type TextFieldType = 'text' | 'number' | 'email' | 'password' | 'url' | 'tel';
-
-export interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-	/** The type of text field. */
+export interface TextFieldProps extends BaseInputProps {
+	/** Text fields can be a limited subset of `<input>` types. */
 	type?: TextFieldType;
-	/** The label for the input field. */
+	/** The label for the text field. The only required prop. */
 	label: string | JSX.Element;
+	/**
+	 * Additional descriptive help text for the text field. Use this for to give
+	 * the user more context about what to enter, such as field templating or
+	 * what might normally go in the `placeholder`.
+	 */
 	help?: string | JSX.Element;
-	error?: string | JSX.Element;
-	/** When the character count should begin showing. */
-	countStart?: number;
+	/** When the character counter should begin showing. */
+	counterStart?: number;
+	/**
+	 * A function that takes the remaining number of characters and the maximum
+	 * number of characters and returns the string or element that will be
+	 * rendered in the character counter slot.
+	 */
+	counter?: ({ remaining, max }: TextInputCounterProps) => JSX.Element | string;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
-	/** The className for the TextField's <label> element. */
+	/** The className for the TextField's `<label>` element. */
 	labelClass?: string;
-	/** The className for the TextField's help text container. */
+	/** The className for the TextField's help container. */
 	helpClass?: string;
-	/** The className for the TextField's <input> element. */
+	/** The className for the TextField's `<input>` element. */
 	inputClass?: string;
 	/**
 	 * The className for the TextField's feedback section, which contains the
 	 * error text and character count.
 	 */
 	feedbackClass?: string;
-	/** The className for the TextField's error text container. */
+	/** The className for the TextField's error container. */
 	errorClass?: string;
-	/** The className for the TextField's character count container. */
-	countClass?: string;
-	/** Whether the valid state should be updated on `change` events. */
-	validateOnChange?: boolean;
-	/** Whether the valid state should be updated on `input` events. */
-	validateOnInput?: boolean;
-	/**
-	 * Triggered when the DOM `change` event is triggered on the `<input>`.
-	 * Note that this differs from React's normal onChange event to bring it in
-	 * line with the DOM standard for `onchange`.
-	 */
-	onChange?: (e: ChangeEvent) => void;
-	/** Triggered any time the validity of the `<input>` is checked. */
-	onValidate?: (state: TextFieldState) => void;
+	/** The className for the TextField's character counter element. */
+	counterClass?: string;
+	/** A reference to the internal `<input>` element. */
+	inputRef?: React.RefObject<HTMLInputElement>;
 	/** Triggered any time the number of characters remaining is updated. */
 	onCount?: (state: TextFieldState) => void;
+	/** Whether the default validators should be applied. */
+	includeDefaultValidators?: boolean;
 }
 
 interface TextFieldState {
-	valid: boolean;
+	/** The current value of the TextField. */
+	value: BaseInputProps['value'];
 	/** The number of allowed characters remaining. */
-	charactersRemaining?: number;
+	remaining?: number;
+	/** A list of validation errors. An empty array means there are no errors. */
+	errors: ValidatorError[];
+	/** Whether the current value is valid. */
+	valid: boolean;
 }
 
 export class TextField extends React.Component<TextFieldProps, TextFieldState> {
-	private inputRef = React.createRef<HTMLInputElement>();
-	private uid: string = uniqueId(`${DICTIONARY.PREFIX}${DICTIONARY.TEXTFIELD}-`);
-	public static defaultProps = {
+	private uid: string = uniqueId(`${TextField.bemBase}-`);
+	private descId = `${this.uid}-desc`;
+	private errId = `${this.uid}-err`;
+	private feedbackId = `${this.uid}-feedback`;
+
+	/* eslint-disable react/sort-comp */
+	public static bemBase = 'textfield';
+	public static bemElements: Record<TextFieldContent, string> = {
+		label: 'label',
+		help: 'help',
+		input: 'input',
+		feedback: 'feedback',
+		error: 'error',
+		counter: 'count',
+	}
+	/* eslint-enable react/sort-comp */
+
+	public static defaultProps: Partial<TextFieldProps> = {
 		type: 'text',
-		baseName: 'textfield',
-		countStart: 25,
-		get labelClass(): string { return `${this.baseName}__${ELEMENTS.LABEL}`; },
-		get helpClass(): string { return `${this.baseName}__${ELEMENTS.HELP}`; },
-		get inputClass(): string { return `${this.baseName}__${ELEMENTS.INPUT}`; },
-		get feedbackClass(): string { return `${this.baseName}__${ELEMENTS.FEEDBACK}`; },
-		get errorClass(): string { return `${this.baseName}__${ELEMENTS.ERROR}`; },
-		get countClass(): string { return `${this.baseName}__${ELEMENTS.COUNT}`; },
-		validateOnChange: true,
-		validateOnInput: false,
-		onChange: noop,
-		onInput: noop,
-		onValidate: noop,
-		onCount: noop,
+		required: true,
+		counterStart: 25,
+		counter: ({ remaining, max }) => `${remaining}/${max} characters remaining.`,
+		includeDefaultValidators: true,
+		baseName: TextField.bemBase,
 	}
 
 	constructor(props: TextFieldProps) {
 		super(props);
 
 		this.state = {
+			value: props.value,
 			valid: true,
-			charactersRemaining: props.maxLength,
+			remaining: props.maxLength,
+			errors: [],
 		};
 	}
 
-	componentDidMount(): void {
-		if (this.inputRef && this.inputRef.current) {
-			// ensure that the DOM's `change` event is triggered correctly
-			this.inputRef.current.addEventListener('change', this.onChange);
-		}
+	public componentDidMount(): void {
 		this.updateCount();
 	}
 
-	validate = async (): Promise<void> => {
-		const { onValidate } = this.props;
-		if (this.inputRef && this.inputRef.current) {
-			await this.setState({
-				valid: this.inputRef.current.checkValidity(),
-			});
-			if (onValidate) onValidate(this.state);
-		}
+	private get validators(): ValidatorEntry[] {
+		const { includeDefaultValidators, validators = [] } = this.props;
+
+		return (includeDefaultValidators)
+			? [...defaultValidators(this.props), ...validators]
+			: validators;
 	}
 
-	updateCount = async (): Promise<void> => {
-		const { maxLength, onCount } = this.props;
-		if (!maxLength) return;
-		if (this.inputRef && this.inputRef.current) {
-			await this.setState({
-				charactersRemaining: maxLength - this.inputRef.current.value.length,
-			});
-			if (onCount) onCount(this.state);
-		}
-	}
-
-	onChange = async (e: ChangeEvent): Promise<void> => {
-		const { onChange, validateOnChange } = this.props;
-		if (validateOnChange) await this.validate();
-		if (onChange) onChange(e);
-	}
-
-	onInput = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
-		const { onInput, validateOnInput } = this.props;
-		if (validateOnInput) await this.validate();
-		await this.updateCount();
-		if (onInput) onInput(e);
-	}
-
-	private Label(value: string | JSX.Element): JSX.Element {
-		const { baseName, required, labelClass } = this.props;
-		const labelProps = {
-			htmlFor: this.uid,
-			className: labelClass,
-		};
-		// if the user passed an actual `<label>`, just apply the props to it
-		if (typeof value !== 'string' && value.type().type === 'label') {
-			return React.cloneElement(value, labelProps);
+	/** The text field's `<label>`. */
+	private get Label(): JSX.Element {
+		const {
+			label,
+			baseName,
+			required,
+			labelClass = `${baseName}__${TextField.bemElements.label}`,
+		} = this.props;
+		if (isElement(label, 'label')) {
+			return React.cloneElement(label as JSX.Element, { htmlFor: this.uid });
 		}
 		return (
-			// eslint-disable-next-line jsx-a11y/label-has-associated-control
-			<label {...labelProps}>
-				{ value }
+			<label htmlFor={this.uid} className={labelClass}>
+				{ label }
 				{ !required && ' ' }
 				{ !required && <span className={`${baseName}__optional`}>(optional)</span> }
 			</label>
 		);
 	}
 
-	private Help(value: string | JSX.Element): JSX.Element {
-		const { helpClass } = this.props;
-		const helpProps = {
-			className: helpClass,
-		};
-		if (typeof value !== 'string') {
-			return React.cloneElement(value, helpProps);
-		}
-		return <div {...helpProps}>{ value }</div>;
+	/** The text field's help/description element. */
+	private get Help(): JSX.Element | null {
+		const { baseName, help, helpClass = `${baseName}__${TextField.bemElements.help}` } = this.props;
+		if (!help) return null;
+		return <div className={helpClass} id={this.descId}>{ help }</div>;
 	}
 
-	private InvalidFeedback(value: string | JSX.Element): JSX.Element {
-		const { errorClass } = this.props;
-		const invalidProps = {
-			className: errorClass,
-		};
-		if (typeof value !== 'string') {
-			return React.cloneElement(value, invalidProps);
-		}
-		return <div {...invalidProps}>{ value }</div>;
+	/** An unordered list of validation errors. */
+	private get Error(): JSX.Element | null {
+		const { baseName, errorClass = `${baseName}__${TextField.bemElements.error}` } = this.props;
+		const { errors } = this.state;
+		if (!errors.length) return null;
+		return (
+			<ul className={errorClass} id={this.errId} aria-label="Errors">
+				{ errors.map((err: ValidatorError): JSX.Element => {
+					const key = (typeof err === 'string')
+						? err
+						: (err.key || err.props.children);
+					return <li key={key}>{ err }</li>;
+				}) }
+			</ul>
+		);
 	}
 
-	private CharacterCounter(current: number, max: number): JSX.Element {
-		const { countClass } = this.props;
-		const countProps = {
-			className: countClass,
-		};
-		const feedback = `${current}/${max} characters remaining.`;
-		return <div {...countProps}>{ feedback }</div>;
+	/** The text field's remaining characters element. */
+	private get Counter(): JSX.Element | null {
+		const {
+			baseName,
+			counter,
+			counterStart,
+			counterClass = `${baseName}__${TextField.bemElements.counter}`,
+			maxLength,
+		} = this.props;
+		const { remaining } = this.state;
+		if (
+			!maxLength
+			|| remaining === undefined
+			|| (counterStart && remaining > counterStart)
+		) return null;
+		return (
+			<div className={counterClass}>
+				{ counter && counter({ remaining, max: maxLength }) }
+			</div>
+		);
+	}
+
+	public updateCount = async (): Promise<void> => {
+		const { maxLength, onCount } = this.props;
+		const { value } = this.state;
+		if (!maxLength) {
+			await this.setState({ remaining: undefined });
+			return;
+		}
+		if (value) {
+			await this.setState({ remaining: maxLength - String(value).length });
+		}
+		if (onCount) onCount(this.state);
+	}
+
+	public onChange: BaseInputProps['onChange'] = async (e): Promise<void> => {
+		const { onChange } = this.props;
+		const { value } = e.target;
+		await this.setState({ value });
+		await this.updateCount();
+		if (onChange) onChange(e);
+	}
+
+	public onValidate: BaseInputProps['onValidate'] = async ({ errors, validity }): Promise<void> => {
+		const { onValidate } = this.props;
+		if (errors) await this.setState({ errors, valid: errors.length === 0 });
+		if (onValidate) onValidate({ errors, validity });
 	}
 
 	render(): JSX.Element {
 		const {
-			label,
-			help,
-			error,
-			type,
-			countStart,
-			maxLength,
-			baseName,
 			// classes
-			labelClass,
-			helpClass,
-			inputClass,
-			feedbackClass,
-			errorClass,
-			countClass,
+			className, baseName, feedbackClass,
+			inputClass = `${baseName}__${TextField.bemElements.input}`,
+			/* eslint-disable @typescript-eslint/no-unused-vars */
+			labelClass, helpClass, errorClass, counterClass,
+			// contents
+			label, help,
+			// options
+			counter, counterStart, includeDefaultValidators,
 			// events
-			onChange,
-			onInput,
-			onValidate,
-			onCount,
-			className,
+			onChange, onValidate, onCount,
+			/* eslint-enable @typescript-eslint/no-unused-vars */
+			// references
+			inputRef,
+			// everything else is passed to the `BaseInput`
 			...attributes
 		} = this.props;
-		const { charactersRemaining, valid } = this.state;
-
-		const displayCount = (typeof charactersRemaining === 'number')
-			&& charactersRemaining <= (countStart || TextField.defaultProps.countStart);
-
-		const classes = classNames(
-			{
-				[`${DICTIONARY.TEXTFIELD}__${DICTIONARY.INPUT}`]: true,
-			},
-			className,
-		);
+		const { valid, value } = this.state;
 
 		return (
-			<div className={`${DICTIONARY.TEXTFIELD}`}>
-				{this.Label(label)}
-				{help && this.Help(help)}
+			<div className={classNames(baseName, className)}>
+				{this.Label}
+				{this.Help}
 				<BaseInput
-					type={type || 'text'}
-					maxLength={maxLength}
-					onInput={this.onInput}
-					ref={this.inputRef}
+					value={value}
+					validators={this.validators}
+					onChange={this.onChange}
+					onValidate={this.onValidate}
+					ref={inputRef}
 					id={this.uid}
-					className={classes}
+					className={inputClass}
+					// https://github.com/evcohen/eslint-plugin-jsx-a11y/issues/644
+					// eslint-disable-next-line jsx-a11y/aria-props
+					aria-details={this.feedbackId}
+					aria-describedby={help && this.descId}
+					aria-invalid={(!valid) ? 'true' : undefined}
+					aria-errormessage={(!valid) ? this.errId : undefined}
 					{...attributes}
 				/>
-				<div className={feedbackClass}>
-					{error && !valid && this.InvalidFeedback(error)}
-					{displayCount && this.CharacterCounter(charactersRemaining!, maxLength!)}
+				<div className={feedbackClass} id={this.feedbackId} role="status">
+					{this.Error}
+					{this.Counter}
 				</div>
 			</div>
 		);
 	}
 }
+
 export default TextField;

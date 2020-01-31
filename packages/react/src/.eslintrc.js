@@ -4,6 +4,9 @@ module.exports = {
 		'plugin:import/typescript',
 		'plugin:@typescript-eslint/recommended'
 	],
+	plugins: [
+		'react-hooks',
+	],
 	rules: {
 		indent: 'off',
 		'no-tabs': 'off',
@@ -32,6 +35,8 @@ module.exports = {
 				defaultProps: 'static public field'
 			}
 		],
+		'react-hooks/rules-of-hooks': 'error',
+    	'react-hooks/exhaustive-deps': 'warn',
 		'import/no-extraneous-dependencies': [
 			'off',
 			{

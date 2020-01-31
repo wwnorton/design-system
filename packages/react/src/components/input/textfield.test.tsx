@@ -3,12 +3,12 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { TextField } from '.';
 
-test('TextField: renders its defaults', (t) => {
-	const component = renderer.create(<TextField label="Default text field" />);
+test('renders its defaults', (t) => {
+	const component = renderer.create(<TextField label="Text field" />);
 	t.snapshot(component.toJSON());
 });
 
-test('TextField: required fields do not contain the optional string in their label', (t) => {
+test('required fields do not contain the optional string in their label', (t) => {
 	const labelProp = 'Required text field';
 	const component = renderer.create(<TextField required label={labelProp} />);
 	const label = component.root.find(({ type }) => type === 'label');
