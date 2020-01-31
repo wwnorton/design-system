@@ -116,10 +116,7 @@ export const defaultValidators = ({
 	// step,
 	type,
 }: ValidationAttributes): ValidatorEntry[] => {
-	const validators: ValidatorEntry[] = [{
-		test: validityStateTest('typeMismatch'),
-		message: stateMessages.typeMismatch(type),
-	}];
+	const validators: ValidatorEntry[] = [];
 	if (required) {
 		validators.push({
 			test: validityStateTest('valueMissing'),
@@ -136,6 +133,12 @@ export const defaultValidators = ({
 		validators.push({
 			test: validityStateTest('tooShort'),
 			message: (value) => stateMessages.tooShort(value, minLength, type),
+		});
+	}
+	if (type !== undefined) {
+		validators.push({
+			test: validityStateTest('typeMismatch'),
+			message: stateMessages.typeMismatch(type),
 		});
 	}
 	switch (type) {
