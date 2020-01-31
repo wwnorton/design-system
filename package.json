@@ -23,10 +23,9 @@
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}'",
     "publish": "lerna publish --registry https://npm.wwnorton.com",
-    "report": "nyc report --reporter html",
+    "report": "nyc report --reporter=html --reporter=text",
     "storybook": "lerna exec --scope=@nds/react -- npm run storybook",
-    "test": "nyc ava",
-    "test:react": "ava --config ava.react.js"
+    "test": "ava"
   },
   "husky": {
     "hooks": {
