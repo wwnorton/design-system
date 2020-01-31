@@ -101,10 +101,8 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 
 	onChange: BaseInputProps['onChange'] = async (event): Promise<void> => {
 		const { onChange } = this.props;
-		if (this.inputRef.current) {
-			const { checked } = this.inputRef.current;
-			await this.setState({ checked, indeterminate: false });
-		}
+		const { checked } = event.target;
+		await this.setState({ checked, indeterminate: false });
 		if (onChange) onChange(event);
 	}
 
