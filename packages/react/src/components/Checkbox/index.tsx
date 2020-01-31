@@ -46,7 +46,6 @@ export interface CheckboxState {
 
 class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	private inputRef: React.RefObject<HTMLInputElement>;
-	private validators = defaultValidators(this.props);
 	private uid: string = uniqueId(`${Checkbox.bemBase}-`);
 	private descId = `${this.uid}-desc`;
 	private errId = `${this.uid}-err`;
@@ -187,7 +186,7 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 				<BaseInput
 					type="checkbox"
 					checked={checked || undefined}
-					validators={this.validators}
+					validators={defaultValidators(this.props)}
 					onValidate={this.onValidate}
 					ref={this.inputRef}
 					onChange={this.onChange}
