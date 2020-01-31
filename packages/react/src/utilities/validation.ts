@@ -64,7 +64,7 @@ export const stateMessages = {
 	tooShort: (
 		value: string,
 		minLength: number,
-		type: InputType,
+		type?: InputType,
 	): string => {
 		switch (type) {
 			case 'password':
@@ -114,7 +114,7 @@ export const defaultValidators = ({
 	// pattern,
 	required,
 	// step,
-	type = 'text',
+	type,
 }: ValidationAttributes): ValidatorEntry[] => {
 	const validators: ValidatorEntry[] = [{
 		test: validityStateTest('typeMismatch'),
