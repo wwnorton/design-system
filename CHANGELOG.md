@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.4.0...v0.5.0) (2020-01-31)
+
+### Bug Fixes
+
+- **textfield:** apply class to the textfield, not input ([5567278](https://gitlab.com/wwnorton/platform/design-system/commit/5567278d074017688ea0dc24735230bfe0510998))
+- include props on forwardref generc ([99b2843](https://gitlab.com/wwnorton/platform/design-system/commit/99b2843b4b54c66ff0be76a232f140c1778fbc18))
+- **a11y:** actually disable the switch ([d8e340c](https://gitlab.com/wwnorton/platform/design-system/commit/d8e340c8fa7be6654302a05c69dccc86ae4a11dc))
+- **button:** deactivate on blur ([0b22096](https://gitlab.com/wwnorton/platform/design-system/commit/0b22096dc01b155b67a7a2bd396c80c0bf080458))
+- **core:** reset needs tokens ([cb11d21](https://gitlab.com/wwnorton/platform/design-system/commit/cb11d213e8f33a8159e484779f455f93da6fbdfe))
+- **core:** use the correct destination ([e0fd22f](https://gitlab.com/wwnorton/platform/design-system/commit/e0fd22fed7a2b8822543c6dee0e50c6d37690596))
+
+### chore
+
+- **deps:** update husky to v3 ([54adcae](https://gitlab.com/wwnorton/platform/design-system/commit/54adcae8ec910308bf68495a5f34fb1a484fb9b6))
+
+### Features
+
+- **core:** validation errors now render in lists ([d82134e](https://gitlab.com/wwnorton/platform/design-system/commit/d82134e7c450ed94159363bc503f0aa76b2184d2))
+- **react:** update text field to use new validation api ([34de3ef](https://gitlab.com/wwnorton/platform/design-system/commit/34de3efc61979646df307b0e4f56d838d5b0d7b5))
+- utilities for form validation feedback ([948ea6a](https://gitlab.com/wwnorton/platform/design-system/commit/948ea6abdaf51600a9ff995307df2b1f28648b8b))
+- **a11y:** improve aria markup of checkbox ([134f466](https://gitlab.com/wwnorton/platform/design-system/commit/134f466737c2ada8d2ed874fe5c2b8d35934a2b5))
+- **core:** add motion duration multiplier ([5618427](https://gitlab.com/wwnorton/platform/design-system/commit/56184271a3da51d7272dec17b3dd68f3a2b7429f))
+- **core:** add reduce-motion mixin ([2a88388](https://gitlab.com/wwnorton/platform/design-system/commit/2a88388dee4cb494e854443d80d52652e64e5aca))
+- **core:** add sr-only mixin ([725a3c6](https://gitlab.com/wwnorton/platform/design-system/commit/725a3c6f9c83e8006dd10f76ce24c5c7004053fc))
+- add checkbox to @nds/core ([8023ef9](https://gitlab.com/wwnorton/platform/design-system/commit/8023ef99681a6f99f12094f3bfd904ff477ee01d))
+- add initial testing framework ([a80f1a9](https://gitlab.com/wwnorton/platform/design-system/commit/a80f1a99443aa7eb6bdaa87945cf055ab4231a81))
+- add react checkbox implementation ([e51f78a](https://gitlab.com/wwnorton/platform/design-system/commit/e51f78af45d785d8114bb11fc1188f751e3835ed))
+- add react checkbox implementation ([22db133](https://gitlab.com/wwnorton/platform/design-system/commit/22db133dbca4dbeab752ff6cd040f3b2d5d5fa16))
+- **core:** initial disclosure styling ([e8ddaf9](https://gitlab.com/wwnorton/platform/design-system/commit/e8ddaf92cb72651be0c0ffb1ae89b56d69b18170))
+
+### BREAKING CHANGES
+
+- **deps:** now requires Node v10+
+
 # [0.4.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.3.0...v0.4.0) (2020-01-02)
 
 ### Bug Fixes
