@@ -243,7 +243,7 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 		const { valid, value } = this.state;
 
 		return (
-			<div className={baseName}>
+			<div className={classNames(baseName, className)}>
 				{this.Label}
 				{this.Help}
 				<BaseInput
@@ -253,7 +253,7 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 					onValidate={this.onValidate}
 					ref={inputRef}
 					id={this.uid}
-					className={classNames(inputClass, className)}
+					className={inputClass}
 					// https://github.com/evcohen/eslint-plugin-jsx-a11y/issues/644
 					// eslint-disable-next-line jsx-a11y/aria-props
 					aria-details={this.feedbackId}
