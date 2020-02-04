@@ -29,13 +29,13 @@ const packageConfig = (packageRoot, src = 'src', dest = 'dist') => {
 		},
 		sass: {
 			src: `${srcRoot}/main.scss`,
-			dest: `${destRoot}/css`,
+			dest: destRoot,
 			watch: `${srcRoot}/**/*.scss`,
 		},
 		typescript: {
 			tsConfig: `${packageRoot}/tsconfig.json`,
 			src: `${srcRoot}/**/*.{ts,tsx}`,
-			dest: `${destRoot}/js`,
+			dest: destRoot,
 			watch: [
 				`${srcRoot}/**/*.{ts,tsx}`,
 				'./tsconfig.json',
