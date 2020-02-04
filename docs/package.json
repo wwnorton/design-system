@@ -15,10 +15,9 @@
     "url": "git+https://gitlab.com/wwnorton/platform/design-system/tree/master/docs.git"
   },
   "license": "UNLICENSED",
-  "author": "W. W. Norton & Company",
+  "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
     "Annie Hirshman <ahirshman@wwnorton.com>",
-    "Evan Yamanishi <eyamanishi@wwnorton.com>",
     "Tri, Brian <btri@wwnorton.com>"
   ],
   "main": "README.md",
