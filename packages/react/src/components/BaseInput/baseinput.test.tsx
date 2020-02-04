@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import BaseInput from '.';
 
-test('BaseInput: renders its defaults', (t) => {
+test('renders its defaults', (t) => {
 	const component = renderer.create(<BaseInput />);
 	t.snapshot(component.toJSON());
 });
