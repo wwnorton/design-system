@@ -8,6 +8,7 @@
     "build:core": "gulp build:core",
     "build:docs": "lerna exec --scope=nds-docs -- npm run build -- --dest ../public",
     "build:react": "gulp build:react",
+    "coverage": "nyc --reporter=html --reporter=text npm run test",
     "dev": "gulp dev",
     "dev:core": "gulp dev:core",
     "dev:docs": "lerna exec --scope=nds-docs -- npm run dev",
@@ -21,7 +22,6 @@
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "publish": "lerna publish --registry https://npm.wwnorton.com",
-    "report": "nyc report --reporter=html --reporter=text",
     "storybook": "lerna exec --scope=@nds/react -- npm run storybook",
     "test": "ava"
   },
