@@ -1,1 +1,4 @@
-module.exports = require('./shared/eslintrc');
+module.exports = {
+	root: true,
+	extends: [require.resolve('./shared/eslintrc')]
+};
