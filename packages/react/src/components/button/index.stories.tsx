@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 import '@nds/core/src/components/button/index.scss';
-import { Button, ButtonVariant } from '.';
+import Button, { ButtonVariant } from '.';
 
 export default {
 	title: 'Button',

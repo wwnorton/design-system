@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { BaseInput, BaseInputProps } from '../BaseInput';
-import { isElement } from '../../../utilities/events';
-import { ValidatorEntry, defaultValidators, ValidatorError } from '../../../utilities/validation';
+import BaseInput, { BaseInputProps } from '../BaseInput';
+import { isElement } from '../../utilities/events';
+import { ValidatorEntry, defaultValidators, ValidatorError } from '../../utilities/validation';
 
 export type TextFieldContent = 'label' | 'help' | 'input' | 'feedback' | 'error' | 'counter';
 export type TextFieldType = 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
@@ -68,7 +68,7 @@ interface TextFieldState {
 	valid: boolean;
 }
 
-export class TextField extends React.Component<TextFieldProps, TextFieldState> {
+export default class TextField extends React.Component<TextFieldProps, TextFieldState> {
 	private uid: string = uniqueId(`${TextField.bemBase}-`);
 	private descId = `${this.uid}-desc`;
 	private errId = `${this.uid}-err`;
@@ -260,5 +260,3 @@ export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 		);
 	}
 }
-
-export default TextField;

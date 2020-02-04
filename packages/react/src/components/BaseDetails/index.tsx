@@ -1,6 +1,6 @@
 import React from 'react';
-import BaseSummary from './BaseSummary';
-import { isElement } from '../../../utilities/events';
+import BaseSummary from '../BaseSummary';
+import { isElement } from '../../utilities/events';
 
 export type DetailsToggleEvent = React.SyntheticEvent<HTMLDetailsElement, Event>;
 
@@ -21,7 +21,7 @@ export interface BaseDetailsProps extends React.DetailsHTMLAttributes<HTMLDetail
 	) => void;
 }
 
-const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
+export default React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 	summary,
 	summaryClass,
 	children,
@@ -39,5 +39,3 @@ const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 		</details>
 	);
 });
-
-export default BaseDetails;

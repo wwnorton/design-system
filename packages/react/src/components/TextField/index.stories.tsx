@@ -7,7 +7,7 @@ import {
 	text,
 } from '@storybook/addon-knobs';
 import '@nds/core/src/components/textfield/index.scss';
-import { TextField } from '.';
+import TextField from '.';
 
 export default {
 	title: 'Text Field',

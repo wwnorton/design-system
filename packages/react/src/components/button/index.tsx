@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import BaseButton, { BaseButtonProps } from './BaseButton';
+import BaseButton, { BaseButtonProps } from '../BaseButton';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
@@ -13,7 +13,7 @@ export interface ButtonProps extends BaseButtonProps {
 	buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
-export class Button extends React.Component<ButtonProps> {
+export default class Button extends React.Component<ButtonProps> {
 	public static defaultProps = {
 		baseName: 'button',
 		type: 'button',
@@ -46,5 +46,3 @@ export class Button extends React.Component<ButtonProps> {
 		);
 	}
 }
-
-export default Button;

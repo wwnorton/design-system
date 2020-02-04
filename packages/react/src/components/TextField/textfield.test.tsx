@@ -1,7 +1,7 @@
 import test from 'ava';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { TextField } from '.';
+import TextField from '.';
 
 test('renders its defaults', (t) => {
 	const component = renderer.create(<TextField label="Text field" />);

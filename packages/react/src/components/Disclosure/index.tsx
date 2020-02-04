@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { Disclosure as CoreDisclosure } from '@nds/core';	// eslint-disable-line import/no-unresolved
 import BaseDetails, { BaseDetailsProps, DetailsToggleEvent } from '../BaseDetails';
-import BaseSummary from '../BaseDetails/BaseSummary';
+import BaseSummary from '../BaseSummary';
 import DetailsMarker from './DetailsMarker';
-import { noop, isElement } from '../../../utilities/events';
+import { noop, isElement } from '../../utilities/events';
 
 export type DisclosureVariant = 'default' | 'panel';
 
@@ -36,7 +36,7 @@ export interface DisclosureState {
 	open: boolean;
 }
 
-export class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
+export default class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
 	public coreDisclosure?: CoreDisclosure;
 	public detailsRef: React.RefObject<HTMLDetailsElement>;
 
@@ -141,5 +141,3 @@ export class Disclosure extends React.Component<DisclosureProps, DisclosureState
 		);
 	}
 }
-
-export default Disclosure;

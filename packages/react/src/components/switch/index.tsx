@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import BaseButton, { BaseButtonProps } from '../button/BaseButton';
+import BaseButton, { BaseButtonProps } from '../BaseButton';
 import { noop, ClickEvent } from '../../utilities/events';
 
 export interface SwitchProps extends BaseButtonProps {
@@ -23,7 +23,7 @@ export interface ToggleEvent extends ClickEvent {
 	state: SwitchState;
 }
 
-export class Switch extends React.Component<SwitchProps, SwitchState> {
+export default class Switch extends React.Component<SwitchProps, SwitchState> {
 	static defaultProps: Partial<SwitchProps> = {
 		on: false,
 		onToggle: noop,
@@ -79,5 +79,3 @@ export class Switch extends React.Component<SwitchProps, SwitchState> {
 		);
 	}
 }
-
-export default Switch;

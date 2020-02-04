@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { BaseInput, BaseInputProps } from '../input/BaseInput';
+import BaseInput, { BaseInputProps } from '../BaseInput';
 import { isElement } from '../../utilities/events';
 import { ValidatorError, defaultValidators } from '../../utilities/validation';
 
@@ -44,7 +44,7 @@ export interface CheckboxState {
 	valid: boolean;
 }
 
-class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+export default class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	private inputRef: React.RefObject<HTMLInputElement>;
 	private uid: string = uniqueId(`${Checkbox.bemBase}-`);
 	private descId = `${this.uid}-desc`;
@@ -199,5 +199,3 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		);
 	}
 }
-
-export default Checkbox;

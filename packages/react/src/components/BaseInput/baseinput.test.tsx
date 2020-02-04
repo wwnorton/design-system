@@ -1,7 +1,7 @@
 import test from 'ava';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { BaseInput } from '.';
+import BaseInput from '.';
 
 test('BaseInput: renders its defaults', (t) => {
 	const component = renderer.create(<BaseInput />);

@@ -1,9 +1,8 @@
-
 import test from 'ava';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import BaseButton, { BaseButtonDefaults } from './BaseButton';
-import { Button } from '.';
+import BaseButton, { BaseButtonDefaults } from '../BaseButton';
+import Button from '.';
 
 const { activeClass: defaultActiveClass } = BaseButtonDefaults;
 

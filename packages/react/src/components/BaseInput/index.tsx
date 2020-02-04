@@ -1,6 +1,6 @@
 import React from 'react';
-import { noop } from '../../../utilities/events';
-import { InputType, ValidatorEntry, ValidatorError } from '../../../utilities/validation';
+import { noop } from '../../utilities/events';
+import { InputType, ValidatorEntry, ValidatorError } from '../../utilities/validation';
 
 export interface ValidationState {
 	errors: ValidatorError[];
@@ -44,7 +44,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	type?: InputType;
 }
 
-export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(({
+export default React.forwardRef<HTMLInputElement, BaseInputProps>(({
 	onChangeNative = noop,
 	onChange = noop,
 	onValidate = noop,
@@ -129,5 +129,3 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(({
 		/>
 	);
 });
-
-export default BaseInput;
