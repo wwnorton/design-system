@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import '@nds/core/src/components/switch/index.scss';

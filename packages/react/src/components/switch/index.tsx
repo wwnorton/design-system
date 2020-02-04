@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import BaseButton, { BaseButtonProps } from '../button/BaseButton';
 import { noop, ClickEvent } from '../../utilities/events';

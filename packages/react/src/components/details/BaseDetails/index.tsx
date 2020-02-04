@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import BaseSummary from './BaseSummary';
 import { isElement } from '../../../utilities/events';
 

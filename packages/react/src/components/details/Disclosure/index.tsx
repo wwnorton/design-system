@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { Disclosure as CoreDisclosure } from '@nds/core';	// eslint-disable-line import/no-unresolved
 import BaseDetails, { BaseDetailsProps, DetailsToggleEvent } from '../BaseDetails';
