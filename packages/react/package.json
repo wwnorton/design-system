@@ -18,8 +18,8 @@
     "Chen, HonChih <hchen@wwnorton.com>"
   ],
   "files": [
-    "/dist",
-    "/src"
+    "dist",
+    "src"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
