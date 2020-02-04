@@ -39,10 +39,6 @@
     "build": "echo all build scripts should be run from root",
     "dev": "echo all dev scripts should be run from root"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ],
   "dependencies": {
     "lodash.debounce": "^4.0.8"
   },
