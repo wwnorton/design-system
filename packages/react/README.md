@@ -12,24 +12,52 @@ To get started, install `@nds/react` as a dependency on your project.
 npm install @nds/react
 ```
 
-This will install both the React components and the [core library](../core).
 From here, you can start using the components in your application.
 
 ```jsx
-import * as React from "react";
+import React from "react";
+import ReactDOM from "react-dom";
 
 // import the React component
-import { ToggleButton } from "@nds/react";
-// if you'd like the styles, also import the corresponding declarations
-import "@nds/core/src/components/button/index.scss";
+import { Button } from "@nds/react";
 
-const MyApp = () => {
+const App = () => {
   return (
     <main>
-      <ToggleButton on={true}>Notifications</ToggleButton>
+      <Button variant="solid">Do something</Button>
     </main>
   );
 };
 
-export default MyApp;
+ReactDOM.render(<App />, document.getElementById("app"));
+```
+
+### Styling
+
+For the time being, component styles are exclusively provided in `@nds/core`.
+If you would like to use the default styles, simply install `@nds/core` alongside `@nds/react` and import the styles in your application.
+
+```sh
+npm install @nds/{core,react}
+```
+
+**NOTE**: this example assumes that you're using a build system that can load `.scss` files, such as [webpack](https://webpack.js.org/) with [sass-loader](https://github.com/webpack-contrib/sass-loader).
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+
+// import the React component AND the corresponding styles
+import { Button } from "@nds/react";
+import "@nds/core/src/components/button/index.scss";
+
+const App = () => {
+  return (
+    <main>
+      <Button variant="solid">Do something</Button>
+    </main>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("app"));
 ```
