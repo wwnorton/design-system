@@ -64,7 +64,6 @@ test:unit:
   stage: test
   script:
     - npm run test
-  after_script:
     - npm run report
   dependencies:
     - build
