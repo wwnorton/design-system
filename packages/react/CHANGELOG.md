@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.5.0...v0.5.1) (2020-02-04)
+
+### Bug Fixes
+
+- **react:** add missing components to main export ([5d8ccd4](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/5d8ccd4d7373adcedd0768879a40f8352cbcf633))
+
 # [0.5.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.4.0...v0.5.0) (2020-01-31)
 
 ### Bug Fixes

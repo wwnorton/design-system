@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.5.0...v0.5.1) (2020-02-04)
+
+### Bug Fixes
+
+- build all files to root of dist ([7698a82](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/7698a8286ac1dcbdd7ae04858468f8821e7b3720))
+
 # [0.5.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.4.0...v0.5.0) (2020-01-31)
 
 ### Bug Fixes
