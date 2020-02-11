@@ -1,4 +1,5 @@
 @import './mixins';
+@import '../icon';
 
 .disclosure {
 	@include disclosure-base;
@@ -8,17 +9,17 @@
 	@include summary-base;
 }
 
-.details-marker {
-	@include details-marker;
+.disclosure__marker {
+	@include marker-svg;
 }
 
-.details-marker.caret {
+.disclosure__marker.icon--caret-right {
 	@include marker-transform(
 		rotate(90deg),
 		rotate(0),
 	);
 
-	margin-right: calc(#{$disclosure-padding-left} - #{$disclosure-marker-width});
+	margin-right: calc(#{$disclosure-padding-left} - #{$icon-width});
 }
 
 // disable the user agent's marker (triangle/caret)
@@ -49,7 +50,7 @@ summary::marker {
 	@include disclosure--panel;
 }
 
-.details-marker.chevron {
+.disclosure__marker.icon--chevron-down {
 	@include marker-transform(
 		rotate3d(1, 0, 0, 180deg),
 		rotate3d(1, 0, 0, 0),
