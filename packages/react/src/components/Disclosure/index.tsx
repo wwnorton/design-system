@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Disclosure as CoreDisclosure } from '@nds/core';	// eslint-disable-line import/no-unresolved
 import BaseDetails, { BaseDetailsProps, DetailsToggleEvent } from '../BaseDetails';
 import BaseSummary from '../BaseSummary';
-import DetailsMarker from './DetailsMarker';
+import Icon from '../Icon';
 import { noop, isElement } from '../../utilities/events';
 
 export type DisclosureVariant = 'default' | 'panel';
@@ -97,7 +97,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			...attributes
 		} = this.props;
 		const { open } = this.state;
-		const markerType = (variant === 'panel') ? 'chevron' : 'caret';
+		const markerType = (variant === 'panel') ? 'chevron-down' : 'caret-right';
 		if (this.coreDisclosure) {
 			if (animate) {
 				this.coreDisclosure.enable();
@@ -112,14 +112,14 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			'reduced-motion': !animate,
 		}, className);
 
-		const markerElement = <DetailsMarker variant={markerType} className={markerClass} />;
+		const markerElement = <Icon variant={markerType} className={markerClass} />;
 		const summaryElement = isElement(summary, 'summary')
 			? summary
 			: (
 				<BaseSummary
 					className={summaryClass}
 					marker={markerElement}
-					markerPosition={markerType === 'caret' ? 'left' : 'right'}
+					markerPosition={variant === 'panel' ? 'right' : 'left'}
 				>
 					{ summary }
 				</BaseSummary>
