@@ -8,7 +8,7 @@ import { noop, isElement } from '../../utilities/events';
 
 export type DisclosureVariant = 'default' | 'panel';
 
-export type DisclosureContent = 'summary' | 'detailsMarker' | 'contentsContainer';
+export type DisclosureContent = 'summary' | 'marker' | 'contentsContainer';
 
 export interface DisclosureToggleEvent extends DetailsToggleEvent {
 	state: DisclosureState;
@@ -19,7 +19,10 @@ export interface DisclosureProps extends BaseDetailsProps {
 	baseName?: string;
 	/** The `className` that will be applied to the `<summary>`. */
 	summaryClass?: string;
-	/** The `className` that will be applied to the `DetailsMarker`. */
+	/**
+	 * The `className` that will be applied to the summary's icon indicator,
+	 * which takes the place of the native `summary::marker` pseudo element.
+	 */
 	markerClass?: string;
 	/** The `className` that will be applied to the internal contents wrapper. */
 	contentsClass?: string;
@@ -44,7 +47,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	public static bemBase = 'disclosure';
 	public static bemElements: Record<DisclosureContent, string> = {
 		summary: 'summary',
-		detailsMarker: 'details-marker',
+		marker: 'marker',
 		contentsContainer: 'contents',
 	}
 	/* eslint-enable react/sort-comp */
@@ -56,7 +59,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		onToggle: noop,
 		detailsRef: React.createRef<HTMLDetailsElement>(),
 		summaryClass: `${Disclosure.bemBase}__${Disclosure.bemElements.summary}`,
-		markerClass: Disclosure.bemElements.detailsMarker,
+		markerClass: `${Disclosure.bemBase}__${Disclosure.bemElements.marker}`,
 		contentsClass: `${Disclosure.bemBase}__${Disclosure.bemElements.contentsContainer}`,
 	};
 
