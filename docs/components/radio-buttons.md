@@ -12,38 +12,28 @@ A group of radio buttons includes:
 ## Usage
 
 - Use radio buttons to allow a user to select exactly one option from a set of options, and display all available options.
-- Radio buttons must appear in a group of two or more options.
-- The options in a group of radio buttons must be mutually exclusive.
+- Radio buttons should have between 2-5 options.
+  - If you have more than 5 options, use a [dropdown](dropdown) or [combo box](combo-box).
+- The options in a group of radio buttons must be mutually exclusive. The user can only select 1 option.
+- Only use radio buttons when the field is required. If all radio buttons are in an unselected state on load, a user must select one of the radio buttons before proceeding.
 - `Accessibility` Arrow keys move focus within the group, uncheck the previously focused button, and check the newly focused button.
 - `Accessibility` <kbd>Space</kbd> selects the focused radio button if it is not already selected.
 
 ::: tip Dos
 
-- Do separate groups of options with group labels.
-- Do allow users to select an option by clicking the radio button or its label.
+- Do allow users to select an option by clicking the radio button or its text label.
 - Do position the radio button to the left of its label.
 - Do display options in a vertical layout, by default, for easier scanning.
+- Consider the most logical order to display options, such as alphabetical, chronological or by popularity.
 
 :::
 
 ::: danger Don’ts
 
-- Don’t use radio buttons if a user could select zero or multiple options. Use checkboxes instead.
-- Don’t use radio buttons if an action will take immediate effect when the user selects or deselects it. Add a Submit button to confirm, or use a toggle instead.
-
-:::
-
-::: warning Caution: Dropdowns and Checkboxes
-
-- If there are only two mutually exclusive options, consider combining them into a single checkbox or toggle.
-- If a user can select from many options and you have limited space, consider using a dropdown. But use caution: it is more intuitive for a user to select from a group of radio buttons, so avoid dropdowns if possible.
-
-:::
-
-::: warning Caution: Option Defaults
-
-- If all radio buttons are in an unselected state on load, a user may need to select one of the radio buttons before proceeding.
-- Once a user has selected a radio button, they cannot go back to having no options selected without refreshing their browser window. Consider including “None of the above” or “I don’t know” if those are valid options.
-- Consider the most logical order to list options. Options may be listed alphabetically, by popularity, or some other ordered system that is clear to the user.
+- Don’t use radio buttons if a user could select multiple options. Use [checkboxes](checkbox) instead.
+- Don't use radio buttons if a user could select NO option. Use [checkboxes](checkbox) instead.
+- Don’t use radio buttons if an action will take immediate effect when the user selects or deselects it.
+  - Use a [switch](switch) if there are two opposite options (example: YES/NO, ON/OFF).
+  - Otherwise, use a group of regular [buttons](button).
 
 :::
