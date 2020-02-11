@@ -35,11 +35,8 @@
 		$disclosure-padding-left;
 }
 
-@mixin details-marker {
-	width: $disclosure-marker-width;
-	max-height: 1em;
-
-	// animate the svg's path to ensure that it doesn't affect the box size
+@mixin marker-svg {
+	// animate the icon's path to ensure that it doesn't change the box size
 	> path {
 		transition: transform $disclosure-expand-duration $disclosure-expand-easing;
 		transform-origin: center;
