@@ -9,44 +9,32 @@ A dropdown includes:
 1. A Text Label
 2. A Selected Option Area + Icon
 3. A List of Options
-
-A dropdown can also include:
-
-4. Placeholder Text
+4. Default Text (`"Select"`)
 
 ## Usage
 
 - Use a dropdown to select one option from a collapsed set of available options.
-- By default, dropdown options are mutually exclusive.
-- When an option is selected, the selected option area updates to display that item.
+- By default, dropdown options are mutually exclusive. The user can only select 1 option.
+- When an option is selected, the dropdown closes and the selected option updates to display that item.
+- On load, the dropdown should display default text of `"Select"`. The user should be able to change it back to `"Select"` if they wish.
 - `Accessibility` <kbd>Down Arrow</kbd>/<kbd>Up Arrow</kbd> moves focus to the next/previous options, respectively. Selection may also move with focus. <kbd>Home</kbd> and <kbd>End</kbd> moves focus to the first/last options, respectively.
 
 ::: tip Dos
 
-- Do keep dropdown options very concise to avoid text wrapping within the list box. If long options are unavoidable, consider using radio buttons instead.
+- Do keep dropdown options very concise.
+  - If long options are unavoidable, then they can truncate when the dropdown is in a closed state, but they should wrap fully in the open state.
 - Do ensure that the clickable area includes the entire selected option area and the icon.
+- Consider the most logical order to list options. Options could be listed alphabetically, chronologically, by popularity, etc.
 
 :::
 
 ::: danger Don’ts
 
-- Don’t use a dropdown for two options. Use radio buttons, a checkbox or a toggle instead.
-
-:::
-
-::: warning Caution: Dropdowns
-
-- It is more intuitive for a user to select from a group of radio buttons, where all options are visible, so avoid dropdowns if possible.
-- If it is not absolutely necessary for a user to choose from a predefined set of options, then consider a text field for users to type their own information.
-- If there are a lot of options, consider whether you can reduce those options, and use radio buttons instead.
-- A dropdown may have empty state text to guide the user to select an option, but the empty state text should not contain the dropdown select’s text label.
-- `Accessibility` Don’t use very long option names or start options with the same word or phrase. This makes it difficult for screen reader users to scroll through the list of options.
-
-:::
-
-::: warning Caution: Dropdown Defaults
-
-- Set default options with caution, as pre-selecting an option makes it more likely that users will miss making a conscious choice and submit the wrong option.
-- Consider the most logical order to list options. Options may be listed alphabetically, by popularity, or some other ordered system that is clear to the user.
+- Do not start all of the options in a dropdown with the same word or phrase.
+- If there are more than 6 options, consider using a [combo box](combo-box) instead.
+- If there are 2 options, consider using [radio buttons](radio-buttons) or [switch](switch) instead.
+  - If your interface needs to contain many of these selections, use dropdowns over radio buttons.
+- Do not use a dropdown when the user can multi-select options. Use checkboxes instead.
+- If it is not absolutely necessary for a user to choose from a predefined set of options, then consider a [text field](text-field) for users to type their own information.
 
 :::
