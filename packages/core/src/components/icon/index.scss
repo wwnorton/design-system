@@ -1,0 +1,5 @@
+@import 'mixins';
+
+.icon {
+	@include icon-base;
+}

@@ -1,0 +1,6 @@
+@import 'tokens';
+
+@mixin icon-base ($width: $icon-width) {
+	width: $width;
+	line-height: $icon-line-height;
+}
