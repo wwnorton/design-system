@@ -5,7 +5,6 @@ import {
 	select,
 	text,
 } from '@storybook/addon-knobs';
-import '@nds/core/src/components/disclosure/index.scss';
 import Icon, { IconProps } from '.';
 
 export default {
