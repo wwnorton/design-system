@@ -1,5 +1,4 @@
 @import './mixins';
-@import '../icon';
 
 .disclosure {
 	@include disclosure-base;
@@ -18,8 +17,6 @@
 		rotate(90deg),
 		rotate(0),
 	);
-
-	margin-right: calc(#{$disclosure-padding-left} - #{$icon-width});
 }
 
 // disable the user agent's marker (triangle/caret)
