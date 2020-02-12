@@ -19,6 +19,8 @@ const Icon: React.FunctionComponent<IconProps> = ({
 	label,
 	variant,
 	svgRef,
+	height,
+	width,
 	className,
 	...attributes
 }: IconProps) => {
@@ -41,6 +43,8 @@ const Icon: React.FunctionComponent<IconProps> = ({
 			ref={svgRef}
 			source={source}
 			viewBox={viewBox}
+			height={(!height && !width) ? '1.5rem' : height}
+			width={width}
 			className={classNames(baseName, `${baseName}--${name}`, className)}
 			aria-label={label || undefined}
 			aria-hidden={(!label) ? 'true' : undefined}

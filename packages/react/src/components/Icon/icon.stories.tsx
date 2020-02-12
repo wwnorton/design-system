@@ -5,7 +5,6 @@ import {
 	select,
 	text,
 } from '@storybook/addon-knobs';
-import '@nds/core/src/components/disclosure/index.scss';
 import Icon, { IconProps } from '.';
 
 export default {
@@ -25,6 +24,6 @@ export const Default = (): JSX.Element => (
 	<Icon
 		variant={select<IconProps['variant']>('Icon', IconOptions, 'caret-right')}
 		label={text('Label', '')}
-		width={number('Width', 48)}
+		height={number('Height', 48)}
 	/>
 );
