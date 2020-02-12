@@ -20,6 +20,14 @@ test('is visible to the accessibility tree if a label is provided', (t) => {
 	const component = renderer.create(<Icon variant="close" label={label} />);
 	const icon = component.root.findByType('svg');
 	t.is(icon.props['aria-label'], label);
-	t.falsy(icon.props['aria-hidden']);
+	t.is(icon.props['aria-hidden'], undefined);
+	t.snapshot(component.toJSON());
+});
+
+test('setting a width causes height to be undefined', (t) => {
+	const width = '48';
+	const component = renderer.create(<Icon variant="close" width={width} />);
+	const icon = component.root.findByType('svg');
+	t.is(icon.props.height, undefined);
 	t.snapshot(component.toJSON());
 });
