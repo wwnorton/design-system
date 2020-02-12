@@ -25,6 +25,6 @@ export const Default = (): JSX.Element => (
 	<Icon
 		variant={select<IconProps['variant']>('Icon', IconOptions, 'caret-right')}
 		label={text('Label', '')}
-		width={number('Width', 48)}
+		height={number('Height', 48)}
 	/>
 );
