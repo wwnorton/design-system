@@ -4,3 +4,4 @@ export { default as Checkbox } from './components/Checkbox';
 export { default as Disclosure } from './components/Disclosure';
 export { default as Switch } from './components/Switch';
 export { default as TextField } from './components/TextField';
+export { default as Radio } from './components/Radio';
