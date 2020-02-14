@@ -9,6 +9,10 @@ export type RadioContent = 'input' | 'control' | 'thumbnail' | 'label' | 'help' 
 export interface RadioProps extends BaseInputProps {
 	/** The label for the input field. */
 	label: string | JSX.Element;
+	/** The choice group's selected value. Used to determine `checked` property in `input`. */
+	selectedValue: BaseInputProps['value'];
+	/** Update selected value in choice group state. */
+	updateState: (value: BaseInputProps['value']) => void;
 	/** The secondary help text or element. */
 	help?: string | JSX.Element;
 	/** The thumbnail JSX element. */
@@ -31,12 +35,7 @@ export interface RadioProps extends BaseInputProps {
 	inputRef?: React.RefObject<HTMLInputElement>;
 }
 
-export interface RadioState {
-	/** The checked state of the component. */
-	checked: boolean;
-}
-
-export default class Radio extends React.Component<RadioProps, RadioState> {
+export default class Radio extends React.Component<RadioProps> {
 	private inputRef: React.RefObject<HTMLInputElement>;
 	private uid: string = uniqueId(`${Radio.bemBase}-`);
 	private descId = `${this.uid}-desc`;
@@ -54,24 +53,17 @@ export default class Radio extends React.Component<RadioProps, RadioState> {
 
 	/* eslint-disable react/sort-comp */
 	static defaultProps = {
-		checked: false,
 		baseName: Radio.bemBase,
 	}
 
 	constructor(props: RadioProps) {
 		super(props);
-
-		this.state = {
-			checked: props.checked || Radio.defaultProps.checked,
-		};
-
 		this.inputRef = props.inputRef || React.createRef<HTMLInputElement>();
 	}
 
 	onChange: BaseInputProps['onChange'] = async (event): Promise<void> => {
-		const { onChange } = this.props;
-		const { checked } = event.target;
-		await this.setState({ checked });
+		const { onChange, value, updateState } = this.props;
+		updateState(value);
 		if (onChange) onChange(event);
 	}
 
@@ -99,6 +91,7 @@ export default class Radio extends React.Component<RadioProps, RadioState> {
 			baseName,
 			thumbnailClass = `${baseName}__${Radio.bemElements.thumbnail}`,
 		} = this.props;
+
 		if (!thumbnail) return null;
 		return React.cloneElement(thumbnail as JSX.Element, {
 			className: classNames(
@@ -123,15 +116,34 @@ export default class Radio extends React.Component<RadioProps, RadioState> {
 		);
 	}
 
+	/** The visual control element. */
+	private get Control(): JSX.Element {
+		const {
+			value,
+			updateState,
+			baseName,
+			controlClass = `${baseName}__${Radio.bemElements.control}`,
+		} = this.props;
+		const onClick = (): void => updateState(value);
+		return (
+			// This control is purely a visual affordance. A11y is managed by the `input` element.
+			/* eslint-disable jsx-a11y/click-events-have-key-events */
+			/* eslint-disable jsx-a11y/no-static-element-interactions */
+			<div className={controlClass} onClick={onClick} />
+			/* eslint-enable */
+		);
+	}
+
 	render(): JSX.Element {
 		const {
 			// classes
 			className, baseName,
 			inputClass = `${baseName}__${Radio.bemElements.input}`,
-			controlClass = `${baseName}__${Radio.bemElements.control}`,
 			containerClass = `${baseName}__${Radio.bemElements.container}`,
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			labelClass, helpClass, thumbnailClass,
+			labelClass, helpClass, thumbnailClass, controlClass,
+			// values
+			selectedValue, value,
 			// contents
 			label, help, thumbnail,
 			// events
@@ -140,12 +152,13 @@ export default class Radio extends React.Component<RadioProps, RadioState> {
 			inputRef, checked: checkedProp,
 			...attributes
 		} = this.props;
-		const { checked } = this.state;
+
 		return (
 			<div className={classNames(baseName, className)}>
 				<BaseInput
 					type="radio"
-					checked={checked || undefined}
+					checked={selectedValue === value}
+					value={value}
 					ref={this.inputRef}
 					onChange={this.onChange}
 					id={this.uid}
@@ -153,7 +166,7 @@ export default class Radio extends React.Component<RadioProps, RadioState> {
 					aria-describedby={(help) ? this.descId : undefined}
 					{...attributes}
 				/>
-				<div className={controlClass} />
+				{this.Control}
 				{this.Thumbnail}
 				<div className={containerClass}>
 					{this.Label}
