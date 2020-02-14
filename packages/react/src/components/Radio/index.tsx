@@ -147,9 +147,9 @@ export default class Radio extends React.Component<RadioProps> {
 			// contents
 			label, help, thumbnail,
 			// events
-			onChange,
+			onChange, updateState,
 			// references
-			inputRef, checked: checkedProp,
+			inputRef,
 			...attributes
 		} = this.props;
 
