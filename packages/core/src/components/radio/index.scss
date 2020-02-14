@@ -1,0 +1,57 @@
+@import './mixins';
+
+.radio {
+	@include radio-base;
+}
+
+.radio__control {
+	@include radio-control;
+}
+
+.radio__container {
+	@include radio-container;
+}
+
+.radio__help {
+	@include radio-help;
+}
+
+.radio__thumbnail {
+	@include radio-thumbnail;
+}
+
+.radio__input {
+	@include sr-only;
+
+	&:disabled + .radio__control {
+		background-color: map-get($color-disabled, 10);
+		border-color: map-get($color-disabled, 30);
+	}
+
+	&:disabled ~ .radio__thumbnail {
+		opacity: 0.2;
+	}
+
+	&:disabled ~ .radio__container,
+	&:disabled ~ .radio__container .radio__help {
+		color: map-get($color-disabled, 40);
+	}
+
+	&:checked + .radio__control {
+		@include radio-checked;
+	}
+
+	&.focus + .radio__control,
+	&:focus + .radio__control {
+		@include focus-indicator;
+	}
+
+	&.focus:checked + .radio__control,
+	&:focus:checked + .radio__control {
+		@include radio-focus-check;
+	}
+}
+
+.radio__label {
+	@include radio-label;
+}
