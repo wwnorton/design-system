@@ -93,12 +93,11 @@ export default class Radio extends React.Component<RadioProps> {
 		} = this.props;
 
 		if (!thumbnail) return null;
-		return React.cloneElement(thumbnail as JSX.Element, {
-			className: classNames(
-				thumbnail.props.className,
-				thumbnailClass,
-			),
-		});
+		return (
+			<label className={thumbnailClass} htmlFor={this.uid}>
+				{ thumbnail }
+			</label>
+		);
 	}
 
 	/** The radio's help/description element. */
