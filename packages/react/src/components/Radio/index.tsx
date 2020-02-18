@@ -9,10 +9,6 @@ export type RadioContent = 'input' | 'control' | 'thumbnail' | 'label' | 'help' 
 export interface RadioProps extends BaseInputProps {
 	/** The label for the input field. */
 	label: string | JSX.Element;
-	/** The choice group's selected value. Used to determine `checked` property in `input`. */
-	selectedValue: BaseInputProps['value'];
-	/** Update selected value in choice group state. */
-	updateState: (value: BaseInputProps['value']) => void;
 	/** The secondary help text or element. */
 	help?: string | JSX.Element;
 	/** The thumbnail JSX element. */
@@ -59,12 +55,6 @@ export default class Radio extends React.Component<RadioProps> {
 	constructor(props: RadioProps) {
 		super(props);
 		this.inputRef = props.inputRef || React.createRef<HTMLInputElement>();
-	}
-
-	onChange: BaseInputProps['onChange'] = async (event): Promise<void> => {
-		const { onChange, value, updateState } = this.props;
-		updateState(value);
-		if (onChange) onChange(event);
 	}
 
 	/** The radio's `<label>` element. */
@@ -118,8 +108,6 @@ export default class Radio extends React.Component<RadioProps> {
 	/** The visual control element. */
 	private get Control(): JSX.Element {
 		const {
-			value,
-			updateState,
 			baseName,
 			controlClass = `${baseName}__${Radio.bemElements.control}`,
 		} = this.props;
@@ -137,14 +125,8 @@ export default class Radio extends React.Component<RadioProps> {
 			containerClass = `${baseName}__${Radio.bemElements.container}`,
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			labelClass, helpClass, thumbnailClass, controlClass,
-			// values
-			selectedValue, value,
 			// contents
 			label, help, thumbnail,
-			// events
-			onChange,
-			// methods
-			updateState,
 			// references
 			inputRef,
 			...attributes
@@ -154,10 +136,7 @@ export default class Radio extends React.Component<RadioProps> {
 			<div className={classNames(baseName, className)}>
 				<BaseInput
 					type="radio"
-					checked={selectedValue === value}
-					value={value}
 					ref={this.inputRef}
-					onChange={this.onChange}
 					id={this.uid}
 					className={inputClass}
 					aria-describedby={(help) ? this.descId : undefined}
