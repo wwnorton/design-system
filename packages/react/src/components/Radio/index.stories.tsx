@@ -30,9 +30,6 @@ export const Default = (): JSX.Element => (
 		help={text('Help', 'Additional information about this radio.')}
 		disabled={boolean('Disabled', false)}
 		onChange={action('onChange')}
-		selectedValue="Radio"
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		updateState={(): void => {}}
 	/>
 );
 
@@ -42,9 +39,6 @@ export const WithThumbnail = (): JSX.Element => (
 		help={text('Help', 'Additional information about this radio.')}
 		disabled={boolean('Disabled', false)}
 		onChange={action('onChange')}
-		selectedValue="Radio"
 		thumbnail={<Thumbnail />}
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		updateState={(): void => {}}
 	/>
 );
