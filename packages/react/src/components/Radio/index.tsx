@@ -124,14 +124,10 @@ export default class Radio extends React.Component<RadioProps> {
 			baseName,
 			controlClass = `${baseName}__${Radio.bemElements.control}`,
 		} = this.props;
-		const onClick = (): void => updateState(value);
-		return (
-			// This control is purely a visual affordance. A11y is managed by the `input` element.
-			/* eslint-disable jsx-a11y/click-events-have-key-events */
-			/* eslint-disable jsx-a11y/no-static-element-interactions */
-			<div className={controlClass} onClick={onClick} />
-			/* eslint-enable */
-		);
+		// This control is an affordance for sighted mouse users. All other users
+		// will interact directly with the `input` element.
+		// eslint-disable-next-line jsx-a11y/label-has-associated-control
+		return <label className={controlClass} htmlFor={this.uid} />;
 	}
 
 	render(): JSX.Element {
