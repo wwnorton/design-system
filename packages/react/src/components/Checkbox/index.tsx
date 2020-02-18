@@ -1,30 +1,36 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
+import Icon from '../Icon';
 import BaseInput, { BaseInputProps } from '../BaseInput';
 import { isElement } from '../../utilities/events';
 import { ValidatorError, defaultValidators } from '../../utilities/validation';
 
-export type CheckboxContent = 'input' | 'label' | 'help' | 'error';
+export type CheckboxContent = 'input' | 'label' | 'help' | 'error' | 'control' | 'container' | 'thumbnail';
 
 export interface CheckboxProps extends BaseInputProps {
-	/**
-	 * The label for the input field.
-	 * The checkbox sighted users will see will be a ":before" element on the label.
-	*/
+	/** The label for the input field. */
 	label: string | JSX.Element;
 	/** The secondary help text or element. */
 	help?: string | JSX.Element;
+	/** The thumbnail JSX element. */
+	thumbnail?: JSX.Element;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** The className for the Checkbox's `<label>` element. */
 	labelClass?: string;
+	/** The className for the control that sighted users will see. */
+	controlClass?: string;
+	/** The className for the `<div>` wrapping the label, help text, and error text. */
+	containerClass?: string;
 	/** The className for the Checkbox's help container. */
 	helpClass?: string;
 	/** The className for the Checkbox's `<input>` element. */
 	inputClass?: string;
 	/** The className for the Checkbox's error container. */
 	errorClass?: string;
+	/** The className for the Checkbox's thumbnail element. */
+	thumbnailClass?: string;
 	/** A reference to the inner `<input>` element. */
 	inputRef?: React.RefObject<HTMLInputElement>;
 	/**
@@ -57,6 +63,9 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		label: 'label',
 		help: 'help',
 		error: 'error',
+		control: 'control',
+		container: 'container',
+		thumbnail: 'thumbnail',
 	}
 	/* eslint-enable react/sort-comp */
 
@@ -108,6 +117,42 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		if (onValidate) onValidate({ errors, validity });
 	}
 
+	/** The visual control for the component. A11y is handled by the native `<input>`. */
+	private get Control(): JSX.Element {
+		const {
+			baseName,
+			controlClass = `${baseName}__${Checkbox.bemElements.control}`,
+		} = this.props;
+		const { checked } = this.state;
+		const onClick = (): void => this.setState({ checked: !checked });
+		return (
+			// This control is purely a visual affordance. A11y is managed by the `input` element.
+			/* eslint-disable jsx-a11y/click-events-have-key-events */
+			/* eslint-disable jsx-a11y/no-static-element-interactions */
+			<div className={controlClass} onClick={onClick}>
+				<Icon variant="check" />
+			</div>
+			/* eslint-enable */
+		);
+	}
+
+	/** The component's thumbnail. */
+	private get Thumbnail(): JSX.Element | null {
+		const {
+			thumbnail,
+			baseName,
+			thumbnailClass = `${baseName}__${Checkbox.bemElements.thumbnail}`,
+		} = this.props;
+
+		if (!thumbnail) return null;
+		return React.cloneElement(thumbnail as JSX.Element, {
+			className: classNames(
+				thumbnail.props.className,
+				thumbnailClass,
+			),
+		});
+	}
+
 	/** The text field's `<label>`. */
 	private get Label(): JSX.Element {
 		const {
@@ -157,6 +202,7 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 			// classes
 			className, baseName,
 			inputClass = `${baseName}__${Checkbox.bemElements.input}`,
+			containerClass = `${baseName}__${Checkbox.bemElements.container}`,
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			labelClass, helpClass, errorClass,
 			// contents
@@ -192,9 +238,13 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 					aria-errormessage={(!valid) ? this.errId : undefined}
 					{...attributes}
 				/>
-				{this.Label}
-				{this.Help}
-				{this.Error}
+				{this.Control}
+				{this.Thumbnail}
+				<div className={containerClass}>
+					{this.Label}
+					{this.Help}
+					{this.Error}
+				</div>
 			</div>
 		);
 	}
