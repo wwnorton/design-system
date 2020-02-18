@@ -5,7 +5,7 @@ import {
 	boolean,
 	text,
 } from '@storybook/addon-knobs';
-import '@nds/core/src/components/radio/index.scss';
+import './index.stories.scss';
 import Radio from '.';
 
 export default {
@@ -32,3 +32,31 @@ export const WithThumbnail = (): JSX.Element => (
 		thumbnail={<img src={text('Thumbnail Source', 'https://picsum.photos/64')} alt="" />}
 	/>
 );
+
+export const Fieldset = ({
+	prompt = 'Choose a fruit',
+	items = ['Apple', 'Banana', 'Kiwi', 'Orange'],
+	name = 'fruit',
+}: { prompt: string; items: string[]; name: string }): JSX.Element => {
+	const [checked, setChecked] = React.useState();
+	const updateChecked = (item: string) => (e): void => {
+		setChecked(item);
+		action('onChange')(e);
+	};
+	return (
+		<fieldset>
+			<legend>{ prompt }</legend>
+			{ items.map((item) => (
+				<Radio
+					key={item}
+					label={item}
+					value={item}
+					name={name}
+					onChange={updateChecked(item)}
+					checked={checked === item}
+					className="group-item"
+				/>
+			)) }
+		</fieldset>
+	);
+};
