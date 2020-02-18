@@ -1,0 +1,25 @@
+@import '../../globals/scss/tokens';
+
+// visual radio control
+$radio-border-unchecked: $gray !default;
+$radio-bg-unchecked: $white !default;
+$radio-border-checked: $teal !default;
+$radio-border-size: 2px !default;
+$radio-border-radius: 50% !default;
+$radio-control-size: 1rem !default;
+$radio-check-size: calc(#{$radio-control-size} / 2) !default;
+$radio-check: (
+	inset 0 0 0 $radio-border-size $white,
+	inset 0 0 0 $radio-check-size map-get($teal, 60),
+) !default;
+$radio-check-focus: (
+	$radio-check,
+	$focus-indicator,
+) !default;
+
+// optional help text
+$radio-help-font-size: 0.875rem !default;
+$radio-help-color: $gray !default;
+
+// spacing between elements
+$radio-gap: 0.5rem;
