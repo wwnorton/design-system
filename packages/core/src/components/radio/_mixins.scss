@@ -16,8 +16,12 @@
 }
 
 @mixin radio-control {
+	position: relative;
+	top: $radio-border-size;
+	left: $radio-border-size;
 	width: $radio-control-size;
 	height: $radio-control-size;
+	box-sizing: border-box;
 	margin-right: $radio-gap;
 	cursor: pointer;
 	background-color: $radio-bg-unchecked;

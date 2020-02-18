@@ -9,7 +9,7 @@ $radio-border-radius: 50% !default;
 $radio-control-size: 1rem !default;
 $radio-check-size: calc(#{$radio-control-size} / 2) !default;
 $radio-check: (
-	inset 0 0 0 3px $white,
+	inset 0 0 0 $radio-border-size $white,
 	inset 0 0 0 $radio-check-size map-get($teal, 60),
 ) !default;
 $radio-check-focus: (
