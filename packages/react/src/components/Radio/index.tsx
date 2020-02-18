@@ -114,7 +114,7 @@ export default class Radio extends React.Component<RadioProps> {
 		// This control is an affordance for sighted mouse users. All other users
 		// will interact directly with the `input` element.
 		// eslint-disable-next-line jsx-a11y/label-has-associated-control
-		return <label className={controlClass} htmlFor={this.uid} />;
+		return <label className={controlClass} htmlFor={this.uid} aria-hidden="true" />;
 	}
 
 	render(): JSX.Element {
