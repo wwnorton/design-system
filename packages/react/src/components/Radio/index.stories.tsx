@@ -6,7 +6,7 @@ import {
 	text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Radio from '.';
+import Radio, { RadioProps } from '.';
 
 export default {
 	title: 'Radio',
@@ -39,7 +39,7 @@ export const Fieldset = ({
 	name = 'fruit',
 }: { prompt: string; items: string[]; name: string }): JSX.Element => {
 	const [checked, setChecked] = React.useState();
-	const updateChecked = (item: string) => (e): void => {
+	const updateChecked = (item: string): RadioProps['onChange'] => (e): void => {
 		setChecked(item);
 		action('onChange')(e);
 	};
