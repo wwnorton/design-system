@@ -33,3 +33,14 @@ export const Indeterminate = (): JSX.Element => (
 		required={boolean('Required', false)}
 	/>
 );
+
+export const WithThumbnail = (): JSX.Element => (
+	<Checkbox
+		label={text('Label', 'Checkbox')}
+		help={text('Help', 'Additional information about this checkbox.')}
+		disabled={boolean('Disabled', false)}
+		required={boolean('Required', false)}
+		onValidate={action('onValidate')}
+		thumbnail={<img src={text('Thumbnail Source', 'https://picsum.photos/64')} alt="" />}
+	/>
+);
