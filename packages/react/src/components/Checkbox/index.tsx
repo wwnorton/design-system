@@ -113,7 +113,7 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 
 	onValidate: BaseInputProps['onValidate'] = async ({ errors, validity }): Promise<void> => {
 		const { onValidate } = this.props;
-		this.setState({ errors });
+		await this.setState({ errors, valid: errors.length === 0 });
 		if (onValidate) onValidate({ errors, validity });
 	}
 
@@ -123,16 +123,13 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 			baseName,
 			controlClass = `${baseName}__${Checkbox.bemElements.control}`,
 		} = this.props;
-		const { checked } = this.state;
-		const onClick = (): void => this.setState({ checked: !checked });
+		const { indeterminate } = this.state;
 		return (
 			// This control is purely a visual affordance. A11y is managed by the `input` element.
-			/* eslint-disable jsx-a11y/click-events-have-key-events */
-			/* eslint-disable jsx-a11y/no-static-element-interactions */
-			<div className={controlClass} onClick={onClick}>
-				<Icon variant="check" />
-			</div>
-			/* eslint-enable */
+			// eslint-disable-next-line jsx-a11y/label-has-associated-control
+			<label className={controlClass} htmlFor={this.uid} aria-hidden="true">
+				<Icon variant={indeterminate ? 'minus' : 'check'} />
+			</label>
 		);
 	}
 
@@ -145,12 +142,12 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		} = this.props;
 
 		if (!thumbnail) return null;
-		return React.cloneElement(thumbnail as JSX.Element, {
-			className: classNames(
-				thumbnail.props.className,
-				thumbnailClass,
-			),
-		});
+		return (
+			<label className={thumbnailClass} htmlFor={this.uid}>
+				{ thumbnail }
+			</label>
+
+		);
 	}
 
 	/** The text field's `<label>`. */
