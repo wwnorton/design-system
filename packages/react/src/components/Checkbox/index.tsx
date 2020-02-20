@@ -155,7 +155,6 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		const {
 			label,
 			baseName,
-			required,
 			labelClass = `${baseName}__${Checkbox.bemElements.label}`,
 		} = this.props;
 		if (isElement(label, 'label')) {
@@ -164,8 +163,6 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		return (
 			<label htmlFor={this.uid} className={labelClass}>
 				{ label }
-				{ !required && ' ' }
-				{ !required && <span className={`${baseName}__optional`}>(optional)</span> }
 			</label>
 		);
 	}
