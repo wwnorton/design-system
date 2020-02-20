@@ -5,7 +5,7 @@ import {
 	boolean,
 	text,
 } from '@storybook/addon-knobs';
-import '@nds/core/src/components/checkbox/index.scss';
+import './index.stories.scss';
 import Checkbox from '.';
 
 export default {
