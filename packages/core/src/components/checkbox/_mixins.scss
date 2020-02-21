@@ -3,13 +3,10 @@
 @import '../../globals/scss/mixins';
 
 @mixin checkbox-container {
-	position: relative;
 	display: flex;
-	padding-left: $checkbox-container-padding;
 }
 
 @mixin checkbox-control {
-	position: absolute;
 	left: 0;
 	display: flex;
 	align-items: center;
@@ -17,6 +14,7 @@
 	width: $checkbox-size;
 	height: $checkbox-size;
 	box-sizing: border-box;
+	margin-right: $checkbox-gap;
 	color: $checkbox-color;
 	content: '';
 	background-color: $checkbox-bg-unchecked;
