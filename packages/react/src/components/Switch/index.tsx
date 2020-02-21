@@ -39,7 +39,8 @@ export default class Switch extends React.Component<SwitchProps, SwitchState> {
 	}
 
 	toggle = async (e: ClickEvent): Promise<void> => {
-		const { onToggle } = this.props;
+		const { onClick, onToggle } = this.props;
+		if (onClick) onClick(e);
 		const { on } = this.state;
 		await this.setState({ on: !on });
 		if (onToggle) onToggle({ ...e, state: this.state });
@@ -52,6 +53,7 @@ export default class Switch extends React.Component<SwitchProps, SwitchState> {
 			disabled,
 			children,
 			className,
+			onClick: onClickProp,
 			...attributes
 		} = this.props;
 		const { on } = this.state;
