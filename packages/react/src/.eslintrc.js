@@ -7,6 +7,9 @@ module.exports = {
 	plugins: [
 		'react-hooks',
 	],
+	env: {
+		browser: true,
+	},
 	rules: {
 		indent: 'off',
 		'no-tabs': 'off',
