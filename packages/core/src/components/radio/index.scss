@@ -37,13 +37,21 @@
 		color: map-get($color-disabled, 40);
 	}
 
-	&:checked + .radio__control {
-		@include radio-checked;
-	}
-
 	&.focus + .radio__control,
 	&:focus + .radio__control {
 		@include focus-indicator;
+	}
+
+	&:checked:not([disabled]) + .radio__control {
+		@include radio-checked;
+	}
+
+	&:disabled:checked + .radio__control {
+		box-shadow:
+			(
+				inset 0 0 0 $radio-border-size $white,
+				inset 0 0 0 $radio-check-size map-get($color-disabled, 30),
+			);
 	}
 
 	&.focus:checked + .radio__control,
