@@ -32,3 +32,23 @@ test('`variant` is converted into a BEM modifier class', (t) => {
 	t.is(btn.props.className, `${baseName} ${baseName}--${variant}`);
 	t.snapshot(component.toJSON());
 });
+
+test('renders a valid icon variant', (t) => {
+	const component = renderer.create(<Button icon="close">Foo</Button>);
+	t.snapshot(component.toJSON());
+});
+
+test('renders a valid icon variant on the right', (t) => {
+	const component = renderer.create(<Button icon="close" iconRight>Foo</Button>);
+	t.snapshot(component.toJSON());
+});
+
+test('an iconOnly button sets its children as the button title and the icon\'s aria-label', (t) => {
+	const text = 'Foo';
+	const component = renderer.create(<Button icon="close" iconOnly>{ text }</Button>);
+	const btn = component.root.findByType('button');
+	const icon = component.root.findByType('svg');
+	t.is(btn.props.title, text);
+	t.is(icon.props['aria-label'], text);
+	t.snapshot(component.toJSON());
+});
