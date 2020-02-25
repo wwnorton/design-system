@@ -8,6 +8,14 @@ test('renders its defaults', (t) => {
 	t.snapshot(component.toJSON());
 });
 
+test('throws when no children are provided', (t) => {
+	t.throws(() => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+		// @ts-ignore
+		renderer.create(<Button />);
+	}, null, Button.errors.noChildren);
+});
+
 test('a custom `baseName` is rendered as a className', (t) => {
 	const baseName = 'btn';
 	const component = renderer.create(<Button baseName={baseName}>Foo</Button>);
