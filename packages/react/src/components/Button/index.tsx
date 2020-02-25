@@ -43,6 +43,10 @@ class Button extends React.PureComponent<ButtonProps> {
 		icon: 'icon',
 		text: 'text',
 	}
+
+	public static errors: Record<string, string> = {
+		noChildren: 'Button components must always have children.',
+	}
 	/* eslint-enable react/sort-comp */
 
 	public static defaultProps = {
@@ -125,7 +129,7 @@ class Button extends React.PureComponent<ButtonProps> {
 		);
 
 		if (!children) {
-			throw new Error('Button components must always have children.');
+			throw new Error(Button.errors.noChildren);
 		}
 
 		this.label = this.getText(children);
