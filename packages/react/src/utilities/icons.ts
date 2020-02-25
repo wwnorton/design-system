@@ -1,9 +1,9 @@
 export interface SVGIcon {
-	name: IconVariant;
+	name?: IconVariant;
 	originalName?: string;
-	viewBox: string;
+	viewBox?: string;
 	d: string;
-	source: string;
+	source?: string;
 }
 
 export type IconVariant =
@@ -12,7 +12,7 @@ export type IconVariant =
 	| 'chevron-down'
 	| 'close'
 
-const materialDefaults = {
+export const materialDefaults = {
 	viewBox: '0 0 24 24',
 };
 
@@ -51,7 +51,7 @@ export const materialIcons: SVGIcon[] = [
  * to set the SVG.
  */
 const findIcon = (
-	name: IconVariant,
+	name?: IconVariant,
 ): SVGIcon | undefined => materialIcons.find(({ name: iconName }) => name === iconName);
 
 export default findIcon;
