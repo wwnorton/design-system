@@ -1,30 +1,4 @@
-@import '@nds/core/src/components/button/index';
-@import '@nds/core/src/components/checkbox/index';
-@import '@nds/core/src/components/radio/index';
-
-.mc {
-	padding: 0;
-	margin: 0;
-	border: 0;
-}
-
-.mc__prompt {
-	@include checkbox-label;
-}
-
-.mc__description {
-	@include checkbox-help;
-}
-
-.mc__choices {
-	padding: 0;
-	margin: 0.5rem 0 0;
-}
-
-.mc__choice {
-	display: flex;
-	margin-bottom: 0.5rem;
-}
+@import '@nds/core/src/components/multiple-choice/index';
 
 .mc__choice.incorrect {
 	@include button-solid($red);
