@@ -1,11 +1,14 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 import {
 	withKnobs,
 	number,
 	select,
 	text,
+	boolean,
 } from '@storybook/addon-knobs';
 import Icon, { IconProps } from '.';
+import IconButton from '../IconButton';
 
 export default {
 	title: 'Icon',
@@ -26,4 +29,14 @@ export const Default = (): JSX.Element => (
 		label={text('Label', '')}
 		height={number('Height', 48)}
 	/>
+);
+
+export const iconButton = (): JSX.Element => (
+	<IconButton
+		onClick={action('onClick')}
+		disabled={boolean('Disabled', false)}
+		icon="close"
+	>
+		{ text('Text', 'Close') }
+	</IconButton>
 );

@@ -20,3 +20,12 @@
 .button--ghost {
 	@include button-ghost();
 }
+
+/* icon-only button */
+.button--icon-only {
+	@include button-icon-only;
+}
+
+.button__icon {
+	@include button-icon;
+}
