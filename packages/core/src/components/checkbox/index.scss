@@ -14,41 +14,71 @@
 	@include checkbox-help;
 }
 
-.checkbox__input {
-	@include sr-only;
+.checkbox__control {
+	@include checkbox-control;
+
+	.icon {
+		display: none;
+	}
 }
 
 .checkbox__label {
 	@include checkbox-label;
 }
 
-.checkbox__label::before {
-	@include checkbox-control;
+.checkbox__thumbnail {
+	@include checkbox-thumbnail;
 }
 
-.checkbox__input[aria-invalid=true] + .checkbox__label::before {
-	@include checkbox-control-error;
-}
+.checkbox__input {
+	@include sr-only;
 
-.checkbox__input.focus + .checkbox__label::before,
-.checkbox__input:focus + .checkbox__label::before {
-	@include focus-indicator;
-}
+	&[aria-invalid=true] + .checkbox__control {
+		@include checkbox-control-error;
+	}
 
-.checkbox__input:checked + .checkbox__label::before {
-	@include checkbox-control-checked;
-}
+	&.focus + .checkbox__control,
+	&:focus + .checkbox__control {
+		@include focus-indicator;
+	}
 
-.checkbox__input.disabled + .checkbox__label::before,
-.checkbox__input:disabled + .checkbox__label::before {
-	@include checkbox-control-disabled;
-}
+	&:checked + .checkbox__control {
+		@include checkbox-control-checked;
+	}
 
-.checkbox__input.indeterminate + .checkbox__label::before,
-.checkbox__input:indeterminate + .checkbox__label::before {
-	@include checkbox-indeterminate;
-}
+	&:checked + .checkbox__control .icon {
+		display: block;
+	}
 
-.checkbox__input:disabled:checked + .checkbox__label::before {
-	@include checkbox-control-checked-disabled;
+	&.indeterminate + .checkbox__control,
+	&:indeterminate + .checkbox__control {
+		@include checkbox-control-checked;
+	}
+
+	&.indeterminate + .checkbox__control .icon,
+	&:indeterminate + .checkbox__control .icon {
+		display: block;
+	}
+
+	&:disabled + .checkbox__control,
+	&:disabled:indeterminate + .checkbox__control {
+		border-color: map-get($color-disabled, 20);
+	}
+
+	&:disabled:checked + .checkbox__control,
+	&:disabled:indeterminate + .checkbox__control {
+		background-color: map-get($color-disabled, 20);
+	}
+
+	&:disabled ~ .checkbox__thumbnail,
+	&.disabled ~ .checkbox__thumbnail {
+		opacity: 0.2;
+	}
+
+	&.disabled ~ .checkbox__container,
+	&:disabled ~ .checkbox__container,
+	&.disabled ~ .checkbox__container .checkbox__help,
+	&:disabled ~ .checkbox__container .checkbox__help {
+		color: map-get($color-disabled, 40);
+	}
 }
