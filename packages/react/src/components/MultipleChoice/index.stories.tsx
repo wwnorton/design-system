@@ -57,12 +57,7 @@ export const withFeedback = (): JSX.Element => {
 			const { props } = choices[choiceIndex];
 			const newProps = {
 				...props,
-				value: (
-					<>
-						<Icon variant={(isCorrect) ? 'check' : 'close'} />
-						{ value }
-					</>
-				),
+				icon: (isCorrect) ? 'check' : 'close',
 				className: classNames(props.className, {
 					correct: isCorrect === true,
 					incorrect: isCorrect === false,
