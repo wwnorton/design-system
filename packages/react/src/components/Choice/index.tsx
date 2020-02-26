@@ -40,21 +40,17 @@ class Choice extends React.PureComponent<ChoiceProps> {
 			name,
 			buttonVariant,
 			checked,
-			disabled,
 			children,
-			title,
 			label = children || String(value),
 			onChoice = Choice.defaultProps.onChoice,
 			onChange = Choice.defaultProps.onChange,
 			onClick = Choice.defaultProps.onClick,
-			className,
+			...attributes
 		} = this.props;
 		// props that are applied to all variants
 		const props = {
-			className,
-			disabled,
 			value,
-			title,
+			...attributes,
 		};
 
 		const clickHandler: ChoiceProps['onClick'] = (e) => {
