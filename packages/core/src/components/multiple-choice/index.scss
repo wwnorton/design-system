@@ -1,0 +1,28 @@
+@import './tokens';
+@import '../button/index';
+@import '../checkbox/index';
+@import '../radio/index';
+
+.mc {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+.mc__prompt {
+	@include checkbox-label;
+}
+
+.mc__description {
+	@include checkbox-help;
+}
+
+.mc__choices {
+	padding: 0;
+	margin: $mc-item-spacing 0 0;
+}
+
+.mc__choice {
+	display: flex;
+	margin-bottom: $mc-item-spacing;
+}

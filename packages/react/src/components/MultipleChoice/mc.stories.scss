@@ -1,0 +1,13 @@
+@import '@nds/core/src/components/multiple-choice/index';
+
+.mc__choice.incorrect {
+	@include button-solid($red);
+
+	pointer-events: none;
+}
+
+.mc__choice.correct {
+	@include button-solid($green);
+
+	pointer-events: none;
+}
