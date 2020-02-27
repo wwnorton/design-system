@@ -34,8 +34,7 @@ test('a custom baseName results in new BEM classes', (t) => {
 	t.snapshot(component.toJSON());
 });
 
-// TODO: make this test work
-test.skip('displays an error message', (t) => {
+test.failing('displays an error message', (t) => {
 	let err = [];
 	const onValidate: CheckboxProps['onValidate'] = ({ errors }): void => { err = errors; };
 	const component = renderer.create(<Checkbox label="Checkbox" required validateOnChange onValidate={onValidate} />);
