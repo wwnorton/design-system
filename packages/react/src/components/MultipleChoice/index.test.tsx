@@ -16,10 +16,10 @@ const createInputChanger = (
 	const component = create(el);
 	const inputs = component.root.findAllByType('input');
 	const changer = (n: number, expected: number[]): void => {
-		const { value } = inputs[n].props;
-		inputs[n].props.onChange({ target: { value } });
+		const { value, checked } = inputs[n].props;
+		inputs[n].props.onChange({ target: { checked: !checked, value } });
 		inputs.forEach(({ props }, i) => {
-			const fn = (expected.includes(i)) ? ctx.true : ctx.false;
+			const fn = (expected.includes(i)) ? ctx.truthy : ctx.falsy;
 			fn(props.checked);
 		});
 		ctx.snapshot(component.toJSON(), `onChange triggered on ${value}`);
@@ -89,7 +89,7 @@ test('only one choice can be selected when multiselect=false', (t) => {
 });
 
 // checkbox seems to be working differently from radio. need to resolve this.
-test.failing('many choices can be selected when multiselect=true', (t) => {
+test('many choices can be selected when multiselect=true', (t) => {
 	const clickInput = createInputChanger(<MC multiselect />, t);
 	t.plan(4 * clickInput.assertionCount);
 	clickInput(0, [0]);
