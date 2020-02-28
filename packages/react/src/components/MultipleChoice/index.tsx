@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import Choice, { ChoiceProps } from '../Choice';
-import { noop } from '../../utilities/events';
+import { noop } from '../../utilities/helpers';
 
 export interface MultipleChoiceProps extends React.HTMLAttributes<HTMLFieldSetElement> {
 	prompt: string | JSX.Element;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { noop } from '../../utilities/events';
+import { noop } from '../../utilities/helpers';
 import { InputType, ValidatorEntry, ValidatorError } from '../../utilities/validation';
 
 export interface ValidationState {

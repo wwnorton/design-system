@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import Icon from '../Icon';
 import BaseInput, { BaseInputProps } from '../BaseInput';
-import { isElement } from '../../utilities/events';
+import { isElement } from '../../utilities/helpers';
 import { ValidatorError, defaultValidators } from '../../utilities/validation';
 
 export type CheckboxContent = 'input' | 'label' | 'help' | 'error' | 'control' | 'container' | 'thumbnail';
@@ -164,8 +164,8 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 			htmlFor: this.id,
 			id: this.labelId,
 		};
-		if (isElement(label, 'label')) {
-			return React.cloneElement(label as JSX.Element, props);
+		if (isElement<React.LabelHTMLAttributes<HTMLLabelElement>>(label)) {
+			return React.cloneElement(label, props);
 		}
 		// eslint-disable-next-line jsx-a11y/label-has-associated-control
 		return <label className={labelClass} {...props}>{ label }</label>;

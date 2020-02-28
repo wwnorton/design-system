@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import BaseInput, { BaseInputProps } from '../BaseInput';
-import { isElement } from '../../utilities/events';
+import { isElement } from '../../utilities/helpers';
 import { ValidatorEntry, defaultValidators, ValidatorError } from '../../utilities/validation';
 
 export type TextFieldContent = 'label' | 'help' | 'input' | 'feedback' | 'error' | 'counter';
@@ -128,8 +128,8 @@ export default class TextField extends React.Component<TextFieldProps, TextField
 			required,
 			labelClass = `${baseName}__${TextField.bemElements.label}`,
 		} = this.props;
-		if (isElement(label, 'label')) {
-			return React.cloneElement(label as JSX.Element, { htmlFor: this.id });
+		if (isElement<React.LabelHTMLAttributes<HTMLLabelElement>>(label, 'label')) {
+			return React.cloneElement(label, { htmlFor: this.id });
 		}
 		return (
 			<label htmlFor={this.id} className={labelClass}>

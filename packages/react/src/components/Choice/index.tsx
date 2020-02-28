@@ -3,7 +3,7 @@ import Button, { ButtonProps } from '../Button';
 import Checkbox, { CheckboxProps } from '../Checkbox';
 import Radio from '../Radio';
 import Switch from '../Switch';
-import { noop } from '../../utilities/events';
+import { noop } from '../../utilities/helpers';
 
 export type ChoiceVariant = 'button' | 'checkbox' | 'radio' | 'switch';
 

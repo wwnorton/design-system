@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import BaseInput, { BaseInputProps } from '../BaseInput';
-import { isElement } from '../../utilities/events';
+import { isElement } from '../../utilities/helpers';
 
 export type RadioContent = 'input' | 'control' | 'thumbnail' | 'label' | 'help' | 'container';
 
@@ -71,8 +71,8 @@ export default class Radio extends React.Component<RadioProps> {
 			htmlFor: this.id,
 			id: this.labelId,
 		};
-		if (isElement(label, 'label')) {
-			return React.cloneElement(label as JSX.Element, props);
+		if (isElement<React.LabelHTMLAttributes<HTMLLabelElement>>(label)) {
+			return React.cloneElement(label, props);
 		}
 		// eslint-disable-next-line jsx-a11y/label-has-associated-control
 		return <label className={labelClass} {...props}>{ label }</label>;

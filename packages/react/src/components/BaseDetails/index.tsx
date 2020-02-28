@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseSummary from '../BaseSummary';
-import { isElement } from '../../utilities/events';
+import { isElement } from '../../utilities/helpers';
 
 export type DetailsToggleEvent = React.SyntheticEvent<HTMLDetailsElement, Event>;
 
@@ -28,7 +28,7 @@ export default React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 	...attributes
 }: BaseDetailsProps, ref) => {
 	const Summary = (content?: JSX.Element | string): JSX.Element => {
-		if (isElement(content, 'summary')) return content as JSX.Element;
+		if (isElement(content, 'summary')) return content;
 		return <BaseSummary className={summaryClass}>{ content || 'Details' }</BaseSummary>;
 	};
 
