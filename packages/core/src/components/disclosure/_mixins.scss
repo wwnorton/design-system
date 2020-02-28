@@ -4,12 +4,16 @@
 @mixin disclosure-base {
 	position: relative;
 	display: block;
+	box-sizing: border-box;
 }
 
 @mixin summary-base {
 	display: flex;
-	align-items: center;
+	box-sizing: border-box;
+	font-size: $summary-font-size;
+	line-height: $summary-line-height;
 	cursor: pointer;
+	align-items: center;
 
 	&:focus,
 	.focus {
@@ -36,6 +40,8 @@
 }
 
 @mixin marker-svg {
+	height: $summary-font-size * $summary-line-height;
+
 	// animate the icon's path to ensure that it doesn't change the box size
 	> path {
 		transition: transform $disclosure-expand-duration $disclosure-expand-easing;

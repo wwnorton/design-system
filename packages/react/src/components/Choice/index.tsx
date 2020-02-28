@@ -50,6 +50,7 @@ class Choice extends React.PureComponent<ChoiceProps> {
 		// props that are applied to all variants
 		const props = {
 			value,
+			checked,
 			...attributes,
 		};
 
@@ -73,7 +74,6 @@ class Choice extends React.PureComponent<ChoiceProps> {
 			onChange: changeHandler,
 			label: (typeof label !== 'string') ? String(value) : label,
 			name,
-			checked,
 		};
 
 		if (variant === 'button') {
@@ -81,15 +81,7 @@ class Choice extends React.PureComponent<ChoiceProps> {
 		}
 
 		if (variant === 'switch') {
-			return (
-				<Switch
-					on={checked}
-					textualState={false}
-					{...buttonProps}
-				>
-					{ value }
-				</Switch>
-			);
+			return <Switch displayState={false} {...buttonProps}>{ value }</Switch>;
 		}
 
 		if (variant === 'checkbox') {
