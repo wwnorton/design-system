@@ -18,7 +18,7 @@ test('event callbacks are triggered in addition to internal activation behavior'
 		blur: 'blur',
 	};
 	const ButtonTest: React.FunctionComponent = () => {
-		const [current, setCurrent] = React.useState();
+		const [current, setCurrent] = React.useState<string>();
 		const update = (val: string) => (): void => { setCurrent(val); };
 
 		return (
