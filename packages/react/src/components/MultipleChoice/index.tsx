@@ -38,6 +38,9 @@ export interface MultipleChoiceState {
 
 class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoiceState> {
 	private uid = uniqueId(`${MultipleChoice.baseName}-`);
+	// eslint-disable-next-line react/destructuring-assignment
+	private get id(): string { return this.props.id || this.uid; }
+	private get promptId(): string { return `${this.id}-prompt`; }
 
 	/* eslint-disable react/sort-comp */
 	private static baseName = 'mc';
@@ -62,15 +65,6 @@ class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoice
 		this.state = {
 			selected: [],
 		};
-	}
-
-	private get id(): string {
-		const { id } = this.props;
-		return id || this.uid;
-	}
-
-	private get promptId(): string {
-		return `${this.id}-prompt`;
 	}
 
 	private get Description(): JSX.Element | null {

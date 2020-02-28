@@ -34,7 +34,9 @@ export interface RadioProps extends BaseInputProps {
 export default class Radio extends React.Component<RadioProps> {
 	private inputRef: React.RefObject<HTMLInputElement>;
 	private uid: string = uniqueId(`${Radio.bemBase}-`);
-	private descId = `${this.uid}-desc`;
+	// eslint-disable-next-line react/destructuring-assignment,react/sort-comp
+	private get id(): string { return this.props.id || this.uid; }
+	private get descId(): string { return `${this.id}-desc`; }
 
 	/* eslint-disable react/sort-comp */
 	public static bemBase = 'radio';
@@ -64,14 +66,14 @@ export default class Radio extends React.Component<RadioProps> {
 			baseName,
 			labelClass = `${baseName}__${Radio.bemElements.label}`,
 		} = this.props;
+		const props = {
+			htmlFor: this.id,
+		};
 		if (isElement(label, 'label')) {
-			return React.cloneElement(label as JSX.Element, { htmlFor: this.uid });
+			return React.cloneElement(label as JSX.Element, props);
 		}
-		return (
-			<label htmlFor={this.uid} className={labelClass}>
-				{label}
-			</label>
-		);
+		// eslint-disable-next-line jsx-a11y/label-has-associated-control
+		return <label className={labelClass} {...props}>{ label }</label>;
 	}
 
 	/** The radio's thumbnail element. */
@@ -84,7 +86,7 @@ export default class Radio extends React.Component<RadioProps> {
 
 		if (!thumbnail) return null;
 		return (
-			<label className={thumbnailClass} htmlFor={this.uid}>
+			<label className={thumbnailClass} htmlFor={this.id}>
 				{ thumbnail }
 			</label>
 		);
@@ -114,7 +116,7 @@ export default class Radio extends React.Component<RadioProps> {
 		// This control is an affordance for sighted mouse users. All other users
 		// will interact directly with the `input` element.
 		// eslint-disable-next-line jsx-a11y/label-has-associated-control
-		return <label className={controlClass} htmlFor={this.uid} aria-hidden="true" />;
+		return <label className={controlClass} htmlFor={this.id} aria-hidden="true" />;
 	}
 
 	render(): JSX.Element {
@@ -137,7 +139,7 @@ export default class Radio extends React.Component<RadioProps> {
 				<BaseInput
 					type="radio"
 					ref={this.inputRef}
-					id={this.uid}
+					id={this.id}
 					className={inputClass}
 					aria-describedby={(help) ? this.descId : undefined}
 					{...attributes}
