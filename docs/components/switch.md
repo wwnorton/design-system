@@ -16,17 +16,17 @@ The standard switch has two states: "on" and "off," which are conveyed by a swit
 <button class="switch" type="button" role="switch" aria-checked="true">Switch</button>
 <button class="switch" type="button" role="switch" aria-checked="false">Switch</button>
 
-### Textual State
+### State Indicator
 
-By including a `.switch-state` inside your switch, you can make the "on" and "off" explicit.
+An internal `.switch__state` can be used to display a value for the switch's current state.
 This is highly recommended to remove any ambiguity about which state is on and which is off.
 
 <button class="switch" type="button" role="switch" aria-checked="true">
-  <div class="switch-state"></div>
+  <div class="switch__state" aria-hidden="true">ON</div>
   Switch
 </button>
 <button class="switch" type="button" role="switch" aria-checked="false">
-  <div class="switch-state"></div>
+  <div class="switch__state" aria-hidden="true">OFF</div>
   Switch
 </button>
 
