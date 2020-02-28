@@ -6,7 +6,6 @@ import {
 } from '@storybook/addon-knobs';
 import './mc.stories.scss';
 import MultipleChoice, { MultipleChoiceProps } from '.';
-import Icon from '../Icon';
 import Choice from '../Choice';
 
 export default {
