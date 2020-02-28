@@ -34,7 +34,6 @@ const packageConfig = (packageRoot, src = 'src', dest = 'dist') => {
 		},
 		typescript: {
 			tsConfig: `${packageRoot}/tsconfig.json`,
-			src: `${srcRoot}/**/*.{ts,tsx}`,
 			dest: destRoot,
 			watch: [
 				`${srcRoot}/**/*.{ts,tsx}`,

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import BaseButton, { BaseButtonProps } from '../BaseButton';
-import { noop } from '../../utilities/events';
+import { noop } from '../../utilities/helpers';
 
 export interface SwitchProps extends BaseButtonProps {
 	/** The switch's initial "on" state. */

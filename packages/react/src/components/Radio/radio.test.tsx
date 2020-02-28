@@ -22,7 +22,7 @@ test('all <label> elements reference the <input> via the [htmlFor] prop', (t) =>
 	});
 });
 
-test.failing('label[htmlFor] updates when a custom id is provided', (t) => {
+test('label[htmlFor] updates when a custom id is provided', (t) => {
 	t.plan(3);
 	const id = 'test-id';
 	const component = renderer.create(<Radio label="Radio" id={id} />);

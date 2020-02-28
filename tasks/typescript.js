@@ -2,17 +2,10 @@ const gulp = require('gulp');
 const ts = require('gulp-typescript');
 const header = require('gulp-header');
 
-module.exports = (packageName, {
-	banner, production, sourcemaps,
-}, {
-	src, dest, watch, tsConfig,
-}) => {
+module.exports = (packageName, { banner, sourcemaps }, { dest, watch, tsConfig }) => {
 	const tsProject = ts.createProject(tsConfig);
 
-	const task = () => gulp.src(src, {
-		sourcemaps: !production,
-		since: gulp.lastRun(task),
-	})
+	const task = () => tsProject.src()
 		.pipe(
 			tsProject(),
 		)

@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import BaseInput, { BaseInputProps } from '../BaseInput';
-import { isElement } from '../../utilities/events';
+import { isElement } from '../../utilities/helpers';
 import { ValidatorEntry, defaultValidators, ValidatorError } from '../../utilities/validation';
 
 export type TextFieldContent = 'label' | 'help' | 'input' | 'feedback' | 'error' | 'counter';
@@ -68,11 +68,13 @@ interface TextFieldState {
 	valid: boolean;
 }
 
-export default class TextField extends React.Component<TextFieldProps, TextFieldState> {
+class TextField extends React.Component<TextFieldProps, TextFieldState> {
 	private uid: string = uniqueId(`${TextField.bemBase}-`);
-	private descId = `${this.uid}-desc`;
-	private errId = `${this.uid}-err`;
-	private feedbackId = `${this.uid}-feedback`;
+	// eslint-disable-next-line react/destructuring-assignment
+	private get id(): string { return this.props.id || this.uid; }
+	private get descId(): string { return `${this.id}-desc`; }
+	private get errId(): string { return `${this.id}-err`; }
+	private get feedbackId(): string { return `${this.id}-feedback`; }
 
 	/* eslint-disable react/sort-comp */
 	public static bemBase = 'textfield';
@@ -126,11 +128,11 @@ export default class TextField extends React.Component<TextFieldProps, TextField
 			required,
 			labelClass = `${baseName}__${TextField.bemElements.label}`,
 		} = this.props;
-		if (isElement(label, 'label')) {
-			return React.cloneElement(label as JSX.Element, { htmlFor: this.uid });
+		if (isElement<React.LabelHTMLAttributes<HTMLLabelElement>>(label, 'label')) {
+			return React.cloneElement(label, { htmlFor: this.id });
 		}
 		return (
-			<label htmlFor={this.uid} className={labelClass}>
+			<label htmlFor={this.id} className={labelClass}>
 				{ label }
 				{ !required && ' ' }
 				{ !required && <span className={`${baseName}__optional`}>(optional)</span> }
@@ -242,7 +244,7 @@ export default class TextField extends React.Component<TextFieldProps, TextField
 					onChange={this.onChange}
 					onValidate={this.onValidate}
 					ref={inputRef}
-					id={this.uid}
+					id={this.id}
 					className={inputClass}
 					// https://github.com/evcohen/eslint-plugin-jsx-a11y/issues/644
 					// eslint-disable-next-line jsx-a11y/aria-props
@@ -260,3 +262,5 @@ export default class TextField extends React.Component<TextFieldProps, TextField
 		);
 	}
 }
+
+export default TextField;

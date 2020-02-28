@@ -10,7 +10,7 @@ export interface BaseSummaryProps extends React.HTMLAttributes<HTMLElement> {
 	markerPosition?: 'left' | 'right';
 }
 
-export default React.forwardRef<HTMLElement, BaseSummaryProps>(({
+const BaseSummary = React.forwardRef<HTMLElement, BaseSummaryProps>(({
 	marker,
 	markerPosition = 'left',
 	children,
@@ -22,3 +22,5 @@ export default React.forwardRef<HTMLElement, BaseSummaryProps>(({
 		{ markerPosition === 'right' && marker }
 	</summary>
 ));
+
+export default BaseSummary;

@@ -4,7 +4,7 @@ import { Disclosure as CoreDisclosure } from '@nds/core';	// eslint-disable-line
 import BaseDetails, { BaseDetailsProps, DetailsToggleEvent } from '../BaseDetails';
 import BaseSummary from '../BaseSummary';
 import Icon from '../Icon';
-import { noop, isElement } from '../../utilities/events';
+import { noop, isElement } from '../../utilities/helpers';
 
 export type DisclosureVariant = 'default' | 'panel';
 

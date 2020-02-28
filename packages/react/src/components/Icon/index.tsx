@@ -32,11 +32,12 @@ const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	warnOnClick = true,
 	...attributes
 }: IconProps, ref) => {
-	const svgRef = (ref || React.useRef<SVGSVGElement>()) as React.RefObject<SVGSVGElement>;
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const svgRef = ref || React.useRef<SVGSVGElement>(null);
 	const [height, setHeight] = React.useState<typeof heightProp>();
 
 	React.useEffect(() => {
-		if (svgRef.current) {
+		if (typeof svgRef === 'object' && svgRef.current) {
 			const heightAttr = svgRef.current.getAttribute('height');
 			if (heightProp) {
 				if (heightAttr !== heightProp) setHeight(heightProp);

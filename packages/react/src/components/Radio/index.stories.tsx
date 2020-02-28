@@ -38,7 +38,7 @@ export const Fieldset = ({
 	items = ['Apple', 'Banana', 'Kiwi', 'Orange'],
 	name = 'fruit',
 }: { prompt: string; items: string[]; name: string }): JSX.Element => {
-	const [checked, setChecked] = React.useState();
+	const [checked, setChecked] = React.useState<string>();
 	const updateChecked = (item: string): RadioProps['onChange'] => (e): void => {
 		setChecked(item);
 		action('onChange')(e);

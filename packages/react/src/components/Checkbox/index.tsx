@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import Icon from '../Icon';
 import BaseInput, { BaseInputProps } from '../BaseInput';
-import { isElement } from '../../utilities/events';
+import { isElement } from '../../utilities/helpers';
 import { ValidatorError, defaultValidators } from '../../utilities/validation';
 
 export type CheckboxContent = 'input' | 'label' | 'help' | 'error' | 'control' | 'container' | 'thumbnail';
@@ -50,11 +50,14 @@ export interface CheckboxState {
 	valid: boolean;
 }
 
-export default class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	private inputRef: React.RefObject<HTMLInputElement>;
 	private uid: string = uniqueId(`${Checkbox.bemBase}-`);
-	private descId = `${this.uid}-desc`;
-	private errId = `${this.uid}-err`;
+	// eslint-disable-next-line react/destructuring-assignment
+	private get id(): string { return this.props.id || this.uid; }
+	private get labelId(): string { return `${this.id}-label`; }
+	private get descId(): string { return `${this.id}-desc`; }
+	private get errId(): string { return `${this.id}-err`; }
 
 	/* eslint-disable react/sort-comp */
 	public static bemBase = 'checkbox';
@@ -127,7 +130,7 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		return (
 			// This control is purely a visual affordance. A11y is managed by the `input` element.
 			// eslint-disable-next-line jsx-a11y/label-has-associated-control
-			<label className={controlClass} htmlFor={this.uid} aria-hidden="true">
+			<label className={controlClass} htmlFor={this.id} aria-hidden="true">
 				<Icon variant={indeterminate ? 'minus' : 'check'} />
 			</label>
 		);
@@ -143,7 +146,7 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 
 		if (!thumbnail) return null;
 		return (
-			<label className={thumbnailClass} htmlFor={this.uid}>
+			<label className={thumbnailClass} htmlFor={this.id}>
 				{ thumbnail }
 			</label>
 
@@ -157,14 +160,15 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 			baseName,
 			labelClass = `${baseName}__${Checkbox.bemElements.label}`,
 		} = this.props;
-		if (isElement(label, 'label')) {
-			return React.cloneElement(label as JSX.Element, { htmlFor: this.uid });
+		const props = {
+			htmlFor: this.id,
+			id: this.labelId,
+		};
+		if (isElement<React.LabelHTMLAttributes<HTMLLabelElement>>(label)) {
+			return React.cloneElement(label, props);
 		}
-		return (
-			<label htmlFor={this.uid} className={labelClass}>
-				{ label }
-			</label>
-		);
+		// eslint-disable-next-line jsx-a11y/label-has-associated-control
+		return <label className={labelClass} {...props}>{ label }</label>;
 	}
 
 	/** The text field's help/description element. */
@@ -225,8 +229,9 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 					onValidate={this.onValidate}
 					ref={this.inputRef}
 					onChange={this.onChange}
-					id={this.uid}
+					id={this.id}
 					className={inputClass}
+					aria-labelledby={this.labelId}
 					aria-describedby={(help) ? this.descId : undefined}
 					aria-invalid={(!valid) ? 'true' : undefined}
 					aria-errormessage={(!valid) ? this.errId : undefined}
@@ -243,3 +248,5 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		);
 	}
 }
+
+export default Checkbox;
