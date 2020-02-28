@@ -1,63 +1,98 @@
 import React from 'react';
 import classNames from 'classnames';
 import BaseButton, { BaseButtonProps } from '../BaseButton';
-import { noop, ClickEvent } from '../../utilities/events';
+import { noop } from '../../utilities/events';
 
 export interface SwitchProps extends BaseButtonProps {
 	/** The switch's initial "on" state. */
-	on: boolean;
+	checked?: boolean;
 	/** A function to call when the switch is toggled. */
-	onToggle: (event: ToggleEvent) => void;
-	/** Whether or not "on/off" should be visible in the control. */
-	textualState: boolean;
+	onToggle: (event: SwitchState) => void;
+	/** Whether or not the `on` and `off` props should render on the control. */
+	displayState: boolean;
 	/** A reference to the inner <button> element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
+	/** An element or string that will be displayed when the switch is on. */
+	on?: JSX.Element | React.ReactText;
+	/** An element or string that will be displayed when the switch is off. */
+	off?: JSX.Element | React.ReactText;
+	baseName?: string;
+	stateIndicatorClass?: string;
 }
 
 export interface SwitchState {
 	/** The switch's current state, which represents "on" or "off". */
-	on: boolean;
+	checked: boolean;
 }
 
-export interface ToggleEvent extends ClickEvent {
-	state: SwitchState;
-}
+class Switch extends React.Component<SwitchProps, SwitchState> {
+	/* eslint-disable react/sort-comp */
+	static bemBase = 'switch';
+	static bemElements = {
+		stateIndicator: 'state',
+	}
+	/* eslint-enable */
 
-export default class Switch extends React.Component<SwitchProps, SwitchState> {
-	static defaultProps: Partial<SwitchProps> = {
-		on: false,
+	static defaultProps = {
+		baseName: Switch.bemBase,
+		checked: false,
 		onToggle: noop,
-		textualState: true,
+		displayState: true,
+		on: 'ON',
+		off: 'OFF',
 	};
 
 	constructor(props: SwitchProps) {
 		super(props);
 
 		this.state = {
-			on: props.on,
+			checked: props.checked || Switch.defaultProps.checked,
 		};
 	}
 
-	toggle = async (e: ClickEvent): Promise<void> => {
-		const { onClick, onToggle } = this.props;
-		if (onClick) onClick(e);
-		const { on } = this.state;
-		await this.setState({ on: !on });
-		if (onToggle) onToggle({ ...e, state: this.state });
+	private get hasStateContent(): boolean {
+		const { displayState, on, off } = this.props;
+		if (!displayState) return false;
+		return Boolean(on || off);
+	}
+
+	private get StateContent(): JSX.Element | React.ReactText | null {
+		const {
+			on,
+			off,
+			baseName,
+			stateIndicatorClass = `${baseName}__${Switch.bemElements.stateIndicator}`,
+		} = this.props;
+		const { checked } = this.state;
+		if (!this.hasStateContent) return null;
+		return (
+			<span className={stateIndicatorClass} aria-hidden="true">
+				{ (checked) ? on : off }
+			</span>
+		);
+	}
+
+	toggle: SwitchProps['onClick'] = (e): void => {
+		const { onClick = noop, onToggle = noop } = this.props;
+		onClick(e);
+		const { checked } = this.state;
+		this.setState({ checked: !checked }, () => {
+			onToggle(this.state);
+		});
 	}
 
 	render(): JSX.Element {
 		const {
-			textualState,
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			on, off, displayState, onClick: onClickProp, baseName, stateIndicatorClass,
 			buttonRef,
 			disabled,
 			children,
 			className,
-			onClick: onClickProp,
 			...attributes
 		} = this.props;
-		const { on } = this.state;
-		const ariaChecked = (on) ? 'true' : 'false';
+		const { checked } = this.state;
+		const ariaChecked = (checked) ? 'true' : 'false';
 		const classes = classNames({
 			disabled,
 			switch: true,
@@ -75,9 +110,11 @@ export default class Switch extends React.Component<SwitchProps, SwitchState> {
 				onClick={onClick}
 				{...attributes}
 			>
-				{ textualState && <div className="switch-state" /> }
+				{ this.StateContent }
 				{ children }
 			</BaseButton>
 		);
 	}
 }
+
+export default Switch;
