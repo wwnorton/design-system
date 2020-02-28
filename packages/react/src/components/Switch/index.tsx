@@ -16,7 +16,9 @@ export interface SwitchProps extends BaseButtonProps {
 	on?: JSX.Element | React.ReactText;
 	/** An element or string that will be displayed when the switch is off. */
 	off?: JSX.Element | React.ReactText;
+	/** The base class name according to BEM conventions */
 	baseName?: string;
+	/** The `className` that will be applied to the state indicator. */
 	stateIndicatorClass?: string;
 }
 
@@ -25,6 +27,7 @@ export interface SwitchState {
 	checked: boolean;
 }
 
+/** A switch allows a user to immediately turn an option on or off. */
 class Switch extends React.Component<SwitchProps, SwitchState> {
 	/* eslint-disable react/sort-comp */
 	static bemBase = 'switch';
