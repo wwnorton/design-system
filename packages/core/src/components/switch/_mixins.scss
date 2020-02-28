@@ -5,12 +5,42 @@
 
 @mixin switch-box {
 	display: inline-flex;
-	width: $switch-rail-width;
-	height: $switch-rail-height;
-	padding: $switch-spacing;
+	box-sizing: border-box;
 	cursor: pointer;
 	border-radius: $switch-control-border-radius;
 	align-items: center;
+}
+
+@mixin switch-rail (
+	$color-on: $switch-bg-on,
+	$color-off: $switch-bg-off,
+) {
+	@include switch-box;
+
+	width: $switch-rail-width;
+	height: $switch-rail-height;
+	margin-right: 0.5rem;
+	content: '';
+	background-color: map-get($color-off, 30);
+	transition: background-color $duration-simple $easing-standard;
+}
+
+@mixin switch-thumb {
+	position: absolute;
+	top: $switch-spacing;
+	left: $switch-spacing;
+	width: $switch-control-size;
+	height: $switch-control-size;
+	box-sizing: border-box;
+	margin-right: auto;
+	cursor: pointer;
+	content: '';
+	background: $white;
+	border-radius: $switch-control-border-radius;
+	box-shadow: 0 0 1px 1px rgba($black, 0.1);
+	transition:
+		border-color $duration-simple $easing-standard,
+		transform $duration-simple $easing-standard;
 }
 
 @mixin switch (
@@ -18,22 +48,28 @@
 	$color-off: $switch-bg-off,
 	$color-on-disabled: $switch-bg-on-disabled,
 	$color-off-disabled: $switch-bg-off-disabled,
+	$state-selector: '.switch__state',
 ) {
+	box-sizing: border-box;
 	padding: 0;
 	background-color: transparent;
 
 	// the toggle control's "rail" that the control moves back and forth on
 	&::before {
-		@include switch-box;
-
-		margin-right: 0.5rem;
-		content: '';
-		background-color: map-get($color-off, 30);
-		transition: background-color $duration-simple $easing-standard;
+		@include switch-rail($color-on, $color-off);
 	}
 
 	&[aria-checked=true]::before {
 		background-color: map-get($color-on, 60);
+	}
+
+	// the toggle control that moves back and forth on top of the "rail"
+	&::after {
+		@include switch-thumb;
+	}
+
+	&[aria-checked=true]::after {
+		transform: translateX(calc(#{$switch-control-size} + #{2 * $switch-spacing}));
 	}
 
 	&:focus {
@@ -45,79 +81,42 @@
 		@include focus-indicator;
 	}
 
-	// the textual state container, which sits directly on top of the "rail"
-	.switch-state {
+	// the state container, which sits directly on top of the "rail"
+	@at-root #{$state-selector} {
 		@include switch-box;
 
 		position: absolute;
 		left: 0;
+		width: $switch-state-width;
+		height: $switch-state-height;
 		font-size: 0.75em;
 		font-weight: 700;
-		color: $black;
-		text-transform: uppercase;
+		transition: color $duration-simple $easing-standard;
+		justify-content: center;
 	}
 
-	.switch-state::before,
-	.switch-state::after {
-		width: 50%;
-		transition:
-			color $duration-simple $easing-standard,
-			opacity $duration-simple $easing-standard;
-	}
-
-	// the "on" text that appears when the control is on
-	.switch-state::before {
-		content: 'on';
-		opacity: 0;
-	}
-
-	// the "off" text that appears when the control is off
-	.switch-state::after {
-		content: 'off';
-	}
-
-	&[aria-checked=true] .switch-state {
+	&[aria-checked=true] #{$state-selector} {
 		color: $white;
+		transform: translateX($switch-spacing);
 	}
 
-	&[aria-checked=true] .switch-state::before {
-		opacity: 1;
+	&[aria-checked=false] #{$state-selector} {
+		color: $black;
+		transform: translateX(calc(#{$switch-rail-width / 2} - #{$switch-spacing}));
 	}
 
-	&[aria-checked=true] .switch-state::after {
-		opacity: 0;
-	}
-
-	&:disabled .switch-state,
-	&.disabled .switch-state {
+	&:disabled::before,
+	&.disabled::before {
 		background-color: map-get($color-off-disabled, 20);
 	}
 
-	&[aria-checked=true]:disabled .switch-state,
-	&[aria-checked=true].disabled .switch-state {
+	&[aria-checked=true]:disabled::before,
+	&[aria-checked=true].disabled::before {
 		background-color: map-get($color-on-disabled, 20);
 	}
 
-	// the toggle control that moves back and forth on top of the "rail"
-	&::after {
-		position: absolute;
-		top: $switch-spacing;
-		left: $switch-spacing;
-		width: $switch-control-size;
-		height: $switch-control-size;
-		box-sizing: border-box;
-		margin-right: auto;
-		cursor: pointer;
-		content: '';
-		background: $white;
-		border-radius: $switch-control-border-radius;
-		box-shadow: 0 0 1px 1px rgba($black, 0.1);
-		transition:
-			border-color $duration-simple $easing-standard,
-			transform $duration-simple $easing-standard;
-	}
-
-	&[aria-checked=true]::after {
-		transform: translateX(calc(#{$switch-control-size} + #{2 * $switch-spacing}));
+	&[aria-checked=false]:disabled #{$state-selector},
+	&[aria-checked=false].disabled #{$state-selector} {
+		color: map-get($color-disabled, 40);
 	}
 }
