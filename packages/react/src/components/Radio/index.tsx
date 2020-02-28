@@ -31,7 +31,7 @@ export interface RadioProps extends BaseInputProps {
 	inputRef?: React.RefObject<HTMLInputElement>;
 }
 
-export default class Radio extends React.Component<RadioProps> {
+class Radio extends React.Component<RadioProps> {
 	private inputRef: React.RefObject<HTMLInputElement>;
 	private uid: string = uniqueId(`${Radio.bemBase}-`);
 	// eslint-disable-next-line react/destructuring-assignment,react/sort-comp
@@ -157,3 +157,5 @@ export default class Radio extends React.Component<RadioProps> {
 		);
 	}
 }
+
+export default Radio;

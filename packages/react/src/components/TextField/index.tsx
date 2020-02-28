@@ -68,7 +68,7 @@ interface TextFieldState {
 	valid: boolean;
 }
 
-export default class TextField extends React.Component<TextFieldProps, TextFieldState> {
+class TextField extends React.Component<TextFieldProps, TextFieldState> {
 	private uid: string = uniqueId(`${TextField.bemBase}-`);
 	// eslint-disable-next-line react/destructuring-assignment
 	private get id(): string { return this.props.id || this.uid; }
@@ -262,3 +262,5 @@ export default class TextField extends React.Component<TextFieldProps, TextField
 		);
 	}
 }
+
+export default TextField;

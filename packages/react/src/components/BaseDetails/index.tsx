@@ -21,7 +21,7 @@ export interface BaseDetailsProps extends React.DetailsHTMLAttributes<HTMLDetail
 	) => void;
 }
 
-export default React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
+const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 	summary,
 	summaryClass,
 	children,
@@ -39,3 +39,5 @@ export default React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 		</details>
 	);
 });
+
+export default BaseDetails;

@@ -50,7 +50,7 @@ export interface CheckboxState {
 	valid: boolean;
 }
 
-export default class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	private inputRef: React.RefObject<HTMLInputElement>;
 	private uid: string = uniqueId(`${Checkbox.bemBase}-`);
 	// eslint-disable-next-line react/destructuring-assignment
@@ -248,3 +248,5 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		);
 	}
 }
+
+export default Checkbox;

@@ -44,7 +44,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	type?: InputType;
 }
 
-export default React.forwardRef<HTMLInputElement, BaseInputProps>(({
+const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(({
 	onChangeNative = noop,
 	onChange = noop,
 	onValidate = noop,
@@ -58,7 +58,8 @@ export default React.forwardRef<HTMLInputElement, BaseInputProps>(({
 	...attributes
 }: BaseInputProps, ref) => {
 	// TODO: move all of this into a standalone hook so it can be used with BaseTextarea
-	const inputRef = ref as React.RefObject<HTMLInputElement> || React.useRef<HTMLInputElement>(null);
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const inputRef = ref || React.useRef<HTMLInputElement>(null);
 	const [value, setValue] = React.useState(initialValue);
 	const [validity, setValidity] = React.useState<ValidityState>();
 	const [validate, setValidate] = React.useState(false);
@@ -78,7 +79,7 @@ export default React.forwardRef<HTMLInputElement, BaseInputProps>(({
 				}
 			});
 			const errors = Array.from(err);
-			if (inputRef.current) {
+			if (typeof inputRef === 'object' && inputRef.current) {
 				if (constraintValidation) {
 					const errString = (errors.length) ? errors.join('\n') : '';
 					inputRef.current.setCustomValidity(errString);
@@ -105,7 +106,7 @@ export default React.forwardRef<HTMLInputElement, BaseInputProps>(({
 
 	// attach the DOM `change` listener
 	React.useEffect(() => {
-		if (inputRef.current) {
+		if (typeof inputRef === 'object' && inputRef.current) {
 			inputRef.current.addEventListener('change', changeNativeListener.current);
 		}
 	}, [inputRef]);
@@ -129,3 +130,5 @@ export default React.forwardRef<HTMLInputElement, BaseInputProps>(({
 		/>
 	);
 });
+
+export default BaseInput;

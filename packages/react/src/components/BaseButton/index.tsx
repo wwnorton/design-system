@@ -14,7 +14,7 @@ export const BaseButtonDefaults = {
 	activeClass: 'active',
 };
 
-export default React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
+const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 	active = BaseButtonDefaults.active,
 	activeClass = BaseButtonDefaults.activeClass,
 	onKeyDown,
@@ -60,3 +60,5 @@ export default React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 		</button>
 	);
 });
+
+export default BaseButton;
