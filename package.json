@@ -22,9 +22,10 @@
     "lint:style-fix": "npm run lint:style -- --fix",
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
-    "publish": "lerna publish --registry https://npm.wwnorton.com",
+    "publish": "lerna publish",
     "storybook": "lerna exec --scope=@nds/react -- npm run storybook",
-    "test": "ava"
+    "test": "ava",
+    "version": "lerna version"
   },
   "husky": {
     "hooks": {

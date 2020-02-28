@@ -1,11 +1,4 @@
 {
   "version": "0.5.1",
-  "packages": ["docs", "packages/*"],
-  "npmClient": "npm",
-  "command": {
-    "publish": {
-      "conventionalCommits": true,
-      "registry": "https://npm.wwnorton.com"
-    }
-  }
+  "extends": "./shared/lerna.js"
 }
