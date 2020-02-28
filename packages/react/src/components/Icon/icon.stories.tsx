@@ -7,6 +7,7 @@ import {
 	text,
 	boolean,
 } from '@storybook/addon-knobs';
+import '@nds/core/src/components/icon/index.scss';
 import Icon, { IconProps } from '.';
 import IconButton from '../IconButton';
 
