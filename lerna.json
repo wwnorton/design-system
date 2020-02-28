@@ -1,4 +1,21 @@
 {
   "version": "0.5.1",
-  "extends": "./shared/lerna.js"
+  "packages": ["docs", "packages/*"],
+  "npmClient": "npm",
+  "command": {
+    "publish": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "registry": "https://npm.wwnorton.com",
+      "signGitCommit": true,
+      "signGitTag": true
+    },
+    "version": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "registry": "https://npm.wwnorton.com",
+      "signGitCommit": true,
+      "signGitTag": true
+    }
+  }
 }
