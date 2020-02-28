@@ -84,7 +84,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 	render(): JSX.Element {
 		const {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			on, off, displayState, onClick: onClickProp, baseName, stateIndicatorClass,
+			on, off, displayState, onClick, baseName, stateIndicatorClass,
 			buttonRef,
 			disabled,
 			children,
@@ -98,7 +98,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 			switch: true,
 		}, className);
 		// do nothing on click if the component is disabled
-		const onClick = (disabled) ? noop : this.toggle;
+		const clickHandler = (disabled) ? noop : this.toggle;
 
 		return (
 			<BaseButton
@@ -107,7 +107,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 				className={classes}
 				ref={buttonRef}
 				aria-checked={ariaChecked}
-				onClick={onClick}
+				onClick={clickHandler}
 				{...attributes}
 			>
 				{ this.StateContent }
