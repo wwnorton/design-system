@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.5.1...v0.6.0) (2020-02-28)
+
+### Bug Fixes
+
+- **a11y:** explicitly set label when multiple exist ([e8fc401](https://gitlab.com/wwnorton/platform/design-system/commit/e8fc401dd3a37c28e9a165b75a26e29e463fcdc7))
+- **react:** ensure that ids can be passed as props ([f68d480](https://gitlab.com/wwnorton/platform/design-system/commit/f68d4804a4cf7cf1ad15862f23e51f0c0e10ddf6)), closes [#82](https://gitlab.com/wwnorton/platform/design-system/issues/82)
+- **react:** position checkbox control the same as radio ([377c654](https://gitlab.com/wwnorton/platform/design-system/commit/377c6541d28fac66ac7c56caf785ba15d13de3cc))
+- remove unnecessary import ([cdfbce5](https://gitlab.com/wwnorton/platform/design-system/commit/cdfbce5716b26deb920b55381a6045aac94b5700))
+- **react:** ensure that onClick is triggered on switch ([0e2b2e3](https://gitlab.com/wwnorton/platform/design-system/commit/0e2b2e35a18730b54f37c72a0b7877ba66c36786))
+- **react:** position checkbox control the same as radio ([9df00d6](https://gitlab.com/wwnorton/platform/design-system/commit/9df00d6cc1bcf3eaebadc78c616dd58194ae99d0))
+- remove unnecessary import ([e4b03a7](https://gitlab.com/wwnorton/platform/design-system/commit/e4b03a78ea2c44218ff477ca36a72ae45dfa4312))
+- **react:** ensure that onClick is triggered on switch ([3612844](https://gitlab.com/wwnorton/platform/design-system/commit/3612844b25649b8955857c39979095bdca440670))
+- **react:** ensure that onClick is triggered on switch ([8adac0a](https://gitlab.com/wwnorton/platform/design-system/commit/8adac0a1e0e5a814a8e3584a4b4be2e9b63bd646))
+- **react:** ensure that onClick is triggered on switch ([d6a92da](https://gitlab.com/wwnorton/platform/design-system/commit/d6a92da7f849e64932c8ecb57b6cdff63d4b145d))
+- **react:** ensure that onClick is triggered on switch ([c58b37c](https://gitlab.com/wwnorton/platform/design-system/commit/c58b37cc801ac9986f55d8a832a73de577193468))
+- fix styling for radio when its disabled ([a3e90cd](https://gitlab.com/wwnorton/platform/design-system/commit/a3e90cd04371cd80ea0f168912e35e1b0c9290c5))
+- **storybook:** upgrade storybook ([03705f9](https://gitlab.com/wwnorton/platform/design-system/commit/03705f9ec1163f430d0595ae7f8b948159b60e4e))
+
+### Features
+
+- **core:** add icon-only button modifier & declaration ([8fb9ec6](https://gitlab.com/wwnorton/platform/design-system/commit/8fb9ec61fd781d7ec5ac6b74e1493d471a659376))
+- **core:** add multiple choice ([39db26e](https://gitlab.com/wwnorton/platform/design-system/commit/39db26e41455da37c0b8738f86101212af541d44))
+- **core:** add multiple choice ([d695dc0](https://gitlab.com/wwnorton/platform/design-system/commit/d695dc006313bfd7cdf1be1942cc8d9b92262e94))
+- **core:** add very basic icon styling ([3eaa343](https://gitlab.com/wwnorton/platform/design-system/commit/3eaa343bb48fdcc00c8e41b7d80eda6b83769763))
+- **react:** add IconButton component ([96df9a9](https://gitlab.com/wwnorton/platform/design-system/commit/96df9a9796748b9f8c9d8537386a76806561e469))
+- **react:** add support for custom switch states ([4e79518](https://gitlab.com/wwnorton/platform/design-system/commit/4e79518fea328de8670802ad598e2526f444234f))
+- add material minus icon ([5fcb75b](https://gitlab.com/wwnorton/platform/design-system/commit/5fcb75be7abf8bf4305d064360c5d5b99c4cd731))
+- add react radio implementation ([3b7f57b](https://gitlab.com/wwnorton/platform/design-system/commit/3b7f57b28e188efb41e474eb0d837a0a742320f9))
+- add sass radio styles ([677bbed](https://gitlab.com/wwnorton/platform/design-system/commit/677bbed1404df793c30f576a3636a653f04be60e))
+- initial checkbox update commit ([d8243b1](https://gitlab.com/wwnorton/platform/design-system/commit/d8243b1ba728eedaa4a0c30ee46396a0cc4c13b3))
+- initial MultipleChoice and Choice components ([67df099](https://gitlab.com/wwnorton/platform/design-system/commit/67df0995b0299137ca718e251180e648a4b070db))
+- initial MultipleChoice and Choice components ([d739823](https://gitlab.com/wwnorton/platform/design-system/commit/d7398236b4c9da5b7577b0705a8729474fbcd219))
+- initial MultipleChoice and Choice components ([6eb1136](https://gitlab.com/wwnorton/platform/design-system/commit/6eb1136bd51287fe7357b95cb2664459cfda2e22))
+- **core:** initial icon ([c9867cd](https://gitlab.com/wwnorton/platform/design-system/commit/c9867cdf1d1384e1f30106bafd8420f98e5c2cd5))
+- **react:** add icon utility ([7a060e6](https://gitlab.com/wwnorton/platform/design-system/commit/7a060e6f2c90b04bd304b82b12d17f12a3c78cc8))
+- **react:** add support for icons in buttons ([736e8dd](https://gitlab.com/wwnorton/platform/design-system/commit/736e8dd4fb10b74686a3731e405302d9cb900e33))
+- **react:** allow custom icons and CSS height ([f43bd30](https://gitlab.com/wwnorton/platform/design-system/commit/f43bd30eb4d27fea482b0409b4417474618e603d))
+- initial MultipleChoice and Choice components ([2eaaeb7](https://gitlab.com/wwnorton/platform/design-system/commit/2eaaeb709c33dc00048519026e80fbb6bbc82ac4))
+- initial MultipleChoice and Choice components ([4d78082](https://gitlab.com/wwnorton/platform/design-system/commit/4d780825ae3fa75847e05b0fd883cd388a8a4ecf))
+- **react:** initial BaseSVG ([2912aa5](https://gitlab.com/wwnorton/platform/design-system/commit/2912aa5b0125247c0c258f0e5a663d8f654327f8))
+- **react:** initial icon ([0447df8](https://gitlab.com/wwnorton/platform/design-system/commit/0447df84ab638cec582a86fee87ef0d089e077da))
+
 ## [0.5.1](https://gitlab.com/wwnorton/platform/design-system/compare/v0.5.0...v0.5.1) (2020-02-04)
 
 ### Bug Fixes

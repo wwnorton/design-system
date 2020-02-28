@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.5.1...v0.6.0) (2020-02-28)
+
+### Bug Fixes
+
+- **a11y:** explicitly set label when multiple exist ([e8fc401](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/e8fc401dd3a37c28e9a165b75a26e29e463fcdc7))
+- **react:** ensure that ids can be passed as props ([f68d480](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/f68d4804a4cf7cf1ad15862f23e51f0c0e10ddf6)), closes [#82](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/issues/82)
+- remove unnecessary import ([cdfbce5](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/cdfbce5716b26deb920b55381a6045aac94b5700))
+- **react:** ensure that onClick is triggered on switch ([0e2b2e3](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/0e2b2e35a18730b54f37c72a0b7877ba66c36786))
+- **storybook:** upgrade storybook ([03705f9](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/03705f9ec1163f430d0595ae7f8b948159b60e4e))
+
+### Features
+
+- **react:** add support for custom switch states ([4e79518](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/4e79518fea328de8670802ad598e2526f444234f))
+- initial MultipleChoice and Choice components ([67df099](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/67df0995b0299137ca718e251180e648a4b070db))
+- **react:** add icon utility ([7a060e6](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/7a060e6f2c90b04bd304b82b12d17f12a3c78cc8))
+- **react:** add IconButton component ([96df9a9](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/96df9a9796748b9f8c9d8537386a76806561e469))
+- **react:** add support for icons in buttons ([736e8dd](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/736e8dd4fb10b74686a3731e405302d9cb900e33))
+- **react:** allow custom icons and CSS height ([f43bd30](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/f43bd30eb4d27fea482b0409b4417474618e603d))
+- add material minus icon ([5fcb75b](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/5fcb75be7abf8bf4305d064360c5d5b99c4cd731))
+- add react radio implementation ([3b7f57b](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/3b7f57b28e188efb41e474eb0d837a0a742320f9))
+- initial checkbox update commit ([d8243b1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/d8243b1ba728eedaa4a0c30ee46396a0cc4c13b3))
+- **react:** initial BaseSVG ([2912aa5](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/2912aa5b0125247c0c258f0e5a663d8f654327f8))
+- **react:** initial icon ([0447df8](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/0447df84ab638cec582a86fee87ef0d089e077da))
+
 ## [0.5.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.5.0...v0.5.1) (2020-02-04)
 
 ### Bug Fixes

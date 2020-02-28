@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.5.1...v0.6.0) (2020-02-28)
+
+### Bug Fixes
+
+- **react:** position checkbox control the same as radio ([377c654](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/377c6541d28fac66ac7c56caf785ba15d13de3cc))
+- fix styling for radio when its disabled ([a3e90cd](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/a3e90cd04371cd80ea0f168912e35e1b0c9290c5))
+
+### Features
+
+- **core:** add icon-only button modifier & declaration ([8fb9ec6](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/8fb9ec61fd781d7ec5ac6b74e1493d471a659376))
+- **core:** add multiple choice ([39db26e](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/39db26e41455da37c0b8738f86101212af541d44))
+- **core:** add very basic icon styling ([3eaa343](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/3eaa343bb48fdcc00c8e41b7d80eda6b83769763))
+- add sass radio styles ([677bbed](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/677bbed1404df793c30f576a3636a653f04be60e))
+- **core:** initial icon ([c9867cd](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/c9867cdf1d1384e1f30106bafd8420f98e5c2cd5))
+
 ## [0.5.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.5.0...v0.5.1) (2020-02-04)
 
 ### Bug Fixes
