@@ -36,6 +36,7 @@ export default class Radio extends React.Component<RadioProps> {
 	private uid: string = uniqueId(`${Radio.bemBase}-`);
 	// eslint-disable-next-line react/destructuring-assignment,react/sort-comp
 	private get id(): string { return this.props.id || this.uid; }
+	private get labelId(): string { return `${this.id}-label`; }
 	private get descId(): string { return `${this.id}-desc`; }
 
 	/* eslint-disable react/sort-comp */
@@ -68,6 +69,7 @@ export default class Radio extends React.Component<RadioProps> {
 		} = this.props;
 		const props = {
 			htmlFor: this.id,
+			id: this.labelId,
 		};
 		if (isElement(label, 'label')) {
 			return React.cloneElement(label as JSX.Element, props);
@@ -141,6 +143,7 @@ export default class Radio extends React.Component<RadioProps> {
 					ref={this.inputRef}
 					id={this.id}
 					className={inputClass}
+					aria-labelledby={this.labelId}
 					aria-describedby={(help) ? this.descId : undefined}
 					{...attributes}
 				/>

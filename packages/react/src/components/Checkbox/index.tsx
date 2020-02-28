@@ -55,6 +55,7 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 	private uid: string = uniqueId(`${Checkbox.bemBase}-`);
 	// eslint-disable-next-line react/destructuring-assignment
 	private get id(): string { return this.props.id || this.uid; }
+	private get labelId(): string { return `${this.id}-label`; }
 	private get descId(): string { return `${this.id}-desc`; }
 	private get errId(): string { return `${this.id}-err`; }
 
@@ -161,6 +162,7 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 		} = this.props;
 		const props = {
 			htmlFor: this.id,
+			id: this.labelId,
 		};
 		if (isElement(label, 'label')) {
 			return React.cloneElement(label as JSX.Element, props);
@@ -229,6 +231,7 @@ export default class Checkbox extends React.Component<CheckboxProps, CheckboxSta
 					onChange={this.onChange}
 					id={this.id}
 					className={inputClass}
+					aria-labelledby={this.labelId}
 					aria-describedby={(help) ? this.descId : undefined}
 					aria-invalid={(!valid) ? 'true' : undefined}
 					aria-errormessage={(!valid) ? this.errId : undefined}
