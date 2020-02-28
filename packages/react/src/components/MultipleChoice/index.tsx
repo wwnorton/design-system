@@ -167,7 +167,7 @@ class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoice
 			prompt,
 			promptClass = `${baseName}__${MultipleChoice.bemElements.prompt}`,
 			choiceGroupClass = `${baseName}__${MultipleChoice.bemElements.choiceGroup}`,
-			descriptionClass,
+			descriptionClass,	// eslint-disable-line @typescript-eslint/no-unused-vars
 		} = this.props;
 
 		return (
