@@ -5,7 +5,6 @@ const copyrightYear = `2019-${(new Date()).getFullYear()}`;
 
 const packageConfig = (packageRoot, src = 'src', dest = 'dist') => {
 	const {
-		author,
 		license,
 		name,
 		version,
@@ -15,7 +14,7 @@ const packageConfig = (packageRoot, src = 'src', dest = 'dist') => {
 	const destRoot = `${packageRoot}/${dest}`;
 	const banner = `/***
 	 * ${name} v${version}
-	 * Copyright ${copyrightYear} ${author}
+	 * Copyright ${copyrightYear} W. W. Norton & Company
 	 * ${license}
 	 **/
 	`.replace(/\t/g, '');
