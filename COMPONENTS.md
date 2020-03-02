@@ -2,6 +2,10 @@
 
 The following [Mermaid flowchart](https://mermaid-js.github.io/mermaid/#/flowchart) is a graph of the design system's components.
 
+- Arrows represent a dependency relationship where `[A]-->[B]` means that `[B]` uses `[A]` in some way.
+- Dotted arrows represent an optional relationship where `[A]-.->[B]` means that `[B]` _can_ use `[A]` in some way.
+- Text inside an arrow represents a more specific relationship.
+
 ```mermaid
 graph LR
   subgraph Key
@@ -11,7 +15,6 @@ graph LR
   public-ic[public - incomplete]
   end
 
-  subgraph Base
   BaseButton
   BaseDetails
   BaseDialog
@@ -22,19 +25,18 @@ graph LR
   BaseSVG
   BaseTable
   BaseTextarea
-  end
 
-  subgraph Component
   Accordion
   Button
   Callout
   Checkbox
-  ChoiceGroup
+  Choice
   ComboBox
   DatePicker
   Disclosure
   Dropdown
   Icon
+  IconButton
   ListDivider
   ListGroup
   ListHeader
@@ -42,6 +44,7 @@ graph LR
   Menu
   MenuButton
   Modal
+  MultipleChoice
   Popover
   Progressbar
   Radio
@@ -52,7 +55,6 @@ graph LR
   TextField
   TimePicker
   Tooltip
-  end
 
   BaseButton --> Button
   BaseButton --> Switch
@@ -83,8 +85,10 @@ graph LR
   Button --> MenuButton
   Button -. "close" .-> Modal
   Button -. "dismiss" .-> Callout
-  Button -.-> ChoiceGroup
-  Checkbox -.-> ChoiceGroup
+  Button -.-> Choice
+  Button --> IconButton
+  Checkbox -.-> Choice
+  Choice --> MultipleChoice
   Disclosure --> Accordion
   Icon --> Checkbox
   Icon --> DatePicker
@@ -98,14 +102,14 @@ graph LR
   ListGroup --> MenuButton
   ListHeader -.-> ListGroup
   ListItem --> ListGroup
-  Radio --> ChoiceGroup
+  Radio -.-> Choice
   Table --> DatePicker
   Tooltip -. icon-only .->Button
 
   classDef exports fill:#fed8a4,stroke:#e24329;
   classDef incomplete stroke-dasharray: 5, 5;
 
-  class public,public-ic,Accordion,Button,Callout,Checkbox,ChoiceGroup,ComboBox,DatePicker,Disclosure,Dropdown,Icon,Menu,MenuButton,Modal,Popover,Progressbar,Slider,Switch,Table,Tablist,TimePicker,TextField,Tooltip exports;
+  class public,public-ic,Accordion,Button,Callout,Checkbox,Choice,ComboBox,DatePicker,Disclosure,Dropdown,Icon,IconButton,Menu,MenuButton,Modal,MultipleChoice,Popover,Progressbar,Slider,Switch,Table,Tablist,TimePicker,TextField,Tooltip exports;
 
-  class private-ic,public-ic,BaseDialog,BaseListItem,BaseTable,BaseTextarea,Accordion,Callout,ChoiceGroup,ComboBox,DatePicker,Dropdown,ListDivider,ListGroup,ListHeader,ListItem,Menu,MenuButton,Modal,Popover,Progressbar,Slider,Radio,Table,Tablist,TimePicker,Tooltip incomplete;
+  class private-ic,public-ic,BaseDialog,BaseListItem,BaseTable,BaseTextarea,Accordion,Callout,ComboBox,DatePicker,Dropdown,ListDivider,ListGroup,ListHeader,ListItem,Menu,MenuButton,Modal,Popover,Progressbar,Slider,Table,Tablist,TimePicker,Tooltip incomplete;
 ```
