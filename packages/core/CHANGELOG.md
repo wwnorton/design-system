@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.6.0...v0.6.1) (2020-03-03)
+
+### Bug Fixes
+
+- **core:** add missing components ([13688c7](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/13688c756c077f1b4848b95a760731d95dae1163))
+- **core:** import missing component tokens ([c1e27c2](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/c1e27c2221fcfca5c4d142fc654f2ce3a4decc37))
+
 # [0.6.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.5.1...v0.6.0) (2020-02-28)
 
 ### Bug Fixes

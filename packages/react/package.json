@@ -1,6 +1,6 @@
 {
   "name": "@nds/react",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "React components for the Norton Design System",
   "keywords": [
     "component",
@@ -31,7 +31,7 @@
     "storybook": "start-storybook"
   },
   "dependencies": {
-    "@nds/core": "^0.6.0",
+    "@nds/core": "^0.6.1",
     "classnames": "^2.2.6",
     "lodash.uniqueid": "^4.0.1",
     "react": "^16.13.0"

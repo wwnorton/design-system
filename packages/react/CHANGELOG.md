@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.6.0...v0.6.1) (2020-03-03)
+
+**Note:** Version bump only for package @nds/react
+
 # [0.6.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.5.1...v0.6.0) (2020-02-28)
 
 ### Bug Fixes
