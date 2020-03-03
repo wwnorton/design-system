@@ -5,7 +5,9 @@
   "keywords": [
     "component",
     "components",
-    "react"
+    "design system",
+    "react",
+    "typescript"
   ],
   "homepage": "https://gitlab.com/wwnorton/platform/design-system",
   "bugs": "https://gitlab.com/wwnorton/platform/design-system/issues",
@@ -16,11 +18,11 @@
     "Rumbaut, Gabriel <grumbaut@wwnorton.com>",
     "Chen, HonChih <hchen@wwnorton.com>"
   ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "npm run build:ts",
     "build:stories": "build-storybook",

@@ -6,14 +6,9 @@
     "component",
     "components",
     "css",
-    "design",
-    "html",
-    "ibm",
-    "javascript",
-    "js",
-    "library",
-    "pattern",
-    "patterns",
+    "design tokens",
+    "design system",
+    "pattern library",
     "sass",
     "scss",
     "tokens"
@@ -28,12 +23,12 @@
     "Trama, Darian <dtrama@wwnorton.com>",
     "Porter, Kellie <kporter@wwnorton.com>"
   ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "echo all build scripts should be run from root",
     "dev": "echo all dev scripts should be run from root"
