@@ -6,6 +6,7 @@
     "publish": {
       "allowBranch": "master",
       "conventionalCommits": true,
+      "createRelease": "gitlab",
       "registry": "https://npm.wwnorton.com",
       "signGitCommit": true,
       "signGitTag": true
@@ -13,6 +14,7 @@
     "version": {
       "allowBranch": "master",
       "conventionalCommits": true,
+      "createRelease": "gitlab",
       "registry": "https://npm.wwnorton.com",
       "signGitCommit": true,
       "signGitTag": true
