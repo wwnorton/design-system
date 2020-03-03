@@ -24,8 +24,7 @@
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "publish": "lerna publish",
     "storybook": "lerna exec --scope=@nds/react -- npm run storybook",
-    "test": "ava",
-    "version": "lerna version"
+    "test": "ava"
   },
   "husky": {
     "hooks": {
