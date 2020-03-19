@@ -49,7 +49,6 @@ export interface ModalProps extends BaseDialogProps {
 export interface ModalState {
 	isOpen: boolean;
 	trigger: HTMLElement | null;
-	headingFocusable: boolean;
 }
 
 export interface ModalSnapshot {
@@ -97,7 +96,6 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		this.state = {
 			isOpen: props.isOpen || Modal.defaultProps.isOpen,
 			trigger: null,
-			headingFocusable: false,
 		};
 	}
 
