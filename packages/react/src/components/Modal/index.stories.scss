@@ -1,0 +1,78 @@
+@import '@nds/core/src/main';
+
+.modal {
+	position: relative;
+	max-width: 700px;
+	background-color: #fff;
+	border-radius: 0.125rem;
+}
+
+.modal__backdrop {
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__close {
+	transform: translateX(50%);
+}
+
+.modal__header {
+	display: flex;
+	padding: 0.5rem 2rem;
+	margin: 0;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	align-items: center;
+
+	&.title-visible {
+		padding: 1rem 2rem;
+		flex-direction: row;
+		background-color: #f2f5f8;
+		border-bottom: 1px solid darken(#f2f5f8, 10%);
+	}
+}
+
+.modal__title {
+	padding: 0;
+	margin: 0;
+}
+
+.modal__content {
+	padding: 0 2rem 1rem;
+}
+
+.title-visible + .modal__content {
+	padding-top: 2rem;
+}
+
+.modal__actionbar {
+	display: flex;
+	padding: 1rem 2rem;
+	flex-direction: row-reverse;
+	border-top: 1px solid darken(#f2f5f8, 10%);
+
+	> * {
+		margin-left: 0.5rem;
+	}
+}
+
+// storybook-only styles
+
+.modal__content p {
+	margin-top: 0;
+}
+
+.modal .textfield {
+	margin-bottom: 1.5rem;
+}
+
+.sr-only {
+	@include sr-only;
+}
