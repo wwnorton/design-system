@@ -26,7 +26,7 @@ const { defaultProps } = Modal;
 export const Default = (): React.ReactElement => (
 	<Modal
 		title={text('Title', 'Modal heading')}
-		titleHidden={boolean('Hide title', defaultProps.titleHidden)}
+		hideTitle={boolean('Hide title', defaultProps.hideTitle)}
 		isOpen
 	>
 		<ModalContents />
@@ -112,7 +112,7 @@ export const multiModal = (): React.ReactElement => {
 						<Button variant="solid" type="submit">Submit</Button>
 					</form>
 				</Modal>
-				<Modal title="Result" titleHidden closeButton={false} isOpen={resultOpen} onRequestClose={closeResult}>
+				<Modal title="Result" hideTitle closeButton={false} isOpen={resultOpen} onRequestClose={closeResult}>
 					{ `Hello, ${firstName} ${lastName}!` }
 				</Modal>
 			</>

@@ -115,7 +115,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		isOpen: false,
 		baseName: Modal.bemBase,
 		mountPoint: (): HTMLElement => document.body,
-		titleHidden: false,
+		hideTitle: false,
 		closeButton: true,
 		closeOnBackdropClick: true,
 		closeOnEscape: true,
@@ -225,9 +225,9 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			baseName,
 			titleClass = `${baseName}__${Modal.bemElements.title}`,
 			title,
-			titleHidden,
+			hideTitle,
 		} = this.props;
-		const classes = classNames(titleClass, { 'sr-only': titleHidden });
+		const classes = classNames(titleClass, { 'sr-only': hideTitle });
 		return <h2 className={classes} id={this.titleId}>{ title }</h2>;
 	}
 
@@ -235,9 +235,9 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		const {
 			baseName,
 			headerClass = `${baseName}__${Modal.bemElements.header}`,
-			titleHidden,
+			hideTitle,
 		} = this.props;
-		const headerClasses = classNames(headerClass, { 'title-visible': !titleHidden });
+		const headerClasses = classNames(headerClass, { 'title-visible': !hideTitle });
 		return (
 			<header
 				className={headerClasses}
