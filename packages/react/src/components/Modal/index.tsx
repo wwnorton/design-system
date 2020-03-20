@@ -15,21 +15,42 @@ export type ModalAnatomy =
 	| 'content'
 	| 'actionBar'
 
-type TitleComponent<P = React.HTMLAttributes<HTMLElement>> = React.FunctionComponent<P>
-
 export interface ModalProps extends BaseDialogProps {
+	/** Indicates whether the Modal dialog is open. */
 	isOpen?: boolean;
+	/**
+	 * The name of the Modal dialog. Required for accessibility but can be
+	 * visually hidden with the `hideTitle` prop.
+	 */
 	title: string;
-	titleHidden?: boolean;
+	/**
+	 * Indicates that the title should be visually hidden. It will still be
+	 * accessible to screen reader users.
+	 */
+	hideTitle?: boolean;
+	/** Indicates whether the close button in the top right should be included. */
 	closeButton?: boolean;
+	/**
+	 * A list of actions or React Fragment that will be set inside an action bar
+	 * at the bottom of the Modal dialog.
+	 */
 	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
-
+	/**
+	 * A ref or `HTMLElement` that should be focused on open. If none is
+	 * specified, the first focusable element will be focused.
+	 */
 	focusOnOpen?: React.RefObject<HTMLElement> | HTMLElement;
+	/** Indicates whether clicking the backdrop should close the Modal dialog. */
 	closeOnBackdropClick?: boolean;
+	/** Indicates whether `Escape` should close the Modal dialog. */
 	closeOnEscape?: boolean;
+	/**
+	 * A function that returns an element where the Modal dialog should be
+	 * attached to the DOM. Default is the `body`.
+	 */
+	mountPoint?: () => HTMLElement;
 
 	baseName?: string;
-	mountPoint?: () => HTMLElement;
 	backdropClass?: string;
 	headerClass?: string;
 	titleClass?: string;
@@ -38,6 +59,16 @@ export interface ModalProps extends BaseDialogProps {
 	actionBarClass?: string;
 	portalClass?: string;
 
+	/**
+	 * Callback function that is called when the Modal would like to close. This
+	 * will happen under the following conditions:
+	 * * if `closeOnBackdropClick` is `true` and the user clicks the backdrop.
+	 * * if `closeOnEscape` is `true` and the user presses `Escape`.
+	 * * if `closeButton` is `true` and the user clicks the close button.
+	 *
+	 * To close the Modal when `onRequestClose` triggers, simply update the
+	 * `isOpen` prop to `false`.
+	 */
 	onRequestClose?: () => void;
 	onOpen?: () => void;
 
@@ -56,6 +87,9 @@ export interface ModalSnapshot {
 	nextMount: HTMLElement;
 }
 
+/**
+ * Modal dialog.
+ */
 class Modal extends React.Component<ModalProps, ModalState> {
 	private getId: ReturnType<typeof idGen>;
 	private titleId: string;
