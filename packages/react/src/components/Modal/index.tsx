@@ -169,10 +169,12 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		} = this.props;
 		const { isOpen: stateOpen, trigger } = this.state;
 
+		// props change: portalClass
 		if (prevProps.portalClass !== portalClass) {
 			this.portalNode.className = portalClass;
 		}
 
+		// mountPoint change
 		if (nextMount !== prevMount) {
 			prevMount.removeChild(this.portalNode);
 			nextMount.appendChild(this.portalNode);
@@ -185,8 +187,10 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			}
 		}
 
+		// props change: closed -> open
 		if (!prevProps.isOpen && isOpen) {
 			this.open();
+		// props change: open -> closed
 		} else if (prevProps.isOpen && !isOpen) {
 			this.close();
 		}
