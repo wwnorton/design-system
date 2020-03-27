@@ -73,6 +73,12 @@ export interface ModalProps extends BaseDialogProps {
 	onRequestClose?: () => void;
 	onOpen?: () => void;
 	onInitialFocus?: (focusedElement: HTMLElement) => void;
+	/**
+	 * Callback function that is called when the user presses `Tab` on the last
+	 * tabbable element or `Shift + Tab` on the first tabbable element. To
+	 * prevent wrapping in either direction, return `false`.
+	 */
+	onRequestFocusWrap?: (prevFocus: typeof document['activeElement'], nextFocus: HTMLElement) => void | boolean;
 
 	headerRef?: React.Ref<HTMLElement>;
 	contentRef?: React.Ref<HTMLElement>;
@@ -372,18 +378,25 @@ class Modal extends React.Component<ModalProps, ModalState> {
 	private onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
 		if (e.key === 'Tab') {
 			if (this.tabbable && this.tabbable.length) {
+				let element: HTMLElement | undefined;
 				const tabIndex = Array.from(this.tabbable).indexOf(e.target as HTMLElement);
 				const wrapForward = tabIndex === this.tabbable.length - 1 && !e.shiftKey;
 				const wrapBackward = tabIndex === 0 && e.shiftKey;
 
 				if (tabIndex < 0 || wrapForward) {
-					e.preventDefault();
-					this.tabbable[0].focus();
+					[element] = Array.from(this.tabbable);
 				}
 
 				if (wrapBackward) {
+					element = this.tabbable[this.tabbable.length - 1];
+				}
+
+				if (element) {
+					const { onRequestFocusWrap = noop } = this.props;
 					e.preventDefault();
-					this.tabbable[this.tabbable.length - 1].focus();
+					if (onRequestFocusWrap(document.activeElement, element) !== false) {
+						element.focus();
+					}
 				}
 			} else {
 				e.preventDefault();
