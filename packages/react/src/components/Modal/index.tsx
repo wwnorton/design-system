@@ -234,10 +234,10 @@ class Modal extends React.Component<ModalProps, ModalState> {
 	private get CloseButton(): React.ReactElement | null {
 		const {
 			baseName,
-			closeButton,
+			addCloseButton,
 			closeButtonClass = `${baseName}__${Modal.bemElements.closeButton}`,
 		} = this.props;
-		if (!closeButton) return null;
+		if (!addCloseButton) return null;
 		return (
 			<IconButton
 				icon="close"
@@ -249,15 +249,15 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		);
 	}
 
-	private get Title(): React.ReactElement {
+	private get Title(): React.ReactElement | null {
 		const {
 			baseName,
 			titleClass = `${baseName}__${Modal.bemElements.title}`,
 			title,
 			hideTitle,
 		} = this.props;
-		const classes = classNames(titleClass, { 'sr-only': hideTitle });
-		return <h2 className={classes} id={this.titleId}>{ title }</h2>;
+		if (hideTitle) return null;
+		return <h2 className={titleClass} id={this.titleId}>{ title }</h2>;
 	}
 
 	private get Header(): React.ReactElement {
@@ -282,7 +282,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		);
 	}
 
-	private get Actionbar(): React.ReactElement | null {
+	private get ActionBar(): React.ReactElement | null {
 		const {
 			baseName,
 			actionBarClass = `${baseName}__${Modal.bemElements.actionBar}`,
@@ -298,38 +298,37 @@ class Modal extends React.Component<ModalProps, ModalState> {
 
 	private get Dialog(): React.ReactElement | null {
 		const {
+			title,
+			hideTitle,
 			baseName,
 			className,
 			children,
 			contentClass = `${baseName}__${Modal.bemElements.content}`,
 			backdropClass = `${baseName}__${Modal.bemElements.backdrop}`,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			closeOnBackdropClick, portalClass, headerClass, titleClass, title, isOpen: openProp,
-			...attributes
 		} = this.props;
 		const { isOpen } = this.state;
 		if (!isOpen) return null;
 		const classes = classNames(baseName, className);
+		const label = (hideTitle) ? { 'aria-label': title } : { 'aria-labelledby': this.titleId };
 		/*
 			eslint-disable
-			jsx-a11y/no-static-element-interactions,
-			jsx-a11y/click-events-have-key-events
+			jsx-a11y/click-events-have-key-events,
+			jsx-a11y/no-noninteractive-element-interactions
 		*/
 		return (
-			<div className={backdropClass} onClick={this.onBackdropClick}>
+			<section className={backdropClass} onClick={this.onBackdropClick}>
 				<BaseDialog
-					className={classes}
-					aria-labelledby={this.titleId}
-					ref={this.dialogRef}
-					onKeyDown={this.onKeyDown}
-					{...attributes}
 					modal
+					className={classes}
+					onKeyDown={this.onKeyDown}
+					ref={this.dialogRef}
+					{...label}
 				>
 					{ this.Header }
-					<div className={contentClass}>{ children }</div>
-					{ this.Actionbar }
+					<section className={contentClass}>{ children }</section>
+					{ this.ActionBar }
 				</BaseDialog>
-			</div>
+			</section>
 		);
 	}
 
