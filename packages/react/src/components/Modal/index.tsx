@@ -399,7 +399,8 @@ class Modal extends React.Component<ModalProps, ModalState> {
 
 	private onDocumentKeydown = (e: KeyboardEvent): void => {
 		const { closeOnEscape } = this.props;
-		if (e.key === 'Escape' && closeOnEscape) this.requestClose();
+		const { isOpen } = this.state;
+		if (isOpen && e.key === 'Escape' && closeOnEscape) this.requestClose();
 	}
 
 	render(): React.ReactPortal {
