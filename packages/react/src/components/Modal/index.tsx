@@ -36,10 +36,11 @@ export interface ModalProps extends BaseDialogProps {
 	 */
 	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
 	/**
-	 * A ref or `HTMLElement` that should be focused on open. If none is
-	 * specified, the first focusable element will be focused.
+	 * A ref that should be focused on open. If none is specified, the first
+	 * focusable element in the Modal will be focused. If none can be found, the
+	 * header will be focused.
 	 */
-	focusOnOpen?: React.RefObject<HTMLElement> | HTMLElement;
+	initialFocusRef?: React.RefObject<HTMLElement>;
 	/** Indicates whether clicking the backdrop should close the Modal dialog. */
 	closeOnBackdropClick?: boolean;
 	/** Indicates whether `Escape` should close the Modal dialog. */
@@ -71,6 +72,7 @@ export interface ModalProps extends BaseDialogProps {
 	 */
 	onRequestClose?: () => void;
 	onOpen?: () => void;
+	onInitialFocus?: (focusedElement: HTMLElement) => void;
 
 	headerRef?: React.Ref<HTMLElement>;
 	contentRef?: React.Ref<HTMLElement>;
@@ -80,6 +82,7 @@ export interface ModalProps extends BaseDialogProps {
 export interface ModalState {
 	isOpen: boolean;
 	trigger: HTMLElement | null;
+	canFocus: boolean;
 }
 
 export interface ModalSnapshot {
@@ -94,9 +97,10 @@ class Modal extends React.Component<ModalProps, ModalState> {
 	private getId: ReturnType<typeof idGen>;
 	private titleId: string;
 	private portalNode: HTMLElement;
+	private initialFocus: React.RefObject<HTMLElement>;
 	private dialogRef = React.createRef<HTMLDivElement>();
 	private headerRef = React.createRef<HTMLHeadingElement>();
-	private tabbable: NodeListOf<HTMLElement> | null = null;
+	private tabbable: NodeListOf<HTMLElement> | [] = [];
 
 	/* eslint-disable react/sort-comp */
 	public static bemBase = 'modal';
@@ -126,10 +130,12 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		this.getId = idGen(props, `${Modal.bemBase}-`);
 		this.titleId = this.getId(`-${Modal.bemElements.title}`);
 		this.portalNode = this.createPortal();
+		this.initialFocus = props.initialFocusRef || this.headerRef;
 
 		this.state = {
 			isOpen: props.isOpen || Modal.defaultProps.isOpen,
 			trigger: null,
+			canFocus: false,
 		};
 	}
 
@@ -139,6 +145,8 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			const mount = mountPoint();
 			mount.appendChild(this.portalNode);
 		}
+		this.focusInitial()
+			.setDocumentListener();
 	}
 
 	getSnapshotBeforeUpdate(
@@ -157,7 +165,6 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			isOpen,
 			baseName,
 			portalClass = `${baseName}__${Modal.bemElements.portal}`,
-			focusOnOpen,
 		} = this.props;
 		const { isOpen: stateOpen, trigger } = this.state;
 
@@ -176,30 +183,52 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			this.close();
 		}
 
+		// state change: closed -> open
 		if (!prevState.isOpen && stateOpen) {
-			let focusTarget = (focusOnOpen instanceof HTMLElement)
-				? focusOnOpen
-				: focusOnOpen && focusOnOpen.current;
-			if (this.dialogRef.current) {
-				this.tabbable = getFocusable(this.dialogRef.current);
-				if (!focusTarget) {
-					if (this.tabbable.length) {
-						[focusTarget] = Array.from(this.tabbable);
-					} else {
-						focusTarget = this.headerRef.current;
-					}
-				}
+			this.focusInitial()
+				.setDocumentListener();
+		// state change: open -> closed
+		} else if (prevState.isOpen && !stateOpen) {
+			if (trigger) {
+				trigger.focus();
 			}
-			if (focusTarget) focusTarget.focus();
-			document.addEventListener('keydown', this.onDocumentKeydown);
-		} else if (prevState.isOpen && !stateOpen && trigger) {
-			trigger.focus();
 		}
 	}
 
 	componentWillUnmount(): void {
 		this.portalNode.remove();
 		document.removeEventListener('keydown', this.onDocumentKeydown);
+	}
+
+	private getTabbable(): NodeListOf<HTMLElement> | [] {
+		const tabbable = (this.dialogRef.current)
+			? getFocusable(this.dialogRef.current)
+			: [] as [];
+		this.setState({ canFocus: tabbable.length > 0 });
+		return tabbable;
+	}
+
+	private focusInitial(): this {
+		const { initialFocusRef, onInitialFocus = noop } = this.props;
+		this.initialFocus = initialFocusRef || this.headerRef;
+		if (this.dialogRef.current) {
+			this.tabbable = this.getTabbable();
+			if (!this.initialFocus.current) {
+				if (this.tabbable.length) {
+					this.initialFocus = { current: Array.from(this.tabbable)[0] };
+				}
+			}
+		}
+		if (this.initialFocus && this.initialFocus.current) {
+			this.initialFocus.current.focus();
+			onInitialFocus(this.initialFocus.current);
+		}
+		return this;
+	}
+
+	private setDocumentListener(): this {
+		document.addEventListener('keydown', this.onDocumentKeydown);
+		return this;
 	}
 
 	private get CloseButton(): React.ReactElement | null {
@@ -237,11 +266,14 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			headerClass = `${baseName}__${Modal.bemElements.header}`,
 			hideTitle,
 		} = this.props;
-		const headerClasses = classNames(headerClass, { 'title-visible': !hideTitle });
+		const { canFocus } = this.state;
+		const headerClasses = classNames(headerClass, {
+			[`${headerClass}--visible`]: !hideTitle,
+		});
 		return (
 			<header
 				className={headerClasses}
-				tabIndex={-1}
+				tabIndex={(canFocus) ? undefined : -1}
 				ref={this.headerRef}
 			>
 				{ this.Title }
@@ -328,7 +360,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 
 	private onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
 		if (e.key === 'Tab') {
-			if (this.tabbable) {
+			if (this.tabbable && this.tabbable.length) {
 				const tabIndex = Array.from(this.tabbable).indexOf(e.target as HTMLElement);
 				const wrapForward = tabIndex === this.tabbable.length - 1 && !e.shiftKey;
 				const wrapBackward = tabIndex === 0 && e.shiftKey;
