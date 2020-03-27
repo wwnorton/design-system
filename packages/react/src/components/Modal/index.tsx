@@ -29,7 +29,7 @@ export interface ModalProps extends BaseDialogProps {
 	 */
 	hideTitle?: boolean;
 	/** Indicates whether the close button in the top right should be included. */
-	closeButton?: boolean;
+	addCloseButton?: boolean;
 	/**
 	 * A list of actions or React Fragment that will be set inside an action bar
 	 * at the bottom of the Modal dialog.
@@ -65,7 +65,7 @@ export interface ModalProps extends BaseDialogProps {
 	 * will happen under the following conditions:
 	 * * if `closeOnBackdropClick` is `true` and the user clicks the backdrop.
 	 * * if `closeOnEscape` is `true` and the user presses `Escape`.
-	 * * if `closeButton` is `true` and the user clicks the close button.
+	 * * if `addCloseButton` is `true` and the user clicks the close button.
 	 *
 	 * To close the Modal when `onRequestClose` triggers, simply update the
 	 * `isOpen` prop to `false`.
@@ -120,7 +120,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		baseName: Modal.bemBase,
 		mountPoint: (): HTMLElement => document.body,
 		hideTitle: false,
-		closeButton: true,
+		addCloseButton: true,
 		closeOnBackdropClick: true,
 		closeOnEscape: true,
 	}
@@ -163,6 +163,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 	): void {
 		const {
 			isOpen,
+			addCloseButton,
 			baseName,
 			portalClass = `${baseName}__${Modal.bemElements.portal}`,
 		} = this.props;
@@ -175,6 +176,13 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		if (nextMount !== prevMount) {
 			prevMount.removeChild(this.portalNode);
 			nextMount.appendChild(this.portalNode);
+		}
+
+		// closeButton added or removed: update tabbable list
+		if (prevProps.addCloseButton !== addCloseButton) {
+			if (this.dialogRef.current) {
+				this.tabbable = this.getTabbable();
+			}
 		}
 
 		if (!prevProps.isOpen && isOpen) {
