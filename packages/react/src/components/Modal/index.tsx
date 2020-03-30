@@ -338,7 +338,6 @@ class Modal extends React.Component<ModalProps, ModalState> {
 				<BaseDialog
 					modal
 					className={classes}
-					onKeyDown={this.onKeyDown}
 					ref={this.dialogRef}
 					{...label}
 				>
@@ -375,7 +374,21 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		onRequestClose();
 	}
 
-	private onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
+	private onBackdropClick = (
+		{ nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>,
+	): void => {
+		const { closeOnBackdropClick } = this.props;
+		if (closeOnBackdropClick && this.dialogRef.current
+			&& !nativeEvent.composedPath().includes(this.dialogRef.current)) {
+			this.requestClose();
+		}
+	}
+
+	private onDocumentKeydown = (e: KeyboardEvent): void => {
+		const { closeOnEscape } = this.props;
+		const { isOpen } = this.state;
+		if (!isOpen) return;
+		if (e.key === 'Escape' && closeOnEscape) this.requestClose();
 		if (e.key === 'Tab') {
 			if (this.tabbable && this.tabbable.length) {
 				let element: HTMLElement | undefined;
@@ -400,24 +413,9 @@ class Modal extends React.Component<ModalProps, ModalState> {
 				}
 			} else {
 				e.preventDefault();
+				if (this.initialFocus.current) this.initialFocus.current.focus();
 			}
 		}
-	}
-
-	private onBackdropClick = (
-		{ nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>,
-	): void => {
-		const { closeOnBackdropClick } = this.props;
-		if (closeOnBackdropClick && this.dialogRef.current
-			&& !nativeEvent.composedPath().includes(this.dialogRef.current)) {
-			this.requestClose();
-		}
-	}
-
-	private onDocumentKeydown = (e: KeyboardEvent): void => {
-		const { closeOnEscape } = this.props;
-		const { isOpen } = this.state;
-		if (isOpen && e.key === 'Escape' && closeOnEscape) this.requestClose();
 	}
 
 	render(): React.ReactPortal {
