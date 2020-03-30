@@ -25,35 +25,55 @@ const { defaultProps } = Modal;
 
 export const Default = (): React.ReactElement => (
 	<Modal
-		title={text('Title', 'Modal heading')}
+		title={text('Title', 'Modal title')}
 		hideTitle={boolean('Hide title', defaultProps.hideTitle)}
+		addCloseButton={boolean('Include close button', defaultProps.addCloseButton)}
+		closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
+		closeOnEscape={boolean('Close on Escape', defaultProps.closeOnEscape)}
+		onRequestClose={action('onRequestClose')}
+		onInitialFocus={action('onInitialFocus')}
 		isOpen
 	>
 		<ModalContents />
 	</Modal>
 );
 
-export const withActionBar = (): React.ReactElement => {
+export const withActionBar = (): React.ReactElement => (
+	<Modal
+		isOpen
+		title={text('Title', 'Modal title')}
+		addCloseButton={boolean('Include close button', false)}
+		onInitialFocus={action('onInitialFocus')}
+		actions={[
+			<Button variant="outline">Not okay</Button>,
+			<Button variant="solid">Okay</Button>,
+		]}
+	>
+		<ModalContents />
+	</Modal>
+);
+
+export const noFocusableElement = (): React.ReactElement => {
 	const C: React.FunctionComponent = () => {
 		const [isOpen, setOpen] = React.useState(false);
-		const open = (): void => setOpen(true);
-		const close = (requested = false) => (): void => {
+		const open = (): void => { setOpen(true); };
+		const close = (): void => {
 			setOpen(false);
-			if (requested) action('onRequestClose')();
+			action('onRequestClose')();
 		};
 		return (
 			<>
-				<Button variant="solid" onClick={open}>Open modal</Button>
+				<Button variant="solid" onClick={open}>Open</Button>
 				<Modal
-					title={text('Title', 'Modal heading')}
-					closeButton={boolean('Include close button', false)}
+					title="Modal with no focusable element"
+					hideTitle
+					addCloseButton={false}
+					closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
+					closeOnEscape={boolean('Close on Escape', defaultProps.closeOnEscape)}
 					isOpen={isOpen}
 					onOpen={action('onOpen')}
-					onRequestClose={close(true)}
-					actions={[
-						<Button variant="solid" onClick={close()}>Okay</Button>,
-						<Button variant="outline" onClick={close()}>Not okay</Button>,
-					]}
+					onRequestClose={close}
+					onInitialFocus={action('onInitialFocus')}
 				>
 					<ModalContents />
 				</Modal>
@@ -100,11 +120,16 @@ export const multiModal = (): React.ReactElement => {
 				<Button variant="solid" onClick={open}>Open</Button>
 				<Modal
 					title="Your name"
-					focusOnOpen={firstNameRef}
+					initialFocusRef={firstNameRef}
 					isOpen={isOpen}
 					onOpen={action('onOpen')}
 					onRequestClose={close}
 					closeOnEscape={!resultOpen}
+					onInitialFocus={action('onInitialFocus (bottom modal)')}
+					hideTitle={boolean('Hide title', defaultProps.hideTitle)}
+					addCloseButton={boolean('Include close button', defaultProps.addCloseButton)}
+					closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
+					onRequestFocusWrap={() => false}
 				>
 					<form onSubmit={submit} onChange={handleChange}>
 						<TextField value={firstName} label="First Name" inputRef={firstNameRef} />
@@ -112,7 +137,13 @@ export const multiModal = (): React.ReactElement => {
 						<Button variant="solid" type="submit">Submit</Button>
 					</form>
 				</Modal>
-				<Modal title="Result" hideTitle closeButton={false} isOpen={resultOpen} onRequestClose={closeResult}>
+				<Modal
+					title="Result"
+					hideTitle
+					isOpen={resultOpen}
+					onRequestClose={closeResult}
+					onInitialFocus={action('onInitialFocus (top modal)')}
+				>
 					{ `Hello, ${firstName} ${lastName}!` }
 				</Modal>
 			</>
