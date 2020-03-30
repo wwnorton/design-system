@@ -1,10 +1,16 @@
 @import '@nds/core/src/main';
 
+* {
+	box-sizing: border-box;
+}
+
 .modal {
 	position: relative;
+	display: flex;
 	max-width: 700px;
+	flex-direction: column;
 	background-color: #fff;
-	border-radius: 0.125rem;
+	border-radius: 0.25rem;
 }
 
 .modal__backdrop {
@@ -19,54 +25,67 @@
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal__close {
-	transform: translateX(50%);
-}
-
 .modal__header {
 	display: flex;
-	padding: 0.5rem 2rem;
+	padding: 1rem 2rem;
 	margin: 0;
-	flex-direction: row-reverse;
-	justify-content: space-between;
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
 	align-items: center;
+	justify-content: end;
 
-	&.title-visible {
-		padding: 1rem 2rem;
-		flex-direction: row;
-		background-color: #f2f5f8;
-		border-bottom: 1px solid darken(#f2f5f8, 10%);
+	&:focus {
+		outline: none;
 	}
 }
 
 .modal__title {
 	padding: 0;
 	margin: 0;
+	font-size: 1.125rem;
+	line-height: 2;
+}
+
+.modal__close {
+	min-width: 2.25rem;
+	min-height: 2.25rem;
+	border-radius: 0.25rem;
+	transform: translateX(calc(50% - 0.125rem));
+	align-self: start;
 }
 
 .modal__content {
-	padding: 0 2rem 1rem;
-}
-
-.title-visible + .modal__content {
-	padding-top: 2rem;
+	padding: 0 2rem 2.5rem;
 }
 
 .modal__actionbar {
 	display: flex;
 	padding: 1rem 2rem;
-	flex-direction: row-reverse;
 	border-top: 1px solid darken(#f2f5f8, 10%);
+	border-bottom-right-radius: 0.25rem;
+	border-bottom-left-radius: 0.25rem;
+	justify-content: end;
 
-	> * {
+	button + button {
 		margin-left: 0.5rem;
+	}
+}
+
+.modal__header--visible {
+	padding: 1rem 2rem;
+	justify-content: space-between;
+	background-color: #f2f5f8;
+	border-bottom: 1px solid darken(#f2f5f8, 10%);
+
+	+ .modal__content {
+		padding-top: 2rem;
 	}
 }
 
 // storybook-only styles
 
 .modal__content p {
-	margin-top: 0;
+	margin: 0;
 }
 
 .modal .textfield {
