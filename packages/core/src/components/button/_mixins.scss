@@ -11,7 +11,7 @@
 	font-family: $button-font-family;
 	font-size: $button-font-size;
 	line-height: $button-line-height;
-	border: $button-border-radius solid transparent;
+	border: $button-border-width solid transparent;
 	border-radius: $button-border-radius;
 	justify-content: center;
 	align-items: center;
@@ -108,7 +108,7 @@
 	$color-map: $button-color-ghost,
 	$color-step: 60,
 ) {
-	$background: if($color-step > 50, $white, $black);
+	$background: transparent;
 	$color: map-get($color-map, $color-step);
 	$active: active-color($color-map, $color-step);
 	$hover: hover-color($color-map, $color-step);
