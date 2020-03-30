@@ -135,7 +135,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		super(props);
 		this.getId = idGen(props, `${Modal.bemBase}-`);
 		this.titleId = this.getId(`-${Modal.bemElements.title}`);
-		this.portalNode = this.createPortal();
+		this.portalNode = this.createPortalNode();
 		this.initialFocus = props.initialFocusRef || this.headerRef;
 
 		this.state = {
@@ -214,6 +214,16 @@ class Modal extends React.Component<ModalProps, ModalState> {
 	componentWillUnmount(): void {
 		this.portalNode.remove();
 		document.removeEventListener('keydown', this.onDocumentKeydown);
+	}
+
+	private createPortalNode(): HTMLDivElement {
+		const {
+			baseName,
+			portalClass = `${baseName}__${Modal.bemElements.portal}`,
+		} = this.props;
+		const node = document.createElement('div');
+		node.className = portalClass;
+		return node;
 	}
 
 	private getTabbable(): NodeListOf<HTMLElement> | [] {
