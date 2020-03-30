@@ -151,8 +151,9 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			const mount = mountPoint();
 			mount.appendChild(this.portalNode);
 		}
-		this.focusInitial()
-			.setDocumentListener();
+
+		const { isOpen } = this.state;
+		if (isOpen) this.onOpen();
 	}
 
 	getSnapshotBeforeUpdate(
@@ -173,7 +174,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			baseName,
 			portalClass = `${baseName}__${Modal.bemElements.portal}`,
 		} = this.props;
-		const { isOpen: stateOpen, trigger } = this.state;
+		const { isOpen: stateOpen } = this.state;
 
 		// props change: portalClass
 		if (prevProps.portalClass !== portalClass) {
@@ -203,13 +204,10 @@ class Modal extends React.Component<ModalProps, ModalState> {
 
 		// state change: closed -> open
 		if (!prevState.isOpen && stateOpen) {
-			this.focusInitial()
-				.setDocumentListener();
+			this.onOpen();
 		// state change: open -> closed
 		} else if (prevState.isOpen && !stateOpen) {
-			if (trigger) {
-				trigger.focus();
-			}
+			this.onClose();
 		}
 	}
 
@@ -226,12 +224,12 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		return tabbable;
 	}
 
-	private focusInitial(): this {
+	private onOpen(): void {
 		const { initialFocusRef, onInitialFocus = noop } = this.props;
 		this.initialFocus = initialFocusRef || this.headerRef;
 		if (this.dialogRef.current) {
 			this.tabbable = this.getTabbable();
-			if (!this.initialFocus.current) {
+			if (this.initialFocus === this.headerRef) {
 				if (this.tabbable.length) {
 					this.initialFocus = { current: Array.from(this.tabbable)[0] };
 				}
@@ -241,12 +239,13 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			this.initialFocus.current.focus();
 			onInitialFocus(this.initialFocus.current);
 		}
-		return this;
+		document.addEventListener('keydown', this.onDocumentKeydown);
 	}
 
-	private setDocumentListener(): this {
-		document.addEventListener('keydown', this.onDocumentKeydown);
-		return this;
+	private onClose(): void {
+		const { trigger } = this.state;
+		document.removeEventListener('keydown', this.onDocumentKeydown);
+		if (trigger) trigger.focus();
 	}
 
 	private get CloseButton(): React.ReactElement | null {
