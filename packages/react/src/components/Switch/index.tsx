@@ -53,6 +53,26 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 		};
 	}
 
+	componentDidUpdate(
+		prevProps: SwitchProps,
+		prevState: SwitchState,
+	): void {
+		const { checked } = this.props;
+		const { checked: stateChecked } = this.state;
+
+		if (!prevProps.checked && checked) {
+			this.toggle(true);
+		} else if (prevProps.checked && !checked) {
+			this.toggle(false);
+		}
+
+		if (!prevState.checked && stateChecked) {
+			this.onToggle();
+		} else if (prevState.checked && !stateChecked) {
+			this.onToggle();
+		}
+	}
+
 	private get hasStateContent(): boolean {
 		const { displayState, on, off } = this.props;
 		if (!displayState) return false;
@@ -75,13 +95,20 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 		);
 	}
 
-	toggle: SwitchProps['onClick'] = (e): void => {
-		const { onClick = noop, onToggle = noop } = this.props;
-		onClick(e);
+	toggle = (checked: boolean): void => {
+		this.setState({ checked });
+	}
+
+	onToggle = (): void => {
+		const { onToggle = noop } = this.props;
+		onToggle(this.state);
+	}
+
+	onClick: SwitchProps['onClick'] = (e): void => {
+		const { onClick } = this.props;
 		const { checked } = this.state;
-		this.setState({ checked: !checked }, () => {
-			onToggle(this.state);
-		});
+		if (onClick) onClick(e);
+		else this.toggle(!checked);
 	}
 
 	render(): JSX.Element {
@@ -100,8 +127,6 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 			disabled,
 			switch: true,
 		}, className);
-		// do nothing on click if the component is disabled
-		const clickHandler = (disabled) ? noop : this.toggle;
 
 		return (
 			<BaseButton
@@ -110,7 +135,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 				className={classes}
 				ref={buttonRef}
 				aria-checked={ariaChecked}
-				onClick={clickHandler}
+				onClick={this.onClick}
 				{...attributes}
 			>
 				{ this.StateContent }
