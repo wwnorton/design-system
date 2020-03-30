@@ -7,7 +7,9 @@
 	position: relative;
 	display: inline-flex;
 	box-sizing: border-box;
-	padding: $button-padding-y $button-padding-x;
+	padding:
+		calc(#{$button-padding-y} - #{$button-border-width})
+		calc(#{$button-padding-x} - #{$button-border-width});
 	font-family: $button-font-family;
 	font-size: $button-font-size;
 	line-height: $button-line-height;
@@ -129,7 +131,7 @@
 }
 
 @mixin button-icon-only {
-	padding: $button-padding-y;
+	padding: calc(#{$button-padding-y} - #{$button-border-width});
 
 	> :first-child {
 		margin-right: 0 !important;
