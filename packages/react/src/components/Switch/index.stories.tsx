@@ -17,9 +17,9 @@ const { defaultProps } = Switch;
 export const Default = (): JSX.Element => (
 	<Switch
 		onToggle={action('onToggle')}
-		displayState={boolean('Display state', defaultProps.displayState)}
-		on={text('On', defaultProps.on)}
-		off={text('Off', defaultProps.off)}
+		hideState={boolean('Hide state', defaultProps.hideState)}
+		on={text('On state', defaultProps.on)}
+		off={text('Off state', defaultProps.off)}
 		disabled={boolean('Disabled', false)}
 	>
 		Switch
@@ -63,9 +63,9 @@ export const asynchronousToggle = (): JSX.Element => {
 				checked={checked}
 				onClick={toggle}
 				onToggle={action('onToggle')}
-				displayState={boolean('Display state', defaultProps.displayState)}
-				on={text('On indicator', defaultProps.on)}
-				off={text('Off indicator', defaultProps.off)}
+				hideState={boolean('Hide state', defaultProps.hideState)}
+				on={text('On state', defaultProps.on)}
+				off={text('Off state', defaultProps.off)}
 				disabled={boolean('Disabled', false)}
 			>
 				{ content }

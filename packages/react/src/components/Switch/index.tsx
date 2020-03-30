@@ -9,7 +9,7 @@ export interface SwitchProps extends BaseButtonProps {
 	/** A function to call when the switch is toggled. */
 	onToggle: (event: SwitchState) => void;
 	/** Whether or not the `on` and `off` props should render on the control. */
-	displayState: boolean;
+	hideState: boolean;
 	/** A reference to the inner <button> element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
 	/** An element or string that will be displayed when the switch is on. */
@@ -40,7 +40,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 		baseName: Switch.bemBase,
 		checked: false,
 		onToggle: noop,
-		displayState: true,
+		hideState: false,
 		on: 'ON',
 		off: 'OFF',
 	};
@@ -74,8 +74,8 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 	}
 
 	private get hasStateContent(): boolean {
-		const { displayState, on, off } = this.props;
-		if (!displayState) return false;
+		const { hideState, on, off } = this.props;
+		if (hideState) return false;
 		return Boolean(on || off);
 	}
 
@@ -114,7 +114,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 	render(): JSX.Element {
 		const {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			on, off, displayState, onClick, baseName, stateIndicatorClass,
+			on, off, hideState, onClick, baseName, stateIndicatorClass,
 			buttonRef,
 			disabled,
 			children,
