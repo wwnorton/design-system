@@ -46,3 +46,31 @@ export const iconState = (): JSX.Element => (
 		Switch
 	</Switch>
 );
+
+export const asynchronousToggle = (): JSX.Element => {
+	const C: React.FunctionComponent = () => {
+		const [checked, setChecked] = React.useState(false);
+		const [content, setContent] = React.useState('Switch');
+		const toggle = (): void => {
+			setContent(`${content} (updating...)`);
+			setTimeout(() => {
+				setChecked(!checked);
+				setContent('Switch');
+			}, 1000);
+		};
+		return (
+			<Switch
+				checked={checked}
+				onClick={toggle}
+				onToggle={action('onToggle')}
+				displayState={boolean('Display state', defaultProps.displayState)}
+				on={text('On indicator', defaultProps.on)}
+				off={text('Off indicator', defaultProps.off)}
+				disabled={boolean('Disabled', false)}
+			>
+				{ content }
+			</Switch>
+		);
+	};
+	return <C />;
+};
