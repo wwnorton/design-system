@@ -17,11 +17,13 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	*/
 	disableTooltip?: boolean;
 	/**
-	 * A callback that will be triggered any time the DOM's native `change`
-	 * event is triggered. Note that this event is different from React's
-	 * `onChange` event, which triggers on the DOM's native `input` event.
+	 * A callback that will be triggered any time the DOM's `change` event is
+	 * triggered. Note that this event is different from React's `onChange`
+	 * event, which triggers on the DOM's `input` event.
+	 * @MDN https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+	 * @MDN https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event
 	 */
-	onChangeNative?: (e: Event) => void;
+	onDOMChange?: (e: Event) => void;
 	/** A callback that will be triggered any time the input is validated. */
 	onValidate?: (state: ValidationState) => void;
 	/** A list of validator function and corresponding error message pairs. */
