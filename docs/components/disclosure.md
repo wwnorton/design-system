@@ -19,17 +19,10 @@ The caret points right when the disclosure is closed and down when it is open.
 
 <details class="disclosure">
   <summary class="disclosure__summary">
-      <svg
-        class="details-marker caret"
-        aria-hidden="true"
-        focusable="false"
-        role="img"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 192 512"
-      >
-        <!-- https://fontawesome.com/license -->
-        <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"/>
-      </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon icon--caret-right disclosure__marker" aria-hidden="true" focusable="false" role="img">
+      <!-- https://material.io/resources/icons/?icon=arrow_right&amp;style=baseline -->
+      <path fill="currentColor" d="M10 17l5-5-5-5v10z" />
+    </svg>
     Default disclosure
   </summary>
   <div class="disclosure__contents">
@@ -43,16 +36,9 @@ The chevron points down when the disclosure is closed and up when it is open.
 <details class="disclosure disclosure--panel">
   <summary class="disclosure__summary">
     Panel disclosure
-    <svg
-      class="details-marker chevron"
-      aria-hidden="true"
-      focusable="false"
-      role="img"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 448 512"
-    >
-      <!-- https://fontawesome.com/license -->
-      <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon icon--chevron-down disclosure__marker" aria-hidden="true" focusable="false" role="img">
+      <!-- https://material.io/resources/icons/?icon=expand_more&style=baseline -->
+      <path fill="currentColor" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
     </svg>
   </summary>
   <div class="disclosure__contents">
@@ -95,7 +81,7 @@ The chevron points down when the disclosure is closed and up when it is open.
 @import '@nds/core/src/components/disclosure/index';
 
 .disclosure__contents p {
-  margin: 0;
+	margin: 0;
 }
 </style>
 
