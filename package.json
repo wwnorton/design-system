@@ -99,7 +99,7 @@
     "lerna": "^3.20.2",
     "lint-staged": "^10.1.1",
     "nyc": "^15.0.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.2",
     "sass": "^1.26.3",
     "stylelint": "^13.2.1",
     "stylelint-config-norton": "^3.0.0",
