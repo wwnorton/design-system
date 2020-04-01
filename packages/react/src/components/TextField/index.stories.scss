@@ -1,0 +1,9 @@
+@import '@nds/core/src/components/textfield/index';
+
+*:-moz-ui-invalid {
+	box-shadow: none !important;
+}
+
+[aria-invalid='true'] {
+	border-color: map-get($red, 60);
+}
