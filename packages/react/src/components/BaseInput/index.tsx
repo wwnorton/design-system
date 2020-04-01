@@ -1,6 +1,8 @@
 import React from 'react';
-import { noop } from '../../utilities/helpers';
-import { InputType, ValidatorEntry, ValidatorError } from '../../utilities/validation';
+import {
+	createValidator, InputType, ValidatorEntry, ValidatorError,
+} from '../../utilities/validation';
+import { useForwardedRef } from '../../utilities/hooks';
 
 export interface ValidationState {
 	errors: ValidatorError[];
@@ -29,19 +31,19 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	/** A list of validator function and corresponding error message pairs. */
 	validators?: ValidatorEntry[];
 	/**
-	 * Whether the validate method should be called when the DOM's native
-	 * `change` event is triggered. Note that this event is different from
-	 * React's `onChange` event, which triggers on the DOM's native `input`
-	 * event.
+	 * Indicates that validation should occur when the DOM's `change` event is
+	 * triggered. Note that this event is different from React's `onChange`
+	 * callback, which triggers on the DOM's `input` event.
+	 * @MDN https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
 	 */
-	validateOnChangeNative?: boolean;
+	validateOnDOMChange?: boolean;
 	/**
-	 * Whether the validate method should be called when `onChange` is triggered.
+	 * Indicates that validation should occur when `onChange` is triggered.
 	 * @alias `validateOnInput`
 	 */
 	validateOnChange?: boolean;
 	/**
-	 * Whether the validate method should be called when `onInput` is triggered.
+	 * Indicates that validation should occur when `onInput` is triggered.
 	 * @alias `validateOnChange`
 	 */
 	validateOnInput?: boolean;
@@ -49,91 +51,82 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	type?: InputType;
 }
 
-const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(({
-	onChangeNative = noop,
-	onChange = noop,
-	onValidate = noop,
-	validators = [],
-	validateOnChangeNative = true,
-	validateOnChange = false,
-	validateOnInput = false,
-	constraintValidation = true,
-	value: initialValue,
-	type,
-	...attributes
-}: BaseInputProps, ref) => {
+export const BaseInputRender: React.ForwardRefRenderFunction<HTMLInputElement, BaseInputProps> = (
+	{
+		onDOMChange,
+		onChange,
+		onValidate,
+		validators = [],
+		validateOnDOMChange = true,
+		validateOnChange = false,
+		validateOnInput = false,
+		disableTooltip = false,
+		value,
+		...attributes
+	}: BaseInputProps,
+	ref,
+): React.ReactElement => {
+	const inputRef = useForwardedRef<HTMLInputElement>(ref);
 	// TODO: move all of this into a standalone hook so it can be used with BaseTextarea
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const inputRef = ref || React.useRef<HTMLInputElement>(null);
-	const [value, setValue] = React.useState(initialValue);
 	const [validity, setValidity] = React.useState<ValidityState>();
-	const [validate, setValidate] = React.useState(false);
-	const changeNativeListener = React.useRef<(e: Event) => void>(noop);
+	const validate = React.useRef(createValidator(validators));
+	const changeNativeListener = React.useRef<(e: Event) => void>();
 
 	// validation effect
 	React.useEffect(() => {
-		if (validate) {
-			const val = String(value);
-			const err = new Set<ValidatorError>();
-			validators.forEach(({ message, test }) => {
-				// ensure that the message is a string or JSX Element
-				const msg = (typeof message === 'function') ? message(val) : message;
-				// evaluate the test and add the error message if it exists
-				if (!test(val, validity) && message !== '') {
-					err.add(msg);
-				}
-			});
-			const errors = Array.from(err);
-			if (typeof inputRef === 'object' && inputRef.current) {
-				if (constraintValidation) {
-					const errString = (errors.length) ? errors.join('\n') : '';
-					inputRef.current.setCustomValidity(errString);
+		let errors: ValidatorError[] = [];
+		if (onValidate && validity) {
+			errors = validate.current({ validity, value });
+			if (inputRef.current) {
+				if (errors.length) {
+					if (disableTooltip) {
+						inputRef.current.setCustomValidity(' ');
+					} else {
+						inputRef.current.setCustomValidity((errors.length) ? errors.join('\n') : '');
+					}
 				} else {
 					inputRef.current.setCustomValidity('');
 				}
 			}
 			onValidate({ errors, validity });
 		}
-		return (): void => setValidate(false);
-	}, [constraintValidation, inputRef, onValidate, validate, validators, validity, value]);
+		return (): void => setValidity(undefined);
+	}, [disableTooltip, inputRef, onValidate, validity, value]);
+
+	// update the validator function
+	React.useEffect(() => {
+		validate.current = createValidator(validators);
+	}, [validators]);
 
 	// update the DOM `change` listener
 	React.useEffect(() => {
 		changeNativeListener.current = (e: Event): void => {
 			const target = e.target as HTMLInputElement;
-			const parser = (type === 'number') ? Number : String;
-			setValue(parser(target.value));
-			setValidity(target.validity);
-			if (validateOnChangeNative) setValidate(true);
-			onChangeNative(e);
+			if (validateOnDOMChange) setValidity(target.validity);
+			if (onDOMChange) onDOMChange(e);
 		};
-	}, [onChangeNative, type, validateOnChangeNative]);
+	}, [onDOMChange, validateOnDOMChange]);
 
 	// attach the DOM `change` listener
 	React.useEffect(() => {
-		if (typeof inputRef === 'object' && inputRef.current) {
+		if (inputRef.current && changeNativeListener.current) {
 			inputRef.current.addEventListener('change', changeNativeListener.current);
 		}
 	}, [inputRef]);
 
-	const changeListener = (e: Parameters<typeof onChange>[0]): void => {
-		const { target } = e;
-		const parser = (type === 'number') ? Number : String;
-		setValue(parser(target.value));
-		setValidity(target.validity);
-		if (validateOnChange || validateOnInput) setValidate(true);
-		onChange(e);
+	const changeListener = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		if (validateOnChange || validateOnInput) setValidity(e.target.validity);
+		if (onChange) onChange(e);
 	};
 
 	return (
 		<input
-			type={type}
 			value={value}
 			onChange={changeListener}
 			ref={inputRef}
 			{...attributes}
 		/>
 	);
-});
+};
 
-export default BaseInput;
+export default React.forwardRef<HTMLInputElement, BaseInputProps>(BaseInputRender);
