@@ -81,7 +81,7 @@ class Choice extends React.PureComponent<ChoiceProps> {
 		}
 
 		if (variant === 'switch') {
-			return <Switch displayState={false} {...buttonProps}>{ value }</Switch>;
+			return <Switch hideState {...buttonProps}>{ value }</Switch>;
 		}
 
 		if (variant === 'checkbox') {
