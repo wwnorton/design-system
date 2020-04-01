@@ -74,12 +74,9 @@ interface TextFieldState {
 }
 
 class TextField extends React.Component<TextFieldProps, TextFieldState> {
-	private uid: string = uniqueId(`${TextField.bemBase}-`);
-	// eslint-disable-next-line react/destructuring-assignment
-	private get id(): string { return this.props.id || this.uid; }
-	private get descId(): string { return `${this.id}-desc`; }
-	private get errId(): string { return `${this.id}-err`; }
-	private get feedbackId(): string { return `${this.id}-feedback`; }
+	private id: string;
+	private get helpId(): string { return this.id + TextField.bemElements.help; }
+	private get errId(): string { return this.id + TextField.bemElements.error; }
 
 	/* eslint-disable react/sort-comp */
 	public static bemBase = 'textfield';
@@ -104,6 +101,8 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
 
 	constructor(props: TextFieldProps) {
 		super(props);
+
+		this.id = props.id || uniqueId(TextField.bemBase);
 
 		this.state = {
 			value: props.value,
