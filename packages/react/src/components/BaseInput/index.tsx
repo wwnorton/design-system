@@ -66,7 +66,7 @@ export const BaseInputRender: React.ForwardRefRenderFunction<HTMLInputElement, B
 	}: BaseInputProps,
 	ref,
 ): React.ReactElement => {
-	const inputRef = useForwardedRef<HTMLInputElement>(ref);
+	const inputRef = useForwardedRef(ref);
 	// TODO: move all of this into a standalone hook so it can be used with BaseTextarea
 	const [validity, setValidity] = React.useState<ValidityState>();
 	const validate = React.useRef(createValidator(validators));
