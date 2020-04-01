@@ -222,20 +222,13 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
 			feedback,
 		} = this.props;
 
-		const feedbackContents = feedback || (
-			<>
-				{ this.Error }
-				{ this.Counter }
-			</>
-		);
-
 		return (
 			<div
 				className={feedbackClass}
 				aria-live="polite"
 				aria-relevant="all"
 			>
-				{ feedbackContents }
+				{ feedback || [this.Error, this.Counter] }
 			</div>
 		);
 	}
