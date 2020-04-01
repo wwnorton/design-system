@@ -1,8 +1,8 @@
-import React, { Validator, ChangeEvent } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import BaseInput, { BaseInputProps, ValidationState } from '../BaseInput';
-import { isElement, idGen } from '../../utilities/helpers';
+import BaseInput, { BaseInputProps } from '../BaseInput';
+import { isElement } from '../../utilities/helpers';
 import { ValidatorEntry, defaultValidators, ValidatorError } from '../../utilities/validation';
 
 export type TextFieldContent = 'label' | 'help' | 'input' | 'feedback' | 'error' | 'counter';
