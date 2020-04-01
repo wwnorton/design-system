@@ -20,7 +20,7 @@ test('the switch\'s state is reflected by aria-checked', (t) => {
 });
 
 test('the state indicator can be disabled', (t) => {
-	const component = renderer.create(<Switch displayState={false} />);
+	const component = renderer.create(<Switch hideState />);
 	const spans = component.root.findAllByType('span');
 	t.is(spans.length, 0);
 });

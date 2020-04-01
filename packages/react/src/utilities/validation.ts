@@ -78,6 +78,7 @@ export const stateMessages = {
 			case 'email': return 'Please enter an email address.';
 			case 'tel': return 'Please enter a phone number.';
 			case 'url': return 'Please enter a URL.';
+			case 'number': return 'Please enter a number.';
 			default: return '';
 		}
 	},
@@ -160,4 +161,31 @@ export const defaultValidators = ({
 		default:
 	}
 	return validators;
+};
+
+interface ValidatorProps {
+	value: React.InputHTMLAttributes<HTMLInputElement>['value'];
+	validity?: ValidityState;
+}
+type Validator = ({ value, validity }: ValidatorProps) => ValidatorError[];
+
+/**
+ * Create a validator function from a list of validator entries. The resulting
+ * function will return a list of errors based on a `value` and optional DOM
+ * `ValidityState`.
+ */
+export const createValidator = (validators: ValidatorEntry[]): Validator => ({
+	value, validity,
+}: ValidatorProps): ValidatorError[] => {
+	const val = String(value);
+	const err = new Set<ValidatorError>();
+	validators.forEach(({ message, test }) => {
+		// ensure that the message is a string or JSX Element
+		const msg = (typeof message === 'function') ? message(val) : message;
+		// evaluate the test and add the error message if it exists
+		if (!test(val, validity) && message !== '') {
+			err.add(msg);
+		}
+	});
+	return Array.from(err);
 };

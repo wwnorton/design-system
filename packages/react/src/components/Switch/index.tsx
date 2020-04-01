@@ -9,7 +9,7 @@ export interface SwitchProps extends BaseButtonProps {
 	/** A function to call when the switch is toggled. */
 	onToggle: (event: SwitchState) => void;
 	/** Whether or not the `on` and `off` props should render on the control. */
-	displayState: boolean;
+	hideState: boolean;
 	/** A reference to the inner <button> element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
 	/** An element or string that will be displayed when the switch is on. */
@@ -40,7 +40,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 		baseName: Switch.bemBase,
 		checked: false,
 		onToggle: noop,
-		displayState: true,
+		hideState: false,
 		on: 'ON',
 		off: 'OFF',
 	};
@@ -53,9 +53,29 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 		};
 	}
 
+	componentDidUpdate(
+		prevProps: SwitchProps,
+		prevState: SwitchState,
+	): void {
+		const { checked } = this.props;
+		const { checked: stateChecked } = this.state;
+
+		if (!prevProps.checked && checked) {
+			this.toggle(true);
+		} else if (prevProps.checked && !checked) {
+			this.toggle(false);
+		}
+
+		if (!prevState.checked && stateChecked) {
+			this.onToggle();
+		} else if (prevState.checked && !stateChecked) {
+			this.onToggle();
+		}
+	}
+
 	private get hasStateContent(): boolean {
-		const { displayState, on, off } = this.props;
-		if (!displayState) return false;
+		const { hideState, on, off } = this.props;
+		if (hideState) return false;
 		return Boolean(on || off);
 	}
 
@@ -75,19 +95,26 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 		);
 	}
 
-	toggle: SwitchProps['onClick'] = (e): void => {
-		const { onClick = noop, onToggle = noop } = this.props;
-		onClick(e);
+	toggle = (checked: boolean): void => {
+		this.setState({ checked });
+	}
+
+	onToggle = (): void => {
+		const { onToggle = noop } = this.props;
+		onToggle(this.state);
+	}
+
+	onClick: SwitchProps['onClick'] = (e): void => {
+		const { onClick } = this.props;
 		const { checked } = this.state;
-		this.setState({ checked: !checked }, () => {
-			onToggle(this.state);
-		});
+		if (onClick) onClick(e);
+		else this.toggle(!checked);
 	}
 
 	render(): JSX.Element {
 		const {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			on, off, displayState, onClick, baseName, stateIndicatorClass,
+			on, off, hideState, onClick, baseName, stateIndicatorClass,
 			buttonRef,
 			disabled,
 			children,
@@ -100,8 +127,6 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 			disabled,
 			switch: true,
 		}, className);
-		// do nothing on click if the component is disabled
-		const clickHandler = (disabled) ? noop : this.toggle;
 
 		return (
 			<BaseButton
@@ -110,7 +135,7 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 				className={classes}
 				ref={buttonRef}
 				aria-checked={ariaChecked}
-				onClick={clickHandler}
+				onClick={this.onClick}
 				{...attributes}
 			>
 				{ this.StateContent }

@@ -40,17 +40,15 @@ export interface DisclosureState {
 }
 
 export default class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
-	public coreDisclosure?: CoreDisclosure;
-	public detailsRef: React.RefObject<HTMLDetailsElement>;
-
-	/* eslint-disable react/sort-comp */
 	public static bemBase = 'disclosure';
 	public static bemElements: Record<DisclosureContent, string> = {
 		summary: 'summary',
 		marker: 'marker',
 		contentsContainer: 'contents',
 	}
-	/* eslint-enable react/sort-comp */
+
+	public coreDisclosure?: CoreDisclosure;
+	public detailsRef: React.RefObject<HTMLDetailsElement>;
 
 	public static defaultProps = {
 		baseName: Disclosure.bemBase,

@@ -129,7 +129,7 @@ export const multiModal = (): React.ReactElement => {
 					hideTitle={boolean('Hide title', defaultProps.hideTitle)}
 					addCloseButton={boolean('Include close button', defaultProps.addCloseButton)}
 					closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
-					onRequestFocusWrap={() => false}
+					onRequestFocusWrap={(): boolean => false}
 				>
 					<form onSubmit={submit} onChange={handleChange}>
 						<TextField value={firstName} label="First Name" inputRef={firstNameRef} />
