@@ -24,6 +24,11 @@ export interface TextFieldProps extends BaseInputProps {
 	 * what might normally go in the `placeholder`.
 	 */
 	help?: string | JSX.Element;
+	/**
+	 * Feedback about the user's current input value. By default, this will
+	 * contain validation errors and the counter, if `maxLength` is specified.
+	 */
+	feedback?: string | React.ReactElement;
 	/** When the character counter should begin showing. */
 	counterStart?: number;
 	/**
