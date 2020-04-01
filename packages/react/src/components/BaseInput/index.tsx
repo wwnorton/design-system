@@ -9,10 +9,13 @@ export interface ValidationState {
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	/**
-	 * Whether the DOM's constraint validation API should be used.
+	 * Indicates that the default browser tooltips should be disabled for
+	 * validation errors. Disabling tooltips will not disable the DOM's
+	 * constraint validation to ensure that `:valid` and `:invalid` pseudo-
+	 * classes are still correct.
 	 * @DOM https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#the-constraint-validation-api
 	*/
-	constraintValidation?: boolean;
+	disableTooltip?: boolean;
 	/**
 	 * A callback that will be triggered any time the DOM's native `change`
 	 * event is triggered. Note that this event is different from React's
