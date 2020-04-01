@@ -71,11 +71,6 @@ interface TextFieldState {
 }
 
 class TextField extends React.Component<TextFieldProps, TextFieldState> {
-	private id: string;
-	private get helpId(): string { return this.id + TextField.bemElements.help; }
-	private get errId(): string { return this.id + TextField.bemElements.error; }
-
-	/* eslint-disable react/sort-comp */
 	public static bemBase = 'textfield';
 	public static bemElements: Record<TextFieldContent, string> = {
 		label: 'label',
@@ -85,7 +80,8 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
 		error: 'error',
 		counter: 'count',
 	}
-	/* eslint-enable react/sort-comp */
+
+	private id: string;
 
 	public static defaultProps = {
 		type: 'text',
@@ -147,6 +143,9 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
 			onCount(remaining);
 		}
 	}
+
+	private get helpId(): string { return this.id + TextField.bemElements.help; }
+	private get errId(): string { return this.id + TextField.bemElements.error; }
 
 	/** The text field's `<label>`. */
 	private get Label(): React.ReactElement {
@@ -233,6 +232,18 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
 		);
 	}
 
+	private onChange: TextFieldProps['onChange'] = (e): void => {
+		const { onChange } = this.props;
+		if (onChange) onChange(e);
+		else this.updateValue(e.target.value);
+	}
+
+	private onValidate: TextFieldProps['onValidate'] = (state): void => {
+		const { onValidate } = this.props;
+		if (onValidate) onValidate(state);
+		this.setState({ errors: state.errors });
+	}
+
 	private updateCount(): void {
 		const { maxLength } = this.props;
 		const { value } = this.state;
@@ -248,18 +259,6 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
 
 	private updateValue(value: string): void {
 		this.setState({ value });
-	}
-
-	private onChange: TextFieldProps['onChange'] = (e): void => {
-		const { onChange } = this.props;
-		if (onChange) onChange(e);
-		else this.updateValue(e.target.value);
-	}
-
-	private onValidate: TextFieldProps['onValidate'] = (state): void => {
-		const { onValidate } = this.props;
-		if (onValidate) onValidate(state);
-		this.setState({ errors: state.errors });
 	}
 
 	render(): React.ReactElement {

@@ -51,15 +51,6 @@ export interface CheckboxState {
 }
 
 class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
-	private inputRef: React.RefObject<HTMLInputElement>;
-	private uid: string = uniqueId(`${Checkbox.bemBase}-`);
-	// eslint-disable-next-line react/destructuring-assignment
-	private get id(): string { return this.props.id || this.uid; }
-	private get labelId(): string { return `${this.id}-label`; }
-	private get descId(): string { return `${this.id}-desc`; }
-	private get errId(): string { return `${this.id}-err`; }
-
-	/* eslint-disable react/sort-comp */
 	public static bemBase = 'checkbox';
 	public static bemElements: Record<CheckboxContent, string> = {
 		input: 'input',
@@ -70,7 +61,9 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		container: 'container',
 		thumbnail: 'thumbnail',
 	}
-	/* eslint-enable react/sort-comp */
+
+	private inputRef: React.RefObject<HTMLInputElement>;
+	private uid: string = uniqueId(`${Checkbox.bemBase}-`);
 
 	static defaultProps = {
 		checked: false,
@@ -99,14 +92,6 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		this.updateIndeterminate();
 	}
 
-	/** `indeterminate` is a property, not an attribute. It must be toggled on the ref. */
-	private updateIndeterminate(): void {
-		const { indeterminate } = this.state;
-		if (this.inputRef.current && indeterminate !== undefined) {
-			this.inputRef.current.indeterminate = indeterminate;
-		}
-	}
-
 	onChange: BaseInputProps['onChange'] = async (event): Promise<void> => {
 		const { onChange } = this.props;
 		const { checked } = event.target;
@@ -119,6 +104,12 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		await this.setState({ errors, valid: errors.length === 0 });
 		if (onValidate) onValidate({ errors, validity });
 	}
+
+	// eslint-disable-next-line react/destructuring-assignment
+	private get id(): string { return this.props.id || this.uid; }
+	private get labelId(): string { return `${this.id}-label`; }
+	private get descId(): string { return `${this.id}-desc`; }
+	private get errId(): string { return `${this.id}-err`; }
 
 	/** The visual control for the component. A11y is handled by the native `<input>`. */
 	private get Control(): JSX.Element {
@@ -193,6 +184,14 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 				}) }
 			</ul>
 		);
+	}
+
+	/** `indeterminate` is a property, not an attribute. It must be toggled on the ref. */
+	private updateIndeterminate(): void {
+		const { indeterminate } = this.state;
+		if (this.inputRef.current && indeterminate !== undefined) {
+			this.inputRef.current.indeterminate = indeterminate;
+		}
 	}
 
 	render(): JSX.Element {

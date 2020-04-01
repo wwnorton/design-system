@@ -35,9 +35,6 @@ export interface ButtonProps extends BaseButtonProps {
 }
 
 class Button extends React.PureComponent<ButtonProps> {
-	private label?: string;
-
-	/* eslint-disable react/sort-comp */
 	public static baseName = 'button';
 	public static elements = {
 		icon: 'icon',
@@ -47,7 +44,8 @@ class Button extends React.PureComponent<ButtonProps> {
 	public static errors: Record<string, string> = {
 		noChildren: 'Button components must always have children.',
 	}
-	/* eslint-enable react/sort-comp */
+
+	private label?: string;
 
 	public static defaultProps = {
 		baseName: Button.baseName,
