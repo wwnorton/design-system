@@ -78,6 +78,7 @@ export const stateMessages = {
 			case 'email': return 'Please enter an email address.';
 			case 'tel': return 'Please enter a phone number.';
 			case 'url': return 'Please enter a URL.';
+			case 'number': return 'Please enter a number.';
 			default: return '';
 		}
 	},
