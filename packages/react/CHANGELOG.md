@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.6.1...v0.7.0) (2020-04-01)
+
+### Bug Fixes
+
+- **react:** move react & react-dom to dev/peerDeps ([2268999](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/2268999ba7fcbd25614a784b12cb8e49e6b29b96))
+- **switch:** use props to update state ([60757eb](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/60757ebdfe5720a5765dea7cff65fd7953b24be6)), closes [#100](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/issues/100)
+
+### Features
+
+- **modal:** add onRequestFocusWrap prop ([f2b44ba](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/f2b44ba223582703df86276c14b02735585c2213))
+- **react:** add BaseDialog ([6920ed9](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/6920ed98e2c92f2380abac1c765770c2fa49d591))
+- **react:** add createValidator factory function ([9b2537a](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/9b2537a8decc1b09e8b1b02ab8cb36dd082dcd7a))
+- **react:** add focusable utilities ([9c44922](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/9c4492252332bf2ad3fdbcd4261ecedbea3a45ab))
+- **react:** add hook to merge forwarded refs ([152fccd](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/152fccdd13998ac0649d23236cb287ef02ee9f78))
+- **react:** add prop to disable browser tooltips on inputs ([bcae744](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/bcae744714645a0b59f38823016fc519386e11af))
+- **react:** initial Modal dialog ([585024b](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/585024ba32b59de55d2ff7169dce2f45dd0bf141))
+- **switch:** flip state display prop ([c68dadf](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/c68dadf857f4a08aaf7f66fe1cf75236b28b4e70))
+- **TextField:** allow users to customize feedback ([133aa1a](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/133aa1ab69b16b2088a4b865a60efc55302dbf43))
+
 ## [0.6.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.6.0...v0.6.1) (2020-03-03)
 
 **Note:** Version bump only for package @nds/react

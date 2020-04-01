@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.6.1...v0.7.0) (2020-04-01)
+
+### Bug Fixes
+
+- **button:** 1px button borders ([ff40118](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/ff40118bed791a0edb089b99cbcdebe9455fe6d6)), closes [#97](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/issues/97)
+- **button:** use correct token ([bacc2f6](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/bacc2f6ffebb514f7e7c8510f5c7b5396f54bfb8))
+- **core:** ghost button should be transparent ([70711f2](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/70711f2fefca434656eee688d61cf904ec3d6bfb))
+
 ## [0.6.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.6.0...v0.6.1) (2020-03-03)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@nds/core",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Framework-independent components, tokens, and utilities for the Norton Design System",
   "keywords": [
     "component",
