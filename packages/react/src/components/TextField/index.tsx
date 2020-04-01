@@ -17,13 +17,13 @@ export interface TextFieldProps extends BaseInputProps {
 	/** Text fields can be a limited subset of `<input>` types. */
 	type?: TextFieldType;
 	/** The label for the text field. The only required prop. */
-	label: string | JSX.Element;
+	label: string | React.ReactElement;
 	/**
 	 * Additional descriptive help text for the text field. Use this for to give
 	 * the user more context about what to enter, such as field templating or
 	 * what might normally go in the `placeholder`.
 	 */
-	help?: string | JSX.Element;
+	help?: string | React.ReactElement;
 	/**
 	 * Feedback about the user's current input value. By default, this will
 	 * contain validation errors and the counter, if `maxLength` is specified.
@@ -36,7 +36,7 @@ export interface TextFieldProps extends BaseInputProps {
 	 * number of characters and returns the string or element that will be
 	 * rendered in the character counter slot.
 	 */
-	counter?: ({ remaining, max }: TextInputCounterProps) => JSX.Element | string;
+	counter?: ({ remaining, max }: TextInputCounterProps) => React.ReactElement | string;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** The className for the TextField's `<label>` element. */
