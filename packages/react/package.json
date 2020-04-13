@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@nds/core": "^0.7.0",
+    "@popperjs/core": "^2.2.0",
     "classnames": "^2.2.6",
     "lodash.uniqueid": "^4.0.1"
   },
