@@ -10,7 +10,7 @@ const options = [
 	'Californium',
 ];
 
-test('renders its defaults', (t) => {
+test.skip('renders its defaults', (t) => {
 	const component = renderer.create((
 		<Dropdown
 			label="Choose an element"
