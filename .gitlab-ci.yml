@@ -13,7 +13,7 @@ stages:
   - codequality
   - build
   - test
-  # - deploy
+  - deploy
 
 install:
   stage: prepare
@@ -45,8 +45,15 @@ build:
       - packages/*/dist
     expire_in: 30 days
 
+test:unit:
+  stage: test
+  script:
+    - npm run coverage
+  dependencies:
+    - build
+
 pages:
-  stage: build
+  stage: deploy
   environment:
     name: docs
     url: $CI_PAGES_URL
@@ -61,10 +68,3 @@ pages:
       - public
   only:
     - master
-
-test:unit:
-  stage: test
-  script:
-    - npm run coverage
-  dependencies:
-    - build
