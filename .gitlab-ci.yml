@@ -45,6 +45,13 @@ build:
       - packages/*/dist
     expire_in: 30 days
 
+test:unit:
+  stage: test
+  script:
+    - npm run coverage
+  dependencies:
+    - build
+
 pages:
   stage: deploy
   environment:
@@ -61,10 +68,3 @@ pages:
       - public
   only:
     - master
-
-test:unit:
-  stage: test
-  script:
-    - npm run coverage
-  dependencies:
-    - build
