@@ -13,7 +13,7 @@ stages:
   - codequality
   - build
   - test
-  # - deploy
+  - deploy
 
 install:
   stage: prepare
@@ -46,7 +46,7 @@ build:
     expire_in: 30 days
 
 pages:
-  stage: build
+  stage: deploy
   environment:
     name: docs
     url: $CI_PAGES_URL
