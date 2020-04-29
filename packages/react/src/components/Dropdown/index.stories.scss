@@ -1,0 +1,81 @@
+// stylelint-disable-next-line scss/at-import-no-partial-leading-underscore
+@import '@nds/core/src/components/button/_mixins';
+
+.dropdown__button {
+	@include button-base;
+	@include button-outline;
+
+	justify-content: space-between !important;
+}
+
+.dropdown__listbox {
+	position: absolute;
+	z-index: 100;
+	max-height: 16rem;
+	padding: 0;
+	margin: 0;
+	overflow-y: auto;
+	list-style-type: none;
+	border: 1px solid map-get($navy, 60);
+	border-radius: 2px;
+	scrollbar-color: map-get($teal, 60) map-get($navy, 20);
+}
+
+.dropdown__option {
+	display: flex;
+	padding: 0.5rem 1.75rem 0.5rem 0;
+	cursor: default;
+	user-select: none;
+	background-color: $white;
+	align-items: center;
+
+	&[aria-selected=true] {
+		padding-left: 0;
+	}
+
+	&:hover {
+		background-color: map-get($navy, 20);
+	}
+
+	&:focus {
+		background-color: map-get($teal, 20);
+	}
+
+	&:hover:focus {
+		background-color: map-get($teal, 30);
+	}
+
+	> svg {
+		min-width: calc(1em + 0.5rem * 2);
+		height: 1em;
+		padding: 0 0.5rem;
+	}
+
+	> span {
+		padding-left: 2rem;
+	}
+
+	> svg + span {
+		padding-left: 0;
+	}
+}
+
+
+// utilities
+.scrollbox {
+	display: block;
+	height: 400px;
+	margin: 40px auto;
+	content: '';
+
+	&::before,
+	&::after {
+		display: block;
+		height: 70vh;
+		content: '';
+	}
+}
+
+.btn-test {
+	margin: 80px;
+}
