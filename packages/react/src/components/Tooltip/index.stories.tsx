@@ -16,7 +16,7 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Default = (): JSX.Element => {
+export const Default: React.FunctionComponent = () => {
 	const buttonRef = React.useRef();
 	return (
 		<div className="tooltip__story">
@@ -41,7 +41,7 @@ export const Default = (): JSX.Element => {
 	);
 };
 
-export const ToggleOpen = (): JSX.Element => {
+export const ToggleOpen: React.FunctionComponent = () => {
 	const buttonRef = React.useRef();
 	return (
 		<div className="tooltip__story">

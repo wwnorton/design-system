@@ -14,7 +14,7 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Default = (): JSX.Element => (
+export const Default: React.FunctionComponent = () => (
 	<Checkbox
 		label={text('Label', 'Checkbox')}
 		help={text('Help', 'Additional information about this checkbox.')}
@@ -24,7 +24,7 @@ export const Default = (): JSX.Element => (
 	/>
 );
 
-export const Indeterminate = (): JSX.Element => (
+export const Indeterminate: React.FunctionComponent = () => (
 	<Checkbox
 		label={text('Label', 'Checkbox')}
 		help={text('Help', 'This checkbox starts out in the indeterminate/mixed state.')}
@@ -34,7 +34,7 @@ export const Indeterminate = (): JSX.Element => (
 	/>
 );
 
-export const WithThumbnail = (): JSX.Element => (
+export const WithThumbnail: React.FunctionComponent = () => (
 	<Checkbox
 		label={text('Label', 'Checkbox')}
 		help={text('Help', 'Additional information about this checkbox.')}

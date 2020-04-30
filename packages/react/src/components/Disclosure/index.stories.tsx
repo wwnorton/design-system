@@ -25,7 +25,7 @@ const contents = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repud
 
 const { defaultProps } = Disclosure;
 
-export const Default = (): JSX.Element => (
+export const Default: React.FunctionComponent = () => (
 	<Disclosure
 		summary={text('Summary', 'More information')}
 		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
@@ -36,7 +36,7 @@ export const Default = (): JSX.Element => (
 	</Disclosure>
 );
 
-export const open = (): JSX.Element => (
+export const Open: React.FunctionComponent = () => (
 	<Disclosure
 		summary={text('Summary', 'More information')}
 		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
@@ -48,7 +48,7 @@ export const open = (): JSX.Element => (
 	</Disclosure>
 );
 
-export const withBaseSummary = (): JSX.Element => (
+export const WithBaseSummary: React.FunctionComponent = () => (
 	<Disclosure
 		summary={<BaseSummary className="disclosure__summary">Base summary</BaseSummary>}
 		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
@@ -59,7 +59,7 @@ export const withBaseSummary = (): JSX.Element => (
 	</Disclosure>
 );
 
-export const withHTMLSummary = (): JSX.Element => (
+export const WithHTMLSummary: React.FunctionComponent = () => (
 	<Disclosure
 		summary={<summary className="disclosure__summary">HTML summary</summary>}
 		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
