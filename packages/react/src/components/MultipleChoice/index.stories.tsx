@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import {
 	withKnobs, boolean, text,
 } from '@storybook/addon-knobs';
-import './mc.stories.scss';
+import './index.stories.scss';
 import MultipleChoice, { MultipleChoiceProps } from '.';
 import Choice from '../Choice';
 
