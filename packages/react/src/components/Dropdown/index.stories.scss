@@ -1,8 +1,16 @@
 @use '@nds/core/src/components/button/_mixins' as button;
+@use '@nds/core/src/components/icon';
 @use '@nds/core/src/globals/scss/tokens/_color-system' as color;
 
 .dropdown__button {
-	justify-content: space-between !important;
+	@include button.button-base;
+	@include button.button-outline;
+
+	justify-content: space-between;
+
+	> .icon {
+		@include button.button-icon;
+	}
 }
 
 .dropdown__listbox {
