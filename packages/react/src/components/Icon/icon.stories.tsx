@@ -24,7 +24,7 @@ const IconOptions: Record<string, IconProps['variant']> = {
 	Check: 'check',
 };
 
-export const Default = (): JSX.Element => (
+export const Default: React.FunctionComponent = () => (
 	<Icon
 		variant={select<IconProps['variant']>('Icon', IconOptions, 'caret-right')}
 		label={text('Label', '')}
@@ -32,7 +32,7 @@ export const Default = (): JSX.Element => (
 	/>
 );
 
-export const iconButton = (): JSX.Element => (
+export const DefaultIconButton: React.FunctionComponent = () => (
 	<IconButton
 		onClick={action('onClick')}
 		disabled={boolean('Disabled', false)}

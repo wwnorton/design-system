@@ -17,7 +17,7 @@ export default {
 
 const { defaultProps } = TextField;
 
-export const Default = (): React.ReactElement => (
+export const Default: React.FunctionComponent = () => (
 	<TextField
 		label={text('Label', 'Default Text Field')}
 		help='The default Text Field has a type of "text"'
@@ -30,7 +30,7 @@ export const Default = (): React.ReactElement => (
 	/>
 );
 
-export const Email = (): React.ReactElement => (
+export const Email: React.FunctionComponent = () => (
 	<TextField
 		type="email"
 		label="Email"
@@ -43,7 +43,7 @@ export const Email = (): React.ReactElement => (
 	/>
 );
 
-export const Number = (): React.ReactElement => (
+export const Number: React.FunctionComponent = () => (
 	<TextField
 		type="number"
 		label="Number"
@@ -59,7 +59,7 @@ export const Number = (): React.ReactElement => (
 	/>
 );
 
-export const Password = (): React.ReactElement => (
+export const Password: React.FunctionComponent = () => (
 	<TextField
 		type="password"
 		label="Password"
@@ -73,7 +73,7 @@ export const Password = (): React.ReactElement => (
 	/>
 );
 
-export const Telephone = (): React.ReactElement => (
+export const Telephone: React.FunctionComponent = () => (
 	<TextField
 		type="tel"
 		label="Phone number"
@@ -86,7 +86,7 @@ export const Telephone = (): React.ReactElement => (
 	/>
 );
 
-export const URL = (): React.ReactElement => (
+export const URL: React.FunctionComponent = () => (
 	<TextField
 		type="url"
 		label="URL"
@@ -99,7 +99,7 @@ export const URL = (): React.ReactElement => (
 	/>
 );
 
-export const withMaxLength = (): React.ReactElement => (
+export const WithMaxLength: React.FunctionComponent = () => (
 	<TextField
 		label="Text Field with max length"
 		maxLength={number('Maximum length', 10)}
@@ -110,54 +110,49 @@ export const withMaxLength = (): React.ReactElement => (
 );
 
 interface CustomValidationProps { firstName: string; lastName: string }
-export const customValidation = (): React.ReactElement => {
-	const CustomValidation: React.FunctionComponent<CustomValidationProps> = ({
-		firstName,
-		lastName,
-	}: CustomValidationProps) => {
-		const inputRef = React.useRef<HTMLInputElement>();
-		const [value, setValue] = React.useState('');
-		const [isValid, setValidity] = React.useState(false);
-		const onChange = (e): void => {
-			setValue(e.target.value);
-			action('onChange')(e);
-		};
-		const onValidate = (state): void => {
-			if (state.errors.length === 0) {
-				setValidity(true);
-			} else {
-				setValidity(false);
-			}
-			action('onValidate')(state);
-		};
-		return (
-			<>
-				<TextField
-					inputRef={inputRef}
-					value={value}
-					onChange={onChange}
-
-					label="Full name"
-					help="Enter a value that begins with the first name and ends with the last name specified in the knobs below."
-					validators={[
-						{
-							test: (v: string): boolean => v.startsWith(firstName),
-							message: `Must begin with "${firstName}".`,
-						},
-						{
-							test: (v: string): boolean => v.endsWith(lastName),
-							message: `Must end with "${lastName}".`,
-						},
-					]}
-					feedback={(isValid) ? `Well done, ${value}!` : undefined}
-
-					onDOMChange={action('onDOMChange')}
-					onValidate={onValidate}
-					required
-					validateOnChange
-				/>
-			</>
-		);
+export const CustomValidation: React.FunctionComponent<CustomValidationProps> = ({
+	firstName = text('First name', 'Jane'),
+	lastName = text('Last name', 'Doe'),
+}: CustomValidationProps) => {
+	const inputRef = React.useRef<HTMLInputElement>();
+	const [value, setValue] = React.useState('');
+	const [isValid, setValidity] = React.useState(false);
+	const onChange = (e): void => {
+		setValue(e.target.value);
+		action('onChange')(e);
 	};
-	return <CustomValidation firstName={text('First name', 'Jane')} lastName={text('Last name', 'Doe')} />;
+	const onValidate = (state): void => {
+		if (state.errors.length === 0) {
+			setValidity(true);
+		} else {
+			setValidity(false);
+		}
+		action('onValidate')(state);
+	};
+	return (
+		<TextField
+			inputRef={inputRef}
+			value={value}
+			onChange={onChange}
+
+			label="Full name"
+			help="Enter a value that begins with the first name and ends with the last name specified in the knobs below."
+			validators={[
+				{
+					test: (v: string): boolean => v.startsWith(firstName),
+					message: `Must begin with "${firstName}".`,
+				},
+				{
+					test: (v: string): boolean => v.endsWith(lastName),
+					message: `Must end with "${lastName}".`,
+				},
+			]}
+			feedback={(isValid) ? `Well done, ${value}!` : undefined}
+
+			onDOMChange={action('onDOMChange')}
+			onValidate={onValidate}
+			required
+			validateOnChange
+		/>
+	);
 };
