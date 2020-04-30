@@ -3,15 +3,30 @@
 Anyone who would like to contribute is welcome and encouraged to help in any way shape or form.
 To contribute code, copy edits, or any other type of modification, make changes in a branch and create a merge request to allow maintainers to review your changes.
 
-**Note**: contributions are meant to be easy and low-stakes.
-Don't worry about making mistakes or getting things wrong&mdash;every contribution is helpful.
+[[_TOC_]]
 
-Read [getting started with GitLab](https://gitlab.com/wwnorton/platform/design-system/wikis/Guides/Git%20&%20GitLab#getting-started-with-gitlab) for more details on how to contribute.
+## How to get started
 
-Issues labelled [good first issue](https://gitlab.com/wwnorton/platform/design-system/issues?label_name[]=good+first+issue) are a great place to start if you'd like to contribute but aren't sure how.
-To get started, write a message in that issue to let the maintainers know you'd like to tackle it and they will help you through the process.
+**Contributions are meant to be easy and low-stakes**.
+Don't worry about making mistakes or getting things wrong&mdash;every contribution is helpful and our maintainers will help you through your first contribution.
 
-## Commit Standards
+The easiest way to know what needs to be done is to look through [unassigned open issues](https://gitlab.com/wwnorton/platform/design-system/-/issues?scope=all&utf8=%E2%9C%93&state=opened&assignee_id=None) or [our development board](https://gitlab.com/wwnorton/platform/design-system/-/boards/1270953). To get started, write a message in an issue to let the maintainers know you'd like to tackle it and they will help you through the process.
+
+- Read [getting started with GitLab](https://gitlab.com/wwnorton/platform/design-system/wikis/Guides/Git%20&%20GitLab#getting-started-with-gitlab) for more details on the basics of Git and GitLab.
+- Issues labelled [good first issue](https://gitlab.com/wwnorton/platform/design-system/issues?label_name[]=good+first+issue) are a great place to start if you'd like to contribute but aren't sure how.
+
+## Merge Requests
+
+A merge request is a request to change the design system's source of truth in some way.
+This could be a new feature, documentation updates, a bug fix, a copy change, or any other type of change.
+
+- **Every merge request is a proposal**. While issues are helpful for definition and open questions, merge requests are the place to propose changes, fixes, and solutions. It's where the design system gets built.
+- **Expect discussion**. Let others know when your merge request is ready for review directly in the merge request thread and [remove the work in progress flag](https://docs.gitlab.com/ee/user/project/merge_requests/work_in_progress_merge_requests.html) if it exists and then wait for feedback. Maintainers and other contributors will review it and comment on the proposal, possibly requesting changes.
+- **Start small**. Small changes are _always_ better than big ones. Opening a merge request that includes changes to many files and big API changes will take much longer to review and there's a good chance that some portions will be rejected.
+- **Define the problem** in the merge request description. Merge requests often introduce solutions to problems, so don't forget to state the problem you're solving.
+- When in doubt, refer to [GitLab-the-company's own best practices for merge requests](https://about.gitlab.com/handbook/communication/#everything-starts-with-a-merge-request).
+
+## Code and Commit Standards
 
 Commits should generally follow [git best practices](http://sethrobertson.github.io/GitBestPractices/).
 Specifically, contributors MUST strive to follow these two conventions:
@@ -56,7 +71,7 @@ npx git-cz
   💄  style:      Markup, white-space, formatting, missing semi-colons...
 ```
 
-## Code Conformance
+### Code Conformance
 
 All code must conform to code quality standards before being accepted.
 To make this easier, it is highly recommend that developers use the included Node.js tooling.
@@ -79,7 +94,7 @@ npm run lint:style
 npm run lint:prettier
 ```
 
-### Auto-fixing
+#### Auto-fixing
 
 Some issues can be fixed automatically by the provided tools.
 Each tool's npm script comes with an accompanying `-fix` mode (e.g., `npm run lint:es-fix` will fix eslint errors).
@@ -92,7 +107,7 @@ npm run fix
 Additionally, [lint-staged](https://github.com/okonet/lint-staged) and [husky](https://github.com/typicode/husky) will auto-fix any staged files.
 Read their documentation to learn more about how this happens.
 
-### Rule overrrides
+#### Rule overrrides
 
 Both eslint and stylelint rules can be [overridden](https://eslint.org/docs/user-guide/configuring.html#using-configuration-comments) or [disabled](https://stylelint.io/user-guide/configuration/#turning-rules-off-from-within-your-css) via code comments.
 This should only ever be done as a very last resort.
@@ -103,7 +118,7 @@ When used, all instances MUST conform to the following requirements:
   - If a block needs to be ignored, it MUST be re-enabled after the end of the block via `/* {eslint,stylelint}-enable <rule_name> */`
 - The override MUST disable only the specific rule (i.e., no `/* {eslint,stylelint}-disable */` without a rule name)
 
-#### Examples of acceptable overrides
+##### Examples of acceptable overrides
 
 A third-party library provides a required method that has a leading underscore, so the [no-underscore-dangle rule](https://eslint.org/docs/rules/no-underscore-dangle#disallow-dangling-underscores-in-identifiers-no-underscore-dangle) is disabled via the only on the line where it occurs:
 
@@ -132,13 +147,13 @@ function foo(arg) {
 }
 ```
 
-#### Examples of unacceptable overrides
+##### Examples of unacceptable overrides
 
 Overriding the [no-underscore-dangle rule](https://eslint.org/docs/rules/no-underscore-dangle#disallow-dangling-underscores-in-identifiers-no-underscore-dangle) at the document level because a third-party library provides a method with a leading underscore:
 
 ```javascript
 /* DON'T: DISABLE RULES AT THE DOCUMENT LEVEL */
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-underscore-dangle */ // <- BAD!
 function foo(arg) {
   arg._foo("bar");
 }
@@ -149,7 +164,7 @@ For instance, there is never a good reason to use the `var` keyword since `const
 
 ```javascript
 /* DON'T: DISABLE RULES THAT ENCOURAGE BEST PRACTICES */
-/* eslint-disable-next-line no-var */
+/* eslint-disable-next-line no-var */ // <- GOOD!
 var foo = "bar";
 
 /* DO: SIMPLY USE THE CORRECT SYNTAX */
