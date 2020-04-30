@@ -1,5 +1,5 @@
-@import '@nds/core/src/components/radio/index';
+@use '@nds/core/src/components/radio';
 
 .group-item {
-	margin-bottom: $radio-gap;
+	margin-bottom: radio.$radio-gap;
 }

@@ -1,9 +1,10 @@
-@import '@nds/core/src/components/textfield/index';
+@use '@nds/core/src/components/textfield';
+@use '@nds/core/src/globals/scss/tokens/_color-system' as color;
 
 *:-moz-ui-invalid {
 	box-shadow: none !important;
 }
 
 [aria-invalid='true'] {
-	border-color: map-get($red, 60);
+	border-color: map-get(color.$red, 60);
 }
