@@ -1,13 +1,15 @@
-@import '@nds/core/src/components/multiple-choice/index';
+@use '@nds/core/src/components/multiple-choice';
+@use '@nds/core/src/components/button/_mixins' as button;
+@use '@nds/core/src/globals/scss/tokens/_color-system' as color;
 
 .mc__choice.incorrect {
-	@include button-solid($red);
+	@include button.button-solid(color.$red);
 
 	pointer-events: none;
 }
 
 .mc__choice.correct {
-	@include button-solid($green);
+	@include button.button-solid(color.$green);
 
 	pointer-events: none;
 }

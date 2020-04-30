@@ -1,10 +1,7 @@
-// stylelint-disable-next-line scss/at-import-no-partial-leading-underscore
-@import '@nds/core/src/components/button/_mixins';
+@use '@nds/core/src/components/button/_mixins' as button;
+@use '@nds/core/src/globals/scss/tokens/_color-system' as color;
 
 .dropdown__button {
-	@include button-base;
-	@include button-outline;
-
 	justify-content: space-between !important;
 }
 
@@ -16,9 +13,9 @@
 	margin: 0;
 	overflow-y: auto;
 	list-style-type: none;
-	border: 1px solid map-get($navy, 60);
+	border: 1px solid map-get(color.$navy, 60);
 	border-radius: 2px;
-	scrollbar-color: map-get($teal, 60) map-get($navy, 20);
+	scrollbar-color: map-get(color.$teal, 60) map-get(color.$navy, 20);
 }
 
 .dropdown__option {
@@ -26,7 +23,7 @@
 	padding: 0.5rem 1.75rem 0.5rem 0;
 	cursor: default;
 	user-select: none;
-	background-color: $white;
+	background-color: color.$white;
 	align-items: center;
 
 	&[aria-selected=true] {
@@ -34,15 +31,15 @@
 	}
 
 	&:hover {
-		background-color: map-get($navy, 20);
+		background-color: map-get(color.$navy, 20);
 	}
 
 	&:focus {
-		background-color: map-get($teal, 20);
+		background-color: map-get(color.$teal, 20);
 	}
 
 	&:hover:focus {
-		background-color: map-get($teal, 30);
+		background-color: map-get(color.$teal, 30);
 	}
 
 	> svg {
