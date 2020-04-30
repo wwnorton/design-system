@@ -68,3 +68,12 @@ pages:
       - public
   only:
     - master
+
+.publish:
+  stage: deploy
+  script:
+    - npm run publish
+  only:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == master
+      - $CI_MERGE_REQUEST_LABELS =~ /release/
