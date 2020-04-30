@@ -1,8 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import '@nds/core/src/components/switch/index.scss';
-import '@nds/core/src/components/icon/index.scss';
+import './index.stories.scss';
 import Switch from '.';
 import Icon from '../Icon';
 

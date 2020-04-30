@@ -6,7 +6,7 @@ import {
 	select,
 	boolean,
 } from '@storybook/addon-knobs';
-import '@nds/core/src/components/disclosure/index.scss';
+import './index.stories.scss';
 import Disclosure, { DisclosureVariant } from '.';
 import BaseSummary from '../BaseSummary';
 

@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import {
 	withKnobs, select, boolean, text,
 } from '@storybook/addon-knobs';
-import '@nds/core/src/components/button/index.scss';
+import './index.stories.scss';
 import Button, { ButtonVariant } from '.';
 import { IconVariant, SVGIcon } from '../../utilities/icons';
 
