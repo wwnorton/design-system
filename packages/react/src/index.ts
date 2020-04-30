@@ -10,3 +10,4 @@ export { default as MultipleChoice } from './components/MultipleChoice';
 export { default as Radio } from './components/Radio';
 export { default as Switch } from './components/Switch';
 export { default as TextField } from './components/TextField';
+// export { default as Tooltip } from './components/Tooltip';
