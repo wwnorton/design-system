@@ -5,8 +5,9 @@ import {
 	Instance as PopperInstance,
 	Options as PopperOptions,
 } from '@popperjs/core';
-import Button, { ButtonProps } from '../Button';
+import BaseButton, { BaseButtonProps } from '../BaseButton';
 import BaseListbox, { BaseListboxProps } from '../BaseListbox';
+import Icon from '../Icon';
 
 export type DropdownAnatomy = 'label' | 'button' | 'listbox' | 'option';
 
@@ -188,12 +189,9 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
 		const { isOpen, selected, width } = this.state;
 
 		return (
-			<Button
+			<BaseButton
 				style={{ width }}
 				id={this.id}
-				variant="outline"
-				icon="chevron-down"
-				iconRight
 				className={buttonClass}
 				aria-expanded={(isOpen) ? 'true' : 'false'}
 				aria-labelledby={`${this.labelId} ${this.currentId}`}
@@ -201,10 +199,11 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
 				aria-controls={this.listboxId}
 				onClick={this.onButtonClick}
 				onKeyDown={this.onButtonKeyDown}
-				buttonRef={(el): void => { this.button = el; }}
+				ref={(el): void => { this.button = el; }}
 			>
 				<span id={this.currentId}>{ selected }</span>
-			</Button>
+				<Icon variant="chevron-down" />
+			</BaseButton>
 		);
 	}
 
@@ -231,12 +230,12 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
 		);
 	}
 
-	private onButtonClick: ButtonProps['onClick'] = () => {
+	private onButtonClick: BaseButtonProps['onClick'] = () => {
 		const { isOpen } = this.state;
 		this.setState({ isOpen: !isOpen });
 	}
 
-	private onButtonKeyDown: ButtonProps['onKeyDown'] = (e) => {
+	private onButtonKeyDown: BaseButtonProps['onKeyDown'] = (e) => {
 		if (e.key === 'ArrowDown') {
 			this.setState({ isOpen: true });
 			e.preventDefault();
