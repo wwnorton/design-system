@@ -18,6 +18,10 @@
 
 	justify-content: space-between;
 
+	.icon {
+		@include button-icon;
+	}
+
 	.icon--chevron-down > path {
 		transition: transform $dropdown-expand-duration $dropdown-expand-easing;
 		transform-origin: center;

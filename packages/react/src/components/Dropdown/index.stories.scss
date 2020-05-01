@@ -1,72 +1,5 @@
-@use '@nds/core/src/components/button/_mixins' as button;
-@use '@nds/core/src/components/icon';
-@use '@nds/core/src/globals/scss/tokens/_color-system' as color;
+@use '@nds/core/src/components/dropdown';
 
-.dropdown__button {
-	@include button.button-base;
-	@include button.button-outline;
-
-	justify-content: space-between;
-
-	> .icon {
-		@include button.button-icon;
-	}
-}
-
-.dropdown__listbox {
-	position: absolute;
-	z-index: 100;
-	max-height: 16rem;
-	padding: 0;
-	margin: 0;
-	overflow-y: auto;
-	list-style-type: none;
-	border: 1px solid map-get(color.$navy, 60);
-	border-radius: 2px;
-	scrollbar-color: map-get(color.$teal, 60) map-get(color.$navy, 20);
-}
-
-.dropdown__option {
-	display: flex;
-	padding: 0.5rem 1.75rem 0.5rem 0;
-	cursor: default;
-	user-select: none;
-	background-color: color.$white;
-	align-items: center;
-
-	&[aria-selected=true] {
-		padding-left: 0;
-	}
-
-	&:hover {
-		background-color: map-get(color.$navy, 20);
-	}
-
-	&:focus {
-		background-color: map-get(color.$teal, 20);
-	}
-
-	&:hover:focus {
-		background-color: map-get(color.$teal, 30);
-	}
-
-	> svg {
-		min-width: calc(1em + 0.5rem * 2);
-		height: 1em;
-		padding: 0 0.5rem;
-	}
-
-	> span {
-		padding-left: 2rem;
-	}
-
-	> svg + span {
-		padding-left: 0;
-	}
-}
-
-
-// utilities
 .scrollbox {
 	display: block;
 	height: 400px;
@@ -79,8 +12,4 @@
 		height: 70vh;
 		content: '';
 	}
-}
-
-.btn-test {
-	margin: 80px;
 }
