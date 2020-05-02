@@ -14,7 +14,7 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Default = (): JSX.Element => (
+export const Default: React.FunctionComponent = () => (
 	<Radio
 		label={text('Label', 'Radio')}
 		help={text('Help', 'Additional information about this radio.')}
@@ -23,7 +23,7 @@ export const Default = (): JSX.Element => (
 	/>
 );
 
-export const WithThumbnail = (): JSX.Element => (
+export const WithThumbnail: React.FunctionComponent = () => (
 	<Radio
 		label={text('Label', 'Radio')}
 		help={text('Help', 'Additional information about this radio.')}
@@ -33,11 +33,13 @@ export const WithThumbnail = (): JSX.Element => (
 	/>
 );
 
-export const Fieldset = ({
+interface FieldsetProps { prompt: string; items: string[]; name: string }
+
+export const Fieldset: React.FunctionComponent<FieldsetProps> = ({
 	prompt = 'Choose a fruit',
 	items = ['Apple', 'Banana', 'Kiwi', 'Orange'],
 	name = 'fruit',
-}: { prompt: string; items: string[]; name: string }): JSX.Element => {
+}: FieldsetProps): JSX.Element => {
 	const [checked, setChecked] = React.useState<string>();
 	const updateChecked = (item: string): RadioProps['onChange'] => (e): void => {
 		setChecked(item);

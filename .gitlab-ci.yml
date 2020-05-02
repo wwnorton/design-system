@@ -1,4 +1,4 @@
-image: node:10
+image: node:12
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -68,3 +68,12 @@ pages:
       - public
   only:
     - master
+
+.publish:
+  stage: deploy
+  script:
+    - npm run publish
+  only:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == master
+      - $CI_MERGE_REQUEST_LABELS =~ /release/

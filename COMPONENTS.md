@@ -19,7 +19,9 @@ graph LR
   BaseDetails
   BaseDialog
   BaseInput
-  BaseListItem
+  BaseListbox
+  BaseListOption
+  BasePopper
   BaseRange
   BaseSummary
   BaseSVG
@@ -37,12 +39,9 @@ graph LR
   Dropdown
   Icon
   IconButton
-  ListDivider
-  ListGroup
-  ListHeader
-  ListItem
   Menu
   MenuButton
+  MenuItem
   Modal
   MultipleChoice
   Popover
@@ -57,9 +56,9 @@ graph LR
   Tooltip
 
   BaseButton --> Button
+  BaseButton --> Dropdown
   BaseButton --> Switch
   BaseButton --> Tablist
-  BaseButton -.-> ListItem
   BaseDetails --> Disclosure
   BaseDialog --> DatePicker
   BaseDialog --> Modal
@@ -71,9 +70,9 @@ graph LR
   BaseInput -. type=date .-> DatePicker
   BaseInput -. type=range .-> Slider
   BaseInput -. type=time .-> TimePicker
-  BaseListItem --> ListDivider
-  BaseListItem --> ListHeader
-  BaseListItem --> ListItem
+  BaseListbox --> Dropdown
+  BaseListOption --> BaseListbox
+  BasePopper --> Tooltip
   BaseRange --> Progressbar
   BaseRange -.-> Slider
   BaseSummary --> Disclosure
@@ -81,7 +80,6 @@ graph LR
   BaseTable --> Table
   BaseTextarea --> TextField
   Button --> DatePicker
-  Button --> Dropdown
   Button --> MenuButton
   Button -. "close" .-> Modal
   Button -. "dismiss" .-> Callout
@@ -93,15 +91,10 @@ graph LR
   Icon --> Checkbox
   Icon --> DatePicker
   Icon --> Disclosure
+  Icon --> Dropdown
   Icon -.-> Button
-  Icon -.-> ListItem
-  ListDivider -.-> ListGroup
-  ListGroup --> ComboBox
-  ListGroup --> Dropdown
-  ListGroup --> Menu
-  ListGroup --> MenuButton
-  ListHeader -.-> ListGroup
-  ListItem --> ListGroup
+  Menu --> MenuButton
+  MenuItem --> Menu
   Radio -.-> Choice
   Table --> DatePicker
   Tooltip -. icon-only .->Button
@@ -111,5 +104,5 @@ graph LR
 
   class public,public-ic,Accordion,Button,Callout,Checkbox,Choice,ComboBox,DatePicker,Disclosure,Dropdown,Icon,IconButton,Menu,MenuButton,Modal,MultipleChoice,Popover,Progressbar,Slider,Switch,Table,Tablist,TimePicker,TextField,Tooltip exports;
 
-  class private-ic,public-ic,BaseDialog,BaseListItem,BaseTable,BaseTextarea,Accordion,Callout,ComboBox,DatePicker,Dropdown,ListDivider,ListGroup,ListHeader,ListItem,Menu,MenuButton,Modal,Popover,Progressbar,Slider,Table,Tablist,TimePicker,Tooltip incomplete;
+  class private-ic,public-ic,BaseTable,BaseTextarea,Accordion,Callout,ComboBox,DatePicker,Menu,MenuButton,MenuItem,Popover,Progressbar,Slider,Table,Tablist,TimePicker incomplete;
 ```
