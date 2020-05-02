@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.7.0...v0.8.0) (2020-05-02)
+
+### Bug Fixes
+
+- **core:** reduce focus ring rect by 1px ([2d3d0b1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/2d3d0b11bea2d0054dd0eb973e0feb19a0158e25))
+
+### Features
+
+- **core:** initial dropdown tokens, mixins, and declarations ([596602a](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/commit/596602a9c81bbab4a65cd5fa6f78baf442fc04e5))
+
 # [0.7.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/core/compare/v0.6.1...v0.7.0) (2020-04-01)
 
 ### Bug Fixes
