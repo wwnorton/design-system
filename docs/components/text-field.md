@@ -4,7 +4,7 @@
 
 ## Anatomy
 
-![A diagram of the text field's various pieces, defined below.](../assets/comp_text-field.png)
+![A diagram of the text field's various pieces, defined below.](../assets/anatomy_text-field.png)
 
 A text field includes:
 
