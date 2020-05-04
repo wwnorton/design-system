@@ -24,16 +24,19 @@ export interface BaseDetailsProps extends React.DetailsHTMLAttributes<HTMLDetail
 const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 	summary,
 	summaryClass,
+	open = false,
 	children,
 	...attributes
 }: BaseDetailsProps, ref) => {
+	const [isOpen, setOpen] = React.useState(open);
+	React.useEffect(() => setOpen(open), [open]);
 	const Summary = (content?: JSX.Element | string): JSX.Element => {
 		if (isElement(content, 'summary')) return content;
 		return <BaseSummary className={summaryClass}>{ content || 'Details' }</BaseSummary>;
 	};
 
 	return (
-		<details ref={ref} {...attributes}>
+		<details ref={ref} open={isOpen} {...attributes}>
 			{ Summary(summary) }
 			{ children }
 		</details>
