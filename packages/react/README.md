@@ -4,9 +4,11 @@
 
 A [React](https://reactjs.org/) implementation of the Norton Design System components, written in [TypeScript](https://www.typescriptlang.org/).
 
+[[_TOC_]]
+
 ## Usage
 
-To get started, install `@nds/react` as a dependency on your project.
+To get started, install `@nds/react` as a dependency in your project.
 
 ```sh
 npm install @nds/react
@@ -34,7 +36,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 ### Styling
 
-For the time being, component styles are exclusively provided in `@nds/core`.
+For the time being, component styles are exclusively provided in `@nds/core` as Sass stylesheets.
 If you would like to use the default styles, simply install `@nds/core` alongside `@nds/react` and import the styles in your application.
 
 ```sh

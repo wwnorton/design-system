@@ -1,7 +1,7 @@
 {
   "name": "@nds/core",
   "version": "0.8.0",
-  "description": "Framework-independent components, tokens, and utilities for the Norton Design System",
+  "description": "Vanilla CSS, HTML, and JavaScript implementations of the Norton Design System.",
   "keywords": [
     "component",
     "components",
