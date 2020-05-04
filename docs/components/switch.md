@@ -6,10 +6,9 @@
 
 ![A diagram of the switch's various pieces, defined below.](../assets/anatomy_switch.png)
 
-A switch includes:
-
-1. A Switch Control
-2. A Label
+1. Label
+2. Description (optional)
+3. Control
 
 ## Style
 
