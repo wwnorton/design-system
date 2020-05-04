@@ -164,6 +164,14 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
+	/**
+	 * The `<summary>` click handler.
+	 *
+	 * As soon as a `<details>` element no longer has the `open` attribute,
+	 * its inner contents disappear. To prevent this, we transition the height
+	 * of the contents via its outer container, delaying the removal of the
+	 * `open` attribute until the `transitionend` event triggers.
+	 */
 	private onSummaryClick = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
 		e.preventDefault();
 		const { open, lifecycle } = this.state;
@@ -209,14 +217,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	/**
-	 * The `<summary>` click handler.
-	 *
-	 * As soon as a `<details>` element no longer has the `open` attribute,
-	 * its inner contents disappear. To prevent this, we transition the height
-	 * of the contents via its outer container, delaying the removal of the
-	 * `open` attribute until the `transitionend` event triggers.
-	 */
 	public async handleTransition(val: DisclosureLifecycleState): Promise<void> {
 		await this.setState({ lifecycle: val });
 		const { current: detailsRef } = this.detailsRef;
