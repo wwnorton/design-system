@@ -91,6 +91,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		this.setHeight((open) ? this.contentsHeight : 0);
 	}
 
+	private onToggle = async (e: DisclosureToggleEvent): Promise<void> => {
+		const { onToggle } = this.props;
+		if (onToggle) onToggle({ ...e, state: this.state });
+	}
+
 	private findHeight(): number {
 		const { current: detailsRef } = this.detailsRef;
 		const { current: containerRef } = this.containerRef;
@@ -291,6 +296,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				className={classes}
 				summary={this.Summary()}
 				open={open}
+				onToggle={this.onToggle}
 				{...attributes}
 			>
 				<div
