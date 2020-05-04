@@ -32,11 +32,5 @@
   "scripts": {
     "build": "echo all build scripts should be run from root",
     "dev": "echo all dev scripts should be run from root"
-  },
-  "dependencies": {
-    "lodash.debounce": "^4.0.8"
-  },
-  "devDependencies": {
-    "@types/lodash.debounce": "^4.0.6"
   }
 }
