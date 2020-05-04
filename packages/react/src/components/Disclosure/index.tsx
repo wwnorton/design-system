@@ -87,8 +87,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	componentDidMount(): void {
 		const { open } = this.state;
+		const { updateOnResize } = this.props;
 		this.contentsHeight = this.findHeight();
 		this.setHeight((open) ? this.contentsHeight : 0);
+		if (updateOnResize) {
+			window.addEventListener('resize', this.onWindowresize);
+		}
 	}
 
 	private onToggle = async (e: DisclosureToggleEvent): Promise<void> => {
