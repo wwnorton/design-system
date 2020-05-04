@@ -4,6 +4,8 @@
 
 ## Anatomy
 
+![A diagram of the switch's various pieces, defined below.](../assets/anatomy_switch.png)
+
 A switch includes:
 
 1. A Switch Control
