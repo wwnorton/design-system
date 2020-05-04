@@ -1,13 +1,15 @@
 # @nds/core
 
-> Core CSS, HTML, and JavaScript implementations of the Norton Design System
+> Vanilla CSS, HTML, and JavaScript implementations of the Norton Design System.
 
 Core provides [design tokens](https://css-tricks.com/what-are-design-tokens/) and modular component styling via SCSS-flavored [Sass](https://sass-lang.com/).
 A tiered theming system allows you to either leave everything as-is to use the reasonable defaults, or customize the entire look and feel by specifying overrides for the design tokens.
 
+[[_TOC_]]
+
 ## Usage
 
-To get started, install `@nds/core` as a dependency on your project.
+To get started, install `@nds/core` as a dependency in your project.
 
 ```sh
 npm install @nds/core
@@ -15,7 +17,7 @@ npm install @nds/core
 
 From here, there are a variety of ways to use the core stylesheets, depending on your type of project.
 
-### Select Components
+### Component Imports
 
 One of the most common use-cases is applying component styles directly to your components.
 This can be done either by using our own declarations or by using the corresponding mixins.
@@ -64,7 +66,7 @@ export const MyButton = () => (
 );
 ```
 
-### All the Sass
+### Full Sass
 
 All tokens, mixins, functions, and component declarations are available in `/src/scss/main.scss`.
 
@@ -75,7 +77,7 @@ $focus-ring-color: #228522;
 @import "node_modules/@nds/core/scss/main";
 ```
 
-### All the CSS
+### Full CSS
 
 A monolithic CSS file with all class declarations is available in the `/dist/css` directory.
 This is not recommended if you'd like to do much customization but is great for quick prototyping.

@@ -2,9 +2,11 @@
 
 > The Norton Design System
 
-Styles, components, and utilities for building accessible, responsive user interfaces.
+Styles, components, and utilities for building accessible, responsive products.
 
-## Structure
+[[_TOC_]]
+
+## Repository Structure
 
 This repository uses [lerna](https://lerna.js.org/) to manage design system packages as a [monorepo](https://en.wikipedia.org/wiki/Monorepo).
 
@@ -19,13 +21,13 @@ To learn more about contributing, please read [the contribution guide](CONTRIBUT
 
 Because this is a monorepo, a couple extra steps are required to get your local environment ready.
 
-### Setup
+### Environment Setup
 
 The following assumes that you already have [Node.js](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed locally.
 
-1. Clone the repository
-2. Install top-level dependencies via `npm install`
-3. Install package-level dependencies and symlink them via `npm run bootstrap` (or `lerna bootstrap` if you have Lerna installed globally)
+1. Clone the repository.
+2. Install top-level dependencies via `npm install`.
+3. Install package-level dependencies and symlink them via `npm run bootstrap` (or `lerna bootstrap` if you have Lerna installed globally).
 
 ```sh
 git clone https://gitlab.com/wwnorton/platform/design-system.git && cd design-system
@@ -36,6 +38,10 @@ npm run lerna bootstrap
 ### Developing
 
 All development commands should be run from the root of the repository, though they are also available within each individual package.
+
+- `npm run build`: run a production build for each package, outputting to `packages/{package_name}/dist`.
+- `npm run dev`: run a development build with watch mode on. Note: if you're developing the `@nds/react` package, run `npm run storybook` below.
+- `npm run storybook`: run `@nds/react`'s [Storybook](https://storybook.js.org/) server.
 
 #### Docs & Core
 

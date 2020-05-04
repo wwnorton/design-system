@@ -1,4 +1,4 @@
-@import '@nds/core/src/main';
+@use '@nds/core/src/globals/scss/mixins/_screen-reader' as *;
 
 * {
 	box-sizing: border-box;

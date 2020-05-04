@@ -1,8 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import '@nds/core/src/components/switch/index.scss';
-import '@nds/core/src/components/icon/index.scss';
+import './index.stories.scss';
 import Switch from '.';
 import Icon from '../Icon';
 
@@ -14,7 +13,7 @@ export default {
 
 const { defaultProps } = Switch;
 
-export const Default = (): JSX.Element => (
+export const Default: React.FunctionComponent = () => (
 	<Switch
 		onToggle={action('onToggle')}
 		hideState={boolean('Hide state', defaultProps.hideState)}
@@ -26,7 +25,7 @@ export const Default = (): JSX.Element => (
 	</Switch>
 );
 
-export const initiallyOn = (): JSX.Element => (
+export const InitiallyOn: React.FunctionComponent = () => (
 	<Switch
 		onToggle={action('onToggle')}
 		disabled={boolean('Disabled', false)}
@@ -36,7 +35,7 @@ export const initiallyOn = (): JSX.Element => (
 	</Switch>
 );
 
-export const iconState = (): JSX.Element => (
+export const IconState: React.FunctionComponent = () => (
 	<Switch
 		onToggle={action('onToggle')}
 		on={<Icon variant="check" />}
@@ -47,30 +46,27 @@ export const iconState = (): JSX.Element => (
 	</Switch>
 );
 
-export const asynchronousToggle = (): JSX.Element => {
-	const C: React.FunctionComponent = () => {
-		const [checked, setChecked] = React.useState(false);
-		const [content, setContent] = React.useState('Switch');
-		const toggle = (): void => {
-			setContent(`${content} (updating...)`);
-			setTimeout(() => {
-				setChecked(!checked);
-				setContent('Switch');
-			}, 1000);
-		};
-		return (
-			<Switch
-				checked={checked}
-				onClick={toggle}
-				onToggle={action('onToggle')}
-				hideState={boolean('Hide state', defaultProps.hideState)}
-				on={text('On state', defaultProps.on)}
-				off={text('Off state', defaultProps.off)}
-				disabled={boolean('Disabled', false)}
-			>
-				{ content }
-			</Switch>
-		);
+export const AsynchronousToggle: React.FunctionComponent = () => {
+	const [checked, setChecked] = React.useState(false);
+	const [content, setContent] = React.useState('Switch');
+	const toggle = (): void => {
+		setContent(`${content} (updating...)`);
+		setTimeout(() => {
+			setChecked(!checked);
+			setContent('Switch');
+		}, 1000);
 	};
-	return <C />;
+	return (
+		<Switch
+			checked={checked}
+			onClick={toggle}
+			onToggle={action('onToggle')}
+			hideState={boolean('Hide state', defaultProps.hideState)}
+			on={text('On state', defaultProps.on)}
+			off={text('Off state', defaultProps.off)}
+			disabled={boolean('Disabled', false)}
+		>
+			{ content }
+		</Switch>
+	);
 };

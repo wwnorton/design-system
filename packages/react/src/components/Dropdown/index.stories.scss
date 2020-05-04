@@ -1,0 +1,15 @@
+@use '@nds/core/src/components/dropdown';
+
+.scrollbox {
+	display: block;
+	height: 400px;
+	margin: 40px auto;
+	content: '';
+
+	&::before,
+	&::after {
+		display: block;
+		height: 70vh;
+		content: '';
+	}
+}

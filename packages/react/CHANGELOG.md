@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.7.0...v0.8.0) (2020-05-02)
+
+### Bug Fixes
+
+- **react:** export Modal as a top-level component ([ad4ac4a](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/ad4ac4a0de25ea5eeed135929a3ec65d8e0e5ff1))
+- **react:** only apply modifier if name is specified on Icon ([f1efc32](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/f1efc327acdb9bc88f266aabfa747d5dfbdc8b99))
+- **react:** use a real HTML comment in SVG source ([1adff2a](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/1adff2aee412b6126b31e7ceebd1920b135cece8))
+
+### Features
+
+- **react:** initial BaseListbox and BaseListOption ([495dc72](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/495dc7211a6b3ea2615d1881f1d5d3db356e290e))
+- **react:** initial BasePopper and Tooltip ([75815a5](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/75815a5f23980bf71f853e64bbaeee7135923a78))
+- **react:** initial Dropdown ([8eac9d7](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/8eac9d7326387aa609d0f73ce2f228f7aad4114d))
+
 # [0.7.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.6.1...v0.7.0) (2020-04-01)
 
 ### Bug Fixes

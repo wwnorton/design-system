@@ -10,8 +10,12 @@ const BaseSVG = React.forwardRef<SVGSVGElement, BaseSVGProps>(({
 	children,
 	...attributes
 }: BaseSVGProps, ref) => (
-	<svg ref={ref} xmlns="http://www.w3.org/2000/svg" {...attributes}>
-		{source && `<!-- ${source} -->`}
+	<svg
+		ref={ref}
+		xmlns="http://www.w3.org/2000/svg"
+		data-source={source}
+		{...attributes}
+	>
 		{ children }
 	</svg>
 ));

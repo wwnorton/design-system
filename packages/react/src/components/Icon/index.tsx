@@ -75,6 +75,9 @@ const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 		source,
 		viewBox = materialDefaults.viewBox,
 	} = icon;
+	const classes = classNames(baseName, {
+		[`${baseName}--${name}`]: name,
+	}, className);
 
 	return (
 		<BaseSVG
@@ -83,7 +86,7 @@ const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 			viewBox={viewBox}
 			height={height}
 			width={width}
-			className={classNames(baseName, `${baseName}--${name}`, className)}
+			className={classes}
 			aria-label={label || undefined}
 			aria-hidden={(!label) ? 'true' : undefined}
 			focusable="false"

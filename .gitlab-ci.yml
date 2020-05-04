@@ -1,4 +1,4 @@
-image: node:10
+image: node:12
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -13,7 +13,7 @@ stages:
   - codequality
   - build
   - test
-  # - deploy
+  - deploy
 
 install:
   stage: prepare
@@ -45,13 +45,22 @@ build:
       - packages/*/dist
     expire_in: 30 days
 
+test:unit:
+  stage: test
+  script:
+    - npm run coverage
+  dependencies:
+    - build
+
 pages:
-  stage: build
+  stage: deploy
   environment:
     name: docs
     url: $CI_PAGES_URL
   variables:
     VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
+  before_script:
+    - npm run build:stories -- -- -o ../../docs/.vuepress/public/storybook
   script:
     - npm run build:docs
   artifacts:
@@ -60,9 +69,11 @@ pages:
   only:
     - master
 
-test:unit:
-  stage: test
+.publish:
+  stage: deploy
   script:
-    - npm run coverage
-  dependencies:
-    - build
+    - npm run publish
+  only:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == master
+      - $CI_MERGE_REQUEST_LABELS =~ /release/
