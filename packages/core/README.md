@@ -25,31 +25,31 @@ Declarations are always in the component's `index.scss` file.
 
 ```scss
 // Import all the button declarations with default tokens
-@import 'node_modules/@nds/core/src/components/button/index';
+@import "node_modules/@nds/core/src/components/button/index";
 ```
 
 To override default tokens, declare their value _before_ importing the declarations.
 
 ```scss
 // Import all the tokens first so $green is available
-@import 'node_modules/@nds/core/src/globals/scss/tokens';
+@import "node_modules/@nds/core/src/globals/scss/tokens";
 
 // Override button-specific tokens
 $button-color-base: $green;
 
 // Import all the button declarations, applying the override
-@import 'node_modules/@nds/core/src/components/button/index';
+@import "node_modules/@nds/core/src/components/button/index";
 ```
 
 Alternatively, import the component mixins and use them on your own declarations.
 
 ```scss
 // Import and use the button mixins
-@import 'node_modules/@nds/core/src/components/button/mixins';
+@import "node_modules/@nds/core/src/components/button/mixins";
 
 .my-btn {
-	@include button-base;
-	@include button-solid($green);
+  @include button-base;
+  @include button-solid($green);
 }
 ```
 
@@ -74,7 +74,7 @@ All tokens, mixins, functions, and component declarations are available in `/src
 // optionally override design tokens by declaring them before importing the design system
 $focus-ring-color: #228522;
 
-@import 'node_modules/@nds/core/scss/main';
+@import "node_modules/@nds/core/scss/main";
 ```
 
 ### Full CSS

@@ -39,9 +39,9 @@ npm run lerna bootstrap
 
 All development commands should be run from the root of the repository, though they are also available within each individual package.
 
-* `npm run build`: run a production build for each package, outputting to `packages/{package_name}/dist`.
-* `npm run dev`: run a development build with watch mode on. Note: if you're developing the `@nds/react` package, run `npm run storybook` below.
-* `npm run storybook`: run `@nds/react`'s [Storybook](https://storybook.js.org/) server.
+- `npm run build`: run a production build for each package, outputting to `packages/{package_name}/dist`.
+- `npm run dev`: run a development build with watch mode on. Note: if you're developing the `@nds/react` package, run `npm run storybook` below.
+- `npm run storybook`: run `@nds/react`'s [Storybook](https://storybook.js.org/) server.
 
 #### Docs & Core
 
