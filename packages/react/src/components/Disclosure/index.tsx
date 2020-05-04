@@ -245,7 +245,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			summary,
 			variant,
 			summaryClass = `${Disclosure.bemBase}__${Disclosure.bemElements.summary}`,
-			markerClass = `details-${Disclosure.bemElements.marker}`,
+			markerClass = `${Disclosure.bemBase}__${Disclosure.bemElements.marker}`,
 		} = this.props;
 		if (isElement(summary, 'summary')) return summary;
 		const markerType = (variant === 'panel') ? 'chevron-down' : 'caret-right';
