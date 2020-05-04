@@ -4,8 +4,6 @@
 
 Styles, components, and utilities for building accessible, responsive products.
 
-[[_TOC_]]
-
 ## Repository Structure
 
 This repository uses [lerna](https://lerna.js.org/) to manage design system packages as a [monorepo](https://en.wikipedia.org/wiki/Monorepo).

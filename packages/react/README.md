@@ -4,8 +4,6 @@
 
 A [React](https://reactjs.org/) implementation of the Norton Design System components, written in [TypeScript](https://www.typescriptlang.org/).
 
-[[_TOC_]]
-
 ## Usage
 
 To get started, install `@nds/react` as a dependency in your project.
