@@ -51,9 +51,6 @@ export interface DisclosureProps extends BaseDetailsProps {
 export default class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
 	// eslint-disable-next-line react/sort-comp
 	public static bemBase = 'disclosure';
-	public detailsRef: React.RefObject<HTMLDetailsElement>;
-	public containerRef: React.RefObject<HTMLDivElement>;
-	private initialContainerStyle?: string;
 	public static bemElements: Record<DisclosureAnatomy, string> = {
 		summary: 'summary',
 		marker: 'marker',
@@ -67,7 +64,13 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	*/
 	public static RESIZE_DEBOUNCE_DELAY = 150;
 
+	public detailsRef: React.RefObject<HTMLDetailsElement>;
+
 	public contentsHeight = 0;
+
+	public containerRef: React.RefObject<HTMLDivElement>;
+
+	private initialContainerStyle?: string;
 
 	public static defaultProps = {
 		baseName: Disclosure.bemBase,
@@ -102,31 +105,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		if (onToggle) onToggle({ ...e, state: this.state });
 	}
 
-	private findHeight(): number {
-		const { current: detailsRef } = this.detailsRef;
-		const { current: containerRef } = this.containerRef;
-		const { open } = this.state;
-		const isClosed = !open;
-		if (detailsRef && containerRef) {
-			if (isClosed) detailsRef.setAttribute('open', 'open');
-			const { clientHeight } = containerRef;
-			if (isClosed) detailsRef.removeAttribute('open');
-			return clientHeight;
-		}
-		return 0;
-	}
-
-	private removeHeight(): void {
-		const { current: containerRef } = this.containerRef;
-		if (containerRef) {
-			if (this.initialContainerStyle) {
-				containerRef.setAttribute('style', this.initialContainerStyle);
-			} else {
-				containerRef.removeAttribute('style');
-			}
-		}
-	}
-
 	private onWindowresize = debounce(() => {
 		const { lifecycle } = this.state;
 		this.removeHeight();
@@ -146,23 +124,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			if (current.style.height === newHeight) return;
 			current.style.height = newHeight;
 			await new Promise((resolve) => requestAnimationFrame(resolve));
-		}
-	}
-
-	private hasTransition(): boolean {
-		const { current: containerRef } = this.containerRef;
-		if (containerRef) {
-			const styles = window.getComputedStyle(containerRef);
-			const durations = styles.getPropertyValue('transition-duration').split(/,\s*/);
-			return durations.some((v) => Number(v.replace('s', '')) > 0);
-		}
-		return false;
-	}
-
-	private emit(name: DisclosureCustomEvent): void {
-		const { current: detailsRef } = this.detailsRef;
-		if (detailsRef) {
-			detailsRef.dispatchEvent(new CustomEvent(name, { detail: detailsRef }));
 		}
 	}
 
@@ -217,6 +178,48 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			await this.handleTransition('open');
 			this.emit('openend');
 		}
+	}
+
+	private removeHeight(): void {
+		const { current: containerRef } = this.containerRef;
+		if (containerRef) {
+			if (this.initialContainerStyle) {
+				containerRef.setAttribute('style', this.initialContainerStyle);
+			} else {
+				containerRef.removeAttribute('style');
+			}
+		}
+	}
+
+	private emit(name: DisclosureCustomEvent): void {
+		const { current: detailsRef } = this.detailsRef;
+		if (detailsRef) {
+			detailsRef.dispatchEvent(new CustomEvent(name, { detail: detailsRef }));
+		}
+	}
+
+	private findHeight(): number {
+		const { current: detailsRef } = this.detailsRef;
+		const { current: containerRef } = this.containerRef;
+		const { open } = this.state;
+		const isClosed = !open;
+		if (detailsRef && containerRef) {
+			if (isClosed) detailsRef.setAttribute('open', 'open');
+			const { clientHeight } = containerRef;
+			if (isClosed) detailsRef.removeAttribute('open');
+			return clientHeight;
+		}
+		return 0;
+	}
+
+	private hasTransition(): boolean {
+		const { current: containerRef } = this.containerRef;
+		if (containerRef) {
+			const styles = window.getComputedStyle(containerRef);
+			const durations = styles.getPropertyValue('transition-duration').split(/,\s*/);
+			return durations.some((v) => Number(v.replace('s', '')) > 0);
+		}
+		return false;
 	}
 
 	public async handleTransition(val: DisclosureLifecycleState): Promise<void> {
