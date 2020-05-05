@@ -8,7 +8,6 @@ import {
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
 import Disclosure, { DisclosureVariant } from '.';
-import BaseSummary from '../BaseSummary';
 
 export default {
 	title: 'Disclosure',
@@ -43,28 +42,6 @@ export const Open: React.FunctionComponent = () => (
 		animate={boolean('Animate', defaultProps.animate)}
 		onToggle={action('onToggle')}
 		open
-	>
-		<p>{text('Contents', contents)}</p>
-	</Disclosure>
-);
-
-export const WithBaseSummary: React.FunctionComponent = () => (
-	<Disclosure
-		summary={<BaseSummary className="disclosure__summary">Base summary</BaseSummary>}
-		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
-		animate={boolean('Animate', defaultProps.animate)}
-		onToggle={action('onToggle')}
-	>
-		<p>{text('Contents', contents)}</p>
-	</Disclosure>
-);
-
-export const WithHTMLSummary: React.FunctionComponent = () => (
-	<Disclosure
-		summary={<summary className="disclosure__summary">HTML summary</summary>}
-		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
-		animate={boolean('Animate', defaultProps.animate)}
-		onToggle={action('onToggle')}
 	>
 		<p>{text('Contents', contents)}</p>
 	</Disclosure>
