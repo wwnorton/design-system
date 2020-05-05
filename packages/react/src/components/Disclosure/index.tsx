@@ -112,6 +112,44 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
+	async componentDidUpdate(prevProps: DisclosureProps, prevState: DisclosureState): Promise<void> {
+		const {
+			open: propsOpen,
+			closingClass = 'closing',
+			openingClass = 'opening',
+		} = this.props;
+		const { lifecycle } = this.state;
+		if (propsOpen && propsOpen !== prevProps.open) {
+			this.setOpen(propsOpen);
+		}
+		if (lifecycle !== prevState.lifecycle) {
+			const { current: detailsRef } = this.detailsRef;
+			if (detailsRef) {
+				switch (lifecycle) {
+					case 'opening':
+						detailsRef.classList.remove(closingClass);
+						detailsRef.classList.add(openingClass);
+						await this.setHeight(this.contentsHeight);
+						break;
+					case 'closing':
+						detailsRef.classList.remove(openingClass);
+						detailsRef.classList.add(closingClass);
+						await this.setHeight(0);
+						break;
+					case 'open':
+						detailsRef.classList.remove(openingClass);
+						this.setOpen(true);
+						break;
+					case 'closed':
+						detailsRef.classList.remove(closingClass);
+						this.setOpen(false);
+						break;
+					default:
+				}
+			}
+		}
+	}
+
 	private onToggle = async (e: DisclosureToggleEvent): Promise<void> => {
 		const { onToggle } = this.props;
 		if (onToggle) onToggle({ ...e, state: this.state });
