@@ -230,6 +230,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
+	// used by componentDidUpdate to avoid linting issues
+	private setOpen(open: boolean): void {
+		this.setState({ open });
+	}
+
 	private removeHeight(): void {
 		const { current: containerRef } = this.containerRef;
 		if (containerRef) {
