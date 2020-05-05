@@ -185,7 +185,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	 * of the contents via its outer container, delaying the removal of the
 	 * `open` attribute until the `transitionend` event triggers.
 	 */
-	private onSummaryClick = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
+	private onSummaryClick = (e: React.MouseEvent<HTMLElement>): void => {
 		e.preventDefault();
 		const { open, lifecycle } = this.state;
 		if (this.hasTransition()) {
@@ -193,24 +193,24 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				switch (lifecycle) {
 					// clicked while opening -> cancel open
 					case 'opening':
-						await this.handleTransition('closing');
+						this.setState({ lifecycle: 'closing' });
 						this.callLifecycleMethod('onOpenCancel');
 						break;
 					// clicked while closing -> cancel close
 					case 'closing':
-						await this.handleTransition('opening');
+						this.setState({ lifecycle: 'opening' });
 						this.callLifecycleMethod('onCloseCancel');
 						break;
 					// clicked while fully open -> begin closing
 					case 'open':
-						await this.handleTransition('closing');
+						this.setState({ lifecycle: 'closing' });
 						this.callLifecycleMethod('onCloseStart');
 						break;
 					default:
 				}
 			} else {
 				// clicked while fully closed -> begin opening
-				await this.handleTransition('opening');
+				this.setState({ lifecycle: 'opening' });
 				this.callLifecycleMethod('onOpenStart');
 			}
 		}
@@ -220,12 +220,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		// was closing -> finish close
 		const { lifecycle } = this.state;
 		if (lifecycle === 'closing') {
-			await this.handleTransition('closed');
+			this.setState({ lifecycle: 'closed' });
 			this.callLifecycleMethod('onCloseEnd');
 		}
 		// was opening -> finish open
 		if (lifecycle === 'opening') {
-			await this.handleTransition('open');
+			this.setState({ lifecycle: 'open' });
 			this.callLifecycleMethod('onOpenEnd');
 		}
 	}
