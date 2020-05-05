@@ -47,17 +47,17 @@ export interface DisclosureProps extends BaseDetailsProps {
 	detailsRef?: React.RefObject<HTMLDetailsElement>;
 	onToggle?: (e: DisclosureToggleEvent) => void;
 	/** Lifecycle method that is triggered when the disclosure begins to close. */
-	onCloseStart?: () => void;
+	onCloseStart?: (state: DisclosureState) => void;
 	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's closing. */
-	onCloseCancel?: () => void;
+	onCloseCancel?: (state: DisclosureState) => void;
 	/** Lifecycle method that is triggered when the disclosure has finished closing. */
-	onCloseEnd?: () => void;
+	onCloseEnd?: (state: DisclosureState) => void;
 	/** Lifecycle method that is triggered when the disclosure begins to open. */
-	onOpenStart?: () => void;
+	onOpenStart?: (state: DisclosureState) => void;
 	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's opening. */
-	onOpenCancel?: () => void;
+	onOpenCancel?: (state: DisclosureState) => void;
 	/** Lifecycle method that is triggered when the disclosure has finished opening. */
-	onOpenEnd?: () => void;
+	onOpenEnd?: (state: DisclosureState) => void;
 }
 
 export default class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
@@ -205,7 +205,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	private callLifecycleMethod(name: DisclosureLifecycleMethod): void {
 		const { [name]: method } = this.props;
-		if (method) method();
+		if (method) method(this.state);
 	}
 
 	private findHeight(): number {
