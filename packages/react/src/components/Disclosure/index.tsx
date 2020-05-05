@@ -167,16 +167,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}, Disclosure.RESIZE_DEBOUNCE_DELAY)
 
-	private async setHeight(height: number): Promise<void> {
-		const newHeight = `${height}px`;
-		const { current } = this.containerRef;
-		if (current) {
-			if (current.style.height === newHeight) return;
-			current.style.height = newHeight;
-			await new Promise((resolve) => requestAnimationFrame(resolve));
-		}
-	}
-
 	/**
 	 * The `<summary>` click handler.
 	 *
@@ -235,6 +225,16 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		this.setState({ open });
 	}
 
+	private async setHeight(height: number): Promise<void> {
+		const newHeight = `${height}px`;
+		const { current } = this.containerRef;
+		if (current) {
+			if (current.style.height === newHeight) return;
+			current.style.height = newHeight;
+			await new Promise((resolve) => requestAnimationFrame(resolve));
+		}
+	}
+
 	private removeHeight(): void {
 		const { current: containerRef } = this.containerRef;
 		if (containerRef) {
@@ -273,38 +273,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			return durations.some((v) => Number(v.replace('s', '')) > 0);
 		}
 		return false;
-	}
-
-	public async handleTransition(val: DisclosureLifecycleState): Promise<void> {
-		await this.setState({ lifecycle: val });
-		const { current: detailsRef } = this.detailsRef;
-		const {
-			closingClass = 'closing',
-			openingClass = 'opening',
-		} = this.props;
-		if (detailsRef) {
-			switch (val) {
-				case 'opening':
-					detailsRef.classList.remove(closingClass);
-					detailsRef.classList.add(openingClass);
-					await this.setHeight(this.contentsHeight);
-					break;
-				case 'closing':
-					detailsRef.classList.remove(openingClass);
-					detailsRef.classList.add(closingClass);
-					await this.setHeight(0);
-					break;
-				case 'open':
-					detailsRef.classList.remove(openingClass);
-					this.setState({ open: true });
-					break;
-				case 'closed':
-					detailsRef.classList.remove(closingClass);
-					this.setState({ open: false });
-					break;
-				default:
-			}
-		}
 	}
 
 	private Summary(): JSX.Element {
