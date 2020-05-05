@@ -9,11 +9,11 @@ import { noop, isElement } from '../../utilities/helpers';
 export type DisclosureVariant = 'default' | 'panel';
 export type DisclosureAnatomy = 'summary' | 'marker' | 'contents' | 'container';
 export type DisclosureLifecycleState = 'open' | 'closed' | 'opening' | 'closing';
+export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCloseEnd' | 'onOpenStart' | 'onOpenCancel' | 'onOpenEnd';
 export interface DisclosureState {
 	open: boolean;
 	lifecycle: DisclosureLifecycleState;
 }
-export type DisclosureCustomEvent = 'closestart' | 'closecancel' | 'closeend' | 'openstart' | 'opencancel' | 'openend';
 export interface DisclosureToggleEvent extends DetailsToggleEvent {
 	state: DisclosureState;
 }
@@ -46,6 +46,18 @@ export interface DisclosureProps extends BaseDetailsProps {
 	/** A reference to the inner <details> element. */
 	detailsRef?: React.RefObject<HTMLDetailsElement>;
 	onToggle?: (e: DisclosureToggleEvent) => void;
+	/** Lifecycle method that is triggered when the disclosure begins to close. */
+	onCloseStart?: () => void;
+	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's closing. */
+	onCloseCancel?: () => void;
+	/** Lifecycle method that is triggered when the disclosure has finished closing. */
+	onCloseEnd?: () => void;
+	/** Lifecycle method that is triggered when the disclosure begins to open. */
+	onOpenStart?: () => void;
+	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's opening. */
+	onOpenCancel?: () => void;
+	/** Lifecycle method that is triggered when the disclosure has finished opening. */
+	onOpenEnd?: () => void;
 }
 
 export default class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
@@ -144,24 +156,24 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 					// clicked while opening -> cancel open
 					case 'opening':
 						await this.handleTransition('closing');
-						this.emit('opencancel');
+						this.callLifecycleMethod('onOpenCancel');
 						break;
 					// clicked while closing -> cancel close
 					case 'closing':
 						await this.handleTransition('opening');
-						this.emit('closecancel');
+						this.callLifecycleMethod('onCloseCancel');
 						break;
 					// clicked while fully open -> begin closing
 					case 'open':
 						await this.handleTransition('closing');
-						this.emit('closestart');
+						this.callLifecycleMethod('onCloseStart');
 						break;
 					default:
 				}
 			} else {
 				// clicked while fully closed -> begin opening
 				await this.handleTransition('opening');
-				this.emit('openstart');
+				this.callLifecycleMethod('onOpenStart');
 			}
 		}
 	}
@@ -171,12 +183,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const { lifecycle } = this.state;
 		if (lifecycle === 'closing') {
 			await this.handleTransition('closed');
-			this.emit('closeend');
+			this.callLifecycleMethod('onCloseEnd');
 		}
 		// was opening -> finish open
 		if (lifecycle === 'opening') {
 			await this.handleTransition('open');
-			this.emit('openend');
+			this.callLifecycleMethod('onOpenEnd');
 		}
 	}
 
@@ -191,11 +203,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	private emit(name: DisclosureCustomEvent): void {
-		const { current: detailsRef } = this.detailsRef;
-		if (detailsRef) {
-			detailsRef.dispatchEvent(new CustomEvent(name, { detail: detailsRef }));
-		}
+	private callLifecycleMethod(name: DisclosureLifecycleMethod): void {
+		const { [name]: method } = this.props;
+		if (method) method();
 	}
 
 	private findHeight(): number {
