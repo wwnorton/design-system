@@ -118,7 +118,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 		if (animate !== prevProps.animate) {
 			if (animate) {
-				this.initialize();
+				await this.initialize();
 			} else {
 				this.reset();
 				return;
@@ -254,12 +254,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	private initialize(): void {
+	private async initialize(): Promise<void> {
 		const { open } = this.state;
 		const { updateOnResize, animate } = this.props;
 		if (animate) {
 			this.contentsHeight = this.findHeight();
-			this.setHeight((open) ? this.contentsHeight : 0);
+			await this.setHeight((open) ? this.contentsHeight : 0);
 			if (updateOnResize) {
 				window.addEventListener('resize', this.onWindowresize);
 			}
