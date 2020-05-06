@@ -174,25 +174,29 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				switch (lifecycle) {
 					// clicked while opening -> cancel open
 					case 'opening':
-						this.setState({ lifecycle: 'closing' });
-						this.callLifecycleMethod('onOpenCancel');
+						this.setState({ lifecycle: 'closing' }, () => {
+							this.callLifecycleMethod('onOpenCancel');
+						});
 						break;
 					// clicked while closing -> cancel close
 					case 'closing':
-						this.setState({ lifecycle: 'opening' });
-						this.callLifecycleMethod('onCloseCancel');
+						this.setState({ lifecycle: 'opening' }, () => {
+							this.callLifecycleMethod('onCloseCancel');
+						});
 						break;
 					// clicked while fully open -> begin closing
 					case 'open':
-						this.setState({ lifecycle: 'closing' });
-						this.callLifecycleMethod('onCloseStart');
+						this.setState({ lifecycle: 'closing' }, () => {
+							this.callLifecycleMethod('onCloseStart');
+						});
 						break;
 					default:
 				}
 			} else {
 				// clicked while fully closed -> begin opening
-				this.setState({ lifecycle: 'opening' });
-				this.callLifecycleMethod('onOpenStart');
+				this.setState({ lifecycle: 'opening' }, () => {
+					this.callLifecycleMethod('onOpenStart');
+				});
 			}
 		}
 	}
@@ -201,13 +205,15 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		// was closing -> finish close
 		const { lifecycle } = this.state;
 		if (lifecycle === 'closing') {
-			this.setState({ lifecycle: 'closed' });
-			this.callLifecycleMethod('onCloseEnd');
+			this.setState({ lifecycle: 'closed' }, () => {
+				this.callLifecycleMethod('onCloseEnd');
+			});
 		}
 		// was opening -> finish open
 		if (lifecycle === 'opening') {
-			this.setState({ lifecycle: 'open' });
-			this.callLifecycleMethod('onOpenEnd');
+			this.setState({ lifecycle: 'open' }, () => {
+				this.callLifecycleMethod('onOpenEnd');
+			});
 		}
 	}
 
