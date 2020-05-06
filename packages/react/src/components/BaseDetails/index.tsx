@@ -26,10 +26,18 @@ const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 	summaryClass,
 	open = false,
 	children,
+	onToggle,
 	...attributes
 }: BaseDetailsProps, ref) => {
 	const [isOpen, setOpen] = React.useState(open);
 	React.useEffect(() => setOpen(open), [open]);
+	React.useEffect(() => {
+		const { current } = ref as React.RefObject<HTMLDetailsElement>;
+		if (onToggle && current) {
+			current.addEventListener('toggle', onToggle);
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	const Summary = (content?: JSX.Element | string): JSX.Element => {
 		if (isElement(content, 'summary')) return content;
 		return <BaseSummary className={summaryClass}>{ content || 'Details' }</BaseSummary>;
