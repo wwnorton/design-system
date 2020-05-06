@@ -13,6 +13,7 @@ export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCl
 export interface DisclosureState {
 	open: boolean;
 	lifecycle: DisclosureLifecycleState;
+	initialized: boolean;
 }
 
 export interface DisclosureProps extends BaseDetailsProps {
@@ -93,6 +94,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		this.state = {
 			open: props.open || Disclosure.defaultProps.open,
 			lifecycle: props.open ? 'open' : 'closed',
+			initialized: false,
 		};
 		this.detailsRef = props.detailsRef || React.createRef<HTMLDetailsElement>();
 		this.containerRef = React.createRef<HTMLDivElement>();
@@ -106,6 +108,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		if (updateOnResize) {
 			window.addEventListener('resize', this.onWindowresize);
 		}
+		this.setState({ initialized: true });
 	}
 
 	async componentDidUpdate(prevProps: DisclosureProps, prevState: DisclosureState): Promise<void> {
@@ -198,6 +201,14 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 					this.callLifecycleMethod('onOpenStart');
 				});
 			}
+		}
+	}
+
+	private onToggle = (e: React.SyntheticEvent<HTMLDetailsElement>): void => {
+		const { initialized } = this.state;
+		const { onToggle } = this.props;
+		if (initialized && onToggle) {
+			onToggle(e);
 		}
 	}
 
@@ -306,12 +317,10 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			variant, animate,
 			// elements
 			children,
-			// methods
-			onToggle,
 			// props that are used elsewhere
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			onCloseStart, onCloseCancel, onCloseEnd,
-			onOpenStart, onOpenCancel, onOpenEnd,
+			onToggle, onOpenStart, onOpenCancel, onOpenEnd,
 			detailsRef, summary, summaryClass, updateOnResize, open: propsOpen,
 			/* eslint-enable */
 			// everything inherited by ReactAttributes & HTML
@@ -329,7 +338,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				className={classes}
 				summary={this.Summary()}
 				open={open}
-				onToggle={onToggle}
+				onToggle={this.onToggle}
 				{...attributes}
 			>
 				<div
