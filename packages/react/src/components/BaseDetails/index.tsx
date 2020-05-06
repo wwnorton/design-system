@@ -16,9 +16,7 @@ export interface BaseDetailsProps extends React.DetailsHTMLAttributes<HTMLDetail
 	 * A polyfill of the `ontoggle` event, which _does_ work but doesn't currently
 	 * exist in the `React.DetailsHTMLAttributes<HTMLDetailsElement>` definition.
 	 */
-	onToggle?: (
-		e: DetailsToggleEvent | any, // eslint-disable-line @typescript-eslint/no-explicit-any
-	) => void;
+	onToggle?: (e: React.SyntheticEvent<HTMLDetailsElement, Event>) => void;
 }
 
 const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
