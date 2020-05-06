@@ -23,10 +23,7 @@
     "Trama, Darian <dtrama@wwnorton.com>",
     "Porter, Kellie <kporter@wwnorton.com>"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
-    "dist",
     "src"
   ],
   "scripts": {
