@@ -13,7 +13,6 @@ export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCl
 export interface DisclosureState {
 	open: boolean;
 	lifecycle: DisclosureLifecycleState;
-	initialized: boolean;
 }
 
 export interface DisclosureProps extends BaseDetailsProps {
@@ -94,21 +93,16 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		this.state = {
 			open: props.open || Disclosure.defaultProps.open,
 			lifecycle: props.open ? 'open' : 'closed',
-			initialized: false,
 		};
 		this.detailsRef = props.detailsRef || React.createRef<HTMLDetailsElement>();
 		this.containerRef = React.createRef<HTMLDivElement>();
 	}
 
 	componentDidMount(): void {
-		const { open } = this.state;
-		const { updateOnResize } = this.props;
-		this.contentsHeight = this.findHeight();
-		this.setHeight((open) ? this.contentsHeight : 0);
-		if (updateOnResize) {
-			window.addEventListener('resize', this.onWindowresize);
+		const { animate } = this.props;
+		if (animate) {
+			this.initialize();
 		}
-		this.setState({ initialized: true });
 	}
 
 	async componentDidUpdate(prevProps: DisclosureProps, prevState: DisclosureState): Promise<void> {
@@ -116,10 +110,19 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			open: propsOpen,
 			closingClass = 'closing',
 			openingClass = 'opening',
+			animate,
 		} = this.props;
 		const { lifecycle } = this.state;
 		if (propsOpen && propsOpen !== prevProps.open) {
 			this.setOpen(propsOpen);
+		}
+		if (animate !== prevProps.animate) {
+			if (animate) {
+				this.initialize();
+			} else {
+				this.reset();
+				return;
+			}
 		}
 		if (lifecycle !== prevState.lifecycle) {
 			const { current: detailsRef } = this.detailsRef;
@@ -172,6 +175,15 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	private onSummaryClick = (e: React.MouseEvent<HTMLElement>): void => {
 		e.preventDefault();
 		const { open, lifecycle } = this.state;
+		const { animate } = this.props;
+		if (open && !animate) {
+			this.setState({ open: false });
+			return;
+		}
+		if (!open && !animate) {
+			this.setState({ open: true });
+			return;
+		}
 		if (this.hasTransition()) {
 			if (open) {
 				switch (lifecycle) {
@@ -205,9 +217,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	private onToggle = (e: React.SyntheticEvent<HTMLDetailsElement>): void => {
-		const { initialized } = this.state;
 		const { onToggle } = this.props;
-		if (initialized && onToggle) {
+		if (onToggle) {
 			onToggle(e);
 		}
 	}
@@ -240,6 +251,26 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			if (current.style.height === newHeight) return;
 			current.style.height = newHeight;
 			await new Promise((resolve) => requestAnimationFrame(resolve));
+		}
+	}
+
+	private initialize(): void {
+		const { open } = this.state;
+		const { updateOnResize, animate } = this.props;
+		if (animate) {
+			this.contentsHeight = this.findHeight();
+			this.setHeight((open) ? this.contentsHeight : 0);
+			if (updateOnResize) {
+				window.addEventListener('resize', this.onWindowresize);
+			}
+		}
+	}
+
+	private reset(): void {
+		const { updateOnResize } = this.props;
+		this.removeHeight();
+		if (updateOnResize) {
+			window.removeEventListener('resize', this.onWindowresize);
 		}
 	}
 
