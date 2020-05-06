@@ -43,7 +43,6 @@ export interface DisclosureProps extends BaseDetailsProps {
 	animate?: boolean;
 	/** A reference to the inner <details> element. */
 	detailsRef?: React.RefObject<HTMLDetailsElement>;
-	onToggle?: (e: DisclosureToggleEvent) => void;
 	/** Lifecycle method that is triggered when the disclosure begins to close. */
 	onCloseStart?: (state: DisclosureState) => void;
 	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's closing. */
@@ -304,7 +303,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			// methods
 			onToggle,
 			// props that are used elsewhere
+			/* eslint-disable @typescript-eslint/no-unused-vars */
+			onCloseStart, onCloseCancel, onCloseEnd,
+			onOpenStart, onOpenCancel, onOpenEnd,
 			detailsRef, summary, summaryClass, updateOnResize, open: propsOpen,
+			/* eslint-enable */
 			// everything inherited by ReactAttributes & HTML
 			...attributes
 		} = this.props;
