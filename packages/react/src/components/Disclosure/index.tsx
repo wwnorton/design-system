@@ -13,6 +13,7 @@ export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCl
 export interface DisclosureState {
 	open: boolean;
 	lifecycle: DisclosureLifecycleState;
+	height?: string;
 }
 
 export interface DisclosureProps extends BaseDetailsProps {
@@ -105,7 +106,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	async componentDidUpdate(prevProps: DisclosureProps, prevState: DisclosureState): Promise<void> {
+	componentDidUpdate(prevProps: DisclosureProps, prevState: DisclosureState): void {
 		const {
 			open: propsOpen,
 			closingClass = 'closing',
@@ -118,7 +119,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 		if (animate !== prevProps.animate) {
 			if (animate) {
-				await this.initialize();
+				this.initialize();
 			} else {
 				this.reset();
 				return;
@@ -131,12 +132,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 					case 'opening':
 						detailsRef.classList.remove(closingClass);
 						detailsRef.classList.add(openingClass);
-						await this.setHeight(this.contentsOuterHeight);
+						this.setHeight(this.contentsOuterHeight);
 						break;
 					case 'closing':
 						detailsRef.classList.remove(openingClass);
 						detailsRef.classList.add(closingClass);
-						await this.setHeight(0);
+						this.setHeight(0);
 						break;
 					case 'open':
 						detailsRef.classList.remove(openingClass);
@@ -223,7 +224,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	private onTransitionend = async (): Promise<void> => {
+	private onTransitionend = (): void => {
 		// was closing -> finish close
 		const { lifecycle } = this.state;
 		if (lifecycle === 'closing') {
@@ -244,22 +245,22 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		this.setState({ open });
 	}
 
-	private async setHeight(height: number): Promise<void> {
-		const newHeight = `${height}px`;
+	private setHeight(newHeight: number): void {
+		const nextHeight = `${newHeight}px`;
 		const { current } = this.contentsOuterRef;
+		const { height } = this.state;
 		if (current) {
-			if (current.style.height === newHeight) return;
-			current.style.height = newHeight;
-			await new Promise((resolve) => requestAnimationFrame(resolve));
+			if (height === nextHeight) return;
+			this.setState({ height: nextHeight });
 		}
 	}
 
-	private async initialize(): Promise<void> {
+	private initialize(): void {
 		const { open } = this.state;
 		const { updateOnResize, animate } = this.props;
 		if (animate) {
 			this.contentsOuterHeight = this.findHeight();
-			await this.setHeight((open) ? this.contentsOuterHeight : 0);
+			this.setHeight((open) ? this.contentsOuterHeight : 0);
 			if (updateOnResize) {
 				window.addEventListener('resize', this.onWindowresize);
 			}
@@ -357,7 +358,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			// everything inherited by ReactAttributes & HTML
 			...attributes
 		} = this.props;
-		const { open } = this.state;
+		const { open, height } = this.state;
 		const classes = classNames({
 			[`${baseName}`]: true,
 			[`${baseName}--panel`]: variant === 'panel',
@@ -373,6 +374,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				{...attributes}
 			>
 				<div
+					style={{ height }}
 					className={contentsOuterClass}
 					ref={this.contentsOuterRef}
 					onTransitionEnd={this.onTransitionend}
