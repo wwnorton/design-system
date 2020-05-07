@@ -21,7 +21,7 @@
 	}
 }
 
-@mixin disclosure-container {
+@mixin disclosure-contents-outer {
 	overflow-y: hidden;
 	transition: height $disclosure-expand-duration $disclosure-expand-easing;
 
@@ -31,7 +31,7 @@
 	}
 }
 
-@mixin disclosure-contents {
+@mixin disclosure-contents-inner {
 	padding:
 		$disclosure-padding-top
 		$disclosure-padding-right
@@ -73,7 +73,7 @@
 		border-bottom: $disclosure-panel-border;
 	}
 
-	.disclosure__container {
+	.disclosure__contents-outer {
 		border-right: $disclosure-panel-border;
 		border-bottom: $disclosure-panel-border;
 		border-left: $disclosure-panel-border;

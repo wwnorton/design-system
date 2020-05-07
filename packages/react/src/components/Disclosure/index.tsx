@@ -7,7 +7,7 @@ import Icon from '../Icon';
 import { isElement } from '../../utilities/helpers';
 
 export type DisclosureVariant = 'default' | 'panel';
-export type DisclosureAnatomy = 'summary' | 'marker' | 'contents' | 'container';
+export type DisclosureAnatomy = 'summary' | 'marker' | 'contentsInner' | 'contentsOuter';
 export type DisclosureLifecycleState = 'open' | 'closed' | 'opening' | 'closing';
 export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCloseEnd' | 'onOpenStart' | 'onOpenCancel' | 'onOpenEnd';
 export interface DisclosureState {
@@ -22,13 +22,13 @@ export interface DisclosureProps extends BaseDetailsProps {
 	baseName?: string;
 	/** The `className` that will be applied to the `<summary>`. */
 	summaryClass?: string;
-	/** The `className` for the container that will wrap around the disclosure's contents. */
-	containerClass?: string;
-	/** The `className` that will be applied to the contents. */
-	contentsClass?: string;
-	/** A class that will be applied to the container while opening. */
+	/** The `className` for the outer contents `<div>`. */
+	contentsOuterClass?: string;
+	/** The `className` that will be applied to the inner contents `<div>`. */
+	contentsInnerClass?: string;
+	/** A class that will be applied to the outer contents `<div>` while opening. */
 	closingClass?: string;
-	/** A class that will be applied to the container while closing. */
+	/** A class that will be applied to the outer contents `<div>` while closing. */
 	openingClass?: string;
 	/**
 	 * The `className` that will be applied to the summary's icon indicator,
@@ -63,8 +63,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	public static bemElements: Record<DisclosureAnatomy, string> = {
 		summary: 'summary',
 		marker: 'marker',
-		contents: 'contents',
-		container: 'container',
+		contentsInner: 'contents-inner',
+		contentsOuter: 'contents-outer',
 	}
 
 	/**
@@ -75,11 +75,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	public detailsRef: React.RefObject<HTMLDetailsElement>;
 
-	public contentsHeight = 0;
+	public contentsOuterHeight = 0;
 
-	public containerRef: React.RefObject<HTMLDivElement>;
+	public contentsOuterRef: React.RefObject<HTMLDivElement>;
 
-	private initialContainerStyle?: string;
+	private initialContentsOuterStyle?: string;
 
 	public static defaultProps = {
 		baseName: Disclosure.bemBase,
@@ -95,7 +95,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			lifecycle: props.open ? 'open' : 'closed',
 		};
 		this.detailsRef = props.detailsRef || React.createRef<HTMLDetailsElement>();
-		this.containerRef = React.createRef<HTMLDivElement>();
+		this.contentsOuterRef = React.createRef<HTMLDivElement>();
 	}
 
 	componentDidMount(): void {
@@ -131,7 +131,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 					case 'opening':
 						detailsRef.classList.remove(closingClass);
 						detailsRef.classList.add(openingClass);
-						await this.setHeight(this.contentsHeight);
+						await this.setHeight(this.contentsOuterHeight);
 						break;
 					case 'closing':
 						detailsRef.classList.remove(openingClass);
@@ -155,9 +155,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	private onWindowresize = debounce(() => {
 		const { lifecycle } = this.state;
 		this.removeHeight();
-		this.contentsHeight = this.findHeight();
+		this.contentsOuterHeight = this.findHeight();
 		if (lifecycle === 'opening') {
-			this.setHeight(this.contentsHeight);
+			this.setHeight(this.contentsOuterHeight);
 		}
 		if (lifecycle === 'closing') {
 			this.setHeight(0);
@@ -246,7 +246,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	private async setHeight(height: number): Promise<void> {
 		const newHeight = `${height}px`;
-		const { current } = this.containerRef;
+		const { current } = this.contentsOuterRef;
 		if (current) {
 			if (current.style.height === newHeight) return;
 			current.style.height = newHeight;
@@ -258,8 +258,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const { open } = this.state;
 		const { updateOnResize, animate } = this.props;
 		if (animate) {
-			this.contentsHeight = this.findHeight();
-			await this.setHeight((open) ? this.contentsHeight : 0);
+			this.contentsOuterHeight = this.findHeight();
+			await this.setHeight((open) ? this.contentsOuterHeight : 0);
 			if (updateOnResize) {
 				window.addEventListener('resize', this.onWindowresize);
 			}
@@ -275,12 +275,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	private removeHeight(): void {
-		const { current: containerRef } = this.containerRef;
-		if (containerRef) {
-			if (this.initialContainerStyle) {
-				containerRef.setAttribute('style', this.initialContainerStyle);
+		const { current: contentsOuterRef } = this.contentsOuterRef;
+		if (contentsOuterRef) {
+			if (this.initialContentsOuterStyle) {
+				contentsOuterRef.setAttribute('style', this.initialContentsOuterStyle);
 			} else {
-				containerRef.removeAttribute('style');
+				contentsOuterRef.removeAttribute('style');
 			}
 		}
 	}
@@ -292,12 +292,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	private findHeight(): number {
 		const { current: detailsRef } = this.detailsRef;
-		const { current: containerRef } = this.containerRef;
+		const { current: contentsOuterRef } = this.contentsOuterRef;
 		const { open } = this.state;
 		const isClosed = !open;
-		if (detailsRef && containerRef) {
+		if (detailsRef && contentsOuterRef) {
 			if (isClosed) detailsRef.setAttribute('open', 'open');
-			const { clientHeight } = containerRef;
+			const { clientHeight } = contentsOuterRef;
 			if (isClosed) detailsRef.removeAttribute('open');
 			return clientHeight;
 		}
@@ -305,9 +305,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	private hasTransition(): boolean {
-		const { current: containerRef } = this.containerRef;
-		if (containerRef) {
-			const styles = window.getComputedStyle(containerRef);
+		const { current: contentsOuterRef } = this.contentsOuterRef;
+		if (contentsOuterRef) {
+			const styles = window.getComputedStyle(contentsOuterRef);
 			const durations = styles.getPropertyValue('transition-duration').split(/,\s*/);
 			return durations.some((v) => Number(v.replace('s', '')) > 0);
 		}
@@ -342,8 +342,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const {
 			// classes
 			className, baseName,
-			contentsClass = `${baseName}__${Disclosure.bemElements.contents}`,
-			containerClass = `${baseName}__${Disclosure.bemElements.container}`,
+			contentsInnerClass = `${baseName}__${Disclosure.bemElements.contentsInner}`,
+			contentsOuterClass = `${baseName}__${Disclosure.bemElements.contentsOuter}`,
 			// options
 			variant, animate,
 			// elements
@@ -373,11 +373,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				{...attributes}
 			>
 				<div
-					className={containerClass}
-					ref={this.containerRef}
+					className={contentsOuterClass}
+					ref={this.contentsOuterRef}
 					onTransitionEnd={this.onTransitionend}
 				>
-					<div className={contentsClass}>
+					<div className={contentsInnerClass}>
 						{children}
 					</div>
 				</div>
