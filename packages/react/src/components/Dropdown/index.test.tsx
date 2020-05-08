@@ -1,6 +1,6 @@
 import test from 'ava';
 import React from 'react';
-import { cleanup, render, fireEvent } from '../../../test/util';
+import { cleanup, render, fireEvent } from '../../../test/helpers/testing-library-react';
 import Dropdown from '.';
 
 test.afterEach(cleanup);

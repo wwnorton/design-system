@@ -57,6 +57,9 @@
     "safari >= 8"
   ],
   "ava": {
+    "files": [
+      "!**/test/helpers"
+    ],
     "extensions": [
       "ts",
       "tsx"
