@@ -70,4 +70,12 @@ module.exports = {
 			version: '16.3',
 		},
 	},
+	overrides: [
+		{
+			files: ['*.test.tsx'],
+			rules: {
+				'@typescript-eslint/explicit-function-return-type': 'off',
+			},
+		},
+	],
 };
