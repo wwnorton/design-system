@@ -115,14 +115,10 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		if (propsOpen !== stateOpen && propsOpen !== prevProps.open) {
 			switch (propsOpen) {
 				case true:
-					this.setHeight(`${this.contentsOuterHeight}px`, () => {
-						this.setState({ lifecycle: 'opening', open: true });
-					});
+					this.startOpening('onOpenStart');
 					break;
 				case false:
-					this.setHeight('0', () => {
-						this.setState({ lifecycle: 'closing' });
-					});
+					this.startClosing('onCloseStart');
 					break;
 				default:
 			}
@@ -169,33 +165,21 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			return;
 		}
 		if (this.hasTransition()) {
-			const nextState = !open;
-			const nextHeight = nextState ? this.contentsOuterHeight : 0;
-			this.setState({ height: `${nextHeight}px` }, () => {
-				switch (lifecycle) {
-					case 'closed':
-						this.setState({ lifecycle: 'opening', open: true }, () => {
-							this.callLifecycleMethod('onOpenStart');
-						});
-						break;
-					case 'closing':
-						this.setState({ lifecycle: 'opening', open: true }, () => {
-							this.callLifecycleMethod('onCloseCancel');
-						});
-						break;
-					case 'open':
-						this.setState({ lifecycle: 'closing' }, () => {
-							this.callLifecycleMethod('onCloseStart');
-						});
-						break;
-					case 'opening':
-						this.setState({ lifecycle: 'closing' }, () => {
-							this.callLifecycleMethod('onOpenCancel');
-						});
-						break;
-					default:
-				}
-			});
+			switch (lifecycle) {
+				case 'closed':
+					this.startOpening('onOpenStart');
+					break;
+				case 'closing':
+					this.startOpening('onCloseCancel');
+					break;
+				case 'open':
+					this.startClosing('onCloseStart');
+					break;
+				case 'opening':
+					this.startClosing('onOpenCancel');
+					break;
+				default:
+			}
 		}
 	}
 
@@ -234,14 +218,20 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		return 0;
 	}
 
-	// used by componentDidUpdate to avoid linting issues
-	private setHeight(height: string, callback?: () => void): void {
-		this.setState({ height }, callback);
+	private startClosing(lifecycleMethod: DisclosureLifecycleMethod): void {
+		this.setState({ height: '0' }, () => {
+			this.setState({ lifecycle: 'closing' }, () => {
+				this.callLifecycleMethod(lifecycleMethod);
+			});
+		});
 	}
 
-	// used by componentDidUpdate to avoid linting issues
-	private setOpen(open: boolean, callback?: () => void): void {
-		this.setState({ open }, callback);
+	private startOpening(lifecycleMethod: DisclosureLifecycleMethod): void {
+		this.setState({ height: `${this.contentsOuterHeight}px` }, () => {
+			this.setState({ lifecycle: 'opening', open: true }, () => {
+				this.callLifecycleMethod(lifecycleMethod);
+			});
+		});
 	}
 
 	private initialize(): void {
