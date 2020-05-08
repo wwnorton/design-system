@@ -111,8 +111,21 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			open: propsOpen,
 			animate,
 		} = this.props;
-		if (propsOpen && propsOpen !== prevProps.open) {
-			this.setOpen(propsOpen);
+		const { open: stateOpen } = this.state;
+		if (propsOpen !== stateOpen && propsOpen !== prevProps.open) {
+			switch (propsOpen) {
+				case true:
+					this.setHeight(`${this.contentsOuterHeight}px`, () => {
+						this.setState({ lifecycle: 'opening', open: true });
+					});
+					break;
+				case false:
+					this.setHeight('0', () => {
+						this.setState({ lifecycle: 'closing' });
+					});
+					break;
+				default:
+			}
 		}
 		if (animate !== prevProps.animate) {
 			if (animate) {
@@ -222,8 +235,13 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	// used by componentDidUpdate to avoid linting issues
-	private setOpen(open: boolean): void {
-		this.setState({ open });
+	private setHeight(height: string, callback?: () => void): void {
+		this.setState({ height }, callback);
+	}
+
+	// used by componentDidUpdate to avoid linting issues
+	private setOpen(open: boolean, callback?: () => void): void {
+		this.setState({ open }, callback);
 	}
 
 	private initialize(): void {

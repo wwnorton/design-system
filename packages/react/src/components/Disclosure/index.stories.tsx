@@ -30,18 +30,7 @@ export const Default: React.FunctionComponent = () => (
 		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
 		animate={boolean('Animate', defaultProps.animate)}
 		onToggle={action('onToggle')}
-	>
-		<p>{text('Contents', contents)}</p>
-	</Disclosure>
-);
-
-export const Open: React.FunctionComponent = () => (
-	<Disclosure
-		summary={text('Summary', 'More information')}
-		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
-		animate={boolean('Animate', defaultProps.animate)}
-		onToggle={action('onToggle')}
-		open
+		open={boolean('Open', false)}
 	>
 		<p>{text('Contents', contents)}</p>
 	</Disclosure>
