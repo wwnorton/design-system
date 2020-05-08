@@ -126,7 +126,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	private onWindowresize = debounce(() => {
 		const { lifecycle } = this.state;
 		this.removeHeight();
-		this.contentsOuterHeight = this.findHeight();
+		this.contentsOuterHeight = this.findHeight;
 		if (lifecycle === 'opening' || lifecycle === 'open') {
 			this.setState({ height: `${this.contentsOuterHeight}px` });
 		}
@@ -207,6 +207,20 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
+	private get findHeight(): number {
+		const { current: detailsRef } = this.detailsRef;
+		const { current: contentsOuterRef } = this.contentsOuterRef;
+		const { open } = this.state;
+		const isClosed = !open;
+		if (detailsRef && contentsOuterRef) {
+			if (isClosed) detailsRef.setAttribute('open', 'open');
+			const { clientHeight } = contentsOuterRef;
+			if (isClosed) detailsRef.removeAttribute('open');
+			return clientHeight;
+		}
+		return 0;
+	}
+
 	// used by componentDidUpdate to avoid linting issues
 	private setOpen(open: boolean): void {
 		this.setState({ open });
@@ -216,7 +230,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const { open } = this.state;
 		const { updateOnResize, animate } = this.props;
 		if (animate) {
-			this.contentsOuterHeight = this.findHeight();
+			this.contentsOuterHeight = this.findHeight;
 			this.setState({ height: (open) ? `${this.contentsOuterHeight}px` : '0' });
 			if (updateOnResize) {
 				window.addEventListener('resize', this.onWindowresize);
@@ -246,20 +260,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	private callLifecycleMethod(name: DisclosureLifecycleMethod): void {
 		const { [name]: method } = this.props;
 		if (method) method(this.state);
-	}
-
-	private findHeight(): number {
-		const { current: detailsRef } = this.detailsRef;
-		const { current: contentsOuterRef } = this.contentsOuterRef;
-		const { open } = this.state;
-		const isClosed = !open;
-		if (detailsRef && contentsOuterRef) {
-			if (isClosed) detailsRef.setAttribute('open', 'open');
-			const { clientHeight } = contentsOuterRef;
-			if (isClosed) detailsRef.removeAttribute('open');
-			return clientHeight;
-		}
-		return 0;
 	}
 
 	private hasTransition(): boolean {
