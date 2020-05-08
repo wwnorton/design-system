@@ -106,14 +106,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	componentDidUpdate(prevProps: DisclosureProps, prevState: DisclosureState): void {
+	componentDidUpdate(prevProps: DisclosureProps): void {
 		const {
 			open: propsOpen,
-			closingClass = 'closing',
-			openingClass = 'opening',
 			animate,
 		} = this.props;
-		const { lifecycle } = this.state;
 		if (propsOpen && propsOpen !== prevProps.open) {
 			this.setOpen(propsOpen);
 		}
@@ -122,33 +119,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				this.initialize();
 			} else {
 				this.reset();
-				return;
-			}
-		}
-		if (lifecycle !== prevState.lifecycle) {
-			const { current: detailsRef } = this.detailsRef;
-			if (detailsRef) {
-				switch (lifecycle) {
-					case 'opening':
-						detailsRef.classList.remove(closingClass);
-						detailsRef.classList.add(openingClass);
-						this.setHeight(this.contentsOuterHeight);
-						break;
-					case 'closing':
-						detailsRef.classList.remove(openingClass);
-						detailsRef.classList.add(closingClass);
-						this.setHeight(0);
-						break;
-					case 'open':
-						detailsRef.classList.remove(openingClass);
-						this.setOpen(true);
-						break;
-					case 'closed':
-						detailsRef.classList.remove(closingClass);
-						this.setOpen(false);
-						break;
-					default:
-				}
 			}
 		}
 	}
@@ -157,11 +127,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const { lifecycle } = this.state;
 		this.removeHeight();
 		this.contentsOuterHeight = this.findHeight();
-		if (lifecycle === 'opening') {
-			this.setHeight(this.contentsOuterHeight);
+		if (lifecycle === 'opening' || lifecycle === 'open') {
+			this.setState({ height: `${this.contentsOuterHeight}px` });
 		}
-		if (lifecycle === 'closing') {
-			this.setHeight(0);
+		if (lifecycle === 'closing' || lifecycle === 'closed') {
+			this.setState({ height: '0' });
 		}
 	}, Disclosure.RESIZE_DEBOUNCE_DELAY)
 
@@ -186,34 +156,33 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			return;
 		}
 		if (this.hasTransition()) {
-			if (open) {
+			const nextState = !open;
+			const nextHeight = nextState ? this.contentsOuterHeight : 0;
+			this.setState({ height: `${nextHeight}px` }, () => {
 				switch (lifecycle) {
-					// clicked while opening -> cancel open
-					case 'opening':
-						this.setState({ lifecycle: 'closing' }, () => {
-							this.callLifecycleMethod('onOpenCancel');
+					case 'closed':
+						this.setState({ lifecycle: 'opening', open: true }, () => {
+							this.callLifecycleMethod('onOpenStart');
 						});
 						break;
-					// clicked while closing -> cancel close
 					case 'closing':
-						this.setState({ lifecycle: 'opening' }, () => {
+						this.setState({ lifecycle: 'opening', open: true }, () => {
 							this.callLifecycleMethod('onCloseCancel');
 						});
 						break;
-					// clicked while fully open -> begin closing
 					case 'open':
 						this.setState({ lifecycle: 'closing' }, () => {
 							this.callLifecycleMethod('onCloseStart');
 						});
 						break;
+					case 'opening':
+						this.setState({ lifecycle: 'closing' }, () => {
+							this.callLifecycleMethod('onOpenCancel');
+						});
+						break;
 					default:
 				}
-			} else {
-				// clicked while fully closed -> begin opening
-				this.setState({ lifecycle: 'opening' }, () => {
-					this.callLifecycleMethod('onOpenStart');
-				});
-			}
+			});
 		}
 	}
 
@@ -224,18 +193,16 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
+	// The transition begins with the summary click. On end, update the state if it's closed.
 	private onTransitionend = (): void => {
-		// was closing -> finish close
 		const { lifecycle } = this.state;
-		if (lifecycle === 'closing') {
-			this.setState({ lifecycle: 'closed' }, () => {
-				this.callLifecycleMethod('onCloseEnd');
-			});
-		}
-		// was opening -> finish open
 		if (lifecycle === 'opening') {
 			this.setState({ lifecycle: 'open' }, () => {
 				this.callLifecycleMethod('onOpenEnd');
+			});
+		} else if (lifecycle === 'closing') {
+			this.setState({ lifecycle: 'closed', open: false }, () => {
+				this.callLifecycleMethod('onCloseEnd');
 			});
 		}
 	}
@@ -245,22 +212,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		this.setState({ open });
 	}
 
-	private setHeight(newHeight: number): void {
-		const nextHeight = `${newHeight}px`;
-		const { current } = this.contentsOuterRef;
-		const { height } = this.state;
-		if (current) {
-			if (height === nextHeight) return;
-			this.setState({ height: nextHeight });
-		}
-	}
-
 	private initialize(): void {
 		const { open } = this.state;
 		const { updateOnResize, animate } = this.props;
 		if (animate) {
 			this.contentsOuterHeight = this.findHeight();
-			this.setHeight((open) ? this.contentsOuterHeight : 0);
+			this.setState({ height: (open) ? `${this.contentsOuterHeight}px` : '0' });
 			if (updateOnResize) {
 				window.addEventListener('resize', this.onWindowresize);
 			}
@@ -279,9 +236,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const { current: contentsOuterRef } = this.contentsOuterRef;
 		if (contentsOuterRef) {
 			if (this.initialContentsOuterStyle) {
-				contentsOuterRef.setAttribute('style', this.initialContentsOuterStyle);
+				this.setState({ height: `${this.initialContentsOuterStyle}px` });
 			} else {
-				contentsOuterRef.removeAttribute('style');
+				this.setState({ height: undefined });
 			}
 		}
 	}
@@ -358,12 +315,14 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			// everything inherited by ReactAttributes & HTML
 			...attributes
 		} = this.props;
-		const { open, height } = this.state;
+		const { open, height, lifecycle } = this.state;
 		const classes = classNames({
 			[`${baseName}`]: true,
 			[`${baseName}--panel`]: variant === 'panel',
 			'reduced-motion': !animate,
+			[`${lifecycle}`]: true,
 		}, className);
+
 		return (
 			<BaseDetails
 				ref={this.detailsRef}
