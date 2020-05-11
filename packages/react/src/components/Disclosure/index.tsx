@@ -103,8 +103,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const {
 			open: propsOpen,
 			animate,
+			detailsRef,
 		} = this.props;
 		const { isOpen: stateOpen } = this.state;
+		if (!prevProps.detailsRef && detailsRef) {
+			this.detailsRef = detailsRef;
+		}
 		if (propsOpen !== stateOpen && propsOpen !== prevProps.open) {
 			switch (propsOpen) {
 				case true:
