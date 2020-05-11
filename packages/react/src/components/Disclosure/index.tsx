@@ -270,7 +270,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		return false;
 	}
 
-	private Summary(): JSX.Element {
+	private get Summary(): JSX.Element {
 		const {
 			baseName,
 			summary,
@@ -325,11 +325,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			<BaseDetails
 				ref={this.detailsRef}
 				className={classes}
-				summary={this.Summary()}
 				open={isOpen}
 				onToggle={this.onToggle}
 				{...attributes}
 			>
+				{ this.Summary }
 				<div
 					style={{ height }}
 					className={contentsOuterClass}
