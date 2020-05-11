@@ -11,7 +11,7 @@ export type DisclosureAnatomy = 'summary' | 'marker' | 'contentsInner' | 'conten
 export type DisclosureLifecycleState = 'open' | 'closed' | 'opening' | 'closing';
 export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCloseEnd' | 'onOpenStart' | 'onOpenCancel' | 'onOpenEnd';
 export interface DisclosureState {
-	open: boolean;
+	isOpen: boolean;
 	lifecycle: DisclosureLifecycleState;
 	height?: string;
 }
@@ -92,7 +92,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	constructor(props: DisclosureProps) {
 		super(props);
 		this.state = {
-			open: props.open || Disclosure.defaultProps.open,
+			isOpen: props.open || Disclosure.defaultProps.open,
 			lifecycle: props.open ? 'open' : 'closed',
 		};
 		this.detailsRef = props.detailsRef || React.createRef<HTMLDetailsElement>();
@@ -111,14 +111,14 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			open: propsOpen,
 			animate,
 		} = this.props;
-		const { open: stateOpen } = this.state;
+		const { isOpen: stateOpen } = this.state;
 		if (propsOpen !== stateOpen && propsOpen !== prevProps.open) {
 			switch (propsOpen) {
 				case true:
-					this.startOpening('onOpenStart');
+					this.open('onOpenStart');
 					break;
 				case false:
-					this.startClosing('onCloseStart');
+					this.close('onCloseStart');
 					break;
 				default:
 			}
@@ -154,29 +154,23 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	 */
 	private onSummaryClick = (e: React.MouseEvent<HTMLElement>): void => {
 		e.preventDefault();
-		const { open, lifecycle } = this.state;
+		const { isOpen, lifecycle } = this.state;
 		const { animate } = this.props;
-		if (open && !animate) {
-			this.setState({ open: false });
-			return;
-		}
-		if (!open && !animate) {
-			this.setState({ open: true });
-			return;
-		}
-		if (this.hasTransition()) {
+		if (!animate) {
+			this.setState({ isOpen: !isOpen });
+		} else if (this.hasTransition()) {
 			switch (lifecycle) {
 				case 'closed':
-					this.startOpening('onOpenStart');
+					this.open('onOpenStart');
 					break;
 				case 'closing':
-					this.startOpening('onCloseCancel');
+					this.open('onCloseCancel');
 					break;
 				case 'open':
-					this.startClosing('onCloseStart');
+					this.close('onCloseStart');
 					break;
 				case 'opening':
-					this.startClosing('onOpenCancel');
+					this.close('onOpenCancel');
 					break;
 				default:
 			}
@@ -198,7 +192,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				this.callLifecycleMethod('onOpenEnd');
 			});
 		} else if (lifecycle === 'closing') {
-			this.setState({ lifecycle: 'closed', open: false }, () => {
+			this.setState({ lifecycle: 'closed', isOpen: false }, () => {
 				this.callLifecycleMethod('onCloseEnd');
 			});
 		}
@@ -206,10 +200,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	private get findHeight(): number {
 		const { current: detailsRef } = this.detailsRef;
-		const { current: contentsOuterRef } = this.contentsOuterRef;
-		const { open } = this.state;
-		const isClosed = !open;
-		if (detailsRef && contentsOuterRef) {
+		const { isOpen } = this.state;
+		const isClosed = !isOpen;
 			if (isClosed) detailsRef.setAttribute('open', 'open');
 			const { clientHeight } = contentsOuterRef;
 			if (isClosed) detailsRef.removeAttribute('open');
@@ -218,7 +210,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		return 0;
 	}
 
-	private startClosing(lifecycleMethod: DisclosureLifecycleMethod): void {
+	private close(lifecycleMethod: DisclosureLifecycleMethod): void {
 		this.setState({ height: '0' }, () => {
 			this.setState({ lifecycle: 'closing' }, () => {
 				this.callLifecycleMethod(lifecycleMethod);
@@ -226,20 +218,20 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		});
 	}
 
-	private startOpening(lifecycleMethod: DisclosureLifecycleMethod): void {
+	private open(lifecycleMethod: DisclosureLifecycleMethod): void {
 		this.setState({ height: `${this.contentsOuterHeight}px` }, () => {
-			this.setState({ lifecycle: 'opening', open: true }, () => {
+			this.setState({ lifecycle: 'opening', isOpen: true }, () => {
 				this.callLifecycleMethod(lifecycleMethod);
 			});
 		});
 	}
 
 	private initialize(): void {
-		const { open } = this.state;
+		const { isOpen } = this.state;
 		const { updateOnResize, animate } = this.props;
 		if (animate) {
 			this.contentsOuterHeight = this.findHeight;
-			this.setState({ height: (open) ? `${this.contentsOuterHeight}px` : '0' });
+			this.setState({ height: (isOpen) ? `${this.contentsOuterHeight}px` : '0' });
 			if (updateOnResize) {
 				window.addEventListener('resize', this.onWindowresize);
 			}
@@ -323,7 +315,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			// everything inherited by ReactAttributes & HTML
 			...attributes
 		} = this.props;
-		const { open, height, lifecycle } = this.state;
+		const { isOpen, height, lifecycle } = this.state;
 		const classes = classNames({
 			[`${baseName}`]: true,
 			[`${baseName}--panel`]: variant === 'panel',
@@ -336,7 +328,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				ref={this.detailsRef}
 				className={classes}
 				summary={this.Summary()}
-				open={open}
+				open={isOpen}
 				onToggle={this.onToggle}
 				{...attributes}
 			>
