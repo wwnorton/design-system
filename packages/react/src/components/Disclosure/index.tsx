@@ -155,9 +155,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		e.preventDefault();
 		const { isOpen, lifecycle } = this.state;
 		const { animate } = this.props;
-		if (!animate) {
+		if (!animate || !this.hasTransition) {
 			this.setState({ isOpen: !isOpen });
-		} else if (this.hasTransition) {
+		} else {
 			switch (lifecycle) {
 				case 'closed':
 					this.open('onOpenStart');
