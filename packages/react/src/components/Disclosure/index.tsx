@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 import BaseDetails, { BaseDetailsProps } from '../BaseDetails';
 import BaseSummary from '../BaseSummary';
 import Icon from '../Icon';
-import { isElement } from '../../utilities/helpers';
+import { isElement, hasTransition } from '../../utilities/helpers';
 
 export type DisclosureVariant = 'default' | 'panel';
 export type DisclosureAnatomy = 'summary' | 'marker' | 'contentsInner' | 'contentsOuter';
@@ -157,7 +157,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const { animate } = this.props;
 		if (!animate) {
 			this.setState({ isOpen: !isOpen });
-		} else if (this.hasTransition()) {
+		} else if (this.hasTransition) {
 			switch (lifecycle) {
 				case 'closed':
 					this.open('onOpenStart');
@@ -261,13 +261,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		if (method) method(this.state);
 	}
 
-	private hasTransition(): boolean {
-		if (this.contentsOuter) {
-			const styles = window.getComputedStyle(this.contentsOuter);
-			const durations = styles.getPropertyValue('transition-duration').split(/,\s*/);
-			return durations.some((v) => Number(v.replace('s', '')) > 0);
-		}
-		return false;
+	private get hasTransition(): boolean {
+		return hasTransition(this.contentsOuter);
 	}
 
 	private get Summary(): JSX.Element {
