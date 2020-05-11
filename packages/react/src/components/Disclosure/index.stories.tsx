@@ -7,7 +7,7 @@ import {
 	boolean,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Disclosure, { DisclosureVariant } from '.';
+import Disclosure from '.';
 
 export default {
 	title: 'Disclosure',
@@ -16,7 +16,7 @@ export default {
 };
 
 const variantOptions = {
-	Default: undefined,
+	None: undefined,
 	Panel: 'panel',
 };
 
@@ -27,9 +27,15 @@ const { defaultProps } = Disclosure;
 export const Default: React.FunctionComponent = () => (
 	<Disclosure
 		summary={text('Summary', 'More information')}
-		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
+		variant={select('Variant', variantOptions, undefined)}
 		animate={boolean('Animate', defaultProps.animate)}
 		onToggle={action('onToggle')}
+		onOpenStart={action('onOpenStart')}
+		onOpenCancel={action('onOpenCancel')}
+		onOpenEnd={action('onOpenEnd')}
+		onCloseStart={action('onCloseStart')}
+		onCloseCancel={action('onCloseCancel')}
+		onCloseEnd={action('onCloseEnd')}
 		open={boolean('Open', false)}
 	>
 		<p>{text('Contents', contents)}</p>
