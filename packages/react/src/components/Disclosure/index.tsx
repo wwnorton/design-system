@@ -13,7 +13,7 @@ export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCl
 export interface DisclosureState {
 	isOpen: boolean;
 	lifecycle: DisclosureLifecycleState;
-	height?: string;
+	height?: number;
 }
 
 export interface DisclosureProps extends BaseDetailsProps {
@@ -73,9 +73,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	public detailsRef: React.RefObject<HTMLDetailsElement>;
-	public contentsOuterHeight = 0;
+	public contentsHeight = 0;
 	public contentsOuter: HTMLDivElement | null = null;
-	private initialContentsOuterStyle?: string;
 
 	public static defaultProps = {
 		baseName: Disclosure.bemBase,
@@ -129,12 +128,12 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	private onWindowresize = debounce(() => {
 		const { lifecycle } = this.state;
 		this.removeHeight();
-		this.contentsOuterHeight = this.findHeight;
+		this.contentsHeight = this.findHeight();
 		if (lifecycle === 'opening' || lifecycle === 'open') {
-			this.setState({ height: `${this.contentsOuterHeight}px` });
+			this.setState({ height: this.contentsHeight });
 		}
 		if (lifecycle === 'closing' || lifecycle === 'closed') {
-			this.setState({ height: '0' });
+			this.setState({ height: 0 });
 		}
 	}, Disclosure.RESIZE_DEBOUNCE_DELAY)
 
@@ -192,19 +191,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	private get findHeight(): number {
-		const { current: detailsRef } = this.detailsRef;
-		const { isOpen } = this.state;
-		const isClosed = !isOpen;
-		if (detailsRef && this.contentsOuter) {
-			if (isClosed) detailsRef.setAttribute('open', 'open');
-			const { clientHeight } = this.contentsOuter;
-			if (isClosed) detailsRef.removeAttribute('open');
-			return clientHeight;
-		}
-		return 0;
-	}
-
 	private get hasTransition(): boolean {
 		return hasTransition(this.contentsOuter);
 	}
@@ -233,8 +219,21 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		);
 	}
 
+	private findHeight(): number {
+		const { current: detailsRef } = this.detailsRef;
+		const { isOpen } = this.state;
+		const isClosed = !isOpen;
+		if (detailsRef && this.contentsOuter) {
+			if (isClosed) detailsRef.setAttribute('open', 'open');
+			const { clientHeight } = this.contentsOuter;
+			if (isClosed) detailsRef.removeAttribute('open');
+			return clientHeight;
+		}
+		return 0;
+	}
+
 	private close(lifecycleMethod: DisclosureLifecycleMethod): void {
-		this.setState({ height: '0' }, () => {
+		this.setState({ height: 0 }, () => {
 			this.setState({ lifecycle: 'closing' }, () => {
 				this.callLifecycleMethod(lifecycleMethod);
 			});
@@ -242,7 +241,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	private open(lifecycleMethod: DisclosureLifecycleMethod): void {
-		this.setState({ height: `${this.contentsOuterHeight}px` }, () => {
+		this.setState({ height: this.contentsHeight }, () => {
 			this.setState({ lifecycle: 'opening', isOpen: true }, () => {
 				this.callLifecycleMethod(lifecycleMethod);
 			});
@@ -253,8 +252,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const { isOpen } = this.state;
 		const { updateOnResize, animate } = this.props;
 		if (animate) {
-			this.contentsOuterHeight = this.findHeight;
-			this.setState({ height: (isOpen) ? `${this.contentsOuterHeight}px` : '0' });
+			this.contentsHeight = this.findHeight();
+			this.setState({ height: (isOpen) ? this.contentsHeight : 0 });
 			if (updateOnResize) {
 				window.addEventListener('resize', this.onWindowresize);
 			}
@@ -271,11 +270,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	private removeHeight(): void {
 		if (this.contentsOuter) {
-			if (this.initialContentsOuterStyle) {
-				this.setState({ height: `${this.initialContentsOuterStyle}px` });
-			} else {
-				this.setState({ height: undefined });
-			}
+			this.setState({ height: undefined });
 		}
 	}
 
