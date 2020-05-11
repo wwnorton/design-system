@@ -210,6 +210,34 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		return 0;
 	}
 
+	private get hasTransition(): boolean {
+		return hasTransition(this.contentsOuter);
+	}
+
+	private get Summary(): JSX.Element {
+		const {
+			baseName,
+			summary,
+			variant,
+			summaryClass = `${baseName}__${Disclosure.bemElements.summary}`,
+			markerClass = `${baseName}__${Disclosure.bemElements.marker}`,
+		} = this.props;
+		if (isElement(summary, 'summary')) return summary;
+		const markerType = (variant === 'panel') ? 'chevron-down' : 'caret-right';
+		const markerElement = <Icon variant={markerType} className={markerClass} />;
+		const markerPosition = variant === 'panel' ? 'right' : 'left';
+		return (
+			<BaseSummary
+				className={summaryClass}
+				marker={markerElement}
+				onClick={this.onSummaryClick}
+				markerPosition={markerPosition}
+			>
+				{summary}
+			</BaseSummary>
+		);
+	}
+
 	private close(lifecycleMethod: DisclosureLifecycleMethod): void {
 		this.setState({ height: '0' }, () => {
 			this.setState({ lifecycle: 'closing' }, () => {
@@ -259,34 +287,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	private callLifecycleMethod(name: DisclosureLifecycleMethod): void {
 		const { [name]: method } = this.props;
 		if (method) method(this.state);
-	}
-
-	private get hasTransition(): boolean {
-		return hasTransition(this.contentsOuter);
-	}
-
-	private get Summary(): JSX.Element {
-		const {
-			baseName,
-			summary,
-			variant,
-			summaryClass = `${baseName}__${Disclosure.bemElements.summary}`,
-			markerClass = `${baseName}__${Disclosure.bemElements.marker}`,
-		} = this.props;
-		if (isElement(summary, 'summary')) return summary;
-		const markerType = (variant === 'panel') ? 'chevron-down' : 'caret-right';
-		const markerElement = <Icon variant={markerType} className={markerClass} />;
-		const markerPosition = variant === 'panel' ? 'right' : 'left';
-		return (
-			<BaseSummary
-				className={summaryClass}
-				marker={markerElement}
-				onClick={this.onSummaryClick}
-				markerPosition={markerPosition}
-			>
-				{summary}
-			</BaseSummary>
-		);
 	}
 
 	render(): JSX.Element {
