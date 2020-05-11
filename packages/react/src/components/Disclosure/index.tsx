@@ -45,21 +45,25 @@ export interface DisclosureProps extends BaseDetailsProps {
 	/** A reference to the inner <details> element. */
 	detailsRef?: React.RefObject<HTMLDetailsElement>;
 	/** Lifecycle method that is triggered when the disclosure begins to close. */
-	onCloseStart?: (state: DisclosureState) => void;
+	onCloseStart?: () => void;
 	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's closing. */
-	onCloseCancel?: (state: DisclosureState) => void;
+	onCloseCancel?: () => void;
 	/** Lifecycle method that is triggered when the disclosure has finished closing. */
-	onCloseEnd?: (state: DisclosureState) => void;
+	onCloseEnd?: () => void;
 	/** Lifecycle method that is triggered when the disclosure begins to open. */
-	onOpenStart?: (state: DisclosureState) => void;
+	onOpenStart?: () => void;
 	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's opening. */
-	onOpenCancel?: (state: DisclosureState) => void;
+	onOpenCancel?: () => void;
 	/** Lifecycle method that is triggered when the disclosure has finished opening. */
-	onOpenEnd?: (state: DisclosureState) => void;
+	onOpenEnd?: () => void;
 }
 
 export default class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
-	// eslint-disable-next-line react/sort-comp
+	/**
+	 * The time in milliseconds to delay when recalculating the contents height
+	 * due to a window resize. Only applies if `updateOnResize` is `true`.
+	*/
+	public static RESIZE_DEBOUNCE_DELAY = 150;
 	public static bemBase = 'disclosure';
 	public static bemElements: Record<DisclosureAnatomy, string> = {
 		summary: 'summary',
@@ -68,18 +72,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		contentsOuter: 'contents-outer',
 	}
 
-	/**
-	 * The time in milliseconds to delay when recalculating the contents height
-	 * due to a window resize. Only applies if `updateOnResize` is `true`.
-	*/
-	public static RESIZE_DEBOUNCE_DELAY = 150;
-
 	public detailsRef: React.RefObject<HTMLDetailsElement>;
-
 	public contentsOuterHeight = 0;
-
 	public contentsOuter: HTMLDivElement | null = null;
-
 	private initialContentsOuterStyle?: string;
 
 	public static defaultProps = {
@@ -286,7 +281,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	private callLifecycleMethod(name: DisclosureLifecycleMethod): void {
 		const { [name]: method } = this.props;
-		if (method) method(this.state);
+		if (method) method();
 	}
 
 	render(): JSX.Element {
