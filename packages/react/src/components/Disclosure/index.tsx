@@ -78,7 +78,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	public contentsOuterHeight = 0;
 
-	public contentsOuterRef: React.RefObject<HTMLDivElement>;
+	public contentsOuter: HTMLDivElement | null = null;
 
 	private initialContentsOuterStyle?: string;
 
@@ -96,7 +96,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			lifecycle: props.open ? 'open' : 'closed',
 		};
 		this.detailsRef = props.detailsRef || React.createRef<HTMLDetailsElement>();
-		this.contentsOuterRef = React.createRef<HTMLDivElement>();
 	}
 
 	componentDidMount(): void {
@@ -202,8 +201,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		const { current: detailsRef } = this.detailsRef;
 		const { isOpen } = this.state;
 		const isClosed = !isOpen;
+		if (detailsRef && this.contentsOuter) {
 			if (isClosed) detailsRef.setAttribute('open', 'open');
-			const { clientHeight } = contentsOuterRef;
+			const { clientHeight } = this.contentsOuter;
 			if (isClosed) detailsRef.removeAttribute('open');
 			return clientHeight;
 		}
@@ -247,8 +247,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	private removeHeight(): void {
-		const { current: contentsOuterRef } = this.contentsOuterRef;
-		if (contentsOuterRef) {
+		if (this.contentsOuter) {
 			if (this.initialContentsOuterStyle) {
 				this.setState({ height: `${this.initialContentsOuterStyle}px` });
 			} else {
@@ -263,9 +262,8 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	private hasTransition(): boolean {
-		const { current: contentsOuterRef } = this.contentsOuterRef;
-		if (contentsOuterRef) {
-			const styles = window.getComputedStyle(contentsOuterRef);
+		if (this.contentsOuter) {
+			const styles = window.getComputedStyle(this.contentsOuter);
 			const durations = styles.getPropertyValue('transition-duration').split(/,\s*/);
 			return durations.some((v) => Number(v.replace('s', '')) > 0);
 		}
@@ -335,7 +333,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				<div
 					style={{ height }}
 					className={contentsOuterClass}
-					ref={this.contentsOuterRef}
+					ref={(el): void => { this.contentsOuter = el; }}
 					onTransitionEnd={this.onTransitionend}
 				>
 					<div className={contentsInnerClass}>
