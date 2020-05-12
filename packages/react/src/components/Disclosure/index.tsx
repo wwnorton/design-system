@@ -206,6 +206,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
+	private get isOpen(): boolean {
+		const { lifecycle } = this.state;
+		return lifecycle !== 'closed';
+	}
+
 	private get shouldAnimate(): boolean {
 		const { animate = Disclosure.defaultProps.animate } = this.props;
 		return animate && hasTransition(this.contentsOuter);
@@ -277,12 +282,10 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	private findHeight(): number {
 		const { current: detailsRef } = this.detailsRef;
-		const { lifecycle } = this.state;
-		const isClosed = lifecycle === 'closed';
 		if (detailsRef && this.contentsOuter) {
-			if (isClosed) detailsRef.setAttribute('open', 'open');
+			if (!this.isOpen) detailsRef.setAttribute('open', 'open');
 			const { clientHeight } = this.contentsOuter;
-			if (isClosed) detailsRef.removeAttribute('open');
+			if (!this.isOpen) detailsRef.removeAttribute('open');
 			return clientHeight;
 		}
 		return 0;
@@ -353,7 +356,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				className={classes}
 				// The open attribute should be applied on all states, except closing.
 				// Otherwise, the animation won't work.
-				open={lifecycle !== 'closed'}
+				open={this.isOpen}
 				{...attributes}
 			>
 				{ this.Summary }
