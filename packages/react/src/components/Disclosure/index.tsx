@@ -104,7 +104,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			detailsRef,
 		} = this.props;
 		const { lifecycle } = this.state;
-		const shouldUpdate = (!open && lifecycle === 'open') || (open && lifecycle === 'closed');
 		if (!prevProps.detailsRef && detailsRef) {
 			this.detailsRef = detailsRef;
 		}
@@ -137,16 +136,10 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				default:
 			}
 		}
-		if (shouldUpdate && open !== prevProps.open) {
-			switch (open) {
-				case true:
-					this.open();
-					break;
-				case false:
-					this.close();
-					break;
-				default:
-			}
+		if (prevProps.open && !open) {
+			this.close();
+		} else if (!prevProps.open && open) {
+			this.open();
 		}
 		if (prevProps.animate && !animate) {
 			this.reset();
