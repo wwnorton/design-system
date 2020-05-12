@@ -116,7 +116,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				case 'closing -> opening':
 					this.closeCancel();
 					break;
-				case 'closing -> close':
+				case 'closing -> closed':
 					this.closeEnd();
 					break;
 				case 'closed -> opening':
