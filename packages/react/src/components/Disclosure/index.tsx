@@ -199,13 +199,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	private onToggle = (e: React.SyntheticEvent<HTMLDetailsElement>): void => {
-		const { onToggle } = this.props;
-		if (onToggle) {
-			onToggle(e);
-		}
-	}
-
 	// The transition begins with the summary click. On end, update the state if it's closed.
 	private onTransitionend = (): void => {
 		const { lifecycle } = this.state;
@@ -368,7 +361,6 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				// The open attribute should be applied on all states, except closing.
 				// Otherwise, the animation won't work.
 				open={lifecycle !== 'closed'}
-				onToggle={this.onToggle}
 				{...attributes}
 			>
 				{ this.Summary }
