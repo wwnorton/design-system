@@ -104,7 +104,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			detailsRef,
 		} = this.props;
 		const { lifecycle } = this.state;
-		if (!prevProps.detailsRef && detailsRef) {
+		if (detailsRef && detailsRef !== prevProps.detailsRef) {
 			this.detailsRef = detailsRef;
 		}
 		if (lifecycle !== prevState.lifecycle) {
