@@ -329,7 +329,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 			// props that are used elsewhere
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			onCloseStart, onCloseCancel, onCloseEnd,
-			onToggle, onOpenStart, onOpenCancel, onOpenEnd,
+			onOpenStart, onOpenCancel, onOpenEnd,
 			detailsRef, summary, summaryClass, updateOnResize, open: propsOpen,
 			/* eslint-enable */
 			// everything inherited by ReactAttributes & HTML
