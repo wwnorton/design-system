@@ -7,8 +7,7 @@ import {
 	boolean,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Disclosure, { DisclosureVariant } from '.';
-import BaseSummary from '../BaseSummary';
+import Disclosure from '.';
 
 export default {
 	title: 'Disclosure',
@@ -17,7 +16,7 @@ export default {
 };
 
 const variantOptions = {
-	Default: undefined,
+	None: undefined,
 	Panel: 'panel',
 };
 
@@ -28,43 +27,16 @@ const { defaultProps } = Disclosure;
 export const Default: React.FunctionComponent = () => (
 	<Disclosure
 		summary={text('Summary', 'More information')}
-		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
+		variant={select('Variant', variantOptions, undefined)}
 		animate={boolean('Animate', defaultProps.animate)}
 		onToggle={action('onToggle')}
-	>
-		<p>{text('Contents', contents)}</p>
-	</Disclosure>
-);
-
-export const Open: React.FunctionComponent = () => (
-	<Disclosure
-		summary={text('Summary', 'More information')}
-		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
-		animate={boolean('Animate', defaultProps.animate)}
-		onToggle={action('onToggle')}
-		open
-	>
-		<p>{text('Contents', contents)}</p>
-	</Disclosure>
-);
-
-export const WithBaseSummary: React.FunctionComponent = () => (
-	<Disclosure
-		summary={<BaseSummary className="disclosure__summary">Base summary</BaseSummary>}
-		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
-		animate={boolean('Animate', defaultProps.animate)}
-		onToggle={action('onToggle')}
-	>
-		<p>{text('Contents', contents)}</p>
-	</Disclosure>
-);
-
-export const WithHTMLSummary: React.FunctionComponent = () => (
-	<Disclosure
-		summary={<summary className="disclosure__summary">HTML summary</summary>}
-		variant={select('Variant', variantOptions, undefined) as DisclosureVariant}
-		animate={boolean('Animate', defaultProps.animate)}
-		onToggle={action('onToggle')}
+		onOpenStart={action('onOpenStart')}
+		onOpenCancel={action('onOpenCancel')}
+		onOpenEnd={action('onOpenEnd')}
+		onCloseStart={action('onCloseStart')}
+		onCloseCancel={action('onCloseCancel')}
+		onCloseEnd={action('onCloseEnd')}
+		open={boolean('Open', false)}
 	>
 		<p>{text('Contents', contents)}</p>
 	</Disclosure>
