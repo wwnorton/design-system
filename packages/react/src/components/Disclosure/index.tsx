@@ -200,13 +200,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	private onTransitionend = (): void => {
 		const { lifecycle } = this.state;
 		if (lifecycle === 'opening') {
-			this.setState({ lifecycle: 'open' }, () => {
-				this.callLifecycleMethod('onOpenEnd');
-			});
+			this.setState({ lifecycle: 'open' });
 		} else if (lifecycle === 'closing') {
-			this.setState({ lifecycle: 'closed' }, () => {
-				this.callLifecycleMethod('onCloseEnd');
-			});
+			this.setState({ lifecycle: 'closed' });
 		}
 	}
 
