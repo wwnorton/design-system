@@ -148,12 +148,10 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 				default:
 			}
 		}
-		if (animate !== prevProps.animate) {
-			if (animate) {
-				this.initialize();
-			} else {
-				this.reset();
-			}
+		if (prevProps.animate && !animate) {
+			this.reset();
+		} else if (!prevProps.animate && animate) {
+			this.initialize();
 		}
 	}
 
@@ -180,8 +178,7 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	private onSummaryClick = (e: React.MouseEvent<HTMLElement>): void => {
 		e.preventDefault();
 		const { lifecycle } = this.state;
-		const { animate } = this.props;
-		if (animate && this.hasTransition) {
+		if (this.shouldAnimate) {
 			switch (lifecycle) {
 				case 'opening':
 				case 'open':
@@ -213,8 +210,9 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 		}
 	}
 
-	private get hasTransition(): boolean {
-		return hasTransition(this.contentsOuter);
+	private get shouldAnimate(): boolean {
+		const { animate = Disclosure.defaultProps.animate } = this.props;
+		return animate && hasTransition(this.contentsOuter);
 	}
 
 	private get Summary(): JSX.Element {
@@ -274,13 +272,11 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 	}
 
 	private open(): void {
-		const { animate } = this.props;
-		this.setState({ lifecycle: animate ? 'opening' : 'open' });
+		this.setState({ lifecycle: (this.shouldAnimate) ? 'opening' : 'open' });
 	}
 
 	private close(): void {
-		const { animate } = this.props;
-		this.setState({ lifecycle: animate ? 'closing' : 'closed' });
+		this.setState({ lifecycle: (this.shouldAnimate) ? 'closing' : 'closed' });
 	}
 
 	private findHeight(): number {
@@ -298,9 +294,10 @@ export default class Disclosure extends React.Component<DisclosureProps, Disclos
 
 	private initialize(): void {
 		const { lifecycle } = this.state;
-		const { updateOnResize, animate } = this.props;
-		if (animate) {
-			this.contentsHeight = this.findHeight();
+		const { updateOnResize } = this.props;
+		this.contentsHeight = this.findHeight();
+
+		if (this.shouldAnimate) {
 			this.setState({ height: (lifecycle === 'open') ? this.contentsHeight : 0 });
 			if (updateOnResize) {
 				window.addEventListener('resize', this.onWindowresize);
