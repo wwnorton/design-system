@@ -185,13 +185,6 @@ class Modal extends React.Component<ModalProps, ModalState> {
 			nextMount.appendChild(this.portalNode);
 		}
 
-		// closeButton added or removed: update tabbable list
-		if (prevProps.addCloseButton !== addCloseButton) {
-			if (this.dialogRef.current) {
-				this.tabbable = this.getTabbable();
-			}
-		}
-
 		// props change: closed -> open
 		if (!prevProps.isOpen && isOpen) {
 			this.open();
@@ -218,7 +211,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		const { initialFocusRef, onInitialFocus = noop } = this.props;
 		this.initialFocus = initialFocusRef || this.headerRef;
 		if (this.dialogRef.current) {
-			this.tabbable = this.getTabbable();
+			this.tabbable = this.Tabbable;
 			if (this.initialFocus === this.headerRef) {
 				if (this.tabbable.length) {
 					this.initialFocus = { current: Array.from(this.tabbable)[0] };
@@ -338,7 +331,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		);
 	}
 
-	private getTabbable(): NodeListOf<HTMLElement> | [] {
+	private get Tabbable(): NodeListOf<HTMLElement> | [] {
 		const tabbable = (this.dialogRef.current)
 			? getFocusable(this.dialogRef.current)
 			: [] as [];
@@ -377,6 +370,7 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		if (!isOpen) return;
 		if (e.key === 'Escape' && closeOnEscape) this.requestClose();
 		if (e.key === 'Tab') {
+			this.tabbable = this.Tabbable;
 			if (this.tabbable && this.tabbable.length) {
 				let element: HTMLElement | undefined;
 				const tabIndex = Array.from(this.tabbable).indexOf(e.target as HTMLElement);
