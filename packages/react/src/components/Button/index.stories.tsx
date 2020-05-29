@@ -20,6 +20,17 @@ const variantOptions: Record<string, ButtonVariant | undefined> = {
 	None: undefined,
 };
 
+const colorOptions = {
+	Primary: undefined,
+	Cyan: `${Button.baseName}--cyan`,
+	Gray: `${Button.baseName}--gray`,
+	Green: `${Button.baseName}--green`,
+	Navy: `${Button.baseName}--navy`,
+	Red: `${Button.baseName}--red`,
+	Teal: `${Button.baseName}--teal`,
+	Yellow: `${Button.baseName}--yellow`,
+};
+
 const iconOptions: Record<string, IconVariant | undefined> = {
 	CaretRight: 'caret-right',
 	Check: 'check',
@@ -30,6 +41,7 @@ const iconOptions: Record<string, IconVariant | undefined> = {
 
 export const Default: React.FunctionComponent = () => (
 	<Button
+		className={select('Color family', colorOptions, undefined)}
 		onClick={action('onClick')}
 		variant={select<ButtonVariant | undefined>('Variant', variantOptions, 'solid')}
 		disabled={boolean('Disabled', false)}
