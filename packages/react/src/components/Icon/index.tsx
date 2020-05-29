@@ -68,13 +68,13 @@ const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 		// TODO: warn/error if no icon was found?
 		return null;
 	}
-
 	const {
 		d,
 		name,
 		source,
 		viewBox = materialDefaults.viewBox,
 	} = icon;
+
 	const classes = classNames(baseName, {
 		[`${baseName}--${name}`]: name,
 	}, className);
