@@ -1,0 +1,149 @@
+////
+/// Typography
+/// @group typography
+////
+
+@use 'sass:list';
+@use 'device';
+@use 'spacing' as *;
+@use 'util';
+
+// FUNCTIONS
+
+@function system-stack($font-family, $generic) {
+	$system: '';
+
+	@if $generic == 'sans' {
+		$system: util.prop(font-family-system-sans);
+	}
+	@else if $generic == 'serif' {
+		$system: util.prop(font-family-system-sans);
+	}
+	@else if $generic == 'mono' {
+		$system: util.prop(font-family-system-mono);
+	}
+
+	@return list.join($font-family, $system, $separator: comma);
+}
+
+@function sans($font-family) {
+	@return system-stack($font-family, 'sans');
+}
+
+@function serif($font-family) {
+	@return system-stack($font-family, 'serif');
+}
+
+@function mono($font-family) {
+	@return system-stack($font-family, 'mono');
+}
+
+/// Get a font size using rem spacers.
+/// @param {Number} $px - The font size in pixels.
+/// @return {String} The font size spacer and rem conversion string.
+@function size($px) {
+	@return #{$px / $font-size-root}rem;
+}
+
+
+// TOKENS
+
+// System font stacks from https://systemfontstack.com/
+$font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif !default;
+$font-family-system-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !default;
+$font-family-system-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace !default;
+
+$font-family-sans: $font-family-system-sans !default;
+$font-family-serif: $font-family-system-serif !default;
+$font-family-mono: $font-family-system-mono !default;
+$font-family-base: $font-family-sans !default;
+$font-family-heading: $font-family-base !default;
+
+$font-size-root: 1em !default;
+$font-size-10: 0.625rem !default;
+$font-size-12: 0.75rem !default;
+$font-size-14: 0.875rem !default;
+$font-size-16: 1rem !default;
+$font-size-18: 1.125rem !default;
+$font-size-20: 1.25rem !default;
+$font-size-24: 1.5rem !default;
+$font-size-32: 2rem !default;
+$font-size-40: 2.5rem !default;
+$font-size-48: 3rem !default;
+
+$font-size-base: $font-size-16 !default;
+$font-size-small: $font-size-14 !default;
+$font-size-h1: $font-size-32 !default;
+$font-size-h2: $font-size-24 !default;
+$font-size-h3: $font-size-20 !default;
+$font-size-h4: $font-size-18 !default;
+$font-size-h5: $font-size-16 !default;
+$font-size-h6: $font-size-14 !default;
+
+$font-weight-thin: 200 !default;
+$font-weight-light: 300 !default;
+$font-weight-regular: 400 !default;
+$font-weight-bold: 700 !default;
+$font-weight-black: 900 !default;
+
+$font-weight-base: $font-weight-regular !default;
+$font-weight-heading: $font-weight-bold !default;
+
+$line-height-base: 1.5 !default;  // 24px - used on the document
+$line-height-sm: 1.25 !default;   // 20px
+
+$line-height-heading: $line-height-sm !default;
+
+
+// MIXINS
+
+/// Apply font smoothing.
+/// @link https://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/
+@mixin font-smoothing {
+	@include device.media-hd {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+	}
+}
+
+@mixin -text(
+	$family: util.prop(font-family-base),
+	$size: util.prop(font-size-base),
+	$height: util.prop(line-height-base),
+	$weight: null,
+) {
+	font-family: $family;
+	font-size: $size;
+	font-weight: $weight;
+	line-height: $height;
+}
+
+@mixin text-xs {
+	@include -text($size: util.prop(font-size-12));
+}
+
+@mixin text-sm {
+	@include -text($size: util.prop(font-size-14));
+}
+
+@mixin text-md {
+	@include -text;
+}
+
+@mixin text-lg {
+	@include -text($size: util.prop(font-size-18));
+}
+
+@mixin ui {
+	@include -text($height: util.prop(line-height-sm));
+}
+
+@mixin heading {
+	margin-top: 0;
+	margin-bottom: spacer-rem(1);
+	font-family: util.prop(font-family-heading);
+	font-style: util.prop(font-style-heading);
+	font-weight: util.prop(font-weight-headings);
+	line-height: util.prop(line-height-headings);
+	color: util.prop(color-body-text);
+}

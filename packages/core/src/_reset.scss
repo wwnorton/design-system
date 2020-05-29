@@ -1,0 +1,147 @@
+// stylelint-disable at-rule-no-vendor-prefix, property-no-vendor-prefix
+
+////
+/// Reset for HTML elements
+/// Manually forked from Bootstrap's reboot.
+/// @see https://github.com/twbs/bootstrap/blob/master/scss/_reboot.scss
+/// @group Reset
+////
+
+@use 'type';
+@use 'properties' as props;
+@use 'spacing' as *;
+@use 'util';
+
+$-style-set: false;
+
+@mixin style {
+	@if not $-style-set {
+		$-style-set: true !global;
+
+		// Document
+		// Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
+
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+		}
+
+		// Root
+		// Apply root font size to define the value of 1rem.
+
+		:root {
+			@include props.style;
+
+			font-size: util.prop('font-size-root');
+		}
+
+		// Body
+		// 1. Apply progressive font smoothing.
+		// 2. Remove the margin in all browsers.
+		// 3. As a best practice, apply a default `background-color`.
+		// 4. Prevent adjustments of font size after orientation changes in iOS.
+		// 5. Change the default tap highlight to be completely transparent in iOS.
+
+		body {
+			@include type.font-smoothing; // 1
+
+			// margin: 0; // 2
+			font-family: util.prop('font-family-base');
+			font-weight: util.prop('font-weight-base');
+			line-height: util.prop('line-height-base');
+			color: util.prop('color-body-text');
+			background-color: util.prop('color-body-bg'); // 3
+			-webkit-text-size-adjust: 100%; // 4
+			-webkit-tap-highlight-color: rgba(util.prop('black'), 0); // 5
+		}
+
+		// Future-proof rule: in browsers that support :focus-visible, suppress the focus outline
+		// on elements that programmatically receive focus but wouldn't normally show a visible
+		// focus outline. In general, this would mean that the outline is only applied if the
+		// interaction that led to the element receiving programmatic focus was a keyboard interaction,
+		// or the browser has somehow determined that the user is primarily a keyboard user and/or
+		// wants focus outlines to always be presented.
+		// See https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible
+		// and https://developer.paciellogroup.com/blog/2018/03/focus-visible-and-backwards-compatibility/
+
+		[tabindex='-1']:focus:not(:focus-visible) {
+			outline: 0 !important;
+		}
+
+		// Content grouping
+		//
+		// 1. Reset Firefox's gray color
+		// 2. Set correct height and prevent the `size` attribute to make the `hr` look like an input field
+		//    See https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_hr_size
+
+		hr {
+			margin: spacer-rem(1) 0;
+			color: inherit; // 1
+			background-color: currentColor;
+			border: 0;
+			opacity: 0.25;
+		}
+
+		hr:not([size]) {
+			height: 1px; // 2
+		}
+
+		// Typography
+		//
+		// 1. Remove top margins from headings
+		//    By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
+		//    margin for easier control within type scales as it avoids margin collapsing.
+
+		h1 {
+			@include type.heading;
+
+			font-size: util.prop('font-size-h1');
+		}
+
+		h2 {
+			@include type.heading;
+
+			font-size: util.prop('font-size-h2');
+		}
+
+		h3 {
+			@include type.heading;
+
+			font-size: util.prop('font-size-h3');
+		}
+
+		h4 {
+			@include type.heading;
+
+			font-size: util.prop('font-size-h4');
+		}
+
+		h5 {
+			@include type.heading;
+
+			font-size: util.prop('font-size-h5');
+		}
+
+		h6 {
+			@include type.heading;
+
+			font-size: util.prop('font-size-h6');
+		}
+
+		// Reset margins on paragraphs
+		//
+		// Similarly, the top margin on `<p>`s get reset. However, we also reset the
+		// bottom margin to use `rem` units instead of `em`.
+
+		p {
+			margin-top: 0;
+			margin-bottom: spacer-rem(1);
+		}
+
+		@content;
+	}
+	@else {
+		@error 'The reset should only be included once.';
+	}
+}

@@ -1,0 +1,208 @@
+////
+/// @group Utilities
+////
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+
+@use 'config' as *;
+
+/// Flatten a nested map.
+/// @param {Map} $map - The map that should be flattened.
+/// @param {String} $name [null] - The name of the map. Resulting keys will use this as a prefix.
+/// @param {String} $key-separator [-] - The separator that will be used to join map names.
+/// @return {Map} The flattened map. Key names will reflect the nesting structure.
+/// @example scss
+///   @debug flatten((a: (b: (c: 'd'))));
+///   // (a-b-c: 'd')
+@function flatten($map, $name: null, $key-separator: '-') {
+	$flattened: ();
+
+	@each $key in map.keys($map) {
+		$val: map.get($map, $key);
+		$full-key: if($name, #{prefix($key, $name, $key-separator)}, #{$key});
+
+		@if $key == '#root' {
+			$full-key: $name;
+		}
+
+		@if meta.type-of($val) == 'map' {
+			$flattened: map.merge($flattened, flatten($val, $full-key));
+		}
+		@else {
+			$flattened: map.merge($flattened, (#{$full-key}: #{$val}));
+		}
+	}
+
+	@return $flattened;
+}
+
+/// Recursively merge a list of maps. Similar to `map.merge` but takes many maps
+/// and merges any sub-maps recursively.
+/// @param {Map[]} $maps... - A list of maps that will be merged.
+/// @returns {Map} - A deeply merged map.
+@function deep-merge($maps...) {
+	$merged: list.nth($maps, 1);
+	$length: list.length($maps);
+
+	@if $length <= 1 { @return $merged; }
+
+	@for $i from 2 through $length {
+		$map: list.nth($maps, $i);
+		$map-type: meta.type-of($map);
+
+		@if $map-type == 'map' or ($map-type == 'list' and list.length($map) == 0) {
+			@each $key in map.keys($map) {
+				$new-val: map.get($map, $key);
+				$cur-val: map.get($merged, $key);
+
+				@if meta.type-of($new-val) == 'map' and meta.type-of($cur-val) == 'map' {
+					$new-val: deep-merge($cur-val, $new-val);
+				}
+
+				$merged: map.merge($merged, ($key: $new-val));
+			}
+		}
+		@else {
+			@error 'All arguments must be maps.';
+		}
+	}
+
+	@return $merged;
+}
+
+/// Deeply merge and then flatten a list of CSS property maps.
+/// @param {Map[]} $maps... - A list of maps that use structure to convey relationship.
+/// @returns {Map} - A flattened and merged map suitable for CSS properties.
+@function props($maps...) {
+	@return flatten(deep-merge($maps...));
+}
+
+@function remove($list, $removals...) {
+	$result: ();
+
+	@each $item in $list {
+		@if not list.index($result, $item) and not list.index($removals, $item) {
+			$result: list.append($result, $item, $separator: comma);
+		}
+	}
+
+	@return $result;
+}
+
+@function -prefix-map($map, $prefix, $separator) {
+	$prefixed: ();
+
+	@each $key, $value in $map {
+		$prefixed: map.merge($prefixed, (#{prefix($key, $prefix, $separator)}: $value));
+	}
+
+	@return $prefixed;
+}
+
+@function prefix($item, $ns: $namespace, $separator: '-') {
+	@if meta.type-of($item) == 'string' {
+		@return if($ns, $ns + $separator + $item, $item);
+	}
+	@else if meta.type-of($item) == 'number' {
+		@return if($ns, '#{$ns}#{$separator}#{$item}', $item);
+	}
+	@else if meta.type-of($item) == 'map' {
+		@return -prefix-map($item, $namespace, $separator);
+	}
+}
+
+/// Get the key that corresponds to a value in a map.
+/// @param {Map} $map - The map that will be used for lookup.
+/// @param {String} $value - The value of the corresponding key.
+/// @return {String} - The map's key name corresponding to the provided value.
+/// @example scss
+///   $my-map: ('red': #f00, 'yellow': #ba7);
+///   @debug get-key($my-map, #ba7);
+///   // yellow
+@function get-key($map, $value) {
+	$keys: map.keys($map);
+	$values: map.values($map);
+
+	@return list.nth($keys, list.index($values, $value));
+}
+
+/// Get a prefixed CSS custom property corresponding to a given value inside a map.
+/// @param {Map} $prop-map - The map that will be used for lookup.
+/// @param {String} $value - The value of the corresponding key.
+/// @param {String} $prop-namespace [$namespace] - A namespace that will be used
+/// as a prefix on the property. Default uses the global `$namespace`.
+/// @return {String} - A CSS custom property corresponding to the given value.
+/// @example scss - Default prefix
+///   $my-map: ('red': #f00, 'yellow': #ba7);
+///   @debug get-prop($my-map, #ba7);
+///   // var(--nds-yellow)
+/// @example scss - Custom prefix
+///   $my-map: ('red': #f00, 'yellow': #ba7);
+///   @debug get-prop($my-map, #ba7, 'foo');
+///   // var(--foo-yellow)
+/// @example scss - No prefix
+///   $my-map: ('red': #f00, 'yellow': #ba7);
+///   @debug get-prop($my-map, #ba7, null);
+///   // var(--yellow)
+@function get-prop($prop-map, $value, $prop-namespace: $namespace) {
+	$name: prefix(get-key($prop-map, $value), $prop-namespace);
+
+	@return var(--#{$name});
+}
+
+@function prop($prop) {
+	@return var(--#{prefix($prop)});
+}
+
+/// Set all props in a collection of maps.
+/// @param {Map[]} $prop-maps... - A list of property maps.
+@mixin set-props($prop-maps...) {
+	$props: ();
+
+	@each $prop-map in $prop-maps {
+		@if meta.type-of($prop-map) != 'map' {
+			@error 'All arguments must be maps';
+		}
+		@else {
+			$props: map.merge($props, $prop-map);
+		}
+	}
+
+	@each $token, $value in $props {
+		@if $value {
+			--#{prefix(#{$token})}: #{$value};
+		}
+	}
+}
+
+/// Padding helper
+/// Ensures that padding fits the design system box model.
+/// @param {String|Number} $padding-length - The desired padding length.
+/// @param {String|Number} $border-width [0] - The desired border width.
+/// @link https://gitlab.com/wwnorton/platform/design-system/-/issues/96 GitLab Issue
+@function padding($padding-length, $border-width: 0) {
+	@if $border-width {
+		@if $border-width == 0 {
+			@return $padding-length;
+		}
+
+		@return calc(#{$padding-length} - #{$border-width});
+	}
+
+	@return $padding-length;
+}
+
+@function px-rem($px, $browser-font-size: $browser-font-size) {
+	@return $px / $browser-font-size;
+}
+
+@function rem-px($rem, $browser-font-size: $browser-font-size) {
+	@return $rem * $browser-font-size;
+}
+
+@function min-max($val, $min, $max) {
+	@return math.max($min, math.min($max, $val));
+}

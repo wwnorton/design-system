@@ -1,0 +1,219 @@
+////
+/// @group Color
+////
+
+@use 'sass:map';
+@use 'util';
+
+// FUNCTIONS
+
+/// Create a new color family CSS property map based on an existing family map.
+/// @param {String} $name - The name of the family that you'd like to map.
+/// @param {Map} $families - A map of named family maps.
+/// See [`$default-families`](#variable-default-families) for an example of the
+/// expected shape of a family map.
+/// @example scss
+///   @debug family-props('teal', $default-families);
+///   // (10: var(--nds-teal-10), 20: var(--nds-teal-20), 30: var(--nds-teal-30), ...)
+@function family-props($name, $families) {
+	$family: map.get($families, $name);
+
+	@if not $family {
+		@warn '#{$name} does not exist on the provided map of color families. Options include #{map.keys($families)}.';
+
+		@return null;
+	}
+
+	$map: ();
+
+	@for $n from 1 through 10 {
+		$grade: $n * 10;
+		$map: map.merge($map, ($grade: util.prop(#{$name}-#{$grade})));
+	}
+
+	@return $map;
+}
+
+/// Create a new color swatch CSS property map based on an existing color family
+/// of CSS properties.
+/// @param {Number} $root-grade - The family grade that defines the midpoint of the swatch.
+/// @param {Map} $family-props - A color family CSS property map.
+/// @see family-prop
+@function shade-props($root-grade, $family-props) {
+	@return (
+		'lighter': map.get($family-props, util.min-max($root-grade - 20, 10, 100)),
+		'light': map.get($family-props, util.min-max($root-grade - 10, 10, 100)),
+		'#root': map.get($family-props, util.min-max($root-grade, 10, 100)),
+		'dark': map.get($family-props, util.min-max($root-grade + 10, 10, 100)),
+		'darker': map.get($family-props, util.min-max($root-grade + 20, 10, 100)),
+	);
+}
+
+@function family-swatch($name, $ref-name, $families, $swatch-grade) {
+	$family: family-props($ref-name, $families);
+	$swatch: shade-props($swatch-grade, $family);
+
+	@return util.flatten(util.deep-merge((#{$name}: $family), (#{$name}: $swatch)));
+}
+
+// SYSTEM TOKENS
+
+/// A map of color families. Color families are named hues that contain 10 grades, from 10 to 100.
+$default-families: (
+	'cyan': (
+		10: #e9f7fb,
+		20: #d3eef5,
+		30: #afe0ed,
+		40: #7cc9de,
+		50: #2c9fbf,
+		60: #1f7e99,
+		70: #1c6275,
+		80: #1b4c59,
+		90: #163740,
+		100: #10252b,
+	),
+	'gray': (
+		10: #f5f5f5,
+		20: #e8e8e8,
+		30: #d6d6d6,
+		40: #bdbdbd,
+		50: #919191,
+		60: #737373,
+		70: #595959,
+		80: #424242,
+		90: #333,
+		100: #232323,
+	),
+	'green': (
+		10: #e6fae6,
+		20: #d0f2d0,
+		30: #aae3aa,
+		40: #7ccf7c,
+		50: #44a644,
+		60: #228522,
+		70: #216621,
+		80: #1c4f1c,
+		90: #163b16,
+		100: #112911,
+	),
+	'navy': (
+		10: #f2f5f8,
+		20: #e2e8ee,
+		30: #ced7e0,
+		40: #b1bdc9,
+		50: #8493a3,
+		60: #63768a,
+		70: #475b70,
+		80: #32475e,
+		90: #243547,
+		100: #192633,
+	),
+	'red': (
+		10: #fff2f2,
+		20: #ffe0e0,
+		30: #ffc8c7,
+		40: #ffa2a1,
+		50: #f2615e,
+		60: #c93f3c,
+		70: #9e3331,
+		80: #7a2a28,
+		90: #591e1d,
+		100: #3d1515,
+	),
+	'teal': (
+		10: #e9f7f7,
+		20: #d1eded,
+		30: #abe0e0,
+		40: #76cbcc,
+		50: #29a1a3,
+		60: #1a8082,
+		70: #196263,
+		80: #174c4d,
+		90: #133838,
+		100: #0f2929,
+	),
+	'yellow': (
+		10: #fff5d9,
+		20: #fae7af,
+		30: #f0d278,
+		40: #deb647,
+		50: #b88828,
+		60: #96690e,
+		70: #7a4f11,
+		80: #633b12,
+		90: #4a2a0f,
+		100: #331d0d,
+	),
+);
+
+$color-families: () !default;
+$color-families: map.merge($default-families, $color-families);
+
+$black: #101010 !default;
+$white: #fdfdfd !default;
+
+// ROLE TOKENS
+
+/// The color family that will be used as the primary color across the design system.
+$primary-family: 'teal' !default;
+
+/// The grade that will be used as the midpoint for the primary swatch.
+$primary-grade: 60 !default;
+
+/// The color family that will be used as the base color for backgrounds and text.
+$base-family: 'navy' !default;
+$base-grade: 60 !default;
+
+/// The color family that will be used for `disabled` elements.
+$disabled-family: 'color-base' !default;
+$disabled-grade: 20 !default;
+
+/// The color family that will be used for errors.
+$error-family: 'red' !default;
+$error-grade: 60 !default;
+
+/// The color family that will be used to convey success.
+$success-family: 'green' !default;
+$success-grade: 60 !default;
+
+/// The Color family that will be used for warnings.
+$warning-family: 'yellow' !default;
+$warning-grade: 60 !default;
+
+// PROPERTY MAPS
+
+$role-families: (
+	'color-primary': family-props($primary-family, $color-families),
+	'color-base': family-props($base-family, $color-families),
+	'color-error': family-props($error-family, $color-families),
+	'color-success':family-props($success-family, $color-families),
+	'color-warning':family-props($warning-family, $color-families),
+);
+
+$role-families: map.merge(
+	$role-families,
+	(
+		'color-disabled': family-props($disabled-family, $role-families),
+	)
+);
+
+$role-swatches: (
+	'color-primary': shade-props($primary-grade, map.get($role-families, 'color-primary')),
+	'color-disabled': shade-props($disabled-grade, map.get($role-families, 'color-disabled')),
+	'color-error': shade-props($error-grade, map.get($role-families, 'color-error')),
+	'color-success': shade-props($success-grade, map.get($role-families, 'color-success')),
+	'color-warning': shade-props($warning-grade, map.get($role-families, 'color-warning')),
+);
+
+$colors: util.deep-merge(
+	$color-families,
+	$role-families,
+	$role-swatches,
+	(
+		'black': $black,
+		'white': $white,
+		'color-body-bg': util.prop('white'),
+		'color-body-text': util.prop('black'),
+		'color-focus-ring': util.prop('cyan-50'),
+	),
+);

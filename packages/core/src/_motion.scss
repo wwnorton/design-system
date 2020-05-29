@@ -7,39 +7,54 @@
 /// @source https://material.io/design/motion/speed.html#easing Material Design: Easings
 ////
 
-/// A multiplier utility for increasing/decreasing all motion speed.
-$duration-multiplier: 1 !default;
+@use 'sass:list';
+@use 'sass:map';
+@use 'util';
+
+// FUNCTIONS
+
+@function scale($duration) {
+	@return calc(#{$duration} * #{util.prop(duration-scalar)});
+}
+
+/// Apply one transition to many properties
+/// @param {String} $transition - An easing and/or duration.
+/// @param {String[]} $properties... - A list of CSS properties.
+@function transition($transition, $properties...) {
+	$full-transition: ();
+
+	@each $property in $properties {
+		$full-transition: list.join($full-transition, #{$property $transition}, $separator: comma);
+	}
+
+	@return $full-transition;
+}
+
+
+// TOKENS
+
+/// A multiplier used for increasing/decreasing all motion speed.
+$duration-scalar: 1 !default;
 
 /// A duration used for simple animations such as selection controls.
-$duration-simple: 100ms * $duration-multiplier !default;
+$duration-simple: 100ms !default;
 /// A duration used for simple entrances such as fade-ins.
-$duration-simple-enter: 150ms * $duration-multiplier !default;
+$duration-simple-enter: 150ms !default;
 /// A duration used for simple exits such as fade-outs.
-$duration-simple-exit: 75ms * $duration-multiplier !default;
+$duration-simple-exit: 75ms !default;
 /// A duration used for complex animations such as shape changes.
-$duration-complex: 200ms * $duration-multiplier !default;
+$duration-complex: 200ms !default;
 /// A duration used for detailed animations such as icon transformations.
-$duration-detailed: 500ms * $duration-multiplier !default;
+$duration-detailed: 500ms !default;
 
 /// A duration used for elements that open from a closed state, such as a sidebar.
-$duration-open: 250ms * $duration-multiplier !default;
+$duration-open: 250ms !default;
 /// A duration used for elements that close from an opened state, such as a sidebar.
-$duration-close: 200ms * $duration-multiplier !default;
+$duration-close: 200ms !default;
 /// A duration used when an element expands (grows).
-$duration-expand: 300ms * $duration-multiplier !default;
+$duration-expand: 300ms !default;
 /// A duration used when an element collapses (shrinks).
-$duration-collapse: 250ms * $duration-multiplier !default;
-
-/// A duration used for elements that traverse a short distance.
-$duration-small: $duration-simple !default;
-/// A duration used for elements that expand a medium distance.
-$duration-medium-expand: $duration-open !default;
-/// A duration used for elements that collapse a medium distance.
-$duration-medium-collapse: $duration-close !default;
-/// A duration used for elements that expand a large distance.
-$duration-large-expand: $duration-expand !default;
-/// A duration used for elements that collapse a large distance.
-$duration-large-collapse: $duration-collapse !default;
+$duration-collapse: 250ms !default;
 
 /// Standard easing puts subtle attention at the end of an animation, by giving
 /// more time to deceleration than acceleration. It is the most common form of
