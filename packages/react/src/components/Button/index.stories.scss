@@ -1,1 +1,3 @@
-@use '@nds/core/src/components/button';
+@use '../../../core';
+
+@include core.button-style;

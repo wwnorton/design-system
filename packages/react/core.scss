@@ -1,0 +1,5 @@
+@forward '@nds/core/index' with (
+	// override any !default variables here.
+	$namespace: null,
+	// $color-primary-family: 'navy',
+);
