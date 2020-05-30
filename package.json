@@ -23,7 +23,7 @@
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "publish": "lerna publish",
-    "storybook": "lerna exec --scope=@nds/react -- npm run storybook",
+    "storybook": "lerna exec --scope=@nds/react -- npm run dev:stories",
     "test": "ava"
   },
   "husky": {

@@ -24,11 +24,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run build:ts",
     "build:stories": "build-storybook",
-    "build:ts": "tsc -p .",
-    "dev": "npm run storybook",
-    "storybook": "start-storybook"
+    "dev:stories": "start-storybook"
   },
   "dependencies": {
     "@popperjs/core": "^2.4.0",

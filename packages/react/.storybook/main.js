@@ -1,7 +1,10 @@
 const path = require('path');
+const rootConfig = require('../../../webpack.config');
+
+const tsConfig = path.resolve(__dirname, '../tsconfig.json');
 
 module.exports = {
-	stories: ['../src/**/*.stories.{ts,tsx,mdx}'],
+	stories: [path.resolve(__dirname, '../src/**/*.stories.{ts,tsx,mdx}')],
 	addons: [
 		'@storybook/addon-a11y',
 		'@storybook/addon-actions',
@@ -19,6 +22,12 @@ module.exports = {
 			name: '@storybook/preset-typescript',
 			options: {
 				include: [path.resolve(__dirname, '../src')],
+				forkTsCheckerWebpackPluginOptions: {
+					tsconfig: tsConfig,
+				},
+				tsLoaderOptions: {
+					configFile: tsConfig,
+				},
 				tsDocgenLoaderOptions: {
 					// filter out HTML props
 					// https://github.com/styleguidist/react-docgen-typescript#parseroptions
@@ -31,5 +40,14 @@ module.exports = {
 				},
 			},
 		},
-	]
+	],
+	webpackFinal: (config) => {
+		return {
+			...config,
+			resolve: {
+				...config.resolve,
+				alias: rootConfig.resolve.alias,
+			},
+		};
+	},
 }
