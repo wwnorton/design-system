@@ -20,8 +20,8 @@
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
     "HonChih Chen <hchen@wwnorton.com>",
-    "Trama, Darian <dtrama@wwnorton.com>",
-    "Porter, Kellie <kporter@wwnorton.com>"
+    "Darian Trama <dtrama@wwnorton.com>",
+    "Kellie Porter <kporter@wwnorton.com>"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

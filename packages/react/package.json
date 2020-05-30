@@ -15,8 +15,8 @@
   "license": "UNLICENSED",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
-    "Rumbaut, Gabriel <grumbaut@wwnorton.com>",
-    "Chen, HonChih <hchen@wwnorton.com>"
+    "Gabriel Rumbaut <grumbaut@wwnorton.com>",
+    "HonChih Chen <hchen@wwnorton.com>"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
