@@ -168,7 +168,6 @@ class Modal extends React.Component<ModalProps, ModalState> {
 	): void {
 		const {
 			isOpen,
-			addCloseButton,
 			baseName,
 			portalClass = `${baseName}__${Modal.bemElements.portal}`,
 		} = this.props;
