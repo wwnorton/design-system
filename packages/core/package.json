@@ -35,8 +35,5 @@
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8"
-  },
-  "devDependencies": {
-    "@types/lodash.debounce": "^4.0.6"
   }
 }
