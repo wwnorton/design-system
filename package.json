@@ -131,7 +131,6 @@
     "react-test-renderer": "^16.13.1",
     "sass": "^1.26.7",
     "sass-loader": "^8.0.2",
-    "source-map-loader": "^0.2.4",
     "style-loader": "^1.2.1",
     "stylelint": "^13.3.3",
     "stylelint-config-norton": "^3.0.0",
