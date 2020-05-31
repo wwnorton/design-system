@@ -17,7 +17,7 @@ type DisclosureState = 'open' | 'closed' | 'opening' | 'closing';
 type DisclosureEvent = 'closestart' | 'closecancel' | 'closeend' | 'openstart' | 'opencancel' | 'openend';
 const instances = new Set<Disclosure>();
 
-export export interface DisclosureOptions {
+export interface DisclosureOptions {
 	/**
 	 * The contents will be placed inside a container that has its `height` set
 	 */
