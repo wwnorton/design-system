@@ -1,7 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import findIcon, { IconVariant, SVGIcon, materialDefaults } from '../../utilities/icons';
-import BaseSVG, { BaseSVGProps } from '../BaseSVG';
+import {
+	findIcon, IconVariant, SVGIcon, materialDefaults,
+} from '@nds/react/utilities';
+import { BaseSVG, BaseSVGProps } from '../BaseSVG';
 
 export interface IconProps extends BaseSVGProps {
 	/** The base class name according to BEM conventions */
@@ -20,7 +22,7 @@ export interface IconProps extends BaseSVGProps {
 	warnOnClick?: boolean;
 }
 
-const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
+export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	baseName = 'icon',
 	label,
 	variant,
@@ -68,13 +70,13 @@ const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 		// TODO: warn/error if no icon was found?
 		return null;
 	}
-
 	const {
 		d,
 		name,
 		source,
 		viewBox = materialDefaults.viewBox,
 	} = icon;
+
 	const classes = classNames(baseName, {
 		[`${baseName}--${name}`]: name,
 	}, className);
@@ -98,5 +100,3 @@ const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 		</BaseSVG>
 	);
 });
-
-export default Icon;

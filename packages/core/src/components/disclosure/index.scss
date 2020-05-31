@@ -22,7 +22,7 @@
 // disable the user agent's marker (triangle/caret)
 summary::-moz-details-marker,
 summary::-ms-details-marker,
-summary::-o-details-marker, {
+summary::-o-details-marker {
 	display: none;
 }
 
@@ -35,12 +35,12 @@ summary::marker {
 	content: '';
 }
 
-.disclosure__container {
-	@include disclosure-container;
+.disclosure__contents-outer {
+	@include disclosure-contents-outer;
 }
 
-.disclosure__contents {
-	@include disclosure-contents;
+.disclosure__contents-inner {
+	@include disclosure-contents-inner;
 }
 
 .disclosure--panel {
@@ -56,6 +56,6 @@ summary::marker {
 
 // when requested, disable all motion on the following elements
 @include reduce-motion(
-	'.disclosure__container',
+	'.disclosure__contents-outer',
 	'.details-marker path',
 );

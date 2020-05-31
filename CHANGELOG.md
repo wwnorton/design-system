@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.8.1...v0.9.0) (2020-05-31)
+
+### Features
+
+- **react:** add icon variants ([222e7b2](https://gitlab.com/wwnorton/platform/design-system/commit/222e7b20411e09edf10dd3dc909b7b5bb56e1cb0))
+
+## [0.8.1](https://gitlab.com/wwnorton/platform/design-system/compare/v0.8.0...v0.8.1) (2020-05-08)
+
+**Note:** Version bump only for package nds
+
 # [0.8.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.7.0...v0.8.0) (2020-05-02)
 
 ### Bug Fixes

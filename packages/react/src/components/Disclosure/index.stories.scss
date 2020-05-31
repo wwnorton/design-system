@@ -1,1 +1,3 @@
-@use '@nds/core/src/components/disclosure';
+@use '@nds/core/src/components/disclosure' with (
+	$duration-multiplier: 1,
+);

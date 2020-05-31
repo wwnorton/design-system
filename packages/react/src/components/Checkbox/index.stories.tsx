@@ -6,7 +6,7 @@ import {
 	text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Checkbox from '.';
+import { Checkbox } from '.';
 
 export default {
 	title: 'Checkbox',

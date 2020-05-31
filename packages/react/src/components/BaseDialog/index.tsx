@@ -4,7 +4,7 @@ export interface BaseDialogProps extends React.HTMLAttributes<HTMLDivElement> {
 	modal?: boolean;
 }
 
-const BaseDialog = React.forwardRef<HTMLDivElement, BaseDialogProps>(({
+export const BaseDialog = React.forwardRef<HTMLDivElement, BaseDialogProps>(({
 	modal = true,
 	children,
 	...attributes
@@ -18,5 +18,3 @@ const BaseDialog = React.forwardRef<HTMLDivElement, BaseDialogProps>(({
 		{ children }
 	</div>
 ));
-
-export default BaseDialog;

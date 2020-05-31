@@ -1,7 +1,7 @@
 import test from 'ava';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Icon from '.';
+import { Icon } from '.';
 
 test('renders its defaults', (t) => {
 	const component = renderer.create(<Icon variant="close" />);

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import BaseInput, { BaseInputProps } from '../BaseInput';
-import { isElement } from '../../utilities/helpers';
+import { isElement } from '@nds/react/utilities';
+import { BaseInput, BaseInputProps } from '../BaseInput';
 
 export type RadioContent = 'input' | 'control' | 'thumbnail' | 'label' | 'help' | 'container';
 
@@ -31,7 +31,7 @@ export interface RadioProps extends BaseInputProps {
 	inputRef?: React.RefObject<HTMLInputElement>;
 }
 
-class Radio extends React.Component<RadioProps> {
+export class Radio extends React.Component<RadioProps> {
 	private inputRef: React.RefObject<HTMLInputElement>;
 	private uid: string = uniqueId(`${Radio.bemBase}-`);
 	// eslint-disable-next-line react/destructuring-assignment,react/sort-comp
@@ -157,5 +157,3 @@ class Radio extends React.Component<RadioProps> {
 		);
 	}
 }
-
-export default Radio;

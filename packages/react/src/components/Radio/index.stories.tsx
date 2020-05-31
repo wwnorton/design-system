@@ -6,7 +6,7 @@ import {
 	text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Radio, { RadioProps } from '.';
+import { Radio, RadioProps } from '.';
 
 export default {
 	title: 'Radio',

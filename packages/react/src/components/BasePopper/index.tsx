@@ -6,7 +6,7 @@ import {
 	Instance,
 	VirtualElement,
 } from '@popperjs/core';
-import { useForwardedRef } from '../../utilities/hooks';
+import { useForwardedRef } from '../../utilities';
 
 export interface BasePopperProps extends React.HTMLAttributes<HTMLDivElement>, Partial<Options> {
 	/** React ref for the reference node on which the popper element will be attached. */
@@ -33,7 +33,7 @@ export interface BasePopperState {
 	isOpen: boolean;
 }
 
-class BasePopper extends React.Component<BasePopperProps, BasePopperState> {
+class BasePopperCore extends React.Component<BasePopperProps, BasePopperState> {
 	private PortalNode: HTMLDivElement;
 	private popper: Instance | null;
 	private popperRef: React.RefObject<HTMLDivElement>;
@@ -57,7 +57,7 @@ class BasePopper extends React.Component<BasePopperProps, BasePopperState> {
 	// append portal and create popper instance when component mounts
 	componentDidMount(): void {
 		const {
-			mountPoint = BasePopper.defaultProps.mountPoint,
+			mountPoint = BasePopperCore.defaultProps.mountPoint,
 			reference,
 			placement,
 			modifiers,
@@ -227,10 +227,7 @@ class BasePopper extends React.Component<BasePopperProps, BasePopperState> {
 	}
 }
 
-type BasePopperRenderType = React.ForwardRefRenderFunction<HTMLDivElement, BasePopperProps>;
-const BasePopperRender: BasePopperRenderType = (props, ref) => {
+export const BasePopper = React.forwardRef<HTMLDivElement, BasePopperProps>((props, ref) => {
 	const popperRef = useForwardedRef(ref);
-	return <BasePopper popperRef={popperRef} {...props} />;
-};
-
-export default React.forwardRef<HTMLDivElement, BasePopperProps>(BasePopperRender);
+	return <BasePopperCore popperRef={popperRef} {...props} />;
+});

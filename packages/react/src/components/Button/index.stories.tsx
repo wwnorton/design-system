@@ -4,8 +4,8 @@ import {
 	withKnobs, select, boolean, text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Button, { ButtonVariant } from '.';
-import { IconVariant, SVGIcon } from '../../utilities/icons';
+import { IconVariant, SVGIcon } from '@nds/react/utilities';
+import { Button, ButtonVariant } from '.';
 
 export default {
 	title: 'Button',
