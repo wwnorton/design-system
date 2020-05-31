@@ -2,8 +2,8 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Dropdown from '.';
-import Button from '../Button';
+import { Button } from '../Button';
+import { Dropdown } from '.';
 
 export default {
 	title: 'Dropdown',

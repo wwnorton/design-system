@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import BaseButton, { BaseButtonProps } from '../BaseButton';
-import { IconVariant, SVGIcon } from '../../utilities/icons';
-import Icon from '../Icon';
+import { IconVariant, SVGIcon } from '@nds/react/utilities';
+import { BaseButton, BaseButtonProps } from '../BaseButton';
+import { Icon } from '../Icon';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
@@ -34,7 +34,7 @@ export interface ButtonProps extends BaseButtonProps {
 	textClass?: string;
 }
 
-class Button extends React.PureComponent<ButtonProps> {
+export class Button extends React.PureComponent<ButtonProps> {
 	public static baseName = 'button';
 	public static elements = {
 		icon: 'icon',
@@ -146,5 +146,3 @@ class Button extends React.PureComponent<ButtonProps> {
 		);
 	}
 }
-
-export default Button;

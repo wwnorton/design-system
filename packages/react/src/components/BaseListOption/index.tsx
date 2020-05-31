@@ -1,6 +1,6 @@
 import React from 'react';
-import { useForwardedRef } from '../../utilities/hooks';
-import Icon from '../Icon';
+import { useForwardedRef } from '@nds/react/utilities';
+import { Icon } from '../Icon';
 
 export interface BaseListOptionProps extends React.LiHTMLAttributes<HTMLLIElement> {
 	/** Indicates whether the option is currently selected. */
@@ -13,7 +13,11 @@ export interface BaseListOptionProps extends React.LiHTMLAttributes<HTMLLIElemen
 	valueClass?: string;
 }
 
-const BaseListOption: React.ForwardRefRenderFunction<HTMLLIElement, BaseListOptionProps> = ({
+/**
+ * An option is "a selectable item in a listbox." Used in `BaseListbox`.
+ * @ARIA https://w3c.github.io/aria/#option
+ */
+export const BaseListOption = React.forwardRef<HTMLLIElement, BaseListOptionProps>(({
 	isSelected = false,
 	children,
 	markerClass,
@@ -33,12 +37,4 @@ const BaseListOption: React.ForwardRefRenderFunction<HTMLLIElement, BaseListOpti
 			<span className={valueClass}>{ children }</span>
 		</li>
 	);
-};
-
-/**
- * An option is "a selectable item in a listbox." Used in `BaseListbox`.
- * @ARIA https://w3c.github.io/aria/#option
- */
-const BaseListOptionForwardRef = React.forwardRef(BaseListOption);
-
-export default BaseListOptionForwardRef;
+});

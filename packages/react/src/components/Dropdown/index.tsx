@@ -5,9 +5,9 @@ import {
 	Instance as PopperInstance,
 	Options as PopperOptions,
 } from '@popperjs/core';
-import BaseButton, { BaseButtonProps } from '../BaseButton';
-import BaseListbox, { BaseListboxProps } from '../BaseListbox';
-import Icon from '../Icon';
+import { BaseButton, BaseButtonProps } from '../BaseButton';
+import { BaseListbox, BaseListboxProps } from '../BaseListbox';
+import { Icon } from '../Icon';
 
 export type DropdownAnatomy = 'label' | 'button' | 'listbox' | 'option';
 
@@ -68,7 +68,7 @@ export interface DropdownState {
 	width: number | 'auto';
 }
 
-class Dropdown extends React.Component<DropdownProps, DropdownState> {
+export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 	public static bemBase = 'dropdown';
 	public static bemElements: Record<DropdownAnatomy, string> = {
 		label: 'label',
@@ -362,5 +362,3 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
 		);
 	}
 }
-
-export default Dropdown;

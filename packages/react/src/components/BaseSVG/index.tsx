@@ -5,7 +5,7 @@ export interface BaseSVGProps extends React.SVGAttributes<SVGSVGElement> {
 	source?: string;
 }
 
-const BaseSVG = React.forwardRef<SVGSVGElement, BaseSVGProps>(({
+export const BaseSVG = React.forwardRef<SVGSVGElement, BaseSVGProps>(({
 	source,
 	children,
 	...attributes
@@ -19,5 +19,3 @@ const BaseSVG = React.forwardRef<SVGSVGElement, BaseSVGProps>(({
 		{ children }
 	</svg>
 ));
-
-export default BaseSVG;

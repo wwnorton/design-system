@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-	createValidator, InputType, ValidatorEntry, ValidatorError,
-} from '../../utilities/validation';
-import { useForwardedRef } from '../../utilities/hooks';
+	createValidator, InputType, ValidatorEntry, ValidatorError, useForwardedRef,
+} from '@nds/react/utilities';
 
 export interface ValidationState {
 	errors: ValidatorError[];
@@ -51,7 +50,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	type?: InputType;
 }
 
-export const BaseInputRender: React.ForwardRefRenderFunction<HTMLInputElement, BaseInputProps> = (
+export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 	{
 		onDOMChange,
 		onChange,
@@ -127,6 +126,4 @@ export const BaseInputRender: React.ForwardRefRenderFunction<HTMLInputElement, B
 			{...attributes}
 		/>
 	);
-};
-
-export default React.forwardRef<HTMLInputElement, BaseInputProps>(BaseInputRender);
+});

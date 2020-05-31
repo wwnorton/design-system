@@ -1,7 +1,7 @@
 import test from 'ava';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Radio from '.';
+import { Radio } from '.';
 
 const childrenTextMatch = (fixture: JSX.Element) => (
 	testComponent: renderer.ReactTestInstance,

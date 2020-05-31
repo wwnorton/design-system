@@ -1,8 +1,8 @@
 import test, { ExecutionContext } from 'ava';
 import React from 'react';
 import { create } from 'react-test-renderer';
-import MultipleChoice, { MultipleChoiceProps } from '.';
-import Choice from '../Choice';
+import { MultipleChoice, MultipleChoiceProps } from '.';
+import { Choice } from '../Choice';
 
 interface InputChanger {
 	(n: number, expected: number[]): void;

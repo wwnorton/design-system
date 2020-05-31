@@ -1,9 +1,9 @@
 import React from 'react';
-import Button, { ButtonProps } from '../Button';
-import Checkbox, { CheckboxProps } from '../Checkbox';
-import Radio from '../Radio';
-import Switch from '../Switch';
-import { noop } from '../../utilities/helpers';
+import { noop } from '@nds/react/utilities';
+import { Button, ButtonProps } from '../Button';
+import { Checkbox, CheckboxProps } from '../Checkbox';
+import { Radio } from '../Radio';
+import { Switch } from '../Switch';
 
 export type ChoiceVariant = 'button' | 'checkbox' | 'radio' | 'switch';
 
@@ -23,7 +23,7 @@ export interface ChoiceProps {
 	onClick?: ButtonProps['onClick'];
 }
 
-class Choice extends React.PureComponent<ChoiceProps> {
+export class Choice extends React.PureComponent<ChoiceProps> {
 	static defaultProps = {
 		variant: 'radio',
 		buttonVariant: 'solid',
@@ -91,5 +91,3 @@ class Choice extends React.PureComponent<ChoiceProps> {
 		return <Radio {...inputProps} />;
 	}
 }
-
-export default Choice;

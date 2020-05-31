@@ -1,13 +1,13 @@
-// All components export their class as a default
-export { default as Button } from './components/Button';
-export { default as Checkbox } from './components/Checkbox';
-export { default as Disclosure } from './components/Disclosure';
-export { default as Dropdown } from './components/Dropdown';
-export { default as Icon } from './components/Icon';
-export { default as IconButton } from './components/IconButton';
-export { default as Modal } from './components/Modal';
-export { default as MultipleChoice } from './components/MultipleChoice';
-export { default as Radio } from './components/Radio';
-export { default as Switch } from './components/Switch';
-export { default as TextField } from './components/TextField';
-// export { default as Tooltip } from './components/Tooltip';
+export * from './components/Button';
+export * from './components/Checkbox';
+export * from './components/Choice';
+export * from './components/Disclosure';
+export * from './components/Dropdown';
+export * from './components/Icon';
+export * from './components/IconButton';
+export * from './components/Modal';
+export * from './components/MultipleChoice';
+export * from './components/Radio';
+export * from './components/Switch';
+export * from './components/TextField';
+export * from './components/Tooltip';

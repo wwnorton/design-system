@@ -6,7 +6,7 @@ import {
 	boolean,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import IconButton from '.';
+import { IconButton } from '.';
 
 export default {
 	title: 'IconButton',

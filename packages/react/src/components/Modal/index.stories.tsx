@@ -4,8 +4,9 @@ import {
 	withKnobs, boolean, text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Modal from '.';
-import { Button, TextField } from '../..';
+import { Modal } from '.';
+import { Button } from '../Button';
+import { TextField } from '../TextField';
 
 export default {
 	title: 'Modal',

@@ -283,8 +283,6 @@ export const materialIcons: SVGIcon[] = [
  * Retrieve an SVGIcon object, which contains the path's `d` & `viewBox` needed
  * to set the SVG.
  */
-const findIcon = (
+export const findIcon = (
 	name?: IconVariant,
 ): SVGIcon | undefined => materialIcons.find(({ name: iconName }) => name === iconName);
-
-export default findIcon;
