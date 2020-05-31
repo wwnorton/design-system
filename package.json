@@ -2,6 +2,9 @@
   "name": "nds",
   "private": true,
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "gulp build",
