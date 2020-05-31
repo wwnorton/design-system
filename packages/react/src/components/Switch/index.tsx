@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import BaseButton, { BaseButtonProps } from '../BaseButton';
-import { noop } from '../../utilities/helpers';
+import { noop } from '@nds/react/utilities';
+import { BaseButton, BaseButtonProps } from '../BaseButton';
 
 export interface SwitchProps extends BaseButtonProps {
 	/** The switch's initial "on" state. */
@@ -28,7 +28,7 @@ export interface SwitchState {
 }
 
 /** A switch allows a user to immediately turn an option on or off. */
-class Switch extends React.Component<SwitchProps, SwitchState> {
+export class Switch extends React.Component<SwitchProps, SwitchState> {
 	/* eslint-disable react/sort-comp */
 	static bemBase = 'switch';
 	static bemElements = {
@@ -144,5 +144,3 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
 		);
 	}
 }
-
-export default Switch;

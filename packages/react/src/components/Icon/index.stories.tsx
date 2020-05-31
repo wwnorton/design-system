@@ -6,7 +6,7 @@ import {
 	text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Icon, { IconProps } from '.';
+import { Icon, IconProps } from '.';
 
 export default {
 	title: 'Icon',

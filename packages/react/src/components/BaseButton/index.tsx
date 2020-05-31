@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useActive } from '../../utilities/hooks';
+import { useActive } from '@nds/react/utilities';
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	/** Whether the button is currently depressed. Polyfill for :active on keydown. */
@@ -14,7 +14,7 @@ export const BaseButtonDefaults = {
 	activeClass: 'active',
 };
 
-const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
+export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 	active = BaseButtonDefaults.active,
 	activeClass = BaseButtonDefaults.activeClass,
 	onKeyDown,
@@ -60,5 +60,3 @@ const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 		</button>
 	);
 });
-
-export default BaseButton;

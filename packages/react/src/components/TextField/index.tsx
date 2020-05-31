@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import BaseInput, { BaseInputProps } from '../BaseInput';
-import { isElement } from '../../utilities/helpers';
-import { ValidatorEntry, defaultValidators, ValidatorError } from '../../utilities/validation';
+import {
+	isElement, ValidatorEntry, defaultValidators, ValidatorError,
+} from '@nds/react/utilities';
+import { BaseInput, BaseInputProps } from '../BaseInput';
 
 export type TextFieldContent = 'label' | 'help' | 'input' | 'feedback' | 'error' | 'counter';
 export type TextFieldType = 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
@@ -70,7 +71,7 @@ interface TextFieldState {
 	validators?: ValidatorEntry[];
 }
 
-class TextField extends React.Component<TextFieldProps, TextFieldState> {
+export class TextField extends React.Component<TextFieldProps, TextFieldState> {
 	public static bemBase = 'textfield';
 	public static bemElements: Record<TextFieldContent, string> = {
 		label: 'label',
@@ -309,5 +310,3 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
 		);
 	}
 }
-
-export default TextField;

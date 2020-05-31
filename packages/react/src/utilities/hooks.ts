@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { mergeRefs } from './helpers';
 
 interface UseActiveReturn {
 	active: boolean;
@@ -21,7 +20,16 @@ export const useForwardedRef = <T>(forwardedRef?: React.Ref<T>): React.RefObject
 	const innerRef = useRef<T>(null);
 
 	useEffect(() => {
-		mergeRefs(innerRef, forwardedRef);
+		if (!forwardedRef) return;
+
+		if (typeof forwardedRef === 'function') {
+			forwardedRef(innerRef.current);
+		} else {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+			// @ts-ignore
+			// eslint-disable-next-line no-param-reassign
+			forwardedRef.current = innerRef.current;
+		}
 	}, [forwardedRef]);
 
 	return innerRef;

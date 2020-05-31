@@ -1,10 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import Icon from '../Icon';
-import BaseInput, { BaseInputProps } from '../BaseInput';
-import { isElement } from '../../utilities/helpers';
-import { ValidatorError, defaultValidators } from '../../utilities/validation';
+import { isElement, ValidatorError, defaultValidators } from '@nds/react/utilities';
+import { BaseInput, BaseInputProps } from '../BaseInput';
+import { Icon } from '../Icon';
 
 export type CheckboxContent = 'input' | 'label' | 'help' | 'error' | 'control' | 'container' | 'thumbnail';
 
@@ -50,7 +49,7 @@ export interface CheckboxState {
 	valid: boolean;
 }
 
-class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
+export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 	public static bemBase = 'checkbox';
 	public static bemElements: Record<CheckboxContent, string> = {
 		input: 'input',
@@ -247,5 +246,3 @@ class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
 		);
 	}
 }
-
-export default Checkbox;

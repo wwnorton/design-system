@@ -1,6 +1,6 @@
 import React from 'react';
-import BasePopper, { BasePopperProps } from '../BasePopper';
-import { idGen } from '../../utilities/helpers';
+import { idGen } from '@nds/react/utilities/helpers';
+import { BasePopper, BasePopperProps } from '../BasePopper';
 
 export type TooltipAnatomy = 'portal' | 'container' | 'arrow';
 
@@ -16,7 +16,7 @@ export interface TooltipProps extends BasePopperProps {
 	isLabel?: boolean;
 }
 
-class Tooltip extends React.Component<TooltipProps> {
+export class Tooltip extends React.Component<TooltipProps> {
 	public static bemBase = 'tooltip';
 	public static bemElements: Record<TooltipAnatomy, string> = {
 		portal: 'portal',
@@ -84,5 +84,3 @@ class Tooltip extends React.Component<TooltipProps> {
 		);
 	}
 }
-
-export default Tooltip;

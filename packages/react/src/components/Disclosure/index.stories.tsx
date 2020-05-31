@@ -7,7 +7,7 @@ import {
 	boolean,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import Disclosure from '.';
+import { Disclosure } from '.';
 
 export default {
 	title: 'Disclosure',

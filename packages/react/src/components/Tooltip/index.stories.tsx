@@ -7,8 +7,8 @@ import {
 } from '@storybook/addon-knobs';
 import { placements } from '@popperjs/core/lib/enums';
 import './index.stories.scss';
-import Tooltip from '.';
-import Button from '../Button';
+import { Tooltip } from '.';
+import { Button } from '../Button';
 
 export default {
 	title: 'Tooltip',

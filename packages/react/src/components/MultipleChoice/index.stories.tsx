@@ -5,8 +5,8 @@ import {
 	withKnobs, boolean, text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import MultipleChoice, { MultipleChoiceProps } from '.';
-import Choice from '../Choice';
+import { MultipleChoice, MultipleChoiceProps } from '.';
+import { Choice } from '../Choice';
 
 export default {
 	title: 'MultipleChoice',

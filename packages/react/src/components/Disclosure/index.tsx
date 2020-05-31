@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
-import BaseDetails, { BaseDetailsProps } from '../BaseDetails';
-import BaseSummary from '../BaseSummary';
-import Icon from '../Icon';
-import { isElement, hasTransition } from '../../utilities/helpers';
+import { isElement, hasTransition } from '@nds/react/utilities';
+import { BaseDetails, BaseDetailsProps } from '../BaseDetails';
+import { BaseSummary } from '../BaseSummary';
+import { Icon } from '../Icon';
 
 export type DisclosureVariant = 'default' | 'panel';
 export type DisclosureAnatomy = 'summary' | 'marker' | 'contentsInner' | 'contentsOuter';
@@ -57,7 +57,7 @@ export interface DisclosureProps extends BaseDetailsProps {
 	onOpenEnd?: () => void;
 }
 
-export default class Disclosure extends React.Component<DisclosureProps, DisclosureState> {
+export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureState> {
 	/**
 	 * The time in milliseconds to delay when recalculating the contents height
 	 * due to a window resize. Only applies if `updateOnResize` is `true`.

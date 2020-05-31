@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import BaseDialog, { BaseDialogProps } from '../BaseDialog';
-import { noop, idGen, getFocusable } from '../../utilities/helpers';
-import IconButton from '../IconButton';
+import { noop, idGen, getFocusable } from '@nds/react/utilities';
+import { BaseDialog, BaseDialogProps } from '../BaseDialog';
+import { IconButton } from '../IconButton';
 import { ButtonProps } from '../Button';
 
 export type ModalAnatomy =
@@ -99,7 +99,7 @@ export interface ModalSnapshot {
 /**
  * Modal dialog.
  */
-class Modal extends React.Component<ModalProps, ModalState> {
+export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	public static bemBase = 'modal';
 	public static bemElements: Record<ModalAnatomy, string> = {
 		portal: 'portal',
@@ -415,5 +415,3 @@ class Modal extends React.Component<ModalProps, ModalState> {
 		);
 	}
 }
-
-export default Modal;
