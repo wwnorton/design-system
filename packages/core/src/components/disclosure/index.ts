@@ -17,7 +17,7 @@ type DisclosureState = 'open' | 'closed' | 'opening' | 'closing';
 type DisclosureEvent = 'closestart' | 'closecancel' | 'closeend' | 'openstart' | 'opencancel' | 'openend';
 const instances = new Set<Disclosure>();
 
-export interface DisclosureOptions {
+export export interface DisclosureOptions {
 	/**
 	 * The contents will be placed inside a container that has its `height` set
 	 */
@@ -37,7 +37,7 @@ export interface DisclosureOptions {
 	openingClass: string;
 }
 
-export default class Disclosure {
+export class Disclosure {
 	public static foo = 'foo';
 	public details: HTMLDetailsElement;
 	public container: HTMLDivElement = document.createElement('div');
