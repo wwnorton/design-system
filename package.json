@@ -66,6 +66,7 @@
     ],
     "require": [
       "ts-node/register/transpile-only",
+      "tsconfig-paths/register",
       "jsdom-global/register"
     ]
   },
@@ -140,6 +141,7 @@
     "stylelint-config-norton": "^3.0.0",
     "ts-loader": "^7.0.5",
     "ts-node": "^8.9.1",
+    "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
