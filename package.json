@@ -52,12 +52,9 @@
     ]
   },
   "browserslist": [
-    "android >= 30",
-    "chrome >= 35",
-    "edge >= 14",
-    "ie >= 9",
-    "firefox >= 52",
-    "safari >= 8"
+    "last 2 years",
+    "not dead",
+    "maintained node versions"
   ],
   "ava": {
     "extensions": [
@@ -82,6 +79,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-typescript": "^7.10.1",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.2.0",
     "@storybook/addon-a11y": "^5.3.19",
@@ -105,7 +104,6 @@
     "@types/webpack": "^4.41.16",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
-    "autoprefixer": "^9.7.6",
     "ava": "^3.8.2",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
@@ -121,6 +119,7 @@
     "fibers": "^5.0.0",
     "fork-ts-checker-webpack-plugin": "^4.1.6",
     "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "gulp-header": "^2.0.9",
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.1.0",
@@ -131,6 +130,7 @@
     "lerna": "^3.20.2",
     "lint-staged": "^10.2.7",
     "nyc": "^15.0.1",
+    "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-docgen-typescript-loader": "^3.7.2",

@@ -8,7 +8,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["DOM", "ESNEXT"],
+    "lib": ["DOM", "ESNext"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -21,7 +21,7 @@
     "skipLibCheck": false,
     "sourceMap": true,
     "strict": true,
-    "target": "es5",
+    "target": "ES2015",
     "baseUrl": ".",
     "paths": {
       "@nds/*": ["packages/*/src"],
