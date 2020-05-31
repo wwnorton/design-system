@@ -41,7 +41,7 @@ module.exports = {
 		],
 	},
 	overrides: [
-		// typescript
+		// TypeScript
 		{
 			files: ['*.ts', '*.tsx'],
 			rules: {
@@ -51,7 +51,7 @@ module.exports = {
 				'@typescript-eslint/no-empty-interface': 'off',
 			},
 		},
-		// react
+		// React
 		{
 			files: ['*.jsx', '*.tsx'],
 			env: { browser: true },
