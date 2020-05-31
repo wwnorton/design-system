@@ -26,11 +26,8 @@
     "paths": {
       "@nds/*": ["packages/*/src"],
       "@nds/core/*": ["packages/core/src/*"],
-      "@nds/react/*": ["packages/react/src/*"],
-    },
+      "@nds/react/*": ["packages/react/src/*"]
+    }
   },
-  "references": [
-    { "path": "packages/core" },
-    { "path": "packages/react" },
-  ],
+  "references": [{ "path": "packages/core" }, { "path": "packages/react" }]
 }
