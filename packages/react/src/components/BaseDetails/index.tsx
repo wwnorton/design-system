@@ -8,7 +8,7 @@ export interface BaseDetailsProps extends React.DetailsHTMLAttributes<HTMLDetail
 	onToggle?: (e: React.SyntheticEvent<HTMLDetailsElement, Event>) => void;
 }
 
-const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
+export const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 	open = false,
 	children,
 	...attributes
@@ -22,5 +22,3 @@ const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 		</details>
 	);
 });
-
-export default BaseDetails;

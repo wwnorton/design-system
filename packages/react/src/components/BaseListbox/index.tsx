@@ -1,5 +1,5 @@
 import React from 'react';
-import BaseListOption, { BaseListOptionProps } from '../BaseListOption';
+import { BaseListOption, BaseListOptionProps } from '../BaseListOption';
 
 export interface BaseListboxProps extends React.HTMLAttributes<HTMLUListElement> {
 	/**
@@ -35,11 +35,13 @@ export interface BaseListboxProps extends React.HTMLAttributes<HTMLUListElement>
 	onFocusChange?: (focusedElement: HTMLLIElement) => void;
 }
 
-interface BaseListbox extends React.ForwardRefRenderFunction<HTMLUListElement, BaseListboxProps> {
-	Option: typeof BaseListOption;
-}
-
-const BaseListbox: BaseListbox = ({
+/**
+ * A listbox is "a widget that allows the user to select one or more items from
+ * a list of choices." Similar to a `<select>` element.
+ * @ARIA https://w3c.github.io/aria/#listbox
+ * @APG https://w3c.github.io/aria-practices/#Listbox
+ */
+export const BaseListbox = React.forwardRef(({
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	children,
 	options,
@@ -147,16 +149,7 @@ const BaseListbox: BaseListbox = ({
 			{ ListOptions() }
 		</ul>
 	);
-};
+}) as React.ForwardRefExoticComponent<BaseListboxProps & React.RefAttributes<HTMLUListElement>>
+& { Option: typeof BaseListOption };
 
 BaseListbox.Option = BaseListOption;
-
-/**
- * A listbox is "a widget that allows the user to select one or more items from
- * a list of choices." Similar to a `<select>` element.
- * @ARIA https://w3c.github.io/aria/#listbox
- * @APG https://w3c.github.io/aria-practices/#Listbox
- */
-const BaseListboxForwardRef = React.forwardRef(BaseListbox);
-
-export default BaseListboxForwardRef;

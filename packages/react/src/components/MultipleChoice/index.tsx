@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import Choice, { ChoiceProps } from '../Choice';
-import { noop } from '../../utilities/helpers';
+import { noop } from '@nds/react/utilities';
+import { Choice, ChoiceProps } from '../Choice';
 
 export interface MultipleChoiceProps extends React.HTMLAttributes<HTMLFieldSetElement> {
 	prompt: string | JSX.Element;
@@ -36,7 +36,7 @@ export interface MultipleChoiceState {
 	selected: ChoiceProps['value'][];
 }
 
-class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoiceState> {
+export class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoiceState> {
 	private static baseName = 'mc';
 	private static bemElements = {
 		choice: 'choice',
@@ -166,7 +166,6 @@ class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoice
 			prompt,
 			promptClass = `${baseName}__${MultipleChoice.bemElements.prompt}`,
 			choiceGroupClass = `${baseName}__${MultipleChoice.bemElements.choiceGroup}`,
-			descriptionClass,	// eslint-disable-line @typescript-eslint/no-unused-vars
 		} = this.props;
 
 		return (
@@ -180,5 +179,3 @@ class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoice
 		);
 	}
 }
-
-export default MultipleChoice;

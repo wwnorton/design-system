@@ -1,13 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
     "declaration": true,
-    "sourceMap": true,
+    "declarationMap": true,
+    "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["DOM", "ESNext"],
+    "module": "commonjs",
     "moduleResolution": "node",
-    "strict": true
-  }
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "removeComments": false,
+    "rootDir": ".",
+    "skipLibCheck": false,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2015",
+    "baseUrl": ".",
+    "paths": {
+      "@nds/*": ["packages/*/src"],
+      "@nds/core/*": ["packages/core/src/*"],
+      "@nds/react/*": ["packages/react/src/*"]
+    }
+  },
+  "references": [{ "path": "packages/core" }, { "path": "packages/react" }]
 }

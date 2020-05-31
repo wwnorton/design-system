@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import prettier from 'prettier';
-import Dropdown from '.';
+import { Dropdown } from '.';
 
 interface TestContext { container: HTMLElement }
 const test = ava as TestInterface<TestContext>;

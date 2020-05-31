@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useActive } from '../../utilities/hooks';
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	/** Whether the button is currently depressed. Polyfill for :active on keydown. */
@@ -14,7 +13,7 @@ export const BaseButtonDefaults = {
 	activeClass: 'active',
 };
 
-const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
+export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 	active = BaseButtonDefaults.active,
 	activeClass = BaseButtonDefaults.activeClass,
 	onKeyDown,
@@ -24,20 +23,22 @@ const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 	children,
 	...attributes
 }: BaseButtonProps, ref) => {
-	const { active: stateActive, activate, deactivate } = useActive(active);
+	const [isActive, setActive] = React.useState(active);
+
+	React.useEffect(() => { setActive(active); }, [active]);
 
 	const handleKeydown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
-		if (e.key === ' ') activate();
+		if (e.key === ' ') setActive(true);
 		if (onKeyDown) onKeyDown(e);
 	};
 
 	const handleKeyup = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
-		if (e.key === ' ') deactivate();
+		if (e.key === ' ') setActive(false);
 		if (onKeyUp) onKeyUp(e);
 	};
 
 	const handleBlur = (e: React.FocusEvent<HTMLButtonElement>): void => {
-		deactivate();
+		setActive(false);
 		if (onBlur) onBlur(e);
 	};
 
@@ -49,7 +50,7 @@ const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 		 */
 		/* eslint-disable react/button-has-type */
 		<button
-			className={classNames({ [activeClass]: stateActive }, className)}
+			className={classNames({ [activeClass]: isActive }, className)}
 			onKeyDown={handleKeydown}
 			onKeyUp={handleKeyup}
 			onBlur={handleBlur}
@@ -60,5 +61,3 @@ const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 		</button>
 	);
 });
-
-export default BaseButton;

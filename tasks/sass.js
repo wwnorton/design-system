@@ -1,8 +1,8 @@
-const autoprefixer = require('autoprefixer');
 const fiber = require('fibers');
 const gulp = require('gulp');
 const header = require('gulp-header');
 const postcss = require('gulp-postcss');
+const postcssPresetEnv = require('postcss-preset-env');
 const sass = require('gulp-sass');
 
 sass.compiler = require('sass');
@@ -24,7 +24,7 @@ module.exports = (packageName, {
 		)
 		.pipe(
 			postcss([
-				autoprefixer(),
+				postcssPresetEnv(),
 			]),
 		)
 		.pipe(

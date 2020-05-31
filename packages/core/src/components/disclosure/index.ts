@@ -37,7 +37,7 @@ export interface DisclosureOptions {
 	openingClass: string;
 }
 
-export default class Disclosure {
+export class Disclosure {
 	public static foo = 'foo';
 	public details: HTMLDetailsElement;
 	public container: HTMLDivElement = document.createElement('div');
