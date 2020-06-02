@@ -31,10 +31,11 @@ Use single quotes, unless you are writing JSON. This helps you separate your obj
 
 <!-- prettier-ignore-start -->
 ```js
-// good 👍
-var foo = 'bar';
 // bad 👎
 var foo = "bad";
+
+// good 👍
+var foo = 'bar';
 ```
 <!-- prettier-ignore-end -->
 
@@ -42,15 +43,15 @@ Opening braces go on the same line, Your opening braces go on the same line as t
 
 <!-- prettier-ignore-start -->
 ```js
-// good 👍
-if (true) {
-    console.log('winning');
-}
-
 // bad 👎
 if (true)
 {
     console.log('losing');
+}
+
+// good 👍
+if (true) {
+    console.log('winning');
 }
 ```
 <!-- prettier-ignore-end -->
@@ -59,15 +60,6 @@ Also, notice the use of white space before and after the condition statement. Wh
 
 <!-- prettier-ignore-start -->
 ```js
-// good 👍
-if (true) {
-    console.log('winning');
-} else if (false) {
-    console.log('this is good');
-} else {
-    console.log('finally');
-}
-
 // bad 👎
 if (true)
 {
@@ -81,6 +73,15 @@ else
 {
     console.log('not good');
 }
+
+// good 👍
+if (true) {
+    console.log('winning');
+} else if (false) {
+    console.log('this is good');
+} else {
+    console.log('finally');
+}
 ```
 <!-- prettier-ignore-end -->
 
@@ -90,16 +91,16 @@ Declare one variable per var statement, it makes it easier to re-order the lines
 
 <!-- prettier-ignore-start -->
 ```js
-// good 👍
-var keys = ['foo', 'bar'];
-var values = [23, 42];
-var object = {};
-
-#Wrong:
+// bad 👎
 var keys = ['foo', 'bar'],
 values = [23, 42],
 object = {},
 key;
+
+// good 👍
+var keys = ['foo', 'bar'];
+var values = [23, 42];
+var object = {};
 ```
 <!-- prettier-ignore-end -->
 
@@ -111,11 +112,11 @@ Variables, properties and function names should use lowerCamelCase. They should 
 
 <!-- prettier-ignore-start -->
 ```js
-// good 👍
-var adminUser = db.query('SELECT * FROM users ...');
-
 // bad 👎
 var admin_user = db.query('SELECT * FROM users ...');
+
+// good 👍
+var adminUser = db.query('SELECT * FROM users ...');
 ```
 <!-- prettier-ignore-end -->
 
@@ -125,12 +126,12 @@ Class names should be capitalised using UpperCamelCase.
 
 <!-- prettier-ignore-start -->
 ```js
-// good 👍
-function BankAccount() {
-}
-
 // bad 👎
 function bank_Account() {
+}
+
+// good 👍
+function BankAccount() {
 }
 ```
 <!-- prettier-ignore-end -->
@@ -141,17 +142,17 @@ Constants should be declared as regular variables or static class properties, us
 
 <!-- prettier-ignore-start -->
 ```js
-// good 👍
-var SECOND = 1 * 1000;
-function File() {
-}
-File.FULL_PERMISSIONS = 0777;
-
 // bad 👎
 const SECOND = 1 * 1000;
 function File() {
 }
 File.fullPermissions = 0777;
+
+// good 👍
+var SECOND = 1 * 1000;
+function File() {
+}
+File.FULL_PERMISSIONS = 0777;
 ```
 <!-- prettier-ignore-end -->
 
@@ -419,13 +420,6 @@ Use trailing commas and put short declarations on a single line.
 
 <!-- prettier-ignore-start -->
 ```js
-// good 👍
-var a = ['hello', 'world'];
-var b = {
-  good: 'code',
-  'is generally': 'pretty',
-};
-
 // bad 👎
 var a = [
   'hello', 'world'
@@ -433,6 +427,13 @@ var a = [
 var b = {'good': 'code'
         , is generally: 'pretty'
         };
+
+// good 👍
+var a = ['hello', 'world'];
+var b = {
+  good: 'code',
+  'is generally': 'pretty',
+};
 ```
 <!-- prettier-ignore-end -->
 
@@ -666,7 +667,7 @@ over [`Object.assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Refe
 
 <!-- prettier-ignore-start -->
 ```js
-// very bad
+// very bad 👎👎
 const original = { a: 1, b: 2 };
 const copy = Object.assign(original, { c: 3 }); // this mutates `original` à² _à²
 delete copy.a; // so does this
