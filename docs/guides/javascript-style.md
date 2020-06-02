@@ -30,21 +30,21 @@ Limit your lines to 80 characters. Yes, screens have gotten much bigger over the
 Use single quotes, unless you are writing JSON. This helps you separate your objects' strings from normal strings.
 
 ```js
-# Right:
+// good
 var foo = 'bar';
-# Wrong:
+// bad
 var foo = 'bar';
 ```
 
 Opening braces go on the same line, Your opening braces go on the same line as the statement.
 
 ```js
-# Right:
+// good
 if (true) {
     console.log('winning');
 }
 
-# Wrong:
+// bad
 if (true)
 {
     console.log('losing');
@@ -54,7 +54,7 @@ if (true)
 Also, notice the use of white space before and after the condition statement. What if you want to write 'else' or 'else if' along with your 'if'...
 
 ```js
-# Right:
+// good
 if (true) {
     console.log('winning');
 } else if (false) {
@@ -63,7 +63,7 @@ if (true) {
     console.log('finally');
 }
 
-# Wrong:
+// bad
 if (true)
 {
     console.log('losing');
@@ -83,7 +83,7 @@ else
 Declare one variable per var statement, it makes it easier to re-order the lines.
 
 ```js
-# Right:
+// good
 var keys = ['foo', 'bar'];
 var values = [23, 42];
 var object = {};
@@ -102,10 +102,10 @@ key;
 Variables, properties and function names should use lowerCamelCase. They should also be descriptive. Single character variables and uncommon abbreviations should generally be avoided.
 
 ```js
-# Right:
+// good
 var adminUser = db.query('SELECT * FROM users ...');
 
-# Wrong:
+// bad
 var admin_user = db.query('SELECT * FROM users ...');
 ```
 
@@ -114,11 +114,11 @@ var admin_user = db.query('SELECT * FROM users ...');
 Class names should be capitalised using UpperCamelCase.
 
 ```js
-# Right:
+// good
 function BankAccount() {
 }
 
-# Wrong:
+// bad
 function bank_Account() {
 }
 ```
@@ -128,13 +128,13 @@ function bank_Account() {
 Constants should be declared as regular variables or static class properties, using all uppercase letters.
 
 ```js
-# Right:
+// good
 var SECOND = 1 * 1000;
 function File() {
 }
 File.FULL_PERMISSIONS = 0777;
 
-# Wrong:
+// bad
 const SECOND = 1 * 1000;
 function File() {
 }
@@ -386,14 +386,14 @@ var { type, ...coords } = data;
 Use trailing commas and put short declarations on a single line.
 
 ```js
-# Right:
+// good
 var a = ['hello', 'world'];
 var b = {
   good: 'code',
   'is generally': 'pretty',
 };
 
-# Wrong:
+// bad
 var a = [
   'hello', 'world'
 ];
