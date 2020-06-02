@@ -16,6 +16,7 @@ module.exports = {
 		nav: [
 			{ text: 'Home', link: '/' },
 			{ text: 'Components', link: '/components/' },
+			{ text: 'Guides', link: '/guides/' },
 			{ text: 'Storybook', link: 'storybook/', target: '_blank', rel: 'noopener noreferrer' },
 			{ text: 'Zeplin', link: 'https://app.zeplin.io/project/5d66e28439bbe3139aa846ad' }
 		],
@@ -26,6 +27,14 @@ module.exports = {
 					path: '/components/',
 					collapsable: false,
 					children: componentsSidebar,
+				},
+			],
+			'/guides/': [
+				{
+					title: 'Guides',
+					path: '/guides/',
+					collapsable: false,
+					children: ['', 'javascript-style'],
 				},
 			],
 		},
