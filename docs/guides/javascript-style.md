@@ -31,9 +31,9 @@ Use single quotes, unless you are writing JSON. This helps you separate your obj
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 var foo = 'bar';
-// bad
+// bad 👎
 var foo = "bad";
 ```
 <!-- prettier-ignore-end -->
@@ -42,12 +42,12 @@ Opening braces go on the same line, Your opening braces go on the same line as t
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 if (true) {
     console.log('winning');
 }
 
-// bad
+// bad 👎
 if (true)
 {
     console.log('losing');
@@ -59,7 +59,7 @@ Also, notice the use of white space before and after the condition statement. Wh
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 if (true) {
     console.log('winning');
 } else if (false) {
@@ -68,7 +68,7 @@ if (true) {
     console.log('finally');
 }
 
-// bad
+// bad 👎
 if (true)
 {
     console.log('losing');
@@ -90,7 +90,7 @@ Declare one variable per var statement, it makes it easier to re-order the lines
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 var keys = ['foo', 'bar'];
 var values = [23, 42];
 var object = {};
@@ -111,10 +111,10 @@ Variables, properties and function names should use lowerCamelCase. They should 
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 var adminUser = db.query('SELECT * FROM users ...');
 
-// bad
+// bad 👎
 var admin_user = db.query('SELECT * FROM users ...');
 ```
 <!-- prettier-ignore-end -->
@@ -125,11 +125,11 @@ Class names should be capitalised using UpperCamelCase.
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 function BankAccount() {
 }
 
-// bad
+// bad 👎
 function bank_Account() {
 }
 ```
@@ -141,13 +141,13 @@ Constants should be declared as regular variables or static class properties, us
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 var SECOND = 1 * 1000;
 function File() {
 }
 File.FULL_PERMISSIONS = 0777;
 
-// bad
+// bad 👎
 const SECOND = 1 * 1000;
 function File() {
 }
@@ -209,10 +209,10 @@ console.log(foo[0], bar[0]); // => 9, 9
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 superPower = new SuperPower();
 
-// good
+// good 👍
 const superPower = new SuperPower();
 ```
 <!-- prettier-ignore-end -->
@@ -225,18 +225,18 @@ eslint: [`one-var`](https://eslint.org/docs/rules/one-var.html)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const items = getItems(),
   goSportsTeam = true,
   dragonball = 'z';
 
-// bad
+// bad 👎
 // (compare to above, and try to spot the mistake)
 const items = getItems(),
   goSportsTeam = true;
   dragonball = 'z';
 
-// good
+// good 👍
 const items = getItems();
 const goSportsTeam = true;
 const dragonball = 'z';
@@ -249,21 +249,21 @@ This is helpful when later on you might need to assign a variable depending on o
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 let i,
   len,
   dragonball,
   items = getItems(),
   goSportsTeam = true;
 
-// bad
+// bad 👎
 let i;
 const items = getItems();
 let dragonball;
 const goSportsTeam = true;
 let len;
 
-// good
+// good 👍
 const goSportsTeam = true;
 const items = getItems();
 let dragonball;
@@ -278,7 +278,7 @@ let length;
 
 <!-- prettier-ignore-start -->
 ```js
-// bad - unnecessary function call
+// bad 👎 - unnecessary function call
 function checkName(hasName) {
   const name = getName();
 
@@ -294,7 +294,7 @@ function checkName(hasName) {
   return name;
 }
 
-// good
+// good 👍
 function checkName(hasName) {
   if (hasName === 'test') {
     return false;
@@ -320,7 +320,7 @@ eslint: [`no-multi-assign`](https://eslint.org/docs/rules/no-multi-assign)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 (function example() {
   // JavaScript interprets this as
   // let a = ( b = ( c = 1 ) );
@@ -333,7 +333,7 @@ console.log(a); // throws ReferenceError
 console.log(b); // 1
 console.log(c); // 1
 
-// good
+// good 👍
 (function example() {
   let a = 1;
   let b = a;
@@ -356,16 +356,16 @@ Linebreaks surrounding `=` can obfuscate the value of an assignment.
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const foo = superLongLongLongLongLongLongLongLongFunctionName();
 
-// bad
+// bad 👎
 const foo = 'superLongLongLongLongLongLongLongLongString';
 
-// good
+// good 👍
 const foo = superLongLongLongLongLongLongLongLongFunctionName();
 
-// good
+// good 👍
 const foo = 'superLongLongLongLongLongLongLongLongString';
 ```
 <!-- prettier-ignore-end -->
@@ -378,7 +378,7 @@ eslint: [`no-unused-vars`](https://eslint.org/docs/rules/no-unused-vars)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 
 var some_unused_var = 42;
 
@@ -395,7 +395,7 @@ function getX(x, y) {
   return x;
 }
 
-// good
+// good 👍
 
 function getXPlusY(x, y) {
   return x + y;
@@ -419,14 +419,14 @@ Use trailing commas and put short declarations on a single line.
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 var a = ['hello', 'world'];
 var b = {
   good: 'code',
   'is generally': 'pretty',
 };
 
-// bad
+// bad 👎
 var a = [
   'hello', 'world'
 ];
@@ -446,11 +446,11 @@ avoid using `var`. eslint: [`prefer-const`](https://eslint.org/docs/rules/prefer
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 var a = 1;
 var b = 2;
 
-// good
+// good 👍
 const a = 1;
 const b = 2;
 ```
@@ -464,13 +464,13 @@ If you must reassign references, use 'let' instead of 'var'. eslint: [`no-var`](
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 var count = 1;
 if (true) {
   count += 1;
 }
 
-// good, use the let.
+// good 👍, use the let.
 let count = 1;
 if (true) {
   count += 1;
@@ -500,10 +500,10 @@ eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const item = new Object();
 
-// good
+// good 👍
 const item = {};
 ```
 <!-- prettier-ignore-end -->
@@ -518,14 +518,14 @@ function getKey(k) {
   return `a key named ${k}`;
 }
 
-// bad
+// bad 👎
 const obj = {
   id: 5,
   name: 'Lorem Ipsum',
 };
 obj[getKey('enabled')] = true;
 
-// good
+// good 👍
 const obj = {
   id: 5,
   name: 'Lorem Ipsum',
@@ -540,7 +540,7 @@ eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const atom = {
   value: 1,
 
@@ -549,7 +549,7 @@ const atom = {
   },
 };
 
-// good
+// good 👍
 const atom = {
   value: 1,
 
@@ -570,12 +570,12 @@ eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html
 ```js
 const lukeSkywalker = 'Lorem Ipsum';
 
-// bad
+// bad 👎
 const obj = {
   lukeSkywalker: lukeSkywalker,
 };
 
-// good
+// good 👍
 const obj = {
   lukeSkywalker,
 };
@@ -591,7 +591,7 @@ const obj = {
 const newyorkSubway = 'Newyork Subway';
 const newjerseyTransit = 'NewJersy Transit';
 
-// bad
+// bad 👎
 const obj = {
   episodeOne: 1,
   twoJediWalkIntoACantina: 2,
@@ -601,7 +601,7 @@ const obj = {
   newyorkSubway,
 };
 
-// good
+// good 👍
 const obj = {
   newjerseyTransit,
   newyorkSubway,
@@ -621,14 +621,14 @@ eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const bad = {
   foo: 3,
   bar: 4,
   'data-blah': 5,
 };
 
-// good
+// good 👍
 const good = {
   foo: 3,
   bar: 4,
@@ -645,10 +645,10 @@ such as `hasOwnProperty`, `propertyIsEnumerable`, and `isPrototypeOf`. eslint: [
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 console.log(object.hasOwnProperty(key));
 
-// good
+// good 👍
 console.log(Object.prototype.hasOwnProperty.call(object, key));
 
 // best
@@ -671,11 +671,11 @@ const original = { a: 1, b: 2 };
 const copy = Object.assign(original, { c: 3 }); // this mutates `original` à² _à²
 delete copy.a; // so does this
 
-// bad
+// bad 👎
 const original = { a: 1, b: 2 };
 const copy = Object.assign({}, original, { c: 3 }); // copy => { a: 1, b: 2, c: 3 }
 
-// good
+// good 👍
 const original = { a: 1, b: 2 };
 const copy = { ...original, c: 3 }; // copy => { a: 1, b: 2, c: 3 }
 
@@ -691,10 +691,10 @@ eslint: [`no-array-constructor`](https://eslint.org/docs/rules/no-array-construc
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const items = new Array();
 
-// good
+// good 👍
 const items = [];
 ```
 <!-- prettier-ignore-end -->
@@ -707,10 +707,10 @@ const items = [];
 ```js
 const someStack = [];
 
-// bad
+// bad 👎
 someStack[someStack.length] = 'abracadabra';
 
-// good
+// good 👍
 someStack.push('abracadabra');
 ```
 <!-- prettier-ignore-end -->
@@ -719,7 +719,7 @@ someStack.push('abracadabra');
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const len = items.length;
 const itemsCopy = [];
 let i;
@@ -728,7 +728,7 @@ for (i = 0; i < len; i += 1) {
   itemsCopy[i] = items[i];
 }
 
-// good
+// good 👍
 const itemsCopy = [...items];
 ```
 <!-- prettier-ignore-end -->
@@ -741,7 +741,7 @@ const itemsCopy = [...items];
 ```js
 const foo = document.querySelectorAll('.foo');
 
-// good
+// good 👍
 const nodes = Array.from(foo);
 
 // best
@@ -757,10 +757,10 @@ const nodes = [...foo];
 ```js
 const arrLike = { 0: 'foo', 1: 'bar', 2: 'baz', length: 3 };
 
-// bad
+// bad 👎
 const arr = Array.prototype.slice.call(arrLike);
 
-// good
+// good 👍
 const arr = Array.from(arrLike);
 ```
 <!-- prettier-ignore-end -->
@@ -769,10 +769,10 @@ const arr = Array.from(arrLike);
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const baz = [...foo].map(bar);
 
-// good
+// good 👍
 const baz = Array.from(foo, bar);
 ```
 <!-- prettier-ignore-end -->
@@ -783,16 +783,16 @@ It's ok to omit the return if the function body consists of a single statement r
 
 <!-- prettier-ignore-start -->
 ```js
-// good
+// good 👍
 [1, 2, 3].map((x) => {
   const y = x + 1;
   return x * y;
 });
 
-// good
+// good 👍
 [1, 2, 3].map((x) => x + 1);
 
-// bad - no returned value means `acc` becomes undefined after the first iteration
+// bad 👎 - no returned value means `acc` becomes undefined after the first iteration
 [
   [0, 1],
   [2, 3],
@@ -801,7 +801,7 @@ It's ok to omit the return if the function body consists of a single statement r
   const flatten = acc.concat(item);
 });
 
-// good
+// good 👍
 [
   [0, 1],
   [2, 3],
@@ -811,7 +811,7 @@ It's ok to omit the return if the function body consists of a single statement r
   return flatten;
 });
 
-// bad
+// bad 👎
 inbox.filter((msg) => {
   const { subject, author } = msg;
   if (subject === 'Mockingbird') {
@@ -821,7 +821,7 @@ inbox.filter((msg) => {
   }
 });
 
-// good
+// good 👍
 inbox.filter((msg) => {
   const { subject, author } = msg;
   if (subject === 'Mockingbird') {
@@ -837,7 +837,7 @@ inbox.filter((msg) => {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const arr = [
   [0, 1],
   [2, 3],
@@ -855,7 +855,7 @@ const objectInArray = [
 
 const numberInArray = [1, 2];
 
-// good
+// good 👍
 const arr = [
   [0, 1],
   [2, 3],
@@ -885,7 +885,7 @@ eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructur
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function getFullName(user) {
   const firstName = user.firstName;
   const lastName = user.lastName;
@@ -893,7 +893,7 @@ function getFullName(user) {
   return `${firstName} ${lastName}`;
 }
 
-// good
+// good 👍
 function getFullName(user) {
   const { firstName, lastName } = user;
   return `${firstName} ${lastName}`;
@@ -914,11 +914,11 @@ eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructur
 ```js
 const arr = [1, 2, 3, 4];
 
-// bad
+// bad 👎
 const first = arr[0];
 const second = arr[1];
 
-// good
+// good 👍
 const [first, second] = arr;
 ```
 <!-- prettier-ignore-end -->
@@ -929,7 +929,7 @@ const [first, second] = arr;
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function processInput(input) {
   // then a miracle occurs
   return [left, right, top, bottom];
@@ -938,7 +938,7 @@ function processInput(input) {
 // the caller needs to think about the order of return data
 const [left, __, top] = processInput(input);
 
-// good
+// good 👍
 function processInput(input) {
   // then a miracle occurs
   return { left, right, top, bottom };
@@ -957,13 +957,13 @@ eslint: [`quotes`](https://eslint.org/docs/rules/quotes.html)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const name = 'Capt. Janeway';
 
-// bad - template literals should contain interpolation or newlines
+// bad 👎 - template literals should contain interpolation or newlines
 const name = `Capt. Janeway`;
 
-// good
+// good 👍
 const name = 'Capt. Janeway';
 ```
 <!-- prettier-ignore-end -->
@@ -974,20 +974,20 @@ const name = 'Capt. Janeway';
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const errorMessage =
   'This is a super long error that was thrown because \
 of Batman. When you stop to think about how Batman had anything to do \
 with this, you would get nowhere \
 fast.';
 
-// bad
+// bad 👎
 const errorMessage =
   'This is a super long error that was thrown because ' +
   'of Batman. When you stop to think about how Batman had anything to do ' +
   'with this, you would get nowhere fast.';
 
-// good
+// good 👍
 const errorMessage =
   'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
 ```
@@ -1001,22 +1001,22 @@ eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) 
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function sayHi(name) {
   return 'How are you, ' + name + '?';
 }
 
-// bad
+// bad 👎
 function sayHi(name) {
   return ['How are you, ', name, '?'].join();
 }
 
-// bad
+// bad 👎
 function sayHi(name) {
   return `How are you, ${name}?`;
 }
 
-// good
+// good 👍
 function sayHi(name) {
   return `How are you, ${name}?`;
 }
@@ -1035,10 +1035,10 @@ eslint: [`no-useless-escape`](https://eslint.org/docs/rules/no-useless-escape)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const foo = ''this' is \'quoted\'';
 
-// good
+// good 👍
 const foo = ''this' is \'quoted\'';
 const foo = `my name is '${name}'`;
 ```
@@ -1054,17 +1054,17 @@ eslint: [`func-style`](https://eslint.org/docs/rules/func-style)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function foo() {
   // ...
 }
 
-// bad
+// bad 👎
 const foo = function () {
   // ...
 };
 
-// good
+// good 👍
 // lexical name distinguished from the variable-referenced invocation(s)
 const short = function longUniqueMoreDescriptiveLexicalFoo() {
   // ...
@@ -1095,14 +1095,14 @@ eslint: [`wrap-iife`](https://eslint.org/docs/rules/wrap-iife.html)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 if (currentUser) {
   function test() {
     console.log('Nope.');
   }
 }
 
-// good
+// good 👍
 let test;
 if (currentUser) {
   test = () => {
@@ -1116,12 +1116,12 @@ if (currentUser) {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function foo(name, options, arguments) {
   // ...
 }
 
-// good
+// good 👍
 function foo(name, options, args) {
   // ...
 }
@@ -1136,13 +1136,13 @@ eslint: [`prefer-rest-params`](https://eslint.org/docs/rules/prefer-rest-params)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function concatenateAll() {
   const args = Array.prototype.slice.call(arguments);
   return args.join('');
 }
 
-// good
+// good 👍
 function concatenateAll(...args) {
   return args.join('');
 }
@@ -1170,7 +1170,7 @@ function handleThings(opts) {
   // ...
 }
 
-// good
+// good 👍
 function handleThings(opts = {}) {
   // ...
 }
@@ -1184,7 +1184,7 @@ function handleThings(opts = {}) {
 <!-- prettier-ignore-start -->
 ```js
 var b = 1;
-// bad
+// bad 👎
 function count(a = b++) {
   console.log(a);
 }
@@ -1199,12 +1199,12 @@ count(); // 3
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function handleThings(opts = {}, name) {
   // ...
 }
 
-// good
+// good 👍
 function handleThings(name, opts = {}) {
   // ...
 }
@@ -1219,7 +1219,7 @@ eslint: [`no-new-func`](https://eslint.org/docs/rules/no-new-func)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 var add = new Function('a', 'b', 'return a + b');
 
 // still bad
@@ -1235,12 +1235,12 @@ eslint: [`space-before-function-paren`](https://eslint.org/docs/rules/space-befo
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const f = function () {};
 const g = function () {};
 const h = function () {};
 
-// good
+// good 👍
 const x = function () {};
 const y = function a() {};
 ```
@@ -1254,12 +1254,12 @@ eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.ht
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function f1(obj) {
   obj.key = 1;
 }
 
-// good
+// good 👍
 function f2(obj) {
   const key = Object.prototype.hasOwnProperty.call(obj, 'key') ? obj.key : 1;
 }
@@ -1274,7 +1274,7 @@ eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.ht
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function f1(a) {
   a = 1;
   // ...
@@ -1287,7 +1287,7 @@ function f2(a) {
   // ...
 }
 
-// good
+// good 👍
 function f3(a) {
   const b = a || 1;
   // ...
@@ -1307,18 +1307,18 @@ eslint: [`prefer-spread`](https://eslint.org/docs/rules/prefer-spread)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const x = [1, 2, 3, 4, 5];
 console.log.apply(console, x);
 
-// good
+// good 👍
 const x = [1, 2, 3, 4, 5];
 console.log(...x);
 
-// bad
+// bad 👎
 new (Function.prototype.bind.apply(Date, [null, 2016, 8, 5]))();
 
-// good
+// good 👍
 new Date(...[2016, 8, 5]);
 ```
 <!-- prettier-ignore-end -->
@@ -1329,20 +1329,20 @@ eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function foo(bar, baz, quux) {
   // ...
 }
 
-// good
+// good 👍
 function foo(bar, baz, quux) {
   // ...
 }
 
-// bad
+// bad 👎
 console.log(foo, bar, baz);
 
-// good
+// good 👍
 console.log(foo, bar, baz);
 ```
 <!-- prettier-ignore-end -->
@@ -1359,13 +1359,13 @@ eslint: [`prefer-arrow-callback`](https://eslint.org/docs/rules/prefer-arrow-cal
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 [1, 2, 3].map(function (x) {
   const y = x + 1;
   return x * y;
 });
 
-// good
+// good 👍
 [1, 2, 3].map((x) => {
   const y = x + 1;
   return x * y;
@@ -1381,22 +1381,22 @@ eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html), [`arr
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 [1, 2, 3].map((number) => {
   const nextNumber = number + 1;
   `A string containing the ${nextNumber}.`;
 });
 
-// good
+// good 👍
 [1, 2, 3].map((number) => `A string containing the ${number + 1}.`);
 
-// good
+// good 👍
 [1, 2, 3].map((number) => {
   const nextNumber = number + 1;
   return `A string containing the ${nextNumber}.`;
 });
 
-// good
+// good 👍
 [1, 2, 3].map((number, index) => ({
   [index]: number,
 }));
@@ -1411,10 +1411,10 @@ function foo(callback) {
 
 let bool = false;
 
-// bad
+// bad 👎
 foo(() => (bool = true));
 
-// good
+// good 👍
 foo(() => {
   bool = true;
 });
@@ -1427,7 +1427,7 @@ foo(() => {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 ['get', 'post', 'put'].map((httpMethod) =>
   Object.prototype.hasOwnProperty.call(
     httpMagicObjectWithAVeryLongName,
@@ -1435,7 +1435,7 @@ foo(() => {
   )
 );
 
-// good
+// good 👍
 ['get', 'post', 'put'].map((httpMethod) =>
   Object.prototype.hasOwnProperty.call(
     httpMagicObjectWithAVeryLongName,
@@ -1453,31 +1453,31 @@ eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 [1, 2, 3].map((x) => x * x);
 
-// good
+// good 👍
 [1, 2, 3].map((x) => x * x);
 
-// bad
+// bad 👎
 [1, 2, 3].map(
   (number) =>
     `A long string with the ${number}. It's so long that we don't want it to take up space on the .map line!`
 );
 
-// good
+// good 👍
 [1, 2, 3].map(
   (number) =>
     `A long string with the ${number}. It's so long that we don't want it to take up space on the .map line!`
 );
 
-// bad
+// bad 👎
 [1, 2, 3].map((x) => {
   const y = x + 1;
   return x * y;
 });
 
-// good
+// good 👍
 [1, 2, 3].map((x) => {
   const y = x + 1;
   return x * y;
@@ -1491,19 +1491,19 @@ eslint: [`no-confusing-arrow`](https://eslint.org/docs/rules/no-confusing-arrow)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const itemHeight = (item) =>
   item.height <= 256 ? item.largeSize : item.smallSize;
 
-// bad
+// bad 👎
 const itemHeight = (item) =>
   item.height >= 256 ? item.largeSize : item.smallSize;
 
-// good
+// good 👍
 const itemHeight = (item) =>
   item.height <= 256 ? item.largeSize : item.smallSize;
 
-// good
+// good 👍
 const itemHeight = (item) => {
   const { height, largeSize, smallSize } = item;
   return height <= 256 ? largeSize : smallSize;
@@ -1517,12 +1517,12 @@ eslint: [`implicit-arrow-linebreak`](https://eslint.org/docs/rules/implicit-arro
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 (foo) => bar;
 
 (foo) => bar;
 
-// good
+// good 👍
 (foo) => bar;
 (foo) => bar;
 (foo) => bar;
@@ -1537,7 +1537,7 @@ eslint: [`implicit-arrow-linebreak`](https://eslint.org/docs/rules/implicit-arro
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function Queue(contents = []) {
   this.queue = [...contents];
 }
@@ -1547,7 +1547,7 @@ Queue.prototype.pop = function () {
   return value;
 };
 
-// good
+// good 👍
 class Queue {
   constructor(contents = []) {
     this.queue = [...contents];
@@ -1567,7 +1567,7 @@ class Queue {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const inherits = require('inherits');
 function PeekableQueue(contents) {
   Queue.apply(this, contents);
@@ -1577,7 +1577,7 @@ PeekableQueue.prototype.peek = function () {
   return this.queue[0];
 };
 
-// good
+// good 👍
 class PeekableQueue extends Queue {
   peek() {
     return this.queue[0];
@@ -1590,7 +1590,7 @@ class PeekableQueue extends Queue {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 Jedi.prototype.jump = function () {
   this.jumping = true;
   return true;
@@ -1604,7 +1604,7 @@ const luke = new Jedi();
 luke.jump(); // => true
 luke.setHeight(20); // => undefined
 
-// good
+// good 👍
 class Jedi {
   jump() {
     this.jumping = true;
@@ -1629,7 +1629,7 @@ An empty constructor function or one that just delegates to a parent class is un
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 class Jedi {
   constructor() {}
 
@@ -1638,14 +1638,14 @@ class Jedi {
   }
 }
 
-// bad
+// bad 👎
 class Rey extends Jedi {
   constructor(...args) {
     super(...args);
   }
 }
 
-// good
+// good 👍
 class Rey extends Jedi {
   constructor(...args) {
     super(...args);
@@ -1663,7 +1663,7 @@ eslint: [`no-dupe-class-members`](https://eslint.org/docs/rules/no-dupe-class-me
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 class Foo {
   bar() {
     return 1;
@@ -1673,14 +1673,14 @@ class Foo {
   }
 }
 
-// good
+// good 👍
 class Foo {
   bar() {
     return 1;
   }
 }
 
-// good
+// good 👍
 class Foo {
   bar() {
     return 2;
@@ -1695,28 +1695,28 @@ Being an instance method should indicate that it behaves differently based on pr
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 class Foo {
   bar() {
     console.log('bar');
   }
 }
 
-// good - this is used
+// good 👍 - this is used
 class Foo {
   bar() {
     console.log(this.bar);
   }
 }
 
-// good - constructor is exempt
+// good 👍 - constructor is exempt
 class Foo {
   constructor() {
     // ...
   }
 }
 
-// good - static methods aren't expected to use this
+// good 👍 - static methods aren't expected to use this
 class Foo {
   static bar() {
     console.log('bar');
@@ -1739,14 +1739,14 @@ Prefer JavaScript's higher-order functions instead of loops like `for-in` or `fo
 ```js
 const numbers = [1, 2, 3, 4, 5];
 
-// bad
+// bad 👎
 let sum = 0;
 for (let num of numbers) {
   sum += num;
 }
 sum === 15;
 
-// good
+// good 👍
 let sum = 0;
 numbers.forEach((num) => {
   sum += num;
@@ -1757,13 +1757,13 @@ sum === 15;
 const sum = numbers.reduce((total, num) => total + num, 0);
 sum === 15;
 
-// bad
+// bad 👎
 const increasedByOne = [];
 for (let i = 0; i < numbers.length; i++) {
   increasedByOne.push(numbers[i] + 1);
 }
 
-// good
+// good 👍
 const increasedByOne = [];
 numbers.forEach((num) => {
   increasedByOne.push(num + 1);
@@ -1802,32 +1802,32 @@ if ([0] && []) {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 if (isValid === true) {
   // ...
 }
 
-// good
+// good 👍
 if (isValid) {
   // ...
 }
 
-// bad
+// bad 👎
 if (name) {
   // ...
 }
 
-// good
+// good 👍
 if (name !== '') {
   // ...
 }
 
-// bad
+// bad 👎
 if (collection.length) {
   // ...
 }
 
-// good
+// good 👍
 if (collection.length > 0) {
   // ...
 }
@@ -1840,7 +1840,7 @@ eslint: [`no-nested-ternary`](https://eslint.org/docs/rules/no-nested-ternary.ht
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const foo = maybe1 > maybe2 ? 'bar' : value1 > value2 ? 'baz' : null;
 
 // split into 2 separated ternary expressions
@@ -1858,12 +1858,12 @@ const foo = maybe1 > maybe2 ? 'bar' : maybeNull;
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const foo = a ? a : b;
 const bar = c ? true : false;
 const baz = c ? false : true;
 
-// good
+// good 👍
 const foo = a || b;
 const bar = !!c;
 const baz = !c;
@@ -1878,33 +1878,33 @@ IMPORTANCE: This improves readability and clarifies the developer's intention.
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const foo = (a && b < 0) || c > 0 || d + 1 === 0;
 
-// bad
+// bad 👎
 const bar = a ** b - (5 % d);
 
-// bad
+// bad 👎
 // one may be confused into thinking (a || b) && c
 if (a || (b && c)) {
   return d;
 }
 
-// bad
+// bad 👎
 const bar = a + (b / c) * d;
 
-// good
+// good 👍
 const foo = (a && b < 0) || c > 0 || d + 1 === 0;
 
-// good
+// good 👍
 const bar = a ** b - (5 % d);
 
-// good
+// good 👍
 if (a || (b && c)) {
   return d;
 }
 
-// good
+// good 👍
 const bar = a + (b / c) * d;
 ```
 <!-- prettier-ignore-end -->
@@ -1917,23 +1917,23 @@ eslint: [`nonblock-statement-body-position`](https://eslint.org/docs/rules/nonbl
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 if (test) return false;
 
-// good
+// good 👍
 if (test) return false;
 
-// good
+// good 👍
 if (test) {
   return false;
 }
 
-// bad
+// bad 👎
 function foo() {
   return false;
 }
 
-// good
+// good 👍
 function bar() {
   return false;
 }
@@ -1946,7 +1946,7 @@ eslint: [`brace-style`](https://eslint.org/docs/rules/brace-style.html)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 if (test) {
   thing1();
   thing2();
@@ -1954,7 +1954,7 @@ if (test) {
   thing3();
 }
 
-// good
+// good 👍
 if (test) {
   thing1();
   thing2();
@@ -1970,7 +1970,7 @@ A `return` in an `else if` block following an `if` block that contains a `return
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 function foo() {
   if (x) {
     return x;
@@ -1979,7 +1979,7 @@ function foo() {
   }
 }
 
-// bad
+// bad 👎
 function cats() {
   if (x) {
     return x;
@@ -1988,7 +1988,7 @@ function cats() {
   }
 }
 
-// bad
+// bad 👎
 function dogs() {
   if (x) {
     return x;
@@ -1999,7 +1999,7 @@ function dogs() {
   }
 }
 
-// good
+// good 👍
 function foo() {
   if (x) {
     return x;
@@ -2008,7 +2008,7 @@ function foo() {
   return y;
 }
 
-// good
+// good 👍
 function cats() {
   if (x) {
     return x;
@@ -2019,7 +2019,7 @@ function cats() {
   }
 }
 
-// good
+// good 👍
 function dogs(x) {
   if (x) {
     if (z) {
@@ -2040,7 +2040,7 @@ function dogs(x) {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 if (
   (foo === 123 || bar === 'abc') &&
   doesItLookGoodWhenItBecomesThatLong() &&
@@ -2049,27 +2049,27 @@ if (
   thing1();
 }
 
-// bad
+// bad 👎
 if (foo === 123 && bar === 'abc') {
   thing1();
 }
 
-// bad
+// bad 👎
 if (foo === 123 && bar === 'abc') {
   thing1();
 }
 
-// bad
+// bad 👎
 if (foo === 123 && bar === 'abc') {
   thing1();
 }
 
-// good
+// good 👍
 if (foo === 123 && bar === 'abc') {
   thing1();
 }
 
-// good
+// good 👍
 if (
   (foo === 123 || bar === 'abc') &&
   doesItLookGoodWhenItBecomesThatLong() &&
@@ -2078,7 +2078,7 @@ if (
   thing1();
 }
 
-// good
+// good 👍
 if (foo === 123 && bar === 'abc') {
   thing1();
 }
@@ -2089,10 +2089,10 @@ if (foo === 123 && bar === 'abc') {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 !isRunning && startRunning();
 
-// good
+// good 👍
 if (!isRunning) {
   startRunning();
 }
@@ -2105,7 +2105,7 @@ if (!isRunning) {
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 // make() returns a new element
 // based on the passed in tag name
 //
@@ -2117,7 +2117,7 @@ function make(tag) {
   return element;
 }
 
-// good
+// good 👍
 /**
  * make() returns a new element
  * based on the passed-in tag name
@@ -2136,14 +2136,14 @@ Place single line comments on a newline above the subject of the comment. Put an
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 const active = true; // is current tab
 
-// good
+// good 👍
 // is current tab
 const active = true;
 
-// bad
+// bad 👎
 function getType() {
   console.log('fetching type...');
   // set the default type to 'no type'
@@ -2152,7 +2152,7 @@ function getType() {
   return type;
 }
 
-// good
+// good 👍
 function getType() {
   console.log('fetching type...');
 
@@ -2178,15 +2178,15 @@ eslint: [`spaced-comment`](https://eslint.org/docs/rules/spaced-comment)
 
 <!-- prettier-ignore-start -->
 ```js
-// bad
+// bad 👎
 //is current tab
 const active = true;
 
-// good
+// good 👍
 // is current tab
 const active = true;
 
-// bad
+// bad 👎
 /**
  *make() returns a new element
  *based on the passed-in tag name
@@ -2197,7 +2197,7 @@ function make(tag) {
   return element;
 }
 
-// good
+// good 👍
 /**
  * make() returns a new element
  * based on the passed-in tag name
