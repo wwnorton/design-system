@@ -26,6 +26,7 @@
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "publish": "lerna publish",
+    "sassdoc": "sassdoc packages/core/src -d public/sassdoc && npx http-server public/sassdoc",
     "storybook": "lerna exec --scope=@nds/react -- npm run dev:stories",
     "test": "ava"
   },
@@ -138,6 +139,7 @@
     "react-test-renderer": "^16.13.1",
     "sass": "^1.26.7",
     "sass-loader": "^8.0.2",
+    "sassdoc": "^2.7.2",
     "style-loader": "^1.2.1",
     "stylelint": "^13.5.0",
     "stylelint-config-norton": "^3.0.0",
