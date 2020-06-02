@@ -11,7 +11,7 @@ Use 4 spaces for indenting your code and swear an oath to never mix tabs and spa
 
 ### Newlines
 
-Use UNIX-style newlines (`\n`), and a newline character as the last character of a file. Windows-style newlines (\r\n) are forbidden inside any repository.
+Use UNIX-style newlines (`\n`), and a newline character as the last character of a file. Windows-style newlines (`\r\n`) are forbidden inside any repository.
 
 ### No trailing white space
 
