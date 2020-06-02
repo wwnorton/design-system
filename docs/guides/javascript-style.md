@@ -2080,11 +2080,5 @@ We use Major.Minor.Batch style for styles versioning. For the versions available
 
 ## Authors
 
-* **W.W.Norton Digital Engineering Team**.
-
-## License
-
-MIT
-
-## Acknowledgments
-
+- Girish Dhote <gdhote@wwnorton.com>
+- W. W. Norton Digital Engineering Team
