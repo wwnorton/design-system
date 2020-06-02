@@ -1,7 +1,8 @@
 # JavaScript Style
 
-This guide for writing consistent and aesthetically pleasing Node.js code.
-It is inspired by what is popular within the community ([`eslint:recommended`](https://eslint.org/docs/rules/), [Airbnb](https://github.com/airbnb/javascript/#airbnb-javascript-style-guide-)), and also features some personal opinions.
+> A guide for writing consistent and aesthetically pleasing JavaScript.
+
+Inspired by other popular styles such as [`eslint:recommended`](https://eslint.org/docs/rules/), and [Airbnb](https://github.com/airbnb/javascript/#airbnb-javascript-style-guide-).
 
 ## Formatting
 
