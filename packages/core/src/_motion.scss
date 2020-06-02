@@ -2,19 +2,19 @@
 /// Motion
 /// An implementation of Material Design's motion guidelines.
 /// @group motion
-/// @source https://material.io/design/motion/understanding-motion.html Material Design: Understanding Motion
+/// @source https://material.io/design/motion/understanding-html Material Design: Understanding Motion
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 /// @source https://material.io/design/motion/speed.html#easing Material Design: Easings
 ////
 
 @use 'sass:list';
 @use 'sass:map';
-@use 'util';
+@use 'properties' as *;
 
 // FUNCTIONS
 
 @function scale($duration) {
-	@return calc(#{$duration} * #{util.prop(duration-scalar)});
+	@return calc(#{$duration} * #{prop(duration-scalar)});
 }
 
 /// Apply one transition to many properties
@@ -77,3 +77,34 @@ $easing-acceleration: cubic-bezier(0.4, 0, 1, 1) !default;
 /// Timing function to quickly accelerate and decelerate
 /// @source https://github.com/material-components/material-components-web/tree/master/packages/mdc-animation @material/animation
 $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1) !default;
+
+
+// :ROOT CSS PROPERTIES
+
+@include root-props(
+	$duration-scalar: $duration-scalar,
+);
+@include root-props(
+	$duration-simple: scale($duration-simple),
+	$duration-simple-enter: scale($duration-simple-enter),
+	$duration-simple-exit: scale($duration-simple-exit),
+	$duration-complex: scale($duration-complex),
+	$duration-detailed: scale($duration-detailed),
+	$duration-open: scale($duration-open),
+	$duration-close: scale($duration-close),
+	$duration-expand: scale($duration-expand),
+	$duration-collapse: scale($duration-collapse),
+);
+@include root-props(
+	$duration-small: prop('duration-simple'),
+	$duration-medium-expand: prop('duration-open'),
+	$duration-medium-collapse: prop('duration-open'),
+	$duration-large-expand: prop('duration-expand'),
+	$duration-large-collapse: prop('duration-collapse'),
+);
+@include root-props(
+	$easing-standard: $easing-standard,
+	$easing-deceleration: $easing-deceleration,
+	$easing-acceleration: $easing-acceleration,
+	$easing-sharp: $easing-sharp,
+);

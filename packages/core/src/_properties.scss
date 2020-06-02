@@ -1,203 +1,285 @@
-// CSS custom properties
+////
+/// @group Properties
+////
 
+@use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
-
-@use 'a11y';
-@use 'color';
-@use 'device';
-@use 'motion';
-@use 'type';
+@use 'sass:string';
+@use 'config';
 @use 'util';
 
-// COLOR PROPERTIES
+/// The global map of all CSS custom properties, including non-root properties.
+/// @access private
+$-props: ();
+/// A global map of all CSS :root-level CSS custom properties.
+/// @access private
+$-root-props: ();
 
-/// Role families are full 10-grade maps that have a semantic role in the design system.
-/// @group Color
-$-role-families: (
-	'color-primary': color.family-props(color.$primary-family, color.$color-families),
-	'color-base': color.family-props(color.$base-family, color.$color-families),
-	'color-error': color.family-props(color.$error-family, color.$color-families),
-	'color-success':color.family-props(color.$success-family, color.$color-families),
-	'color-warning':color.family-props(color.$warning-family, color.$color-families),
-);
-$-role-families: map.merge(
-	$-role-families,
-	('color-disabled': color.family-props(color.$disabled-family, $-role-families)),
-);
+/// Reference a CSS property by name.
+/// @param {String} $name - The name of the CSS property that you'd like to use.
+/// @return {String} - A CSS custom property with value fallback.
+/// @example scss
+///   .foo {
+///     padding-top: prop(foo-padding-top);
+///   }
+///   // CSS output with config ($namespace: 'nds', $css-property-fallback: false)
+///   .foo {
+///     padding-top: var(--nds-foo-padding-top);
+///   }
+@function prop($name, $fallback: config.$css-property-fallback) {
+	$css-prop: string.unquote('--#{util.prefix($name)}');
 
-/// Role shades are maps (default, light, lighter, dark, darker) that reference
-/// their corresponding family (10 - 100) at a given grade.
-/// @group Color
-$-role-shades: (
-	'color-primary': color.shade-props(color.$primary-grade, map.get($-role-families, 'color-primary')),
-	'color-disabled': color.shade-props(color.$disabled-grade, map.get($-role-families, 'color-disabled')),
-	'color-error': color.shade-props(color.$error-grade, map.get($-role-families, 'color-error')),
-	'color-success': color.shade-props(color.$success-grade, map.get($-role-families, 'color-success')),
-	'color-warning': color.shade-props(color.$warning-grade, map.get($-role-families, 'color-warning')),
-);
+	@if $fallback {
+		$value: get-value($name);
 
-/// Role colors
-/// @group Color
-$-role-colors: (
-	'black': color.$black,
-	'white': color.$white,
-	'color-body-bg': util.prop('white'),
-	'color-body-text': util.prop('black'),
-	'color-focus-ring': util.prop('cyan-50'),
-);
+		@if not $value {
+			// stylelint-disable-next-line max-nesting-depth
+			@if config.$warn-on-missing-fallback {
+				@warn 'No fallback was value was found for "#{$name}." Ensure that you\'ve added a value for "#{$name}" before using it.';
+			}
 
-/// All design system colors, flattened to one map of key/value pairs.
-$color: util.deep-merge(
-	color.$color-families,
-	$-role-families,
-	$-role-shades,
-	$-role-colors,
-);
+			@return var($css-prop);
+		}
 
+		@return var($css-prop, $value);
+	}
 
-// DEVICE PROPERTIES
+	@return var($css-prop);
+}
 
-$device: (
-	'hd-dpi': device.$hd-dpi,
-	'hd-dppx': device.$hd-dppx,
-	'breakpoint': device.$devices,
-);
+/// Resolve the value of a prop inside the `$-props` map. Returns `null` if the
+/// value cannot be resolved. To be found, the property must first be added with
+/// either the `root-props` (global) or `props` (local) mixins.
+/// @param {String} $prop-name - The name of the property you'd like to resolve.
+/// @param {Map} $prop-map [$-props] - The map that contains the value you'd like
+/// to resolve. Default is the global property map, `$-props`.
+@function get-value($prop-name, $prop-map: $-props) {
+	// @debug 'searching for "#{$prop-name}"';
+	$value: map.get($prop-map, $prop-name);
 
+	@if $value {
+		$var-str: 'var(--';
 
-// MISCELLANEOUS
+		@if meta.type-of($value) == 'string' and string.index($value, $var-str) == 1 {
+			// @debug 'var found: #{$value}';
+			$comma-index: string.index($value, ',');
 
-$misc: (
-	'focus-shadow': a11y.$focus-indicator,
-);
+			$end-at: if($comma-index, $comma-index, string.length($value));
+			$var: string.slice($value, string.length($var-str) + 1, $end-at - 1);
 
+			@return get-value(util.unprefix($var));
+		}
 
-// MOTION
+		// @debug 'value found: #{$value}';
 
-$-durations: (
-	'duration-scalar': motion.$duration-scalar,
-	'duration-simple': motion.scale(motion.$duration-simple),
-	'duration-simple-enter': motion.scale(motion.$duration-simple-enter),
-	'duration-simple-exit': motion.scale(motion.$duration-simple-exit),
-	'duration-complex': motion.scale(motion.$duration-complex),
-	'duration-detailed': motion.scale(motion.$duration-detailed),
-	'duration-open': motion.scale(motion.$duration-open),
-	'duration-close': motion.scale(motion.$duration-close),
-	'duration-expand': motion.scale(motion.$duration-expand),
-	'duration-collapse': motion.scale(motion.$duration-collapse),
-	'duration-small': util.prop('duration-simple'),
-	'duration-medium-expand': util.prop('duration-open'),
-	'duration-medium-collapse': util.prop('duration-open'),
-	'duration-large-expand': util.prop('duration-expand'),
-	'duration-large-collapse': util.prop('duration-collapse'),
-);
+		@return $value;
+	}
 
-$-easings: (
-	'easing-standard': motion.$easing-standard,
-	'easing-deceleration': motion.$easing-deceleration,
-	'easing-acceleration': motion.$easing-acceleration,
-	'easing-sharp': motion.$easing-sharp,
-);
+	@return null;
+}
 
-$motion: map.merge($-durations, $-easings);
+@function assert-prop($prop-name, $expected) {
+	$val: get-value($prop-name);
 
-
-// TYPE
-
-$-font-families: (
-	'font-family-system-sans': type.$font-family-system-sans,
-	'font-family-system-serif': type.$font-family-system-serif,
-	'font-family-system-mono': type.$font-family-system-mono,
-	'font-family-sans': util.prop('font-family-system-sans'),
-	'font-family-serif': util.prop('font-family-system-serif'),
-	'font-family-mono': util.prop('font-family-system-mono'),
-	'font-family-base': util.prop('font-family-sans'),
-	'font-family-headings': util.prop('font-family-sans'),
-);
-
-$-font-size: (
-	'font-size-root': type.$font-size-root,
-	'font-size-10': type.$font-size-10,
-	'font-size-12': type.$font-size-12,
-	'font-size-14': type.$font-size-14,
-	'font-size-16': type.$font-size-16,
-	'font-size-18': type.$font-size-18,
-	'font-size-20': type.$font-size-20,
-	'font-size-24': type.$font-size-24,
-	'font-size-32': type.$font-size-32,
-	'font-size-40': type.$font-size-40,
-	'font-size-48': type.$font-size-48,
-	'font-size-base': util.prop('font-size-16'),
-	'font-size-small': util.prop('font-size-14'),
-	'font-size-h1': util.prop('font-size-32'),
-	'font-size-h2': util.prop('font-size-24'),
-	'font-size-h3': util.prop('font-size-20'),
-	'font-size-h4': util.prop('font-size-18'),
-	'font-size-h5': util.prop('font-size-16'),
-	'font-size-h6': util.prop('font-size-14'),
-);
-
-$-font-weight: (
-	'font-weight-thin': type.$font-weight-thin,
-	'font-weight-light': type.$font-weight-light,
-	'font-weight-regular': type.$font-weight-regular,
-	'font-weight-bold': type.$font-weight-bold,
-	'font-weight-black': type.$font-weight-black,
-	'font-weight-base': util.prop('font-weight-regular'),
-	'font-weight-headings': util.prop('font-weight-bold'),
-);
-
-$-line-height: (
-	'line-height-base': type.$line-height-base,
-	'line-height-sm': type.$line-height-sm,
-	'line-height-headings': util.prop('line-height-sm'),
-);
-
-$type: util.deep-merge(
-	$-font-families,
-	$-font-size,
-	$-font-weight,
-	$-line-height,
-);
-
-$props: () !default;
-// All design system properties, flattened to a single map.
-$props: util.props(
-	$color,
-	$device,
-	$misc,
-	$motion,
-	$type,
-	$props,
-);
+	@return $val == $expected;
+}
 
 
 // MIXINS
 
-@mixin add($new-props...) {
-	$props: util.deep-merge($props, $new-props...) !global;
+/// Add a list of local CSS properties.
+/// @param {Arglist | Map[]} $additions... - Either an arglist of key: value
+/// pairs or a list of maps with key: value pairs.
+/// @example scss - Arglist
+///   @include props(
+///     $button-border-radius: 4px,
+///     $button-font-size: prop('font-size-18'),
+///   );
+/// @example scss - List of maps
+///   @include props((
+///     'button-border-radius': 4px,
+///     'button-font-size': prop('font-size-18'),
+///   ), $some-other-map);
+@mixin props($additions...) {
+	@include -add(false, $additions...);
 }
 
-/// Set properties as prefixed CSS custom properties.
-/// @param {Map} $prop-map - A CSS custom property map.
-@mixin set($prop-map: $props) {
-	@if meta.type-of($prop-map) != 'map' {
-		@error 'Must be a map.';
+/// Add a list of root CSS properties. These will be added to the :root
+/// declaration for global usage.
+/// @param {Arglist | Map[]} $additions... - Either an arglist of key: value
+/// pairs or a list of maps with key: value pairs.
+/// @see props
+/// @example scss - Arglist
+///   @include root-props(
+///     $base-border-radius: 2px,
+///     $base-font-size: prop('font-size-16'),
+///   );
+/// @example scss - List of maps
+///   @include root-props((
+///     'base-border-radius': 2px,
+///     'base-font-size': prop('font-size-16'),
+///   ), $some-other-map);
+@mixin root-props($additions...) {
+	@include -add(true, $additions...);
+}
+
+/// Add a new local color family to the list of CSS properties. The resulting
+/// color family should be based on an existing reference family.
+/// @param {String} $name - The name of the new color family.
+/// @param {String} $ref-family - The name of the reference color family that
+/// will be the basis of the new color family.
+/// @param {Number} $grade-root [null] - An optional color grade (10 - 100). If
+/// included, the returned family will also include five shades that refer to
+/// grades. Shades will never go above 100 or below 10.
+/// - `{$name}-lighter`: two grades lighter.
+/// - `{$name}-light`: one grade lighter.
+/// - `{$name}` the specified $grade-root.
+/// - `{$name}-dark`: one grade darker.
+/// - `{$name}-darker`: two grades darker.
+/// @see props
+@mixin color-family($name, $ref-family, $grade-root: null) {
+	@include -family($name, $ref-family, $grade-root, false);
+}
+
+/// Add a new root color family to the list of CSS properties. The color family
+/// will be added to :root declaration for global usage.
+/// @param {String} $name - The name of the new color family.
+/// @param {String} $ref-family - The name of the reference color family that
+/// will be the basis of the new color family.
+/// @param {Number} $grade-root [null] - An optional color grade (10 - 100).
+/// @see root-props
+/// @see color-family
+@mixin root-color-family($name, $ref-family, $grade-root: null) {
+	@include -family($name, $ref-family, $grade-root, true);
+}
+
+/// Set a list of properties as CSS custom properties.
+/// @param {Arglist | Map[]} $prop-maps... - Either an arglist of key: value
+/// pairs or a list of maps with key: value pairs.
+/// @example scss
+///   .button {
+///     // set properties local to .button
+///     @include set-props($button-border-radius: 2px);
+///     // use the now-defined property
+///     border-radius: prop(button-border-radius);
+///   }
+///   // CSS output with config ($namespace: 'nds', $css-property-fallback: true)
+///   .button {
+///     --nds-button-border-radius: 2px;
+///     border-radius: var(--nds-button-border-radius, 2px);
+///   }
+@mixin set-props($prop-maps...) {
+	$keywords: meta.keywords($prop-maps);
+
+	$props: ();
+
+	@if list.length($keywords) > 0 {
+		$props: $keywords;
+	}
+	@else {
+		@each $prop-map in $prop-maps {
+			@if meta.type-of($prop-map) != 'map' {
+				@error 'All arguments must be maps';
+			}
+			@else {
+				$props: map.merge($props, $prop-map);
+			}
+		}
 	}
 
-	@each $token, $value in $prop-map {
+	@each $token, $value in $props {
 		@if $value {
-			--#{util.prefix(#{$token})}: #{$value};
+			@if meta.type-of($value) == 'map' {
+				@include set-props(util.flatten($value, $token));
+			}
+			@else {
+				@if not map.has-key($props, $token) {
+					@debug '#{$token} not found. Adding it as #{$value}.';
+
+					@include -add-one($token, $value);
+				}
+
+				@include -set-one($token, $value);
+			}
 		}
 	}
 }
 
-@mixin style {
-	@include set($props);
+@mixin -set-one($token, $value) {
+	--#{util.prefix(#{$token})}: #{$value};
+}
+
+@mixin -add-one($key, $value, $root: false) {
+	@if meta.type-of($value) == 'map' {
+		$prop-map: util.flatten($value, $key);
+
+		@if $root {
+			@include root-props($prop-map);
+		}
+		@else {
+			@include props($prop-map);
+		}
+	}
+	@else {
+		$prop-map: (string.quote($key): $value);
+
+		@if $root {
+			$-root-props: map.merge($-root-props, $prop-map) !global;
+		}
+		$-props: map.merge($-props, $prop-map) !global;
+	}
+}
+
+@mixin -add($root, $additions...) {
+	$keywords: meta.keywords($additions);
+
+	@if list.length($keywords) > 0 {
+		@each $key, $value in $keywords {
+			@include -add-one($key, $value, $root);
+		}
+	}
+	@else {
+		@each $addition in $additions {
+			@if meta.type-of($addition) == 'map' {
+				@each $key, $value in $addition {
+					@include -add-one($key, $value, $root);
+				}
+			}
+			@else {
+				@error 'Additions must all be `$variable: value` pairs.';
+			}
+		}
+	}
+}
+
+@mixin -family($name, $ref-family, $grade-root: null, $root) {
+	$map: ();
+
+	@for $n from 1 through 10 {
+		$grade: $n * 10;
+		$map: map.merge($map, ($grade: prop(#{$ref-family}-#{$grade})));
+	}
+
+	@include -add($root, util.flatten($map, $name));
+
+	@if $grade-root {
+		@include -add($root, util.flatten((
+			'lighter': prop('#{$name}-#{util.min-max($grade-root - 20, 10, 100)}'),
+			'light': prop('#{$name}-#{util.min-max($grade-root - 10, 10, 100)}'),
+			'#root': prop('#{$name}-#{util.min-max($grade-root, 10, 100)}'),
+			'dark': prop('#{$name}-#{util.min-max($grade-root + 10, 10, 100)}'),
+			'darker': prop('#{$name}-#{util.min-max($grade-root + 20, 10, 100)}'),
+		), $name));
+	}
+}
+
+@mixin root-style {
+	@include set-props($-root-props);
 
 	@media (prefers-reduced-motion: reduce) {
-		@include set((
-			'duration-scalar': 0,
-		));
+		@include set-props(
+			$duration-scalar: 0,
+		);
 	}
 }

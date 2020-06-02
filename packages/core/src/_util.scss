@@ -6,6 +6,7 @@
 @use 'sass:map';
 @use 'sass:math';
 @use 'sass:meta';
+@use 'sass:string';
 
 @use 'config' as *;
 
@@ -42,7 +43,7 @@
 /// Recursively merge a list of maps. Similar to `map.merge` but takes many maps
 /// and merges any sub-maps recursively.
 /// @param {Map[]} $maps... - A list of maps that will be merged.
-/// @returns {Map} - A deeply merged map.
+/// @return {Map} - A deeply merged map.
 @function deep-merge($maps...) {
 	$merged: list.nth($maps, 1);
 	$length: list.length($maps);
@@ -73,23 +74,16 @@
 	@return $merged;
 }
 
-/// Deeply merge and then flatten a list of CSS property maps.
-/// @param {Map[]} $maps... - A list of maps that use structure to convey relationship.
-/// @returns {Map} - A flattened and merged map suitable for CSS properties.
-@function props($maps...) {
-	@return flatten(deep-merge($maps...));
-}
-
-@function remove($list, $removals...) {
-	$result: ();
-
-	@each $item in $list {
-		@if not list.index($result, $item) and not list.index($removals, $item) {
-			$result: list.append($result, $item, $separator: comma);
-		}
+@function prefix($item, $ns: $namespace, $separator: '-') {
+	@if meta.type-of($item) == 'string' {
+		@return if($ns, $ns + $separator + $item, $item);
 	}
-
-	@return $result;
+	@else if meta.type-of($item) == 'number' {
+		@return if($ns, '#{$ns}#{$separator}#{$item}', $item);
+	}
+	@else if meta.type-of($item) == 'map' {
+		@return -prefix-map($item, $namespace, $separator);
+	}
 }
 
 @function -prefix-map($map, $prefix, $separator) {
@@ -102,16 +96,14 @@
 	@return $prefixed;
 }
 
-@function prefix($item, $ns: $namespace, $separator: '-') {
-	@if meta.type-of($item) == 'string' {
-		@return if($ns, $ns + $separator + $item, $item);
+@function unprefix($prefixed-string, $ns: $namespace, $separator: '-') {
+	$prefix: $ns + $separator;
+
+	@if string.index($prefixed-string, $prefix) == 1 {
+		@return string.slice($prefixed-string, string.length($prefix) + 1);
 	}
-	@else if meta.type-of($item) == 'number' {
-		@return if($ns, '#{$ns}#{$separator}#{$item}', $item);
-	}
-	@else if meta.type-of($item) == 'map' {
-		@return -prefix-map($item, $namespace, $separator);
-	}
+
+	@return $prefixed-string;
 }
 
 /// Get the key that corresponds to a value in a map.
@@ -125,57 +117,13 @@
 @function get-key($map, $value) {
 	$keys: map.keys($map);
 	$values: map.values($map);
+	$index: list.index($values, $value);
 
-	@return list.nth($keys, list.index($values, $value));
-}
-
-/// Get a prefixed CSS custom property corresponding to a given value inside a map.
-/// @param {Map} $prop-map - The map that will be used for lookup.
-/// @param {String} $value - The value of the corresponding key.
-/// @param {String} $prop-namespace [$namespace] - A namespace that will be used
-/// as a prefix on the property. Default uses the global `$namespace`.
-/// @return {String} - A CSS custom property corresponding to the given value.
-/// @example scss - Default prefix
-///   $my-map: ('red': #f00, 'yellow': #ba7);
-///   @debug get-prop($my-map, #ba7);
-///   // var(--nds-yellow)
-/// @example scss - Custom prefix
-///   $my-map: ('red': #f00, 'yellow': #ba7);
-///   @debug get-prop($my-map, #ba7, 'foo');
-///   // var(--foo-yellow)
-/// @example scss - No prefix
-///   $my-map: ('red': #f00, 'yellow': #ba7);
-///   @debug get-prop($my-map, #ba7, null);
-///   // var(--yellow)
-@function get-prop($prop-map, $value, $prop-namespace: $namespace) {
-	$name: prefix(get-key($prop-map, $value), $prop-namespace);
-
-	@return var(--#{$name});
-}
-
-@function prop($prop) {
-	@return var(--#{prefix($prop)});
-}
-
-/// Set all props in a collection of maps.
-/// @param {Map[]} $prop-maps... - A list of property maps.
-@mixin set-props($prop-maps...) {
-	$props: ();
-
-	@each $prop-map in $prop-maps {
-		@if meta.type-of($prop-map) != 'map' {
-			@error 'All arguments must be maps';
-		}
-		@else {
-			$props: map.merge($props, $prop-map);
-		}
+	@if $index {
+		@return list.nth($keys, $index);
 	}
 
-	@each $token, $value in $props {
-		@if $value {
-			--#{prefix(#{$token})}: #{$value};
-		}
-	}
+	@return $value;
 }
 
 /// Padding helper

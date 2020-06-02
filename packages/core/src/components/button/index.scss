@@ -5,42 +5,33 @@
 @use '../../motion';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as props;
+@use '../../properties' as *;
 
-$color: color.family-swatch(
-	'button-color',
-	'color-primary',
-	props.$props,
-	color.$primary-grade,
+$default-props: (
+	'button-color': color.family('button-color', 'color-primary', color.$primary-grade),
+	'button-border-width': 1px,
+	'button-padding-x': spacing.px-rem(12),
+	'button-padding-y': spacing.px-rem(8),
+	'button-border-radius': 0.125rem,
+	'button-font-weight': prop(font-weight-bold),
+	'button-transition': prop(duration-simple) prop(easing-standard),
 );
 
-$default-props: map.merge(
-	$color,
-	(
-		'button-border-width': 1px,
-		'button-padding-y': spacing.px-rem(8),
-		'button-padding-x': spacing.px-rem(12),
-		'button-border-radius': 0.125rem,
-		'button-font-weight': util.prop(font-weight-bold),
-		'button-transition': util.prop(duration-simple) util.prop(easing-standard),
-	),
-);
-
-$props: () !default;
-$props: map.merge($default-props, $props);
+$button-props: () !default;
+$button-props: map.merge($default-props, $button-props);
 
 @mixin base {
-	@include util.set-props($props);
+	@include set-props($button-props);
 	@include type.ui;
 
 	position: relative;
 	display: inline-flex;
 	box-sizing: border-box;
 	padding:
-		util.padding(util.prop(button-padding-y), util.prop(button-border-width))
-		util.padding(util.prop(button-padding-x), util.prop(button-border-width));
-	border: util.prop(button-border-width) solid transparent;
-	border-radius: util.prop(button-border-radius);
+		util.padding(prop(button-padding-y), prop(button-border-width))
+		util.padding(prop(button-padding-x), prop(button-border-width));
+	border: prop(button-border-width) solid transparent;
+	border-radius: prop(button-border-radius);
 	justify-content: center;
 	align-items: center;
 
@@ -50,7 +41,7 @@ $props: map.merge($default-props, $props);
 
 	&:disabled,
 	&.disabled {
-		color: util.prop(color-disabled);
+		color: prop(color-disabled);
 		pointer-events: none;
 	}
 }
@@ -60,14 +51,14 @@ $props: map.merge($default-props, $props);
 	$background-color: null,
 	$border-color: null,
 ) {
-	font-weight: util.prop(button-font-weight);
+	font-weight: prop(button-font-weight);
 	color: $text-color;
 	cursor: pointer;
 	background-color: $background-color;
 	border-color: $border-color;
 	transition:
 		motion.transition(
-			util.prop(button-transition),
+			prop(button-transition),
 			color,
 			background-color,
 			border-color,
@@ -86,88 +77,88 @@ $props: map.merge($default-props, $props);
 
 @mixin solid {
 	@include variant(
-		$text-color: util.prop(color-body-bg),
-		$background-color: util.prop(button-color),
-		$border-color: util.prop(button-color),
+		$text-color: prop(color-body-bg),
+		$background-color: prop(button-color),
+		$border-color: prop(button-color),
 	);
 
 	&:disabled,
 	&.disabled {
-		color: util.prop(color-disabled-dark);
-		background-color: util.prop(color-disabled-light);
-		border-color: util.prop(color-disabled-light);
+		color: prop(color-disabled-dark);
+		background-color: prop(color-disabled-light);
+		border-color: prop(color-disabled-light);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		background-color: util.prop(button-color-dark);
-		border-color: util.prop(button-color-dark);
+		background-color: prop(button-color-dark);
+		border-color: prop(button-color-dark);
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		background-color: util.prop(button-color-darker);
-		border-color: util.prop(button-color-darker);
+		background-color: prop(button-color-darker);
+		border-color: prop(button-color-darker);
 	}
 }
 
 @mixin outline {
 	@include variant(
-		$text-color: util.prop(button-color),
-		$background-color: util.prop(color-body-bg),
-		$border-color: util.prop(button-color),
+		$text-color: prop(button-color),
+		$background-color: prop(color-body-bg),
+		$border-color: prop(button-color),
 	);
 
 	&:disabled,
 	&.disabled {
-		color: util.prop(color-disabled);
-		border-color: util.prop(color-disabled);
+		color: prop(color-disabled);
+		border-color: prop(color-disabled);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		color: util.prop(button-color-dark);
+		color: prop(button-color-dark);
 		background-color: mix(#fff, #1a8082, 90%);
-		border-color: util.prop(button-color-dark);
+		border-color: prop(button-color-dark);
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		color: util.prop(button-color-darker);
-		background-color: util.prop(button-color-20);
-		border-color: util.prop(button-color-darker);
+		color: prop(button-color-darker);
+		background-color: prop(button-color-20);
+		border-color: prop(button-color-darker);
 	}
 }
 
 @mixin ghost {
 	@include variant(
-		$text-color: util.prop(button-color),
+		$text-color: prop(button-color),
 		$background-color: transparent,
 		$border-color: transparent,
 	);
 
 	&:disabled,
 	&.disabled {
-		color: util.prop(color-disabled);
+		color: prop(color-disabled);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		color: util.prop(button-color-dark);
-		background-color: util.prop(button-color-10);
-		border-color: util.prop(button-color-10);
+		color: prop(button-color-dark);
+		background-color: prop(button-color-10);
+		border-color: prop(button-color-10);
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		color: util.prop(button-color-darker);
-		background-color: util.prop(button-color-20);
-		border-color: util.prop(button-color-20);
+		color: prop(button-color-darker);
+		background-color: prop(button-color-20);
+		border-color: prop(button-color-20);
 	}
 }
 
 @mixin icon-only {
-	padding: util.padding(util.prop(button-padding-y), util.prop(button-border-width));
+	padding: util.padding(prop(button-padding-y), prop(button-border-width));
 
 	> :first-child {
 		margin-right: 0 !important;
@@ -213,14 +204,11 @@ $props: map.merge($default-props, $props);
 		@include icon;
 	}
 
-	@each $name, $value in color.$color-families {
+	@each $name, $value in color.$families {
 		.#{util.prefix('button--#{$name}')} {
-			@include util.set-props(color.family-swatch(
-				'button-color',
-				$name,
-				color.$color-families,
-				color.$primary-grade,
-			));
+			@include set-props(util.flatten((
+				'button-color': color.family('button-color', $name),
+			)));
 		}
 	}
 }

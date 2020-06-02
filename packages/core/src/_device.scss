@@ -3,6 +3,7 @@
 ////
 
 @use 'sass:map';
+@use 'properties' as *;
 @use 'util';
 
 /// Extra small: a handset
@@ -31,6 +32,13 @@ $devices: map.merge(
 		'xl': $device-xl,
 	),
 	$devices,
+);
+
+// DEVICE PROPERTIES
+@include root-props(
+	$hd-dpi: $hd-dpi,
+	$hd-dppx: $hd-dppx,
+	$breakpoint: $devices,
 );
 
 /// A media query helper for high definition screens.

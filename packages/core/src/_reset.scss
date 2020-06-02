@@ -8,9 +8,8 @@
 ////
 
 @use 'type';
-@use 'properties' as props;
+@use 'properties' as *;
 @use 'spacing' as *;
-@use 'util';
 
 $-style-set: false;
 
@@ -31,9 +30,9 @@ $-style-set: false;
 		// Apply root font size to define the value of 1rem.
 
 		:root {
-			@include props.style;
+			@include root-style;
 
-			font-size: util.prop('font-size-root');
+			font-size: prop('font-size-root');
 		}
 
 		// Body
@@ -47,13 +46,13 @@ $-style-set: false;
 			@include type.font-smoothing; // 1
 
 			// margin: 0; // 2
-			font-family: util.prop('font-family-base');
-			font-weight: util.prop('font-weight-base');
-			line-height: util.prop('line-height-base');
-			color: util.prop('color-body-text');
-			background-color: util.prop('color-body-bg'); // 3
+			font-family: prop('font-family-base');
+			font-weight: prop('font-weight-base');
+			line-height: prop('line-height-base');
+			color: prop('color-body-text');
+			background-color: prop('color-body-bg'); // 3
 			-webkit-text-size-adjust: 100%; // 4
-			-webkit-tap-highlight-color: rgba(util.prop('black'), 0); // 5
+			-webkit-tap-highlight-color: rgba(prop('black'), 0); // 5
 		}
 
 		// Future-proof rule: in browsers that support :focus-visible, suppress the focus outline
@@ -96,37 +95,37 @@ $-style-set: false;
 		h1 {
 			@include type.heading;
 
-			font-size: util.prop('font-size-h1');
+			font-size: prop('font-size-h1');
 		}
 
 		h2 {
 			@include type.heading;
 
-			font-size: util.prop('font-size-h2');
+			font-size: prop('font-size-h2');
 		}
 
 		h3 {
 			@include type.heading;
 
-			font-size: util.prop('font-size-h3');
+			font-size: prop('font-size-h3');
 		}
 
 		h4 {
 			@include type.heading;
 
-			font-size: util.prop('font-size-h4');
+			font-size: prop('font-size-h4');
 		}
 
 		h5 {
 			@include type.heading;
 
-			font-size: util.prop('font-size-h5');
+			font-size: prop('font-size-h5');
 		}
 
 		h6 {
 			@include type.heading;
 
-			font-size: util.prop('font-size-h6');
+			font-size: prop('font-size-h6');
 		}
 
 		// Reset margins on paragraphs

@@ -7,3 +7,5 @@
 
 $namespace: 'nds' !default;
 $browser-font-size: 16 !default;
+$css-property-fallback: true !default;
+$warn-on-missing-fallback: false !default;

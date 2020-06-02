@@ -3,63 +3,18 @@
 ////
 
 @use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+@use 'config';
+@use 'properties' as *;
 @use 'util';
-
-// FUNCTIONS
-
-/// Create a new color family CSS property map based on an existing family map.
-/// @param {String} $name - The name of the family that you'd like to map.
-/// @param {Map} $families - A map of named family maps.
-/// See [`$default-families`](#variable-default-families) for an example of the
-/// expected shape of a family map.
-/// @example scss
-///   @debug family-props('teal', $default-families);
-///   // (10: var(--nds-teal-10), 20: var(--nds-teal-20), 30: var(--nds-teal-30), ...)
-@function family-props($name, $families) {
-	$family: map.get($families, $name);
-
-	@if not $family {
-		@warn '#{$name} does not exist on the provided map of color families. Options include #{map.keys($families)}.';
-
-		@return null;
-	}
-
-	$map: ();
-
-	@for $n from 1 through 10 {
-		$grade: $n * 10;
-		$map: map.merge($map, ($grade: util.prop(#{$name}-#{$grade})));
-	}
-
-	@return $map;
-}
-
-/// Create a new color swatch CSS property map based on an existing color family
-/// of CSS properties.
-/// @param {Number} $root-grade - The family grade that defines the midpoint of the swatch.
-/// @param {Map} $family-props - A color family CSS property map.
-/// @see family-prop
-@function shade-props($root-grade, $family-props) {
-	@return (
-		'lighter': map.get($family-props, util.min-max($root-grade - 20, 10, 100)),
-		'light': map.get($family-props, util.min-max($root-grade - 10, 10, 100)),
-		'#root': map.get($family-props, util.min-max($root-grade, 10, 100)),
-		'dark': map.get($family-props, util.min-max($root-grade + 10, 10, 100)),
-		'darker': map.get($family-props, util.min-max($root-grade + 20, 10, 100)),
-	);
-}
-
-@function family-swatch($name, $ref-name, $families, $swatch-grade) {
-	$family: family-props($ref-name, $families);
-	$swatch: shade-props($swatch-grade, $family);
-
-	@return util.flatten(util.deep-merge((#{$name}: $family), (#{$name}: $swatch)));
-}
 
 // SYSTEM TOKENS
 
-/// A map of color families. Color families are named hues that contain 10 grades, from 10 to 100.
-$default-families: (
+/// A map of the default color families. Color families are named hues that
+/// contain 10 grades, from 10 to 100.
+/// @access private
+$-default-families: (
 	'cyan': (
 		10: #e9f7fb,
 		20: #d3eef5,
@@ -146,8 +101,16 @@ $default-families: (
 	),
 );
 
-$color-families: () !default;
-$color-families: map.merge($default-families, $color-families);
+/// The full map of color families. Will be deeply merged with `$-default-families`
+/// to create the complete map of color families.
+/// @example scss - Add a new family
+///   $families: ('fuscia': (60: #ff00ff));
+///   @use '@nds/core/full';
+/// @example scss - Override an existing family value
+///   $families: ('red': (60: #f00));
+///   @use '@nds/core/full';
+$families: () !default;
+$families: util.deep-merge($-default-families, $families);
 
 $black: #101010 !default;
 $white: #fdfdfd !default;
@@ -180,40 +143,90 @@ $success-grade: 60 !default;
 $warning-family: 'yellow' !default;
 $warning-grade: 60 !default;
 
-// PROPERTY MAPS
 
-$role-families: (
-	'color-primary': family-props($primary-family, $color-families),
-	'color-base': family-props($base-family, $color-families),
-	'color-error': family-props($error-family, $color-families),
-	'color-success':family-props($success-family, $color-families),
-	'color-warning':family-props($warning-family, $color-families),
-);
+// :ROOT CSS PROPERTIES
 
-$role-families: map.merge(
-	$role-families,
-	(
-		'color-disabled': family-props($disabled-family, $role-families),
-	)
+@include root-props($families);
+@include root-props(
+	$black: $black,
+	$white: $white,
 );
+@include root-props(
+	$color-body-bg: prop('white'),
+	$color-body-text: prop('black'),
+	$color-focus-ring: prop('cyan-50'),
+);
+@include root-color-family('color-primary', $primary-family, $primary-grade);
+@include root-color-family('color-base', $base-family, $base-grade);
+@include root-color-family('color-error', $error-family, $error-grade);
+@include root-color-family('color-success', $success-family, $success-grade);
+@include root-color-family('color-warning', $warning-family, $warning-grade);
+@include root-color-family('color-disabled', $disabled-family, $disabled-grade);
 
-$role-swatches: (
-	'color-primary': shade-props($primary-grade, map.get($role-families, 'color-primary')),
-	'color-disabled': shade-props($disabled-grade, map.get($role-families, 'color-disabled')),
-	'color-error': shade-props($error-grade, map.get($role-families, 'color-error')),
-	'color-success': shade-props($success-grade, map.get($role-families, 'color-success')),
-	'color-warning': shade-props($warning-grade, map.get($role-families, 'color-warning')),
-);
+/// Create a new color family map that references an existing family map.
+/// @param {String} $name - The name of the family that you'd like to create.
+/// @param {String} $ref-family - The name of the family that you'd like to reference.
+/// @param {Number} $grade-root [null] - If provided, this will be the midpoint
+/// of the "lighter/darker" shade swatch.
+/// @example scss - Minimal usage
+///   @debug family-props('foo', 'teal');
+///   // (
+///   //   10: var(--nds-teal-10),
+///   //   20: var(--nds-teal-20),
+///   //   ...30 - 80...
+///   //   90: var(--nds-teal-90),
+///   //   100: var(--nds-teal-100),
+///   // )
+/// @example scss - With `$grade-root`
+///   @debug family-props('foo', 'teal', 30);
+///   // (
+///   //   10: var(--nds-teal-10),
+///   //   20: var(--nds-teal-20),
+///   //   ...all other grades...
+///   //   'lighter': var(--nds-foo-10),
+///   //   'light': var(--nds-foo-20),
+///   //   '#root': var(--nds-foo-30),
+///   //   'dark': var(--nds-foo-40),
+///   //   'darker': var(--nds-foo-50),
+///   // )
+@function family($name, $ref-family, $grade-root: null) {
+	$map: ();
 
-$colors: util.deep-merge(
-	$color-families,
-	$role-families,
-	$role-swatches,
-	(
-		'black': $black,
-		'white': $white,
-		'color-body-bg': util.prop('white'),
-		'color-body-text': util.prop('black'),
-		'color-focus-ring': util.prop('cyan-50'),
-	),
-);
+	@for $n from 1 through 10 {
+		$grade: $n * 10;
+		$map: map.merge($map, ($grade: prop(#{$ref-family}-#{$grade})));
+	}
+
+	@if $grade-root {
+		$shades: (
+			-20: 'lighter',
+			-10: 'light',
+			0: '#root',
+			10: 'dark',
+			20: 'darker',
+		);
+
+		@for $g from -20 through 20 {
+			/* stylelint-disable max-nesting-depth */
+			@if math.abs($g % 10) == 0 {
+				$css-prop: string.unquote('--#{util.prefix(-get-shade($name, $grade-root, $g))}');
+				$prop: var($css-prop);
+
+				@if config.$css-property-fallback {
+					$prop-val: get-value($grade-root + $g, $map);
+
+					@if $prop-val {
+						$prop: var($css-prop, $prop-val);
+					}
+				}
+				$map: map.merge($map, (map.get($shades, $g): $prop));
+			}
+		}
+	}
+
+	@return $map;
+}
+
+@function -get-shade($name, $grade-root, $offset: 0) {
+	@return '#{$name}-#{util.min-max($grade-root + $offset, 10, 100)}';
+}

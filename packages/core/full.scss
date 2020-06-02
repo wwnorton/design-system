@@ -1,0 +1,8 @@
+// The full design system as one stylesheet.
+
+@forward '.';
+@use 'src/reset';
+@use 'src/components/button';
+
+@include reset.style;
+@include button.style;

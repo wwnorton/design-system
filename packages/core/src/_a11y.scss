@@ -4,6 +4,7 @@
 
 @use 'sass:list';
 @use 'util';
+@use 'properties' as *;
 
 // FUNCTIONS
 
@@ -11,8 +12,8 @@
 /// @param {String} $color [prop(color-focus-ring)] - The color of the focus ring.
 /// @param {String} $background [prop(color-body-bg)] - The background color.
 @function focus-shadow(
-	$color: util.prop(color-focus-ring),
-	$background: util.prop(color-body-bg),
+	$color: prop(color-focus-ring),
+	$background: prop(color-body-bg),
 ) {
 	@return (
 		0 0 0 1px $background,
@@ -22,7 +23,11 @@
 
 // TOKENS
 
-$focus-indicator: focus-shadow() !default;
+$focus-shadow: focus-shadow() !default;
+
+@include root-props(
+	$focus-shadow: $focus-shadow,
+);
 
 // MIXINS
 
@@ -58,7 +63,7 @@ $focus-indicator: focus-shadow() !default;
 /// @param {List[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
 @mixin focus-indicator($current-shadows...) {
 	outline: none;
-	box-shadow: $current-shadows, $focus-indicator;
+	box-shadow: $current-shadows, prop('focus-shadow');
 
 	&:not(:focus-visible) {
 		@if list.length($current-shadows) > 0 {

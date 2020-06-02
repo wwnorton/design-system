@@ -6,7 +6,7 @@
 @use 'sass:list';
 @use 'device';
 @use 'spacing' as *;
-@use 'util';
+@use 'properties' as *;
 
 // FUNCTIONS
 
@@ -14,13 +14,13 @@
 	$system: '';
 
 	@if $generic == 'sans' {
-		$system: util.prop(font-family-system-sans);
+		$system: prop(font-family-system-sans);
 	}
 	@else if $generic == 'serif' {
-		$system: util.prop(font-family-system-sans);
+		$system: prop(font-family-system-sans);
 	}
 	@else if $generic == 'mono' {
-		$system: util.prop(font-family-system-mono);
+		$system: prop(font-family-system-mono);
 	}
 
 	@return list.join($font-family, $system, $separator: comma);
@@ -46,7 +46,7 @@
 }
 
 
-// TOKENS
+// TOKEN VALUES
 
 // System font stacks from https://systemfontstack.com/
 $font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif !default;
@@ -107,9 +107,9 @@ $line-height-heading: $line-height-sm !default;
 }
 
 @mixin -text(
-	$family: util.prop(font-family-base),
-	$size: util.prop(font-size-base),
-	$height: util.prop(line-height-base),
+	$family: prop(font-family-base),
+	$size: prop(font-size-base),
+	$height: prop(line-height-base),
 	$weight: null,
 ) {
 	font-family: $family;
@@ -119,11 +119,11 @@ $line-height-heading: $line-height-sm !default;
 }
 
 @mixin text-xs {
-	@include -text($size: util.prop(font-size-12));
+	@include -text($size: prop(font-size-12));
 }
 
 @mixin text-sm {
-	@include -text($size: util.prop(font-size-14));
+	@include -text($size: prop(font-size-14));
 }
 
 @mixin text-md {
@@ -131,19 +131,85 @@ $line-height-heading: $line-height-sm !default;
 }
 
 @mixin text-lg {
-	@include -text($size: util.prop(font-size-18));
+	@include -text($size: prop(font-size-18));
 }
 
 @mixin ui {
-	@include -text($height: util.prop(line-height-sm));
+	@include -text($height: prop(line-height-sm));
 }
 
 @mixin heading {
 	margin-top: 0;
 	margin-bottom: spacer-rem(1);
-	font-family: util.prop(font-family-heading);
-	font-style: util.prop(font-style-heading);
-	font-weight: util.prop(font-weight-headings);
-	line-height: util.prop(line-height-headings);
-	color: util.prop(color-body-text);
+	font-family: prop(font-family-headings);
+	font-style: prop(font-style-headings);
+	font-weight: prop(font-weight-headings);
+	line-height: prop(line-height-headings);
+	color: prop(color-body-text);
 }
+
+
+// :ROOT CSS PROPERTIES
+
+// font-family
+@include root-props(
+	$font-family-system-sans: $font-family-system-sans,
+	$font-family-system-serif: $font-family-system-serif,
+	$font-family-system-mono: $font-family-system-mono,
+);
+@include root-props(
+	$font-family-sans: prop('font-family-system-sans'),
+	$font-family-serif: prop('font-family-system-serif'),
+	$font-family-mono: prop('font-family-system-mono'),
+);
+@include root-props(
+	$font-family-base: prop('font-family-sans'),
+	$font-family-headings: prop('font-family-sans'),
+);
+
+// font-size
+@include root-props(
+	$font-size-root: $font-size-root,
+	$font-size-10: $font-size-10,
+	$font-size-12: $font-size-12,
+	$font-size-14: $font-size-14,
+	$font-size-16: $font-size-16,
+	$font-size-18: $font-size-18,
+	$font-size-20: $font-size-20,
+	$font-size-24: $font-size-24,
+	$font-size-32: $font-size-32,
+	$font-size-40: $font-size-40,
+	$font-size-48: $font-size-48,
+);
+@include root-props(
+	$font-size-base: prop('font-size-16'),
+	$font-size-small: prop('font-size-14'),
+	$font-size-h1: prop('font-size-32'),
+	$font-size-h2: prop('font-size-24'),
+	$font-size-h3: prop('font-size-20'),
+	$font-size-h4: prop('font-size-18'),
+	$font-size-h5: prop('font-size-16'),
+	$font-size-h6: prop('font-size-14'),
+);
+
+// font-weight
+@include root-props(
+	$font-weight-thin: $font-weight-thin,
+	$font-weight-light: $font-weight-light,
+	$font-weight-regular: $font-weight-regular,
+	$font-weight-bold: $font-weight-bold,
+	$font-weight-black: $font-weight-black,
+);
+@include root-props(
+	$font-weight-base: prop('font-weight-regular'),
+	$font-weight-headings: prop('font-weight-bold'),
+);
+
+// line-height
+@include root-props(
+	$line-height-base: $line-height-base,
+	$line-height-sm: $line-height-sm,
+);
+@include root-props(
+	$line-height-headings: prop('line-height-sm'),
+);
