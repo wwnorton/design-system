@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.9.0...v0.9.1) (2020-06-03)
+
+### Bug Fixes
+
+- **react:** use relative paths ([2b97289](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/2b97289989edecd2ba2eb58926eeebdff3d00cd5))
+
 # [0.9.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.8.1...v0.9.0) (2020-05-31)
 
 ### Features
