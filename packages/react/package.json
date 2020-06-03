@@ -33,6 +33,9 @@
     "lodash.debounce": "^4.0.8",
     "lodash.uniqueid": "^4.0.1"
   },
+  "devDependencies": {
+    "@nds/core": "*"
+  },
   "peerDependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
