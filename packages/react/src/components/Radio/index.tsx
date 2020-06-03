@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { isElement } from '@nds/react/utilities';
+import { isElement } from '../../utilities';
 import { BaseInput, BaseInputProps } from '../BaseInput';
 
 export type RadioContent = 'input' | 'control' | 'thumbnail' | 'label' | 'help' | 'container';
