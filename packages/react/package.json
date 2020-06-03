@@ -1,6 +1,6 @@
 {
   "name": "@nds/react",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "React components for the Norton Design System.",
   "keywords": [
     "component",
@@ -32,6 +32,9 @@
     "classnames": "^2.2.6",
     "lodash.debounce": "^4.0.8",
     "lodash.uniqueid": "^4.0.1"
+  },
+  "devDependencies": {
+    "@nds/core": "*"
   },
   "peerDependencies": {
     "react": "^16.0.0",

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
 	createValidator, InputType, ValidatorEntry, ValidatorError, useForwardedRef,
-} from '@nds/react/utilities';
+} from '../../utilities';
 
 export interface ValidationState {
 	errors: ValidatorError[];

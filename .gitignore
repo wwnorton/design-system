@@ -114,3 +114,6 @@ dist
 dist
 public
 !.vuepress/public
+
+# docz
+.docz

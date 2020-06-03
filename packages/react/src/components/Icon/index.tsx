@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import {
 	findIcon, IconVariant, SVGIcon, materialDefaults,
-} from '@nds/react/utilities';
+} from '../../utilities';
 import { BaseSVG, BaseSVGProps } from '../BaseSVG';
 
 export interface IconProps extends BaseSVGProps {

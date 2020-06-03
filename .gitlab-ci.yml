@@ -58,11 +58,11 @@ pages:
     name: docs
     url: $CI_PAGES_URL
   variables:
-    VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
-  before_script:
-    - npm run build:stories -- -- -o ../../docs/.vuepress/public/storybook
+    PATH_PREFIX: /platform/$CI_PROJECT_NAME/
   script:
     - npm run build:docs
+  after_script:
+    - mv docs/public public
   artifacts:
     paths:
       - public

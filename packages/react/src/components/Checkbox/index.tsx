@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { isElement, ValidatorError, defaultValidators } from '@nds/react/utilities';
+import { isElement, ValidatorError, defaultValidators } from '../../utilities';
 import { BaseInput, BaseInputProps } from '../BaseInput';
 import { Icon } from '../Icon';
 

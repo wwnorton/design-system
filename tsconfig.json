@@ -21,13 +21,7 @@
     "skipLibCheck": false,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2015",
-    "baseUrl": ".",
-    "paths": {
-      "@nds/*": ["packages/*/src"],
-      "@nds/core/*": ["packages/core/src/*"],
-      "@nds/react/*": ["packages/react/src/*"]
-    }
+    "target": "ES2015"
   },
   "references": [{ "path": "packages/core" }, { "path": "packages/react" }]
 }

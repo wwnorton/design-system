@@ -1,5 +1,5 @@
 import React from 'react';
-import { idGen } from '@nds/react/utilities/helpers';
+import { idGen } from '../../utilities';
 import { BasePopper, BasePopperProps } from '../BasePopper';
 
 export type TooltipAnatomy = 'portal' | 'container' | 'arrow';
