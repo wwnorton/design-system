@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
-import { isElement, hasTransition } from '@nds/react/utilities';
+import { isElement, hasTransition } from '../../utilities';
 import { BaseDetails, BaseDetailsProps } from '../BaseDetails';
 import { BaseSummary } from '../BaseSummary';
 import { Icon } from '../Icon';

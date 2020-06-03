@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { IconVariant, SVGIcon } from '@nds/react/utilities';
+import { IconVariant, SVGIcon } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon } from '../Icon';
 

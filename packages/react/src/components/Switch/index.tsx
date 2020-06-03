@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { noop } from '@nds/react/utilities';
+import { noop } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 
 export interface SwitchProps extends BaseButtonProps {

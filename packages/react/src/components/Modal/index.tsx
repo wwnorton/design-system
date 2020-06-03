@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { noop, idGen, getFocusable } from '@nds/react/utilities';
+import { noop, idGen, getFocusable } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton } from '../IconButton';
 import { ButtonProps } from '../Button';
