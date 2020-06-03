@@ -9,13 +9,13 @@
     "bootstrap": "lerna bootstrap",
     "build": "gulp build",
     "build:core": "gulp build:core",
-    "build:docs": "lerna exec --scope=nds-docs -- npm run build -- --dest ../public",
+    "build:docs": "lerna exec --scope=nds-docs -- npm run build",
     "build:react": "gulp build:react",
     "build:stories": "lerna exec --scope=@nds/react -- npm run build:stories",
     "coverage": "nyc --reporter=html --reporter=text npm run test",
     "dev": "gulp dev",
     "dev:core": "gulp dev:core",
-    "dev:docs": "lerna exec --scope=nds-docs -- npm run dev",
+    "dev:docs": "lerna exec --scope=nds-docs -- npm run develop",
     "dev:react": "gulp dev:react",
     "lint:es": "eslint '**/*.{js,jsx,ts,tsx}' --ignore-path .gitignore",
     "lint:es-fix": "npm run lint:es -- --fix",
@@ -24,7 +24,7 @@
     "lint:style": "stylelint **/*.{css,sass,scss} --ignore-path .gitignore",
     "lint:style-fix": "npm run lint:style -- --fix",
     "prepublishOnly": "NODE_ENV=production gulp build",
-    "prettier": "prettier '**/*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
+    "prettier": "prettier '**/!(package-lock)*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "publish": "lerna publish",
     "storybook": "lerna exec --scope=@nds/react -- npm run dev:stories",
     "test": "ava"
@@ -44,7 +44,7 @@
     "*.{css,sass,scss,html}": [
       "stylelint --fix"
     ],
-    "*.{html,xhtml,md,json,yaml,yml}": [
+    "!(package-lock)*.{html,xhtml,md,json,yaml,yml}": [
       "prettier --write"
     ],
     "*.{js,jsx,ts,tsx}": [

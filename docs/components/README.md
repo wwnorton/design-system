@@ -1,3 +1,0 @@
-# Components
-
-Text about components...

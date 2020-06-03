@@ -1,0 +1,9 @@
+@import '~@nds/core/src/main';
+
+.switch::after {
+	top: unset;
+}
+
+.button + .button {
+	margin-left: 0.5rem;
+}
