@@ -1,3 +1,5 @@
+const sass = require('sass');
+
 const createTheme = ({ primary, logo, ...rest }) => ({
 	primary,
 	logo,
@@ -11,8 +13,8 @@ const createTheme = ({ primary, logo, ...rest }) => ({
 	...rest,
 });
 
-const light = createTheme({ primary: '#1a8082', logo: '#32475e' });
-const dark = createTheme({ primary: '#76cbcc', logo: '#63768a' });
+const light = createTheme({ primary: 'var(--teal-60)', logo: 'var(--navy-80)' });
+const dark = createTheme({ primary: 'var(--teal-40)', logo: 'var(--navy-20)' });
 
 module.exports = {
 	pathPrefix: process.env.PATH_PREFIX || '/',
@@ -41,6 +43,11 @@ module.exports = {
 				},
 			},
 		},
-		'gatsby-plugin-sass',
+		{
+			resolve: 'gatsby-plugin-sass',
+			options: {
+				implementation: sass,
+			},
+		},
 	],
 };
