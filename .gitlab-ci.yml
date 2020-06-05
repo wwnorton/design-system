@@ -4,9 +4,8 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
-    - docs/node_modules/
-    - packages/core/node_modules/
-    - packages/react/node_modules/
+    - "*/node_modules/"
+    - packages/*/node_modules/
 
 stages:
   - codequality
@@ -27,9 +26,10 @@ stages:
 
 install:
   stage: .pre
+  # don't use npm ci since we are using cached node_modules
   script:
     - npm install
-    - npm run bootstrap
+    - npm run bootstrap -- --no-ci
 
 eslint:
   stage: codequality
