@@ -18,8 +18,8 @@ stages:
 
 .docs-aws:
   before_script: &docs-aws
-    - apt-get update -qq
-    - apt-get install -qq python-pip
+    - apt-get -qq update
+    - apt-get -qq install python-pip
     - pip install awscli
     - npm run build:docs
     - mv docs/public public
