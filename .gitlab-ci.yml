@@ -16,6 +16,8 @@ stages:
 # ANCHORS - reusable sections of YAML
 
 .build-docs: &build-docs
+  variables:
+    PATH_PREFIX: /
   before_script:
     - npm run build:stories -- -- --output-dir '../../docs/static${PATH_PREFIX}storybook'
   script:
@@ -75,8 +77,6 @@ docs:review:
 
 docs:prod:
   stage: build
-  variables:
-    PATH_PREFIX: /
   <<: *build-docs
   artifacts:
     paths:
