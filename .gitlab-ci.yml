@@ -92,8 +92,7 @@ deploy:review:
   script:
     - aws s3 cp public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
   only:
-    - master
-    - merge_requests
+    - branches
 
 clean:review:
   image: python
