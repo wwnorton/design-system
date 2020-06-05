@@ -14,7 +14,6 @@ stages:
   # - test
   - deploy
 
-
 # ANCHORS - reusable sections of YAML
 
 .docs-aws:
@@ -23,7 +22,6 @@ stages:
     - apt-get install -qq python-pip
     - pip install awscli
     - npm run build:docs
-
 
 # JOBS
 
