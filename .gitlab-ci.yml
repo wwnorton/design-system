@@ -9,7 +9,6 @@ cache:
     - packages/react/node_modules/
 
 stages:
-  - prepare
   - codequality
   - build
   # - test
@@ -29,7 +28,7 @@ stages:
 # JOBS
 
 install:
-  stage: prepare
+  stage: .pre
   script:
     - npm install
     - npm run bootstrap
@@ -98,6 +97,7 @@ deploy:review:
 
 clean:review:
   image: python
+  stage: .post
   variables:
     S3_BUCKET: norton-design-system-review
   before_script:
