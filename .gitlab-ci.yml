@@ -53,8 +53,6 @@ test:
   stage: codequality
   script:
     - npm run coverage
-  dependencies:
-    - build
 
 build:
   stage: build
