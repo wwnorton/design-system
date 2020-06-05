@@ -87,7 +87,7 @@ docs:prod:
 pages:
   stage: deploy
   environment:
-    name: docs
+    name: pages
     url: $CI_PAGES_URL
   variables:
     PATH_PREFIX: /platform/$CI_PROJECT_NAME/
