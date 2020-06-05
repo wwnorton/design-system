@@ -17,7 +17,7 @@ stages:
 
 .build-docs: &build-docs
   before_script:
-    - npm run build:stories -- -- --output-dir ../../docs/static/storybook
+    - npm run build:stories -- -- --output-dir '../../docs/static${PATH_PREFIX}storybook'
   script:
     - npm run build:docs
     - mv docs/public public
@@ -75,6 +75,8 @@ docs:review:
 
 docs:prod:
   stage: build
+  variables:
+    PATH_PREFIX: /
   <<: *build-docs
   artifacts:
     paths:
