@@ -51,7 +51,7 @@ test:
   script:
     - npm run coverage
 
-build:lib:
+lib:
   stage: build
   script:
     - npm run build
@@ -60,7 +60,7 @@ build:lib:
       - packages/*/dist
     expire_in: 30 days
 
-build:review:
+docs:review:
   stage: build
   variables:
     PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
@@ -73,7 +73,7 @@ build:review:
   except:
     - master
 
-build:docs:
+docs:prod:
   stage: build
   <<: *build-docs
   artifacts:
@@ -96,17 +96,17 @@ pages:
   only:
     - master
 
-deploy:review:
+review:
   image: python
   stage: deploy
   dependencies:
-    - build:review
+    - docs:review
   variables:
     S3_BUCKET: norton-design-system-review
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: http://${S3_BUCKET}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
-    on_stop: deploy:clean-review
+    on_stop: clean-review
   before_script:
     - pip install awscli
   script:
@@ -116,7 +116,7 @@ deploy:review:
   except:
     - master
 
-deploy:clean-review:
+clean-review:
   image: python
   stage: deploy
   variables:
@@ -131,11 +131,11 @@ deploy:clean-review:
     action: stop
   when: manual
 
-deploy:docs:
+prod:
   image: python
   stage: deploy
   dependencies:
-    - build:docs
+    - docs:prod
   variables:
     S3_BUCKET: norton-design-system-production
   environment:
