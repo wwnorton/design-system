@@ -15,6 +15,19 @@ stages:
   # - test
   - deploy
 
+
+# ANCHORS - reusable sections of YAML
+
+.docs-aws:
+  before_script: &docs-aws
+    - apt-get update -qq
+    - apt-get install -qq python-pip
+    - pip install awscli
+    - npm run build:docs
+
+
+# JOBS
+
 install:
   stage: prepare
   script:
@@ -71,29 +84,28 @@ pages:
 
 deploy:review:
   stage: deploy
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-    url: http://${BUCKET_REVIEW}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
-    on_stop: clean:review
   variables:
     PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
-  before_script:
-    - apt-get update -qq
-    - apt-get install -qq python-pip
-    - pip install awscli
-    - npm run build:docs
+    S3_BUCKET: norton-design-system-review
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    url: http://${S3_BUCKET}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
+    on_stop: clean:review
+  before_script: *docs-aws
   script:
-    - aws s3 cp public s3://${BUCKET_REVIEW}/${CI_COMMIT_REF_SLUG} --recursive
+    - aws s3 cp public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
   only:
     - master
     - merge_requests
 
 clean:review:
   image: python
+  variables:
+    S3_BUCKET: norton-design-system-review
   before_script:
     - pip install awscli
   script:
-    - aws s3 rm s3://${BUCKET_REVIEW}/${CI_COMMIT_REF_SLUG} --recursive
+    - aws s3 rm s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     action: stop
@@ -101,15 +113,13 @@ clean:review:
 
 # deploy:production:
 #   stage: deploy
-#   dependencies:
-#     - build:docs
+#   variables:
+#     PATH_PREFIX: /${CI_COMMIT_TAG}/
+#     S3_BUCKET: norton-design-system-production
 #   environment:
 #     name: tags/${CI_COMMIT_TAG}
 #     url: https://d2tarzv1ymldad.cloudfront.net/${CI_COMMIT_TAG}
-#   before_script:
-#     - apt-get update -qq
-#     - apt-get install -qq python-pip
-#     - pip install awscli
+#   before_script: *docs-aws
 #   script:
 #     - npm run deploy:docs
 #   after_script:
