@@ -8,6 +8,7 @@ cache:
     - packages/*/node_modules
 
 stages:
+  - prepare
   - codequality
   - build
   # - test
@@ -26,7 +27,7 @@ stages:
 # JOBS
 
 install:
-  stage: .pre
+  stage: prepare
   # don't use npm ci since we are using cached node_modules
   script:
     - npm install
