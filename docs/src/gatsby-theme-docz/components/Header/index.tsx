@@ -7,14 +7,13 @@ import { Icon, Switch } from '@nds/react';
 import {
 	Edit, Menu, Sun, Moon,
 } from 'react-feather';
+import { Link } from 'gatsby';
 import { Logo } from '../Logo';
 import * as styles from './styles';
 
 interface HeaderProps {
 	onOpen?: React.HTMLAttributes<HTMLButtonElement>['onClick'];
 }
-
-const storybookPath = `${process.env.PATH_PREFIX || ''}/storybook`.replace(/\/+/g, '/');
 
 export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderProps) => {
 	const {
@@ -43,9 +42,9 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 			<div sx={styles.innerContainer}>
 				<Logo />
 				<Flex sx={{ alignItems: 'center' }}>
-					<a href={storybookPath} sx={styles.headerLink}>
+					<Link to="/storybook" sx={styles.headerLink}>
 						Storybook
-					</a>
+					</Link>
 					{repository && (
 						<a
 							href={repository}
