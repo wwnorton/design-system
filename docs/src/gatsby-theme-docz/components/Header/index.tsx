@@ -41,14 +41,8 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 			<div sx={styles.innerContainer}>
 				<Logo />
 				<Flex sx={{ alignItems: 'center' }}>
-					<a
-						href="https://mystifying-thompson-de9656.netlify.app/"
-						sx={styles.headerLink}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+					<a href="/storybook/index.html" sx={styles.headerLink}>
 						Storybook
-						<Icon variant="launch" width={15} sx={{ ml: 1 }} />
 					</a>
 					{repository && (
 						<a
