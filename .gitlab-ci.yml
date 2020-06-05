@@ -12,7 +12,7 @@ stages:
   - prepare
   - codequality
   - build
-  - test
+  # - test
   - deploy
 
 install:
@@ -36,6 +36,13 @@ prettier:
   script:
     - npm run lint:prettier
 
+test:
+  stage: codequality
+  script:
+    - npm run coverage
+  dependencies:
+    - build
+
 build:
   stage: build
   script:
@@ -44,13 +51,6 @@ build:
     paths:
       - packages/*/dist
     expire_in: 30 days
-
-test:unit:
-  stage: test
-  script:
-    - npm run coverage
-  dependencies:
-    - build
 
 pages:
   stage: deploy
