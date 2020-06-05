@@ -86,7 +86,7 @@ review:
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: http://${S3_BUCKET}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
-    on_stop: clean:review
+    on_stop: review:clean
   before_script: *docs-aws
   script:
     - aws s3 cp public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
