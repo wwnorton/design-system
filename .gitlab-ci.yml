@@ -11,6 +11,7 @@ stages:
   - prepare
   - codequality
   - build
+  - docs
   - deploy
 
 # ANCHORS - reusable sections of YAML
@@ -61,7 +62,7 @@ lib:
     expire_in: 30 days
 
 docs:review:
-  stage: build
+  stage: docs
   variables:
     PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
   <<: *build-docs
@@ -74,7 +75,7 @@ docs:review:
     - master
 
 docs:prod:
-  stage: build
+  stage: docs
   <<: *build-docs
   artifacts:
     paths:
