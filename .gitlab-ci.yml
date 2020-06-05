@@ -78,7 +78,7 @@ pages:
   only:
     - master
 
-deploy:review:
+review:
   stage: deploy
   variables:
     PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
@@ -93,9 +93,9 @@ deploy:review:
   only:
     - branches
 
-clean:review:
+review:clean:
   image: python
-  stage: .post
+  stage: deploy
   variables:
     S3_BUCKET: norton-design-system-review
   before_script:
@@ -107,7 +107,7 @@ clean:review:
     action: stop
   when: manual
 
-# deploy:production:
+# production:
 #   stage: deploy
 #   variables:
 #     PATH_PREFIX: /${CI_COMMIT_TAG}/
