@@ -14,6 +14,8 @@ interface HeaderProps {
 	onOpen?: React.HTMLAttributes<HTMLButtonElement>['onClick'];
 }
 
+const storybookPath = `${process.env.PATH_PREFIX || ''}/storybook`.replace(/\/+/g, '/');
+
 export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderProps) => {
 	const {
 		repository,
@@ -41,7 +43,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 			<div sx={styles.innerContainer}>
 				<Logo />
 				<Flex sx={{ alignItems: 'center' }}>
-					<a href="/storybook/index.html" sx={styles.headerLink}>
+					<a href={storybookPath} sx={styles.headerLink}>
 						Storybook
 					</a>
 					{repository && (
