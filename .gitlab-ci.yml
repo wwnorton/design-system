@@ -69,6 +69,58 @@ pages:
   only:
     - master
 
+deploy:review:
+  stage: deploy
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    url: http://${BUCKET_REVIEW}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
+    on_stop: clean:review
+  variables:
+    PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
+  before_script:
+    - apt-get update -qq
+    - apt-get install -qq python-pip
+    - pip install awscli
+    - npm run build:docs
+  script:
+    - aws s3 cp public s3://${BUCKET_REVIEW}/${CI_COMMIT_REF_SLUG} --recursive
+  only:
+    - master
+    - merge_requests
+
+clean:review:
+  image: python
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 rm s3://${BUCKET_REVIEW}/${CI_COMMIT_REF_SLUG} --recursive
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    action: stop
+  when: manual
+
+# deploy:production:
+#   stage: deploy
+#   dependencies:
+#     - build:docs
+#   environment:
+#     name: tags/${CI_COMMIT_TAG}
+#     url: https://d2tarzv1ymldad.cloudfront.net/${CI_COMMIT_TAG}
+#   before_script:
+#     - apt-get update -qq
+#     - apt-get install -qq python-pip
+#     - pip install awscli
+#   script:
+#     - npm run deploy:docs
+#   after_script:
+#     # invalidate the cloudfront cache to force a refresh
+#     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
+#   artifacts:
+#     paths:
+#       - docs/public
+#   only:
+#     - tags
+
 .publish:
   stage: deploy
   script:
