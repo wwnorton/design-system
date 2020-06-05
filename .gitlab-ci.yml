@@ -3,9 +3,9 @@ image: node:12
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - node_modules/
-    - "*/node_modules/"
-    - packages/*/node_modules/
+    - node_modules
+    - "*/node_modules"
+    - packages/*/node_modules
 
 stages:
   - codequality
