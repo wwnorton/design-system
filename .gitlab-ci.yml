@@ -1,4 +1,4 @@
-image: node:12
+image: node:lts
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -11,16 +11,16 @@ stages:
   - prepare
   - codequality
   - build
-  # - test
   - deploy
 
 # ANCHORS - reusable sections of YAML
 
-.docs-aws:
-  before_script: &docs-aws
-    - apt-get -qq update
-    - apt-get -qq install python-pip
-    - pip install awscli
+.build-docs: &build-docs
+  variables:
+    PATH_PREFIX: /
+  before_script:
+    - npm run build:stories -- -- --output-dir '../../docs/static${PATH_PREFIX}storybook'
+  script:
     - npm run build:docs
     - mv docs/public public
 
@@ -53,7 +53,7 @@ test:
   script:
     - npm run coverage
 
-build:
+lib:
   stage: build
   script:
     - npm run build
@@ -62,17 +62,36 @@ build:
       - packages/*/dist
     expire_in: 30 days
 
+docs:review:
+  stage: build
+  variables:
+    PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
+  <<: *build-docs
+  artifacts:
+    paths:
+      - public
+  only:
+    - branches
+  except:
+    - master
+
+docs:prod:
+  stage: build
+  <<: *build-docs
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+
 pages:
   stage: deploy
   environment:
-    name: docs
+    name: pages
     url: $CI_PAGES_URL
   variables:
     PATH_PREFIX: /platform/$CI_PROJECT_NAME/
-  script:
-    - npm run build:docs
-  after_script:
-    - mv docs/public public
+  <<: *build-docs
   artifacts:
     paths:
       - public
@@ -80,24 +99,30 @@ pages:
     - master
 
 review:
+  image: python
   stage: deploy
+  dependencies:
+    - docs:review
   variables:
-    PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
     S3_BUCKET: norton-design-system-review
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
     url: http://${S3_BUCKET}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
-    on_stop: review:clean
-  before_script: *docs-aws
+    on_stop: clean-review
+  before_script:
+    - pip install awscli
   script:
     - aws s3 cp public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
   only:
     - branches
+  except:
+    - master
 
-review:clean:
+clean-review:
   image: python
   stage: deploy
   variables:
+    GIT_STRATEGY: none
     S3_BUCKET: norton-design-system-review
   before_script:
     - pip install awscli
@@ -108,25 +133,25 @@ review:clean:
     action: stop
   when: manual
 
-# production:
-#   stage: deploy
-#   variables:
-#     PATH_PREFIX: /${CI_COMMIT_TAG}/
-#     S3_BUCKET: norton-design-system-production
-#   environment:
-#     name: tags/${CI_COMMIT_TAG}
-#     url: https://d2tarzv1ymldad.cloudfront.net/${CI_COMMIT_TAG}
-#   before_script: *docs-aws
-#   script:
-#     - npm run deploy:docs
-#   after_script:
-#     # invalidate the cloudfront cache to force a refresh
-#     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
-#   artifacts:
-#     paths:
-#       - docs/public
-#   only:
-#     - tags
+prod:
+  image: python
+  stage: deploy
+  dependencies:
+    - docs:prod
+  variables:
+    S3_BUCKET: norton-design-system-production
+  environment:
+    name: production
+    url: https://d2tarzv1ymldad.cloudfront.net
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 cp public s3://${S3_BUCKET}/ --recursive
+  after_script:
+    # invalidate the cloudfront cache to force a refresh
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
+  only:
+    - master
 
 .publish:
   stage: deploy
