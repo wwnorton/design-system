@@ -7,6 +7,7 @@ import { Icon, Switch } from '@nds/react';
 import {
 	Edit, Menu, Sun, Moon,
 } from 'react-feather';
+import { withPrefix } from 'gatsby';
 import { Logo } from '../Logo';
 import * as styles from './styles';
 
@@ -41,14 +42,8 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 			<div sx={styles.innerContainer}>
 				<Logo />
 				<Flex sx={{ alignItems: 'center' }}>
-					<a
-						href="https://mystifying-thompson-de9656.netlify.app/"
-						sx={styles.headerLink}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
+					<a href={withPrefix('/storybook')} sx={styles.headerLink}>
 						Storybook
-						<Icon variant="launch" width={15} sx={{ ml: 1 }} />
 					</a>
 					{repository && (
 						<a
