@@ -1,94 +1,169 @@
 import test from 'ava';
 import React from 'react';
-import { cleanup, render, fireEvent } from '../../../test/helpers/testing-library-react';
+import { cleanup, render, fireEvent } from '@testing-library/react';
 import { Dropdown } from '.';
 
 test.afterEach(cleanup);
 
+// helper function to get dropdown anatomy fixtures
 const dropdownAnatomy = (ctx: HTMLElement) => ({
-	get button() { return ctx.querySelector('button') as NonNullable<HTMLButtonElement>; },
-	get listbox() { return ctx.querySelector('[role=listbox]'); },
-	get options() { return ctx.querySelectorAll('[role=option]'); },
+	getButton() { return ctx.querySelector('button'); },
+	getListbox() { return ctx.querySelector<HTMLElement>('[role=listbox]'); },
+	getOptions() { return ctx.querySelectorAll<HTMLElement>('[role=option]'); },
 });
 
-const elements = [
-	'Americium',
-	'Berkelium',
-	'Bohrium',
-	'Californium',
-];
+// default dropdown props
+const label = 'Choose an element';
+const options = ['Americium', 'Berkelium', 'Bohrium', 'Californium'];
+const defaultProps = { label, options };
 
-test('renders its defaults', (t) => {
-	const TEST_ID = 'defaults';
-	const { toString } = render((
-		<Dropdown
-			label="Choose an element"
-			options={elements}
-			id={TEST_ID}
-		/>
-	));
-	t.snapshot(toString());
+test('renders closed by default', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} />);
+	const { getListbox, getOptions } = dropdownAnatomy(container);
+	t.falsy(getListbox());
+	t.is(getOptions().length, 0);
 });
 
-test('clicking the button opens the listbox', (t) => {
-	const TEST_ID = 'button-click';
-	const { container, toString } = render((
-		<Dropdown
-			label="Choose an element"
-			options={elements}
-			id={TEST_ID}
-		/>
-	));
-	t.snapshot(toString(), 'initial state');
+test('renders a listbox with focus on the first option when `isOpen`', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen />);
+	const { getListbox, getOptions } = dropdownAnatomy(container);
+	t.truthy(getListbox());
+	t.is(getOptions().length, options.length);
+	t.is(document.activeElement, getOptions()[0]);
+});
 
-	const dropdown = dropdownAnatomy(container);
+test('clicking the button opens the listbox when closed', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} />);
+	const { getButton, getListbox, getOptions } = dropdownAnatomy(container);
+
+	fireEvent.click(getButton());
+	t.truthy(getListbox());
+	t.is(getOptions().length, options.length);
+	t.is(document.activeElement, getOptions()[0]);
+});
+
+test('clicking the button closes the listbox when it\'s open', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen />);
+	const { getButton, getListbox, getOptions } = dropdownAnatomy(container);
 
 	// clicking the button should open the listbox
-	fireEvent.click(dropdown.button);
-	t.truthy(dropdown.listbox);
-	t.is(dropdown.options.length, elements.length);
-	t.snapshot(toString(), 'button click -> expanded');
+	fireEvent.click(getButton());
+	t.falsy(getListbox());
+	t.is(getOptions().length, 0);
 });
 
 test('clicking an option selects it and closes the listbox', (t) => {
-	const TEST_ID = 'option-click';
 	const OPTION_INDEX = 1;
-	const { container, toString } = render((
-		<Dropdown
-			label="Choose an element"
-			options={elements}
-			id={TEST_ID}
-			isOpen
-		/>
-	));
-	t.snapshot(toString(), 'initial open state');
+	const { container } = render(<Dropdown {...defaultProps} isOpen />);
+	const { getButton, getListbox, getOptions } = dropdownAnatomy(container);
 
-	const dropdown = dropdownAnatomy(container);
-
-	fireEvent.click(dropdown.options[OPTION_INDEX]);
-	t.is(dropdown.button.textContent, elements[OPTION_INDEX]);
-	t.falsy(dropdown.listbox);
-	t.snapshot(toString(), 'option 2 clicked -> selected and closed');
+	fireEvent.click(getOptions()[OPTION_INDEX]);
+	t.is(getButton().textContent, options[OPTION_INDEX]);
+	t.falsy(getListbox());
 });
 
-test('down arrow opens the listbox and moves focus to the first option', (t) => {
-	const TEST_ID = 'button-arrowdown';
-	const { container, toString } = render((
-		<Dropdown
-			label="Choose an element"
-			options={elements}
-			id={TEST_ID}
-			isOpen
-		/>
-	));
-	t.snapshot(toString(), 'initial open state');
+// this should be passing. possible @testing-library or JSDOM issue?
+test.failing('keypress.enter selects the currently focused option and closes the listbox', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen />);
+	const { getButton, getListbox } = dropdownAnatomy(container);
+	fireEvent.keyPress(document.activeElement, { key: 'Enter' });
+	t.is(getButton().textContent, options[0]);
+	t.falsy(getListbox());
+});
 
-	const dropdown = dropdownAnatomy(container);
+test('keyup.space selects the currently focused option and closes the listbox', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen />);
+	const { getButton, getListbox } = dropdownAnatomy(container);
+	fireEvent.keyUp(document.activeElement, { key: ' ' });
+	t.is(getButton().textContent, options[0]);
+	t.falsy(getListbox());
+});
 
-	fireEvent.keyDown(dropdown.options[1], { key: 'ArrowDown', code: 'ArrowDown' });
+test('down arrow on the button opens the listbox and moves focus to the first option', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} />);
+	const { getButton, getListbox } = dropdownAnatomy(container);
 
-	t.truthy(dropdown.listbox);
-	t.truthy(dropdown.listbox);
-	t.is(dropdown.options.length, elements.length);
-	t.snapshot(toString(), 'arrow down -> expanded & focused');
+	fireEvent.keyDown(getButton(), { key: 'ArrowDown' });
+
+	t.truthy(getListbox());
+	t.is(document.activeElement.textContent, options[0]);
+});
+
+test('down arrow moves focus to the next option and up arrow moves focus to the previous option when open', (t) => {
+	render(<Dropdown {...defaultProps} isOpen />);
+	// arrow down until the end
+	for (let i = 0; i < options.length; i += 1) {
+		t.is(document.activeElement.textContent, options[i]);
+		fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
+	}
+	// arrow down once more to ensure focus can't go beyond the end
+	fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
+	t.is(document.activeElement.textContent, options[options.length - 1]);
+
+	// arrow up until the beginning
+	for (let i = options.length - 1; i > -1; i -= 1) {
+		t.is(document.activeElement.textContent, options[i]);
+		fireEvent.keyDown(document.activeElement, { key: 'ArrowUp' });
+	}
+	// arrow up once more to ensure focus can't go beyond the beginning
+	fireEvent.keyDown(document.activeElement, { key: 'ArrowUp' });
+	t.is(document.activeElement.textContent, options[0]);
+});
+
+test('escape closes the listbox', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen />);
+	fireEvent.keyDown(document.body, { key: 'Escape' });
+	const { getListbox, getOptions } = dropdownAnatomy(container);
+	t.falsy(getListbox());
+	t.is(getOptions().length, 0);
+});
+
+test('escape does not close the listbox when `closeOnDocumentEscape` is `false`', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen closeOnDocumentEscape={false} />);
+	fireEvent.keyDown(document.body, { key: 'Escape' });
+	const { getListbox, getOptions } = dropdownAnatomy(container);
+	t.truthy(getListbox());
+	t.is(getOptions().length, options.length);
+});
+
+test('clicking outside of the dropdown closes the listbox', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen />);
+	fireEvent.click(document.body);
+	const { getListbox, getOptions } = dropdownAnatomy(container);
+	t.falsy(getListbox());
+	t.is(getOptions().length, 0);
+});
+
+test('clicking outside of the dropdown does not close the listbox when `closeOnExternalClick` is `false`', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen closeOnExternalClick={false} />);
+	fireEvent.click(document.body);
+	const { getListbox, getOptions } = dropdownAnatomy(container);
+	t.truthy(getListbox());
+	t.is(getOptions().length, options.length);
+});
+
+test('tabbing out of an open dropdown closes it without selecting anything', (t) => {
+	const { container } = render(<Dropdown {...defaultProps} isOpen />);
+	const { getButton, getListbox, getOptions } = dropdownAnatomy(container);
+	const initialText = getButton().textContent;
+	fireEvent.keyDown(document.activeElement, { key: 'Tab' });
+	t.falsy(getListbox());
+	t.is(getOptions().length, 0);
+	t.is(getButton().textContent, initialText);
+});
+
+test('open state can be controlled externally', (t) => {
+	const { container, rerender } = render(<Dropdown {...defaultProps} />);
+	const { getListbox, getOptions } = dropdownAnatomy(container);
+
+	// open
+	rerender(<Dropdown {...defaultProps} isOpen />);
+	t.truthy(getListbox());
+	t.is(getOptions().length, options.length);
+	t.is(document.activeElement, getOptions()[0]);
+
+	// close
+	rerender(<Dropdown {...defaultProps} />);
+	t.falsy(getListbox());
+	t.is(getOptions().length, 0);
 });
