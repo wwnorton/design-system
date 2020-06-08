@@ -17,6 +17,7 @@ module.exports = (packageName, { banner, production, sourcemaps }, { dest, watch
 					'@babel/preset-typescript',
 				],
 				minified: production,
+				ignore: ['**/*.d.ts'],
 			}),
 		)
 		.pipe(
