@@ -1,25 +1,37 @@
-image: node:12
+image: node:lts
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - node_modules/
-    - docs/node_modules/
-    - packages/core/node_modules/
-    - packages/react/node_modules/
+    - node_modules
+    - "*/node_modules"
+    - packages/*/node_modules
 
 stages:
   - prepare
   - codequality
   - build
-  - test
   - deploy
+
+# ANCHORS - reusable sections of YAML
+
+.build-docs: &build-docs
+  variables:
+    PATH_PREFIX: /
+  before_script:
+    - npm run build:stories -- -- --output-dir '../../docs/static${PATH_PREFIX}storybook'
+  script:
+    - npm run build:docs
+    - mv docs/public public
+
+# JOBS
 
 install:
   stage: prepare
+  # don't use npm ci since we are using cached node_modules
   script:
     - npm install
-    - npm run bootstrap
+    - npm run bootstrap -- --no-ci
 
 eslint:
   stage: codequality
@@ -36,7 +48,12 @@ prettier:
   script:
     - npm run lint:prettier
 
-build:
+test:
+  stage: codequality
+  script:
+    - npm run coverage
+
+lib:
   stage: build
   script:
     - npm run build
@@ -45,27 +62,94 @@ build:
       - packages/*/dist
     expire_in: 30 days
 
-test:unit:
-  stage: test
-  script:
-    - npm run coverage
-  dependencies:
-    - build
+docs:review:
+  stage: build
+  variables:
+    PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
+  <<: *build-docs
+  artifacts:
+    paths:
+      - public
+  only:
+    - branches
+  except:
+    - master
+
+docs:prod:
+  stage: build
+  <<: *build-docs
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
 
 pages:
   stage: deploy
   environment:
-    name: docs
+    name: pages
     url: $CI_PAGES_URL
   variables:
-    VUEPRESS_BASE: /platform/$CI_PROJECT_NAME/
-  before_script:
-    - npm run build:stories -- -- -o ../../docs/.vuepress/public/storybook
-  script:
-    - npm run build:docs
+    PATH_PREFIX: /platform/$CI_PROJECT_NAME/
+  <<: *build-docs
   artifacts:
     paths:
       - public
+  only:
+    - master
+
+review:
+  image: python
+  stage: deploy
+  dependencies:
+    - docs:review
+  variables:
+    S3_BUCKET: norton-design-system-review
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    url: http://${S3_BUCKET}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
+    on_stop: clean-review
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 cp public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
+  only:
+    - branches
+  except:
+    - master
+
+clean-review:
+  image: python
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+    S3_BUCKET: norton-design-system-review
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 rm s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    action: stop
+  when: manual
+
+prod:
+  image: python
+  stage: deploy
+  dependencies:
+    - docs:prod
+  variables:
+    S3_BUCKET: norton-design-system-production
+  environment:
+    name: production
+    url: https://d2tarzv1ymldad.cloudfront.net
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 cp public s3://${S3_BUCKET}/ --recursive
+  after_script:
+    # invalidate the cloudfront cache to force a refresh
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
   only:
     - master
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForwardedRef } from '@nds/react/utilities';
+import { useForwardedRef } from '../../utilities';
 import { Icon } from '../Icon';
 
 export interface BaseListOptionProps extends React.LiHTMLAttributes<HTMLLIElement> {

@@ -112,5 +112,10 @@ dist
 
 # Distribution files
 dist
+
+# Documentation
 public
-!.vuepress/public
+docs/static/storybook
+
+# docz
+.docz

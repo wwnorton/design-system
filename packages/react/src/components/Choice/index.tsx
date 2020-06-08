@@ -1,5 +1,5 @@
 import React from 'react';
-import { noop } from '@nds/react/utilities';
+import { noop } from '../../utilities';
 import { Button, ButtonProps } from '../Button';
 import { Checkbox, CheckboxProps } from '../Checkbox';
 import { Radio } from '../Radio';

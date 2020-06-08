@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import {
 	isElement, ValidatorEntry, defaultValidators, ValidatorError,
-} from '@nds/react/utilities';
+} from '../../utilities';
 import { BaseInput, BaseInputProps } from '../BaseInput';
 
 export type TextFieldContent = 'label' | 'help' | 'input' | 'feedback' | 'error' | 'counter';

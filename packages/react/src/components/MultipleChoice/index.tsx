@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { noop } from '@nds/react/utilities';
+import { noop } from '../../utilities';
 import { Choice, ChoiceProps } from '../Choice';
 
 export interface MultipleChoiceProps extends React.HTMLAttributes<HTMLFieldSetElement> {
