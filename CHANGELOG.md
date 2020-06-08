@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.2](https://gitlab.com/wwnorton/platform/design-system/compare/v0.9.1...v0.9.2) (2020-06-08)
+
+### Bug Fixes
+
+- ensure that type definitions aren't transpiled ([cdafcd4](https://gitlab.com/wwnorton/platform/design-system/commit/cdafcd4af2ee04580ec33576b35ac23fe969fd4d))
+
 ## [0.9.1](https://gitlab.com/wwnorton/platform/design-system/compare/v0.9.0...v0.9.1) (2020-06-03)
 
 ### Bug Fixes

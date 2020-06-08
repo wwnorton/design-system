@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.2](https://gitlab.com/wwnorton/platform/design-system/tree/master/docs/compare/v0.9.1...v0.9.2) (2020-06-08)
+
+**Note:** Version bump only for package nds-docs
+
 ## [0.9.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/docs/compare/v0.9.0...v0.9.1) (2020-06-03)
 
 **Note:** Version bump only for package nds-docs
