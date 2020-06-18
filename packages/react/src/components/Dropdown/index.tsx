@@ -1,13 +1,10 @@
 import React from 'react';
 import uniqueId from 'lodash.uniqueid';
-import {
-	createPopper,
-	Instance as PopperInstance,
-	Options as PopperOptions,
-} from '@popperjs/core';
+import { Options as PopperOptions } from '@popperjs/core';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { BaseListbox, BaseListboxProps } from '../BaseListbox';
 import { Icon } from '../Icon';
+import { BasePopper } from '../BasePopper';
 
 export type DropdownAnatomy = 'label' | 'button' | 'listbox' | 'option';
 
@@ -86,12 +83,18 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 		closeOnExternalClick: true,
 		closeOnDocumentEscape: true,
 		placement: 'bottom-start',
-		modifiers: [],
+		modifiers: [
+			{
+				name: 'offset',
+				options: {
+					offset: [0, 4],
+				},
+			},
+		],
 	}
 
 	private listbox: HTMLUListElement | null = null;
 	private button: HTMLButtonElement | null = null;
-	private popper: PopperInstance | null = null;
 	private id: string;
 
 	constructor(props: DropdownProps) {
@@ -113,8 +116,6 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 
 		if (this.listbox) {
 			this.setWidth(this.listbox);
-			if (this.button) this.createPopper();
-
 			if (!isOpen) this.closeListbox(null, false);
 		}
 
@@ -122,16 +123,12 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 		document.addEventListener('keydown', this.onDocumentKeyDown);
 	}
 
-	componentDidUpdate(prevProps: DropdownProps, prevState: DropdownState): void {
+	componentDidUpdate(prevProps: DropdownProps): void {
 		const {
 			isOpen,
 			selected,
-			placement,
-			modifiers,
-			strategy,
-			onFirstUpdate,
 		} = this.props;
-		const { isOpen: stateExpanded, shouldReturnFocus } = this.state;
+		const { shouldReturnFocus } = this.state;
 
 		if (shouldReturnFocus && !isOpen && this.button) {
 			this.button.focus();
@@ -145,35 +142,6 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 			this.openListbox();
 		} else if (prevProps.isOpen && !isOpen) {
 			this.closeListbox();
-		}
-
-		// update popper options
-		if (this.popper) {
-			const opts: Partial<PopperOptions> = {};
-
-			if (prevProps.placement !== placement) {
-				opts.placement = placement;
-			}
-			if (prevProps.modifiers !== modifiers) {
-				opts.modifiers = modifiers;
-			}
-			if (prevProps.strategy !== strategy) {
-				opts.strategy = strategy;
-			}
-			if (prevProps.onFirstUpdate !== onFirstUpdate) {
-				opts.onFirstUpdate = onFirstUpdate;
-			}
-
-			if (Object.keys(opts).length) {
-				this.popper.setOptions(opts);
-				this.popper.update();
-			}
-		}
-
-		if (!prevState.isOpen && stateExpanded) {
-			this.createPopper();
-		} else if (prevState.isOpen && !stateExpanded) {
-			this.destroyPopper();
 		}
 	}
 
@@ -213,20 +181,32 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 			listboxClass = `${baseName}__${Dropdown.bemElements.listbox}`,
 			optionClass = `${baseName}__${Dropdown.bemElements.option}`,
 			options,
+			placement,
+			modifiers,
+			strategy,
+			onFirstUpdate,
 		} = this.props;
 		const { isOpen, selected } = this.state;
-		if (!isOpen) return null;
 		return (
-			<BaseListbox
-				id={this.listboxId}
-				selected={[selected]}
-				options={options}
-				ref={(el): void => { this.listbox = el; }}
-				className={listboxClass}
-				aria-labelledby={this.labelId}
-				optionClass={optionClass}
-				onRequestSelect={this.requestSelect}
-			/>
+			<BasePopper
+				isOpen={isOpen}
+				reference={this.button}
+				placement={placement}
+				modifiers={modifiers}
+				strategy={strategy}
+				onFirstUpdate={onFirstUpdate}
+			>
+				<BaseListbox
+					id={this.listboxId}
+					selected={[selected]}
+					options={options}
+					ref={(el): void => { this.listbox = el; }}
+					className={listboxClass}
+					aria-labelledby={this.labelId}
+					optionClass={optionClass}
+					onRequestSelect={this.requestSelect}
+				/>
+			</BasePopper>
 		);
 	}
 
@@ -283,32 +263,6 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 			shouldReturnFocus,
 			selected: selected || currentSelected,
 		});
-	}
-
-	private createPopper = (): void => {
-		const {
-			placement,
-			modifiers,
-			strategy,
-			onFirstUpdate,
-		} = this.props;
-
-		if (this.button && this.listbox) {
-			this.popper = createPopper(
-				this.button,
-				this.listbox,
-				{
-					modifiers,
-					strategy,
-					onFirstUpdate,
-					placement,
-				},
-			);
-		}
-	}
-
-	private destroyPopper = (): void => {
-		if (this.popper) this.popper.destroy();
 	}
 
 	private setWidth = (listbox: HTMLUListElement): void => {
