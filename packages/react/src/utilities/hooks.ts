@@ -103,3 +103,66 @@ export const usePopper = ({
 
 	return instance;
 };
+
+interface TooltipRefHandlers<T> {
+	onBlur: (e: React.FocusEvent<T>) => void;
+	onFocus: (e: React.FocusEvent<T>) => void;
+	onPointerEnter: (e: React.PointerEvent<T>) => void;
+	onPointerLeave: (e: React.PointerEvent<T>) => void;
+}
+interface UseTooltipProps<T> extends Partial<TooltipRefHandlers<T>> {
+	isOpen?: boolean;
+	id?: string;
+	asLabel?: boolean;
+}
+interface UseTooltipReturn<T> {
+	id: string;
+	isOpen: boolean;
+	show: () => void;
+	hide: () => void;
+	referenceProps: TooltipRefHandlers<T> & {
+		'aria-labelledby'?: string;
+		'aria-describedby'?: string;
+	};
+}
+
+export const useTooltip = <T = HTMLElement>({
+	isOpen = false,
+	id = uniqueId('tooltip-'),
+	asLabel = false,
+	onBlur,
+	onFocus,
+	onPointerEnter,
+	onPointerLeave,
+}: UseTooltipProps<T> = {}): UseTooltipReturn<T> => {
+	const { current: returnId } = useRef(id);
+	const [open, setOpen] = useState(isOpen);
+	const show = (): void => setOpen(true);
+	const hide = (): void => setOpen(false);
+
+	return {
+		id: returnId,
+		isOpen: open,
+		show,
+		hide,
+		referenceProps: {
+			[(asLabel) ? 'aria-labelledby' : 'aria-describedby']: (open) ? returnId : undefined,
+			onBlur: (e): void => {
+				if (onBlur) onBlur(e);
+				hide();
+			},
+			onFocus: (e): void => {
+				if (onFocus) onFocus(e);
+				show();
+			},
+			onPointerEnter: (e): void => {
+				if (onPointerEnter) onPointerEnter(e);
+				show();
+			},
+			onPointerLeave: (e): void => {
+				if (onPointerLeave) onPointerLeave(e);
+				hide();
+			},
+		},
+	};
+};
