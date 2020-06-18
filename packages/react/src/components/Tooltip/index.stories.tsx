@@ -1,14 +1,16 @@
 import React from 'react';
 import {
 	withKnobs,
-	number,
 	select,
+	text,
 	boolean,
 } from '@storybook/addon-knobs';
 import { placements } from '@popperjs/core/lib/enums';
 import './index.stories.scss';
 import { Tooltip } from '.';
 import { Button } from '../Button';
+import { BasePopper } from '../BasePopper';
+import { useTooltip } from '../../utilities';
 
 export default {
 	title: 'Tooltip',
@@ -17,40 +19,37 @@ export default {
 };
 
 export const Default: React.FunctionComponent = () => {
-	const buttonRef = React.useRef();
+	const { isOpen, id, referenceProps } = useTooltip<HTMLButtonElement>({ isOpen: true });
+	const [button, setButton] = React.useState<HTMLButtonElement | null>();
 	return (
 		<div className="tooltip__story">
-			<Button variant="solid" buttonRef={buttonRef}>Button Text</Button>
+			<Button variant="solid" buttonRef={setButton} {...referenceProps}>
+				Button text
+			</Button>
 			<Tooltip
-				content="Tooltip Text"
-				reference={buttonRef}
+				id={id}
+				isOpen={isOpen}
+				reference={button}
 				placement={select('Placement', placements, 'top')}
-				modifiers={[
-					{
-						name: 'offset',
-						options: {
-							offset: [
-								number('Offset X', 0),
-								number('Offset Y', 8),
-							],
-						},
-					},
-				]}
-			/>
+			>
+				{text('Contents', 'Tooltip text')}
+			</Tooltip>
 		</div>
 	);
 };
 
-export const ToggleOpen: React.FunctionComponent = () => {
-	const buttonRef = React.useRef();
+export const Popper: React.FunctionComponent = () => {
+	const [reference, setReference] = React.useState<HTMLButtonElement | null>();
 	return (
 		<div className="tooltip__story">
-			<Button variant="solid" buttonRef={buttonRef}>Button Text</Button>
-			<Tooltip
-				content="Tooltip Text"
-				reference={buttonRef}
-				isOpen={boolean('Open', false)}
-			/>
+			<button type="button" ref={setReference}>Reference</button>
+			<BasePopper
+				isOpen={boolean('Open', true)}
+				placement={select('Placement', placements, 'auto')}
+				reference={reference}
+			>
+				{text('Contents', 'Popper text')}
+			</BasePopper>
 		</div>
 	);
 };
