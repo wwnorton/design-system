@@ -47,6 +47,10 @@
 	border: $dropdown-listbox-border-width solid $dropdown-listbox-border-color;
 	border-radius: $dropdown-listbox-border-radius;
 	box-shadow: $dropdown-listbox-box-shadow;
+
+	&:focus-within {
+		box-shadow: $dropdown-listbox-box-shadow, $focus-indicator;
+	}
 }
 
 @mixin dropdown-listbox-option {
