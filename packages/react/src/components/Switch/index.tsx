@@ -1,146 +1,126 @@
 import React from 'react';
 import classNames from 'classnames';
-import { noop } from '../../utilities';
+import uniqueId from 'lodash.uniqueid';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
+import { Tooltip } from '../Tooltip';
+import { useForwardedRef, useTooltip } from '../../utilities';
 
-export interface SwitchProps extends BaseButtonProps {
+type SwitchBaseProps =
+	| 'children'
+	| 'className'
+	| 'disabled'
+	| 'id'
+	| 'onClick'
+	| 'onBlur'
+	| 'onFocus'
+	| 'onPointerEnter'
+	| 'onPointerLeave'
+export interface SwitchProps extends Pick<BaseButtonProps, SwitchBaseProps> {
+	/** A label for the switch. This should be the name of the thing that the
+	 * switch controls. Required.
+	 */
+	label: string;
+	/**
+	 * An optional description. Will not be rendered inside the tooltip if
+	 * `tipped` is `false.
+	*/
+	description?: React.ReactNode;
+	/** Indicates that the label should be rendered as a tooltip. */
+	tipped?: boolean;
 	/** The switch's initial "on" state. */
 	checked?: boolean;
 	/** A function to call when the switch is toggled. */
-	onToggle: (event: SwitchState) => void;
-	/** Whether or not the `on` and `off` props should render on the control. */
-	hideState: boolean;
-	/** A reference to the inner <button> element. */
-	buttonRef?: React.Ref<HTMLButtonElement>;
-	/** An element or string that will be displayed when the switch is on. */
-	on?: JSX.Element | React.ReactText;
-	/** An element or string that will be displayed when the switch is off. */
-	off?: JSX.Element | React.ReactText;
-	/** The base class name according to BEM conventions */
+	onToggle?: (checked: boolean) => void;
+	/**
+	 * Indicates whether the default control text should be used when no children
+	 * are provided. "ON" when `checked=true` and "OFF" when `checked=false`.
+	 */
+	displayDefault?: boolean;
+	/** The base class name according to BEM conventions. */
 	baseName?: string;
-	/** The `className` that will be applied to the state indicator. */
-	stateIndicatorClass?: string;
 }
 
-export interface SwitchState {
-	/** The switch's current state, which represents "on" or "off". */
-	checked: boolean;
-}
+export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
+	{
+		baseName = 'switch',
+		checked: isChecked = false,
+		children,
+		className,
+		description,
+		disabled,
+		displayDefault = true,
+		id = uniqueId(`${baseName}-`),
+		label,
+		tipped,
+		onClick,
+		onToggle,
+		...attributes
+	}: SwitchProps, ref,
+) => {
+	const buttonRef = useForwardedRef(ref);
+	const [checked, setChecked] = React.useState(isChecked);
+	const [defaultValue, setDefaultValue] = React.useState('off');
+	const [button, setButton] = React.useState<HTMLButtonElement | null>(buttonRef.current);
+	const {
+		isOpen,
+		id: tooltipId,
+		referenceProps,
+	} = useTooltip<HTMLButtonElement>({ asLabel: true });
 
-/** A switch allows a user to immediately turn an option on or off. */
-export class Switch extends React.Component<SwitchProps, SwitchState> {
-	/* eslint-disable react/sort-comp */
-	static bemBase = 'switch';
-	static bemElements = {
-		stateIndicator: 'state',
-	}
-	/* eslint-enable */
+	React.useEffect(() => setChecked(isChecked), [isChecked]);
 
-	static defaultProps = {
-		baseName: Switch.bemBase,
-		checked: false,
-		onToggle: noop,
-		hideState: false,
-		on: 'ON',
-		off: 'OFF',
+	React.useEffect(() => {
+		setDefaultValue((checked) ? 'ON' : 'OFF');
+		if (onToggle) onToggle(checked);
+	}, [checked, onToggle]);
+
+	const clickHandler: BaseButtonProps['onClick'] = (e) => {
+		if (onClick) onClick(e);
+		else setChecked(!checked);
 	};
 
-	constructor(props: SwitchProps) {
-		super(props);
+	// label can either be a <labeL> proper or a tooltip
+	const Label = (tipped)
+		? <Tooltip isOpen={isOpen} id={tooltipId} reference={button}>{ label }</Tooltip>
+		: (
+			<div className="label-desc">
+				<label
+					htmlFor={id}
+					id={`${id}-label`}
+					className={classNames({ disabled })}
+				>
+					{ label }
+				</label>
+				{ description && <div className="description">{ description }</div> }
+			</div>
+		);
 
-		this.state = {
-			checked: props.checked || Switch.defaultProps.checked,
+	const buttonProps = (tipped)
+		? {
+			...referenceProps,
+			...attributes,
+			'aria-label': (isOpen) ? undefined : label,
+		}
+		: {
+			id,
+			'aria-labelledby': `${id}-label`,
+			...attributes,
 		};
-	}
 
-	componentDidUpdate(
-		prevProps: SwitchProps,
-		prevState: SwitchState,
-	): void {
-		const { checked } = this.props;
-		const { checked: stateChecked } = this.state;
-
-		if (!prevProps.checked && checked) {
-			this.toggle(true);
-		} else if (prevProps.checked && !checked) {
-			this.toggle(false);
-		}
-
-		if (!prevState.checked && stateChecked) {
-			this.onToggle();
-		} else if (prevState.checked && !stateChecked) {
-			this.onToggle();
-		}
-	}
-
-	private get hasStateContent(): boolean {
-		const { hideState, on, off } = this.props;
-		if (hideState) return false;
-		return Boolean(on || off);
-	}
-
-	private get StateContent(): JSX.Element | React.ReactText | null {
-		const {
-			on,
-			off,
-			baseName,
-			stateIndicatorClass = `${baseName}__${Switch.bemElements.stateIndicator}`,
-		} = this.props;
-		const { checked } = this.state;
-		if (!this.hasStateContent) return null;
-		return (
-			<span className={stateIndicatorClass} aria-hidden="true">
-				{ (checked) ? on : off }
-			</span>
-		);
-	}
-
-	toggle = (checked: boolean): void => {
-		this.setState({ checked });
-	}
-
-	onToggle = (): void => {
-		const { onToggle = noop } = this.props;
-		onToggle(this.state);
-	}
-
-	onClick: SwitchProps['onClick'] = (e): void => {
-		const { onClick } = this.props;
-		const { checked } = this.state;
-		if (onClick) onClick(e);
-		else this.toggle(!checked);
-	}
-
-	render(): JSX.Element {
-		const {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			on, off, hideState, onClick, baseName, stateIndicatorClass,
-			buttonRef,
-			disabled,
-			children,
-			className,
-			...attributes
-		} = this.props;
-		const { checked } = this.state;
-		const ariaChecked = (checked) ? 'true' : 'false';
-		const classes = classNames({
-			disabled,
-			switch: true,
-		}, className);
-
-		return (
+	return (
+		<div className={baseName}>
+			{ Label }
 			<BaseButton
-				role="switch"
+				aria-checked={(checked) ? 'true' : 'false'}
+				className={classNames(`${baseName}__control`, className)}
 				disabled={disabled}
-				className={classes}
-				ref={buttonRef}
-				aria-checked={ariaChecked}
-				onClick={this.onClick}
-				{...attributes}
+				onClick={clickHandler}
+				ref={setButton}
+				role="switch"
+				{...buttonProps}
 			>
-				{ this.StateContent }
-				{ children }
+				{ children || (displayDefault && defaultValue) }
 			</BaseButton>
-		);
-	}
-}
+		</div>
+	);
+});
