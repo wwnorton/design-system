@@ -1,86 +1,55 @@
 import React from 'react';
-import { idGen } from '../../utilities';
+import classNames from 'classnames';
 import { BasePopper, BasePopperProps } from '../BasePopper';
-
-export type TooltipAnatomy = 'portal' | 'container' | 'arrow';
+import { getProp } from '../../utilities';
 
 export interface TooltipProps extends BasePopperProps {
-	/** The text content for the tooltip. */
-	content: React.ReactText;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
-	/**
-	 * Set the popper content as the primary description
-	 * for the reference node using `aria-labelledby`.
-	 * */
-	isLabel?: boolean;
+	/** A className to apply to the arrow. Default will be `${baseName}__arrow`. */
+	arrowClass?: string;
 }
 
-export class Tooltip extends React.Component<TooltipProps> {
-	public static bemBase = 'tooltip';
-	public static bemElements: Record<TooltipAnatomy, string> = {
-		portal: 'portal',
-		container: 'container',
-		arrow: 'arrow',
-	}
+export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
+	{
+		baseName = 'tooltip',
+		arrowClass = `${baseName}__arrow`,
+		modifiers = [],
+		placement = 'top',
+		children,
+		className,
+		...props
+	}: TooltipProps, ref,
+) => {
+	const offsetMod = {
+		name: 'offset',
+		options: {
+			offset: [
+				0,
+				parseInt(getProp('tooltip-offset-y'), 10) || 6,
+			],
+		},
+	};
 
-	static defaultProps = {
-		baseName: Tooltip.bemBase,
-		placement: 'top',
-		isLabel: false,
-		arrow: true,
-		role: 'tooltip',
-		modifiers: [
-			{
-				name: 'offset',
-				options: {
-					offset: [0, 8],
-				},
-			},
-		],
-	}
+	const arrowMod = React.useMemo(() => ({
+		name: 'arrow',
+		options: {
+			element: `.${arrowClass}`,
+		},
+	}), [arrowClass]);
 
-	private getId: ReturnType<typeof idGen>;
-	private popperId: string;
-
-	constructor(props: TooltipProps) {
-		super(props);
-		const { id } = props;
-		this.getId = idGen(props, `${Tooltip.bemBase}-`);
-		this.popperId = id || this.getId(`-${Tooltip.bemElements.container}`);
-	}
-
-	componentDidMount(): void {
-		const { reference, isLabel } = this.props;
-		const { current } = reference;
-		const ariaAttribute = isLabel ? 'aria-labelledby' : 'aria-describedby';
-		if (current && current instanceof Element) {
-			current.setAttribute(ariaAttribute, this.popperId);
-		}
-	}
-
-	render(): React.ReactElement {
-		const {
-			content,
-			baseName,
-			popperRef,
-			arrowClass = `${baseName}__${Tooltip.bemElements.arrow}`,
-			portalClass = `${baseName}__${Tooltip.bemElements.portal}`,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			isLabel,
-			...props
-		} = this.props;
-		return (
-			<BasePopper
-				id={this.popperId}
-				className={baseName}
-				portalClass={portalClass}
-				arrowClass={arrowClass}
-				ref={popperRef}
-				{...props}
-			>
-				{ content }
-			</BasePopper>
-		);
-	}
-}
+	if (!children) return null;
+	return (
+		<BasePopper
+			className={classNames(baseName, className)}
+			role="tooltip"
+			modifiers={[...modifiers, offsetMod, arrowMod]}
+			placement={placement}
+			ref={ref}
+			{...props}
+		>
+			{ children }
+			<div className={arrowClass} />
+		</BasePopper>
+	);
+});
