@@ -11,60 +11,79 @@ export default {
 	decorators: [withKnobs],
 };
 
-const { defaultProps } = Switch;
-
 export const Default: React.FunctionComponent = () => (
-	<Switch
-		onToggle={action('onToggle')}
-		hideState={boolean('Hide state', defaultProps.hideState)}
-		on={text('On state', defaultProps.on)}
-		off={text('Off state', defaultProps.off)}
-		disabled={boolean('Disabled', false)}
-	>
-		Switch
-	</Switch>
+	<div className="tooltip__story">
+		<Switch
+			label={text('Label', 'Label')}
+			description={text('Description', 'Descriptive text')}
+			onToggle={action('onToggle')}
+			displayDefault={boolean('Default text', true)}
+			disabled={boolean('Disabled', false)}
+			tipped={boolean('Label with tooltip', false)}
+		/>
+	</div>
 );
 
 export const InitiallyOn: React.FunctionComponent = () => (
-	<Switch
-		onToggle={action('onToggle')}
-		disabled={boolean('Disabled', false)}
-		checked
-	>
-		Switch
-	</Switch>
+	<div className="tooltip__story">
+		<Switch
+			label={text('Label', 'Label')}
+			description={text('Description', 'Descriptive text')}
+			onToggle={action('onToggle')}
+			disabled={boolean('Disabled', false)}
+			tipped={boolean('Label with tooltip', false)}
+			checked
+		/>
+	</div>
 );
 
-export const IconState: React.FunctionComponent = () => (
-	<Switch
-		onToggle={action('onToggle')}
-		on={<Icon variant="check" />}
-		off={<Icon variant="close" />}
-		disabled={boolean('Disabled', false)}
-	>
-		Switch
-	</Switch>
-);
-
-export const AsynchronousToggle: React.FunctionComponent = () => {
+export const IconState: React.FunctionComponent = () => {
 	const [checked, setChecked] = React.useState(false);
-	const [content, setContent] = React.useState('Switch');
+
+	return (
+		<div className="tooltip__story">
+			<Switch
+				label={text('Label', 'Label')}
+				description={text('Description', 'Descriptive text')}
+				checked={checked}
+				onToggle={action('onToggle')}
+				onClick={(): void => setChecked(!checked)}
+				displayDefault={boolean('Default text', true)}
+				disabled={boolean('Disabled', false)}
+				tipped={boolean('Label with tooltip', false)}
+				style={{ '--nds-switch-font-size': '1rem' }}
+			>
+				<Icon variant={(checked) ? 'check' : 'close'} height="1em" />
+			</Switch>
+		</div>
+	);
+};
+
+export const FullyControlled: React.FunctionComponent = () => {
+	const [checked, setChecked] = React.useState(false);
+	const [desc, setDesc] = React.useState('');
+	const [content, setContent] = React.useState('Nope');
 	const toggle = (): void => {
-		setContent(`${content} (updating...)`);
+		const initialDesc = desc;
+		setDesc(`${desc} (updating...)`);
 		setTimeout(() => {
 			setChecked(!checked);
-			setContent('Switch');
+			setDesc(initialDesc);
 		}, 1000);
 	};
+	React.useEffect(() => {
+		setContent((checked) ? 'Yep' : 'Nope');
+	}, [checked]);
 	return (
 		<Switch
+			label={text('Label', 'Label')}
+			description={desc || text('Description', 'Descriptive text')}
 			checked={checked}
-			onClick={toggle}
 			onToggle={action('onToggle')}
-			hideState={boolean('Hide state', defaultProps.hideState)}
-			on={text('On state', defaultProps.on)}
-			off={text('Off state', defaultProps.off)}
+			onClick={toggle}
+			displayDefault={boolean('Default text', true)}
 			disabled={boolean('Disabled', false)}
+			tipped={boolean('Label with tooltip', false)}
 		>
 			{ content }
 		</Switch>
