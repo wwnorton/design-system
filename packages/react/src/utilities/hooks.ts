@@ -104,6 +104,115 @@ export const usePopper = ({
 	return instance;
 };
 
+export const useTriggers = ({ reference, trigger, isOpen }: {
+	reference?: Element | VirtualElement | null;
+	trigger: string;
+	isOpen: boolean;
+}): boolean => {
+	if (trigger.includes('manual')) return isOpen;
+	const [open, setOpen] = useState(isOpen);
+
+	const show = (): void => setOpen(true);
+	const hide = (): void => setOpen(false);
+
+	// focus & focusin handlers
+	const focusHandler = (): void => {
+		if (trigger.includes('focus')) show();
+	};
+	const focusinHandler = (): void => {
+		if (trigger.includes('focusin')) show();
+	};
+	const blurHandler = (): void => {
+		if (trigger.includes('focus') || trigger.includes('focusin')) hide();
+	};
+
+	// mouseenter & pointerenter handlers
+	const pointerenterHandler = (): void => {
+		if (trigger.includes('mouseenter') || trigger.includes('pointerenter')) show();
+	};
+	const pointerleaveHandler = (): void => {
+		if (trigger.includes('mouseenter') || trigger.includes('pointerenter')) hide();
+	};
+
+	// click handlers
+	const docKeydownHandler = (e: KeyboardEvent): void => {
+		if (trigger.includes('click') && e.key === 'Escape') hide();
+	};
+	const docClickHandler = (e: MouseEvent): void => {
+		if (trigger.includes('click')) {
+			const clickPath = e.composedPath();
+			const tooltipClick = clickPath.some((el) => {
+				if (el instanceof Element) {
+					return el.getAttribute('role') === 'tooltip';
+				}
+				return false;
+			});
+			const referenceClick = (): boolean => {
+				if (reference && reference instanceof Element) {
+					return clickPath.includes(reference);
+				}
+				return false;
+			};
+			if (tooltipClick || referenceClick()) return;
+			hide();
+		}
+	};
+	const clickHandler = (): void => {
+		if (trigger.includes('click')) setOpen(!open);
+	};
+	const keydownHandler = (e: KeyboardEvent): void => {
+		if (trigger.includes('click')) {
+			if (e.key === 'Enter') setOpen(!open);
+			if (e.key === ' ') e.preventDefault();
+		}
+	};
+	const keyupHandler = (e: KeyboardEvent): void => {
+		if (trigger.includes('click') && e.key === ' ') setOpen(!open);
+	};
+
+	useLayoutEffect(() => {
+		if (!reference || !(reference instanceof HTMLElement)) {
+			return (): void => { /* nothing to clean up */ };
+		}
+
+		// click
+		reference.addEventListener('click', clickHandler);
+		reference.addEventListener('keydown', keydownHandler);
+		reference.addEventListener('keyup', keyupHandler);
+		document.addEventListener('click', docClickHandler);
+		document.addEventListener('keydown', docKeydownHandler);
+
+		// focus & focusin
+		reference.addEventListener('focus', focusHandler);
+		reference.addEventListener('focusin', focusinHandler);
+		reference.addEventListener('blur', blurHandler);
+
+		// mouseenter & pointerenter
+		reference.addEventListener('pointerenter', pointerenterHandler);
+		reference.addEventListener('pointerleave', pointerleaveHandler);
+
+		return (): void => {
+			// click
+			reference.removeEventListener('click', clickHandler);
+			reference.removeEventListener('keydown', keydownHandler);
+			reference.removeEventListener('keyup', keyupHandler);
+			document.removeEventListener('click', docClickHandler);
+			document.removeEventListener('keydown', docKeydownHandler);
+
+			// focus & focusin
+			reference.removeEventListener('focus', focusHandler);
+			reference.removeEventListener('focusin', focusinHandler);
+			reference.removeEventListener('blur', blurHandler);
+
+			// mouseenter & pointerenter
+			reference.removeEventListener('pointerenter', pointerenterHandler);
+			reference.removeEventListener('pointerleave', pointerleaveHandler);
+		};
+	}, [reference, open]);
+
+	return open;
+};
+
 interface TooltipRefHandlers<T> {
 	onBlur: (e: React.FocusEvent<T>) => void;
 	onFocus: (e: React.FocusEvent<T>) => void;
