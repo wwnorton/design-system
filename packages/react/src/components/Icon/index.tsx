@@ -14,6 +14,10 @@ export interface IconProps extends BaseSVGProps {
 	variant?: IconVariant;
 	/** A custom icon. Must contain the SVG path's `d` attribute at a minimum. */
 	icon?: SVGIcon;
+	/** The icon's color. Default is `currentColor`. */
+	color?: string;
+	/** The width and height of the icon. Default is `1.25rem`. */
+	size?: string | number;
 	/**
 	 * Indicates whether a console warning should be emitted when an `onClick`
 	 * callback is specified. Set to `true` by default to discourage actionable
