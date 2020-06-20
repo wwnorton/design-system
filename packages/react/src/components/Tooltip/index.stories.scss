@@ -22,6 +22,7 @@
 }
 
 .tooltip__arrow {
+	position: absolute;
 	width: var(--nds-tooltip-arrow-size);
 	height: var(--nds-tooltip-arrow-size);
 	color: #243547;
@@ -80,36 +81,7 @@
 	}
 }
 
-// .tooltip[data-show] {
-// 	visibility: visible;
-// }
-
-// .tooltip__arrow,
-// .tooltip__arrow::before {
-// 	position: absolute;
-// 	z-index: -1;
-// 	width: calc(1px * var(--nds-tooltip-arrow-width));
-// 	height: calc(1px * var(--nds-tooltip-arrow-width));
-// }
-
-// .tooltip__arrow::before {
-// 	content: '';
-// 	background: #243547;
-// 	transform: rotate(45deg);
-// }
-
-// .tooltip[data-popper-placement^='top'] > .tooltip__arrow {
-// 	bottom: calc((1px * var(--nds-tooltip-offset)) / -2);
-// }
-
-// .tooltip[data-popper-placement^='bottom'] > .tooltip__arrow {
-// 	top: calc((1px * var(--nds-tooltip-offset)) / -2);
-// }
-
-// .tooltip[data-popper-placement^='left'] > .tooltip__arrow {
-// 	right: calc((1px * var(--nds-tooltip-offset)) / -2);
-// }
-
-// .tooltip[data-popper-placement^='right'] > .tooltip__arrow {
-// 	left: calc((1px * var(--nds-tooltip-offset)) / -2);
-// }
+[role=button] {
+	font-weight: 700;
+	cursor: pointer;
+}

@@ -8,9 +8,8 @@ import {
 import { placements } from '@popperjs/core/lib/enums';
 import './index.stories.scss';
 import { Tooltip } from '.';
-import { Button } from '../Button';
 import { BasePopper } from '../BasePopper';
-import { useTooltip } from '../../utilities';
+import { Button } from '../Button';
 
 export default {
 	title: 'Tooltip',
@@ -18,21 +17,58 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Default: React.FunctionComponent = () => {
-	const { isOpen, id, referenceProps } = useTooltip<HTMLButtonElement>({ isOpen: true });
-	const [button, setButton] = React.useState<HTMLButtonElement | null>();
+export const Default: React.FunctionComponent = () => (
+	<div className="tooltip__story">
+		<Tooltip isOpen>
+			Tooltips require a
+			{' '}
+			<code>reference</code>
+			{' '}
+			in order to render their arrow.
+		</Tooltip>
+	</div>
+);
+
+export const CustomTriggers: React.FunctionComponent = () => {
+	const [ref, setRef] = React.useState<HTMLSpanElement | null>();
 	return (
 		<div className="tooltip__story">
-			<Button variant="solid" buttonRef={setButton} {...referenceProps}>
-				Button text
-			</Button>
+			<p>
+				<span role="button" tabIndex={0} ref={setRef}>Lorem ipsum</span>
+				{' '}
+				dolor sit amet consectetur adipisicing elit.
+			</p>
 			<Tooltip
-				id={id}
-				isOpen={isOpen}
-				reference={button}
+				reference={ref}
 				placement={select('Placement', placements, 'top')}
+				trigger='click pointerenter'
 			>
-				{text('Contents', 'Tooltip text')}
+				Lorem ipsum is a placeholder text commonly used to demonstrate
+				the visual form of a document or a typeface without relying on meaningful content.
+			</Tooltip>
+		</div>
+	);
+};
+
+export const Controlled: React.FunctionComponent = () => {
+	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
+	const [isOpen, setOpen] = React.useState(false);
+	const toggle = (): void => setOpen(!isOpen);
+
+	return (
+		<div className="tooltip__story">
+			<Button variant="solid" ref={setRef} onClick={toggle}>Show tooltip</Button>
+			<Tooltip
+				reference={ref}
+				placement={select('Placement', placements, 'top')}
+				trigger='manual'
+				isOpen={isOpen}
+			>
+				This tooltip is triggered manually by a higher-state
+				{' '}
+				<code>isOpen</code>
+				{' '}
+				value.
 			</Tooltip>
 		</div>
 	);
