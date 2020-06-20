@@ -5,7 +5,7 @@ import {
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
 import { IconVariant, SVGIcon, IconOptions } from '../../utilities';
-import { Button, ButtonVariant } from '.';
+import { Button, ButtonVariant, IconButton } from '.';
 
 export default {
 	title: 'Button',
@@ -30,6 +30,16 @@ export const Default: React.FunctionComponent = () => (
 	>
 		{ text('Text', 'Button') }
 	</Button>
+);
+
+export const iconButton: React.FunctionComponent = () => (
+	<IconButton
+		onClick={action('onClick')}
+		disabled={boolean('Disabled', false)}
+		icon={select('Icon', IconOptions, 'close')}
+	>
+		{ text('Text', 'Close') }
+	</IconButton>
 );
 
 const moonIcon: SVGIcon = {
