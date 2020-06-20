@@ -66,6 +66,7 @@ export class Choice extends React.PureComponent<ChoiceProps> {
 		const buttonProps = {
 			...props,
 			onClick: clickHandler,
+			label: (typeof label !== 'string') ? String(value) : label,
 			value: undefined,
 		};
 
@@ -81,7 +82,7 @@ export class Choice extends React.PureComponent<ChoiceProps> {
 		}
 
 		if (variant === 'switch') {
-			return <Switch hideState {...buttonProps}>{ value }</Switch>;
+			return <Switch displayDefault={false} {...buttonProps}>{ value }</Switch>;
 		}
 
 		if (variant === 'checkbox') {
