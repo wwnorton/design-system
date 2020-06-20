@@ -1,8 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { IconVariant, SVGIcon } from '../../utilities';
+import { IconVariant, SVGIcon, useForwardedRef } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
@@ -34,115 +35,71 @@ export interface ButtonProps extends BaseButtonProps {
 	textClass?: string;
 }
 
-export class Button extends React.PureComponent<ButtonProps> {
-	public static baseName = 'button';
-	public static elements = {
-		icon: 'icon',
-		text: 'text',
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
+	{
+		baseName = 'button',
+		variant,
+		icon,
+		iconRight,
+		iconOnly,
+		iconClass = `${baseName}__icon`,
+		textClass = `${baseName}__text`,
+		className,
+		children,
+		...props
+	}: ButtonProps, ref,
+) => {
+	if (!children) {
+		throw new Error(Button.errors.noChildren);
 	}
+	const buttonRef = useForwardedRef(ref);
+	const [button, setButton] = React.useState(buttonRef.current);
 
-	public static errors: Record<string, string> = {
-		noChildren: 'Button components must always have children.',
-	}
+	React.useEffect(() => setButton(buttonRef.current), [buttonRef]);
 
-	private label?: string;
-
-	public static defaultProps = {
-		baseName: Button.baseName,
-		type: 'button',
-		iconRight: false,
-		iconOnly: false,
-	}
-
-	private get Icon(): JSX.Element | null {
-		const {
-			baseName,
-			icon,
-			iconClass = `${baseName}__${Button.elements.icon}`,
-		} = this.props;
+	const BaseIcon = React.useMemo(() => {
 		if (!icon) return null;
 		const baseProps = {
 			className: iconClass,
-			label: this.label,
 		};
-		const props = (typeof icon === 'string')
+		const iconProps = (typeof icon === 'string')
 			? { ...baseProps, variant: icon }
 			: { ...baseProps, icon };
-		return <Icon {...props} />;
-	}
+		return <Icon {...iconProps} />;
+	}, [icon, iconClass]);
 
-	private get IconLeft(): JSX.Element | null {
-		const { iconRight } = this.props;
-		return (iconRight) ? null : this.Icon;
-	}
-
-	private get IconRight(): JSX.Element | null {
-		const { iconRight } = this.props;
-		return (iconRight) ? this.Icon : null;
-	}
-
-	private get Children(): ButtonProps['children'] | null {
-		const {
-			baseName,
-			icon,
-			iconOnly,
-			children,
-			textClass = `${baseName}__${Button.elements.text}`,
-		} = this.props;
+	const Children = React.useMemo(() => {
 		if (icon && iconOnly) return null;
-		if (React.isValidElement(children)) {
-			return children;
-		}
-		return <span className={textClass}>{ children }</span>;
-	}
+		if (React.isValidElement(children)) return children;
+		const spanProps = { className: textClass, children };
+		return <span {...spanProps} />;
+	}, [children, icon, iconOnly, textClass]);
 
-	private getText(children: NonNullable<ButtonProps['children']>): string | undefined {
-		const { iconOnly } = this.props;
-		return (iconOnly) ? children.toString() : undefined;
-	}
+	const classes = classNames(
+		{
+			[`${baseName}--solid`]: variant === 'solid',
+			[`${baseName}--outline`]: variant === 'outline',
+			[`${baseName}--ghost`]: variant === 'ghost',
+			[`${baseName}--icon-only`]: icon && iconOnly,
+		},
+		baseName,
+		className,
+	);
 
-	render(): JSX.Element {
-		const {
-			baseName,
-			variant,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			icon, iconRight,
-			iconOnly,
-			title,
-			buttonRef,
-			className,
-			children,
-			...attributes
-		} = this.props;
-
-		const classes = classNames(
-			{
-				[`${baseName}`]: true,
-				[`${baseName}--solid`]: variant === 'solid',
-				[`${baseName}--outline`]: variant === 'outline',
-				[`${baseName}--ghost`]: variant === 'ghost',
-				[`${baseName}--icon-only`]: icon && iconOnly,
-			},
-			className,
-		);
-
-		if (!children) {
-			throw new Error(Button.errors.noChildren);
-		}
-
-		this.label = this.getText(children);
-
-		return (
-			<BaseButton
-				className={classes}
-				title={title || this.label}
-				ref={buttonRef}
-				{...attributes}
-			>
-				{ this.IconLeft }
-				{ this.Children }
-				{ this.IconRight }
+	return (
+		<>
+			<BaseButton className={classes} ref={buttonRef} {...props}>
+				{ (iconRight) ? null : BaseIcon }
+				{ Children }
+				{ (iconRight) ? BaseIcon : null }
 			</BaseButton>
-		);
-	}
-}
+			{ iconOnly && <Tooltip asLabel reference={button}>{ children }</Tooltip> }
+		</>
+	);
+}) as React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>> & {
+	errors: Record<string, string>;
+};
+
+Button.errors = {
+	noChildren: 'Button components must always have children.',
+};
