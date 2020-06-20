@@ -4,7 +4,7 @@ import {
 	withKnobs, select, boolean, text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import { IconVariant, SVGIcon } from '../../utilities';
+import { IconVariant, SVGIcon, IconOptions } from '../../utilities';
 import { Button, ButtonVariant } from '.';
 
 export default {
@@ -20,20 +20,11 @@ const variantOptions: Record<string, ButtonVariant | undefined> = {
 	None: undefined,
 };
 
-const iconOptions: Record<string, IconVariant | undefined> = {
-	CaretRight: 'caret-right',
-	Check: 'check',
-	ChevronDown: 'chevron-down',
-	Close: 'close',
-	None: undefined,
-};
-
 export const Default: React.FunctionComponent = () => (
 	<Button
-		onClick={action('onClick')}
 		variant={select<ButtonVariant | undefined>('Variant', variantOptions, 'solid')}
 		disabled={boolean('Disabled', false)}
-		icon={select<IconVariant | undefined>('Icon', iconOptions, undefined)}
+		icon={select<IconVariant | undefined>('Icon', { None: undefined, ...IconOptions }, undefined)}
 		iconOnly={boolean('Icon only', false)}
 		iconRight={boolean('Icon on the right', false)}
 	>
@@ -41,18 +32,18 @@ export const Default: React.FunctionComponent = () => (
 	</Button>
 );
 
-const heartIcon: SVGIcon = {
-	d: 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
+const moonIcon: SVGIcon = {
+	d: 'M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z',
+	source: 'https://material.io/resources/icons/?icon=wb_sunny&style=baseline',
 };
 
 export const CustomIcon: React.FunctionComponent = () => (
 	<Button
-		onClick={action('onClick')}
 		variant={select<ButtonVariant | undefined>('Variant', variantOptions, 'solid')}
 		disabled={boolean('Disabled', false)}
-		icon={heartIcon}
+		icon={moonIcon}
 		iconOnly
 	>
-		{ text('Text', 'Favorite') }
+		{ text('Text', 'Light') }
 	</Button>
 );
