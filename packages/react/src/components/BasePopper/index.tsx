@@ -14,7 +14,7 @@ export interface BasePopperProps extends React.HTMLAttributes<HTMLElement>, Part
 	 * The reference element that the popper will be attached to.
 	 * @see https://popper.js.org/docs/v2/constructors/#createpopper
 	 */
-	reference: Element | VirtualElement | null;
+	reference?: Element | VirtualElement | null;
 }
 
 const defaultProps: Options = {
@@ -54,9 +54,7 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 	});
 
 	// keep the ref synced with the popper element
-	React.useLayoutEffect(() => {
-		setPopper(forwardedRef.current);
-	}, [isOpen, forwardedRef]);
+	React.useLayoutEffect(() => setPopper(forwardedRef.current), [isOpen, forwardedRef]);
 
 	if (!isOpen) return null;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
