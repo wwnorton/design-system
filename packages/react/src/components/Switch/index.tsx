@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Tooltip } from '../Tooltip';
-import { useForwardedRef, useTooltip } from '../../utilities';
+import { useForwardedRef } from '../../utilities';
 
 type SwitchBaseProps =
 	| 'children'
@@ -61,11 +61,6 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 	const [checked, setChecked] = React.useState(isChecked);
 	const [defaultValue, setDefaultValue] = React.useState('off');
 	const [button, setButton] = React.useState<HTMLButtonElement | null>(buttonRef.current);
-	const {
-		isOpen,
-		id: tooltipId,
-		referenceProps,
-	} = useTooltip<HTMLButtonElement>({ asLabel: true });
 
 	React.useEffect(() => setChecked(isChecked), [isChecked]);
 
@@ -81,7 +76,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 
 	// label can either be a <labeL> proper or a tooltip
 	const Label = (tipped)
-		? <Tooltip isOpen={isOpen} id={tooltipId} reference={button}>{ label }</Tooltip>
+		? <Tooltip asLabel reference={button}>{ label }</Tooltip>
 		: (
 			<div className="label-desc">
 				<label
@@ -95,12 +90,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 			</div>
 		);
 
-	const buttonProps = (tipped)
-		? {
-			...referenceProps,
-			...attributes,
-			'aria-label': (isOpen) ? undefined : label,
-		}
+	const buttonProps = (tipped) ? attributes
 		: {
 			id,
 			'aria-labelledby': `${id}-label`,
