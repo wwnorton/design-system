@@ -193,6 +193,7 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 				style={{ width }}
 				id={this.id}
 				className={buttonClass}
+				type="button"
 				aria-expanded={(isOpen) ? 'true' : 'false'}
 				aria-labelledby={`${this.labelId} ${this.currentId}`}
 				aria-haspopup="listbox"

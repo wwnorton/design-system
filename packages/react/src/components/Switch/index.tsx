@@ -136,6 +136,7 @@ export class Switch extends React.Component<SwitchProps, SwitchState> {
 				ref={buttonRef}
 				aria-checked={ariaChecked}
 				onClick={this.onClick}
+				type="button"
 				{...attributes}
 			>
 				{ this.StateContent }
