@@ -133,7 +133,7 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 		} = this.props;
 		const { isOpen: stateExpanded, shouldReturnFocus } = this.state;
 
-		if (shouldReturnFocus && !isOpen && this.button) {
+		if (prevState.isOpen && !isOpen && shouldReturnFocus && this.button) {
 			this.button.focus();
 		}
 
