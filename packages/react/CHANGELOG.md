@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.3](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.9.2...v0.9.3) (2020-06-22)
+
+### Bug Fixes
+
+- **react:** ensure that internal BaseButtons do not submit on click ([b69a97f](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/commit/b69a97f112d016b8ab95fbe841ea4de95efd2dc7))
+
 ## [0.9.2](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.9.1...v0.9.2) (2020-06-08)
 
 **Note:** Version bump only for package @nds/react
