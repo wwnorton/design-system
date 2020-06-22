@@ -161,6 +161,7 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 				style={{ width }}
 				id={this.id}
 				className={buttonClass}
+				type="button"
 				aria-expanded={(isOpen) ? 'true' : 'false'}
 				aria-labelledby={`${this.labelId} ${this.currentId}`}
 				aria-haspopup="listbox"
@@ -307,7 +308,7 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 				<select
 					name={label}
 					aria-hidden="true"
-					style={{ visibility: 'hidden' }}
+					hidden
 					defaultValue={selected}
 				>
 					<option value={selected}>{ selected }</option>
