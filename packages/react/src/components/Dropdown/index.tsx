@@ -354,7 +354,7 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
 				<select
 					name={label}
 					aria-hidden="true"
-					style={{ visibility: 'hidden' }}
+					hidden
 					defaultValue={selected}
 				>
 					<option value={selected}>{ selected }</option>
