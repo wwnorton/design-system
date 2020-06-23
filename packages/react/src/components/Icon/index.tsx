@@ -29,7 +29,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	className,
 	color = 'currentColor',
 	icon: iconProp,
-	size = '1.25rem',
+	size = '1.25em',
 	variant,
 	warnOnClick = true,
 	onClick,
