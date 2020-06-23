@@ -37,6 +37,7 @@
 }
 
 @mixin dropdown-listbox {
+	z-index: 100;
 	max-height: $dropdown-listbox-max-height;
 	box-sizing: border-box;
 	padding: 0;
@@ -70,10 +71,6 @@
 	outline: none;
 	align-items: center;
 
-	&[aria-selected=true] {
-		padding-left: 0;
-	}
-
 	&:hover {
 		background-color: $dropdown-option-hover-color;
 	}
@@ -87,8 +84,9 @@
 	}
 
 	> .icon--check {
-		width: $dropdown-option-check-width;
+		min-width: $dropdown-option-check-width;
 		height: 1em;
 		padding: 0 0.5rem;
+		margin-left: calc(#{$dropdown-option-check-width} * -1);
 	}
 }
