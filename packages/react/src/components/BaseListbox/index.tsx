@@ -1,36 +1,40 @@
 import React from 'react';
-import { BaseListOption, BaseListOptionProps } from '../BaseListOption';
+import { BaseOption, BaseOptionProps } from '../BaseOption';
 
-export interface BaseListboxProps extends React.HTMLAttributes<HTMLUListElement> {
+export interface OnChangeData { value: React.ReactText; contents: React.ReactNode }
+export interface BaseListboxProps extends Omit<React.HTMLAttributes<HTMLUListElement>, 'onChange'> {
 	/**
-	 * The listbox's options. Each will be rendered inside a `BaseListOption`
-	 * component. When specifying an option as a `BaseListOptionProps` object,
-	 * the option's value must be the `BaseListOptionProps['children']`.
+	 * The listbox's options, which can be either an array of strings, numbers,
+	 * or `<BaseOption>` elements.
 	 */
-	options: (React.ReactText | BaseListOptionProps)[];
-	/** A list of selected options. */
-	selected?: React.ReactText[];
-	/** Indicates whether multiple options can be selected in the list. */
-	multiselect?: boolean;
+	children: React.ReactChild[];
+	/** The currently selected option value(s). */
+	selected?: React.ReactText | React.ReactText[];
 	/** The initially focused index. Default is `0`. */
 	initialFocusIndex?: number;
+	/** Sort options by value. `undefined` will leave the options unsorted. */
+	sort?: 'ascending' | 'descending';
 
-	/** The class name that will be applied to the `BaseListOption`. */
+	// className props
+
+	/** The class name that will be applied to all `BaseOption` children. */
 	optionClass?: string;
 	/**
-	 * The class name that will be applied to the `BaseListOption`'s selection
+	 * The class name that will be applied to the `BaseOption`'s selection
 	 * marker (an SVG checkmark). Only visible when the option is selected.
 	 */
-	optionMarkerClass?: string;
-	/** The class name that will be applied to the `BaseListOption` */
-	optionValueClass?: string;
+	markerClass?: string;
+	/** The class name that will be applied to the `BaseOption`'s children. */
+	contentsClass?: string;
+
+	// callback props
 
 	/**
 	 * Callback function that is called when an option is selected. This will
 	 * occur when the user clicks an option, or when they press `Enter` or
 	 * `Space` on the currently focused option.
 	 */
-	onRequestSelect?: (value: React.ReactText[]) => void;
+	onChange?: (selected: OnChangeData) => void;
 	/** Callback function that is called when focus changes within the listbox. */
 	onFocusChange?: (focusedElement: HTMLLIElement) => void;
 }
@@ -39,35 +43,95 @@ export interface BaseListboxProps extends React.HTMLAttributes<HTMLUListElement>
  * A listbox is "a widget that allows the user to select one or more items from
  * a list of choices." Similar to a `<select>` element.
  * @ARIA https://w3c.github.io/aria/#listbox
- * @APG https://w3c.github.io/aria-practices/#Listbox
+ * @APG https://w3c.github.io/aria-practices/#BaseListbox
  */
 export const BaseListbox = React.forwardRef(({
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	children,
-	options,
-	selected = [],
+	className,
+	selected: selectedProp = [],
 	'aria-orientation': ariaOrientation = 'vertical',
+	initialFocusIndex,
+	sort,
 	optionClass,
-	optionMarkerClass,
-	optionValueClass,
-	onRequestSelect,
+	markerClass,
+	contentsClass,
+	onChange,
 	onFocusChange,
 	...attributes
 }: BaseListboxProps, ref) => {
-	const selectedIndex = options.indexOf(selected[0]);
-	const [focused, setFocused] = React.useState((selectedIndex > -1) ? selectedIndex : 0);
-	const optionRefs = React.useRef<React.RefObject<HTMLLIElement>[]>([]);
+	/** A compare function that will sort children by value */
+	const sorter = React.useMemo(() => {
+		if (!sort) return null;
+		return (a: BaseOptionProps, b: BaseOptionProps): number => {
+			const valueA = String(a.value).toUpperCase();
+			const valueB = String(b.value).toUpperCase();
+			const mod = (sort === 'descending') ? -1 : 1;
+			if (valueA < valueB) return -1 * mod;
+			if (valueA > valueB) return 1 * mod;
+			return 0;
+		};
+	}, [sort]);
 
-	// request select and focus the requested option on click
-	const onClick = (value: React.ReactText) => (): void => {
-		if (onRequestSelect) {
-			onRequestSelect([value]);
+	/**
+	 * An array of normalized `BaseOptionProps` created from the list of
+	 * `children`. This is done to ensure that a valid `value` exists, which
+	 * will either be the child's literal `value` prop if it exists or the
+	 * child's own contents (its `children`) cast to a string. Will be sorted if
+	 * the `sort` prop was defined.
+	 */
+	const childrenProps = React.useMemo(() => {
+		const options = React.Children.map(children, (child) => {
+			let props: BaseOptionProps;
+			if (React.isValidElement(child)) {
+				if (child.type !== BaseOption) {
+					throw new Error(BaseListbox.errors.invalidChild);
+				}
+				if (!child.props.value && !child.props.children) {
+					throw new Error(BaseListbox.errors.noValue);
+				}
+				props = {
+					...child.props,
+					value: (typeof child.props.value === 'number' || child.props.value !== undefined)
+						? child.props.value
+						: child.props.children.toString(),
+				};
+			} else {
+				props = { value: child.toString(), children: child };
+			}
+			return props;
+		});
+		return (sorter) ? options.sort(sorter) : options;
+	}, [children, sorter]);
+
+	/** The selected prop, coerced into an array. */
+	const selected = (Array.isArray(selectedProp)) ? selectedProp : [selectedProp];
+
+	/** A memoized index of the currently selected option */
+	const selectedIndex = React.useMemo(
+		() => childrenProps.findIndex(({ value }) => value === selected[0]),
+		[childrenProps, selected],
+	);
+
+	// The index of the currently focused option
+	const [focused, setFocused] = React.useState(() => {
+		if (initialFocusIndex !== undefined) return initialFocusIndex;
+		return (selectedIndex > -1) ? selectedIndex : 0;
+	});
+
+	/** A ref store for option HTML elements. */
+	const optionRefs = React.useRef<(HTMLLIElement | null)[]>([]);
+
+	/** Request select and focus the requested option on click. */
+	const onClick = ({ value, contents }: OnChangeData) => (): void => {
+		if (onChange) {
+			onChange({ value, contents });
 		}
 
-		setFocused(options.indexOf(value));
+		setFocused(childrenProps.findIndex((props) => props.value === value));
 	};
 
-	// move focus on keydown.(arrow keys)
+	/** Move focus on keydown.(arrow keys). */
 	const onKeyDown = (e: React.KeyboardEvent<HTMLLIElement>): void => {
 		const nextKey = (ariaOrientation === 'vertical') ? 'ArrowDown' : 'ArrowRight';
 		const prevKey = (ariaOrientation === 'vertical') ? 'ArrowUp' : 'ArrowLeft';
@@ -78,62 +142,63 @@ export const BaseListbox = React.forwardRef(({
 		let nextFocus = focused;
 		if (e.key === nextKey) nextFocus = focused + 1;
 		if (e.key === prevKey) nextFocus = focused - 1;
-		if (e.key === 'End') nextFocus = options.length - 1;
+		if (e.key === 'End') nextFocus = childrenProps.length - 1;
 		if (e.key === 'Home') nextFocus = 0;
 
 		// never go below the first or above the last option
-		nextFocus = Math.max(Math.min(nextFocus, options.length - 1), 0);
+		nextFocus = Math.max(Math.min(nextFocus, childrenProps.length - 1), 0);
 
 		if (nextFocus !== focused) {
 			setFocused(nextFocus);
 		}
 	};
 
-	// request selection on keyup.space
-	const onKeyUp = (value: React.ReactText) => (e: React.KeyboardEvent<HTMLLIElement>): void => {
-		if (e.key === ' ' && onRequestSelect) {
-			onRequestSelect([value]);
+	/** Request selection on keyup.space. */
+	const onKeyUp = (payload: OnChangeData) => (
+		e: React.KeyboardEvent<HTMLLIElement>,
+	): void => {
+		if (e.key === ' ' && onChange) {
+			onChange(payload);
 		}
 	};
 
-	// request selection on keypress.enter
-	const onKeyPress = (value: React.ReactText) => (e: React.KeyboardEvent<HTMLLIElement>): void => {
-		if (e.key === 'Enter' && onRequestSelect) {
-			onRequestSelect([value]);
+	/** Request selection on keypress.enter. */
+	const onKeyPress = (payload: OnChangeData) => (
+		e: React.KeyboardEvent<HTMLLIElement>,
+	): void => {
+		if (e.key === 'Enter' && onChange) {
+			onChange(payload);
 		}
 	};
 
-	const ListOptions = (): React.ReactElement[] => options.map((opt, i) => {
-		const props = (typeof opt === 'object')
-			? opt
-			: { children: opt };
-		const value = props.children || '';
-		const liRef = React.createRef<HTMLLIElement>();
-		optionRefs.current.push(liRef);
-		if (i === focused && liRef.current) liRef.current.focus();
-
+	/** The map of `BaseOption` components that will be rendered. */
+	const Options: JSX.Element[] = childrenProps.map((props, i) => {
+		const { children: contents } = props;
+		const value = props.value as React.ReactText;
 		return (
 			<BaseListbox.Option
 				key={value}
 				className={optionClass}
-				markerClass={optionMarkerClass}
-				valueClass={optionValueClass}
-
-				isSelected={selected.includes(value)}
+				markerClass={markerClass}
+				contentsClass={contentsClass}
+				isSelected={selected.includes(value as React.ReactText)}
 				tabIndex={(i === focused) ? 0 : -1}
-				onClick={onClick(value)}
+				onClick={onClick({ value, contents })}
 				onKeyDown={onKeyDown}
-				onKeyUp={onKeyUp(value)}
-				onKeyPress={onKeyPress(value)}
-				ref={liRef}
+				onKeyUp={onKeyUp({ value, contents })}
+				onKeyPress={onKeyPress({ value, contents })}
+				ref={(item): void => {
+					optionRefs.current.push(item);
+					if (i === focused && item) item.focus();
+				}}
 				{...props}
 			/>
 		);
 	});
 
-	// call DOM focus() on the appropriate element when `focused` changes
-	React.useEffect(() => {
-		const option = optionRefs.current[focused].current;
+	// call DOM focus() on the appropriate element when `focused` changes.
+	React.useLayoutEffect(() => {
+		const option = optionRefs.current[focused];
 		if (option) {
 			option.focus();
 			if (onFocusChange) onFocusChange(option);
@@ -143,13 +208,21 @@ export const BaseListbox = React.forwardRef(({
 	return (
 		<ul
 			role="listbox"
+			className={className}
 			ref={ref}
 			{...attributes}
 		>
-			{ ListOptions() }
+			{ Options }
 		</ul>
 	);
 }) as React.ForwardRefExoticComponent<BaseListboxProps & React.RefAttributes<HTMLUListElement>>
-& { Option: typeof BaseListOption };
+& {
+	Option: typeof BaseOption;
+	errors: Record<string, string>;
+};
 
-BaseListbox.Option = BaseListOption;
+BaseListbox.Option = BaseOption;
+BaseListbox.errors = {
+	invalidChild: 'BaseListbox children must be Option components, strings, or numbers.',
+	noValue: 'Options must contain a value prop or children.',
+};
