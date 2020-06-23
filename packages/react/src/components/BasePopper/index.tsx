@@ -54,7 +54,7 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 	});
 
 	// keep the ref synced with the popper element
-	React.useLayoutEffect(() => setPopper(forwardedRef.current), [isOpen, forwardedRef]);
+	React.useEffect(() => setPopper(forwardedRef.current), [isOpen, forwardedRef]);
 
 	if (!isOpen) return null;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
