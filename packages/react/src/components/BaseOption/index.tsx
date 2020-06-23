@@ -2,8 +2,11 @@ import React from 'react';
 import { Icon } from '../Icon';
 
 export interface BaseOptionProps extends React.LiHTMLAttributes<HTMLLIElement> {
-	/** The option's value. */
-	value: React.ReactText;
+	/**
+	 * The option's value. If not provided, consumer components are encouraged
+	 * to treat `children.toString()` as the value.
+	 */
+	value?: React.ReactText;
 	/** Indicates whether the option is currently selected. */
 	isSelected?: boolean;
 	/** The class name for the selection marker. */
