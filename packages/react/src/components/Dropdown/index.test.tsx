@@ -7,7 +7,7 @@ test.afterEach(cleanup);
 
 // helper function to get dropdown anatomy fixtures
 const dropdownAnatomy = (ctx: HTMLElement) => ({
-	getButton() { return ctx.querySelector('button'); },
+	getButton() { return ctx.querySelector('button') as NonNullable<HTMLButtonElement>; },
 	getListbox() { return ctx.querySelector<HTMLElement>('[role=listbox]'); },
 	getOptions() { return ctx.querySelectorAll<HTMLElement>('[role=option]'); },
 });
@@ -15,7 +15,7 @@ const dropdownAnatomy = (ctx: HTMLElement) => ({
 // default dropdown props
 const label = 'Choose an element';
 const options = ['Americium', 'Berkelium', 'Bohrium', 'Californium'];
-const defaultProps = { label, options };
+const defaultProps = { label, children: options };
 
 test('renders closed by default', (t) => {
 	const { container } = render(<Dropdown {...defaultProps} />);
