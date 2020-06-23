@@ -32,7 +32,7 @@ export const useForwardedRef = <T>(forwardedRef?: React.Ref<T>): React.RefObject
 	return innerRef;
 };
 
-export interface UsePopperProps extends PopperOptions {
+export interface UsePopperProps extends Partial<PopperOptions> {
 	/**
 	 * The reference element that the popper will be attached to.
 	 * @see https://popper.js.org/docs/v2/constructors/#createpopper
