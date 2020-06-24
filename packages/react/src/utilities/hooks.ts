@@ -4,6 +4,7 @@ import {
 	useMemo,
 	useRef,
 	useState,
+	useCallback,
 } from 'react';
 import {
 	createPopper,
@@ -105,111 +106,133 @@ export const usePopper = ({
 	return instance;
 };
 
-export const useTriggers = ({ reference, trigger, isOpen }: {
+export const useTriggers = ({
+	reference, tooltip, trigger, isOpen, delay = 250,
+}: {
 	reference?: Element | VirtualElement | null;
+	tooltip?: HTMLElement | null;
 	trigger: string;
 	isOpen: boolean;
+	delay?: number;
 }): boolean => {
 	if (trigger.includes('manual')) return isOpen;
 	const [open, setOpen] = useState(isOpen);
+	const [openTrigger, setOpenTrigger] = useState<string>();
+	const timer = useRef<number>();
 
-	const show = (): void => setOpen(true);
+	const clearTimer = (): void => window.clearTimeout(timer.current);
+
+	const show = ({ type }: Event): void => {
+		if (!open) setOpenTrigger(type);
+		setOpen(true);
+		clearTimer();
+	};
+
 	const hide = (): void => setOpen(false);
 
-	// focus & focusin handlers
-	const focusHandler = (): void => {
-		if (trigger.includes('focus')) show();
-	};
-	const focusinHandler = (): void => {
-		if (trigger.includes('focusin')) show();
-	};
-	const blurHandler = (): void => {
-		if (trigger.includes('focus') || trigger.includes('focusin')) hide();
+	const toggle = (e: Event): void => {
+		if (open) hide();
+		else show(e);
 	};
 
-	// mouseenter & pointerenter handlers
-	const pointerenterHandler = (): void => {
-		if (trigger.includes('mouseenter') || trigger.includes('pointerenter')) show();
-	};
-	const pointerleaveHandler = (): void => {
-		if (trigger.includes('mouseenter') || trigger.includes('pointerenter')) hide();
+	const delayedHide = (): void => {
+		timer.current = window.setTimeout((): void => {
+			if (openTrigger === 'pointerenter') hide();
+		}, delay);
 	};
 
 	// click handlers
 	const docKeydownHandler = (e: KeyboardEvent): void => {
-		if (trigger.includes('click') && e.key === 'Escape') hide();
+		if (e.key === 'Escape') hide();
 	};
 	const docClickHandler = (e: MouseEvent): void => {
-		if (trigger.includes('click')) {
-			const clickPath = e.composedPath();
-			const tooltipClick = clickPath.some((el) => {
-				if (el instanceof Element) {
-					return el.getAttribute('role') === 'tooltip';
-				}
-				return false;
-			});
-			const referenceClick = (): boolean => {
-				if (reference && reference instanceof Element) {
-					return clickPath.includes(reference);
-				}
-				return false;
-			};
-			if (tooltipClick || referenceClick()) return;
-			hide();
-		}
-	};
-	const clickHandler = (): void => {
-		if (trigger.includes('click')) setOpen(!open);
+		const clickPath = e.composedPath();
+		const tooltipClick = clickPath.some((el) => {
+			if (el instanceof Element) {
+				return el.getAttribute('role') === 'tooltip';
+			}
+			return false;
+		});
+		const referenceClick = (): boolean => {
+			if (reference && reference instanceof Element) {
+				return clickPath.includes(reference);
+			}
+			return false;
+		};
+		if (tooltipClick || referenceClick()) return;
+		hide();
 	};
 	const keydownHandler = (e: KeyboardEvent): void => {
-		if (trigger.includes('click')) {
-			if (e.key === 'Enter') setOpen(!open);
-			if (e.key === ' ') e.preventDefault();
-		}
+		if (e.key === 'Enter') toggle(e);
+		if (e.key === ' ') e.preventDefault();
 	};
 	const keyupHandler = (e: KeyboardEvent): void => {
-		if (trigger.includes('click') && e.key === ' ') setOpen(!open);
+		if (e.key === ' ') toggle(e);
 	};
 
 	useLayoutEffect(() => {
-		if (!reference || !(reference instanceof HTMLElement)) {
-			return (): void => { /* nothing to clean up */ };
-		}
+		if (reference && (reference instanceof HTMLElement || reference instanceof SVGElement)) {
+			// hide on Escape for all triggers
+			document.addEventListener('keydown', docKeydownHandler);
 
-		// click
-		reference.addEventListener('click', clickHandler);
-		reference.addEventListener('keydown', keydownHandler);
-		reference.addEventListener('keyup', keyupHandler);
-		document.addEventListener('click', docClickHandler);
-		document.addEventListener('keydown', docKeydownHandler);
-
-		// focus & focusin
-		reference.addEventListener('focus', focusHandler);
-		reference.addEventListener('focusin', focusinHandler);
-		reference.addEventListener('blur', blurHandler);
-
-		// mouseenter & pointerenter
-		reference.addEventListener('pointerenter', pointerenterHandler);
-		reference.addEventListener('pointerleave', pointerleaveHandler);
-
-		return (): void => {
 			// click
-			reference.removeEventListener('click', clickHandler);
-			reference.removeEventListener('keydown', keydownHandler);
-			reference.removeEventListener('keyup', keyupHandler);
-			document.removeEventListener('click', docClickHandler);
-			document.removeEventListener('keydown', docKeydownHandler);
+			if (trigger.includes('click')) {
+				reference.addEventListener('click', toggle);
+				reference.addEventListener('keydown', keydownHandler as EventListener);
+				reference.addEventListener('keyup', keyupHandler as EventListener);
+				document.addEventListener('click', docClickHandler);
+			}
 
 			// focus & focusin
-			reference.removeEventListener('focus', focusHandler);
-			reference.removeEventListener('focusin', focusinHandler);
-			reference.removeEventListener('blur', blurHandler);
+			if (trigger.includes('focus')) {
+				reference.addEventListener('focus', show);
+			}
+			if (trigger.includes('focusin')) {
+				reference.addEventListener('focusin', show);
+			}
+			if (trigger.includes('focus') || trigger.includes('focusin')) {
+				reference.addEventListener('blur', hide);
+			}
 
 			// mouseenter & pointerenter
-			reference.removeEventListener('pointerenter', pointerenterHandler);
-			reference.removeEventListener('pointerleave', pointerleaveHandler);
+			if (trigger.includes('mouseenter') || trigger.includes('pointerenter')) {
+				reference.addEventListener('pointerenter', show);
+				reference.addEventListener('pointerleave', delayedHide);
+				if (tooltip) {
+					tooltip.addEventListener('pointerleave', delayedHide);
+				}
+			}
+
+			if (tooltip) {
+				tooltip.addEventListener('pointerenter', clearTimer);
+			}
+		}
+
+		return (): void => {
+			if (reference && (reference instanceof HTMLElement || reference instanceof SVGElement)) {
+				// click
+				reference.removeEventListener('click', toggle);
+				reference.removeEventListener('keydown', keydownHandler as EventListener);
+				reference.removeEventListener('keyup', keyupHandler as EventListener);
+				document.removeEventListener('click', docClickHandler);
+				document.removeEventListener('keydown', docKeydownHandler);
+
+				// focus & focusin
+				reference.removeEventListener('focus', show);
+				reference.removeEventListener('focusin', show);
+				reference.removeEventListener('blur', hide);
+
+				// mouseenter & pointerenter
+				reference.removeEventListener('pointerenter', show);
+				reference.removeEventListener('pointerleave', delayedHide);
+
+				if (tooltip) {
+					tooltip.removeEventListener('pointerenter', clearTimer);
+					tooltip.removeEventListener('pointerleave', delayedHide);
+				}
+			}
 		};
-	}, [reference, open]);
+	}, [reference, tooltip, trigger]);
 
 	return open;
 };
