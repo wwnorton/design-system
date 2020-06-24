@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import {
-	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox,
+	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox, useForwardedRef,
 } from '../../utilities';
 import { BaseSVG, BaseSVGProps } from '../BaseSVG';
+import { Tooltip } from '../Tooltip';
 
 export interface IconProps extends BaseSVGProps {
 	/** The base class name according to BEM conventions */
@@ -24,6 +25,10 @@ export interface IconProps extends BaseSVGProps {
 	warnOnClick?: boolean;
 }
 
+/**
+ * An icon component. Children are assumed to be the icon's label and will be
+ * rendered in an accessible tooltip.
+ */
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	baseName = 'icon',
 	className,
@@ -34,6 +39,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	warnOnClick = true,
 	onClick,
 	'aria-label': ariaLabel,
+	children,
 	...attributes
 }: IconProps, ref) => {
 	if (onClick && warnOnClick) {
@@ -43,8 +49,24 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 			+ 'You probably want to use the IconButton component instead.',
 		);
 	}
+	const [svg, setSvg] = useForwardedRef(ref);
+
+	const ariaHidden = React.useMemo(() => {
+		if (children) return undefined;
+		if (!ariaLabel) return true;
+		return undefined;
+	}, [ariaLabel, children]);
 
 	const icon = iconProp || findIcon(variant);
+
+	const tooltip = React.useMemo(() => {
+		if (!children) return null;
+		return (
+			<Tooltip asLabel reference={svg}>
+				{ children }
+			</Tooltip>
+		);
+	}, [children, svg]);
 
 	if (!icon) {
 		// TODO: warn/error if no icon was found?
@@ -61,22 +83,26 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	}, className);
 
 	return (
-		<BaseSVG
-			ref={ref}
-			source={source}
-			viewBox={viewBox}
-			height={size}
-			width={size}
-			className={classes}
-			aria-label={ariaLabel}
-			aria-hidden={(!ariaLabel) ? 'true' : undefined}
-			focusable="false"
-			role="img"
-			fill={color}
-			onClick={onClick}
-			{...attributes}
-		>
-			<path d={d} aria-hidden="true" />
-		</BaseSVG>
+		<>
+			<BaseSVG
+				ref={setSvg}
+				source={source}
+				viewBox={viewBox}
+				height={size}
+				width={size}
+				className={classes}
+				aria-label={ariaLabel}
+				aria-hidden={ariaHidden}
+				focusable="false"
+				tabIndex={(children) ? 0 : undefined}
+				role="img"
+				fill={color}
+				onClick={onClick}
+				{...attributes}
+			>
+				<path d={d} aria-hidden="true" />
+			</BaseSVG>
+			{ tooltip }
+		</>
 	);
 });
