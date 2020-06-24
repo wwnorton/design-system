@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { BasePopper, BasePopperProps } from '../BasePopper';
-import { getProp, useTriggers } from '../../utilities';
+import { getProp, useTriggers, useForwardedRef } from '../../utilities';
 
 export type Triggers =
 	| 'click'
@@ -47,8 +47,11 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		...props
 	}: TooltipProps, ref,
 ) => {
+	const [tooltip, setTooltip] = useForwardedRef(ref);
 	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
-	const open = useTriggers({ reference, trigger, isOpen });
+	const open = useTriggers({
+		reference, trigger, isOpen, tooltip,
+	});
 
 	const offsetMod = {
 		name: 'offset',
@@ -94,6 +97,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 
 	return (
 		<BasePopper
+			aria-hidden="true"
 			className={classNames(baseName, className)}
 			role="tooltip"
 			modifiers={[...modifiers, offsetMod, arrowMod]}
@@ -101,7 +105,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 			reference={reference}
 			isOpen={open}
 			id={id}
-			ref={ref}
+			ref={setTooltip}
 			{...props}
 		>
 			{ children }
