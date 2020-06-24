@@ -57,10 +57,9 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 		...attributes
 	}: SwitchProps, ref,
 ) => {
-	const buttonRef = useForwardedRef(ref);
 	const [checked, setChecked] = React.useState(isChecked);
 	const [defaultValue, setDefaultValue] = React.useState('off');
-	const [button, setButton] = React.useState<HTMLButtonElement | null>(buttonRef.current);
+	const [button, setButton] = useForwardedRef(ref);
 
 	React.useEffect(() => setChecked(isChecked), [isChecked]);
 

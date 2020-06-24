@@ -41,8 +41,7 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 		...attributes
 	}: BasePopperProps, ref,
 ) => {
-	const forwardedRef = useForwardedRef(ref);
-	const [popper, setPopper] = React.useState<HTMLElement | null>(forwardedRef.current);
+	const [popper, setPopper] = useForwardedRef(ref);
 	usePopper({
 		popper,
 		reference,
@@ -53,13 +52,10 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 		onFirstUpdate,
 	});
 
-	// keep the ref synced with the popper element
-	React.useEffect(() => setPopper(forwardedRef.current), [isOpen, forwardedRef]);
-
 	if (!isOpen) return null;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 	// @ts-ignore
-	return <Tag ref={forwardedRef} {...attributes}>{ children }</Tag>;
+	return <Tag ref={setPopper} {...attributes}>{ children }</Tag>;
 });
 
 BasePopper.defaultProps = defaultProps;

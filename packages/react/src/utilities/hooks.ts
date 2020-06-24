@@ -13,23 +13,25 @@ import {
 } from '@popperjs/core';
 import isEqual from 'react-fast-compare';
 
-export const useForwardedRef = <T>(forwardedRef?: React.Ref<T>): React.RefObject<T> => {
-	const innerRef = useRef<T>(null);
+export const useForwardedRef = <T>(
+	forwardedRef?: React.Ref<T>,
+): [T | null, React.Dispatch<React.SetStateAction<T | null>>] => {
+	const [element, setElement] = useState<T | null>(null);
 
 	useEffect(() => {
 		if (!forwardedRef) return;
 
 		if (typeof forwardedRef === 'function') {
-			forwardedRef(innerRef.current);
+			forwardedRef(element);
 		} else {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 			// @ts-ignore
 			// eslint-disable-next-line no-param-reassign
-			forwardedRef.current = innerRef.current;
+			forwardedRef.current = element;
 		}
-	}, [forwardedRef]);
+	}, [forwardedRef, element]);
 
-	return innerRef;
+	return [element, setElement];
 };
 
 export interface UsePopperProps extends Partial<PopperOptions> {

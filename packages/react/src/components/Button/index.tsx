@@ -52,10 +52,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 	if (!children) {
 		throw new Error(Button.errors.noChildren);
 	}
-	const buttonRef = useForwardedRef(ref);
-	const [button, setButton] = React.useState(buttonRef.current);
-
-	React.useEffect(() => setButton(buttonRef.current), [buttonRef]);
+	const [button, setButton] = useForwardedRef(ref);
 
 	const BaseIcon = React.useMemo(() => {
 		if (!icon) return null;
@@ -88,7 +85,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 
 	return (
 		<>
-			<BaseButton className={classes} ref={buttonRef} {...props}>
+			<BaseButton className={classes} ref={setButton} {...props}>
 				{ (iconRight) ? null : BaseIcon }
 				{ Children }
 				{ (iconRight) ? BaseIcon : null }
