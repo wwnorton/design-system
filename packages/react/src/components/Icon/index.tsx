@@ -76,7 +76,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 			onClick={onClick}
 			{...attributes}
 		>
-			<path d={d} />
+			<path d={d} aria-hidden="true" />
 		</BaseSVG>
 	);
 });
