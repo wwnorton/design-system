@@ -40,7 +40,6 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	onClick,
 	'aria-label': ariaLabel,
 	children,
-	...attributes
 }: IconProps, ref) => {
 	if (onClick && warnOnClick) {
 		// eslint-disable-next-line no-console
@@ -98,7 +97,6 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 				role="img"
 				fill={color}
 				onClick={onClick}
-				{...attributes}
 			>
 				<path d={d} aria-hidden="true" />
 			</BaseSVG>
