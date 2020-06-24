@@ -19,9 +19,29 @@ export default {
 export const Default: React.FunctionComponent = () => (
 	<Icon
 		variant={select<IconProps['variant']>('Icon', IconOptions, 'caret-right')}
-		aria-label={text('Label', '')}
 		size={number('Size', 48)}
+	>
+		{ text('Contents', '') }
+	</Icon>
+);
+
+export const WithARIALabel: React.FunctionComponent = () => (
+	<Icon
+		variant={select<IconProps['variant']>('Icon', IconOptions, 'caret-right')}
+		size={number('Size', 48)}
+		aria-label={text('Label', '')}
 	/>
+);
+
+export const InfoWithDetails: React.FunctionComponent = () => (
+	<Icon variant="info">
+		Notice: this text is essentially the &quot;alt text&quot; of the icon.
+		Under most circumstances, it is recommended that you use a
+		{' '}
+		<code>ButtonIcon</code>
+		{' '}
+		when you need an icon with a tooltip since icons are not interactive.
+	</Icon>
 );
 
 export const AllIcons: React.FunctionComponent = () => {
@@ -30,12 +50,15 @@ export const AllIcons: React.FunctionComponent = () => {
 	return (
 		<div className="icon-list">
 			{
-				Object.values(IconOptions).map((icon) => (
+				Object.keys(IconOptions).map((key) => (
 					<Icon
-						variant={icon}
+						key={IconOptions[key]}
+						variant={IconOptions[key]}
 						size={size}
 						color={c}
-					/>
+					>
+						{ key }
+					</Icon>
 				))
 			}
 		</div>
