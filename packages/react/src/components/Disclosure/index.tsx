@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
-import { isElement, hasTransition } from '../../utilities';
+import { hasTransition } from '../../utilities';
 import { BaseDetails, BaseDetailsProps } from '../BaseDetails';
-import { BaseSummary } from '../BaseSummary';
+import { BaseSummary, BaseSummaryProps } from '../BaseSummary';
 import { Icon } from '../Icon';
 
 export type DisclosureVariant = 'default' | 'panel';
@@ -217,7 +217,9 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 			summaryClass = `${baseName}__${Disclosure.bemElements.summary}`,
 			markerClass = `${baseName}__${Disclosure.bemElements.marker}`,
 		} = this.props;
-		if (isElement(summary, 'summary')) return summary;
+		if (React.isValidElement<BaseSummaryProps>(summary)) {
+			return summary;
+		}
 		const markerType = (variant === 'panel') ? 'chevron-down' : 'caret-right';
 		const markerElement = <Icon variant={markerType} className={markerClass} />;
 		const markerPosition = variant === 'panel' ? 'right' : 'left';

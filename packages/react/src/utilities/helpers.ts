@@ -4,21 +4,6 @@ import uniqueId from 'lodash.uniqueid';
 /** Generic no-operation function. */
 export const noop = (): void => {};	// eslint-disable-line @typescript-eslint/no-empty-function
 
-/** Find out if an object is an element and if it's a specific HTML element. */
-export function isElement<Props>(
-	el?: React.ReactText | Parameters<typeof React.isValidElement>[0],
-	htmlType?: string,
-): el is React.ReactElement<Props> {
-	if (React.isValidElement<Props>(el)) {
-		// it's an HTML element
-		if (typeof el.type === 'string') {
-			return (htmlType) ? el.type.toLowerCase() === htmlType.toLowerCase() : true;
-		}
-		return 'props' in el;
-	}
-	return false;
-}
-
 interface PropId { id?: string }
 
 /** Create a prefixed id generator that can be used to generate suffixed ids. */
