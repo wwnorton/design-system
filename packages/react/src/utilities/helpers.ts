@@ -1,5 +1,6 @@
 import React from 'react';
 import uniqueId from 'lodash.uniqueid';
+import { config } from '../config';
 
 /** Generic no-operation function. */
 export const noop = (): void => {};	// eslint-disable-line @typescript-eslint/no-empty-function
@@ -93,13 +94,14 @@ export const hasTransition = (el?: HTMLElement | null): boolean => {
 	return false;
 };
 
-const NAMESPACE = 'nds';
-
 export const prefix = (
 	val: string,
-	namespace = NAMESPACE,
+	namespace = config.namespace,
 	delimiter = '-',
-): string => namespace + delimiter + val;
+): string => {
+	if (!namespace) return val;
+	return namespace + delimiter + val;
+};
 
 export const setProp = (
 	prop: string,
