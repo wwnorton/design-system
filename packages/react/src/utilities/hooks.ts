@@ -50,19 +50,19 @@ export const usePopper = ({
 	popper,
 	children,
 	placement = 'auto',
-	modifiers = [],
+	modifiers,
 	strategy = 'absolute',
 	onFirstUpdate,
 }: UsePopperProps): React.MutableRefObject<PopperInstance | null> => {
 	const instance = useRef<PopperInstance | null>(null);
 	const prevOptions = useRef<PopperOptions>({
-		placement, modifiers, strategy, onFirstUpdate,
+		placement, modifiers: modifiers || [], strategy, onFirstUpdate,
 	});
 
 	// memoize the options, only updating when Popper.js options props change
 	const options = useMemo(() => {
 		const newOptions = {
-			placement, modifiers, strategy, onFirstUpdate,
+			placement, modifiers: modifiers || [], strategy, onFirstUpdate,
 		};
 		if (isEqual(prevOptions.current, newOptions)) {
 			return prevOptions.current || newOptions;

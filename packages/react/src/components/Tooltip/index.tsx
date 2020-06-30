@@ -35,7 +35,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	{
 		baseName = 'tooltip',
 		arrowClass = `${baseName}__arrow`,
-		modifiers = [],
+		modifiers,
 		placement = 'top',
 		asLabel = false,
 		trigger = 'focus pointerenter',
@@ -100,7 +100,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 			aria-hidden="true"
 			className={classNames(baseName, className)}
 			role="tooltip"
-			modifiers={[...modifiers, offsetMod, arrowMod]}
+			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
 			placement={placement}
 			reference={reference}
 			isOpen={open}

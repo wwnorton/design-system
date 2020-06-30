@@ -17,12 +17,6 @@ export interface BasePopperProps extends React.HTMLAttributes<HTMLElement>, Part
 	reference?: Element | VirtualElement | null;
 }
 
-const defaultProps: Options = {
-	placement: 'auto',
-	modifiers: [],
-	strategy: 'absolute',
-};
-
 /**
  * A Popper.js component. Position the BasePopper's children relative to a
  * reference element.
@@ -34,9 +28,9 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 		is: Tag = 'div',
 		reference,
 		children,
-		placement = defaultProps.placement,
-		modifiers = defaultProps.modifiers,
-		strategy = defaultProps.strategy,
+		placement = 'auto',
+		modifiers,
+		strategy = 'absolute',
 		onFirstUpdate,
 		...attributes
 	}: BasePopperProps, ref,
@@ -57,5 +51,3 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 	// @ts-ignore
 	return <Tag ref={setPopper} {...attributes}>{ children }</Tag>;
 });
-
-BasePopper.defaultProps = defaultProps;
