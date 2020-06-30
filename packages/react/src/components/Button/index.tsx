@@ -1,9 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import { IconVariant, SVGIcon, useForwardedRef } from '../../utilities';
+import {
+	IconVariant, SVGIcon, useForwardedRef, NDSForwardRef,
+} from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
+import { LiveRegion } from '../LiveRegion';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
@@ -35,7 +38,12 @@ export interface ButtonProps extends BaseButtonProps {
 	textClass?: string;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
+/**
+ * Button `children` are required because they are used to provide an accessible
+ * label for the button. When rendering with `iconOnly`, the children will be
+ * rendered as an accessible `Tooltip` that labels the button.
+ */
+export const Button = React.forwardRef((
 	{
 		baseName = 'button',
 		variant,
@@ -49,10 +57,21 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 		...props
 	}: ButtonProps, ref,
 ) => {
-	if (!children) {
+	if (!React.Children.count(children)) {
 		throw new Error(Button.errors.noChildren);
 	}
 	const [button, setButton] = useForwardedRef(ref);
+
+	/**
+	 * Screen readers do not announce changes to button contents, so use a live
+	 * region to ensure that changes are perceivable to screen reader users.
+	 */
+	const [liveText, setLiveText] = React.useState<React.ReactNode>('');
+	React.useEffect(() => {
+		if (button && document.activeElement === button) {
+			setLiveText(children);
+		}
+	}, [children, button]);
 
 	const BaseIcon = React.useMemo(() => {
 		if (!icon) return null;
@@ -91,11 +110,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 				{ (iconRight) ? BaseIcon : null }
 			</BaseButton>
 			{ iconOnly && <Tooltip asLabel reference={button}>{ children }</Tooltip> }
+			<LiveRegion>{ liveText }</LiveRegion>
 		</>
 	);
-}) as React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>> & {
-	errors: Record<string, string>;
-};
+}) as NDSForwardRef<HTMLButtonElement, ButtonProps>;
 
 Button.errors = {
 	noChildren: 'Button components must always have children.',
