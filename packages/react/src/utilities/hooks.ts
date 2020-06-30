@@ -4,10 +4,7 @@ import React, {
 	useMemo,
 	useRef,
 	useState,
-	useCallback,
 } from 'react';
-
-import { createPortal } from 'react-dom';
 import {
 	createPopper,
 	Instance as PopperInstance,
@@ -241,31 +238,4 @@ export const useTriggers = ({
 	}, [reference, tooltip, trigger]);
 
 	return open;
-};
-
-/**
- * Use a prop internally, ensuring that the provided prop is always treated as
- * the source of truth.
- */
-export const usePropState = <T>(prop: T): [
-	T, React.Dispatch<React.SetStateAction<T>>, React.MutableRefObject<T>,
-] => {
-	const prevProp = useRef(prop);
-	const [innerProp, setInnerProp] = useState(prop);
-
-	// rewrite the dispatch function to do a deep compare and keep the previous
-	// value up to date
-	const updateProp = (newVal: React.SetStateAction<T>): void => {
-		if (!isEqual(newVal, prevProp.current)) {
-			prevProp.current = (newVal instanceof Function)
-				? newVal(prevProp.current)
-				: newVal;
-			setInnerProp(newVal);
-		}
-	};
-
-	// always update the prop if it changes from above
-	useEffect(() => updateProp(prop), [prop]);
-
-	return [innerProp, updateProp, prevProp];
 };
