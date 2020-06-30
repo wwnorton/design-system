@@ -21,6 +21,7 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>((
 	onBlur,
 	className,
 	children,
+	type = 'button',
 	...attributes
 }: BaseButtonProps, ref) => {
 	const [isActive, setActive] = React.useState(active);
@@ -43,18 +44,13 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>((
 	};
 
 	return (
-		/**
-		 * Known eslint-plugin-react bug when passing dynamic button type, even when
-		 * a default is defined.
-		 * @see https://github.com/yannickcr/eslint-plugin-react/issues/1846
-		 */
-		/* eslint-disable react/button-has-type */
 		<button
 			className={classNames({ [activeClass]: isActive }, className)}
 			onKeyDown={handleKeydown}
 			onKeyUp={handleKeyup}
 			onBlur={handleBlur}
 			ref={ref}
+			type={type}	// eslint-disable-line react/button-has-type
 			{...attributes}
 		>
 			{ children }
