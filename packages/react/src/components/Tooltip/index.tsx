@@ -2,7 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { BasePopper, BasePopperProps } from '../BasePopper';
-import { getProp, useTriggers, useForwardedRef } from '../../utilities';
+import {
+	getProp, useTriggers, useForwardedRef, innerText,
+} from '../../utilities';
 
 export type Triggers =
 	| 'click'
@@ -87,7 +89,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 			} else {
 				reference.removeAttribute(ariaAttribute);
 				if (asLabel && children) {
-					reference.setAttribute('aria-label', children.toString());
+					reference.setAttribute('aria-label', innerText(children));
 				}
 			}
 		}
