@@ -276,7 +276,6 @@ export const Dropdown: DropdownType = ({
 				disabled={disabled}
 				style={{ width: (matchWidth === 'listbox') ? listboxWidth : undefined }}
 				type="button"
-				aria-expanded={(open) ? 'true' : 'false'}
 				aria-labelledby={`${labelId} ${currentId}`}
 				aria-haspopup="listbox"
 				aria-controls={listboxId}
