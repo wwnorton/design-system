@@ -107,7 +107,7 @@ export const usePopper = ({
 };
 
 export const useTriggers = ({
-	reference, tooltip, trigger, isOpen, delay = 250,
+	reference, tooltip, trigger, isOpen, delay = 350,
 }: {
 	reference?: Element | VirtualElement | null;
 	tooltip?: HTMLElement | null;
