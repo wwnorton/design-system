@@ -16,6 +16,10 @@ import {
 } from '@popperjs/core';
 import isEqual from 'react-fast-compare';
 
+/**
+ * Use a forwarded ref. Takes the ref provided by `React.forwardRef` and returns
+ * a `React.setState` [value, function] tuple that will keep the ref up to date.
+ */
 export const useForwardedRef = <T>(
 	forwardedRef?: React.Ref<T>,
 ): [T | null, React.Dispatch<React.SetStateAction<T | null>>] => {
