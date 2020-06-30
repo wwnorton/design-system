@@ -106,7 +106,6 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 				onClick={clickHandler}
 				ref={setButton}
 				role="switch"
-				type="button"
 				{...buttonProps}
 			>
 				{ children || (displayDefault && defaultValue) }
