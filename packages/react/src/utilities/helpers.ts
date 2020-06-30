@@ -4,6 +4,34 @@ import uniqueId from 'lodash.uniqueid';
 /** Generic no-operation function. */
 export const noop = (): void => {};	// eslint-disable-line @typescript-eslint/no-empty-function
 
+/** Test if an element is hidden. By default, this includes `aria-hidden`. */
+export const isHidden = (el: React.ReactElement, ariaHidden = true): boolean => {
+	if (ariaHidden && (
+		el.props['aria-hidden'] === true || el.props['aria-hidden'] === 'true'
+	)) return true;
+	const { display, visibility } = el.props.style;
+	if (visibility && visibility !== 'visible') return true;
+	if (display === 'none') return true;
+	if (el.props.hidden) return true;
+	return false;
+};
+
+/**
+ * Recursively get the visible text content of an element and its descendants,
+ * similar to Node.innerText.
+ */
+export const innerText = (children: React.ReactNode): string => {
+	const strings = React.Children.map(children, (child) => {
+		if (React.isValidElement(child)) {
+			if (isHidden(child)) return '';
+			return innerText(child.props.children);
+		}
+		return String(child);
+	});
+	if (strings) return strings.filter(Boolean).join('');
+	return '';
+};
+
 interface PropId { id?: string }
 
 /** Create a prefixed id generator that can be used to generate suffixed ids. */
