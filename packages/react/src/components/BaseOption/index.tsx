@@ -30,7 +30,7 @@ export const BaseOption = React.forwardRef<HTMLLIElement, BaseOptionProps>(({
 }: BaseOptionProps, ref) => (
 	<li
 		role="option"
-		aria-selected={(isSelected) ? 'true' : 'false'}
+		aria-selected={(isSelected) ? 'true' : undefined}
 		ref={ref}
 		{...attributes}
 	>
