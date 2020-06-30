@@ -50,6 +50,10 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	}: TooltipProps, ref,
 ) => {
 	const [tooltip, setTooltip] = useForwardedRef(ref);
+	const ariaAttribute = React.useMemo(() => {
+		if (asLabel) return 'aria-labelledby';
+		return 'aria-describedby';
+	}, [asLabel]);
 	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
 	const open = useTriggers({
 		reference, trigger, isOpen, tooltip,
@@ -82,18 +86,20 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	 */
 	React.useLayoutEffect(() => {
 		if (reference && reference instanceof Element) {
-			const ariaAttribute = (asLabel) ? 'aria-labelledby' : 'aria-describedby';
+			const currentRefs = reference.getAttribute(ariaAttribute);
+			if (currentRefs && !currentRefs.split(/\s+/g).includes(id)) return;
+			const currentLabel = reference.getAttribute('aria-label');
 			if (open) {
 				reference.setAttribute(ariaAttribute, id);
 				reference.removeAttribute('aria-label');
 			} else {
 				reference.removeAttribute(ariaAttribute);
 				if (asLabel && children) {
-					reference.setAttribute('aria-label', innerText(children));
+					reference.setAttribute('aria-label', currentLabel || innerText(children));
 				}
 			}
 		}
-	}, [asLabel, children, id, open, reference]);
+	}, [asLabel, children, id, open, reference, ariaAttribute]);
 
 	if (!children) return null;
 
