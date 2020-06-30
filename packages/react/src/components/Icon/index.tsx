@@ -75,6 +75,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 		d,
 		source,
 		viewBox = defaultViewBox,
+		children: svgChildren,
 	} = icon;
 
 	const classes = classNames(baseName, {
@@ -98,7 +99,8 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 				fill={color}
 				onClick={onClick}
 			>
-				<path d={d} aria-hidden="true" />
+				{ d && <path d={d} aria-hidden="true" /> }
+				{ svgChildren }
 			</BaseSVG>
 			{ tooltip }
 		</>

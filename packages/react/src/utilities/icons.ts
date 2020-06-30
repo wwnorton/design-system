@@ -1,9 +1,10 @@
 export interface SVGIcon {
-	d: string;
+	d?: string;
 	fullName?: string;
 	originalName?: string;
 	viewBox?: '0 0 24 24';
 	source?: string;
+	children?: React.ReactNode;
 }
 export type IconVariant =
 	| 'account'
