@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { isElement } from '../../utilities';
 import { BaseInput, BaseInputProps } from '../BaseInput';
 
 export type RadioContent = 'input' | 'control' | 'thumbnail' | 'label' | 'help' | 'container';
@@ -71,7 +70,7 @@ export class Radio extends React.Component<RadioProps> {
 			htmlFor: this.id,
 			id: this.labelId,
 		};
-		if (isElement<React.LabelHTMLAttributes<HTMLLabelElement>>(label)) {
+		if (React.isValidElement<React.LabelHTMLAttributes<HTMLLabelElement>>(label)) {
 			return React.cloneElement(label, props);
 		}
 		// eslint-disable-next-line jsx-a11y/label-has-associated-control
