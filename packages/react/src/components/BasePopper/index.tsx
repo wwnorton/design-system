@@ -47,7 +47,5 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 	});
 
 	if (!isOpen) return null;
-	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-	// @ts-ignore
 	return <Tag ref={setPopper} {...attributes}>{ children }</Tag>;
 });
