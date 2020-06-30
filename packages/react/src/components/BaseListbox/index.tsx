@@ -49,7 +49,7 @@ export const BaseListbox = React.forwardRef(({
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	children,
 	className,
-	selected: selectedProp = [],
+	selected: selectedProp,
 	'aria-orientation': ariaOrientation = 'vertical',
 	initialFocusIndex,
 	sort,
@@ -105,7 +105,10 @@ export const BaseListbox = React.forwardRef(({
 	}, [children, sorter]);
 
 	/** The selected prop, coerced into an array. */
-	const selected = (Array.isArray(selectedProp)) ? selectedProp : [selectedProp];
+	const selected = React.useMemo(() => {
+		if (Array.isArray(selectedProp)) return selectedProp;
+		return [selectedProp];
+	}, [selectedProp]);
 
 	/** A memoized index of the currently selected option */
 	const selectedIndex = React.useMemo(
