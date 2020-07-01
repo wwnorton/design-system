@@ -1,11 +1,7 @@
-import React from 'react';
-
 /** Union of HTML elements that can be validated with this API. */
 export type ValidationElement = HTMLInputElement | HTMLTextAreaElement;
 /** All ValidityState keys except `valid`. */
 export type ValidityStateInvalidKeys = Exclude<keyof ValidityState, 'valid'>;
-
-export type ValidatorError = string | JSX.Element;
 
 /** A validator test and message to use when the validator returns `false`. */
 export interface ValidatorEntry {
@@ -14,12 +10,19 @@ export interface ValidatorEntry {
 	/** `true` if the supplied value is valid, `false` if it is invalid. */
 	test: (value: string, validity?: ValidityState) => boolean;
 	/** An error message for when a form element's value is invalid. */
-	message: ValidatorError | ((value: string) => ValidatorError);
+	message: string | ((value: string) => string);
 }
+
+export const validityStateTest = (
+	state: ValidityStateInvalidKeys,
+): ValidatorEntry['test'] => (_, validity): boolean => {
+	if (validity) return !validity[state];
+	return true;
+};
 
 /**
  * All `<input>` types since the standard DOM library isn't specific.
- * https://html.spec.whatwg.org/multipage/input.html#attr-input-type
+ * @DOM https://html.spec.whatwg.org/multipage/input.html#attr-input-type
  */
 export type InputType =
 	| 'button'
@@ -45,46 +48,6 @@ export type InputType =
 	| 'url'
 	| 'week';
 
-export const validityStateTest = (
-	state: ValidityStateInvalidKeys,
-): ValidatorEntry['test'] => (_, validity): boolean => {
-	if (validity) return !validity[state];
-	return true;
-};
-
-/** Message functions that correspond to each invalid key on ValidityState. */
-export const stateMessages = {
-	// badInput: (): string => '',
-	// customError: (): string => '',
-	// patternMismatch: (): string => '',
-	rangeOverflow: (max: string | number): string => `Please select a value that is no more than ${max}.`,
-	rangeUnderflow: (min: string | number): string => `Please select a value that is no less than ${min}.`,
-	// stepMismatch: (): string => '',
-	tooLong: (maxLength: number): string => `Please use ${maxLength} characters or fewer.`,
-	tooShort: (
-		value: string,
-		minLength: number,
-		type?: InputType,
-	): string => {
-		switch (type) {
-			case 'password':
-				return `Passwords must be at least ${minLength} characters long.`;
-			default:
-				return `Please use at least ${minLength} characters. You are currently using ${value.length} characters.`;
-		}
-	},
-	typeMismatch: (type: InputType): string => {
-		switch (type) {
-			case 'email': return 'Please enter an email address.';
-			case 'tel': return 'Please enter a phone number.';
-			case 'url': return 'Please enter a URL.';
-			case 'number': return 'Please enter a number.';
-			default: return '';
-		}
-	},
-	valueMissing: (): string => 'This field is required.',
-};
-
 type ValidationAttributeNames =
 	| 'max'
 	| 'maxLength'
@@ -95,16 +58,43 @@ type ValidationAttributeNames =
 	| 'step'
 	| 'type';
 
-type HTMLValidationAttributes =
-	Pick<React.InputHTMLAttributes<HTMLInputElement>, ValidationAttributeNames>;
-
 /**
  * Attributes that are used in constraint validation.
  * @MDN https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
  */
-export interface ValidationAttributes extends Partial<HTMLValidationAttributes> {
-	type?: InputType;
-}
+export type ValidationAttributes =
+	Pick<React.InputHTMLAttributes<HTMLInputElement>, ValidationAttributeNames>;
+
+type StateMessageFunction = (attrs: ValidationAttributes, value?: string) => string;
+
+/** Message functions that correspond to each invalid key on ValidityState. */
+export const defaultMessages: Record<ValidityStateInvalidKeys, StateMessageFunction> = {
+	badInput: () => '',
+	customError: () => '',
+	patternMismatch: () => '',
+	rangeOverflow: ({ max }) => `Please select a value that is no more than ${max}.`,
+	rangeUnderflow: ({ min }) => `Please select a value that is no less than ${min}.`,
+	stepMismatch: () => '',
+	tooLong: ({ maxLength }) => `Please use ${maxLength} characters or fewer.`,
+	tooShort: ({ minLength, type }) => {
+		switch (type) {
+			case 'password':
+				return `Passwords must be at least ${minLength} characters long.`;
+			default:
+				return `Please use at least ${minLength} characters.`;
+		}
+	},
+	typeMismatch: ({ type }) => {
+		switch (type) {
+			case 'email': return 'Please enter an email address.';
+			case 'tel': return 'Please enter a phone number.';
+			case 'url': return 'Please enter a URL.';
+			case 'number': return 'Please enter a number.';
+			default: return '';
+		}
+	},
+	valueMissing: () => 'This field is required.',
+};
 
 // TODO: define the remaining constraint validators
 export const defaultValidators = ({
@@ -120,41 +110,47 @@ export const defaultValidators = ({
 	const validators: ValidatorEntry[] = [];
 	if (required) {
 		validators.push({
+			name: 'valueMissing',
 			test: validityStateTest('valueMissing'),
-			message: stateMessages.valueMissing(),
+			message: defaultMessages.valueMissing({}),
 		});
 	}
-	if (typeof maxLength === 'number') {
+	if (maxLength) {
 		validators.push({
+			name: 'tooLong',
 			test: validityStateTest('tooLong'),
-			message: stateMessages.tooLong(maxLength),
+			message: defaultMessages.tooLong({ maxLength }),
 		});
 	}
-	if (typeof minLength === 'number') {
+	if (minLength) {
 		validators.push({
+			name: 'tooShort',
 			test: validityStateTest('tooShort'),
-			message: (value) => stateMessages.tooShort(value, minLength, type),
+			message: () => defaultMessages.tooShort({ minLength, type }),
 		});
 	}
 	if (type !== undefined) {
 		validators.push({
+			name: 'typeMismatch',
 			test: validityStateTest('typeMismatch'),
-			message: stateMessages.typeMismatch(type),
+			message: defaultMessages.typeMismatch({ type }),
 		});
 	}
 	switch (type) {
 		case 'number':
 		case 'range':
-			if (typeof max === 'number') {
+			if (max) {
 				validators.push({
+					name: 'rangeOverflow',
 					test: validityStateTest('rangeOverflow'),
-					message: stateMessages.rangeOverflow(max),
+					message: defaultMessages.rangeOverflow({ max }),
 				});
 			}
-			if (typeof min === 'number') {
+			if (min) {
 				validators.push({
+					name: 'rangeUnderflow',
 					test: validityStateTest('rangeUnderflow'),
-					message: stateMessages.rangeUnderflow(min),
+					message: defaultMessages.rangeUnderflow({ min }),
 				});
 			}
 			break;
@@ -163,24 +159,24 @@ export const defaultValidators = ({
 	return validators;
 };
 
-interface ValidatorProps {
-	value: React.InputHTMLAttributes<HTMLInputElement>['value'];
-	validity?: ValidityState;
-}
-type Validator = ({ value, validity }: ValidatorProps) => ValidatorError[];
-
 /**
  * Create a validator function from a list of validator entries. The resulting
- * function will return a list of errors based on a `value` and optional DOM
- * `ValidityState`.
+ * function will return a list of errors based on the current state of the DOM
+ * element that is being validated.
  */
-export const createValidator = (validators: ValidatorEntry[]): Validator => ({
-	value, validity,
-}: ValidatorProps): ValidatorError[] => {
-	const val = String(value);
-	const err = new Set<ValidatorError>();
-	validators.forEach(({ message, test }) => {
-		// ensure that the message is a string or JSX Element
+export const createValidator = (
+	validators?: ValidatorEntry[],
+	useDefaultValidators = true,
+) => (el: ValidationElement): string[] | null => {
+	if ((!validators || !validators.length) && !useDefaultValidators) return null;
+	const { value, validity } = el;
+	const val = value.toString();
+	const err = new Set<string>();
+	[
+		...((useDefaultValidators) ? defaultValidators(el) : []),
+		...(validators || []),
+	].forEach(({ message, test }) => {
+		// ensure that the message is a string
 		const msg = (typeof message === 'function') ? message(val) : message;
 		// evaluate the test and add the error message if it exists
 		if (!test(val, validity) && message !== '') {
