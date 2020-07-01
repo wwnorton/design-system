@@ -68,9 +68,13 @@ export type ValidationAttributes =
 type StateMessageFunction = (attrs: ValidationAttributes, value?: string) => string;
 
 /** Message functions that correspond to each invalid key on ValidityState. */
-export const defaultMessages: Record<ValidityStateInvalidKeys, StateMessageFunction> = {
-	badInput: () => '',
-	customError: () => '',
+export const defaultMessages: Record<Exclude<ValidityStateInvalidKeys, 'customError'>, StateMessageFunction> = {
+	/**
+	 * Use the typeMisMatch messages for badInput for the time being. This is
+	 * probably okay since it only really occurs when entering letters in a
+	 * number field.
+	 */
+	badInput: ({ type }) => defaultMessages.typeMismatch({ type }),
 	patternMismatch: () => '',
 	rangeOverflow: ({ max }) => `Please select a value that is no more than ${max}.`,
 	rangeUnderflow: ({ min }) => `Please select a value that is no less than ${min}.`,
@@ -133,6 +137,10 @@ export const defaultValidators = ({
 		validators.push({
 			name: 'typeMismatch',
 			test: validityStateTest('typeMismatch'),
+			message: defaultMessages.typeMismatch({ type }),
+		});
+		validators.push({
+			test: validityStateTest('badInput'),
 			message: defaultMessages.typeMismatch({ type }),
 		});
 	}
