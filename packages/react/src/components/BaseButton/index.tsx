@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { prefix } from '../../utilities';
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	/** Whether the button is currently depressed. Polyfill for :active on keydown. */
@@ -8,20 +9,26 @@ export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 	activeClass?: string;
 }
 
+export const defaultProps: BaseButtonProps = {
+	active: false,
+	activeClass: prefix('active'),
+	type: 'button',
+};
+
 /**
  * A base `<button>` component with `type="button"` by default (browser default
  * is "submit") and a polyfill to ensure that :active is triggered while the
  * spacebar is being held down.
  */
 export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
-	active = false,
-	activeClass = 'active',
+	active = defaultProps.active,
+	activeClass = defaultProps.activeClass,
 	onKeyDown,
 	onKeyUp,
 	onBlur,
 	className,
 	children,
-	type = 'button',
+	type = defaultProps.type,
 	...attributes
 }: BaseButtonProps, ref) => {
 	const [isActive, setActive] = React.useState(active);
@@ -45,7 +52,7 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>((
 
 	return (
 		<button
-			className={classNames({ [activeClass]: isActive }, className)}
+			className={classNames(activeClass && { [activeClass]: isActive }, className)}
 			onKeyDown={handleKeydown}
 			onKeyUp={handleKeyup}
 			onBlur={handleBlur}
@@ -57,3 +64,5 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>((
 		</button>
 	);
 });
+
+BaseButton.defaultProps = defaultProps;

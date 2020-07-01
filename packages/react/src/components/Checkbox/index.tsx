@@ -4,6 +4,7 @@ import uniqueId from 'lodash.uniqueid';
 import { ValidatorError, defaultValidators } from '../../utilities';
 import { BaseInput, BaseInputProps } from '../BaseInput';
 import { Icon } from '../Icon';
+import { prefix } from '../../utilities';
 
 export type CheckboxContent = 'input' | 'label' | 'help' | 'error' | 'control' | 'container' | 'thumbnail';
 
@@ -50,7 +51,7 @@ export interface CheckboxState {
 }
 
 export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
-	public static bemBase = 'checkbox';
+	public static bemBase = prefix('checkbox');
 	public static bemElements: Record<CheckboxContent, string> = {
 		input: 'input',
 		label: 'label',

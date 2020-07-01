@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
-import { hasTransition } from '../../utilities';
+import { hasTransition, prefix } from '../../utilities';
 import { BaseDetails, BaseDetailsProps } from '../BaseDetails';
 import { BaseSummary, BaseSummaryProps } from '../BaseSummary';
 import { Icon } from '../Icon';
@@ -63,7 +63,7 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	 * due to a window resize. Only applies if `updateOnResize` is `true`.
 	*/
 	public static RESIZE_DEBOUNCE_DELAY = 150;
-	public static bemBase = 'disclosure';
+	public static bemBase = prefix('disclosure');
 	public static bemElements: Record<DisclosureAnatomy, string> = {
 		summary: 'summary',
 		marker: 'marker',

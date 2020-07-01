@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import {
-	IconVariant, SVGIcon, useForwardedRef, NDSForwardRef,
+	IconVariant, SVGIcon, useForwardedRef, NDSForwardRef, prefix,
 } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon } from '../Icon';
@@ -45,7 +45,7 @@ export interface ButtonProps extends BaseButtonProps {
  */
 export const Button = React.forwardRef((
 	{
-		baseName = 'button',
+		baseName = prefix('button'),
 		variant,
 		icon,
 		iconRight,

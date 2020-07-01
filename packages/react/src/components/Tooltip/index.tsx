@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { BasePopper, BasePopperProps } from '../BasePopper';
 import {
-	getProp, useTriggers, useForwardedRef, innerText,
+	getProp, useTriggers, useForwardedRef, innerText, prefix,
 } from '../../utilities';
 
 export type Triggers =
@@ -35,7 +35,7 @@ export interface TooltipProps extends BasePopperProps {
 
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	{
-		baseName = 'tooltip',
+		baseName = prefix('tooltip'),
 		arrowClass = `${baseName}__arrow`,
 		modifiers,
 		placement = 'top',

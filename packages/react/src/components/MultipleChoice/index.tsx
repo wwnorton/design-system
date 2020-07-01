@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { noop } from '../../utilities';
+import { noop, prefix } from '../../utilities';
 import { Choice, ChoiceProps } from '../Choice';
 
 export interface MultipleChoiceProps extends React.HTMLAttributes<HTMLFieldSetElement> {
@@ -37,7 +37,7 @@ export interface MultipleChoiceState {
 }
 
 export class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoiceState> {
-	private static baseName = 'mc';
+	private static baseName = prefix('mc');
 	private static bemElements = {
 		choice: 'choice',
 		choiceGroup: 'choices',

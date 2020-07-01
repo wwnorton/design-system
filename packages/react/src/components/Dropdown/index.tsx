@@ -5,7 +5,7 @@ import { Options as PopperOptions, Modifier } from '@popperjs/core';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { BaseButton } from '../BaseButton';
 import { Icon } from '../Icon';
-import { usePopper } from '../../utilities';
+import { usePopper, prefix } from '../../utilities';
 
 type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 
@@ -109,7 +109,7 @@ export const Dropdown: DropdownType = ({
 	closeOnDocumentEscape = true,
 	matchWidth,
 	sort,
-	baseName = 'dropdown',
+	baseName = prefix('dropdown'),
 	buttonClass = `${baseName}__button`,
 	listboxClass = `${baseName}__listbox`,
 	optionClass = `${baseName}__option`,

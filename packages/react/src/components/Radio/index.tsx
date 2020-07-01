@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { BaseInput, BaseInputProps } from '../BaseInput';
+import { prefix } from '../../utilities';
 
 export type RadioContent = 'input' | 'control' | 'thumbnail' | 'label' | 'help' | 'container';
 
@@ -39,7 +40,7 @@ export class Radio extends React.Component<RadioProps> {
 	private get descId(): string { return `${this.id}-desc`; }
 
 	/* eslint-disable react/sort-comp */
-	public static bemBase = 'radio';
+	public static bemBase = prefix('radio');
 	public static bemElements: Record<RadioContent, string> = {
 		input: 'input',
 		control: 'control',

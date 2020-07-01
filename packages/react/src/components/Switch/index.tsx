@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Tooltip } from '../Tooltip';
-import { useForwardedRef } from '../../utilities';
+import { useForwardedRef, prefix } from '../../utilities';
 
 type SwitchBaseProps =
 	| 'children'
@@ -42,7 +42,7 @@ export interface SwitchProps extends Pick<BaseButtonProps, SwitchBaseProps> {
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 	{
-		baseName = 'switch',
+		baseName = prefix('switch'),
 		checked: isChecked = false,
 		children,
 		className,

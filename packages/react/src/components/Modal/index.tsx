@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { noop, idGen, getFocusable } from '../../utilities';
+import {
+	noop, idGen, getFocusable, prefix,
+} from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton, ButtonProps } from '../Button';
 
@@ -99,7 +101,7 @@ export interface ModalSnapshot {
  * Modal dialog.
  */
 export class Modal extends React.PureComponent<ModalProps, ModalState> {
-	public static bemBase = 'modal';
+	public static bemBase = prefix('modal');
 	public static bemElements: Record<ModalAnatomy, string> = {
 		portal: 'portal',
 		backdrop: 'backdrop',
