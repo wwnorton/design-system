@@ -62,35 +62,20 @@ export const CustomIcon: React.FunctionComponent = () => (
 
 export const ChangingContent: React.FunctionComponent = () => {
 	const [favorite, setFavorite] = React.useState(false);
-	const [loading, setLoading] = React.useState(false);
 
-	const toggleFavorite = (): Promise<void> => new Promise((resolve) => {
-		setLoading(true);
-		window.setTimeout(() => {
-			setLoading(false);
-			setFavorite(!favorite);
-			resolve();
-		}, Math.floor(Math.random() * 1000) + 100);
-	});
+	const toggleFavorite = (): void => setFavorite(!favorite);
 
 	const buttonProps: ButtonProps = React.useMemo(() => {
 		if (favorite) return { children: 'Unfavorite', icon: 'favorite' };
 		return { children: 'Favorite', icon: 'favorite-outline' };
 	}, [favorite]);
+
 	return (
-		<div style={{ display: 'flex', alignItems: 'center' }}>
-			<Button
-				variant="solid"
-				onClick={toggleFavorite}
-				iconOnly={boolean('Icon only', false)}
-				{...buttonProps}
-			/>
-			<span
-				style={{ marginLeft: '1rem' }}
-				role="status"
-			>
-				{ (loading) ? 'Thinking...' : '' }
-			</span>
-		</div>
+		<Button
+			variant="solid"
+			onClick={toggleFavorite}
+			iconOnly={boolean('Icon only', false)}
+			{...buttonProps}
+		/>
 	);
 };
