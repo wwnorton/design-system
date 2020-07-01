@@ -2,14 +2,32 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { srOnly } from '../../utilities';
 
-type BaseProps = 'children' | 'id' | 'className' | 'aria-atomic' | 'aria-live' | 'aria-relevant';
+type BaseProps = 'children' | 'id' | 'className' | 'role' | 'aria-atomic' | 'aria-live' | 'aria-relevant';
 export interface LiveRegionProps extends Pick<React.HTMLAttributes<HTMLDivElement>, BaseProps> {
 	/**
 	 * The time in milliseconds that the live region should exist. Default is
 	 * `450`. `undefined` or `0` will make the live region persist indefinitely.
 	 */
 	removeAfter?: number;
+	/**
+	 * The time in milliseconds that should elapse before the contents of the
+	 * live region's contents should be updated. This should be long enough for
+	 * screen readers to begin monitoring the live region for changes. Default
+	 * is `50`.
+	 */
+	updateAfter?: number;
+	/**
+	 * Indicates whether the live region should be visible or not. If `true`,
+	 * inline CSS will be used to visually hide the live region.
+	 */
+	visible?: boolean;
 }
+
+const defaultProps: LiveRegionProps = {
+	removeAfter: 450,
+	updateAfter: 50,
+	'aria-live': 'assertive',
+};
 
 /**
  * Render an ARIA live region as a React Portal. Changing the `children` of this
@@ -22,44 +40,72 @@ export interface LiveRegionProps extends Pick<React.HTMLAttributes<HTMLDivElemen
  * @ARIA https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
  */
 export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
-	removeAfter = 450,
+	removeAfter = defaultProps.removeAfter,
+	updateAfter = defaultProps.updateAfter,
+	visible,
+	'aria-atomic': ariaAtomic,
+	'aria-live': ariaLive = defaultProps['aria-live'],
+	'aria-relevant': ariaRelevant,
 	children,
 	className,
 	id,
-	'aria-live': ariaLive = 'assertive',
-	'aria-atomic': ariaAtomic,
-	'aria-relevant': ariaRelevant,
+	role,
 }) => {
 	const [liveText, setLiveText] = React.useState<React.ReactNode>('');
 	const [shouldRender, setShouldRender] = React.useState(!removeAfter);
+	const renderTimeout = React.useRef<number>();
 
-	React.useEffect(() => {
-		if (children) {
-			setShouldRender(true);
-			window.setTimeout(() => {
-				setLiveText(children);
-				if (removeAfter) {
-					window.setTimeout(() => {
-						setShouldRender(false);
-						setLiveText('');
-					}, removeAfter);
-				}
-			}, 50);
+	/** Hide the live region. */
+	const hide = (): void => {
+		setShouldRender(false);
+		setLiveText('');
+	};
+
+	/** Update the live region's contents. */
+	const updateContents = React.useCallback((): void => {
+		setLiveText(children);
+		if (removeAfter) {
+			renderTimeout.current = window.setTimeout(hide, removeAfter);
 		}
 	}, [children, removeAfter]);
 
+	/** Update the live region's contents after it is rendered. */
+	React.useEffect(() => {
+		if (shouldRender) {
+			window.setTimeout(updateContents, updateAfter);
+		}
+	}, [shouldRender, updateContents, updateAfter]);
+
+	/** Show the live region any time `children` change. */
+	React.useEffect(() => {
+		window.clearTimeout(renderTimeout.current);
+		setShouldRender(Boolean(children));
+	}, [children]);
+
 	const Node = React.useMemo(() => (
 		<div
-			aria-live={ariaLive}
 			aria-atomic={ariaAtomic}
+			aria-live={ariaLive}
 			aria-relevant={ariaRelevant}
 			className={className}
 			id={id}
-			style={srOnly}
+			role={role}
+			style={(visible) ? undefined : srOnly}
 		>
 			{ liveText }
 		</div>
-	), [liveText, className, id, ariaAtomic, ariaLive, ariaRelevant]);
+	), [
+		ariaAtomic,
+		ariaLive,
+		ariaRelevant,
+		className,
+		id,
+		liveText,
+		role,
+		visible,
+	]);
 
 	return createPortal((shouldRender) ? Node : null, document.body);
 };
+
+LiveRegion.defaultProps = defaultProps;
