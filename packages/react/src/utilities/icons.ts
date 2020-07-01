@@ -5,6 +5,7 @@ export interface SVGIcon {
 	viewBox?: '0 0 24 24';
 	source?: string;
 	children?: React.ReactNode;
+	label?: string;
 }
 export type IconVariant =
 	| 'account'

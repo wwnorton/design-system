@@ -76,6 +76,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 		source,
 		viewBox = defaultViewBox,
 		children: svgChildren,
+		label,
 	} = icon;
 
 	const classes = classNames(baseName, {
@@ -91,7 +92,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 				height={size}
 				width={size}
 				className={classes}
-				aria-label={ariaLabel}
+				aria-label={ariaLabel || label}
 				aria-hidden={ariaHidden}
 				focusable="false"
 				tabIndex={(children) ? 0 : undefined}
