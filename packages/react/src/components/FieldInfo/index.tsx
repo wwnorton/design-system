@@ -36,6 +36,7 @@ export interface FieldInfoProps
 export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 	label,
 	indicator,
+	description,
 	baseName = prefix('field'),
 	labelClass = `${baseName}__label`,
 	indicatorClass = `${baseName}__indicator`,
@@ -74,14 +75,15 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 	}, [label, labelClass, htmlFor, labelId, Indicator]);
 
 	const Description = React.useMemo(() => {
-		if (!children) return null;
-		return <div className={descriptionClass} id={descriptionId}>{ children }</div>;
-	}, [children, descriptionClass, descriptionId]);
+		if (!description) return null;
+		return <div className={descriptionClass} id={descriptionId}>{ description }</div>;
+	}, [description, descriptionClass, descriptionId]);
 
 	return (
 		<div className={classNames(`${baseName}__info`, className)} id={id}>
 			{ Label }
 			{ Description }
+			{ children }
 		</div>
 	);
 };
