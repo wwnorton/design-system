@@ -110,13 +110,13 @@ export const usePopper = ({
 };
 
 export const useTriggers = ({
-	reference, tooltip, trigger, isOpen, delay = 350,
+	reference, tooltip, trigger, isOpen, hideDelay = 350,
 }: {
 	reference?: Element | VirtualElement | null;
 	tooltip?: HTMLElement | null;
 	trigger: string;
 	isOpen: boolean;
-	delay?: number;
+	hideDelay?: number;
 }): boolean => {
 	if (trigger.includes('manual')) return isOpen;
 	const [open, setOpen] = useState(isOpen);
@@ -141,7 +141,7 @@ export const useTriggers = ({
 	const delayedHide = (): void => {
 		timer.current = window.setTimeout((): void => {
 			if (openTrigger === 'pointerenter') hide();
-		}, delay);
+		}, hideDelay);
 	};
 
 	// click handlers

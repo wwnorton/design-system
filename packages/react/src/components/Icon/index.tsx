@@ -23,6 +23,12 @@ export interface IconProps extends BaseSVGProps {
 	 * icons, which will be inaccessible to many users.
 	 */
 	warnOnClick?: boolean;
+	/**
+	 * The time in milliseconds before the tooltip should disappear. Use this to
+	 * ensure that users can move their cursor from the icon to the tooltip
+	 * without it disappearing.
+	 */
+	hideTooltipDelay?: number;
 }
 
 /**
@@ -37,6 +43,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	size = '1.25em',
 	variant,
 	warnOnClick = true,
+	hideTooltipDelay,
 	onClick,
 	'aria-label': ariaLabel,
 	children,
@@ -61,11 +68,11 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	const tooltip = React.useMemo(() => {
 		if (!children) return null;
 		return (
-			<Tooltip asLabel reference={svg}>
+			<Tooltip asLabel reference={svg} hideDelay={hideTooltipDelay}>
 				{ children }
 			</Tooltip>
 		);
-	}, [children, svg]);
+	}, [children, hideTooltipDelay, svg]);
 
 	if (!icon) {
 		// TODO: warn/error if no icon was found?

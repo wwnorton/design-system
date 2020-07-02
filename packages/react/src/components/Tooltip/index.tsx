@@ -31,6 +31,12 @@ export interface TooltipProps extends BasePopperProps {
 	 * controlled via `isOpen`. Default is `"focus pointerenter"`.
 	 */
 	trigger?: string;
+	/**
+	 * The time in milliseconds before the tooltip should disappear. Use this to
+	 * ensure that users can move their cursor from the reference to the tooltip
+	 * without it disappearing.
+	 */
+	hideDelay?: number;
 }
 
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
@@ -41,6 +47,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		placement = 'top',
 		asLabel = false,
 		trigger = 'focus pointerenter',
+		hideDelay,
 		reference,
 		isOpen = false,
 		id: userId,
@@ -56,7 +63,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	}, [asLabel]);
 	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
 	const open = useTriggers({
-		reference, trigger, isOpen, tooltip,
+		reference, trigger, isOpen, tooltip, hideDelay,
 	});
 
 	const offsetMod = {

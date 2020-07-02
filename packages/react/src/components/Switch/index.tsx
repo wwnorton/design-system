@@ -38,12 +38,19 @@ export interface SwitchProps extends Pick<BaseButtonProps, SwitchBaseProps> {
 	displayDefault?: boolean;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
+	/**
+	 * The time in milliseconds before the tooltip should disappear. Use this to
+	 * ensure that users can move their cursor from the switch to the tooltip
+	 * without it disappearing.
+	 */
+	hideTooltipDelay?: number;
 }
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 	{
 		baseName = prefix('switch'),
 		checked: isChecked = false,
+		hideTooltipDelay,
 		children,
 		className,
 		description,
@@ -75,7 +82,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 
 	// label can either be a <labeL> proper or a tooltip
 	const Label = (tipped)
-		? <Tooltip asLabel reference={button}>{ label }</Tooltip>
+		? <Tooltip asLabel reference={button} hideDelay={hideTooltipDelay}>{ label }</Tooltip>
 		: (
 			<div className="label-desc">
 				<label
