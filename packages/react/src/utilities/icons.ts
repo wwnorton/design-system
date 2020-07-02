@@ -9,24 +9,29 @@ export interface SVGIcon {
 }
 export type IconVariant =
 	| 'account'
+	| 'arrow-up'
+	| 'arrow-right'
 	| 'arrow-down'
 	| 'arrow-left'
-	| 'arrow-right'
 	| 'calendar'
 	| 'cancel'
+	| 'caret-up'
 	| 'caret-down'
 	| 'caret-right'
+	| 'caret-left'
 	| 'check'
 	| 'check-circle'
-	| 'chevron-down'
+	| 'chevron-up'
 	| 'chevron-right'
+	| 'chevron-down'
+	| 'chevron-left'
 	| 'close'
 	| 'delete'
 	| 'download'
 	| 'edit'
 	| 'exclamation'
-	| 'favorite'
-	| 'favorite-outline'
+	| 'heart'
+	| 'heart-outline'
 	| 'flag'
 	| 'info'
 	| 'launch'
@@ -52,6 +57,20 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		d: 'M19.3 16.509a35.6 35.6 0 00-4.87-2.691v-2.763a2.013 2.013 0 00.7-1.6V7.273A2.99 2.99 0 0012 4a2.99 2.99 0 00-3.13 3.273v2.182a1.817 1.817 0 00.7 1.6v2.763c-1.391.655-4.452 2.473-4.87 2.691a1.33 1.33 0 00-.7 1.382v1.745a.336.336 0 00.348.364h15.3a.336.336 0 00.352-.364v-1.745a1.33 1.33 0 00-.7-1.382z',
 		viewBox,
 	},
+	'arrow-up': {
+		fullName: 'Arrow up',
+		originalName: 'arrow_upward',
+		d: 'M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z',
+		source: 'https://material.io/resources/icons/?icon=arrow_upward&style=baseline',
+		viewBox,
+	},
+	'arrow-right': {
+		fullName: 'Arrow right',
+		originalName: 'arrow_forward',
+		d: 'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
+		source: 'https://material.io/resources/icons/?icon=arrow_forward&style=baseline',
+		viewBox,
+	},
 	'arrow-down': {
 		fullName: 'Arrow down',
 		originalName: 'arrow_downward',
@@ -64,13 +83,6 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		originalName: 'arrow_back',
 		d: 'M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z',
 		source: 'https://material.io/resources/icons/?icon=arrow_back&style=baseline',
-		viewBox,
-	},
-	'arrow-right': {
-		fullName: 'Arrow right',
-		originalName: 'arrow_forward',
-		d: 'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z',
-		source: 'https://material.io/resources/icons/?icon=arrow_forward&style=baseline',
 		viewBox,
 	},
 	calendar: {
@@ -87,17 +99,24 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		source: 'https://material.io/resources/icons/?icon=cancel&style=baseline',
 		viewBox,
 	},
-	'caret-down': {
-		fullName: 'Caret down',
-		originalName: 'arrow_drop_down',
-		d: 'M7 10l5 5 5-5z',
+	'caret-up': {
+		fullName: 'Caret up',
+		d: 'M12 8.015l3.492 3.992 3.486 3.983H5.022l3.485-3.983L12 8.015z',
 		viewBox,
 	},
 	'caret-right': {
 		fullName: 'Caret right',
-		originalName: 'arrow_right',
-		d: 'M10 17l5-5-5-5v10z',
-		source: 'https://material.io/resources/icons/?icon=arrow_right&style=baseline',
+		d: 'M15.985 12l-3.992 3.492-3.983 3.486V5.022l3.983 3.485L15.985 12z',
+		viewBox,
+	},
+	'caret-down': {
+		fullName: 'Caret down',
+		d: 'M12 15.985l-3.492-3.992L5.022 8.01h13.956l-3.485 3.983L12 15.985z',
+		viewBox,
+	},
+	'caret-left': {
+		fullName: 'Caret left',
+		d: 'M8.015 12l3.992-3.492 3.983-3.486v13.956l-3.983-3.485L8.015 12z',
 		viewBox,
 	},
 	check: {
@@ -113,11 +132,11 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		source: 'https://material.io/resources/icons/?icon=check_circle&style=baseline',
 		viewBox,
 	},
-	'chevron-down': {
-		fullName: 'Chevron down',
-		originalName: 'expand_more',
-		d: 'M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z',
-		source: 'https://material.io/resources/icons/?icon=expand_more&style=baseline',
+	'chevron-up': {
+		fullName: 'Chevron up',
+		originalName: 'expand_less',
+		d: 'M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z',
+		source: 'https://material.io/resources/icons/?icon=expand_less&style=baseline',
 		viewBox,
 	},
 	'chevron-right': {
@@ -125,6 +144,20 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		originalName: 'chevron_right',
 		d: 'M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z',
 		source: 'https://material.io/resources/icons/?icon=chevron_right&style=baseline',
+		viewBox,
+	},
+	'chevron-down': {
+		fullName: 'Chevron down',
+		originalName: 'expand_more',
+		d: 'M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z',
+		source: 'https://material.io/resources/icons/?icon=expand_more&style=baseline',
+		viewBox,
+	},
+	'chevron-left': {
+		fullName: 'Chevron left',
+		originalName: 'chevron_left',
+		d: 'M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z',
+		source: 'https://material.io/resources/icons/?icon=chevron_left&style=baseline',
 		viewBox,
 	},
 	close: {
@@ -160,29 +193,29 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		source: 'https://material.io/resources/icons/?icon=error&style=baseline',
 		viewBox,
 	},
-	favorite: {
-		fullName: 'Favorite',
-		d: 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
-		source: 'https://material.io/resources/icons/?icon=favorite&style=baseline',
-		viewBox,
-	},
-	'favorite-outline': {
-		fullName: 'Favorite outline',
-		originalName: 'favorite_border',
-		d: 'M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z',
-		source: 'https://material.io/resources/icons/?icon=favorite_border&style=baseline',
-		viewBox,
-	},
 	flag: {
 		fullName: 'Flag',
 		d: 'M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z',
 		source: 'https://material.io/resources/icons/?icon=flag&style=baseline',
 		viewBox,
 	},
+	heart: {
+		fullName: 'Heart',
+		originalName: 'favorite',
+		d: 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z',
+		source: 'https://material.io/resources/icons/?icon=favorite&style=baseline',
+		viewBox,
+	},
+	'heart-outline': {
+		fullName: 'Heart outline',
+		originalName: 'favorite_border',
+		d: 'M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z',
+		source: 'https://material.io/resources/icons/?icon=favorite_border&style=baseline',
+		viewBox,
+	},
 	info: {
 		fullName: 'Info',
 		d: 'M12 22a10 10 0 1110-10 10.016 10.016 0 01-10 10zm1.127-12.146a5.306 5.306 0 00-.678.049c-.279.035-.531.074-.77.119s-.459.088-.736.156a4.81 4.81 0 00-.557.174v.477l.859.2-.947 4.309-.006.025c-.033.178-.072.381-.1.559a3.757 3.757 0 00-.043.543.637.637 0 00.2.438 1 1 0 00.73.2 3.036 3.036 0 00.531-.049 4.068 4.068 0 00.547-.135 3.4 3.4 0 00.516-.2 3.323 3.323 0 00.428-.238v-.486h-.975l1.252-5.975-.25-.162zM12.889 6.1a1.237 1.237 0 00-.809.266.91.91 0 00-.318.736.869.869 0 00.318.709 1.208 1.208 0 00.809.266 1.242 1.242 0 00.844-.266.879.879 0 00.309-.709.91.91 0 00-.309-.736 1.287 1.287 0 00-.842-.266z',
-		source: 'https://material.io/resources/icons/?icon=info&style=baseline',
 		viewBox,
 	},
 	launch: {
