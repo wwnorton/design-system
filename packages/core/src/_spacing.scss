@@ -1,6 +1,7 @@
 @use 'sass:meta';
 @use 'sass:map';
 @use 'util';
+@use 'properties' as *;
 
 // FUNCTIONS
 
@@ -33,3 +34,25 @@
 // TOKENS
 
 $base: 4 !default;
+
+$zindex-focus: 980;
+// z-index values from Bootstrap
+// https://v5.getbootstrap.com/docs/5.0/layout/z-index/
+$zindex-dropdown: 1000;
+$zindex-sticky: 1020;
+$zindex-fixed: 1030;
+$zindex-modal-backdrop: 1040;
+$zindex-modal: 1050;
+$zindex-popover: 1060;
+$zindex-tooltip: 1070;
+
+@include root-props(
+	$zindex-focus: $zindex-focus,
+	$zindex-dropdown: $zindex-dropdown,
+	$zindex-sticky: $zindex-sticky,
+	$zindex-fixed: $zindex-fixed,
+	$zindex-modal-backdrop: $zindex-modal-backdrop,
+	$zindex-modal: $zindex-modal,
+	$zindex-popover: $zindex-popover,
+	$zindex-tooltip: $zindex-tooltip,
+);
