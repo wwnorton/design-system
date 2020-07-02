@@ -178,7 +178,7 @@ $warning-grade: 60 !default;
 @include root-props(
 	$color-body-bg: prop('white'),
 	$color-body-text: prop('black'),
-	$color-focus-ring: prop('cyan-50'),
+	$color-focus-ring: prop('blue-50'),
 );
 @include root-color-family('color-primary', $primary-family, $primary-grade);
 @include root-color-family('color-base', $base-family, $base-grade);

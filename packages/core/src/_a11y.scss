@@ -62,6 +62,7 @@ $focus-shadow: focus-shadow() !default;
 /// A box shadow focus indicator.
 /// @param {List[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
 @mixin focus-indicator($current-shadows...) {
+	z-index: prop('zindex-focus');
 	outline: none;
 	box-shadow: $current-shadows, prop('focus-shadow');
 
