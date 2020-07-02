@@ -1,61 +1,172 @@
-@import './mixins';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
 
-.disclosure {
-	@include disclosure-base;
-}
-
-.disclosure__summary {
-	@include summary-base;
-}
-
-.disclosure__marker {
-	@include marker-svg;
-}
-
-.disclosure__marker.icon--caret-right {
-	@include marker-transform(
-		rotate(90deg),
-		rotate(0),
+@mixin base {
+	@include set-props(
+		$disclosure-expand-duration: prop('duration-expand'),
+		$disclosure-expand-easing: prop('easing-standard'),
+		$disclosure-collapse-duration: prop('duration-collapse'),
+		$disclosure-collapse-easing: prop('easing-standard'),
+		$disclosure-border-width: spacing.px(0),
+		$disclosure-border-radius: prop('radius-base'),
+		$disclosure-padding-y: spacing.rem(0.75),
+		$disclosure-padding-x: spacing.rem(1.5),
+		$disclosure-marker-margin: spacing.rem(0.25),
 	);
+
+	position: relative;
+	display: block;
 }
 
-// disable the user agent's marker (triangle/caret)
-summary::-moz-details-marker,
-summary::-ms-details-marker,
-summary::-o-details-marker {
-	display: none;
+$expand: prop('disclosure-expand-duration') prop('disclosure-expand-easing');
+$collapse: prop('disclosure-collapse-duration') prop('disclosure-collapse-easing');
+$border: prop('disclosure-border-width') solid prop('color-base-40');
+$padding: util.padding(prop('disclosure-padding-y'), prop('disclosure-border-width'))
+	util.padding(prop('disclosure-padding-x'), prop('disclosure-border-width'));
+
+@mixin summary {
+	position: relative;
+	display: flex;
+	padding: util.padding(prop('disclosure-padding-y'), prop('disclosure-border-width')) 0;
+	cursor: pointer;
+	align-items: center;
 }
 
-summary::-webkit-details-marker {
-	display: none;
+@mixin contents-outer {
+	overflow-y: hidden;
+	transition: height $expand;
+
+	[open] & {
+		box-sizing: content-box;
+		transition: height $collapse;
+	}
 }
 
-summary::marker {
-	display: none;
-	content: '';
+@mixin contents-inner {
+	padding-left:
+		util.padding(
+			calc(#{prop('disclosure-padding-x')} + #{prop('disclosure-marker-margin')}),
+			prop('disclosure-border-width'),
+		);
+
+	:last-child {
+		margin-bottom: 0;
+	}
 }
 
-.disclosure__contents-outer {
-	@include disclosure-contents-outer;
+@mixin marker-svg {
+	margin-right: prop('disclosure-marker-margin');
+	margin-left: prop('disclosure-marker-margin');
+
+	// animate the icon's path to ensure that it doesn't change the box size
+	> path {
+		transition: transform $collapse;
+		transform-origin: center;
+	}
 }
 
-.disclosure__contents-inner {
-	@include disclosure-contents-inner;
+@mixin marker-transform($open-transform, $close-transform) {
+	[open] & > path {
+		transition: transform $collapse;
+		transform: $open-transform;
+	}
+
+	[open].closing & > path {
+		transition: transform $expand;
+		transform: $close-transform;
+	}
 }
 
-.disclosure--panel {
-	@include disclosure--panel;
-}
-
-.disclosure__marker.icon--chevron-down {
-	@include marker-transform(
-		rotate3d(1, 0, 0, 180deg),
-		rotate3d(1, 0, 0, 0),
+@mixin panel {
+	@include set-props(
+		$disclosure-border-width: 1px,
+		$disclosure-padding-y: spacing.rem(1),
+		$disclosure-padding-x: spacing.rem(1),
 	);
+
+	border-radius: prop('disclosure-border-radius');
+
+	.#{util.prefix('disclosure__summary')} {
+		padding: $padding;
+		background-color: prop('color-base-20');
+		border: $border;
+		border-radius: inherit;
+		justify-content: space-between;
+	}
+
+	&[open] > .#{util.prefix('disclosure__summary')} {
+		border-bottom: $border;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	.#{util.prefix('disclosure__contents-outer')} {
+		border-right: $border;
+		border-bottom: $border;
+		border-left: $border;
+		border-bottom-right-radius: inherit;
+		border-bottom-left-radius: inherit;
+	}
+
+	.#{util.prefix('disclosure__contents-inner')} {
+		padding-top: prop('disclosure-padding-y');
+		padding-bottom: util.padding(spacing.rem(1.5), prop('disclosure-border-width'));
+	}
 }
 
-// when requested, disable all motion on the following elements
-@include reduce-motion(
-	'.disclosure__contents-outer',
-	'.details-marker path',
-);
+@mixin style {
+	.#{util.prefix('disclosure')} {
+		@include base;
+	}
+
+	.#{util.prefix('disclosure__summary')} {
+		@include summary;
+	}
+
+	.#{util.prefix('disclosure__marker')} {
+		@include marker-svg;
+	}
+
+	.#{util.prefix('disclosure__marker.icon--caret-right')} {
+		@include marker-transform(
+			rotate(90deg),
+			rotate(0),
+		);
+	}
+
+	// disable the user agent's marker (triangle/caret)
+	summary::-moz-details-marker,
+	summary::-ms-details-marker,
+	summary::-o-details-marker {
+		display: none;
+	}
+
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
+	summary::marker {
+		display: none;
+		content: '';
+	}
+
+	.#{util.prefix('disclosure__contents-outer')} {
+		@include contents-outer;
+	}
+
+	.#{util.prefix('disclosure__contents-inner')} {
+		@include contents-inner;
+	}
+
+	.#{util.prefix('disclosure--panel')} {
+		@include panel;
+	}
+
+	.#{util.prefix('disclosure__marker.icon--chevron-down')} {
+		@include marker-transform(
+			rotate3d(1, 0, 0, 180deg),
+			rotate3d(1, 0, 0, 0),
+		);
+	}
+}
