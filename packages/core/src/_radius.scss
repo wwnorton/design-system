@@ -1,0 +1,17 @@
+@use 'spacing' as *;
+@use 'properties' as *;
+
+$radius-sm: 0.125rem !default;
+$radius-md: 0.25rem !default;
+$radius-lg: 0.5rem !default;
+$radius-xl: 1rem !default;
+$radius-pill: 99rem !default;
+
+@include root-props(
+	$radius-sm: $radius-sm,
+	$radius-md: $radius-md,
+	$radius-lg: $radius-lg,
+	$radius-xl: $radius-xl,
+	$radius-pill: $radius-pill,
+	$radius-base: prop('radius-sm'),
+);
