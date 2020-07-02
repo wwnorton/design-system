@@ -71,14 +71,17 @@ $font-size-32: 2rem !default;
 $font-size-40: 2.5rem !default;
 $font-size-48: 3rem !default;
 
-$font-size-base: $font-size-16 !default;
-$font-size-small: $font-size-14 !default;
+$font-size-xs: $font-size-12 !default;
+$font-size-sm: $font-size-14 !default;
+$font-size-md: $font-size-16 !default;
+$font-size-lg: $font-size-18 !default;
 $font-size-h1: $font-size-32 !default;
 $font-size-h2: $font-size-24 !default;
 $font-size-h3: $font-size-20 !default;
 $font-size-h4: $font-size-18 !default;
 $font-size-h5: $font-size-16 !default;
 $font-size-h6: $font-size-14 !default;
+$font-size-base: $font-size-md !default;
 
 $font-weight-thin: 200 !default;
 $font-weight-light: 300 !default;
@@ -90,6 +93,7 @@ $font-weight-base: $font-weight-regular !default;
 $font-weight-heading: $font-weight-bold !default;
 
 $line-height-base: 1.5 !default;  // 24px - used on the document
+$line-height-xs: 1.125 !default;  // 18px
 $line-height-sm: 1.25 !default;   // 20px
 
 $line-height-heading: $line-height-sm !default;
@@ -182,14 +186,17 @@ $line-height-heading: $line-height-sm !default;
 	$font-size-48: $font-size-48,
 );
 @include root-props(
-	$font-size-base: prop('font-size-16'),
-	$font-size-small: prop('font-size-14'),
+	$font-size-xs: prop('font-size-12'),
+	$font-size-sm: prop('font-size-14'),
+	$font-size-md: prop('font-size-16'),
+	$font-size-lg: prop('font-size-18'),
 	$font-size-h1: prop('font-size-32'),
 	$font-size-h2: prop('font-size-24'),
 	$font-size-h3: prop('font-size-20'),
 	$font-size-h4: prop('font-size-18'),
 	$font-size-h5: prop('font-size-16'),
 	$font-size-h6: prop('font-size-14'),
+	$font-size-base: prop('font-size-md'),
 );
 
 // font-weight
