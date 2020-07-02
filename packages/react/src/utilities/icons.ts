@@ -121,8 +121,7 @@ export const icons: Record<IconVariant, SVGIcon> = {
 	},
 	check: {
 		fullName: 'Check',
-		d: 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z',
-		source: 'https://material.io/resources/icons/?icon=check&style=baseline',
+		d: 'M8.827 15.103l-2.828-2.828 1.416-1.412 2.827 2.826 6.366-6.363 1.411 1.412-7.776 7.781z',
 		viewBox,
 	},
 	'check-circle': {
