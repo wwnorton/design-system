@@ -53,7 +53,7 @@ export const Default: React.FunctionComponent = () => (
 export const iconButton: React.FunctionComponent = () => (
 	<IconButton
 		disabled={boolean('Disabled', false)}
-		icon={select('Icon', IconOptions, 'close')}
+		icon={select<IconVariant>('Icon', IconOptions, 'close')}
 	>
 		{ text('Text', 'Close') }
 	</IconButton>
