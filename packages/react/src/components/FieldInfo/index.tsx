@@ -2,30 +2,38 @@ import React from 'react';
 import classNames from 'classnames';
 import { prefix } from '../../utilities';
 
-type BaseProps = 'htmlFor' | 'className' | 'children' | 'id';
-export interface FieldInfoProps
-	extends Pick<React.LabelHTMLAttributes<HTMLLabelElement>, BaseProps> {
+export interface FieldInfoCoreProps {
 	/** The name of the field. Required. */
 	label: string;
 	/**
-	 * An additional label indicator, displayed as a parenthetical inside the
-	 * label container. For instance, `indicator="required"` would result in
-	 * label text content of `"{label} (required)"`.
+	 * An optional description. Use this in place of `placeholder` text or as
+	 * help text for your field control.
 	 */
-	indicator?: string | null;
-	baseName?: string;
+	description?: React.ReactNode;
 	/**
 	 * A className for the label element, which will be a `<label>` if `htmlFor`
 	 * is included and a `<div>` otherwise. */
 	labelClass?: string;
 	/** A className for the description `<div>`. */
 	descriptionClass?: string;
-	/** A className for the indicator span. */
-	indicatorClass?: string;
 	/** An id for the label element. */
 	labelId?: string;
 	/** An id for the description `<div>`. */
 	descriptionId?: string;
+}
+
+type BaseProps = 'htmlFor' | 'className' | 'children' | 'id';
+export interface FieldInfoProps
+	extends FieldInfoCoreProps, Pick<React.LabelHTMLAttributes<HTMLLabelElement>, BaseProps> {
+	baseName?: string;
+	/**
+	 * An additional label indicator, displayed as a parenthetical inside the
+	 * label container. For instance, `indicator="required"` would result in
+	 * label text content of `"{label} (required)"`.
+	 */
+	indicator?: string | null;
+	/** A className for the indicator `<span>`. */
+	indicatorClass?: string;
 }
 
 /**
