@@ -1,0 +1,123 @@
+@use 'sass:math';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
+
+@mixin base {
+	@include set-props(
+		$tooltip-color-bg: prop('color-body-text'),
+		$tooltip-color-text: prop('color-body-bg'),
+		$tooltip-arrow-size: 12px,
+		$tooltip-arrow-border: calc(#{prop('tooltip-arrow-size') / 2}),
+		$tooltip-offset-y: 6px,
+		$tooltip-max-width: spacing.rem(18),
+		$tooltip-padding-x: spacing.rem(0.75),
+		$tooltip-padding-y: spacing.rem(0.5),
+		$tooltip-line-height: prop('line-height-sm'),
+		$tooltip-font-size: prop('font-size-xs'),
+		$tooltip-radius: prop('radius-base'),
+	);
+
+	position: absolute;
+	z-index: prop('zindex-tooltip');
+	max-width: prop('tooltip-max-width');
+	padding: prop('tooltip-padding-y') prop('tooltip-padding-x');
+	line-height: prop('tooltip-line-height');
+	color: prop('tooltip-color-text');
+	background-color: prop('tooltip-color-bg');
+	border-radius: prop('tooltip-radius');
+}
+
+@mixin arrow {
+	position: absolute;
+	width: prop('tooltip-arrow-size');
+	height: prop('tooltip-arrow-size');
+	color: prop('tooltip-color-bg');
+
+	&::before {
+		position: absolute;
+		content: '';
+		border-color: transparent;
+		border-style: solid;
+	}
+}
+
+@mixin placement-arrow {
+	background-color: prop('tooltip-color-bg');
+}
+
+@mixin placement-top-arrow {
+	bottom: 0;
+
+	&::before {
+		bottom: calc(-1 * #{prop('tooltip-arrow-border')});
+		left: 0;
+		border-width: prop('tooltip-arrow-border') prop('tooltip-arrow-border') 0;
+		border-top-color: initial;
+		transform-origin: center top;
+	}
+}
+
+@mixin placement-right-arrow {
+	left: 0;
+
+	&::before {
+		left: calc(-1 * #{prop('tooltip-arrow-border')});
+		border-width: prop('tooltip-arrow-border') prop('tooltip-arrow-border') prop('tooltip-arrow-border') 0;
+		border-right-color: initial;
+		transform-origin: center right;
+	}
+}
+
+@mixin placement-bottom-arrow {
+	top: 0;
+
+	&::before {
+		top: calc(-1 * #{prop('tooltip-arrow-border')});
+		left: 0;
+		border-width: 0 prop('tooltip-arrow-border') prop('tooltip-arrow-border');
+		border-bottom-color: initial;
+		transform-origin: center bottom;
+	}
+}
+
+@mixin placement-left-arrow {
+	right: 0;
+
+	&::before {
+		right: calc(-1 * #{prop('tooltip-arrow-border')});
+		border-width: prop('tooltip-arrow-border') 0 prop('tooltip-arrow-border') prop('tooltip-arrow-border');
+		border-left-color: initial;
+		transform-origin: center left;
+	}
+}
+
+@mixin style {
+	.#{util.prefix('tooltip')} {
+		@include base;
+	}
+
+	.#{util.prefix('tooltip__arrow')} {
+		@include arrow;
+	}
+
+	.#{util.prefix('tooltip')}[data-popper-placement] > #{util.prefix('.tooltip__arrow')} {
+		@include placement-arrow;
+	}
+
+	.#{util.prefix('tooltip')}[data-popper-placement^='top'] > #{util.prefix('.tooltip__arrow')} {
+		@include placement-top-arrow;
+	}
+
+	.#{util.prefix('tooltip')}[data-popper-placement^='right'] > #{util.prefix('.tooltip__arrow')} {
+		@include placement-right-arrow;
+	}
+
+	.#{util.prefix('tooltip')}[data-popper-placement^='bottom'] > #{util.prefix('.tooltip__arrow')} {
+		@include placement-bottom-arrow;
+	}
+
+	.#{util.prefix('tooltip')}[data-popper-placement^='left'] > #{util.prefix('.tooltip__arrow')} {
+		@include placement-left-arrow;
+	}
+}
