@@ -23,7 +23,7 @@ export const Default: React.FunctionComponent = () => {
 	return (
 		<TextField
 			label={text('Label', 'Default Text Field')}
-			help='The default Text Field has a type of "text"'
+			description='The default Text Field has a type of "text"'
 
 			onDOMChange={action('onDOMChange')}
 			required={boolean('Required', false)}
@@ -224,7 +224,7 @@ export const CustomValidation: React.FunctionComponent = () => {
 			onChange={changeHandler}
 
 			label="Full name"
-			help="Change the required name in the Storybook knobs below."
+			description="Change the required name in the Storybook knobs below."
 			feedback={feedback}
 			required
 		/>
