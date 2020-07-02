@@ -1,5 +1,5 @@
-@use '@nds/core/src/components/textfield';
-@use '@nds/core/src/globals/scss/tokens/_color-system' as color;
+// @use '@nds/core/src/components/textfield';
+@use '../../../core.scss' as *;
 
 *:-moz-ui-invalid {
 	box-shadow: none !important;

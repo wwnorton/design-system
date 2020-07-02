@@ -1,4 +1,6 @@
-@import '~@nds/core/src/main';
+@use '~@nds/core/src/main' as core with (
+	$namespace: null,
+);
 
 .switch::after {
 	top: unset;

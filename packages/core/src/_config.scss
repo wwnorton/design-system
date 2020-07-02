@@ -1,0 +1,11 @@
+////
+/// Global configuration for the design system. Local systems can be configured
+/// via the `@use with` syntax.
+/// @link https://sass-lang.com/documentation/at-rules/use#configuration
+/// @group Config
+////
+
+$namespace: 'nds' !default;
+$browser-font-size: 16 !default;
+$css-property-fallback: true !default;
+$warn-on-missing-fallback: false !default;

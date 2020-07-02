@@ -4,7 +4,9 @@ import {
 	withKnobs, select, boolean, text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import { IconVariant, SVGIcon, IconOptions } from '../../utilities';
+import {
+	IconVariant, SVGIcon, IconOptions, prefix,
+} from '../../utilities';
 import {
 	Button, ButtonVariant, IconButton, ButtonProps,
 } from '.';
@@ -22,8 +24,23 @@ const variantOptions: Record<string, ButtonVariant | undefined> = {
 	None: undefined,
 };
 
+const baseName = prefix('button');
+
+const colorOptions = {
+	Primary: undefined,
+	Cyan: `${baseName}--cyan`,
+	Gray: `${baseName}--gray`,
+	Green: `${baseName}--green`,
+	Navy: `${baseName}--navy`,
+	Red: `${baseName}--red`,
+	Teal: `${baseName}--teal`,
+	Yellow: `${baseName}--yellow`,
+};
+
 export const Default: React.FunctionComponent = () => (
 	<Button
+		className={select('Color family', colorOptions, undefined)}
+		onClick={action('onClick')}
 		variant={select<ButtonVariant | undefined>('Variant', variantOptions, 'solid')}
 		disabled={boolean('Disabled', false)}
 		icon={select<IconVariant | undefined>('Icon', { None: undefined, ...IconOptions }, undefined)}

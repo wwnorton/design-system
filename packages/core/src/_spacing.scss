@@ -1,0 +1,35 @@
+@use 'sass:meta';
+@use 'sass:map';
+@use 'util';
+
+// FUNCTIONS
+
+@function -spacer($px, $unit-from, $unit-to) {
+	@if $px % $base != 0 {
+		$val: if($unit-from == 'px', #{$px}px, #{util.px-rem($px)}rem);
+
+		@warn '#{$val} is not a valid spacing unit. Spacing units must be a multiple of #{$base}px.';
+	}
+
+	@return if($unit-to == 'px', #{$px}px, #{util.px-rem($px)}rem);
+}
+
+@function px-rem($px) {
+	@return -spacer($px, 'px', 'rem');
+}
+
+@function rem-px($rem) {
+	@return -spacer(util.rem-px($rem), 'rem', 'px');
+}
+
+@function px($val) {
+	@return -spacer($val, 'px', 'px');
+}
+
+@function rem($val) {
+	@return -spacer(util.rem-px($val), 'rem', 'rem');
+}
+
+// TOKENS
+
+$base: 4 !default;

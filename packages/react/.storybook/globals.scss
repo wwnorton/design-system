@@ -1,5 +1,7 @@
-@import '~@nds/core/src/globals/scss/reset';
+@use '../core';
 
-.disclosure p {
-	margin: 0;
+@include core.reset-style {
+	body {
+		margin: core.spacing-rem(1);
+	}
 }

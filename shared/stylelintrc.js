@@ -9,6 +9,9 @@ module.exports = {
 				message: 'Selector should be written in lowercase with hyphens or underscores (selector-class-pattern)',
 			},
 		],
+		'scss/at-function-pattern': '^[_-]?[a-z]+([a-z0-9-]+[a-z0-9]+)?$',
+		'scss/at-mixin-pattern': '^[_-]?[a-z]+([a-z0-9-]+[a-z0-9]+)?$',
+		'scss/dollar-variable-pattern': '^[_-]?[a-z]+([a-z0-9-]+[a-z0-9]+)?$',
 	},
 	ignoreFiles: ['**/*.jsx', '**/*.tsx'],
 };

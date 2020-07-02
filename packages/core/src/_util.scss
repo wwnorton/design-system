@@ -1,0 +1,156 @@
+////
+/// @group Utilities
+////
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
+
+@use 'config' as *;
+
+/// Flatten a nested map.
+/// @param {Map} $map - The map that should be flattened.
+/// @param {String} $name [null] - The name of the map. Resulting keys will use this as a prefix.
+/// @param {String} $key-separator [-] - The separator that will be used to join map names.
+/// @return {Map} The flattened map. Key names will reflect the nesting structure.
+/// @example scss
+///   @debug flatten((a: (b: (c: 'd'))));
+///   // (a-b-c: 'd')
+@function flatten($map, $name: null, $key-separator: '-') {
+	$flattened: ();
+
+	@each $key in map.keys($map) {
+		$val: map.get($map, $key);
+		$full-key: if($name, #{prefix($key, $name, $key-separator)}, #{$key});
+
+		@if $key == '#root' {
+			$full-key: $name;
+		}
+
+		@if meta.type-of($val) == 'map' {
+			$flattened: map.merge($flattened, flatten($val, $full-key));
+		}
+		@else {
+			$flattened: map.merge($flattened, (#{$full-key}: #{$val}));
+		}
+	}
+
+	@return $flattened;
+}
+
+/// Recursively merge a list of maps. Similar to `map.merge` but takes many maps
+/// and merges any sub-maps recursively.
+/// @param {Map[]} $maps... - A list of maps that will be merged.
+/// @return {Map} - A deeply merged map.
+@function deep-merge($maps...) {
+	$merged: list.nth($maps, 1);
+	$length: list.length($maps);
+
+	@if $length <= 1 { @return $merged; }
+
+	@for $i from 2 through $length {
+		$map: list.nth($maps, $i);
+		$map-type: meta.type-of($map);
+
+		@if $map-type == 'map' or ($map-type == 'list' and list.length($map) == 0) {
+			@each $key in map.keys($map) {
+				$new-val: map.get($map, $key);
+				$cur-val: map.get($merged, $key);
+
+				@if meta.type-of($new-val) == 'map' and meta.type-of($cur-val) == 'map' {
+					$new-val: deep-merge($cur-val, $new-val);
+				}
+
+				$merged: map.merge($merged, ($key: $new-val));
+			}
+		}
+		@else {
+			@error 'All arguments must be maps.';
+		}
+	}
+
+	@return $merged;
+}
+
+@function prefix($item, $ns: $namespace, $separator: '-') {
+	@if meta.type-of($item) == 'string' {
+		@return if($ns, $ns + $separator + $item, $item);
+	}
+	@else if meta.type-of($item) == 'number' {
+		@return if($ns, '#{$ns}#{$separator}#{$item}', $item);
+	}
+	@else if meta.type-of($item) == 'map' {
+		@return -prefix-map($item, $namespace, $separator);
+	}
+}
+
+@function -prefix-map($map, $prefix, $separator) {
+	$prefixed: ();
+
+	@each $key, $value in $map {
+		$prefixed: map.merge($prefixed, (#{prefix($key, $prefix, $separator)}: $value));
+	}
+
+	@return $prefixed;
+}
+
+@function unprefix($prefixed-string, $ns: $namespace, $separator: '-') {
+	$prefix: $ns + $separator;
+
+	@if string.index($prefixed-string, $prefix) == 1 {
+		@return string.slice($prefixed-string, string.length($prefix) + 1);
+	}
+
+	@return $prefixed-string;
+}
+
+/// Get the key that corresponds to a value in a map.
+/// @param {Map} $map - The map that will be used for lookup.
+/// @param {String} $value - The value of the corresponding key.
+/// @return {String} - The map's key name corresponding to the provided value.
+/// @example scss
+///   $my-map: ('red': #f00, 'yellow': #ba7);
+///   @debug get-key($my-map, #ba7);
+///   // yellow
+@function get-key($map, $value) {
+	$keys: map.keys($map);
+	$values: map.values($map);
+	$index: list.index($values, $value);
+
+	@if $index {
+		@return list.nth($keys, $index);
+	}
+
+	@return $value;
+}
+
+/// Padding helper
+/// Ensures that padding fits the design system box model.
+/// @param {String|Number} $padding-length - The desired padding length.
+/// @param {String|Number} $border-width [0] - The desired border width.
+/// @link https://gitlab.com/wwnorton/platform/design-system/-/issues/96 GitLab Issue
+@function padding($padding-length, $border-width: 0) {
+	@if $border-width {
+		@if $border-width == 0 {
+			@return $padding-length;
+		}
+
+		@return calc(#{$padding-length} - #{$border-width});
+	}
+
+	@return $padding-length;
+}
+
+@function px-rem($px, $browser-font-size: $browser-font-size) {
+	@return $px / $browser-font-size;
+}
+
+@function rem-px($rem, $browser-font-size: $browser-font-size) {
+	@return $rem * $browser-font-size;
+}
+
+@function min-max($val, $min, $max) {
+	@return math.max($min, math.min($max, $val));
+}

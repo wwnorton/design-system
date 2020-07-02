@@ -1,31 +1,214 @@
-@import './tokens';
-@import './mixins';
+@use 'sass:map';
+@use '../../a11y';
+@use '../../color';
+@use '../../type';
+@use '../../motion';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
 
-/* base button */
-.button {
-	@include button-base;
+$default-props: (
+	'button-color': color.family('button-color', 'color-primary', color.$primary-grade),
+	'button-border-width': 1px,
+	'button-padding-x': spacing.px-rem(12),
+	'button-padding-y': spacing.px-rem(8),
+	'button-border-radius': 0.125rem,
+	'button-font-weight': prop(font-weight-bold),
+	'button-transition': prop(duration-simple) prop(easing-standard),
+);
+
+$button-props: () !default;
+$button-props: map.merge($default-props, $button-props);
+
+@mixin base {
+	@include set-props($button-props);
+	@include type.ui;
+
+	position: relative;
+	display: inline-flex;
+	box-sizing: border-box;
+	padding:
+		util.padding(prop(button-padding-y), prop(button-border-width))
+		util.padding(prop(button-padding-x), prop(button-border-width));
+	border: prop(button-border-width) solid transparent;
+	border-radius: prop(button-border-radius);
+	justify-content: center;
+	align-items: center;
+
+	&::-moz-focus-inner {
+		border: 0;
+	}
+
+	&:disabled,
+	&.disabled {
+		color: prop(color-disabled);
+		pointer-events: none;
+	}
 }
 
-/* solid button */
-.button--solid {
-	@include button-solid();
+@mixin variant(
+	$text-color: null,
+	$background-color: null,
+	$border-color: null,
+) {
+	font-weight: prop(button-font-weight);
+	color: $text-color;
+	cursor: pointer;
+	background-color: $background-color;
+	border-color: $border-color;
+	transition:
+		motion.transition(
+			prop(button-transition),
+			color,
+			background-color,
+			border-color,
+			box-shadow,
+		);
+
+	&:focus,
+	.focus {
+		@include a11y.focus-indicator;
+	}
+
+	&:-moz-focusring {
+		box-shadow: none !important;
+	}
 }
 
-/* outline button */
-.button--outline {
-	@include button-outline();
+@mixin solid {
+	@include variant(
+		$text-color: prop(color-body-bg),
+		$background-color: prop(button-color),
+		$border-color: prop(button-color),
+	);
+
+	&:disabled,
+	&.disabled {
+		color: prop(color-disabled-dark);
+		background-color: prop(color-disabled-light);
+		border-color: prop(color-disabled-light);
+	}
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: prop(button-color-dark);
+		border-color: prop(button-color-dark);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		background-color: prop(button-color-darker);
+		border-color: prop(button-color-darker);
+	}
 }
 
-/* ghost button */
-.button--ghost {
-	@include button-ghost();
+@mixin outline {
+	@include variant(
+		$text-color: prop(button-color),
+		$background-color: prop(color-body-bg),
+		$border-color: prop(button-color),
+	);
+
+	&:disabled,
+	&.disabled {
+		color: prop(color-disabled);
+		border-color: prop(color-disabled);
+	}
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		color: prop(button-color-dark);
+		background-color: mix(#fff, #1a8082, 90%);
+		border-color: prop(button-color-dark);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		color: prop(button-color-darker);
+		background-color: prop(button-color-20);
+		border-color: prop(button-color-darker);
+	}
 }
 
-/* icon-only button */
-.button--icon-only {
-	@include button-icon-only;
+@mixin ghost {
+	@include variant(
+		$text-color: prop(button-color),
+		$background-color: transparent,
+		$border-color: transparent,
+	);
+
+	&:disabled,
+	&.disabled {
+		color: prop(color-disabled);
+	}
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		color: prop(button-color-dark);
+		background-color: prop(button-color-10);
+		border-color: prop(button-color-10);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		color: prop(button-color-darker);
+		background-color: prop(button-color-20);
+		border-color: prop(button-color-20);
+	}
 }
 
-.button__icon {
-	@include button-icon;
+@mixin icon-only {
+	padding: util.padding(prop(button-padding-y), prop(button-border-width));
+
+	> :first-child {
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+	}
+}
+
+@mixin icon {
+	height: 1.25rem;
+	margin: 0 0.25rem;
+
+	&:first-child {
+		margin-left: -0.25rem;
+	}
+
+	&:last-child {
+		margin-right: -0.25rem;
+	}
+}
+
+@mixin style {
+	.#{util.prefix('button')} {
+		@include base;
+	}
+
+	.#{util.prefix('button--solid')} {
+		@include solid;
+	}
+
+	.#{util.prefix('button--outline')} {
+		@include outline;
+	}
+
+	.#{util.prefix('button--ghost')} {
+		@include ghost;
+	}
+
+	.#{util.prefix('button--icon-only')} {
+		@include icon-only;
+	}
+
+	.#{util.prefix('button__icon')} {
+		@include icon;
+	}
+
+	@each $name, $value in color.$families {
+		.#{util.prefix('button--#{$name}')} {
+			@include set-props(util.flatten((
+				'button-color': color.family('button-color', $name),
+			)));
+		}
+	}
 }

@@ -1,0 +1,12 @@
+@forward 'src/config';
+@forward 'src/util';
+@forward 'src/properties';
+@forward 'src/color' as color-*;
+@forward 'src/device' as device-*;
+@forward 'src/motion' as motion-*;
+@forward 'src/reset' as reset-*;
+@forward 'src/spacing' as spacing-*;
+@forward 'src/type' as type-*;
+@forward 'src/a11y' as a11y-*;
+
+@forward 'src/components/button' as button-*;

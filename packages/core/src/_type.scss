@@ -1,0 +1,215 @@
+////
+/// Typography
+/// @group typography
+////
+
+@use 'sass:list';
+@use 'device';
+@use 'spacing' as *;
+@use 'properties' as *;
+
+// FUNCTIONS
+
+@function system-stack($font-family, $generic) {
+	$system: '';
+
+	@if $generic == 'sans' {
+		$system: prop(font-family-system-sans);
+	}
+	@else if $generic == 'serif' {
+		$system: prop(font-family-system-sans);
+	}
+	@else if $generic == 'mono' {
+		$system: prop(font-family-system-mono);
+	}
+
+	@return list.join($font-family, $system, $separator: comma);
+}
+
+@function sans($font-family) {
+	@return system-stack($font-family, 'sans');
+}
+
+@function serif($font-family) {
+	@return system-stack($font-family, 'serif');
+}
+
+@function mono($font-family) {
+	@return system-stack($font-family, 'mono');
+}
+
+/// Get a font size using rem spacers.
+/// @param {Number} $px - The font size in pixels.
+/// @return {String} The font size spacer and rem conversion string.
+@function size($px) {
+	@return #{$px / $font-size-root}rem;
+}
+
+
+// TOKEN VALUES
+
+// System font stacks from https://systemfontstack.com/
+$font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif !default;
+$font-family-system-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !default;
+$font-family-system-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace !default;
+
+$font-family-sans: $font-family-system-sans !default;
+$font-family-serif: $font-family-system-serif !default;
+$font-family-mono: $font-family-system-mono !default;
+$font-family-base: $font-family-sans !default;
+$font-family-heading: $font-family-base !default;
+
+$font-size-root: 1em !default;
+$font-size-10: 0.625rem !default;
+$font-size-12: 0.75rem !default;
+$font-size-14: 0.875rem !default;
+$font-size-16: 1rem !default;
+$font-size-18: 1.125rem !default;
+$font-size-20: 1.25rem !default;
+$font-size-24: 1.5rem !default;
+$font-size-32: 2rem !default;
+$font-size-40: 2.5rem !default;
+$font-size-48: 3rem !default;
+
+$font-size-base: $font-size-16 !default;
+$font-size-small: $font-size-14 !default;
+$font-size-h1: $font-size-32 !default;
+$font-size-h2: $font-size-24 !default;
+$font-size-h3: $font-size-20 !default;
+$font-size-h4: $font-size-18 !default;
+$font-size-h5: $font-size-16 !default;
+$font-size-h6: $font-size-14 !default;
+
+$font-weight-thin: 200 !default;
+$font-weight-light: 300 !default;
+$font-weight-regular: 400 !default;
+$font-weight-bold: 700 !default;
+$font-weight-black: 900 !default;
+
+$font-weight-base: $font-weight-regular !default;
+$font-weight-heading: $font-weight-bold !default;
+
+$line-height-base: 1.5 !default;  // 24px - used on the document
+$line-height-sm: 1.25 !default;   // 20px
+
+$line-height-heading: $line-height-sm !default;
+
+
+// MIXINS
+
+/// Apply font smoothing.
+/// @link https://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/
+@mixin font-smoothing {
+	@include device.media-hd {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+	}
+}
+
+@mixin -text(
+	$family: prop(font-family-base),
+	$size: prop(font-size-base),
+	$height: prop(line-height-base),
+	$weight: null,
+) {
+	font-family: $family;
+	font-size: $size;
+	font-weight: $weight;
+	line-height: $height;
+}
+
+@mixin text-xs {
+	@include -text($size: prop(font-size-12));
+}
+
+@mixin text-sm {
+	@include -text($size: prop(font-size-14));
+}
+
+@mixin text-md {
+	@include -text;
+}
+
+@mixin text-lg {
+	@include -text($size: prop(font-size-18));
+}
+
+@mixin ui {
+	@include -text($height: prop(line-height-sm));
+}
+
+@mixin heading {
+	margin-top: 0;
+	margin-bottom: spacer-rem(1);
+	font-family: prop(font-family-headings);
+	font-style: prop(font-style-headings);
+	font-weight: prop(font-weight-headings);
+	line-height: prop(line-height-headings);
+	color: prop(color-body-text);
+}
+
+
+// :ROOT CSS PROPERTIES
+
+// font-family
+@include root-props(
+	$font-family-system-sans: $font-family-system-sans,
+	$font-family-system-serif: $font-family-system-serif,
+	$font-family-system-mono: $font-family-system-mono,
+);
+@include root-props(
+	$font-family-sans: prop('font-family-system-sans'),
+	$font-family-serif: prop('font-family-system-serif'),
+	$font-family-mono: prop('font-family-system-mono'),
+);
+@include root-props(
+	$font-family-base: prop('font-family-sans'),
+	$font-family-headings: prop('font-family-sans'),
+);
+
+// font-size
+@include root-props(
+	$font-size-root: $font-size-root,
+	$font-size-10: $font-size-10,
+	$font-size-12: $font-size-12,
+	$font-size-14: $font-size-14,
+	$font-size-16: $font-size-16,
+	$font-size-18: $font-size-18,
+	$font-size-20: $font-size-20,
+	$font-size-24: $font-size-24,
+	$font-size-32: $font-size-32,
+	$font-size-40: $font-size-40,
+	$font-size-48: $font-size-48,
+);
+@include root-props(
+	$font-size-base: prop('font-size-16'),
+	$font-size-small: prop('font-size-14'),
+	$font-size-h1: prop('font-size-32'),
+	$font-size-h2: prop('font-size-24'),
+	$font-size-h3: prop('font-size-20'),
+	$font-size-h4: prop('font-size-18'),
+	$font-size-h5: prop('font-size-16'),
+	$font-size-h6: prop('font-size-14'),
+);
+
+// font-weight
+@include root-props(
+	$font-weight-thin: $font-weight-thin,
+	$font-weight-light: $font-weight-light,
+	$font-weight-regular: $font-weight-regular,
+	$font-weight-bold: $font-weight-bold,
+	$font-weight-black: $font-weight-black,
+);
+@include root-props(
+	$font-weight-base: prop('font-weight-regular'),
+	$font-weight-headings: prop('font-weight-bold'),
+);
+
+// line-height
+@include root-props(
+	$line-height-base: $line-height-base,
+	$line-height-sm: $line-height-sm,
+);
+@include root-props(
+	$line-height-headings: prop('line-height-sm'),
+);

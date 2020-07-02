@@ -1,0 +1,76 @@
+////
+/// @group Accessibility
+////
+
+@use 'sass:list';
+@use 'util';
+@use 'properties' as *;
+
+// FUNCTIONS
+
+/// A box shadow suitable as a focus ring.
+/// @param {String} $color [prop(color-focus-ring)] - The color of the focus ring.
+/// @param {String} $background [prop(color-body-bg)] - The background color.
+@function focus-shadow(
+	$color: prop(color-focus-ring),
+	$background: prop(color-body-bg),
+) {
+	@return (
+		0 0 0 1px $background,
+		0 0 0 3px $color,
+	);
+}
+
+// TOKENS
+
+$focus-shadow: focus-shadow() !default;
+
+@include root-props(
+	$focus-shadow: $focus-shadow,
+);
+
+// MIXINS
+
+/// Disable animations and transitions when either children of `.reduced-motion`
+/// or the user has specified that they prefer reduced motion on their OS.
+@mixin reduce-motion {
+	@media screen and (prefers-reduced-motion: reduce) {
+		transition: none !important;
+		animation: none !important;
+	}
+
+	.#{util.prefix(reduced-motion)} & {
+		transition: none !important;
+		animation: none !important;
+	}
+}
+
+/// Screen reader only - ensure that the element is only visible to screen readers.
+/// @link https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
+@mixin sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
+
+/// A box shadow focus indicator.
+/// @param {List[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
+@mixin focus-indicator($current-shadows...) {
+	outline: none;
+	box-shadow: $current-shadows, prop('focus-shadow');
+
+	&:not(:focus-visible) {
+		@if list.length($current-shadows) > 0 {
+			box-shadow: $current-shadows;
+		}
+		@else {
+			box-shadow: unset;
+		}
+	}
+}
