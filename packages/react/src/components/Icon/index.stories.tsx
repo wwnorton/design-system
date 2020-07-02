@@ -56,6 +56,7 @@ export const AllIcons: React.FunctionComponent = () => {
 						variant={IconOptions[key]}
 						size={size}
 						color={c}
+						hideTooltipDelay={0}
 					>
 						{ key }
 					</Icon>
