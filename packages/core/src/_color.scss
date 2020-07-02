@@ -175,17 +175,17 @@ $warning-grade: 60 !default;
 	$black: $black,
 	$white: $white,
 );
-@include root-props(
-	$color-body-bg: prop('white'),
-	$color-body-text: prop('black'),
-	$color-focus-ring: prop('blue-50'),
-);
 @include root-color-family('color-primary', $primary-family, $primary-grade);
 @include root-color-family('color-base', $base-family, $base-grade);
 @include root-color-family('color-error', $error-family, $error-grade);
 @include root-color-family('color-success', $success-family, $success-grade);
 @include root-color-family('color-warning', $warning-family, $warning-grade);
 @include root-color-family('color-disabled', $disabled-family, $disabled-grade);
+@include root-props(
+	$color-body-bg: prop('white'),
+	$color-body-text: prop('color-base-90'),
+	$color-focus-ring: prop('blue-50'),
+);
 
 /// Create a new color family map that references an existing family map.
 /// @param {String} $name - The name of the family that you'd like to create.
