@@ -109,10 +109,10 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 		if (validateOnDOMChange) validate(e.currentTarget as HTMLInputElement);
 	}, [onDOMChange, validateOnDOMChange, validate]);
 
-	// Reflect errors on the DOM's custom validity API. This ensures that browser
-	// tooltips always match custom error logic.
+	// Reflect errors on the DOM's constraint validation API. This ensures that
+	// browser tooltip text always matches the custom errors.
 	React.useEffect(() => {
-		if (input) {
+		if (input && input.willValidate) {
 			const errString = (!errors || !errors.length) ? '' : errors.join('\n');
 			input.setCustomValidity(errString);
 		}
