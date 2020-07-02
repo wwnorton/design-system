@@ -12,7 +12,7 @@ $default-props: (
 	'button-border-width': 1px,
 	'button-padding-x': spacing.px-rem(12),
 	'button-padding-y': spacing.px-rem(8),
-	'button-border-radius': 0.125rem,
+	'button-border-radius': prop('radius-base'),
 	'button-font-weight': prop(font-weight-bold),
 	'button-transition': prop(duration-simple) prop(easing-standard),
 );
