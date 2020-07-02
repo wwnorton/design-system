@@ -28,10 +28,12 @@ const baseName = prefix('button');
 
 const colorOptions = {
 	Primary: undefined,
+	Blue: `${baseName}--blue`,
 	Cyan: `${baseName}--cyan`,
 	Gray: `${baseName}--gray`,
 	Green: `${baseName}--green`,
 	Navy: `${baseName}--navy`,
+	Purple: `${baseName}--purple`,
 	Red: `${baseName}--red`,
 	Teal: `${baseName}--teal`,
 	Yellow: `${baseName}--yellow`,
