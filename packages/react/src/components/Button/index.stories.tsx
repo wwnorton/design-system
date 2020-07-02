@@ -40,7 +40,6 @@ const colorOptions = {
 export const Default: React.FunctionComponent = () => (
 	<Button
 		className={select('Color family', colorOptions, undefined)}
-		onClick={action('onClick')}
 		variant={select<ButtonVariant | undefined>('Variant', variantOptions, 'solid')}
 		disabled={boolean('Disabled', false)}
 		icon={select<IconVariant | undefined>('Icon', { None: undefined, ...IconOptions }, undefined)}
@@ -53,7 +52,6 @@ export const Default: React.FunctionComponent = () => (
 
 export const iconButton: React.FunctionComponent = () => (
 	<IconButton
-		onClick={action('onClick')}
 		disabled={boolean('Disabled', false)}
 		icon={select('Icon', IconOptions, 'close')}
 	>
