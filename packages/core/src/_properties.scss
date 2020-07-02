@@ -195,7 +195,7 @@ $-root-props: ();
 			}
 			@else {
 				@if not map.has-key($props, $token) {
-					@debug '#{$token} not found. Adding it as #{$value}.';
+					@warn '#{$token} not found. Adding it as #{$value}.';
 
 					@include -add-one($token, $value);
 				}
