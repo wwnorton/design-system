@@ -101,7 +101,7 @@ export interface ModalSnapshot {
  * Modal dialog.
  */
 export class Modal extends React.PureComponent<ModalProps, ModalState> {
-	public static bemBase = prefix('modal');
+	public static bemBase = 'modal';
 	public static bemElements: Record<ModalAnatomy, string> = {
 		portal: 'portal',
 		backdrop: 'backdrop',
@@ -130,8 +130,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		closeOnEscape: true,
 	}
 
-	constructor(props: ModalProps) {
-		super(props);
+	constructor({ baseName = prefix(Modal.defaultProps.baseName), ...props }: ModalProps) {
+		super({ baseName, ...props });
 		this.getId = idGen(props, `${Modal.bemBase}-`);
 		this.titleId = this.getId(`-${Modal.bemElements.title}`);
 		this.portalNode = this.createPortalNode();

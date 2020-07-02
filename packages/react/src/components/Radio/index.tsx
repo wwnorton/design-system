@@ -40,7 +40,7 @@ export class Radio extends React.Component<RadioProps> {
 	private get descId(): string { return `${this.id}-desc`; }
 
 	/* eslint-disable react/sort-comp */
-	public static bemBase = prefix('radio');
+	public static bemBase = 'radio';
 	public static bemElements: Record<RadioContent, string> = {
 		input: 'input',
 		control: 'control',
@@ -55,8 +55,8 @@ export class Radio extends React.Component<RadioProps> {
 		baseName: Radio.bemBase,
 	}
 
-	constructor(props: RadioProps) {
-		super(props);
+	constructor({ baseName = prefix(Radio.defaultProps.baseName), ...props }: RadioProps) {
+		super({ baseName, ...props });
 		this.inputRef = props.inputRef || React.createRef<HTMLInputElement>();
 	}
 

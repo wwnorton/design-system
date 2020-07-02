@@ -37,7 +37,7 @@ export interface MultipleChoiceState {
 }
 
 export class MultipleChoice extends React.Component<MultipleChoiceProps, MultipleChoiceState> {
-	private static baseName = prefix('mc');
+	private static baseName = 'mc';
 	private static bemElements = {
 		choice: 'choice',
 		choiceGroup: 'choices',
@@ -54,8 +54,11 @@ export class MultipleChoice extends React.Component<MultipleChoiceProps, Multipl
 		descriptionClass: `${MultipleChoice.baseName}__${MultipleChoice.bemElements.description}`,
 	}
 
-	constructor(props: MultipleChoiceProps) {
-		super(props);
+	constructor({
+		baseName = prefix(MultipleChoice.defaultProps.baseName),
+		...props
+	}: MultipleChoiceProps) {
+		super({ baseName, ...props });
 
 		this.state = {
 			selected: [],

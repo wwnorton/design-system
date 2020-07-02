@@ -63,7 +63,7 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	 * due to a window resize. Only applies if `updateOnResize` is `true`.
 	*/
 	public static RESIZE_DEBOUNCE_DELAY = 150;
-	public static bemBase = prefix('disclosure');
+	public static bemBase = 'disclosure';
 	public static bemElements: Record<DisclosureAnatomy, string> = {
 		summary: 'summary',
 		marker: 'marker',
@@ -82,8 +82,8 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		updateOnResize: true,
 	}
 
-	constructor(props: DisclosureProps) {
-		super(props);
+	constructor({ baseName = prefix(Disclosure.defaultProps.baseName), ...props }: DisclosureProps) {
+		super({ baseName, ...props });
 		this.state = {
 			lifecycle: props.open ? 'open' : 'closed',
 		};
