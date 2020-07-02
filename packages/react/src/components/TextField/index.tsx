@@ -1,12 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { FieldInfo } from '../FieldInfo';
+import { FieldInfo, FieldInfoCoreProps } from '../FieldInfo';
 import { FieldAddon } from '../FieldAddon';
-import { FieldFeedback } from '../FieldFeedback';
+import { FieldFeedback, FieldFeedbackCoreProps } from '../FieldFeedback';
 import { BaseInput, BaseInputProps } from '../BaseInput';
+import { prefix } from '../../utilities';
 
-export type TextFieldContent = 'label' | 'help' | 'input' | 'feedback' | 'error' | 'counter';
 export type TextFieldType = 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
 
 interface TextInputCounterProps {
@@ -14,21 +14,14 @@ interface TextInputCounterProps {
 	max: number;
 }
 
-export interface TextFieldProps extends BaseInputProps {
+export interface TextFieldProps
+	extends FieldInfoCoreProps, FieldFeedbackCoreProps, BaseInputProps {
 	/** Text fields can be a limited subset of `<input>` types. */
 	type?: TextFieldType;
-	/** The label for the text field. The only required prop. */
-	label: string;
 	/** One or more addon that should be included before the `<input>`. */
 	addonBefore?: React.ReactNode;
 	/** One or more addon that should be included after the `<input>`. */
 	addonAfter?: React.ReactNode;
-	/**
-	 * Additional descriptive help text for the text field. Use this for to give
-	 * the user more context about what to enter, such as field templating or
-	 * what might normally go in the `placeholder`.
-	 */
-	help?: string | React.ReactElement;
 	/**
 	 * Feedback about the user's current input value. By default, this will
 	 * contain validation errors and the counter, if `maxLength` is specified.
@@ -44,10 +37,6 @@ export interface TextFieldProps extends BaseInputProps {
 	counter?: ({ remaining, max }: TextInputCounterProps) => React.ReactElement | string;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
-	/** The className for the TextField's `<label>` element. */
-	labelClass?: string;
-	/** The className for the TextField's help container. */
-	helpClass?: string;
 	/** The className for the TextField's `<input>` element. */
 	inputClass?: string;
 	/** The className for all of the addons (before and after). */
@@ -59,8 +48,6 @@ export interface TextFieldProps extends BaseInputProps {
 	 * error text and character count.
 	 */
 	feedbackClass?: string;
-	/** The className for the TextField's error container. */
-	errorClass?: string;
 	/** The className for the TextField's character counter element. */
 	counterClass?: string;
 	/**
@@ -83,13 +70,12 @@ const defaultProps: Partial<TextFieldProps> = {
 	counter: (
 		{ remaining, max }: TextInputCounterProps,
 	): string => `${remaining}/${max} characters remaining.`,
-	baseName: 'field',
 	type: 'text',
 };
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	{
-	// options
+		// options
 		counterStart = defaultProps.counterStart,
 		validators,
 		validateOnChange,
@@ -99,7 +85,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 
 		// anatomy
 		label,
-		help,
+		description,
 		addonBefore,
 		addonAfter,
 		feedback,
@@ -107,41 +93,38 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		counter = defaultProps.counter,
 
 		// classes
-		className,
-		baseName = defaultProps.baseName,
+		baseName = prefix('field'),
+		className = `${baseName} ${baseName}--text`,
 		labelClass,
-		helpClass,
+		descriptionClass,
 		groupClass = `${baseName}__group`,
-		inputClass = `${baseName}__input`,
+		inputClass = `${baseName}__input ${baseName}__input--text`,
 		addonClass = `${baseName}__addon`,
 		feedbackClass,
-		errorClass,
+		errorsClass,
 		counterClass = `${baseName}__counter`,
 		invalidClass = `${baseName}--invalid`,
 
+		// ids
+		id: idProp,
+		labelId: labelIdProp,
+		descriptionId: descIdProp,
+		errorsId: errIdProp,
+
 		// <input> attributes
-		max,
 		maxLength,
-		min,
-		minLength,
-		pattern,
 		required,
-		step,
 		type = defaultProps.type,
 		value: valueProp = '',
-		id: idProp,
 
 		// <input> callbacks
-		onClick,
-		onKeyDown,
-		onKeyUp,
-		onKeyPress,
-		onDOMChange,
 		onChange,
-
-		// custom callbacks
+		// NDS-defined callbacks
 		onCount,
+		onDOMChange,
 		onValidate,
+
+		...inputProps
 	}: TextFieldProps, ref,
 ) => {
 	const [value, setValue] = React.useState(valueProp);
@@ -152,12 +135,12 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
 	React.useEffect(() => setValue(valueProp), [valueProp]);
 
-	// ids
+	// ids stored as refs since they shouldn't change between renders
 	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const labelId = `${id}-label`;
-	const helpId = `${id}-help`;
-	const inputId = `${id}-input`;
-	const errId = `${id}-err`;
+	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
+	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
+	const { current: errId } = React.useRef(errIdProp || `${id}-err`);
+	const { current: inputId } = React.useRef(`${id}-input`);
 
 	React.useEffect(() => {
 		if (maxLength) {
@@ -214,18 +197,17 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	}, [requiredIndicator, optionalIndicator, required]);
 
 	return (
-		<div className={classNames(className, baseName, `${baseName}--text`, { [invalidClass]: !isValid })} id={id}>
+		<div className={classNames(className, { [invalidClass]: !isValid })} id={id}>
 			<FieldInfo
 				htmlFor={inputId}
 				label={label}
 				indicator={indicator}
 				labelId={labelId}
 				labelClass={labelClass}
-				descriptionClass={helpClass}
-				descriptionId={helpId}
-			>
-				{ help }
-			</FieldInfo>
+				descriptionClass={descriptionClass}
+				descriptionId={descId}
+				description={description}
+			/>
 			<div className={groupClass}>
 				{ createFieldAddons(addonBefore) }
 				<BaseInput
@@ -233,38 +215,30 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 					value={value}
 					errors={errors}
 					onChange={changeHandler}
-					onClick={onClick}
 					onDOMChange={onDOMChange}
-					onKeyDown={onKeyDown}
-					onKeyPress={onKeyPress}
-					onKeyUp={onKeyUp}
 					onValidate={validateHandler}
 					id={inputId}
 					className={inputClass}
-					aria-describedby={(help) ? helpId : undefined}
+					aria-describedby={(description) ? descId : undefined}
 					aria-invalid={!isValid}
 					aria-errormessage={(!isValid) ? errId : undefined}
 					// validation props
-					max={max}
 					maxLength={maxLength}
-					min={min}
-					minLength={minLength}
-					pattern={pattern}
 					required={required}
-					step={step}
 					type={type}
 					// BaseInput custom validation props
 					validators={validators}
 					validateOnChange={validateOnChange}
 					validateOnDOMChange={validateOnDOMChange}
+					{...inputProps}
 				/>
 				{ createFieldAddons(addonAfter) }
 			</div>
 			<FieldFeedback
 				className={feedbackClass}
-				errorId={errId}
+				errorsId={errId}
 				errors={errors}
-				errorClass={errorClass}
+				errorsClass={errorsClass}
 			>
 				{ feedback }
 				{ Counter }
