@@ -17,11 +17,11 @@ $default-props: (
 	'button-transition': prop(duration-simple) prop(easing-standard),
 );
 
-$button-props: () !default;
-$button-props: map.merge($default-props, $button-props);
+$props: () !default;
+$props: map.merge($default-props, $props);
 
 @mixin base {
-	@include set-props($button-props);
+	@include set-props($props);
 	@include type.ui;
 
 	position: relative;
