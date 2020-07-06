@@ -57,24 +57,26 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	}: TooltipProps, ref,
 ) => {
 	const [tooltip, setTooltip] = useForwardedRef(ref);
-	const ariaAttribute = React.useMemo(() => {
-		if (asLabel) return 'aria-labelledby';
-		return 'aria-describedby';
-	}, [asLabel]);
+	const [offsetY, setOffsetY] = React.useState<number>(6);
 	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
 	const open = useTriggers({
 		reference, trigger, isOpen, tooltip, hideDelay,
 	});
 
-	const offsetMod = {
+	const ariaAttribute = React.useMemo(() => {
+		if (asLabel) return 'aria-labelledby';
+		return 'aria-describedby';
+	}, [asLabel]);
+
+	const offsetMod = React.useMemo(() => ({
 		name: 'offset',
 		options: {
 			offset: [
 				0,
-				parseInt(getProp('tooltip-offset-y'), 10) || 6,
+				offsetY,
 			],
 		},
-	};
+	}), [offsetY]);
 
 	const arrowMod = React.useMemo(() => ({
 		name: 'arrow',
@@ -82,6 +84,13 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 			element: `.${arrowClass}`,
 		},
 	}), [arrowClass]);
+
+	React.useLayoutEffect(() => {
+		if (tooltip) {
+			const token = parseInt(getProp('tooltip-offset-y', tooltip), 10);
+			if (token) setOffsetY(token);
+		}
+	}, [tooltip]);
 
 	/**
 	 * Attach aria labelling and describing attributes.
