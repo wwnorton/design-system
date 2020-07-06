@@ -1,4 +1,9 @@
-.icon {
-	max-width: 100%;
-	max-height: 100%;
+@use '../../util';
+
+@mixin style {
+	.#{util.prefix('icon')} {
+		max-width: 100%;
+		max-height: 100%;
+		box-sizing: content-box;
+	}
 }
