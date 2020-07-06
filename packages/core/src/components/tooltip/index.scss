@@ -1,4 +1,3 @@
-@use 'sass:math';
 @use '../../spacing';
 @use '../../util';
 @use '../../properties' as *;
@@ -20,6 +19,11 @@
 
 	position: absolute;
 	z-index: prop('zindex-tooltip');
+}
+
+@mixin content {
+	position: relative;
+	z-index: 1;
 	max-width: prop('tooltip-max-width');
 	padding: prop('tooltip-padding-y') prop('tooltip-padding-x');
 	line-height: prop('tooltip-line-height');
@@ -95,6 +99,10 @@
 @mixin style {
 	.#{util.prefix('tooltip')} {
 		@include base;
+	}
+
+	.#{util.prefix('tooltip__content')} {
+		@include content;
 	}
 
 	.#{util.prefix('tooltip__arrow')} {
