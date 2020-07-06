@@ -16,6 +16,8 @@ export type Triggers =
 export interface TooltipProps extends BasePopperProps {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
+	/** A className to apply to the content. Default will be `${baseName}__content`. */
+	contentClass?: string;
 	/** A className to apply to the arrow. Default will be `${baseName}__arrow`. */
 	arrowClass?: string;
 	/**
@@ -42,6 +44,7 @@ export interface TooltipProps extends BasePopperProps {
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	{
 		baseName = prefix('tooltip'),
+		contentClass = `${baseName}__content`,
 		arrowClass = `${baseName}__arrow`,
 		modifiers,
 		placement = 'top',
@@ -132,7 +135,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 			ref={setTooltip}
 			{...props}
 		>
-			{ children }
+			<div className={contentClass}>{ children }</div>
 			<div className={arrowClass} />
 		</BasePopper>
 	);
