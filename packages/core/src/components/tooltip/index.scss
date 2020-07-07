@@ -4,8 +4,8 @@
 
 @mixin base {
 	@include set-props(
-		$tooltip-color-bg: prop('color-body-text'),
-		$tooltip-color-text: prop('color-body-bg'),
+		$tooltip-color-bg: prop('body-text-color'),
+		$tooltip-color-text: prop('body-bg-color'),
 		$tooltip-arrow-size: 12px,
 		$tooltip-arrow-border: calc(#{prop('tooltip-arrow-size') / 2}),
 		$tooltip-offset-y: 6px,

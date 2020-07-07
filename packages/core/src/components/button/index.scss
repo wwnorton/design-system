@@ -77,7 +77,7 @@ $props: map.merge($default-props, $props);
 
 @mixin solid {
 	@include variant(
-		$text-color: prop(color-body-bg),
+		$text-color: prop(body-bg-color),
 		$background-color: prop(button-color),
 		$border-color: prop(button-color),
 	);
@@ -105,7 +105,7 @@ $props: map.merge($default-props, $props);
 @mixin outline {
 	@include variant(
 		$text-color: prop(button-color),
-		$background-color: prop(color-body-bg),
+		$background-color: prop(body-bg-color),
 		$border-color: prop(button-color),
 	);
 

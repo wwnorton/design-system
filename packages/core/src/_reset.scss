@@ -49,8 +49,8 @@ $-style-set: false;
 			font-family: prop('font-family-base');
 			font-weight: prop('font-weight-base');
 			line-height: prop('line-height-base');
-			color: prop('color-body-text');
-			background-color: prop('color-body-bg'); // 3
+			color: prop('body-text-color');
+			background-color: prop('body-bg-color'); // 3
 			-webkit-text-size-adjust: 100%; // 4
 			-webkit-tap-highlight-color: rgba(prop('black'), 0); // 5
 		}

@@ -9,11 +9,11 @@
 // FUNCTIONS
 
 /// A box shadow suitable as a focus ring.
-/// @param {String} $color [prop(color-focus-ring)] - The color of the focus ring.
-/// @param {String} $background [prop(color-body-bg)] - The background color.
+/// @param {String} $color [prop(focus-ring-color)] - The color of the focus ring.
+/// @param {String} $background [prop(body-bg-color)] - The background color.
 @function focus-shadow(
-	$color: prop(color-focus-ring),
-	$background: prop(color-body-bg),
+	$color: prop(focus-ring-color),
+	$background: prop(body-bg-color),
 ) {
 	@return (
 		0 0 0 1px $background,
