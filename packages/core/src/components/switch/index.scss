@@ -1,9 +1,107 @@
-@import './tokens';
-@import './mixins';
-@import '../button/mixins';
+@use '../../motion';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
 
-/* switch */
-.switch {
-	@include button-base;
-	@include switch;
+$-basename: 'switch';
+
+@mixin base {
+	@include set-props(
+		$color-on: prop('primary'),
+		$color-off: prop('base-30'),
+		$font-size: prop('font-size-xs'),
+		$height: spacing.rem(2),
+		$padding-x: spacing.rem(0.5),
+		$thumb-offset: spacing.rem(0.375),
+		$thumb-padding: 2px,
+	);
+
+	display: inline-flex;
+	align-items: start;
+
+	> :first-child {
+		margin-right: spacing.rem(1);
+	}
+
+	> :last-child {
+		margin-right: unset;
+	}
+}
+
+@mixin control {
+	$-padding-y: calc((#{prop('height')} - #{prop('font-size')}) / 2);
+	$-thumb-size: calc(#{prop('height')} - #{prop('thumb-padding')} * 2);
+
+	position: relative;
+	display: inline-flex;
+	min-width: calc(#{prop('height')} * 2 + #{prop('thumb-offset')});
+	min-height: prop('height');
+	box-sizing: border-box;
+	padding: $-padding-y prop('padding-x');
+	font-size: prop('font-size');
+	line-height: 1;
+	border: 0;
+	border-radius: prop('radius-pill');
+	justify-content: flex-end;
+	align-items: center;
+
+	&::before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: $-thumb-size;
+		height: $-thumb-size;
+		box-sizing: border-box;
+		margin: prop('thumb-padding');
+		margin-right: auto;
+		cursor: pointer;
+		content: '';
+		background: prop('body-bg');
+		border-radius: 2rem;
+		box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+		transition:
+			motion.transition(
+				prop('duration-simple') prop('easing-standard'),
+				border-color,
+				transform,
+			);
+	}
+
+	&[aria-checked='false'] {
+		background-color: prop('color-off');
+	}
+
+	&[aria-checked='true'] {
+		color: prop('body-bg');
+		background-color: prop('color-on');
+		justify-content: flex-start;
+
+		&::before {
+			transform: translateX(calc(100% + #{prop('thumb-padding')} * 2 + #{prop('thumb-offset')}));
+		}
+	}
+
+	&:disabled,
+	&.disabled {
+		color: prop('disabled-30');
+		background-color: prop('disabled-10');
+	}
+
+	> .#{util.prefix('icon')} {
+		width: 1.25em;
+		height: 1.25em;
+		margin: -0.25em 0;
+	}
+}
+
+@mixin style {
+	@include util.declare($-basename) {
+		.#{util.prefix($-basename)} {
+			@include base;
+		}
+
+		.#{util.prefix('#{$-basename}__control')} {
+			@include control;
+		}
+	}
 }
