@@ -21,7 +21,7 @@
 
 $expand: prop('disclosure-expand-duration') prop('disclosure-expand-easing');
 $collapse: prop('disclosure-collapse-duration') prop('disclosure-collapse-easing');
-$border: prop('disclosure-border-width') solid prop('color-base-40');
+$border: prop('disclosure-border-width') solid prop('base-40');
 $padding: util.padding(prop('disclosure-padding-y'), prop('disclosure-border-width'))
 	util.padding(prop('disclosure-padding-x'), prop('disclosure-border-width'));
 
@@ -89,7 +89,7 @@ $padding: util.padding(prop('disclosure-padding-y'), prop('disclosure-border-wid
 
 	.#{util.prefix('disclosure__summary')} {
 		padding: $padding;
-		background-color: prop('color-base-20');
+		background-color: prop('base-20');
 		border: $border;
 		border-radius: inherit;
 		justify-content: space-between;

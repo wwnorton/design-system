@@ -152,7 +152,7 @@ $base-family: 'navy' !default;
 $base-grade: 60 !default;
 
 /// The color family that will be used for `disabled` elements.
-$disabled-family: 'color-base' !default;
+$disabled-family: 'base' !default;
 $disabled-grade: 20 !default;
 
 /// The color family that will be used for errors.
@@ -175,15 +175,15 @@ $warning-grade: 60 !default;
 	$black: $black,
 	$white: $white,
 );
-@include root-color-family('color-primary', $primary-family, $primary-grade);
-@include root-color-family('color-base', $base-family, $base-grade);
-@include root-color-family('color-error', $error-family, $error-grade);
-@include root-color-family('color-success', $success-family, $success-grade);
-@include root-color-family('color-warning', $warning-family, $warning-grade);
-@include root-color-family('color-disabled', $disabled-family, $disabled-grade);
+@include root-color-family('primary', $primary-family, $primary-grade);
+@include root-color-family('base', $base-family, $base-grade);
+@include root-color-family('error', $error-family, $error-grade);
+@include root-color-family('success', $success-family, $success-grade);
+@include root-color-family('warning', $warning-family, $warning-grade);
+@include root-color-family('disabled', $disabled-family, $disabled-grade);
 @include root-props(
 	$body-bg-color: prop('white'),
-	$body-text-color: prop('color-base-90'),
+	$body-text-color: prop('base-90'),
 	$focus-ring-color: prop('blue-50'),
 );
 

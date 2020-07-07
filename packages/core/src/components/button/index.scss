@@ -8,7 +8,7 @@
 @use '../../properties' as *;
 
 $default-props: (
-	'button-color': color.family('button-color', 'color-primary', color.$primary-grade),
+	'button-color': color.family('button-color', 'primary', color.$primary-grade),
 	'button-border-width': 1px,
 	'button-padding-x': spacing.px-rem(12),
 	'button-padding-y': spacing.px-rem(8),
@@ -41,7 +41,7 @@ $props: map.merge($default-props, $props);
 
 	&:disabled,
 	&.disabled {
-		color: prop(color-disabled);
+		color: prop(disabled);
 		pointer-events: none;
 	}
 }
@@ -84,9 +84,9 @@ $props: map.merge($default-props, $props);
 
 	&:disabled,
 	&.disabled {
-		color: prop(color-disabled-dark);
-		background-color: prop(color-disabled-light);
-		border-color: prop(color-disabled-light);
+		color: prop(disabled-dark);
+		background-color: prop(disabled-light);
+		border-color: prop(disabled-light);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
@@ -111,8 +111,8 @@ $props: map.merge($default-props, $props);
 
 	&:disabled,
 	&.disabled {
-		color: prop(color-disabled);
-		border-color: prop(color-disabled);
+		color: prop(disabled);
+		border-color: prop(disabled);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
@@ -139,7 +139,7 @@ $props: map.merge($default-props, $props);
 
 	&:disabled,
 	&.disabled {
-		color: prop(color-disabled);
+		color: prop(disabled);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
