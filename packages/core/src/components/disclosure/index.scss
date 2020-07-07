@@ -116,57 +116,59 @@ $padding: util.padding(prop('disclosure-padding-y'), prop('disclosure-border-wid
 }
 
 @mixin style {
-	.#{util.prefix('disclosure')} {
-		@include base;
-	}
+	@include util.declare('disclosure') {
+		// disable the user agent's marker (triangle/caret)
+		summary::-moz-details-marker,
+		summary::-ms-details-marker,
+		summary::-o-details-marker {
+			display: none;
+		}
 
-	.#{util.prefix('disclosure__summary')} {
-		@include summary;
-	}
+		summary::-webkit-details-marker {
+			display: none;
+		}
 
-	.#{util.prefix('disclosure__marker')} {
-		@include marker-svg;
-	}
+		summary::marker {
+			display: none;
+			content: '';
+		}
 
-	.#{util.prefix('disclosure__marker.icon--caret-right')} {
-		@include marker-transform(
-			rotate(90deg),
-			rotate(0),
-		);
-	}
+		.#{util.prefix('disclosure')} {
+			@include base;
+		}
 
-	// disable the user agent's marker (triangle/caret)
-	summary::-moz-details-marker,
-	summary::-ms-details-marker,
-	summary::-o-details-marker {
-		display: none;
-	}
+		.#{util.prefix('disclosure__summary')} {
+			@include summary;
+		}
 
-	summary::-webkit-details-marker {
-		display: none;
-	}
+		.#{util.prefix('disclosure__marker')} {
+			@include marker-svg;
+		}
 
-	summary::marker {
-		display: none;
-		content: '';
-	}
+		.#{util.prefix('disclosure__marker.icon--caret-right')} {
+			@include marker-transform(
+				rotate(90deg),
+				rotate(0),
+			);
+		}
 
-	.#{util.prefix('disclosure__contents-outer')} {
-		@include contents-outer;
-	}
+		.#{util.prefix('disclosure__contents-outer')} {
+			@include contents-outer;
+		}
 
-	.#{util.prefix('disclosure__contents-inner')} {
-		@include contents-inner;
-	}
+		.#{util.prefix('disclosure__contents-inner')} {
+			@include contents-inner;
+		}
 
-	.#{util.prefix('disclosure--panel')} {
-		@include panel;
-	}
+		.#{util.prefix('disclosure--panel')} {
+			@include panel;
+		}
 
-	.#{util.prefix('disclosure__marker.icon--chevron-down')} {
-		@include marker-transform(
-			rotate3d(1, 0, 0, 180deg),
-			rotate3d(1, 0, 0, 0),
-		);
+		.#{util.prefix('disclosure__marker.icon--chevron-down')} {
+			@include marker-transform(
+				rotate3d(1, 0, 0, 180deg),
+				rotate3d(1, 0, 0, 0),
+			);
+		}
 	}
 }
