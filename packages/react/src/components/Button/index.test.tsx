@@ -87,8 +87,8 @@ const ChangingContent: React.FunctionComponent = () => {
 	const toggleFavorite = (): void => setFavorite(!favorite);
 
 	const buttonProps: ButtonProps = React.useMemo(() => {
-		if (favorite) return { children: 'Unfavorite', icon: 'favorite' };
-		return { children: 'Favorite', icon: 'favorite-outline' };
+		if (favorite) return { children: 'Unfavorite', icon: 'heart' };
+		return { children: 'Favorite', icon: 'heart-outline' };
 	}, [favorite]);
 
 	return (
