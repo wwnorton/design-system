@@ -118,7 +118,7 @@ $props: map.merge($default-props, $props);
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
 		color: prop(button-color-dark);
-		background-color: mix(#fff, #1a8082, 90%);
+		background-color: prop(button-color-10);
 		border-color: prop(button-color-dark);
 	}
 
