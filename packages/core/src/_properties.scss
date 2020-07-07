@@ -12,9 +12,14 @@
 /// The global map of all CSS custom properties, including non-root properties.
 /// @access private
 $-props: ();
-/// A global map of all CSS :root-level CSS custom properties.
+/// A global map of all `:root` CSS custom properties. Any token in this map
+/// will be globally available on the page.
 /// @access private
 $-root-props: ();
+/// A global map of all tokens that have been set at `:root`. Used to keep track
+/// of when tokens have been overridden.
+/// @access private
+$-set-props: ();
 
 /// Reference a CSS property by name.
 /// @param {String} $name - The name of the CSS property that you'd like to use.
@@ -207,7 +212,14 @@ $-root-props: ();
 }
 
 @mixin -set-one($token, $value) {
-	--#{util.prefix(#{$token})}: #{$value};
+	$current: map.get($-set-props, $token);
+
+	// don't set the prop if it's already set somewhere with the current value
+	@if $value != $current {
+		--#{util.prefix(#{$token})}: #{$value};
+
+		$-set-props: map.merge($-set-props, ($token: $value)) !global;
+	}
 }
 
 @mixin -add-one($key, $value, $root: false) {
