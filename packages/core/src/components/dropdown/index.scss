@@ -1,18 +1,103 @@
-@import './tokens';
-@import './mixins';
+@use 'sass:map';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
 
-.dropdown__label {
-	@include dropdown-label;
+@mixin base {
+	@include set-props(
+		$border-width: 1px,
+		$listbox-shadow: 0 2px 4px 0 rgba(#232323, 0.25),
+		$options-max-display: 5,
+		$option-hover-color: prop('base-20'),
+		$option-hover-focus-color: prop('base-30'),
+		$option-focus-color: prop('primary-20'),
+		$option-padding-y: spacing.rem(0.5),
+		$option-padding-x: spacing.rem(0.75),
+		$option-font-size: 1rem,
+		$option-line-height: prop('line-height-sm'),
+		$option-computed-height: calc(#{prop('option-font-size')} * #{prop('option-line-height')} + #{prop('option-padding-y')} * 2),
+		$option-padding-left: calc(#{prop('option-icon-size')} + #{prop('option-padding-x')}),
+		$option-icon-padding-x: calc(#{prop('option-padding-x') / 2}),
+		$option-icon-size: 1.25em,
+	);
 }
 
-.dropdown__button {
-	@include dropdown-button;
+@mixin button {
+	justify-content: space-between;
+
+	.#{util.prefix('icon')} > path {
+		transition: transform prop('duration-expand') prop('easing-standard');
+		transform: rotate3d(1, 0, 0, 0);
+		transform-origin: center;
+	}
+
+	&[aria-expanded=true] .#{util.prefix('icon')} > path {
+		transform: rotate3d(1, 0, 0, 180deg);
+	}
 }
 
-.dropdown__listbox {
-	@include dropdown-listbox;
+@mixin listbox {
+	z-index: prop(zindex-dropdown);
+	max-height: calc(#{prop('options-max-display')} * #{prop('option-computed-height')} + #{prop('border-width')} * 2);
+	padding: 0;
+	margin: 0;
+	overflow-y: scroll;
+	list-style-type: none;
+	background-color: prop('body-bg');
+	border: prop('border-width') solid prop('base-40');
+	border-radius: prop('radius-base');
+	box-shadow: prop('listbox-shadow');
 }
 
-.dropdown__option {
-	@include dropdown-listbox-option;
+@mixin listbox-option {
+	display: flex;
+	padding-top: prop('option-padding-y');
+	padding-right: prop('option-padding-x');
+	padding-bottom: prop('option-padding-y');
+	padding-left: prop('option-padding-left');
+	font-size: prop('option-font-size');
+	line-height: prop('option-line-height');
+	cursor: default;
+	user-select: none;
+	outline: none;
+	align-items: center;
+
+	&:hover {
+		background-color: prop('option-hover-color');
+	}
+
+	&:focus {
+		background-color: prop('option-focus-color');
+		box-shadow: none;
+	}
+
+	&:hover:focus {
+		background-color: prop('option-hover-focus-color');
+	}
+
+	> .#{util.prefix('icon')} {
+		width: prop('option-icon-size');
+		padding: 0 prop('option-icon-padding-x');
+		margin-left: calc(-1 * #{prop('option-padding-left')});
+	}
+}
+
+@mixin style {
+	@include util.declare('dropdown') {
+		.#{util.prefix('dropdown')} {
+			@include base;
+		}
+
+		.#{util.prefix('dropdown__button')} {
+			@include button;
+		}
+
+		.#{util.prefix('dropdown__listbox')} {
+			@include listbox;
+		}
+
+		.#{util.prefix('dropdown__option')} {
+			@include listbox-option;
+		}
+	}
 }
