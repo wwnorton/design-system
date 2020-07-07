@@ -3,16 +3,15 @@ import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { Options as PopperOptions, Modifier } from '@popperjs/core';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
-import { BaseButton } from '../BaseButton';
-import { Icon } from '../Icon';
+import { FieldInfo, FieldInfoCoreProps } from '../FieldInfo';
+import { Button } from '../Button';
 import { usePopper, prefix } from '../../utilities';
 
 type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 
 export interface DropdownProps
-	extends Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, BaseProps>, Partial<PopperOptions> {
-	/** The dropdown's label. Required. */
-	label: string;
+	extends FieldInfoCoreProps, Partial<PopperOptions>,
+	Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, BaseProps> {
 	/**
 	 * The listbox's options. Each will be rendered inside a `BaseOption`
 	 * component. When specifying an option as a `BaseOptionProps` object,
@@ -42,6 +41,11 @@ export interface DropdownProps
 	 * * `undefined` - not width matching should be done.
 	 */
 	matchWidth?: 'button' | 'listbox';
+	/**
+	 * Set the width of the button. Use when `matchwidth="button"` and the
+	 * button's width is not set with CSS.
+	 */
+	buttonWidth?: string | number;
 	/** The `name` attribute for the internal `<select>`. */
 	name?: HTMLSelectElement['name'];
 
@@ -55,6 +59,11 @@ export interface DropdownProps
 	listboxClass?: string;
 	/** The class name for all listbox options. */
 	optionClass?: string;
+
+	/** An id for the button. */
+	buttonId?: string;
+	/** An id for the listbox. */
+	listboxId?: string;
 
 	/**
 	 * Callback function that is called when the dropdown attempts to close its
@@ -102,18 +111,21 @@ type DropdownType = React.FunctionComponent<DropdownProps> & {
 
 export const Dropdown: DropdownType = ({
 	label,
+	description,
 	isOpen = false,
 	selected: selectedProp = '',
 	buttonContents: contentsProp = 'Select',
 	closeOnExternalClick = true,
 	closeOnDocumentEscape = true,
 	matchWidth,
+	buttonWidth,
 	sort,
 	baseName = prefix('dropdown'),
 	buttonClass = `${baseName}__button`,
 	listboxClass = `${baseName}__listbox`,
 	optionClass = `${baseName}__option`,
-	labelClass = `${baseName}__label`,
+	labelClass,
+	descriptionClass,
 	onRequestClose,
 	onRequestOpen,
 	onChange,
@@ -127,7 +139,11 @@ export const Dropdown: DropdownType = ({
 	strategy,
 	onFirstUpdate,
 	children,
-	id: userId,
+	id: idProp,
+	labelId: labelIdProp,
+	descriptionId: descIdProp,
+	buttonId: buttonIdProp,
+	listboxId: listboxIdProp,
 	disabled,
 	className,
 }: DropdownProps) => {
@@ -139,10 +155,13 @@ export const Dropdown: DropdownType = ({
 	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
 	const [listboxWidth, setListboxWidth] = React.useState<number>();
 	const getListboxWidth = React.useRef(false);
-	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
-	const labelId = `${id}-label`;
-	const currentId = `${id}-current`;
-	const listboxId = `${id}-listbox`;
+
+	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
+	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
+	const { current: buttonId } = React.useRef(buttonIdProp || `${id}-btn`);
+	const { current: listboxId } = React.useRef(listboxIdProp || `${id}-listbox`);
+	const { current: currentId } = React.useRef(`${id}-curr`);
 
 	usePopper({
 		reference: button,
@@ -268,23 +287,33 @@ export const Dropdown: DropdownType = ({
 	}, []);	// eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<div className={classNames(baseName, className)}>
-			<div className={labelClass} id={labelId}>{ label }</div>
-			<BaseButton
-				id={id}
+		<div className={classNames(baseName, className)} id={id}>
+			<FieldInfo
+				label={label}
+				labelClass={labelClass}
+				labelId={labelId}
+				description={description}
+				descriptionClass={descriptionClass}
+				descriptionId={descId}
+			/>
+			<Button
+				id={buttonId}
 				className={buttonClass}
 				disabled={disabled}
-				style={{ width: (matchWidth === 'listbox') ? listboxWidth : undefined }}
+				variant="outline"
+				style={{ width: (matchWidth === 'listbox') ? listboxWidth : buttonWidth }}
+				aria-expanded={(open) ? 'true' : undefined}
 				aria-labelledby={`${labelId} ${currentId}`}
 				aria-haspopup="listbox"
-				aria-controls={listboxId}
+				aria-controls={(open) ? listboxId : undefined}
 				onClick={buttonClickHandler}
 				onKeyDown={buttonKeydownHandler}
 				ref={setButton}
+				icon={(getListboxWidth.current) ? undefined : 'chevron-down'}
+				iconRight
 			>
 				<span id={currentId}>{ buttonContents }</span>
-				{ !getListboxWidth.current && <Icon variant="chevron-down" /> }
-			</BaseButton>
+			</Button>
 			{ open && (
 				<BaseListbox
 					id={listboxId}
