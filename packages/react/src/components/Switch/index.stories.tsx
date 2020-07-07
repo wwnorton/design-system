@@ -36,7 +36,7 @@ export const InitiallyOn: React.FunctionComponent = () => (
 	</div>
 );
 
-export const IconState: React.FunctionComponent = () => {
+export const CustomContent: React.FunctionComponent = () => {
 	const [checked, setChecked] = React.useState(false);
 
 	return (
@@ -47,12 +47,10 @@ export const IconState: React.FunctionComponent = () => {
 				checked={checked}
 				onToggle={action('onToggle')}
 				onClick={(): void => setChecked(!checked)}
-				displayDefault={boolean('Default text', true)}
 				disabled={boolean('Disabled', false)}
 				tipped={boolean('Label with tooltip', false)}
-				style={{ '--nds-switch-font-size': '1rem' }}
 			>
-				<Icon variant={(checked) ? 'check' : 'close'} height="1em" />
+				<Icon variant={(checked) ? 'check' : 'close'} />
 			</Switch>
 		</div>
 	);
@@ -60,31 +58,38 @@ export const IconState: React.FunctionComponent = () => {
 
 export const FullyControlled: React.FunctionComponent = () => {
 	const [checked, setChecked] = React.useState(false);
-	const [desc, setDesc] = React.useState('');
+	const [loading, setLoading] = React.useState(false);
 	const [content, setContent] = React.useState('Nope');
+
 	const toggle = (): void => {
-		const initialDesc = desc;
-		setDesc(`${desc} (updating...)`);
-		setTimeout(() => {
-			setChecked(!checked);
-			setDesc(initialDesc);
-		}, 1000);
+		setChecked(!checked);
+		setLoading(false);
 	};
-	React.useEffect(() => {
-		setContent((checked) ? 'Yep' : 'Nope');
-	}, [checked]);
+
+	// do something async
+	const delayedToggle = (): void => {
+		if (!loading) {
+			setLoading(true);
+			window.setTimeout(toggle, 1000);
+		}
+	};
+
+	React.useEffect(() => setContent((checked) ? 'Yep' : 'Nope'), [checked]);
+
 	return (
-		<Switch
-			label={text('Label', 'Label')}
-			description={desc || text('Description', 'Descriptive text')}
-			checked={checked}
-			onToggle={action('onToggle')}
-			onClick={toggle}
-			displayDefault={boolean('Default text', true)}
-			disabled={boolean('Disabled', false)}
-			tipped={boolean('Label with tooltip', false)}
-		>
-			{ content }
-		</Switch>
+		<>
+			<Switch
+				label={text('Label', 'Asynchronous action')}
+				description={text('Description', 'Do something with a delay')}
+				checked={checked}
+				onToggle={action('onToggle')}
+				onClick={delayedToggle}
+				disabled={loading}
+				tipped={boolean('Label with tooltip', false)}
+			>
+				{ content }
+			</Switch>
+			{ loading && <div>Thinking...</div> }
+		</>
 	);
 };
