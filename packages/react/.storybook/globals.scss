@@ -1,1 +1,4 @@
-@use '~@nds/core/full';
+@use '~@nds/core/full' with (
+	$namespace: null,
+	$css-property-fallback: false,
+);
