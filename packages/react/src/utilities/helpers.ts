@@ -84,9 +84,9 @@ export const mergeRefs = <T>(
 /**
  * Check whether an HTML element has a CSS transition.
  */
-export const hasTransition = (el?: HTMLElement | null): boolean => {
+export const hasTransition = (el?: HTMLElement | null, pseudoEl?: string): boolean => {
 	if (el) {
-		const styles = window.getComputedStyle(el);
+		const styles = window.getComputedStyle(el, pseudoEl);
 		return styles.getPropertyValue('transition-duration')
 			.split(/,\s*/)
 			.some((value) => Number(value.replace('s', '')) > 0);
