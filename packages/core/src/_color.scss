@@ -182,9 +182,15 @@ $warning-grade: 60 !default;
 @include root-color-family('warning', $warning-family, $warning-grade);
 @include root-color-family('disabled', $disabled-family, $disabled-grade);
 @include root-props(
-	$body-bg-color: prop('white'),
-	$body-text-color: prop('base-90'),
-	$focus-ring-color: prop('blue-50'),
+	$scheme-light-bg: prop('white'),
+	$scheme-light-text: prop('base-90'),
+	$scheme-light-muted: prop('base-60'),
+	$scheme-light-focus: prop('blue-50'),
+
+	$body-bg: prop('scheme-light-bg'),
+	$body-text: prop('scheme-light-text'),
+	$focus-ring-color: prop('scheme-light-focus'),
+	$text-muted: prop('scheme-light-muted'),
 );
 
 /// Create a new color family map that references an existing family map.

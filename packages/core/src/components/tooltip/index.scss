@@ -4,8 +4,8 @@
 
 @mixin base {
 	@include set-props(
-		$tooltip-color-bg: prop('body-text-color'),
-		$tooltip-color-text: prop('body-bg-color'),
+		$body-text: prop('scheme-light-bg'),
+		$body-bg: prop('scheme-light-text'),
 		$tooltip-arrow-size: 12px,
 		$tooltip-arrow-border: calc(#{prop('tooltip-arrow-size') / 2}),
 		$tooltip-offset-y: 6px,
@@ -27,8 +27,8 @@
 	max-width: prop('tooltip-max-width');
 	padding: prop('tooltip-padding-y') prop('tooltip-padding-x');
 	line-height: prop('tooltip-line-height');
-	color: prop('tooltip-color-text');
-	background-color: prop('tooltip-color-bg');
+	color: prop('body-text');
+	background-color: prop('body-bg');
 	border-radius: prop('tooltip-radius');
 }
 
@@ -36,7 +36,6 @@
 	position: absolute;
 	width: prop('tooltip-arrow-size');
 	height: prop('tooltip-arrow-size');
-	color: prop('tooltip-color-bg');
 
 	&::before {
 		position: absolute;
@@ -47,7 +46,7 @@
 }
 
 @mixin placement-arrow {
-	background-color: prop('tooltip-color-bg');
+	background-color: prop('body-bg');
 }
 
 @mixin placement-top-arrow {
@@ -97,35 +96,37 @@
 }
 
 @mixin style {
-	.#{util.prefix('tooltip')} {
-		@include base;
-	}
+	@include util.declare('tooltip') {
+		.#{util.prefix('tooltip')} {
+			@include base;
+		}
 
-	.#{util.prefix('tooltip__content')} {
-		@include content;
-	}
+		.#{util.prefix('tooltip__content')} {
+			@include content;
+		}
 
-	.#{util.prefix('tooltip__arrow')} {
-		@include arrow;
-	}
+		.#{util.prefix('tooltip__arrow')} {
+			@include arrow;
+		}
 
-	.#{util.prefix('tooltip')}[data-popper-placement] > #{util.prefix('.tooltip__arrow')} {
-		@include placement-arrow;
-	}
+		.#{util.prefix('tooltip')}[data-popper-placement] > #{util.prefix('.tooltip__arrow')} {
+			@include placement-arrow;
+		}
 
-	.#{util.prefix('tooltip')}[data-popper-placement^='top'] > #{util.prefix('.tooltip__arrow')} {
-		@include placement-top-arrow;
-	}
+		.#{util.prefix('tooltip')}[data-popper-placement^='top'] > #{util.prefix('.tooltip__arrow')} {
+			@include placement-top-arrow;
+		}
 
-	.#{util.prefix('tooltip')}[data-popper-placement^='right'] > #{util.prefix('.tooltip__arrow')} {
-		@include placement-right-arrow;
-	}
+		.#{util.prefix('tooltip')}[data-popper-placement^='right'] > #{util.prefix('.tooltip__arrow')} {
+			@include placement-right-arrow;
+		}
 
-	.#{util.prefix('tooltip')}[data-popper-placement^='bottom'] > #{util.prefix('.tooltip__arrow')} {
-		@include placement-bottom-arrow;
-	}
+		.#{util.prefix('tooltip')}[data-popper-placement^='bottom'] > #{util.prefix('.tooltip__arrow')} {
+			@include placement-bottom-arrow;
+		}
 
-	.#{util.prefix('tooltip')}[data-popper-placement^='left'] > #{util.prefix('.tooltip__arrow')} {
-		@include placement-left-arrow;
+		.#{util.prefix('tooltip')}[data-popper-placement^='left'] > #{util.prefix('.tooltip__arrow')} {
+			@include placement-left-arrow;
+		}
 	}
 }

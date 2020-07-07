@@ -144,12 +144,12 @@ $line-height-heading: $line-height-sm !default;
 
 @mixin heading {
 	margin-top: 0;
-	margin-bottom: spacer-rem(1);
+	margin-bottom: rem(1);
 	font-family: prop(font-family-headings);
 	font-style: prop(font-style-headings);
 	font-weight: prop(font-weight-headings);
 	line-height: prop(line-height-headings);
-	color: prop(body-text-color);
+	color: prop(body-text);
 }
 
 

@@ -77,7 +77,7 @@ $props: map.merge($default-props, $props);
 
 @mixin solid {
 	@include variant(
-		$text-color: prop(body-bg-color),
+		$text-color: prop(body-bg),
 		$background-color: prop(button-color),
 		$border-color: prop(button-color),
 	);
@@ -105,7 +105,7 @@ $props: map.merge($default-props, $props);
 @mixin outline {
 	@include variant(
 		$text-color: prop(button-color),
-		$background-color: prop(body-bg-color),
+		$background-color: prop(body-bg),
 		$border-color: prop(button-color),
 	);
 
@@ -180,35 +180,37 @@ $props: map.merge($default-props, $props);
 }
 
 @mixin style {
-	.#{util.prefix('button')} {
-		@include base;
-	}
+	@include util.declare('button') {
+		.#{util.prefix('button')} {
+			@include base;
+		}
 
-	.#{util.prefix('button--solid')} {
-		@include solid;
-	}
+		.#{util.prefix('button--solid')} {
+			@include solid;
+		}
 
-	.#{util.prefix('button--outline')} {
-		@include outline;
-	}
+		.#{util.prefix('button--outline')} {
+			@include outline;
+		}
 
-	.#{util.prefix('button--ghost')} {
-		@include ghost;
-	}
+		.#{util.prefix('button--ghost')} {
+			@include ghost;
+		}
 
-	.#{util.prefix('button--icon-only')} {
-		@include icon-only;
-	}
+		.#{util.prefix('button--icon-only')} {
+			@include icon-only;
+		}
 
-	.#{util.prefix('button__icon')} {
-		@include icon;
-	}
+		.#{util.prefix('button__icon')} {
+			@include icon;
+		}
 
-	@each $name, $value in color.$families {
-		.#{util.prefix('button--#{$name}')} {
-			@include set-props(util.flatten((
-				'button-color': color.family('button-color', $name),
-			)));
+		@each $name, $value in color.$families {
+			.#{util.prefix('button--#{$name}')} {
+				@include set-props(util.flatten((
+					'button-color': color.family('button-color', $name),
+				)));
+			}
 		}
 	}
 }
