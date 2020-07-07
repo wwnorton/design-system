@@ -1,30 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { BaseButton, BaseButtonProps } from '../BaseButton';
+import { Button, ButtonProps } from '../Button';
+import { FieldInfo, FieldInfoCoreProps } from '../FieldInfo';
 import { Tooltip } from '../Tooltip';
 import { useForwardedRef, prefix } from '../../utilities';
 
-type SwitchBaseProps =
-	| 'children'
-	| 'className'
-	| 'disabled'
-	| 'id'
-	| 'onClick'
-	| 'onBlur'
-	| 'onFocus'
-	| 'onPointerEnter'
-	| 'onPointerLeave'
-export interface SwitchProps extends Pick<BaseButtonProps, SwitchBaseProps> {
-	/** A label for the switch. This should be the name of the thing that the
-	 * switch controls. Required.
-	 */
-	label: string;
+export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
 	/**
-	 * An optional description. Will not be rendered inside the tooltip if
-	 * `tipped` is `false.
-	*/
-	description?: React.ReactNode;
+	 * Children are set inside the Swtich control. Default is 'ON' when `checked`
+	 * and `OFF` when unchecked. Disable default with `displayDefault={false}`.
+	 */
+	children?: React.ReactNode;
 	/** Indicates that the label should be rendered as a tooltip. */
 	tipped?: boolean;
 	/** The switch's initial "on" state. */
@@ -49,6 +36,8 @@ export interface SwitchProps extends Pick<BaseButtonProps, SwitchBaseProps> {
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 	{
 		baseName = prefix('switch'),
+		labelClass,
+		descriptionClass,
 		checked: isChecked = false,
 		hideTooltipDelay,
 		children,
@@ -56,17 +45,24 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 		description,
 		disabled,
 		displayDefault = true,
-		id = uniqueId(`${baseName}-`),
 		label,
 		tipped,
+		id: idProp,
+		labelId: labelIdProp,
+		descriptionId: descIdProp,
 		onClick,
 		onToggle,
 		...attributes
 	}: SwitchProps, ref,
 ) => {
 	const [checked, setChecked] = React.useState(isChecked);
-	const [defaultValue, setDefaultValue] = React.useState('off');
+	const [defaultValue, setDefaultValue] = React.useState('OFF');
 	const [button, setButton] = useForwardedRef(ref);
+
+	// ids stored as refs since they shouldn't change between renders
+	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
+	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
 
 	React.useEffect(() => setChecked(isChecked), [isChecked]);
 
@@ -75,28 +71,28 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 		if (onToggle) onToggle(checked);
 	}, [checked, onToggle]);
 
-	const clickHandler: BaseButtonProps['onClick'] = (e) => {
+	const clickHandler: ButtonProps['onClick'] = (e) => {
 		if (onClick) onClick(e);
 		else setChecked(!checked);
 	};
 
-	// label can either be a <labeL> proper or a tooltip
+	// label can either be a <FieldInfo> or a tooltip
 	const Label = (tipped)
 		? <Tooltip asLabel reference={button} hideDelay={hideTooltipDelay}>{ label }</Tooltip>
 		: (
-			<div className="label-desc">
-				<label
-					htmlFor={id}
-					id={`${id}-label`}
-					className={classNames({ disabled })}
-				>
-					{ label }
-				</label>
-				{ description && <div className="description">{ description }</div> }
-			</div>
+			<FieldInfo
+				htmlFor={id}
+				label={label}
+				labelClass={labelClass}
+				labelId={labelId}
+				description={description}
+				descriptionClass={descriptionClass}
+				descriptionId={descId}
+			/>
 		);
 
-	const buttonProps = (tipped) ? attributes
+	const buttonProps = (tipped)
+		? attributes
 		: {
 			id,
 			'aria-labelledby': `${id}-label`,
@@ -106,7 +102,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 	return (
 		<div className={baseName}>
 			{ Label }
-			<BaseButton
+			<Button
 				aria-checked={(checked) ? 'true' : 'false'}
 				className={classNames(`${baseName}__control`, className)}
 				disabled={disabled}
@@ -115,8 +111,8 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 				role="switch"
 				{...buttonProps}
 			>
-				{ children || (displayDefault && defaultValue) }
-			</BaseButton>
+				{ children || ((displayDefault) ? defaultValue : undefined) }
+			</Button>
 		</div>
 	);
 });
