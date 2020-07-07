@@ -1,9 +1,7 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import {
 	withKnobs, select, boolean, text,
 } from '@storybook/addon-knobs';
-import './index.stories.scss';
 import {
 	IconVariant, SVGIcon, IconOptions, prefix,
 } from '../../utilities';
