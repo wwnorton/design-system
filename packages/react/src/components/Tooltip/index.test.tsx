@@ -4,7 +4,7 @@ import {
 	cleanup, render, fireEvent, screen,
 	queryByRole, queryByText, queryByLabelText,
 } from '@testing-library/react';
-import { Checkbox, CheckboxProps } from '.';
+import { Tooltip } from '.';
 
 test.afterEach(cleanup);
 
