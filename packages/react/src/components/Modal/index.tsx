@@ -222,11 +222,13 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			this.initialFocus.current.focus();
 			onInitialFocus(this.initialFocus.current);
 		}
+		this.modifySiblings(true);
 		document.addEventListener('keydown', this.onDocumentKeydown);
 	}
 
 	private onClose(): void {
 		const { trigger } = this.state;
+		this.modifySiblings(false);
 		document.removeEventListener('keydown', this.onDocumentKeydown);
 		if (trigger) trigger.focus();
 	}
@@ -407,6 +409,30 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		const node = document.createElement('div');
 		node.className = portalClass;
 		return node;
+	}
+
+	/**
+	 * Add `aria-hidden="true"` to all siblings of the modal's portal node to
+	 * ensure that _only_ the modal is visible to screen reader users.
+	 */
+	private modifySiblings(hide: boolean): void {
+		const { mountPoint } = this.props;
+		if (mountPoint) {
+			const dataAttr = 'data-nds-hidden';
+			this.portalNode.removeAttribute('aria-hidden');
+			this.portalNode.removeAttribute(dataAttr);
+			Array.from(mountPoint().children).forEach((child) => {
+				if (child !== this.portalNode) {
+					if (hide) {
+						child.setAttribute('aria-hidden', 'true');
+						child.setAttribute(dataAttr, 'true');
+					} else if (child.hasAttribute(dataAttr)) {
+						child.removeAttribute('aria-hidden');
+						child.removeAttribute(dataAttr);
+					}
+				}
+			});
+		}
 	}
 
 	render(): React.ReactPortal {
