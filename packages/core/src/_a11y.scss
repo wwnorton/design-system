@@ -3,6 +3,7 @@
 ////
 
 @use 'sass:list';
+@use 'motion';
 @use 'util';
 @use 'properties' as *;
 
@@ -65,6 +66,12 @@ $focus-shadow: focus-shadow() !default;
 	z-index: prop('zindex-focus');
 	outline: none;
 	box-shadow: $current-shadows, prop('focus-shadow');
+	transition:
+		motion.transition(
+			prop('duration-simple-enter') prop('easing-standard'),
+			box-shadow,
+			border-radius,
+		);
 
 	&:not(:focus-visible) {
 		@if list.length($current-shadows) > 0 {
