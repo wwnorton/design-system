@@ -1,4 +1,4 @@
-@use 'sass:map';
+@use '../../color';
 @use '../../spacing';
 @use '../../util';
 @use '../../properties' as *;
@@ -23,6 +23,11 @@
 }
 
 @mixin button {
+	@include set-props(util.flatten((
+		'button-color': color.family('button-color', 'base'),
+	)));
+
+	font-weight: prop('font-weight-base');
 	justify-content: space-between;
 
 	.#{util.prefix('icon')} > path {
