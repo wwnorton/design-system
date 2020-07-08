@@ -39,6 +39,13 @@
 	&[aria-expanded=true] .#{util.prefix('icon')} > path {
 		transform: rotate3d(1, 0, 0, 180deg);
 	}
+
+	&:disabled,
+	&.disabled {
+		color: prop('disabled-40');
+		background-color: prop('disabled-20');
+		border-color: prop('disabled-40');
+	}
 }
 
 @mixin listbox {
