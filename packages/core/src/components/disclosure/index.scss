@@ -1,53 +1,48 @@
+@use '../../motion';
 @use '../../spacing';
 @use '../../util';
 @use '../../properties' as *;
 
+$-expand: motion.scale(prop('duration-expand')) prop('easing-standard');
+$-collapse: motion.scale(prop('duration-collapse')) prop('easing-standard');
+$-border: prop('border-width') solid prop('base-40');
+
 @mixin base {
 	@include set-props(
-		$disclosure-expand-duration: prop('duration-expand'),
-		$disclosure-expand-easing: prop('easing-standard'),
-		$disclosure-collapse-duration: prop('duration-collapse'),
-		$disclosure-collapse-easing: prop('easing-standard'),
-		$disclosure-border-width: spacing.px(0),
-		$disclosure-border-radius: prop('radius-base'),
-		$disclosure-padding-y: spacing.rem(0.75),
-		$disclosure-padding-x: spacing.rem(1.5),
-		$disclosure-marker-margin: spacing.rem(0.25),
+		$border-width: spacing.px(0),
+		$border-radius: prop('radius-base'),
+		$padding-y: spacing.rem(0.75),
+		$padding-x: spacing.rem(1.5),
+		$marker-margin: spacing.rem(0.25),
 	);
 
 	position: relative;
 	display: block;
 }
 
-$expand: prop('disclosure-expand-duration') prop('disclosure-expand-easing');
-$collapse: prop('disclosure-collapse-duration') prop('disclosure-collapse-easing');
-$border: prop('disclosure-border-width') solid prop('base-40');
-$padding: util.padding(prop('disclosure-padding-y'), prop('disclosure-border-width'))
-	util.padding(prop('disclosure-padding-x'), prop('disclosure-border-width'));
-
 @mixin summary {
 	position: relative;
 	display: flex;
-	padding: util.padding(prop('disclosure-padding-y'), prop('disclosure-border-width')) 0;
+	padding: util.padding(prop('padding-y'), prop('border-width')) 0;
 	cursor: pointer;
 	align-items: center;
 }
 
 @mixin contents-outer {
 	overflow-y: hidden;
-	transition: height $expand;
+	transition: height $-expand;
 
 	[open] & {
 		box-sizing: content-box;
-		transition: height $collapse;
+		transition: height $-collapse;
 	}
 }
 
 @mixin contents-inner {
 	padding-left:
 		util.padding(
-			calc(#{prop('disclosure-padding-x')} + #{prop('disclosure-marker-margin')}),
-			prop('disclosure-border-width'),
+			calc(#{prop('padding-x')} + #{prop('marker-margin')}),
+			prop('border-width'),
 		);
 
 	:last-child {
@@ -56,62 +51,63 @@ $padding: util.padding(prop('disclosure-padding-y'), prop('disclosure-border-wid
 }
 
 @mixin marker-svg {
-	margin-right: prop('disclosure-marker-margin');
-	margin-left: prop('disclosure-marker-margin');
+	margin-right: prop('marker-margin');
+	margin-left: prop('marker-margin');
 
-	// animate the icon's path to ensure that it doesn't change the box size
-	> path {
-		transition: transform $collapse;
+	details:not(.closed) & {
+		transition: transform $-collapse;
 		transform-origin: center;
 	}
 }
 
 @mixin marker-transform($open-transform, $close-transform) {
-	[open] & > path {
-		transition: transform $collapse;
+	[open] & {
+		transition: transform $-collapse;
 		transform: $open-transform;
 	}
 
-	[open].closing & > path {
-		transition: transform $expand;
+	[open].closing & {
+		transition: transform $-expand;
 		transform: $close-transform;
 	}
 }
 
 @mixin panel {
 	@include set-props(
-		$disclosure-border-width: 1px,
-		$disclosure-padding-y: spacing.rem(1),
-		$disclosure-padding-x: spacing.rem(1),
+		$border-width: 1px,
+		$padding-y: spacing.rem(1),
+		$padding-x: spacing.rem(1),
 	);
 
-	border-radius: prop('disclosure-border-radius');
+	border-radius: prop('border-radius');
 
 	.#{util.prefix('disclosure__summary')} {
-		padding: $padding;
+		padding:
+			util.padding(prop('padding-y'), prop('border-width'))
+			util.padding(prop('padding-x'), prop('border-width'));
 		background-color: prop('base-20');
-		border: $border;
+		border: $-border;
 		border-radius: inherit;
 		justify-content: space-between;
 	}
 
 	&[open] > .#{util.prefix('disclosure__summary')} {
-		border-bottom: $border;
+		border-bottom: $-border;
 		border-bottom-right-radius: 0;
 		border-bottom-left-radius: 0;
 	}
 
 	.#{util.prefix('disclosure__contents-outer')} {
-		border-right: $border;
-		border-bottom: $border;
-		border-left: $border;
+		border-right: $-border;
+		border-bottom: $-border;
+		border-left: $-border;
 		border-bottom-right-radius: inherit;
 		border-bottom-left-radius: inherit;
 	}
 
 	.#{util.prefix('disclosure__contents-inner')} {
-		padding-top: prop('disclosure-padding-y');
-		padding-bottom: util.padding(spacing.rem(1.5), prop('disclosure-border-width'));
+		padding-top: prop('padding-y');
+		padding-bottom: util.padding(spacing.rem(1.5), prop('border-width'));
 	}
 }
 
