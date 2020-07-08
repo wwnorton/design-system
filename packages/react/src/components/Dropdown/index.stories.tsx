@@ -4,7 +4,6 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import { Button } from '../Button';
 import { OnChangeData } from '../BaseListbox';
 import { Dropdown, DropdownProps } from '.';
-import './index.stories.scss';
 
 export default {
 	title: 'Dropdown',
@@ -50,7 +49,7 @@ const sortOptions: Record<string, DropdownProps['sort']> = {
 export const Default: React.FunctionComponent = () => (
 	<Dropdown
 		label="Choose an element"
-		sort={select('Sort', sortOptions, undefined)}
+		sort={select<DropdownProps['sort']>('Sort', sortOptions, undefined)}
 		disabled={boolean('Disabled', false)}
 	>
 		{ options }
@@ -58,7 +57,11 @@ export const Default: React.FunctionComponent = () => (
 );
 
 export const MatchListboxWidth: React.FunctionComponent = () => (
-	<Dropdown label="Choose an element" matchWidth="listbox">
+	<Dropdown
+		label="Choose an element"
+		matchWidth="listbox"
+		disabled={boolean('Disabled', false)}
+	>
 		{ options }
 	</Dropdown>
 );
@@ -67,7 +70,8 @@ export const MatchButtonWidth: React.FunctionComponent = () => (
 	<Dropdown
 		label="Choose an element"
 		matchWidth="button"
-		buttonClass="dropdown__button fixed-width"
+		buttonWidth="12rem"
+		disabled={boolean('Disabled', false)}
 	>
 		{ options }
 	</Dropdown>
@@ -75,7 +79,11 @@ export const MatchButtonWidth: React.FunctionComponent = () => (
 
 export const FlippingPlacement: React.FunctionComponent = () => (
 	<div className="scrollbox">
-		<Dropdown label="Choose an element">
+		<Dropdown
+			label="Choose an element"
+			description="Open the dropdown and then scroll down"
+			disabled={boolean('Disabled', false)}
+		>
 			{ options.map((value, index) => <Dropdown.Option value={index}>{ value }</Dropdown.Option>) }
 		</Dropdown>
 	</div>
@@ -86,7 +94,9 @@ export const ComplexOptions: React.FunctionComponent = () => (
 		label="Select your native fruit"
 		matchWidth="button"
 		buttonClass="dropdown__button fruits"
-		sort={select('Sort', sortOptions, undefined)}
+		sort={select<DropdownProps['sort']>('Sort', sortOptions, undefined)}
+		buttonWidth="6rem"
+		disabled={boolean('Disabled', false)}
 	>
 		<Dropdown.Option value="apple">
 			<span role="img" aria-label="Apple" title="Apple">🍎</span>
@@ -95,13 +105,13 @@ export const ComplexOptions: React.FunctionComponent = () => (
 			<span role="img" aria-label="Peach" title="Peach">🍑</span>
 		</Dropdown.Option>
 		<Dropdown.Option value="pear">
-			<span role="img" aria-label="pear" title="Pear">🍐</span>
+			<span role="img" aria-label="Pear" title="Pear">🍐</span>
 		</Dropdown.Option>
 		<Dropdown.Option value="cherry">
-			<span role="img" aria-label="cherry" title="Cherry">🍒</span>
+			<span role="img" aria-label="Cherry" title="Cherry">🍒</span>
 		</Dropdown.Option>
 		<Dropdown.Option value="orange">
-			<span role="img" aria-label="orange" title="Orange">🍊</span>
+			<span role="img" aria-label="Orange" title="Orange">🍊</span>
 		</Dropdown.Option>
 	</Dropdown>
 );
@@ -123,31 +133,10 @@ export const DifferentChildrenTypes: React.FunctionComponent = () => {
 	);
 };
 
-export const ControlledValue: React.FunctionComponent = () => {
-	const [selected, setSelected] = React.useState<React.ReactText>('Mendelevium');
-	const changeHandler = ({ value }: OnChangeData): void => setSelected(value);
-	const submit = (e: React.FormEvent<HTMLFormElement>): void => {
-		action('onSubmit')(selected);
-		e.preventDefault();
-	};
-	return (
-		<form onSubmit={submit}>
-			<Dropdown
-				className="form-control"
-				label="Choose an element"
-				selected={selected}
-				onChange={changeHandler}
-			>
-				{ options }
-			</Dropdown>
-			<Button type="submit" variant="solid">Submit</Button>
-		</form>
-	);
-};
-
 export const FullyControlled: React.FunctionComponent = () => {
 	const [selected, setSelected] = React.useState<React.ReactText>('Mendelevium');
 	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>('Select something');
+	const [submitted, setSubmitted] = React.useState(false);
 	const [isOpen, setOpen] = React.useState(false);
 	const changeHandler = ({ value, contents }: OnChangeData): void => {
 		setSelected(value);
@@ -157,6 +146,8 @@ export const FullyControlled: React.FunctionComponent = () => {
 	const openHandler = (): void => setOpen(true);
 	const submit = (e: React.FormEvent<HTMLFormElement>): void => {
 		action('onSubmit')(selected);
+		alert(`${selected} submitted!`);	// eslint-disable-line no-alert
+		setSubmitted(true);
 		e.preventDefault();
 	};
 	return (
@@ -167,13 +158,22 @@ export const FullyControlled: React.FunctionComponent = () => {
 				isOpen={isOpen}
 				selected={selected}
 				buttonContents={buttonContents}
+				disabled={submitted}
 				onChange={changeHandler}
 				onRequestClose={closeHandler}
 				onRequestOpen={openHandler}
 			>
 				{ options }
 			</Dropdown>
-			<Button type="submit" variant="solid">Submit</Button>
+			<Button
+				type="submit"
+				variant="solid"
+				disabled={submitted}
+				style={{ marginTop: '1rem' }}
+			>
+				Submit
+
+			</Button>
 		</form>
 	);
 };
