@@ -6,7 +6,6 @@ import { BaseDetails, BaseDetailsProps } from '../BaseDetails';
 import { BaseSummary, BaseSummaryProps } from '../BaseSummary';
 import { Icon } from '../Icon';
 
-export type DisclosureVariant = 'default' | 'panel';
 export type DisclosureAnatomy = 'summary' | 'marker' | 'contentsInner' | 'contentsOuter';
 export type DisclosureLifecycleState = 'open' | 'closed' | 'opening' | 'closing';
 export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCloseEnd' | 'onOpenStart' | 'onOpenCancel' | 'onOpenEnd';
@@ -37,8 +36,11 @@ export interface DisclosureProps extends BaseDetailsProps {
 	markerClass?: string;
 	/** Whether resizing the window should trigger a height calculation update. */
 	updateOnResize?: boolean;
-	/** The variant for the disclosure. */
-	variant?: DisclosureVariant;
+	/**
+	 * The variant for the disclosure. An undefined variant will cause the
+	 * disclosure to look like a standard `<details>`.
+	 */
+	variant?: 'panel';
 	/** Whether to animate the opening/closing of the disclosure. */
 	animate?: boolean;
 	/** A reference to the inner <details> element. */
