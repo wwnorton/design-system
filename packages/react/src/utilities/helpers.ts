@@ -10,9 +10,11 @@ export const isHidden = (el: React.ReactElement, ariaHidden = true): boolean => 
 	if (ariaHidden && (
 		el.props['aria-hidden'] === true || el.props['aria-hidden'] === 'true'
 	)) return true;
-	const { display, visibility } = el.props.style;
-	if (visibility && visibility !== 'visible') return true;
-	if (display === 'none') return true;
+	if ('style' in el.props) {
+		const { display, visibility } = el.props.style;
+		if (visibility && visibility !== 'visible') return true;
+		if (display === 'none') return true;
+	}
 	if (el.props.hidden) return true;
 	return false;
 };
