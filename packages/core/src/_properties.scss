@@ -49,21 +49,20 @@ $-root-props: ();
 	@return var($css-prop);
 }
 
-/// Resolve the value of a prop inside the `$-props` map. Returns `null` if the
-/// value cannot be resolved. To be found, the property must first be added with
-/// either the `root-props` (global) or `props` (local) mixins.
+/// Resolve the value of a prop inside the `$-props` map. To be found, the
+/// property must first be added with either the `root-props` (global) or
+/// `props` (local) mixins.
 /// @param {String} $prop-name - The name of the property you'd like to resolve.
 /// @param {Map} $prop-map [$-props] - The map that contains the value you'd like
 /// to resolve. Default is the global property map, `$-props`.
+/// @return {String | null} - the resolved value or `null` if not found.
 @function get-value($prop-name, $prop-map: $-props) {
-	// @debug 'searching for "#{$prop-name}"';
 	$value: map.get($prop-map, $prop-name);
 
 	@if $value {
 		$var-str: 'var(--';
 
 		@if meta.type-of($value) == 'string' and string.index($value, $var-str) == 1 {
-			// @debug 'var found: #{$value}';
 			$comma-index: string.index($value, ',');
 
 			$end-at: if($comma-index, $comma-index, string.length($value));
@@ -71,8 +70,6 @@ $-root-props: ();
 
 			@return get-value(util.unprefix($var));
 		}
-
-		// @debug 'value found: #{$value}';
 
 		@return $value;
 	}
