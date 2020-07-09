@@ -85,13 +85,6 @@ export interface ModalProps extends BaseDialogProps {
 	 */
 	onRequestClose?: () => void;
 	onOpen?: () => void;
-	onInitialFocus?: (focusedElement: HTMLElement) => void;
-	/**
-	 * Callback function that is called when the user presses `Tab` on the last
-	 * tabbable element or `Shift + Tab` on the first tabbable element. To
-	 * prevent wrapping in either direction, return `false`.
-	 */
-	onRequestFocusWrap?: (prevFocus: typeof document['activeElement'], nextFocus: HTMLElement) => void | boolean;
 
 	headerRef?: React.Ref<HTMLElement>;
 	contentRef?: React.Ref<HTMLElement>;
