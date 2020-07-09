@@ -65,8 +65,11 @@ export const focusableSelectors = [
 ];
 
 export const getFocusable = (
-	from: HTMLElement | Document | ShadowRoot = document,
-): NodeListOf<HTMLElement> => from.querySelectorAll(focusableSelectors.join(','));
+	from: HTMLElement | Document | ShadowRoot | null = document,
+): NodeListOf<HTMLElement> | null => {
+	if (from) return from.querySelectorAll(focusableSelectors.join(','));
+	return null;
+};
 
 export const mergeRefs = <T>(
 	innerRef: React.RefObject<T>,
