@@ -117,6 +117,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		actionBar: 'actionbar',
 	}
 
+	private baseName: string;
 	private getId: ReturnType<typeof idGen>;
 	private titleId: string;
 	private portalNode: HTMLElement;
@@ -135,8 +136,10 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		closeOnEscape: true,
 	}
 
-	constructor({ baseName = prefix(Modal.defaultProps.baseName), ...props }: ModalProps) {
-		super({ baseName, ...props });
+	constructor(props: ModalProps) {
+		super(props);
+
+		this.baseName = props.baseName || prefix(Modal.bemBase);
 		this.getId = idGen(props, `${Modal.bemBase}-`);
 		this.titleId = this.getId(`-${Modal.bemElements.title}`);
 		this.portalNode = this.createPortalNode();
