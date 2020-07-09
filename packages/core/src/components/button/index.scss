@@ -35,10 +35,6 @@ $props: map.merge($default-props, $props);
 	justify-content: center;
 	align-items: center;
 
-	&::-moz-focus-inner {
-		border: 0;
-	}
-
 	&:disabled,
 	&.disabled {
 		color: prop(disabled);
@@ -62,17 +58,9 @@ $props: map.merge($default-props, $props);
 			color,
 			background-color,
 			border-color,
+			border-radius,
 			box-shadow,
 		);
-
-	&:focus,
-	.focus {
-		@include a11y.focus-indicator;
-	}
-
-	&:-moz-focusring {
-		box-shadow: none !important;
-	}
 }
 
 @mixin solid {
@@ -212,5 +200,17 @@ $props: map.merge($default-props, $props);
 				)));
 			}
 		}
+
+		// .#{util.prefix('button--primary')} {
+		// 	@include set-props(util.flatten((
+		// 		'button-color': color.family('button-color', 'primary'),
+		// 	)));
+		// }
+
+		// .#{util.prefix('button--base')} {
+		// 	@include set-props(util.flatten((
+		// 		'button-color': color.family('button-color', 'base'),
+		// 	)));
+		// }
 	}
 }
