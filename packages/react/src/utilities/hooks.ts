@@ -212,6 +212,7 @@ export const useTriggers = ({
 		}
 
 		return (): void => {
+			clearTimer();
 			if (reference && (reference instanceof HTMLElement || reference instanceof SVGElement)) {
 				// click
 				reference.removeEventListener('click', toggle);
