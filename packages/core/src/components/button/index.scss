@@ -9,12 +9,12 @@
 
 $default-props: (
 	'button-color': color.family('button-color', 'primary', color.$primary-grade),
-	'button-border-width': 1px,
-	'button-padding-x': spacing.px-rem(12),
-	'button-padding-y': spacing.px-rem(8),
-	'button-border-radius': prop('radius-base'),
-	'button-font-weight': prop(font-weight-bold),
-	'button-transition': prop(duration-simple) prop(easing-standard),
+	'border-width': 1px,
+	'padding-x': spacing.px-rem(12),
+	'padding-y': spacing.px-rem(8),
+	'border-radius': prop('radius-base'),
+	'font-weight': prop('font-weight-bold'),
+	'transition': prop('duration-simple') prop('easing-standard'),
 );
 
 $props: () !default;
@@ -27,17 +27,15 @@ $props: map.merge($default-props, $props);
 	position: relative;
 	display: inline-flex;
 	box-sizing: border-box;
-	padding:
-		util.padding(prop(button-padding-y), prop(button-border-width))
-		util.padding(prop(button-padding-x), prop(button-border-width));
-	border: prop(button-border-width) solid transparent;
-	border-radius: prop(button-border-radius);
+	padding: spacing.padding-y() spacing.padding-x();
+	border: prop('border-width') solid transparent;
+	border-radius: prop('border-radius');
 	justify-content: center;
 	align-items: center;
 
 	&:disabled,
 	&.disabled {
-		color: prop(disabled);
+		color: prop('disabled');
 		pointer-events: none;
 	}
 }
@@ -47,14 +45,14 @@ $props: map.merge($default-props, $props);
 	$background-color: null,
 	$border-color: null,
 ) {
-	font-weight: prop(button-font-weight);
+	font-weight: prop('font-weight');
 	color: $text-color;
 	cursor: pointer;
 	background-color: $background-color;
 	border-color: $border-color;
 	transition:
 		motion.transition(
-			prop(button-transition),
+			prop('transition'),
 			color,
 			background-color,
 			border-color,
@@ -65,88 +63,88 @@ $props: map.merge($default-props, $props);
 
 @mixin solid {
 	@include variant(
-		$text-color: prop(body-bg),
-		$background-color: prop(button-color),
-		$border-color: prop(button-color),
+		$text-color: prop('body-bg'),
+		$background-color: prop('button-color'),
+		$border-color: prop('button-color'),
 	);
 
 	&:disabled,
 	&.disabled {
-		color: prop(disabled-dark);
-		background-color: prop(disabled-light);
-		border-color: prop(disabled-light);
+		color: prop('disabled-dark');
+		background-color: prop('disabled-light');
+		border-color: prop('disabled-light');
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		background-color: prop(button-color-dark);
-		border-color: prop(button-color-dark);
+		background-color: prop('button-color-dark');
+		border-color: prop('button-color-dark');
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		background-color: prop(button-color-darker);
-		border-color: prop(button-color-darker);
+		background-color: prop('button-color-darker');
+		border-color: prop('button-color-darker');
 	}
 }
 
 @mixin outline {
 	@include variant(
-		$text-color: prop(button-color),
-		$background-color: prop(body-bg),
-		$border-color: prop(button-color),
+		$text-color: prop('button-color'),
+		$background-color: prop('body-bg'),
+		$border-color: prop('button-color'),
 	);
 
 	&:disabled,
 	&.disabled {
-		color: prop(disabled);
-		border-color: prop(disabled);
+		color: prop('disabled');
+		border-color: prop('disabled');
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		color: prop(button-color-dark);
-		background-color: prop(button-color-10);
-		border-color: prop(button-color-dark);
+		color: prop('button-color-dark');
+		background-color: prop('button-color-10');
+		border-color: prop('button-color-dark');
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		color: prop(button-color-darker);
-		background-color: prop(button-color-20);
-		border-color: prop(button-color-darker);
+		color: prop('button-color-darker');
+		background-color: prop('button-color-20');
+		border-color: prop('button-color-darker');
 	}
 }
 
 @mixin ghost {
 	@include variant(
-		$text-color: prop(button-color),
+		$text-color: prop('button-color'),
 		$background-color: transparent,
 		$border-color: transparent,
 	);
 
 	&:disabled,
 	&.disabled {
-		color: prop(disabled);
+		color: prop('disabled');
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		color: prop(button-color-dark);
-		background-color: prop(button-color-10);
-		border-color: prop(button-color-10);
+		color: prop('button-color-dark');
+		background-color: prop('button-color-10');
+		border-color: prop('button-color-10');
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		color: prop(button-color-darker);
-		background-color: prop(button-color-20);
-		border-color: prop(button-color-20);
+		color: prop('button-color-darker');
+		background-color: prop('button-color-20');
+		border-color: prop('button-color-20');
 	}
 }
 
 @mixin icon-only {
-	padding: util.padding(prop(button-padding-y), prop(button-border-width));
+	padding: spacing.padding-y();
 
 	> :first-child {
 		margin-right: 0 !important;
@@ -203,13 +201,13 @@ $props: map.merge($default-props, $props);
 
 		// .#{util.prefix('button--primary')} {
 		// 	@include set-props(util.flatten((
-		// 		'button-color': color.family('button-color', 'primary'),
+		// 		\$color: color.family('button-color', 'primary'),
 		// 	)));
 		// }
 
 		// .#{util.prefix('button--base')} {
 		// 	@include set-props(util.flatten((
-		// 		'button-color': color.family('button-color', 'base'),
+		// 		\$color: color.family('button-color', 'base'),
 		// 	)));
 		// }
 	}
