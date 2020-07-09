@@ -51,9 +51,9 @@ export interface ModalProps extends BaseDialogProps {
 	/**
 	 * An element that should be focused on open. If none is specified, the first
 	 * focusable element in the Modal will be focused. If none can be found, the
-	 * header will be focused.
+	 * header or content will be focused.
 	 */
-	initialFocusRef?: React.RefObject<HTMLElement>;
+	focusOnOpen?: HTMLElement;
 	/** Indicates whether clicking the backdrop should close the Modal dialog. */
 	closeOnBackdropClick?: boolean;
 	/** Indicates whether `Escape` should close the Modal dialog. */
