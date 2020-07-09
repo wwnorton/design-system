@@ -73,7 +73,7 @@
 
 @mixin header {
 	position: relative;
-	padding: prop('padding-y') prop('padding-x') util.padding(prop('padding-y'), prop('border-width'));
+	padding: prop('padding-y') prop('padding-x') spacing.padding-y();
 	background-color: prop('base-10');
 	border-bottom: prop('border-width') solid prop('base-30');
 	border-top-left-radius: prop('radius-base');
@@ -148,7 +148,7 @@
 
 @mixin actionbar {
 	display: flex;
-	padding: util.padding(prop('padding-y'), prop('border-width')) prop('padding-x') prop('padding-y');
+	padding: spacing.padding-y() prop('padding-x') prop('padding-y');
 	background-color: prop('body-bg');
 	border-top: prop('border-width') solid prop('base-30');
 	border-bottom-right-radius: prop('radius-base');

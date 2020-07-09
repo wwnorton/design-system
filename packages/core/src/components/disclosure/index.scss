@@ -23,7 +23,7 @@ $-border: prop('border-width') solid prop('base-40');
 @mixin summary {
 	position: relative;
 	display: flex;
-	padding: util.padding(prop('padding-y'), prop('border-width')) 0;
+	padding: spacing.padding-y() 0;
 	cursor: pointer;
 	align-items: center;
 }
@@ -39,11 +39,7 @@ $-border: prop('border-width') solid prop('base-40');
 }
 
 @mixin contents-inner {
-	padding-left:
-		util.padding(
-			calc(#{prop('padding-x')} + #{prop('marker-margin')}),
-			prop('border-width'),
-		);
+	padding-left: spacing.padding(calc(#{prop('padding-x')} + #{prop('marker-margin')}));
 
 	:last-child {
 		margin-bottom: 0;
@@ -82,9 +78,7 @@ $-border: prop('border-width') solid prop('base-40');
 	border-radius: prop('border-radius');
 
 	.#{util.prefix('disclosure__summary')} {
-		padding:
-			util.padding(prop('padding-y'), prop('border-width'))
-			util.padding(prop('padding-x'), prop('border-width'));
+		padding: spacing.padding-y() spacing.padding-x();
 		background-color: prop('base-20');
 		border: $-border;
 		border-radius: inherit;
@@ -107,7 +101,7 @@ $-border: prop('border-width') solid prop('base-40');
 
 	.#{util.prefix('disclosure__contents-inner')} {
 		padding-top: prop('padding-y');
-		padding-bottom: util.padding(spacing.rem(1.5), prop('border-width'));
+		padding-bottom: spacing.padding(spacing.rem(1.5));
 	}
 }
 

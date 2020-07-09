@@ -31,6 +31,31 @@
 	@return -spacer(util.rem-px($val), 'rem', 'rem');
 }
 
+/// Padding helper
+/// Ensures that padding fits the design system box model.
+/// @param {String|Number} $padding-length - The desired padding length.
+/// @param {String|Number} $border-width [0] - The desired border width.
+/// @link https://gitlab.com/wwnorton/platform/design-system/-/issues/96 GitLab Issue
+@function padding($padding-length, $border-width: 0) {
+	@if $border-width {
+		@if $border-width == 0 {
+			@return $padding-length;
+		}
+
+		@return calc(#{$padding-length} - #{$border-width});
+	}
+
+	@return $padding-length;
+}
+
+@function padding-x($padding-length: prop('padding-x'), $border-width: prop('border-width')) {
+	@return padding($padding-length, $border-width);
+}
+
+@function padding-y($padding-length: prop('padding-y'), $border-width: prop('border-width')) {
+	@return padding($padding-length, $border-width);
+}
+
 // TOKENS
 
 $base: 4 !default;
