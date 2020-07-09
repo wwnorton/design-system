@@ -29,7 +29,10 @@ export const innerText = (children: React.ReactNode): string => {
 			if (isHidden(child)) return '';
 			return innerText(child.props.children);
 		}
-		return String(child);
+		if (Array.isArray(child)) return innerText(child);
+		if (typeof child === 'number') return child.toString();
+		if (typeof child === 'string') return child;
+		return null;
 	});
 	if (strings) return strings.filter(Boolean).join('');
 	return '';
