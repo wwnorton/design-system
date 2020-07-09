@@ -52,13 +52,14 @@ export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
 	role,
 }) => {
 	const [liveText, setLiveText] = React.useState<React.ReactNode>('');
-	const [shouldRender, setShouldRender] = React.useState(!removeAfter);
+	const [shouldRender, setShouldRender] = React.useState(false);
+	const prevChildren = React.useRef(children);
 	const renderTimeout = React.useRef<number>();
 
 	/** Hide the live region. */
 	const hide = (): void => {
-		setShouldRender(false);
 		setLiveText('');
+		setShouldRender(false);
 	};
 
 	/** Update the live region's contents. */
@@ -78,8 +79,11 @@ export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
 
 	/** Show the live region any time `children` change. */
 	React.useEffect(() => {
-		window.clearTimeout(renderTimeout.current);
-		setShouldRender(Boolean(children));
+		if (children && prevChildren.current !== children) {
+			window.clearTimeout(renderTimeout.current);
+			prevChildren.current = children;
+			setShouldRender(true);
+		}
 	}, [children]);
 
 	const Node = React.useMemo(() => (
@@ -109,3 +113,27 @@ export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
 };
 
 LiveRegion.defaultProps = defaultProps;
+
+/**
+ * Monitor an element for content changes. Returns the element's changed content,
+ * which should be passed to a `LiveRegion` as `children` to ensure that screen
+ * reader users will be notified of the change.
+ */
+export const useContentMonitor = (
+	el: HTMLElement | null,
+	children: React.ReactNode,
+): React.ReactNode => {
+	const [liveText, setLiveText] = React.useState<React.ReactNode>('');
+	const prevChildren = React.useRef(children);
+
+	React.useEffect(() => {
+		if (el && document.activeElement === el) {
+			if (prevChildren.current !== children) {
+				prevChildren.current = children;
+				setLiveText(children);
+			}
+		}
+	}, [children, el]);
+
+	return liveText;
+};

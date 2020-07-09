@@ -6,7 +6,7 @@ import {
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
-import { LiveRegion } from '../LiveRegion';
+import { LiveRegion, useContentMonitor } from '../LiveRegion';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
@@ -68,17 +68,7 @@ export const Button = React.forwardRef((
 		throw new Error(Button.errors.noChildren);
 	}
 	const [button, setButton] = useForwardedRef(ref);
-
-	/**
-	 * Screen readers do not announce changes to button contents, so use a live
-	 * region to ensure that changes are perceivable to screen reader users.
-	 */
-	const [liveText, setLiveText] = React.useState<React.ReactNode>('');
-	React.useEffect(() => {
-		if (button && document.activeElement === button) {
-			setLiveText(children);
-		}
-	}, [children, button]);
+	const liveText = useContentMonitor(button, children);
 
 	const BaseIcon = React.useMemo(() => {
 		if (!icon) return null;
