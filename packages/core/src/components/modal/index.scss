@@ -117,10 +117,11 @@
 	position: absolute;
 	top: 0;
 	right: 0;
+	// TODO: use a token for these rem values
 	transform:
 		translate(
 			calc(-50% + 0.125rem + #{prop('border-width')}),
-			calc(50% - #{prop('padding-y')} / 2 - #{prop('border-width')})
+			calc(50% - 0.5rem - #{prop('border-width')})
 		);
 }
 
