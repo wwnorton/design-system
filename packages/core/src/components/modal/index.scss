@@ -1,0 +1,214 @@
+@use '../../color';
+@use '../../device' as *;
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
+
+@mixin backdrop {
+	// set props on the backdrop since it wraps the modal
+	@include set-props(
+		$border-width: 1px,
+		$backdrop-opacity: 0.6,
+		$padding-y: spacing.rem(1),
+		$padding-x: spacing.rem(2),
+		$offset-y: spacing.px(0),
+	);
+
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow-y: auto;
+	background-color: rgba(0, 0, 0, #{prop('backdrop-opacity')});
+
+	@include media-up('md') {
+		@include set-props(
+			$min-width: unset,
+			$min-height: unset,
+			$max-width: spacing.rem(34.5),
+			$offset-y: spacing.px(20),
+		);
+
+		&:not(.#{util.prefix('modal--long')}) {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
+	@include media-up('lg') {
+		@include set-props(
+			$offset-y: spacing.px(40),
+		);
+	}
+
+	@include media-up('xl') {
+		@include set-props(
+			$offset-y: spacing.px(80),
+		);
+	}
+}
+
+@mixin base {
+	width: prop('width');
+	min-width: prop('min-width');
+	max-width: prop('max-width');
+	min-height: 100%;
+	background-color: prop('body-bg');
+	border-radius: prop('radius-base');
+
+	@include media-up('sm') {
+		min-width: unset;
+		min-height: unset;
+		margin: 0 auto;
+
+		.#{util.prefix('modal--long')} & {
+			margin-top: prop('offset-y');
+			margin-bottom: prop('offset-y');
+			border-radius: 0;
+		}
+	}
+}
+
+@mixin header {
+	position: relative;
+	padding: prop('padding-y') prop('padding-x') util.padding(prop('padding-y'), prop('border-width'));
+	background-color: prop('base-10');
+	border-bottom: prop('border-width') solid prop('base-30');
+	border-top-left-radius: prop('radius-base');
+	border-top-right-radius: prop('radius-base');
+
+	&:focus {
+		box-shadow: unset;
+	}
+
+	[aria-label] > & {
+		background-color: unset;
+		border-bottom: unset;
+	}
+
+	&.#{util.prefix('modal__header--sticky')} {
+		position: sticky;
+		top: -1px;
+	}
+
+	&.#{util.prefix('stuck')} {
+		box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+	}
+
+	.#{util.prefix('modal--long')} & {
+		border-radius: 0;
+	}
+}
+
+@mixin title {
+	padding-right: calc(#{prop('padding-x')} / 2);
+	margin: 0;
+	font-size: prop('font-size-18');
+	line-height: prop('line-height-headings');
+}
+
+@mixin close-btn {
+	@include set-props(util.flatten((
+		'button-color': color.family('button-color', 'base'),
+	)));
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform:
+		translate(
+			calc(-50% + 0.125rem + #{prop('border-width')}),
+			calc(50% - #{prop('padding-y')} / 2 - #{prop('border-width')})
+		);
+}
+
+@mixin content {
+	padding: prop('padding-y') prop('padding-x') calc(#{prop('padding-y')} * 2.5);
+	background-color: prop('body-bg');
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+
+	.#{util.prefix('modal__close')}:first-child & {
+		padding-top: calc(#{prop('padding-y')} * 3.5);
+	}
+
+	&:last-child {
+		border-bottom-right-radius: prop('radius-base');
+		border-bottom-left-radius: prop('radius-base');
+	}
+
+	&:focus {
+		box-shadow: unset;
+	}
+}
+
+@mixin actionbar {
+	display: flex;
+	padding: util.padding(prop('padding-y'), prop('border-width')) prop('padding-x') prop('padding-y');
+	background-color: prop('body-bg');
+	border-top: prop('border-width') solid prop('base-30');
+	border-bottom-right-radius: prop('radius-base');
+	border-bottom-left-radius: prop('radius-base');
+	justify-content: flex-end;
+
+	> * + * {
+		margin-left: spacing.rem(0.5);
+	}
+
+	&.#{util.prefix('modal__actionbar--fixed')} {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: prop('body-bg');
+	}
+
+	.#{util.prefix('modal--long')} & {
+		border-radius: 0;
+	}
+
+	&.#{util.prefix('modal__actionbar--sticky')} {
+		position: sticky;
+		bottom: -1px;
+	}
+
+	&.#{util.prefix('stuck')} {
+		box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+	}
+}
+
+@mixin style {
+	@include util.declare('modal') {
+		.#{util.prefix('modal')} {
+			@include base;
+		}
+
+		.#{util.prefix('modal__backdrop')} {
+			@include backdrop;
+		}
+
+		.#{util.prefix('modal__header')} {
+			@include header;
+		}
+
+		.#{util.prefix('modal__title')} {
+			@include title;
+		}
+
+		.#{util.prefix('modal__close')} {
+			@include close-btn;
+		}
+
+		.#{util.prefix('modal__content')} {
+			@include content;
+		}
+
+		.#{util.prefix('modal__actionbar')} {
+			@include actionbar;
+		}
+	}
+}
