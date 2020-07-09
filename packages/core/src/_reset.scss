@@ -447,6 +447,16 @@ $legend-font-weight: null !default;
 			border-radius: 0;
 		}
 
+		// NDS: override this, as we're using a custom focus ring
+		// Work around a Firefox bug where the transparent `button` background
+		// results in a loss of the default `button` focus styles.
+		// Credit https://github.com/suitcss/base/
+
+		// button:focus {
+		// 	outline: 1px dotted;
+		// 	outline: 5px auto -webkit-focus-ring-color;
+		// }
+
 		// 1. Remove the margin in Firefox and Safari
 
 		input,
