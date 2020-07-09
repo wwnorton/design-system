@@ -37,7 +37,19 @@ export interface ModalProps extends BaseDialogProps {
 	 */
 	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
 	/**
-	 * A ref that should be focused on open. If none is specified, the first
+	 * Indicates whether the header should stick to the top of the screen. Only
+	 * has an effect when the modal's content is longer than the window height
+	 * and the user scrolls enough to move the header above to top of the screen.
+	*/
+	stickyHeader?: boolean;
+	/**
+	 * Indicates whether the footer should stick to the bottom of the screen.
+	 * Only has an effect when the modal's content is longer than the window
+	 * height and the footer is below the bottom of the screen.
+	*/
+	stickyActionBar?: boolean;
+	/**
+	 * An element that should be focused on open. If none is specified, the first
 	 * focusable element in the Modal will be focused. If none can be found, the
 	 * header will be focused.
 	 */
