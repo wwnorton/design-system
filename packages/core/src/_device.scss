@@ -54,8 +54,8 @@ $devices: map.merge(
 /// A media query helper for device sizes. @content will apply to the given size
 /// and up.
 /// @param {String} $size - The device size: xs, sm, md, lg, or xl.
-/// @param {Map} $breakpoints [$breakpoints] - The map of breakpoints to use.
-@mixin media-up($size, $breakpoints: $breakpoints) {
+/// @param {Map} $breakpoints [$devices] - The map of breakpoints to use.
+@mixin media-up($size, $breakpoints: $devices) {
 	$min: map.get($breakpoints, $size);
 
 	@if $min != 0 {
