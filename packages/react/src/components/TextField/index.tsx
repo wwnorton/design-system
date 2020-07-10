@@ -119,13 +119,13 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		type = defaultProps.type,
 		value: valueProp = '',
 
-		// <input> callbacks
+		// event callbacks
 		onChange,
-		// NDS-defined callbacks
 		onCount,
 		onDOMChange,
 		onValidate,
 
+		// everything else
 		...inputProps
 	}: TextFieldProps, ref,
 ) => {
