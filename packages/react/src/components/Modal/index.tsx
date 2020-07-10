@@ -192,6 +192,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		const {
 			isOpen,
 			children,
+			focusOnOpen,
 			portalClass = `${this.baseName}__${Modal.bemElements.portal}`,
 		} = this.props;
 		const { isOpen: stateOpen } = this.state;
@@ -391,9 +392,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	}
 
 	private open = (): void => {
-		const { onOpen = noop } = this.props;
 		this.setState({ isOpen: true, trigger: document.activeElement as HTMLElement });
-		onOpen();
 	}
 
 	public close = (): void => {
