@@ -13,7 +13,7 @@ export const Default: React.FunctionComponent = () => (
 		errors={[
 			text('Error 1', 'Not allowed'),
 			text('Error 2', 'A second error'),
-		]}
+		].filter(Boolean)}
 	>
 		{ text('Additional feedback', 'Assorted additional feedback') }
 	</FieldFeedback>
