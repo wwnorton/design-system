@@ -230,9 +230,7 @@ export const icons: Record<IconVariant, SVGIcon> = {
 	},
 	minus: {
 		fullName: 'Minus',
-		originalName: 'remove',
-		d: 'M19 13H5v-2h14v2z',
-		source: 'https://material.io/resources/icons/?icon=remove&style=baseline',
+		d: 'M2.875 10.375h18v3h-18z',
 		viewBox,
 	},
 	'minus-circle': {
