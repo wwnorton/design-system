@@ -6,16 +6,6 @@
 $-basename: 'switch';
 
 @mixin base {
-	@include set-props(
-		$color-on: prop('primary'),
-		$color-off: prop('base-30'),
-		$font-size: prop('font-size-xs'),
-		$height: spacing.rem(2),
-		$padding-x: spacing.rem(0.5),
-		$thumb-offset: spacing.rem(0.25),
-		$thumb-padding: 2px,
-	);
-
 	display: inline-flex;
 	align-items: start;
 
@@ -30,7 +20,17 @@ $-basename: 'switch';
 
 @mixin control {
 	$-padding-y: calc((#{prop('height')} - #{prop('font-size')}) / 2);
-	$-thumb-size: calc(#{prop('height')} - #{prop('thumb-padding')} * 2);
+	$-thumb-size: calc(#{prop('height')} - #{prop('thumb-margin')} * 2);
+
+	@include set-props(
+		$color-on: prop('primary'),
+		$color-off: prop('base-30'),
+		$font-size: prop('font-size-xs'),
+		$height: spacing.rem(2),
+		$padding-x: spacing.rem(0.5),
+		$thumb-offset: 0.375rem,
+		$thumb-margin: 2px,
+	);
 
 	position: relative;
 	display: inline-flex;
@@ -39,6 +39,7 @@ $-basename: 'switch';
 	box-sizing: border-box;
 	padding: $-padding-y prop('padding-x');
 	font-size: prop('font-size');
+	font-weight: prop('font-weight-bold');
 	line-height: 1;
 	border: 0;
 	border-radius: prop('radius-pill');
@@ -52,7 +53,7 @@ $-basename: 'switch';
 		width: $-thumb-size;
 		height: $-thumb-size;
 		box-sizing: border-box;
-		margin: prop('thumb-padding');
+		margin: prop('thumb-margin');
 		margin-right: auto;
 		cursor: pointer;
 		content: '';
@@ -77,7 +78,7 @@ $-basename: 'switch';
 		justify-content: flex-start;
 
 		&::before {
-			transform: translateX(calc(100% + #{prop('thumb-padding')} * 2 + #{prop('thumb-offset')}));
+			transform: translateX(calc(100% + #{prop('thumb-margin')} * 2 + #{prop('thumb-offset')}));
 		}
 	}
 
