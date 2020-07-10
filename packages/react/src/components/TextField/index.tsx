@@ -69,7 +69,7 @@ const defaultProps: Partial<TextFieldProps> = {
 	counterStart: 25,
 	counter: (
 		{ remaining, max }: TextInputCounterProps,
-	): string => `${remaining}/${max} characters remaining.`,
+	): string => `${remaining}/${max} characters remaining`,
 	type: 'text',
 };
 
