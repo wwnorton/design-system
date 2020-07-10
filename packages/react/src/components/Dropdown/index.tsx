@@ -240,6 +240,11 @@ export const Dropdown: DropdownType = ({
 		}
 	}, [button, listbox, closeOnExternalClick, closeListbox]);
 
+	// close the listbox if the Dropdown is disabled while open
+	React.useEffect(() => {
+		if (disabled) closeListbox(true);
+	}, [disabled, closeListbox]);
+
 	// focus the button when focus should return to it
 	React.useEffect(() => {
 		if (returnFocus && button) button.focus();
