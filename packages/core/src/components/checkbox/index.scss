@@ -38,11 +38,8 @@
 	);
 
 	position: relative;
-	top: prop('border-width');
-	left: prop('border-width');
+	top: calc(#{prop('font-size-base')} * #{prop('line-height-sm')} / 2);
 	display: flex;
-	align-items: center;
-	justify-content: center;
 	width: 1em;
 	height: 1em;
 	margin-right: prop('offset-x');
@@ -57,6 +54,9 @@
 			background-color,
 			border-color,
 		);
+	transform: translateY(-50%);
+	align-items: center;
+	justify-content: center;
 
 	:checked + &,
 	:indeterminate + & {
@@ -87,7 +87,9 @@
 	}
 
 	.disabled:checked + &,
-	:disabled:checked + &, {
+	:disabled:checked + &,
+	.disabled:indeterminate + &,
+	:disabled:indeterminate + & {
 		@include set-props($checkbox-bg: prop('disabled-20'));
 
 		color: prop('body-bg');
@@ -109,7 +111,7 @@
 			@include input;
 		}
 
-		.#{util.prefix('field__control')} {
+		.#{util.prefix('field__control--checkbox')} {
 			@include control;
 		}
 	}

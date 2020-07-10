@@ -99,7 +99,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		className = classNames(baseName, `${baseName}--text`),
 		labelClass,
 		descriptionClass,
-		groupClass = `${baseName}__group`,
+		groupClass = classNames(`${baseName}__group`, `${baseName}__group--text`),
 		inputClass = classNames(`${baseName}__input`, `${baseName}__input--text`),
 		addonClass = `${baseName}__addon`,
 		feedbackClass,

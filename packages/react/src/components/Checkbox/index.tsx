@@ -55,8 +55,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>((
 
 		// classes
 		baseName = prefix('field'),
-		className = classNames(baseName, `${baseName}--checkbox`),
-		controlClass = `${baseName}__control`,
+		className = classNames(`${baseName}__group`, `${baseName}--checkbox`),
+		controlClass = classNames(`${baseName}__control`, `${baseName}__control--checkbox`),
 		descriptionClass,
 		inputClass = classNames(`${baseName}__input`, `${baseName}__input--checkbox`),
 		thumbnailClass = `${baseName}__thumbnail`,

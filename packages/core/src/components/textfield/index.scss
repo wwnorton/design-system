@@ -37,6 +37,50 @@
 	}
 }
 
+@mixin group {
+	@include set-props(
+		$border-color: prop('base-40'),
+		$border-width: 1px,
+		$padding-y: spacing.rem(0.5),
+		$padding-x: spacing.rem(0.75),
+	);
+
+	margin-bottom: spacing.rem(0.25);
+	background-color: prop('body-bg');
+	border-radius: prop('radius-base');
+	flex-wrap: wrap;
+	align-items: stretch;
+
+	> :not(:first-child) {
+		margin-left: -1px;
+		border-left: 0;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	> :not(:last-child) {
+		border-right: 0;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	&:focus-within {
+		@include set-props($border-color: prop('focus-ring-color'));
+		@include a11y.focus-ring-collapse;
+	}
+
+	.#{util.prefix('field--invalid')} & {
+		@include set-props(
+			$border-color: prop('error'),
+			$focus-ring-color: prop('error'),
+		);
+
+		&:focus-within {
+			box-shadow: 0 0 0 1px prop('focus-ring-color');
+		}
+	}
+}
+
 @mixin counter {
 	margin-left: auto;
 	font-size: prop('font-size-sm');
@@ -52,6 +96,10 @@
 
 		.#{util.prefix('field__counter')} {
 			@include counter;
+		}
+
+		.#{util.prefix('field__group--text')} {
+			@include group;
 		}
 	}
 }
