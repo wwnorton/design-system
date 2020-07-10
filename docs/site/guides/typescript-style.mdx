@@ -1,0 +1,91 @@
+---
+name: Typescript Style
+route: /guides/typescript-style
+menu: Guides
+---
+
+# Typescript Style
+
+> A guide for writing clean and pleasing Typescript. Much of the [Javascript Style Guide](/guides/javascript-style) can be applied for Typescript as well.
+
+Inspired by the recommended config in [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
+
+## Recommended Rules
+
+The full rules list can be found in the eslint-plugin [docs](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules)
+
+- Require that member overloads be consecutive
+
+- Disallows awaiting a value that is not a Thenable
+
+- Bans `// @ts-<directive>` comments from being used or requires descriptions after directive
+
+- Bans specific types from being used
+
+- Require explicit return and argument types on exported functions' and classes' public class methods
+
+- Disallow the declaration of empty interfaces
+
+- Disallow usage of the `any` type
+
+- Disallow extra non-null assertion
+
+- Requires Promise-like values to be handled appropriately
+
+- Disallow iterating over an array with a for-in loop
+
+- Disallow the use of `eval()`-like methods
+
+- Disallows explicit type declarations for variables or parameters initialized to a number, string, or boolean
+
+- Enforce valid definition of `new` and `constructor`
+
+- Avoid using promises in places not designed to handle them
+
+- Disallow the use of custom TypeScript modules and namespaces
+
+- Disallows using a non-null assertion after an optional chain expression
+
+- Disallows non-null assertions using the `!` postfix operator
+
+- Disallow aliasing `this`
+
+- Warns if a type assertion does not change the type of an expression
+
+- Disallows assigning any to variables and properties
+
+- Disallows calling an any type value
+
+- Disallows member access on any typed variables
+
+- Disallows returning any from a function
+
+- Disallows the use of require statements except in import statements
+
+- Prefer usage of `as const` over literal type
+
+- Require the use of the `namespace` keyword instead of the `module` keyword to declare custom TypeScript modules
+
+- Enforce that `RegExp#exec` is used instead of `String#matc`h if no global flag is provided
+
+- When adding two variables, operands must both be of type number or of type string
+
+- Enforce template literal expressions to be of string type
+
+- Sets preference level for triple slash directives versus ES6-style import declarations
+
+- Enforces unbound methods are called with their expected scope
+
+## Recommended Extension Rules
+
+The full extension rules table can be found in the eslint-plugin [docs](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/README.md#extension-rules)
+
+- Disallow generic `Array` constructors
+
+- Disallow empty functions
+
+- Disallow unnecessary semicolons
+
+- Disallow unused variables
+
+- Disallow async functions which have no `await` expression
