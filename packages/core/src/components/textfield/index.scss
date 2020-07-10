@@ -45,11 +45,13 @@
 }
 
 @mixin style {
-	.#{util.prefix('field__input')} {
-		@include input;
-	}
+	@include util.declare('textfield') {
+		.#{util.prefix('field__input--text')} {
+			@include input;
+		}
 
-	.#{util.prefix('field__counter')} {
-		@include counter;
+		.#{util.prefix('field__counter')} {
+			@include counter;
+		}
 	}
 }
