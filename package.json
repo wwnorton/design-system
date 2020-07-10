@@ -28,7 +28,7 @@
     "publish": "lerna publish",
     "sassdoc": "sassdoc packages/core/src -d public/sassdoc && npx http-server public/sassdoc",
     "storybook": "lerna exec --scope=@nds/react -- npm run dev:stories",
-    "test": "ava"
+    "test": "ava --serial"
   },
   "husky": {
     "hooks": {
