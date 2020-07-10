@@ -94,11 +94,11 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 
 		// classes
 		baseName = prefix('field'),
-		className = `${baseName} ${baseName}--text`,
+		className = classNames(baseName, `${baseName}--text`),
 		labelClass,
 		descriptionClass,
 		groupClass = `${baseName}__group`,
-		inputClass = `${baseName}__input ${baseName}__input--text`,
+		inputClass = classNames(`${baseName}__input`, `${baseName}__input--text`),
 		addonClass = `${baseName}__addon`,
 		feedbackClass,
 		errorsClass,
