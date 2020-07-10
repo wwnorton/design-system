@@ -78,6 +78,12 @@
 		transition: none;
 	}
 
+	:invalid + & {
+		@include set-props(
+			$checkbox-border: prop('error'),
+		);
+	}
+
 	.disabled + &,
 	:disabled + & {
 		@include set-props(

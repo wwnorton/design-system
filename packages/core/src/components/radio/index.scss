@@ -73,6 +73,13 @@
 		transition: none;
 	}
 
+	:invalid + & {
+		@include set-props(
+			$radio-bg: prop('error'),
+			$radio-border: prop('error'),
+		);
+	}
+
 	.disabled + &,
 	:disabled + & {
 		@include set-props(
