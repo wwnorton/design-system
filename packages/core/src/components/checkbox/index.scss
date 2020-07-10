@@ -1,84 +1,114 @@
-@import './tokens';
-@import './mixins';
-@import '../../globals/scss/mixins/screen-reader';
+@use '../../a11y';
+@use '../../motion';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
 
-.checkbox {
-	@include checkbox-container;
-}
+@mixin checkbox {
+	@include set-props(
+		$offset-x: spacing.rem(0.5),
+	);
 
-.checkbox__error {
-	@include checkbox-error;
-}
+	display: flex;
 
-.checkbox__help {
-	@include checkbox-help;
-}
+	> * {
+		margin-right: prop('offset-x');
+	}
 
-.checkbox__control {
-	@include checkbox-control;
+	> :last-child {
+		margin-right: unset;
+	}
 
-	.icon {
-		display: none;
+	.#{util.prefix('field__desc')} {
+		margin-bottom: unset;
 	}
 }
 
-.checkbox__label {
-	@include checkbox-label;
+@mixin input {
+	@include a11y.sr-only;
 }
 
-.checkbox__thumbnail {
-	@include checkbox-thumbnail;
+@mixin control {
+	@include set-props(
+		$checkbox-bg: prop('body-bg'),
+		$checkbox-border: prop('base'),
+		$checkbox-text: prop('body-bg'),
+		$border-width: 2px,
+		$offset-x: spacing.rem(0.5),
+	);
+
+	position: relative;
+	top: prop('border-width');
+	left: prop('border-width');
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1em;
+	height: 1em;
+	margin-right: prop('offset-x');
+	color: prop('checkbox-text');
+	content: '';
+	background-color: prop('checkbox-bg');
+	border: prop('border-width') solid prop('checkbox-border');
+	border-radius: prop('radius-base');
+	transition:
+		motion.transition(
+			prop('duration-simple') prop('easing-standard'),
+			background-color,
+			border-color,
+		);
+
+	:checked + &,
+	:indeterminate + & {
+		@include set-props(
+			$checkbox-bg: prop('primary'),
+		);
+
+		border-color: transparent;
+	}
+
+	.focus + &,
+	:focus + & {
+		@include a11y.focus-ring;
+
+		transition: none;
+	}
+
+	.disabled + &,
+	:disabled + & {
+		@include set-props(
+			$checkbox-bg: prop('disabled-10'),
+			$checkbox-border: prop('disabled-30'),
+		);
+
+		color: prop('disabled-10');
+		pointer-events: none;
+		border-color: prop('checkbox-border');
+	}
+
+	.disabled:checked + &,
+	:disabled:checked + &, {
+		@include set-props($checkbox-bg: prop('disabled-20'));
+
+		color: prop('body-bg');
+		border-color: transparent;
+	}
+
+	> .icon {
+		transform: scale(1.25);
+	}
 }
 
-.checkbox__input {
-	@include sr-only;
-
-	&[aria-invalid=true] + .checkbox__control {
-		@include checkbox-control-error;
+@mixin style {
+	.#{util.prefix('field--checkbox')} {
+		@include checkbox;
 	}
 
-	&.focus + .checkbox__control,
-	&:focus + .checkbox__control {
-		@include focus-indicator;
+	.#{util.prefix('field__input')}[type='checkbox'] {
+		@include input;
 	}
 
-	&:checked + .checkbox__control {
-		@include checkbox-control-checked;
-	}
-
-	&:checked + .checkbox__control .icon {
-		display: block;
-	}
-
-	&.indeterminate + .checkbox__control,
-	&:indeterminate + .checkbox__control {
-		@include checkbox-control-checked;
-	}
-
-	&.indeterminate + .checkbox__control .icon,
-	&:indeterminate + .checkbox__control .icon {
-		display: block;
-	}
-
-	&:disabled + .checkbox__control,
-	&:disabled:indeterminate + .checkbox__control {
-		border-color: map-get($color-disabled, 20);
-	}
-
-	&:disabled:checked + .checkbox__control,
-	&:disabled:indeterminate + .checkbox__control {
-		background-color: map-get($color-disabled, 20);
-	}
-
-	&:disabled ~ .checkbox__thumbnail,
-	&.disabled ~ .checkbox__thumbnail {
-		opacity: 0.2;
-	}
-
-	&.disabled ~ .checkbox__container,
-	&:disabled ~ .checkbox__container,
-	&.disabled ~ .checkbox__container .checkbox__help,
-	&:disabled ~ .checkbox__container .checkbox__help {
-		color: map-get($color-disabled, 40);
+	.#{util.prefix('field__control')} {
+		@include control;
 	}
 }
