@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { Button, ButtonProps } from '../Button';
-import { FieldInfo, FieldInfoCoreProps } from '../FieldInfo';
+import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Tooltip } from '../Tooltip';
 import { useForwardedRef, prefix } from '../../utilities';
 
