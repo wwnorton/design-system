@@ -156,7 +156,7 @@ export const LoginForm: React.FunctionComponent = () => {
 	};
 
 	return (
-		<form onSubmit={submitHandler} onChange={changeHandler}>
+		<form className="form" onSubmit={submitHandler} onChange={changeHandler}>
 			<TextField
 				type="text"
 				label="Username"
