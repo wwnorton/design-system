@@ -49,11 +49,13 @@ export const WithThumbnail: React.FunctionComponent = () => (
 
 export const SingleCheckboxRequiredForm: React.FunctionComponent = () => (
 	<form className="form" onSubmit={(e): void => { e.preventDefault(); }}>
-		<Checkbox
-			label='Agree'
-			description='I have read the terms and conditions.'
-			required
-		/>
+		<div className="field">
+			<Checkbox
+				label='Agree'
+				description='I have read the terms and conditions.'
+				required
+			/>
+		</div>
 		<Button variant="solid" type="submit">Submit</Button>
 	</form>
 );

@@ -17,7 +17,7 @@ export default {
 export const Default: React.FunctionComponent = () => (
 	<Radio
 		label={text('Label', 'Radio')}
-		help={text('Help', 'Additional information about this radio.')}
+		description={text('Description', 'Additional information about this radio.')}
 		disabled={boolean('Disabled', false)}
 		onChange={action('onChange')}
 	/>
@@ -26,7 +26,7 @@ export const Default: React.FunctionComponent = () => (
 export const WithThumbnail: React.FunctionComponent = () => (
 	<Radio
 		label={text('Label', 'Radio')}
-		help={text('Help', 'Additional information about this radio.')}
+		description={text('Description', 'Additional information about this radio.')}
 		disabled={boolean('Disabled', false)}
 		onChange={action('onChange')}
 		thumbnail={<img src={text('Thumbnail Source', 'https://picsum.photos/64')} alt="" />}
@@ -46,7 +46,7 @@ export const Fieldset: React.FunctionComponent<FieldsetProps> = ({
 		action('onChange')(e);
 	};
 	return (
-		<fieldset>
+		<fieldset className="field">
 			<legend>{ prompt }</legend>
 			{ items.map((item) => (
 				<Radio
@@ -56,7 +56,6 @@ export const Fieldset: React.FunctionComponent<FieldsetProps> = ({
 					name={name}
 					onChange={updateChecked(item)}
 					checked={checked === item}
-					className="group-item"
 				/>
 			)) }
 		</fieldset>
