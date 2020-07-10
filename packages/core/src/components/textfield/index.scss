@@ -1,47 +1,55 @@
-@import './tokens';
-@import './mixins';
+@use '../../a11y';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
 
-/* textfield */
-.textfield {
-	@include textfield();
+@mixin input {
+	padding: spacing.padding-y() spacing.padding-x();
+	background-color: prop('body-bg');
+	border-color: prop('border-color');
+	border-style: solid;
+	border-width: prop('border-width');
+	border-radius: prop('radius-base');
+	caret-color: prop('primary');
+
+	&:-moz-ui-invalid,
+	&:focus {
+		box-shadow: unset;
+	}
+
+	&:disabled,
+	&.disabled {
+		color: prop('disabled-40');
+		background-color: prop('disabled-20');
+		border-color: prop('disabled-40');
+	}
+
+	.#{util.prefix('field--invalid')} & {
+		border-color: prop('error');
+		// caret-color: prop('error');
+	}
+
+	.#{util.prefix('field__group')} > & {
+		position: relative;
+		width: 1%;
+		min-width: 0;
+		flex: 1 1 auto;
+	}
 }
 
-.textfield__label {
-	@include textfield-label();
+@mixin counter {
+	margin-left: auto;
+	font-size: prop('font-size-sm');
+	font-style: italic;
+	color: prop('text-muted');
 }
 
-.textfield__optional {
-	@include textfield-optional();
-}
+@mixin style {
+	.#{util.prefix('field__input')} {
+		@include input;
+	}
 
-.textfield__help {
-	@include textfield-help();
-}
-
-.textfield__input {
-	@include textfield-input();
-}
-
-.textfield__input--focus {
-	@include textfield-input-focus();
-}
-
-.textfield__input--error {
-	@include textfield-input-error();
-}
-
-.textfield__input--disabled {
-	@include textfield-input-disabled();
-}
-
-.textfield__feedback {
-	@include textfield-feedback();
-}
-
-.textfield__error {
-	@include textfield-error();
-}
-
-.textfield__count {
-	@include textfield-count();
+	.#{util.prefix('field__counter')} {
+		@include counter;
+	}
 }
