@@ -7,7 +7,6 @@ import {
 	text,
 	select,
 } from '@storybook/addon-knobs';
-import './index.stories.scss';
 import { TextField, TextFieldType, TextFieldProps } from '.';
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
