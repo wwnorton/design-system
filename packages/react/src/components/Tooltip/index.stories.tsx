@@ -6,7 +6,6 @@ import {
 	boolean,
 } from '@storybook/addon-knobs';
 import { placements } from '@popperjs/core/lib/enums';
-import './index.stories.scss';
 import { Tooltip } from '.';
 import { BasePopper } from '../BasePopper';
 import { Button } from '../Button';
@@ -18,7 +17,7 @@ export default {
 };
 
 export const Default: React.FunctionComponent = () => (
-	<div className="tooltip__story">
+	<div className="centered">
 		<Tooltip isOpen>
 			Tooltips require a
 			{' '}
@@ -32,7 +31,7 @@ export const Default: React.FunctionComponent = () => (
 export const CustomTriggers: React.FunctionComponent = () => {
 	const [ref, setRef] = React.useState<HTMLSpanElement | null>();
 	return (
-		<div className="tooltip__story">
+		<div className="centered">
 			<p>
 				<span role="button" tabIndex={0} ref={setRef}>Lorem ipsum</span>
 				{' '}
@@ -56,7 +55,7 @@ export const Controlled: React.FunctionComponent = () => {
 	const toggle = (): void => setOpen(!isOpen);
 
 	return (
-		<div className="tooltip__story">
+		<div className="centered">
 			<Button variant="solid" ref={setRef} onClick={toggle}>Show tooltip</Button>
 			<Tooltip
 				reference={ref}
@@ -64,11 +63,8 @@ export const Controlled: React.FunctionComponent = () => {
 				trigger='manual'
 				isOpen={isOpen}
 			>
-				This tooltip is triggered manually by a higher-state
-				{' '}
-				<code>isOpen</code>
-				{' '}
-				value.
+				This tooltip is triggered manually and can only be opened/closed
+				by clicking its reference button.
 			</Tooltip>
 		</div>
 	);
@@ -77,7 +73,7 @@ export const Controlled: React.FunctionComponent = () => {
 export const Popper: React.FunctionComponent = () => {
 	const [reference, setReference] = React.useState<HTMLButtonElement | null>();
 	return (
-		<div className="tooltip__story">
+		<div className="centered">
 			<button type="button" ref={setReference}>Reference</button>
 			<BasePopper
 				isOpen={boolean('Open', true)}

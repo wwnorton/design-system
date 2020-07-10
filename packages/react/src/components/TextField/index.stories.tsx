@@ -43,7 +43,7 @@ export const EveryType: React.FunctionComponent = () => {
 	};
 
 	return (
-		<div className="all-fields">
+		<>
 			<TextField type="email" label="Email" {...props} />
 			<TextField type="number" label="Number" {...props} />
 			<TextField type="password" label="Password" {...props} />
@@ -51,7 +51,7 @@ export const EveryType: React.FunctionComponent = () => {
 			<TextField type="tel" label="Telephone" {...props} />
 			<TextField type="text" label="Text" {...props} />
 			<TextField type="url" label="URL" {...props} />
-		</div>
+		</>
 	);
 };
 

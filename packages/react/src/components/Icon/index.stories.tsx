@@ -6,7 +6,6 @@ import {
 	color,
 	text,
 } from '@storybook/addon-knobs';
-import './index.stories.scss';
 import { Icon, IconProps } from '.';
 import { IconOptions } from '../../utilities';
 
