@@ -42,11 +42,11 @@
     ]
   },
   "lint-staged": {
-    "*.{css,sass,scss,html}": [
-      "stylelint --fix"
-    ],
     "!(package-lock)*.{html,xhtml,md,json,yaml,yml}": [
       "prettier --write"
+    ],
+    "*.{css,sass,scss,html}": [
+      "stylelint --fix"
     ],
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix"
@@ -58,12 +58,12 @@
     "maintained node versions"
   ],
   "ava": {
-    "files": [
-      "!**/test/helpers"
-    ],
     "extensions": [
       "ts",
       "tsx"
+    ],
+    "files": [
+      "!**/test/helpers"
     ],
     "require": [
       "ts-node/register/transpile-only",
