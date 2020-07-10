@@ -73,6 +73,7 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		contentsOuter: 'contents-outer',
 	}
 
+	private baseName: string;
 	public detailsRef: React.RefObject<HTMLDetailsElement>;
 	public contentsHeight = 0;
 	public contentsOuter: HTMLDivElement | null = null;
@@ -84,11 +85,12 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		updateOnResize: true,
 	}
 
-	constructor({ baseName = prefix(Disclosure.defaultProps.baseName), ...props }: DisclosureProps) {
-		super({ baseName, ...props });
+	constructor(props: DisclosureProps) {
+		super(props);
 		this.state = {
 			lifecycle: props.open ? 'open' : 'closed',
 		};
+		this.baseName = prefix(Disclosure.defaultProps.baseName);
 		this.detailsRef = props.detailsRef || React.createRef<HTMLDetailsElement>();
 	}
 
@@ -213,11 +215,10 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 
 	private get Summary(): JSX.Element {
 		const {
-			baseName,
 			summary,
 			variant,
-			summaryClass = `${baseName}__${Disclosure.bemElements.summary}`,
-			markerClass = `${baseName}__${Disclosure.bemElements.marker}`,
+			summaryClass = `${this.baseName}__${Disclosure.bemElements.summary}`,
+			markerClass = `${this.baseName}__${Disclosure.bemElements.marker}`,
 		} = this.props;
 		if (React.isValidElement<BaseSummaryProps>(summary)) {
 			return summary;
@@ -323,9 +324,9 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	render(): JSX.Element {
 		const {
 			// classes
-			className, baseName,
-			contentsInnerClass = `${baseName}__${Disclosure.bemElements.contentsInner}`,
-			contentsOuterClass = `${baseName}__${Disclosure.bemElements.contentsOuter}`,
+			className,
+			contentsInnerClass = `${this.baseName}__${Disclosure.bemElements.contentsInner}`,
+			contentsOuterClass = `${this.baseName}__${Disclosure.bemElements.contentsOuter}`,
 			// options
 			variant, animate,
 			// elements
@@ -341,8 +342,8 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		} = this.props;
 		const { height, lifecycle } = this.state;
 		const classes = classNames({
-			[`${baseName}`]: true,
-			[`${baseName}--panel`]: variant === 'panel',
+			[`${this.baseName}`]: true,
+			[`${this.baseName}--panel`]: variant === 'panel',
 			'reduced-motion': !animate,
 			[`${lifecycle}`]: true,
 		}, className);

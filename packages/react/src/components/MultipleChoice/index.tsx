@@ -45,6 +45,7 @@ export class MultipleChoice extends React.Component<MultipleChoiceProps, Multipl
 		prompt: 'prompt',
 	};
 
+	private baseName: string;
 	private uid = uniqueId(`${MultipleChoice.baseName}-`);
 
 	public static defaultProps = {
@@ -54,15 +55,14 @@ export class MultipleChoice extends React.Component<MultipleChoiceProps, Multipl
 		descriptionClass: `${MultipleChoice.baseName}__${MultipleChoice.bemElements.description}`,
 	}
 
-	constructor({
-		baseName = prefix(MultipleChoice.defaultProps.baseName),
-		...props
-	}: MultipleChoiceProps) {
-		super({ baseName, ...props });
+	constructor(props: MultipleChoiceProps) {
+		super(props);
 
 		this.state = {
 			selected: [],
 		};
+
+		this.baseName = props.baseName || prefix(MultipleChoice.baseName);
 	}
 
 	// eslint-disable-next-line react/destructuring-assignment
@@ -71,8 +71,7 @@ export class MultipleChoice extends React.Component<MultipleChoiceProps, Multipl
 
 	private get Description(): JSX.Element | null {
 		const {
-			baseName,
-			descriptionClass = `${baseName}__${MultipleChoice.bemElements.description}`,
+			descriptionClass = `${this.baseName}__${MultipleChoice.bemElements.description}`,
 			description,
 		} = this.props;
 
@@ -83,8 +82,7 @@ export class MultipleChoice extends React.Component<MultipleChoiceProps, Multipl
 
 	private get Choices(): React.ReactFragment | null {
 		const {
-			baseName,
-			choiceClass = `${baseName}__${MultipleChoice.bemElements.choice}`,
+			choiceClass = `${this.baseName}__${MultipleChoice.bemElements.choice}`,
 			children,
 			feedbackOnChoice,
 			multiselect,
@@ -164,15 +162,14 @@ export class MultipleChoice extends React.Component<MultipleChoiceProps, Multipl
 
 	render(): JSX.Element {
 		const {
-			baseName,
 			className,
 			prompt,
-			promptClass = `${baseName}__${MultipleChoice.bemElements.prompt}`,
-			choiceGroupClass = `${baseName}__${MultipleChoice.bemElements.choiceGroup}`,
+			promptClass = `${this.baseName}__${MultipleChoice.bemElements.prompt}`,
+			choiceGroupClass = `${this.baseName}__${MultipleChoice.bemElements.choiceGroup}`,
 		} = this.props;
 
 		return (
-			<fieldset className={classNames(baseName, className)} onChange={this.onChange}>
+			<fieldset className={classNames(this.baseName, className)} onChange={this.onChange}>
 				<legend className={promptClass} id={this.promptId}>{ prompt }</legend>
 				{ this.Description }
 				<div role="group" className={choiceGroupClass} aria-labelledby={this.promptId}>
