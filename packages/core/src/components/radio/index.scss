@@ -1,65 +1,106 @@
-@import './mixins';
+@use '../../a11y';
+@use '../../motion';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
 
-.radio {
-	@include radio-base;
-}
+@mixin radio {
+	@include set-props(
+		$offset-x: spacing.rem(0.5),
+	);
 
-.radio__control {
-	@include radio-control;
-}
+	display: flex;
 
-.radio__container {
-	@include radio-container;
-}
-
-.radio__help {
-	@include radio-help;
-}
-
-.radio__thumbnail {
-	@include radio-thumbnail;
-}
-
-.radio__input {
-	@include sr-only;
-
-	&:disabled + .radio__control {
-		background-color: map-get($color-disabled, 10);
-		border-color: map-get($color-disabled, 30);
+	> * {
+		margin-right: prop('offset-x');
 	}
 
-	&:disabled ~ .radio__thumbnail {
-		opacity: 0.2;
+	> :last-child {
+		margin-right: unset;
 	}
 
-	&:disabled ~ .radio__container,
-	&:disabled ~ .radio__container .radio__help {
-		color: map-get($color-disabled, 40);
-	}
-
-	&.focus + .radio__control,
-	&:focus + .radio__control {
-		@include focus-indicator;
-	}
-
-	&:checked:not([disabled]) + .radio__control {
-		@include radio-checked;
-	}
-
-	&:disabled:checked + .radio__control {
-		box-shadow:
-			(
-				inset 0 0 0 $radio-border-size $white,
-				inset 0 0 0 $radio-check-size map-get($color-disabled, 30),
-			);
-	}
-
-	&.focus:checked + .radio__control,
-	&:focus:checked + .radio__control {
-		@include radio-focus-check;
+	.#{util.prefix('field__desc')} {
+		margin-bottom: unset;
 	}
 }
 
-.radio__label {
-	@include radio-label;
+@mixin input {
+	@include a11y.sr-only;
+}
+
+@mixin control {
+	$-inner-ring: inset 0 0 0 prop('border-width') prop('body-bg');
+
+	@include set-props(
+		$radio-bg: prop('body-bg'),
+		$radio-border: prop('base'),
+		$border-width: 2px,
+		$offset-x: spacing.rem(0.5),
+	);
+
+	position: relative;
+	top: calc(#{prop('font-size-base')} * #{prop('line-height-sm')} / 2);
+	display: flex;
+	width: 1em;
+	height: 1em;
+	margin-right: prop('offset-x');
+	content: '';
+	background-color: prop('radio-bg');
+	border: prop('border-width') solid prop('radio-border');
+	border-radius: 100%;
+	transition: none;
+	transform: translateY(-50%);
+	align-items: center;
+	justify-content: center;
+
+	:checked + & {
+		@include set-props(
+			$radio-bg: prop('primary'),
+		);
+
+		border-color: transparent;
+		box-shadow: $-inner-ring;
+	}
+
+	.focus + &,
+	:focus + & {
+		@include a11y.focus-ring($-inner-ring);
+
+		transition: none;
+	}
+
+	.disabled + &,
+	:disabled + & {
+		@include set-props(
+			$radio-bg: prop('disabled-10'),
+			$radio-border: prop('disabled-20'),
+		);
+
+		pointer-events: none;
+		border-color: prop('radio-border');
+	}
+
+	.disabled:checked + &,
+	:disabled:checked + &, {
+		@include set-props($radio-bg: prop('disabled-20'));
+
+		color: prop('body-bg');
+		border-color: transparent;
+	}
+}
+
+@mixin style {
+	@include util.declare('radio') {
+		.#{util.prefix('field--radio')} {
+			@include radio;
+		}
+
+		.#{util.prefix('field__input')}[type='radio'] {
+			@include input;
+		}
+
+		.#{util.prefix('field__control--radio')} {
+			@include control;
+		}
+	}
 }
