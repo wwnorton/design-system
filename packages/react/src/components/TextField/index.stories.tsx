@@ -47,6 +47,7 @@ export const EveryType: React.FunctionComponent = () => {
 			<TextField type="email" label="Email" {...props} />
 			<TextField type="number" label="Number" {...props} />
 			<TextField type="password" label="Password" {...props} />
+			<TextField type="search" label="Search" {...props} />
 			<TextField type="tel" label="Telephone" {...props} />
 			<TextField type="text" label="Text" {...props} />
 			<TextField type="url" label="URL" {...props} />
