@@ -226,6 +226,13 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		if (prevProps.children !== children) {
 			this.updateLength();
 		}
+
+		// focus the specified element if the modal is open. this will be
+		// triggered _after_ the `onOpen` handler since the ref shouldn't exist
+		// until the modal exists.
+		if (stateOpen && !prevProps.focusOnOpen && focusOnOpen) {
+			focusOnOpen.focus();
+		}
 	}
 
 	componentWillUnmount(): void {
