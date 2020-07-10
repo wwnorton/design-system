@@ -4,9 +4,10 @@ import {
 	cleanup, render, fireEvent, screen,
 	queryByRole, queryByText, queryByLabelText,
 } from '@testing-library/react';
-import { Button, IconButton, ButtonProps } from '.';
+import { Button, IconButton } from '.';
 import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 import { LiveRegion } from '../LiveRegion';
+import { ChangingContent } from './index.stories';
 
 test.afterEach(cleanup);
 
@@ -77,28 +78,9 @@ test('icon-only buttons are labelled by their tooltip when it exists', (t) => {
 	const button = queryByRole(container, 'button');
 
 	fireEvent.pointerEnter(button);
-	t.is(queryByLabelText(container, defaultChildren), button);
+	const labelId = button.getAttribute('aria-labelledby') || button.getAttribute('aria-label');
+	t.is(document.getElementById(labelId).textContent, defaultChildren);
 });
-
-/** TODO: use a single version of this for Storybook & testing */
-const ChangingContent: React.FunctionComponent = () => {
-	const [favorite, setFavorite] = React.useState(false);
-
-	const toggleFavorite = (): void => setFavorite(!favorite);
-
-	const buttonProps: ButtonProps = React.useMemo(() => {
-		if (favorite) return { children: 'Unfavorite', icon: 'heart' };
-		return { children: 'Favorite', icon: 'heart-outline' };
-	}, [favorite]);
-
-	return (
-		<Button
-			variant="solid"
-			onClick={toggleFavorite}
-			{...buttonProps}
-		/>
-	);
-};
 
 // known failure: the live region's contents are removed too quickly for our
 // test to pick them up.
