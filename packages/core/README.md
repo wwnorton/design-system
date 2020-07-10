@@ -43,8 +43,8 @@ Use your configured version of the design system inside your modules or componen
 @include button-style;
 
 .my-custom-button {
-	padding: spacing-px-rem(20);
-	font-family: props('font-family-serif');
+  padding: spacing-px-rem(20);
+  font-family: props("font-family-serif");
 }
 ```
 
@@ -55,7 +55,7 @@ Using the full CSS is one of the easiest ways to use the design system out of th
 This can be done in JavaScript if you are using a build tool that is capable of resolving `@nds/core`, such as Webpack's style-loader.
 
 ```javascript
-import '@nds/core/dist/main.css';
+import "@nds/core/dist/main.css";
 ```
 
 Or, if you just want to embed it in HTML, you can copy the `node_modules/@nds/core/dist/main.css` file to your project and just use it.
@@ -64,13 +64,13 @@ This will eventually be posted to a CDN for easier usage.
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Awesome NDS project</title>
-  <link rel="stylesheet" href="path/to/main.css">
-</head>
-<body>
-  <!-- awesome HTML -->
-</body>
+  <head>
+    <title>Awesome NDS project</title>
+    <link rel="stylesheet" href="path/to/main.css" />
+  </head>
+  <body>
+    <!-- awesome HTML -->
+  </body>
 </html>
 ```
 
