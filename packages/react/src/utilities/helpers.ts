@@ -2,9 +2,6 @@ import React from 'react';
 import uniqueId from 'lodash.uniqueid';
 import { config } from '../config';
 
-/** Generic no-operation function. */
-export const noop = (): void => {};	// eslint-disable-line @typescript-eslint/no-empty-function
-
 /** Test if an element is hidden. By default, this includes `aria-hidden`. */
 export const isHidden = (el: React.ReactElement, ariaHidden = true): boolean => {
 	if (ariaHidden && (

@@ -1,5 +1,4 @@
 import React from 'react';
-import { noop } from '../../utilities';
 import { Button, ButtonProps } from '../Button';
 import { Checkbox, CheckboxProps } from '../Checkbox';
 import { Radio } from '../Radio';
@@ -28,9 +27,6 @@ export class Choice extends React.PureComponent<ChoiceProps> {
 		variant: 'radio',
 		buttonVariant: 'solid',
 		checked: false,
-		onChoice: noop,
-		onChange: noop,
-		onClick: noop,
 	}
 
 	render(): JSX.Element {
@@ -42,9 +38,9 @@ export class Choice extends React.PureComponent<ChoiceProps> {
 			checked,
 			children,
 			label = children || String(value),
-			onChoice = Choice.defaultProps.onChoice,
-			onChange = Choice.defaultProps.onChange,
-			onClick = Choice.defaultProps.onClick,
+			onChoice,
+			onChange,
+			onClick,
 			...attributes
 		} = this.props;
 		// props that are applied to all variants
@@ -55,12 +51,12 @@ export class Choice extends React.PureComponent<ChoiceProps> {
 		};
 
 		const clickHandler: ChoiceProps['onClick'] = (e) => {
-			onChoice(this);
-			onClick(e);
+			if (onChoice) onChoice(this);
+			if (onClick) onClick(e);
 		};
 		const changeHandler: ChoiceProps['onChange'] = (e) => {
-			onChoice(this);
-			onChange(e);
+			if (onChoice) onChoice(this);
+			if (onChange) onChange(e);
 		};
 
 		const buttonProps = {

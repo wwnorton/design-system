@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import {
-	noop, idGen, getFocusable, prefix,
-} from '../../utilities';
+import { idGen, getFocusable, prefix } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton, ButtonProps } from '../Button';
 
@@ -400,8 +398,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	}
 
 	public requestClose = (): void => {
-		const { onRequestClose = noop } = this.props;
-		onRequestClose();
+		const { onRequestClose } = this.props;
+		if (onRequestClose) onRequestClose();
 	}
 
 	private updateLength = (): void => {

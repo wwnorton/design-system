@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { noop, prefix } from '../../utilities';
+import { prefix } from '../../utilities';
 import { Choice, ChoiceProps } from '../Choice';
 
 export interface MultipleChoiceProps extends React.HTMLAttributes<HTMLFieldSetElement> {
@@ -135,7 +135,7 @@ export class MultipleChoice extends React.Component<MultipleChoiceProps, Multipl
 	private choose = async ({ props }: Choice): Promise<void> => {
 		const { value } = props;
 		const {
-			onChoice = noop,
+			onChoice,
 			multiselect,
 		} = this.props;
 		const { selected } = this.state;
@@ -152,7 +152,7 @@ export class MultipleChoice extends React.Component<MultipleChoiceProps, Multipl
 			newVal = [value];
 		}
 		await this.setState({ selected: newVal });
-		onChoice(newVal);
+		if (onChoice) onChoice(newVal);
 	}
 
 	private onChange = (e?: React.FormEvent<HTMLFieldSetElement>): void => {
