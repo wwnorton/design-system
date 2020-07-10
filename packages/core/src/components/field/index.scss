@@ -1,0 +1,195 @@
+@use '../../a11y';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as *;
+
+$field-line-height: prop('line-height-sm');
+
+@mixin base {
+	line-height: $field-line-height;
+}
+
+@mixin label {
+	font-weight: prop('font-weight-bold');
+
+	&:last-child {
+		margin-bottom: spacing.rem(0.25);
+	}
+}
+
+@mixin indicator {
+	font-style: italic;
+	font-weight: prop('font-weight-regular');
+}
+
+@mixin description {
+	margin-bottom: spacing.rem(0.5);
+	font-size: prop('font-size-sm');
+	line-height: prop('line-height-sm');
+	color: prop('text-muted');
+}
+
+@mixin feedback {
+	display: flex;
+	justify-content: space-between;
+}
+
+@mixin errors {
+	padding-left: 1rem;
+	margin: 0;
+	font-size: prop('font-size-sm');
+	font-style: italic;
+	font-weight: prop('font-weight-bold');
+	color: prop('error');
+
+	// when an error is alone, don't display it as a bullet
+	:first-child:last-child {
+		margin-left: -1rem;
+		list-style-type: none;
+	}
+}
+
+@mixin group {
+	@include set-props(
+		$border-color: prop('base-40'),
+		$border-width: 1px,
+		$padding-y: spacing.rem(0.5),
+		$padding-x: spacing.rem(0.75),
+	);
+
+	position: relative;
+	display: flex;
+	width: 100%;
+	margin-bottom: spacing.rem(0.25);
+	background-color: prop('body-bg');
+	border-radius: prop('radius-base');
+	flex-wrap: wrap;
+	align-items: stretch;
+
+	> :not(:first-child) {
+		margin-left: -1px;
+		border-left: 0;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	> :not(:last-child) {
+		border-right: 0;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	&:focus-within {
+		@include set-props($border-color: prop('focus-ring-color'));
+		@include a11y.focus-ring-collapse;
+	}
+
+	.#{util.prefix('field--invalid')} & {
+		@include set-props(
+			$border-color: prop('error'),
+			$focus-ring-color: prop('error'),
+		);
+
+		&:focus-within {
+			box-shadow: 0 0 0 1px prop('focus-ring-color');
+		}
+	}
+}
+
+@mixin addon {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	white-space: nowrap;
+	border-radius: prop('radius-base');
+
+	> * {
+		border-top: 0;
+		border-bottom: 0;
+		border-radius: 0;
+	}
+
+	&:first-child {
+		border-top-left-radius: prop('radius-base');
+		border-bottom-left-radius: prop('radius-base');
+
+		> * {
+			border-left: 0;
+			border-top-left-radius: prop('radius-base');
+			border-bottom-left-radius: prop('radius-base');
+		}
+	}
+
+	&:last-child > * {
+		border-right: 0;
+		border-top-right-radius: prop('radius-base');
+		border-bottom-right-radius: prop('radius-base');
+	}
+
+	.#{util.prefix('field__group')} > & {
+		border: prop('border-width') solid prop('border-color');
+	}
+
+	> .#{util.prefix('icon')} {
+		padding: spacing.padding-y();
+	}
+
+	> .#{util.prefix('button--ghost')}:focus {
+		background-color: prop('button-color-10');
+		box-shadow: unset;
+	}
+}
+
+@mixin style-info {
+	@include util.declare('field-info') {
+		.#{util.prefix('field__label')} {
+			@include label;
+		}
+
+		.#{util.prefix('field__indicator')} {
+			@include indicator;
+		}
+
+		.#{util.prefix('field__desc')} {
+			@include description;
+		}
+	}
+}
+
+@mixin style-feedback {
+	@include util.declare('field-feedback') {
+		.#{util.prefix('field__feedback')} {
+			@include feedback;
+		}
+
+		.#{util.prefix('field__errors')} {
+			@include errors;
+		}
+	}
+}
+
+@mixin style-group {
+	@include util.declare('field-group') {
+		.#{util.prefix('field__group')} {
+			@include group;
+		}
+	}
+
+	@include util.declare('field-addon') {
+		.#{util.prefix('field__addon')} {
+			@include addon;
+		}
+	}
+}
+
+@mixin style {
+	@include style-info;
+	@include style-feedback;
+	@include style-group;
+
+	@include util.declare('field') {
+		.#{util.prefix('field')} {
+			@include base;
+		}
+	}
+}
