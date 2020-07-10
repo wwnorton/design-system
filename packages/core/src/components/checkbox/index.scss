@@ -100,15 +100,17 @@
 }
 
 @mixin style {
-	.#{util.prefix('field--checkbox')} {
-		@include checkbox;
-	}
+	@include util.declare('checkbox') {
+		.#{util.prefix('field--checkbox')} {
+			@include checkbox;
+		}
 
-	.#{util.prefix('field__input')}[type='checkbox'] {
-		@include input;
-	}
+		.#{util.prefix('field__input')}[type='checkbox'] {
+			@include input;
+		}
 
-	.#{util.prefix('field__control')} {
-		@include control;
+		.#{util.prefix('field__control')} {
+			@include control;
+		}
 	}
 }
