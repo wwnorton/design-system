@@ -6,6 +6,7 @@
 $field-line-height: prop('line-height-sm');
 
 @mixin base {
+	margin-bottom: prop('block-spacer-base');
 	line-height: $field-line-height;
 }
 

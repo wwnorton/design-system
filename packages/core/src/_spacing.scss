@@ -72,6 +72,7 @@ $zindex-popover: 1060;
 $zindex-tooltip: 1070;
 
 @include root-props(
+	$block-spacer-base: rem(1),
 	$zindex-focus: $zindex-focus,
 	$zindex-dropdown: $zindex-dropdown,
 	$zindex-sticky: $zindex-sticky,

@@ -16,7 +16,7 @@
 
 // Bootstrap tokens that are only used in the reset
 // TODO: adapt these to NDS props and move them elsewhere
-$paragraph-margin-bottom: rem(1) !default;
+$paragraph-margin-bottom: prop('block-spacer-base') !default;
 $dt-font-weight: prop('font-weight-bold') !default;
 $font-weight-bolder: bolder !default;
 $mark-padding: 0.2em !default;
@@ -36,7 +36,7 @@ $table-cell-padding-y: rem(0.5) !default;
 $table-cell-padding-x: rem(0.5) !default;
 $table-caption-color: prop('text-muted') !default;
 $table-th-font-weight: null !default;
-$legend-margin-bottom: rem(1) !default;
+$legend-margin-bottom: prop('block-spacer-base') !default;
 $legend-font-size: 1.5rem !default;
 $legend-font-weight: null !default;
 
@@ -189,7 +189,7 @@ $legend-font-weight: null !default;
 		// Address
 
 		address {
-			margin-bottom: rem(1);
+			margin-bottom: prop('block-spacer-base');
 			font-style: normal;
 			line-height: inherit;
 		}
@@ -206,7 +206,7 @@ $legend-font-weight: null !default;
 		ul,
 		dl {
 			margin-top: 0;
-			margin-bottom: rem(1);
+			margin-bottom: prop('block-spacer-base');
 		}
 
 		ol ol,
@@ -336,7 +336,7 @@ $legend-font-weight: null !default;
 		pre {
 			display: block;
 			margin-top: 0; // 1
-			margin-bottom: rem(1); // 2
+			margin-bottom: prop('block-spacer-base'); // 2
 			overflow: auto; // 3
 			font-size: $code-font-size;
 			color: $pre-color;

@@ -144,7 +144,7 @@ $line-height-heading: $line-height-sm !default;
 
 @mixin heading {
 	margin-top: 0;
-	margin-bottom: rem(1);
+	margin-bottom: prop('block-spacer-base');
 	font-family: prop(font-family-headings);
 	font-style: prop(font-style-headings);
 	font-weight: prop(font-weight-headings);
