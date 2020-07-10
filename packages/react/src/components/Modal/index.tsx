@@ -5,7 +5,7 @@ import {
 	noop, idGen, getFocusable, prefix,
 } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
-import { Button, IconButton, ButtonProps } from '../Button';
+import { IconButton, ButtonProps } from '../Button';
 
 export type ModalAnatomy =
 	| 'portal'
@@ -29,8 +29,11 @@ export interface ModalProps extends BaseDialogProps {
 	 * accessible to screen reader users.
 	 */
 	hideTitle?: boolean;
-	/** Indicates whether the close button in the top right should be included. */
-	addCloseButton?: boolean;
+	/**
+	 * Indicates that the built-in close button in the top right should not be
+	 * rendered.
+	 */
+	hideCloseButton?: boolean;
 	/**
 	 * A list of actions or React Fragment that will be set inside an action bar
 	 * at the bottom of the Modal dialog.
@@ -78,7 +81,7 @@ export interface ModalProps extends BaseDialogProps {
 	 * will happen under the following conditions:
 	 * * if `closeOnBackdropClick` is `true` and the user clicks the backdrop.
 	 * * if `closeOnEscape` is `true` and the user presses `Escape`.
-	 * * if `addCloseButton` is `true` and the user clicks the close button.
+	 * * if `hideCloseButton` is not `true` and the user clicks the close button.
 	 *
 	 * To close the Modal when `onRequestClose` triggers, simply update the
 	 * `isOpen` prop to `false`.
@@ -142,7 +145,6 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		isOpen: false,
 		mountPoint: (): HTMLElement => document.body,
 		hideTitle: false,
-		addCloseButton: true,
 		closeOnBackdropClick: true,
 		closeOnEscape: true,
 	}
@@ -266,10 +268,10 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 
 	private get CloseButton(): JSX.Element | null {
 		const {
-			addCloseButton,
+			hideCloseButton,
 			closeButtonClass = `${this.baseName}__${Modal.bemElements.closeButton}`,
 		} = this.props;
-		if (!addCloseButton) return null;
+		if (hideCloseButton) return null;
 		return (
 			<IconButton
 				icon="close"
