@@ -1,9 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
-import { FieldInfo, FieldInfoCoreProps } from '../FieldInfo';
-import { FieldAddon } from '../FieldAddon';
-import { FieldFeedback, FieldFeedbackCoreProps } from '../FieldFeedback';
+import {
+	FieldInfo, FieldInfoCoreProps,
+	FieldFeedback, FieldFeedbackCoreProps,
+	FieldAddon,
+} from '../Field';
 import { BaseInput, BaseInputProps } from '../BaseInput';
 import { prefix } from '../../utilities';
 
