@@ -9,7 +9,7 @@ import {
 import { BaseInput, BaseInputProps } from '../BaseInput';
 import { prefix } from '../../utilities';
 
-export type TextFieldType = 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
+export type TextFieldType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
 interface TextInputCounterProps {
 	remaining: number;
