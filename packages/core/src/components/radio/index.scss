@@ -19,6 +19,10 @@
 		margin-right: unset;
 	}
 
+	.#{util.prefix('field__label')} {
+		font-weight: prop('font-weight-regular');
+	}
+
 	.#{util.prefix('field__desc')} {
 		margin-bottom: unset;
 	}
