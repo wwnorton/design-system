@@ -190,6 +190,7 @@ $warning-grade: 60 !default;
 	$body-bg: prop('scheme-light-bg'),
 	$body-text: prop('scheme-light-text'),
 	$focus-ring-color: prop('scheme-light-focus'),
+	$focus-ring-color-inner: prop('body-bg'),
 	$text-muted: prop('scheme-light-muted'),
 );
 
