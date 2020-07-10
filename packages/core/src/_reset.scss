@@ -96,7 +96,7 @@ $legend-font-weight: null !default;
 		// NDS: use the default focus indicator on everything to start.
 
 		*:focus {
-			@include a11y.focus-indicator;
+			@include a11y.focus-ring;
 		}
 
 		// Content grouping
