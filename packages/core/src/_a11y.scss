@@ -7,27 +7,21 @@
 @use 'util';
 @use 'properties' as *;
 
-// FUNCTIONS
-
-/// A box shadow suitable as a focus ring.
-/// @param {String} $color [prop(focus-ring-color)] - The color of the focus ring.
-/// @param {String} $background [prop(body-bg)] - The background color.
-@function focus-shadow(
-	$color: prop(focus-ring-color),
-	$background: prop(body-bg),
-) {
-	@return (
-		0 0 0 1px $background,
-		0 0 0 3px $color,
-	);
-}
-
 // TOKENS
 
-$focus-shadow: focus-shadow() !default;
+/// The default focus shadow has a 2px outer ring and an inner ring that matches
+/// the body's background color by default, giving the illusion of transparency.
+$focus-shadow: (
+	0 0 0 1px prop('focus-ring-color-inner'),
+	0 0 0 3px prop('focus-ring-color'),
+) !default;
+/// A collapsed focus shadow that is meant to be used the focused element
+/// conveys focus through some other mechanism, such as an `<input>`'s caret.
+$focus-shadow-collapse: 0 0 0 1px prop('focus-ring-color');
 
 @include root-props(
 	$focus-shadow: $focus-shadow,
+	$focus-shadow-collapse: $focus-shadow-collapse,
 );
 
 // MIXINS
@@ -60,12 +54,10 @@ $focus-shadow: focus-shadow() !default;
 	border: 0 !important;
 }
 
-/// A box shadow focus indicator.
-/// @param {List[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
-@mixin focus-indicator($current-shadows...) {
+@mixin -focus($shadow, $current-shadows...) {
 	z-index: prop('zindex-focus');
 	outline: none;
-	box-shadow: $current-shadows, prop('focus-shadow');
+	box-shadow: $current-shadows, $shadow;
 	transition:
 		motion.transition(
 			prop('duration-simple-enter') prop('easing-standard'),
@@ -81,4 +73,16 @@ $focus-shadow: focus-shadow() !default;
 			box-shadow: unset;
 		}
 	}
+}
+
+/// A box shadow focus indicator.
+/// @param {List[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
+@mixin focus-ring($current-shadows...) {
+	@include -focus(prop('focus-shadow'), $current-shadows...);
+}
+
+@mixin focus-ring-collapse($current-shadows...) {
+	@include -focus(prop('focus-shadow-collapse'), $current-shadows...);
+
+	border-color: prop('focus-ring-color');
 }
