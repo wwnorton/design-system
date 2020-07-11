@@ -11,3 +11,14 @@
 @forward 'src/a11y' as a11y-*;
 
 @forward 'src/components/button' as button-*;
+@forward 'src/components/checkbox' as checkbox-*;
+@forward 'src/components/disclosure' as disclosure-*;
+@forward 'src/components/dropdown' as dropdown-*;
+@forward 'src/components/field' as field-*;
+@forward 'src/components/icon' as icon-*;
+@forward 'src/components/link' as link-*;
+@forward 'src/components/modal' as modal-*;
+@forward 'src/components/radio' as radio-*;
+@forward 'src/components/switch' as switch-*;
+@forward 'src/components/textfield' as textfield-*;
+@forward 'src/components/tooltip' as tooltip-*;
