@@ -86,7 +86,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		optionalIndicator,
 
 		// anatomy
-		label,
+		children,
 		description,
 		addonBefore,
 		addonAfter,
@@ -202,7 +202,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		<div className={classNames(className, { [invalidClass]: !isValid })} id={id}>
 			<FieldInfo
 				htmlFor={inputId}
-				label={label}
+				label={children}
 				indicator={indicator}
 				labelId={labelId}
 				labelClass={labelClass}
