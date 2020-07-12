@@ -33,7 +33,7 @@ export const CustomTriggers: React.FunctionComponent = () => {
 	return (
 		<div className="centered">
 			<p>
-				<span role="button" tabIndex={0} ref={setRef}>Lorem ipsum</span>
+				<span className="glossref" role="button" tabIndex={0} ref={setRef}>Lorem ipsum</span>
 				{' '}
 				dolor sit amet consectetur adipisicing elit.
 			</p>
