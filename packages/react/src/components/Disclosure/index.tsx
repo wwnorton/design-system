@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
+import isEqual from 'react-fast-compare';
 import { hasTransition, prefix } from '../../utilities';
 import { BaseDetails, BaseDetailsProps } from '../BaseDetails';
 import { BaseSummary, BaseSummaryProps } from '../BaseSummary';
@@ -8,7 +9,7 @@ import { Icon } from '../Icon';
 
 export type DisclosureAnatomy = 'summary' | 'marker' | 'contentsInner' | 'contentsOuter';
 export type DisclosureLifecycleState = 'open' | 'closed' | 'opening' | 'closing';
-export type DisclosureLifecycleMethod = 'onCloseStart' | 'onCloseCancel' | 'onCloseEnd' | 'onOpenStart' | 'onOpenCancel' | 'onOpenEnd';
+export type DisclosureCallbackName = 'onCloseStart' | 'onCloseCancel' | 'onCloseEnd' | 'onOpenStart' | 'onOpenCancel' | 'onOpenEnd';
 export interface DisclosureState {
 	lifecycle: DisclosureLifecycleState;
 	height?: number;
@@ -45,18 +46,38 @@ export interface DisclosureProps extends BaseDetailsProps {
 	animate?: boolean;
 	/** A reference to the inner <details> element. */
 	detailsRef?: React.RefObject<HTMLDetailsElement>;
-	/** Lifecycle method that is triggered when the disclosure begins to close. */
-	onCloseStart?: () => void;
-	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's closing. */
-	onCloseCancel?: () => void;
-	/** Lifecycle method that is triggered when the disclosure has finished closing. */
-	onCloseEnd?: () => void;
-	/** Lifecycle method that is triggered when the disclosure begins to open. */
-	onOpenStart?: () => void;
-	/** Lifecycle method that is triggered when the user clicks on the disclosure as it's opening. */
-	onOpenCancel?: () => void;
-	/** Lifecycle method that is triggered when the disclosure has finished opening. */
-	onOpenEnd?: () => void;
+	/**
+	 * Lifecycle method that is triggered when the disclosure begins to close.
+	 * Returning `false` will prevent the disclosure from beginning to close.
+	 */
+	onCloseStart?: () => boolean | void | Promise<boolean | void>;
+	/**
+	 * Lifecycle method that is triggered when the user clicks on the disclosure
+	 * as it's closing. Returning `false` will cause the disclosure to continue
+	 * closing.
+	 */
+	onCloseCancel?: () => boolean | void | Promise<boolean | void>;
+	/**
+	 * Lifecycle method that is triggered when the disclosure has finished closing.
+	 * Returning `false` will prevent the disclosure from fully closing.
+	 */
+	onCloseEnd?: () => boolean | void | Promise<boolean | void>;
+	/**
+	 * Lifecycle method that is triggered when the disclosure begins to open.
+	 * Returning `false` will prevent the disclosure from beginning to open.
+	 */
+	onOpenStart?: () => boolean | void | Promise<boolean | void>;
+	/**
+	 * Lifecycle method that is triggered when the user clicks on the disclosure
+	 * as it's opening. Returning `false` will cause the disclosure to continue
+	 * opening.
+	 */
+	onOpenCancel?: () => boolean | void | Promise<boolean | void>;
+	/**
+	 * Lifecycle method that is triggered when the disclosure has finished opening.
+	 * Returning `false` will prevent the disclosure from fully opening.
+	 */
+	onOpenEnd?: () => boolean | void | Promise<boolean | void>;
 }
 
 export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureState> {
@@ -101,55 +122,35 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		}
 	}
 
-	componentDidUpdate(prevProps: DisclosureProps, prevState: DisclosureState): void {
+	componentDidUpdate(prevProps: DisclosureProps): void {
 		const {
 			open,
 			animate,
 			detailsRef,
+			children,
+			baseName,
 		} = this.props;
-		const { lifecycle } = this.state;
 		if (detailsRef && detailsRef !== prevProps.detailsRef) {
 			this.detailsRef = detailsRef;
 		}
-		if (lifecycle !== prevState.lifecycle) {
-			switch (`${prevState.lifecycle} -> ${lifecycle}`) {
-				case 'open -> closing':
-					this.closeStart();
-					break;
-				case 'closing -> opening':
-					this.closeCancel();
-					break;
-				case 'closing -> closed':
-					this.closeEnd();
-					break;
-				case 'closed -> opening':
-					this.openStart();
-					break;
-				case 'opening -> closing':
-					this.openCancel();
-					break;
-				case 'opening -> open':
-					this.openEnd();
-					break;
-				case 'open -> closed':
-					this.closeEnd();
-					break;
-				case 'closed -> open':
-					this.openEnd();
-					break;
-				default:
-			}
-		}
+
 		if (prevProps.open && !open) {
 			this.close();
 		} else if (!prevProps.open && open) {
 			this.open();
 		}
+
 		if (prevProps.animate && !animate) {
 			this.reset();
 		} else if (!prevProps.animate && animate) {
 			this.initialize();
 		}
+
+		if (!isEqual(prevProps.children, children)) {
+			this.initialize();
+		}
+
+		if (baseName) this.baseName = baseName;
 	}
 
 	private onWindowresize = debounce(() => {
@@ -178,12 +179,16 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		if (this.shouldAnimate) {
 			switch (lifecycle) {
 				case 'opening':
+					this.openCancel();
+					break;
 				case 'open':
-					this.setState({ lifecycle: 'closing' });
+					this.closeStart();
 					break;
 				case 'closing':
+					this.closeCancel();
+					break;
 				case 'closed':
-					this.setState({ lifecycle: 'opening' });
+					this.openStart();
 					break;
 				default:
 			}
@@ -197,9 +202,9 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	private onTransitionend = (): void => {
 		const { lifecycle } = this.state;
 		if (lifecycle === 'opening') {
-			this.setState({ lifecycle: 'open' });
+			this.openEnd();
 		} else if (lifecycle === 'closing') {
-			this.setState({ lifecycle: 'closed' });
+			this.closeEnd();
 		}
 	}
 
@@ -238,36 +243,40 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		);
 	}
 
-	private closeStart(): void {
-		this.setState({ height: 0 }, () => {
-			this.callLifecycleMethod('onCloseStart');
-		});
+	private async closeStart(): Promise<void> {
+		if (await this.callback('onCloseStart')) {
+			this.setState({ lifecycle: 'closing', height: 0 });
+		}
 	}
 
-	private closeCancel(): void {
-		this.setState({ height: this.contentsHeight }, () => {
-			this.callLifecycleMethod('onCloseCancel');
-		});
+	private async closeCancel(): Promise<void> {
+		if (await this.callback('onCloseCancel')) {
+			this.setState({ lifecycle: 'opening', height: this.contentsHeight });
+		}
 	}
 
-	private closeEnd(): void {
-		this.callLifecycleMethod('onCloseEnd');
+	private async closeEnd(): Promise<void> {
+		if (await this.callback('onCloseEnd')) {
+			this.setState({ lifecycle: 'closed' });
+		}
 	}
 
-	private openStart(): void {
-		this.setState({ height: this.contentsHeight }, () => {
-			this.callLifecycleMethod('onOpenStart');
-		});
+	private async openStart(): Promise<void> {
+		if (await this.callback('onOpenStart')) {
+			this.setState({ lifecycle: 'opening', height: this.contentsHeight });
+		}
 	}
 
-	private openCancel(): void {
-		this.setState({ height: 0 }, () => {
-			this.callLifecycleMethod('onOpenCancel');
-		});
+	private async openCancel(): Promise<void> {
+		if (await this.callback('onOpenCancel')) {
+			this.setState({ lifecycle: 'closing', height: 0 });
+		}
 	}
 
-	private openEnd(): void {
-		this.callLifecycleMethod('onOpenEnd');
+	private async openEnd(): Promise<void> {
+		if (await this.callback('onOpenEnd')) {
+			this.setState({ lifecycle: 'open' });
+		}
 	}
 
 	private open(): void {
@@ -281,9 +290,12 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	private findHeight(): number {
 		const { current: detailsRef } = this.detailsRef;
 		if (detailsRef && this.contentsOuter) {
+			const style = this.contentsOuter.getAttribute('style');
+			this.contentsOuter.removeAttribute('style');
 			if (!this.isOpen) detailsRef.setAttribute('open', 'open');
 			const { clientHeight } = this.contentsOuter;
 			if (!this.isOpen) detailsRef.removeAttribute('open');
+			if (style) this.contentsOuter.setAttribute('style', style);
 			return clientHeight;
 		}
 		return 0;
@@ -316,9 +328,13 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		}
 	}
 
-	private callLifecycleMethod(name: DisclosureLifecycleMethod): void {
+	private async callback(name: DisclosureCallbackName): Promise<boolean> {
 		const { [name]: method } = this.props;
-		if (method) method();
+		if (method) {
+			const methodReturn = await method();
+			if (methodReturn !== undefined) return methodReturn;
+		}
+		return true;
 	}
 
 	render(): JSX.Element {
@@ -335,7 +351,7 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			onCloseStart, onCloseCancel, onCloseEnd,
 			onOpenStart, onOpenCancel, onOpenEnd,
-			detailsRef, summary, summaryClass, updateOnResize, open: propsOpen,
+			baseName, detailsRef, summary, summaryClass, updateOnResize, open: propsOpen,
 			/* eslint-enable */
 			// everything inherited by ReactAttributes & HTML
 			...attributes
@@ -359,7 +375,7 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 			>
 				{ this.Summary }
 				<div
-					style={{ height }}
+					style={(height !== undefined) ? { height } : undefined}
 					className={contentsOuterClass}
 					ref={(el): void => { this.contentsOuter = el; }}
 					onTransitionEnd={this.onTransitionend}
