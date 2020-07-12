@@ -11,8 +11,6 @@ import { prefix } from '../../utilities';
 // INFO
 
 export interface FieldInfoCoreProps {
-	/** The name of the field. Required. */
-	label: string;
 	/**
 	 * An optional description. Use this in place of `placeholder` text or as
 	 * help text for your field control.
@@ -34,6 +32,8 @@ type InfoBaseProps = 'htmlFor' | 'className' | 'children' | 'id';
 export interface FieldInfoProps
 	extends FieldInfoCoreProps, Pick<React.LabelHTMLAttributes<HTMLLabelElement>, InfoBaseProps> {
 	baseName?: string;
+	/** The name of the field. Required. */
+	label: React.ReactNode;
 	/**
 	 * An additional label indicator, displayed as a parenthetical inside the
 	 * label container. For instance, `indicator="required"` would result in
