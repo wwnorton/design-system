@@ -1,6 +1,7 @@
 import React from 'react';
 import {
 	Choice, ChoiceProps,
+	ChoiceField, ChoiceFieldProps,
 } from '../ChoiceField';
 
 
@@ -12,3 +13,13 @@ export type RadioProps = Omit<ChoiceProps, 'type'>;
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 	(props, ref) => <Choice type="radio" ref={ref} {...props} />,
 );
+
+
+// Radio Group
+
+export type RadioGroupProps = Omit<ChoiceFieldProps, 'multiple'>;
+
+/** A group of radio buttons. */
+export const RadioGroup: React.FunctionComponent<RadioGroupProps> = (
+	props,
+) => <ChoiceField multiple={false} {...props} />;
