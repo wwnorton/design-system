@@ -81,6 +81,7 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 
 		// <input> props
 		required,
+		value,
 
 		// event callbacks
 		onChange,
@@ -185,9 +186,9 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 				onChange={changeHandler}
 				onDOMChange={onDOMChange}
 				onValidate={validateHandler}
-				onSubmit={(e) => console.log('onSubmit from choice', e)}
 
 				required={required}
+				value={value}
 				{...inputProps}
 			/>
 			{ Control }
@@ -195,7 +196,7 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 			<FieldInfo
 				indicator={indicator}
 				htmlFor={inputId}
-				label={children}
+				label={children || value}
 				labelClass={labelClass}
 				labelId={labelId}
 				description={description}
