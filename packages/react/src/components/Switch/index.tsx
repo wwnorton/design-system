@@ -7,6 +7,8 @@ import { Tooltip } from '../Tooltip';
 import { useForwardedRef, prefix } from '../../utilities';
 
 export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
+	/** The name of the Switch. Required. */
+	label: React.ReactNode;
 	/**
 	 * Children are set inside the Swtich control. Default is 'ON' when `checked`
 	 * and `OFF` when unchecked. Disable default with `displayDefault={false}`.

@@ -12,6 +12,8 @@ type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 export interface DropdownProps
 	extends FieldInfoCoreProps, Partial<PopperOptions>,
 	Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, BaseProps> {
+	/** The dropdown's name. Required. */
+	label: React.ReactNode;
 	/**
 	 * The listbox's options. Each will be rendered inside a `BaseOption`
 	 * component. When specifying an option as a `BaseOptionProps` object,
