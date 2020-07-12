@@ -101,6 +101,7 @@ $-border: prop('border-width') solid prop('base-40');
 
 	.#{util.prefix('disclosure__contents-inner')} {
 		padding-top: prop('padding-y');
+		padding-right: prop('padding-x');
 		padding-bottom: spacing.padding(spacing.rem(1.5));
 	}
 }
