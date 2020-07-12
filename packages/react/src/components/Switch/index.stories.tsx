@@ -11,7 +11,7 @@ export default {
 };
 
 export const Default: React.FunctionComponent = () => (
-	<div className="tooltip__story">
+	<div className="centered">
 		<Switch
 			label={text('Label', 'Label')}
 			description={text('Description', 'Descriptive text')}
@@ -24,7 +24,7 @@ export const Default: React.FunctionComponent = () => (
 );
 
 export const InitiallyOn: React.FunctionComponent = () => (
-	<div className="tooltip__story">
+	<div className="centered">
 		<Switch
 			label={text('Label', 'Label')}
 			description={text('Description', 'Descriptive text')}
@@ -40,7 +40,7 @@ export const CustomContent: React.FunctionComponent = () => {
 	const [checked, setChecked] = React.useState(false);
 
 	return (
-		<div className="tooltip__story">
+		<div className="centered">
 			<Switch
 				label={text('Label', 'Label')}
 				description={text('Description', 'Descriptive text')}
