@@ -42,6 +42,12 @@ export interface FieldInfoProps
 	indicator?: string | null;
 	/** A className for the indicator `<span>`. */
 	indicatorClass?: string;
+	/**
+	 * The HTML element name for the label. If `htmlFor` is included, this will
+	 * automatically be `label`. If undefined, this will be `div`.
+	 * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
+	 */
+	labelIs?: 'div' | 'label' | 'legend';
 }
 
 /**
@@ -51,6 +57,7 @@ export interface FieldInfoProps
  */
 export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 	label,
+	labelIs,
 	indicator,
 	description,
 	baseName = prefix('field'),
@@ -85,15 +92,26 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 			id: labelId,
 			children: [label, Indicator],
 		};
-		// eslint-disable-next-line jsx-a11y/label-has-associated-control
-		if (htmlFor) return <label {...labelProps} />;
-		return <div {...labelProps} />;
-	}, [label, labelClass, htmlFor, labelId, Indicator]);
+		const LabelTag = (htmlFor) ? 'label' : labelIs || 'div';
+		return <LabelTag {...labelProps} />;
+	}, [label, labelClass, htmlFor, labelId, Indicator, labelIs]);
 
 	const Description = React.useMemo(() => {
-		if (!description) return null;
+		if (labelIs !== 'legend' && !description) return null;
 		return <div className={descriptionClass} id={descriptionId}>{ description }</div>;
-	}, [description, descriptionClass, descriptionId]);
+	}, [labelIs, description, descriptionClass, descriptionId]);
+
+
+	// legend elements cannot be the child of a div so render without the container
+	if (labelIs === 'legend') {
+		return (
+			<>
+				{ Label }
+				{ Description }
+				{ children }
+			</>
+		);
+	}
 
 	return (
 		<div className={classNames(`${baseName}__info`, className)} id={id}>
