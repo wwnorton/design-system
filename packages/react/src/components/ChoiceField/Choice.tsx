@@ -50,7 +50,7 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 	{
 		// options
 		type = 'radio',
-		checked: checkedProp,
+		checked: checkedProp = false,
 		indeterminate: indeterminateProp,
 		optionalIndicator,
 		requiredIndicator,
@@ -150,13 +150,15 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		if (onChange) onChange(e);
-		setChecked(e.currentTarget.checked);
-		setIndeterminate(false);
+		else {
+			setChecked(e.currentTarget.checked);
+			setIndeterminate(false);
+		}
 	};
 
 	const validateHandler = (e: string[]): void => {
 		if (onValidate) onValidate(e);
-		setErrors(e);
+		if (!errorsProp) setErrors(e);
 	};
 
 	const isValid = React.useMemo(() => Boolean(!errors || errors.length === 0), [errors]);

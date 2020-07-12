@@ -1,7 +1,7 @@
 import React from 'react';
 import {
 	useForwardedRef, InputType,
-	ValidatorEntry, ValidationElement, createValidator,
+	ValidatorEntry, ValidationElement, useValidation,
 } from '../../utilities';
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -75,14 +75,12 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
 	React.useEffect(() => setValue(valueProp), [valueProp]);
 
-	const validator = React.useCallback(createValidator(validators), [validators]);
+	const validator = useValidation(validators);
 	const validate = React.useCallback((el: ValidationElement) => {
 		const errs = validator(el);
-		if (errs) {
-			if (onValidate) onValidate(errs);
-			setErrors(errs);
-		}
-	}, [validator, onValidate]);
+		if (onValidate) onValidate(errs);
+		if (!errorsProp) setErrors(errs);
+	}, [validator, onValidate, errorsProp]);
 
 	/**
 	 * React's custom `onChange` event does not match the DOM's but it is where
@@ -90,7 +88,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 	 */
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		if (onChange) onChange(e);
-		setValue(e.currentTarget.value);
+		else setValue(e.currentTarget.value);
 	};
 
 	/**

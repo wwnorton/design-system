@@ -158,7 +158,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		if (onChange) onChange(e);
-		setValue(e.currentTarget.value);
+		else setValue(e.currentTarget.value);
 	};
 
 	const validateHandler = (e: string[]): void => {
