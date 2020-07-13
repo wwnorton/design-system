@@ -32,14 +32,11 @@ export const WithARIALabel: React.FunctionComponent = () => (
 	/>
 );
 
-export const InfoWithDetails: React.FunctionComponent = () => (
+export const WithContent: React.FunctionComponent = () => (
 	<Icon variant="info">
-		Notice: this text is essentially the &quot;alt text&quot; of the icon.
-		Under most circumstances, it is recommended that you use a
-		{' '}
-		<code>ButtonIcon</code>
-		{' '}
-		when you need an icon with a tooltip since icons are not interactive.
+		When an icon has content, its content is used to label the icon and it
+		is rendered as its tooltip. This is effectively the &quot;alt text&quot;
+		of the icon and should never have structured or interactive content.
 	</Icon>
 );
 
