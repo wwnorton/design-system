@@ -251,13 +251,6 @@
 
 // FEEDBACK - a container for errors and other feedback about user input
 
-/// The field feedback container.
-/// Default: `.field__feedback`
-@mixin feedback {
-	display: flex;
-	justify-content: space-between;
-}
-
 /// The field errors list, which should be an unordered list (`ul`).
 /// Default: `.field__errors`
 @mixin errors {
@@ -325,10 +318,6 @@
 /// Field feedback style declaration
 @mixin style-feedback {
 	@include util.declare('field-feedback') {
-		.#{util.prefix('field__feedback')} {
-			@include feedback;
-		}
-
 		.#{util.prefix('field__errors')} {
 			@include errors;
 		}

@@ -79,6 +79,11 @@
 			box-shadow: 0 0 0 1px prop('focus-ring-color');
 		}
 	}
+
+	+ .#{util.prefix('field__feedback')} {
+		display: flex;
+		justify-content: space-between;
+	}
 }
 
 @mixin counter {
