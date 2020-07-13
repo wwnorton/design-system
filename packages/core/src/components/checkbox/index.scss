@@ -4,68 +4,13 @@
 @use '../../util';
 @use '../../properties' as *;
 
-@mixin checkbox {
-	@include set-props(
-		$offset-x: spacing.rem(0.5),
-	);
-
-	display: flex;
-
-	> * {
-		margin-right: prop('offset-x');
-	}
-
-	> :last-child {
-		margin-right: unset;
-	}
-
-	.#{util.prefix('field__label')} {
-		font-weight: prop('font-weight-regular');
-	}
-
-	.#{util.prefix('field__desc')} {
-		margin-bottom: unset;
-	}
-}
-
-@mixin input {
-	@include a11y.sr-only;
-}
-
 @mixin control {
-	@include set-props(
-		$checkbox-bg: prop('body-bg'),
-		$checkbox-border: prop('base'),
-		$checkbox-text: prop('body-bg'),
-		$border-width: 2px,
-		$offset-x: spacing.rem(0.5),
-	);
-
-	position: relative;
-	top: calc(#{prop('font-size-base')} * #{prop('line-height-sm')} / 2);
-	display: flex;
-	width: 1em;
-	height: 1em;
-	margin-right: prop('offset-x');
-	color: prop('checkbox-text');
-	content: '';
-	background-color: prop('checkbox-bg');
-	border: prop('border-width') solid prop('checkbox-border');
-	border-radius: prop('radius-base');
-	transition:
-		motion.transition(
-			prop('duration-simple') prop('easing-standard'),
-			background-color,
-			border-color,
-		);
-	transform: translateY(-50%);
-	align-items: center;
-	justify-content: center;
+	color: prop('body-bg');
 
 	:checked + &,
 	:indeterminate + & {
 		@include set-props(
-			$checkbox-bg: prop('primary'),
+			$bg-color: prop('primary'),
 		);
 
 		border-color: transparent;
@@ -74,26 +19,12 @@
 	.focus + &,
 	:focus + & {
 		@include a11y.focus-ring;
-
-		transition: none;
 	}
 
-	:invalid + & {
+	[aria-invalid='true'] + & {
 		@include set-props(
 			$checkbox-border: prop('error'),
 		);
-	}
-
-	.disabled + &,
-	:disabled + & {
-		@include set-props(
-			$checkbox-bg: prop('disabled-10'),
-			$checkbox-border: prop('disabled-30'),
-		);
-
-		color: prop('disabled-10');
-		pointer-events: none;
-		border-color: prop('checkbox-border');
 	}
 
 	.disabled:checked + &,
@@ -106,21 +37,13 @@
 		border-color: transparent;
 	}
 
-	> .icon {
+	> .#{util.prefix('icon')} {
 		transform: scale(1.25);
 	}
 }
 
 @mixin style {
 	@include util.declare('checkbox') {
-		.#{util.prefix('field--checkbox')} {
-			@include checkbox;
-		}
-
-		.#{util.prefix('field__input')}[type='checkbox'] {
-			@include input;
-		}
-
 		.#{util.prefix('field__control--checkbox')} {
 			@include control;
 		}
