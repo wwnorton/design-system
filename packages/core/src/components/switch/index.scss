@@ -37,7 +37,7 @@ $-basename: 'switch';
 	min-width: calc(#{prop('height')} * 2 + #{prop('thumb-offset')});
 	min-height: prop('height');
 	box-sizing: border-box;
-	padding: $-padding-y prop('padding-x');
+	// padding: $-padding-y prop('padding-x');
 	font-size: prop('font-size');
 	font-weight: prop('font-weight-bold');
 	line-height: 1;
