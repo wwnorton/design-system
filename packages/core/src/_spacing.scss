@@ -7,12 +7,12 @@
 
 @function -spacer($px, $unit-from, $unit-to) {
 	@if $px % $base != 0 {
-		$val: if($unit-from == 'px', #{$px}px, #{util.px-rem($px)}rem);
+		$val: if($unit-from == 'px', #{$px}px, #{util.px2rem($px)}rem);
 
 		@warn '#{$val} is not a valid spacing unit. Spacing units must be a multiple of #{$base}px.';
 	}
 
-	@return if($unit-to == 'px', #{$px}px, #{util.px-rem($px)}rem);
+	@return if($unit-to == 'px', #{$px}px, #{util.px2rem($px)}rem);
 }
 
 @function px-rem($px) {
@@ -20,7 +20,7 @@
 }
 
 @function rem-px($rem) {
-	@return -spacer(util.rem-px($rem), 'rem', 'px');
+	@return -spacer(util.rem2px($rem), 'rem', 'px');
 }
 
 @function px($val) {
@@ -28,7 +28,7 @@
 }
 
 @function rem($val) {
-	@return -spacer(util.rem-px($val), 'rem', 'rem');
+	@return -spacer(util.rem2px($val), 'rem', 'rem');
 }
 
 /// Padding helper

@@ -139,11 +139,11 @@ $-declared: ();
 	@return $value;
 }
 
-@function px-rem($px, $browser-font-size: config.$browser-font-size) {
+@function px2rem($px, $browser-font-size: config.$browser-font-size) {
 	@return $px / $browser-font-size;
 }
 
-@function rem-px($rem, $browser-font-size: config.$browser-font-size) {
+@function rem2px($rem, $browser-font-size: config.$browser-font-size) {
 	@return $rem * $browser-font-size;
 }
 
