@@ -240,3 +240,58 @@ export const useTriggers = ({
 
 	return open;
 };
+
+interface UseSelectReturn {
+	selected: React.ReactText[];
+	setSelected: React.Dispatch<React.SetStateAction<React.ReactText[]>>;
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+/**
+ * Stateful select hook, which returns a "currently selected" array, a setter for
+ * that array, and an `<input>` change handler to use `onChange`. To control
+ * selection, pass a `selected` prop. To make the selection multi-select, set
+ * the `multiple` prop to `true`.
+ */
+export const useSelect = ({
+	selected,
+	multiple = false,
+}: { selected?: React.ReactText[] | React.ReactText; multiple?: boolean }): UseSelectReturn => {
+	// coerce the selected prop value into an array
+	const propSelected = React.useMemo(() => {
+		if (Array.isArray(selected)) return selected;
+		if (selected !== undefined) return [selected];
+		return [];
+	}, [selected]);
+
+	// initialize our ref with the initialSelected value
+	const prevSelected = React.useRef(propSelected);
+	const [stateSelected, setSelected] = React.useState(propSelected);
+
+	React.useEffect(() => {
+		if (!isEqual(prevSelected.current, propSelected)) setSelected(propSelected);
+	}, [propSelected]);
+
+	React.useEffect(() => {
+		prevSelected.current = stateSelected;
+	}, [stateSelected]);
+
+	const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
+		const { value } = e.target;
+		let newSelected: React.ReactText[];
+		if (multiple) {
+			newSelected = prevSelected.current.slice();
+			const currentIndex = newSelected.indexOf(value);
+			if (currentIndex > -1) {
+				newSelected.splice(currentIndex, 1);
+			} else {
+				newSelected.push(value);
+			}
+		} else {
+			newSelected = [value];
+		}
+		setSelected(newSelected);
+	}, [multiple]);
+
+	return { selected: stateSelected, setSelected, onChange };
+};
