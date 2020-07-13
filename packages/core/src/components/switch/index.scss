@@ -7,7 +7,7 @@ $-basename: 'switch';
 
 @mixin base {
 	display: inline-flex;
-	align-items: start;
+	align-items: flex-start;
 
 	> :first-child {
 		margin-right: spacing.rem(1);
