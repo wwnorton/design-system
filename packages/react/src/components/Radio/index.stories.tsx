@@ -6,7 +6,9 @@ import {
 	text,
 } from '@storybook/addon-knobs';
 import './index.stories.scss';
-import { Radio, RadioProps } from '.';
+import { Radio, RadioGroup as RadioGroupComp } from '.';
+import { Choices } from '../ChoiceField';
+import { useSelect } from '../../utilities';
 
 export default {
 	title: 'Radio',
@@ -16,48 +18,58 @@ export default {
 
 export const Default: React.FunctionComponent = () => (
 	<Radio
-		label={text('Label', 'Radio')}
 		description={text('Description', 'Additional information about this radio.')}
 		disabled={boolean('Disabled', false)}
 		onChange={action('onChange')}
-	/>
+	>
+		{ text('Label', 'Radio') }
+	</Radio>
 );
 
 export const WithThumbnail: React.FunctionComponent = () => (
 	<Radio
-		label={text('Label', 'Radio')}
-		description={text('Description', 'Additional information about this radio.')}
+		description={(
+			<>
+				This radio includes a clickable thumbnail from
+				{' '}
+				<a
+					href="https://picsum.photos"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					https://picsum.photos
+				</a>
+			</>
+		)}
 		disabled={boolean('Disabled', false)}
 		onChange={action('onChange')}
 		thumbnail={<img src={text('Thumbnail Source', 'https://picsum.photos/64')} alt="" />}
-	/>
+	>
+		{ text('Label', 'Radio') }
+	</Radio>
 );
 
-interface FieldsetProps { prompt: string; items: string[]; name: string }
+export const RadioGroup: React.FunctionComponent = () => (
+	<RadioGroupComp label="Choose your favorite fruit" name="fruit">
+		<Radio>Apple</Radio>
+		<Radio>Banana</Radio>
+		<Radio>Kiwi</Radio>
+		<Radio>Orange</Radio>
+	</RadioGroupComp>
+);
 
-export const Fieldset: React.FunctionComponent<FieldsetProps> = ({
-	prompt = 'Choose a fruit',
-	items = ['Apple', 'Banana', 'Kiwi', 'Orange'],
-	name = 'fruit',
-}: FieldsetProps): JSX.Element => {
-	const [checked, setChecked] = React.useState<string>();
-	const updateChecked = (item: string): RadioProps['onChange'] => (e): void => {
-		setChecked(item);
-		action('onChange')(e);
-	};
+export const ControlledRadioGroup: React.FunctionComponent = () => {
+	const choices = ['Apple', 'Banana', 'Kiwi', 'Orange'];
+	const { selected, onChange } = useSelect({ selected: 'Kiwi', multiple: false });
+
+	React.useEffect(() => action('selection change')(selected), [selected]);
+
 	return (
-		<fieldset className="field">
-			<legend>{ prompt }</legend>
-			{ items.map((item) => (
-				<Radio
-					key={item}
-					label={item}
-					value={item}
-					name={name}
-					onChange={updateChecked(item)}
-					checked={checked === item}
-				/>
-			)) }
-		</fieldset>
+		<RadioGroupComp
+			label="Choose your favorite fruit"
+			name="fruit"
+		>
+			<Choices choices={choices} selected={selected} onChange={onChange} />
+		</RadioGroupComp>
 	);
 };
