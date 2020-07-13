@@ -10,6 +10,7 @@ import {
 import { TextField, TextFieldType, TextFieldProps } from '.';
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
+import { useValidation } from '../../utilities';
 
 export default {
 	title: 'Text Field',
@@ -21,7 +22,6 @@ export const Default: React.FunctionComponent = () => {
 	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
 	return (
 		<TextField
-			label={text('Label', 'Default Text Field')}
 			description='The default Text Field has a type of "text"'
 			disabled={boolean('Disabled', false)}
 
@@ -31,7 +31,56 @@ export const Default: React.FunctionComponent = () => {
 			validateOnDOMChange={boolean('Validate on DOM change', true)}
 			requiredIndicator={indicator === 'required'}
 			optionalIndicator={indicator === 'optional'}
-		/>
+		>
+			{ text('Label', 'Default Text Field') }
+		</TextField>
+	);
+};
+
+export const ControlledEmail: React.FunctionComponent = () => {
+	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
+	const [value, setValue] = React.useState('');
+	const [errors, setErrors] = React.useState<string[]>([]);
+
+	// the useValidation hook is helpful when you want to add validation on top
+	// of default validators that don't fit into the { test, message } for
+	// whatever reason
+	const validate = useValidation();
+
+	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		const val = e.currentTarget.value;
+		const newErrors = validate(e.currentTarget);
+		let allowValue = true;
+		if (val && ['a', 'e', 'i', 'o', 'u'].some((letter) => val.toLowerCase().includes(letter))) {
+			newErrors.push('Vowels are not allowed.');
+			allowValue = false;
+		}
+		setErrors(newErrors);
+		if (allowValue) setValue(val);
+	};
+
+	React.useEffect(() => action('value change')(value), [value]);
+	React.useEffect(() => action('error change')(errors), [errors]);
+
+	return (
+		<TextField
+			description="This example won't allow you to enter vowels (don't do this in the real world)"
+			disabled={boolean('Disabled', false)}
+			type="email"
+
+			onChange={changeHandler}
+			value={value}
+			errors={errors}
+
+			onDOMChange={action('onDOMChange')}
+			required={boolean('Required', false)}
+			validateOnChange={boolean('Validate on React change', true)}
+			validateOnDOMChange={boolean('Validate on DOM change', true)}
+			requiredIndicator={indicator === 'required'}
+			optionalIndicator={indicator === 'optional'}
+		>
+			Email
+		</TextField>
 	);
 };
 
@@ -44,41 +93,44 @@ export const EveryType: React.FunctionComponent = () => {
 
 	return (
 		<>
-			<TextField type="email" label="Email" {...props} />
-			<TextField type="number" label="Number" {...props} />
-			<TextField type="password" label="Password" {...props} />
-			<TextField type="search" label="Search" {...props} />
-			<TextField type="tel" label="Telephone" {...props} />
-			<TextField type="text" label="Text" {...props} />
-			<TextField type="url" label="URL" {...props} />
+			<TextField type="email" {...props}>Email</TextField>
+			<TextField type="number" {...props}>Number</TextField>
+			<TextField type="password" {...props}>Password</TextField>
+			<TextField type="search" {...props}>Search</TextField>
+			<TextField type="tel" {...props}>Telephone</TextField>
+			<TextField type="text" {...props}>Text</TextField>
+			<TextField type="url" {...props}>URL</TextField>
 		</>
 	);
 };
 
 export const WithMaxLength: React.FunctionComponent = () => (
 	<TextField
-		label="Text Field with max length"
 		maxLength={number('Maximum length', 10)}
 		counterStart={number('Start counter at', 8)}
 		onCount={action('onCount')}
 		validateOnChange
-	/>
+	>
+		Text Field with max length
+	</TextField>
 );
 
 export const WithAddonBefore: React.FunctionComponent = () => (
 	<TextField
 		type="text"
-		label="Text field with a button addon"
-		addonBefore={<Button variant="solid">Do something</Button>}
-	/>
+		addonBefore={<Button variant="ghost">Do something</Button>}
+	>
+		Text field with a button addon
+	</TextField>
 );
 
 export const WithAddonAfter: React.FunctionComponent = () => (
 	<TextField
 		type="text"
-		label="Text field with a button addon"
 		addonAfter={<Button variant="outline">Do something else</Button>}
-	/>
+	>
+		Text field with a button addon
+	</TextField>
 );
 
 const show: ButtonProps = {
@@ -159,7 +211,6 @@ export const LoginForm: React.FunctionComponent = () => {
 		<form className="form" onSubmit={submitHandler} onChange={changeHandler}>
 			<TextField
 				type="text"
-				label="Username"
 				value={username}
 				errors={errors(userErrors)}
 				onValidate={setUserErrors}
@@ -167,10 +218,11 @@ export const LoginForm: React.FunctionComponent = () => {
 				required
 				addonBefore={<Icon {...neutralUser} />}
 				ref={setUserField}
-			/>
+			>
+				Username
+			</TextField>
 			<TextField
 				type={type}
-				label="Password"
 				value={password}
 				errors={errors(pwErrors)}
 				required
@@ -188,7 +240,9 @@ export const LoginForm: React.FunctionComponent = () => {
 					/>
 				)}
 				ref={setPwField}
-			/>
+			>
+				Password
+			</TextField>
 			<Button variant="solid" type="submit">Submit</Button>
 		</form>
 	);
@@ -224,10 +278,11 @@ export const CustomValidation: React.FunctionComponent = () => {
 			errors={errors}
 			onChange={changeHandler}
 
-			label="Full name"
 			description="Change the required name in the Storybook knobs below."
 			feedback={feedback}
 			required
-		/>
+		>
+			Full name
+		</TextField>
 	);
 };
