@@ -20,7 +20,6 @@ export const Default: React.FunctionComponent = () => (
 	<Radio
 		description={text('Description', 'Additional information about this radio.')}
 		disabled={boolean('Disabled', false)}
-		onChange={action('onChange')}
 	>
 		{ text('Label', 'Radio') }
 	</Radio>
@@ -42,7 +41,6 @@ export const WithThumbnail: React.FunctionComponent = () => (
 			</>
 		)}
 		disabled={boolean('Disabled', false)}
-		onChange={action('onChange')}
 		thumbnail={<img src={text('Thumbnail Source', 'https://picsum.photos/64')} alt="" />}
 	>
 		{ text('Label', 'Radio') }
