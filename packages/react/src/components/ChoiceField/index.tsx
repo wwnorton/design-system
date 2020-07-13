@@ -6,6 +6,7 @@ import {
 	FieldFeedback, FieldFeedbackCoreProps,
 } from '../Field';
 import { Choice, ChoiceProps } from './Choice';
+import { Choices, ChoicesProps } from './Choices';
 import { prefix } from '../../utilities';
 
 export interface ChoiceFieldProps
@@ -25,6 +26,7 @@ export interface ChoiceFieldProps
 type ChoiceFieldInterface =
 React.ForwardRefExoticComponent<ChoiceFieldProps & React.RefAttributes<HTMLFieldSetElement>> & {
 	Choice: typeof Choice;
+	Choices: typeof Choices;
 }
 
 export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProps>(({
@@ -129,5 +131,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 }) as ChoiceFieldInterface;
 
 ChoiceField.Choice = Choice;
+ChoiceField.Choices = Choices;
 
 export * from './Choice';
+export * from './Choices';
