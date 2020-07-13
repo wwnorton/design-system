@@ -18,7 +18,7 @@
 		$option-computed-height: calc(#{prop('option-font-size')} * #{prop('option-line-height')} + #{prop('option-padding-y')} * 2),
 		$option-padding-left: calc(#{prop('option-icon-size')} + #{prop('option-padding-x')}),
 		$option-icon-padding-x: calc(#{prop('option-padding-x') / 2}),
-		$option-icon-size: 1.25em,
+		$option-icon-size: 1em,
 	);
 }
 
