@@ -13,14 +13,14 @@ test.afterEach(cleanup);
 
 const defaultChildren = 'Button action';
 
-test('throws when no children are provided', (t) => {
+test('throws when an accessible name is not provided', (t) => {
 	// suppress JSDOM errors in the log
 	window.onerror = () => true;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 	// @ts-ignore
 	const { container } = render(<ErrorBoundary><Button /></ErrorBoundary>);
 
-	t.truthy(queryByText(container, Button.errors.noChildren));
+	t.truthy(queryByText(container, Button.errors.noName));
 	t.falsy(queryByRole(container, 'button'));
 	window.onerror = null;
 });
