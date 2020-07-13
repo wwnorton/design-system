@@ -64,8 +64,9 @@ export const Button = React.forwardRef((
 		...props
 	}: ButtonProps, ref,
 ) => {
-	if (!React.Children.count(children)) {
-		throw new Error(Button.errors.noChildren);
+	const { 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy } = props;
+	if (!React.Children.count(children) && !ariaLabel && !ariaLabelledBy) {
+		throw new Error(Button.errors.noName);
 	}
 	const [button, setButton] = useForwardedRef(ref);
 	const liveText = useContentMonitor(button, children);
@@ -121,5 +122,7 @@ export const Button = React.forwardRef((
 }) as NDSForwardRef<HTMLButtonElement, ButtonProps>;
 
 Button.errors = {
-	noChildren: 'Button components must always have children.',
+	noName: 'Button components must always have a valid accessible name.'
+		+ ' This means that your button is missing `children` or an ARIA name.'
+		+ ' See https://w3c.github.io/aria-practices/#names_and_descriptions.',
 };
