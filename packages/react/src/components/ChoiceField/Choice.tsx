@@ -131,7 +131,7 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 	const Thumbnail = React.useMemo(() => {
 		if (!thumbnail) return null;
 		return (
-			<label className={thumbnailClass} htmlFor={inputId}>
+			<label className={thumbnailClass} htmlFor={inputId} role="none">
 				{ thumbnail }
 			</label>
 		);
