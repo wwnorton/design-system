@@ -1,17 +1,19 @@
 @use '../../util';
 @use '../../properties' as *;
 
+@include root-props(
+	$link-color: prop('primary'),
+	$link-decoration: underline,
+	$link-hover-color: prop('primary-dark'),
+	$link-hover-decoration: underline,
+	$link-active-color: prop('primary-darker'),
+	$link-visited-color: prop('purple-70'),
+	$link-visited-hover-color: prop('purple-80'),
+	$link-visited-active-color: prop('purple-90'),
+);
+
 @mixin style {
 	@include util.declare('link') {
-		@include root-props(
-			$link-color: prop('primary'),
-			$link-decoration: underline,
-			$link-hover-color: prop('primary-dark'),
-			$link-hover-decoration: underline,
-			$link-active-color: prop('primary-darker'),
-			$link-visited-color: prop('purple-70'),
-			$link-visited-hover-color: prop('purple-80'),
-			$link-visited-active-color: prop('purple-90'),
-		);
+		// todo: define link styles apart from the global props?
 	}
 }
