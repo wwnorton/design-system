@@ -1,16 +1,16 @@
 @use '../../a11y';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as *;
+@use '../../properties' as props;
 
 @mixin input {
 	padding: spacing.padding-y() spacing.padding-x();
-	background-color: prop('body-bg');
-	border-color: prop('border-color');
+	background-color: props.prop('body-bg');
+	border-color: props.prop('border-color');
 	border-style: solid;
-	border-width: prop('border-width');
-	border-radius: prop('radius-base');
-	caret-color: prop('primary');
+	border-width: props.prop('border-width');
+	border-radius: props.prop('radius-base');
+	caret-color: props.prop('primary');
 
 	&:-moz-ui-invalid,
 	&:focus {
@@ -19,14 +19,14 @@
 
 	&:disabled,
 	&.disabled {
-		color: prop('disabled-40');
-		background-color: prop('disabled-20');
-		border-color: prop('disabled-40');
+		color: props.prop('disabled-40');
+		background-color: props.prop('disabled-20');
+		border-color: props.prop('disabled-40');
 	}
 
 	.#{util.prefix('field--invalid')} & {
-		border-color: prop('error');
-		// caret-color: prop('error');
+		border-color: props.prop('error');
+		// caret-color: props.prop('error');
 	}
 
 	.#{util.prefix('field__group')} > & {
@@ -38,16 +38,16 @@
 }
 
 @mixin group {
-	@include set-props(
-		$border-color: prop('base-40'),
+	@include props.set-props(
+		$border-color: props.prop('base-40'),
 		$border-width: 1px,
 		$padding-y: spacing.rem(0.5),
 		$padding-x: spacing.rem(0.75),
 	);
 
 	margin-bottom: spacing.rem(0.25);
-	background-color: prop('body-bg');
-	border-radius: prop('radius-base');
+	background-color: props.prop('body-bg');
+	border-radius: props.prop('radius-base');
 	flex-wrap: wrap;
 	align-items: stretch;
 
@@ -65,18 +65,18 @@
 	}
 
 	&:focus-within {
-		@include set-props($border-color: prop('focus-ring-color'));
+		@include props.set-props($border-color: props.prop('focus-ring-color'));
 		@include a11y.focus-ring-collapse;
 	}
 
 	.#{util.prefix('field--invalid')} & {
-		@include set-props(
-			$border-color: prop('error'),
-			$focus-ring-color: prop('error'),
+		@include props.set-props(
+			$border-color: props.prop('error'),
+			$focus-ring-color: props.prop('error'),
 		);
 
 		&:focus-within {
-			box-shadow: 0 0 0 1px prop('focus-ring-color');
+			box-shadow: 0 0 0 1px props.prop('focus-ring-color');
 		}
 	}
 
@@ -88,9 +88,9 @@
 
 @mixin counter {
 	margin-left: auto;
-	font-size: prop('font-size-sm');
+	font-size: props.prop('font-size-sm');
 	font-style: italic;
-	color: prop('text-muted');
+	color: props.prop('text-muted');
 }
 
 @mixin style {

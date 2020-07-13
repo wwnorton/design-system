@@ -2,17 +2,17 @@
 @use '../../motion';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as *;
+@use '../../properties' as props;
 
 // @mixin radio {
-// 	@include set-props(
+// 	@include props.set-props(
 // 		$offset-x: spacing.rem(0.5),
 // 	);
 
 // 	display: flex;
 
 // 	> * {
-// 		margin-right: prop('offset-x');
+// 		margin-right: props.prop('offset-x');
 // 	}
 
 // 	> :last-child {
@@ -20,7 +20,7 @@
 // 	}
 
 // 	.#{util.prefix('field__label')} {
-// 		font-weight: prop('font-weight-regular');
+// 		font-weight: props.prop('font-weight-regular');
 // 	}
 
 // 	.#{util.prefix('field__desc')} {
@@ -33,7 +33,7 @@
 // }
 
 @mixin control {
-	$-inner-ring: inset 0 0 0 prop('border-width') prop('body-bg');
+	$-inner-ring: inset 0 0 0 props.prop('border-width') props.prop('body-bg');
 
 	border-radius: 100%;
 
@@ -47,25 +47,25 @@
 	}
 
 	[aria-invalid='true'] + & {
-		@include set-props($bg-color: prop('error'));
+		@include props.set-props($bg-color: props.prop('error'));
 	}
 
 	// .disabled + &,
 	// :disabled + & {
-	// 	@include set-props(
-	// 		$radio-bg: prop('disabled-10'),
-	// 		$radio-border: prop('disabled-20'),
+	// 	@include props.set-props(
+	// 		$radio-bg: props.prop('disabled-10'),
+	// 		$radio-border: props.prop('disabled-20'),
 	// 	);
 
 	// 	pointer-events: none;
-	// 	border-color: prop('radio-border');
+	// 	border-color: props.prop('radio-border');
 	// }
 
 	// .disabled:checked + &,
 	// :disabled:checked + &, {
-	// 	@include set-props($radio-bg: prop('disabled-20'));
+	// 	@include props.set-props($radio-bg: props.prop('disabled-20'));
 
-	// 	color: prop('body-bg');
+	// 	color: props.prop('body-bg');
 	// 	border-color: transparent;
 	// }
 }

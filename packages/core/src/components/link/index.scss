@@ -1,15 +1,15 @@
 @use '../../util';
-@use '../../properties' as *;
+@use '../../properties' as props;
 
-@include root-props(
-	$link-color: prop('primary'),
+@include props.root-props(
+	$link-color: props.prop('primary'),
 	$link-decoration: underline,
-	$link-hover-color: prop('primary-dark'),
+	$link-hover-color: props.prop('primary-dark'),
 	$link-hover-decoration: underline,
-	$link-active-color: prop('primary-darker'),
-	$link-visited-color: prop('purple-70'),
-	$link-visited-hover-color: prop('purple-80'),
-	$link-visited-active-color: prop('purple-90'),
+	$link-active-color: props.prop('primary-darker'),
+	$link-visited-color: props.prop('purple-70'),
+	$link-visited-hover-color: props.prop('purple-80'),
+	$link-visited-active-color: props.prop('purple-90'),
 );
 
 @mixin style {

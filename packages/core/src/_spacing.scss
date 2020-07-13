@@ -1,7 +1,7 @@
 @use 'sass:meta';
 @use 'sass:map';
 @use 'util';
-@use 'properties' as *;
+@use 'properties' as props;
 
 // FUNCTIONS
 
@@ -48,11 +48,11 @@
 	@return $padding-length;
 }
 
-@function padding-x($padding-length: prop('padding-x'), $border-width: prop('border-width')) {
+@function padding-x($padding-length: props.prop('padding-x'), $border-width: props.prop('border-width')) {
 	@return padding($padding-length, $border-width);
 }
 
-@function padding-y($padding-length: prop('padding-y'), $border-width: prop('border-width')) {
+@function padding-y($padding-length: props.prop('padding-y'), $border-width: props.prop('border-width')) {
 	@return padding($padding-length, $border-width);
 }
 
@@ -71,7 +71,7 @@ $zindex-modal: 1050;
 $zindex-popover: 1060;
 $zindex-tooltip: 1070;
 
-@include root-props(
+@include props.root-props(
 	$block-spacer-base: rem(1),
 	$zindex-focus: $zindex-focus,
 	$zindex-dropdown: $zindex-dropdown,

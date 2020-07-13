@@ -5,8 +5,7 @@
 
 @use 'sass:list';
 @use 'device';
-@use 'spacing' as *;
-@use 'properties' as *;
+@use 'properties' as props;
 
 // FUNCTIONS
 
@@ -14,13 +13,13 @@
 	$system: '';
 
 	@if $generic == 'sans' {
-		$system: prop(font-family-system-sans);
+		$system: props.prop(font-family-system-sans);
 	}
 	@else if $generic == 'serif' {
-		$system: prop(font-family-system-sans);
+		$system: props.prop(font-family-system-sans);
 	}
 	@else if $generic == 'mono' {
-		$system: prop(font-family-system-mono);
+		$system: props.prop(font-family-system-mono);
 	}
 
 	@return list.join($font-family, $system, $separator: comma);
@@ -111,9 +110,9 @@ $line-height-heading: $line-height-sm !default;
 }
 
 @mixin -text(
-	$family: prop(font-family-base),
-	$size: prop(font-size-base),
-	$height: prop(line-height-base),
+	$family: props.prop(font-family-base),
+	$size: props.prop(font-size-base),
+	$height: props.prop(line-height-base),
 	$weight: null,
 ) {
 	font-family: $family;
@@ -123,11 +122,11 @@ $line-height-heading: $line-height-sm !default;
 }
 
 @mixin text-xs {
-	@include -text($size: prop(font-size-12));
+	@include -text($size: props.prop(font-size-12));
 }
 
 @mixin text-sm {
-	@include -text($size: prop(font-size-14));
+	@include -text($size: props.prop(font-size-14));
 }
 
 @mixin text-md {
@@ -135,44 +134,44 @@ $line-height-heading: $line-height-sm !default;
 }
 
 @mixin text-lg {
-	@include -text($size: prop(font-size-18));
+	@include -text($size: props.prop(font-size-18));
 }
 
 @mixin ui {
-	@include -text($height: prop(line-height-sm));
+	@include -text($height: props.prop(line-height-sm));
 }
 
 @mixin heading {
 	margin-top: 0;
-	margin-bottom: prop('block-spacer-base');
-	font-family: prop(font-family-headings);
-	font-style: prop(font-style-headings);
-	font-weight: prop(font-weight-headings);
-	line-height: prop(line-height-headings);
-	color: prop(body-text);
+	margin-bottom: props.prop('block-spacer-base');
+	font-family: props.prop(font-family-headings);
+	font-style: props.prop(font-style-headings);
+	font-weight: props.prop(font-weight-headings);
+	line-height: props.prop(line-height-headings);
+	color: props.prop(body-text);
 }
 
 
 // :ROOT CSS PROPERTIES
 
 // font-family
-@include root-props(
+@include props.root-props(
 	$font-family-system-sans: $font-family-system-sans,
 	$font-family-system-serif: $font-family-system-serif,
 	$font-family-system-mono: $font-family-system-mono,
 );
-@include root-props(
-	$font-family-sans: prop('font-family-system-sans'),
-	$font-family-serif: prop('font-family-system-serif'),
-	$font-family-mono: prop('font-family-system-mono'),
+@include props.root-props(
+	$font-family-sans: props.prop('font-family-system-sans'),
+	$font-family-serif: props.prop('font-family-system-serif'),
+	$font-family-mono: props.prop('font-family-system-mono'),
 );
-@include root-props(
-	$font-family-base: prop('font-family-sans'),
-	$font-family-headings: prop('font-family-sans'),
+@include props.root-props(
+	$font-family-base: props.prop('font-family-sans'),
+	$font-family-headings: props.prop('font-family-sans'),
 );
 
 // font-size
-@include root-props(
+@include props.root-props(
 	$font-size-root: $font-size-root,
 	$font-size-10: $font-size-10,
 	$font-size-12: $font-size-12,
@@ -185,38 +184,38 @@ $line-height-heading: $line-height-sm !default;
 	$font-size-40: $font-size-40,
 	$font-size-48: $font-size-48,
 );
-@include root-props(
-	$font-size-xs: prop('font-size-12'),
-	$font-size-sm: prop('font-size-14'),
-	$font-size-md: prop('font-size-16'),
-	$font-size-lg: prop('font-size-18'),
-	$font-size-h1: prop('font-size-32'),
-	$font-size-h2: prop('font-size-24'),
-	$font-size-h3: prop('font-size-20'),
-	$font-size-h4: prop('font-size-18'),
-	$font-size-h5: prop('font-size-16'),
-	$font-size-h6: prop('font-size-14'),
-	$font-size-base: prop('font-size-md'),
+@include props.root-props(
+	$font-size-xs: props.prop('font-size-12'),
+	$font-size-sm: props.prop('font-size-14'),
+	$font-size-md: props.prop('font-size-16'),
+	$font-size-lg: props.prop('font-size-18'),
+	$font-size-h1: props.prop('font-size-32'),
+	$font-size-h2: props.prop('font-size-24'),
+	$font-size-h3: props.prop('font-size-20'),
+	$font-size-h4: props.prop('font-size-18'),
+	$font-size-h5: props.prop('font-size-16'),
+	$font-size-h6: props.prop('font-size-14'),
+	$font-size-base: props.prop('font-size-md'),
 );
 
 // font-weight
-@include root-props(
+@include props.root-props(
 	$font-weight-thin: $font-weight-thin,
 	$font-weight-light: $font-weight-light,
 	$font-weight-regular: $font-weight-regular,
 	$font-weight-bold: $font-weight-bold,
 	$font-weight-black: $font-weight-black,
 );
-@include root-props(
-	$font-weight-base: prop('font-weight-regular'),
-	$font-weight-headings: prop('font-weight-bold'),
+@include props.root-props(
+	$font-weight-base: props.prop('font-weight-regular'),
+	$font-weight-headings: props.prop('font-weight-bold'),
 );
 
 // line-height
-@include root-props(
+@include props.root-props(
 	$line-height-base: $line-height-base,
 	$line-height-sm: $line-height-sm,
 );
-@include root-props(
-	$line-height-headings: prop('line-height-sm'),
+@include props.root-props(
+	$line-height-headings: props.prop('line-height-sm'),
 );

@@ -9,12 +9,12 @@
 
 @use 'sass:list';
 @use 'sass:map';
-@use 'properties' as *;
+@use 'properties' as props;
 
 // FUNCTIONS
 
 @function scale($duration) {
-	@return calc(#{$duration} * #{prop(duration-scalar)});
+	@return calc(#{$duration} * #{props.prop(duration-scalar)});
 }
 
 /// Apply one transition to many properties
@@ -81,10 +81,10 @@ $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1) !default;
 
 // :ROOT CSS PROPERTIES
 
-@include root-props(
+@include props.root-props(
 	$duration-scalar: $duration-scalar,
 );
-@include root-props(
+@include props.root-props(
 	$duration-simple: scale($duration-simple),
 	$duration-simple-enter: scale($duration-simple-enter),
 	$duration-simple-exit: scale($duration-simple-exit),
@@ -95,14 +95,14 @@ $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1) !default;
 	$duration-expand: scale($duration-expand),
 	$duration-collapse: scale($duration-collapse),
 );
-@include root-props(
-	$duration-small: prop('duration-simple'),
-	$duration-medium-expand: prop('duration-open'),
-	$duration-medium-collapse: prop('duration-open'),
-	$duration-large-expand: prop('duration-expand'),
-	$duration-large-collapse: prop('duration-collapse'),
+@include props.root-props(
+	$duration-small: props.prop('duration-simple'),
+	$duration-medium-expand: props.prop('duration-open'),
+	$duration-medium-collapse: props.prop('duration-open'),
+	$duration-large-expand: props.prop('duration-expand'),
+	$duration-large-collapse: props.prop('duration-collapse'),
 );
-@include root-props(
+@include props.root-props(
 	$easing-standard: $easing-standard,
 	$easing-deceleration: $easing-deceleration,
 	$easing-acceleration: $easing-acceleration,

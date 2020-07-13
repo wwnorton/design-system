@@ -5,21 +5,21 @@
 @use 'sass:list';
 @use 'motion';
 @use 'util';
-@use 'properties' as *;
+@use 'properties' as props;
 
 // TOKENS
 
 /// The default focus shadow has a 2px outer ring and an inner ring that matches
 /// the body's background color by default, giving the illusion of transparency.
 $focus-shadow: (
-	0 0 0 1px prop('focus-ring-color-inner'),
-	0 0 0 3px prop('focus-ring-color'),
+	0 0 0 1px props.prop('focus-ring-color-inner'),
+	0 0 0 3px props.prop('focus-ring-color'),
 ) !default;
 /// A collapsed focus shadow that is meant to be used the focused element
 /// conveys focus through some other mechanism, such as an `<input>`'s caret.
-$focus-shadow-collapse: 0 0 0 1px prop('focus-ring-color');
+$focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring-color');
 
-@include root-props(
+@include props.root-props(
 	$focus-shadow: $focus-shadow,
 	$focus-shadow-collapse: $focus-shadow-collapse,
 );
@@ -55,12 +55,12 @@ $focus-shadow-collapse: 0 0 0 1px prop('focus-ring-color');
 }
 
 @mixin -focus($shadow, $current-shadows...) {
-	z-index: prop('zindex-focus');
+	z-index: props.prop('zindex-focus');
 	outline: none;
 	box-shadow: $current-shadows, $shadow;
 	transition:
 		motion.transition(
-			prop('duration-simple-enter') prop('easing-standard'),
+			props.prop('duration-simple-enter') props.prop('easing-standard'),
 			box-shadow,
 			border-radius,
 		);
@@ -78,11 +78,11 @@ $focus-shadow-collapse: 0 0 0 1px prop('focus-ring-color');
 /// A box shadow focus indicator.
 /// @param {List[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
 @mixin focus-ring($current-shadows...) {
-	@include -focus(prop('focus-shadow'), $current-shadows...);
+	@include -focus(props.prop('focus-shadow'), $current-shadows...);
 }
 
 @mixin focus-ring-collapse($current-shadows...) {
-	@include -focus(prop('focus-shadow-collapse'), $current-shadows...);
+	@include -focus(props.prop('focus-shadow-collapse'), $current-shadows...);
 
-	border-color: prop('focus-ring-color');
+	border-color: props.prop('focus-ring-color');
 }

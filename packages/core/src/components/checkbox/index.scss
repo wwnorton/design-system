@@ -2,15 +2,15 @@
 @use '../../motion';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as *;
+@use '../../properties' as props;
 
 @mixin control {
-	color: prop('body-bg');
+	color: props.prop('body-bg');
 
 	:checked + &,
 	:indeterminate + & {
-		@include set-props(
-			$bg-color: prop('primary'),
+		@include props.set-props(
+			$bg-color: props.prop('primary'),
 		);
 
 		border-color: transparent;
@@ -22,8 +22,8 @@
 	}
 
 	[aria-invalid='true'] + & {
-		@include set-props(
-			$checkbox-border: prop('error'),
+		@include props.set-props(
+			$checkbox-border: props.prop('error'),
 		);
 	}
 
@@ -31,9 +31,9 @@
 	:disabled:checked + &,
 	.disabled:indeterminate + &,
 	:disabled:indeterminate + & {
-		@include set-props($checkbox-bg: prop('disabled-20'));
+		@include props.set-props($checkbox-bg: props.prop('disabled-20'));
 
-		color: prop('body-bg');
+		color: props.prop('body-bg');
 		border-color: transparent;
 	}
 

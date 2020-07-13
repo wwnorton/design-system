@@ -1,12 +1,12 @@
 @use '../../color';
-@use '../../device' as *;
+@use '../../device';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as *;
+@use '../../properties' as props;
 
 @mixin backdrop {
 	// set props on the backdrop since it wraps the modal
-	@include set-props(
+	@include props.set-props(
 		$border-width: 1px,
 		$backdrop-opacity: 0.6,
 		$padding-y: spacing.rem(1),
@@ -20,10 +20,10 @@
 	bottom: 0;
 	left: 0;
 	overflow-y: auto;
-	background-color: rgba(0, 0, 0, #{prop('backdrop-opacity')});
+	background-color: rgba(0, 0, 0, #{props.prop('backdrop-opacity')});
 
-	@include media-up('md') {
-		@include set-props(
+	@include device.media-up('md') {
+		@include props.set-props(
 			$min-width: unset,
 			$min-height: unset,
 			$max-width: spacing.rem(34.5),
@@ -37,46 +37,46 @@
 		}
 	}
 
-	@include media-up('lg') {
-		@include set-props(
+	@include device.media-up('lg') {
+		@include props.set-props(
 			$offset-y: spacing.px(40),
 		);
 	}
 
-	@include media-up('xl') {
-		@include set-props(
+	@include device.media-up('xl') {
+		@include props.set-props(
 			$offset-y: spacing.px(80),
 		);
 	}
 }
 
 @mixin base {
-	width: prop('width');
-	min-width: prop('min-width');
-	max-width: prop('max-width');
+	width: props.prop('width');
+	min-width: props.prop('min-width');
+	max-width: props.prop('max-width');
 	min-height: 100%;
-	background-color: prop('body-bg');
-	border-radius: prop('radius-base');
+	background-color: props.prop('body-bg');
+	border-radius: props.prop('radius-base');
 
-	@include media-up('sm') {
+	@include device.media-up('sm') {
 		min-width: unset;
 		min-height: unset;
 		margin: 0 auto;
 
 		.#{util.prefix('modal--long')} & {
-			margin-top: prop('offset-y');
-			margin-bottom: prop('offset-y');
+			margin-top: props.prop('offset-y');
+			margin-bottom: props.prop('offset-y');
 		}
 	}
 }
 
 @mixin header {
 	position: relative;
-	padding: prop('padding-y') prop('padding-x') spacing.padding-y();
-	background-color: prop('base-10');
-	border-bottom: prop('border-width') solid prop('base-30');
-	border-top-left-radius: prop('radius-base');
-	border-top-right-radius: prop('radius-base');
+	padding: props.prop('padding-y') props.prop('padding-x') spacing.padding-y();
+	background-color: props.prop('base-10');
+	border-bottom: props.prop('border-width') solid props.prop('base-30');
+	border-top-left-radius: props.prop('radius-base');
+	border-top-right-radius: props.prop('radius-base');
 
 	&:focus {
 		box-shadow: unset;
@@ -98,14 +98,14 @@
 }
 
 @mixin title {
-	padding-right: calc(#{prop('padding-x')} / 2);
+	padding-right: calc(#{props.prop('padding-x')} / 2);
 	margin: 0;
-	font-size: prop('font-size-18');
-	line-height: prop('line-height-headings');
+	font-size: props.prop('font-size-18');
+	line-height: props.prop('line-height-headings');
 }
 
 @mixin close-btn {
-	@include set-props(util.flatten((
+	@include props.set-props(util.flatten((
 		'button-color': color.family('button-color', 'base'),
 	)));
 
@@ -115,26 +115,26 @@
 	// TODO: use a token for these rem values
 	transform:
 		translate(
-			calc(-50% + 0.125rem + #{prop('border-width')}),
-			calc(50% - 0.5rem - #{prop('border-width')})
+			calc(-50% + 0.125rem + #{props.prop('border-width')}),
+			calc(50% - 0.5rem - #{props.prop('border-width')})
 		);
 }
 
 @mixin content {
-	padding: prop('padding-y') prop('padding-x') calc(#{prop('padding-y')} * 2.5);
-	background-color: prop('body-bg');
+	padding: props.prop('padding-y') props.prop('padding-x') calc(#{props.prop('padding-y')} * 2.5);
+	background-color: props.prop('body-bg');
 
 	> :last-child {
 		margin-bottom: 0;
 	}
 
 	.#{util.prefix('modal__close')}:first-child & {
-		padding-top: calc(#{prop('padding-y')} * 3.5);
+		padding-top: calc(#{props.prop('padding-y')} * 3.5);
 	}
 
 	&:last-child {
-		border-bottom-right-radius: prop('radius-base');
-		border-bottom-left-radius: prop('radius-base');
+		border-bottom-right-radius: props.prop('radius-base');
+		border-bottom-left-radius: props.prop('radius-base');
 	}
 
 	&:focus {
@@ -144,11 +144,11 @@
 
 @mixin actionbar {
 	display: flex;
-	padding: spacing.padding-y() prop('padding-x') prop('padding-y');
-	background-color: prop('body-bg');
-	border-top: prop('border-width') solid prop('base-30');
-	border-bottom-right-radius: prop('radius-base');
-	border-bottom-left-radius: prop('radius-base');
+	padding: spacing.padding-y() props.prop('padding-x') props.prop('padding-y');
+	background-color: props.prop('body-bg');
+	border-top: props.prop('border-width') solid props.prop('base-30');
+	border-bottom-right-radius: props.prop('radius-base');
+	border-bottom-left-radius: props.prop('radius-base');
 	justify-content: flex-end;
 
 	> * + * {
@@ -160,7 +160,7 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		background-color: prop('body-bg');
+		background-color: props.prop('body-bg');
 	}
 
 	&.#{util.prefix('modal__actionbar--sticky')} {

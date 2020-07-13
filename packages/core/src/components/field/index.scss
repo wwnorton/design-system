@@ -5,7 +5,7 @@
 @use '../../a11y';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as *;
+@use '../../properties' as props;
 
 
 // FIELD - the field container, which can contain field info, group(s), and feedback.
@@ -13,8 +13,8 @@
 /// The base styling for all fields.
 /// Default: `.field`
 @mixin base {
-	margin-bottom: prop('block-spacer-base');
-	line-height: prop('line-height-sm');
+	margin-bottom: props.prop('block-spacer-base');
+	line-height: props.prop('line-height-sm');
 }
 
 
@@ -30,11 +30,11 @@
 /// Default: `.field__label`
 @mixin label {
 	margin-bottom: 0;
-	font-size: prop('font-weight-base');
-	font-weight: prop('font-weight-bold');
+	font-size: props.prop('font-weight-base');
+	font-weight: props.prop('font-weight-bold');
 
 	.#{util.prefix('field__group--choice')} & {
-		font-weight: prop('font-weight-regular');
+		font-weight: props.prop('font-weight-regular');
 	}
 
 	+ .#{util.prefix('field__group--choice')} {
@@ -47,15 +47,15 @@
 /// Default: `.field__indicator`
 @mixin indicator {
 	font-style: italic;
-	font-weight: prop('font-weight-regular');
+	font-weight: props.prop('font-weight-regular');
 }
 
 /// The field description, second child of the field info container.
 @mixin description {
 	margin-bottom: spacing.rem(0.5);
-	font-size: prop('font-size-sm');
-	line-height: prop('line-height-sm');
-	color: prop('text-muted');
+	font-size: props.prop('font-size-sm');
+	line-height: props.prop('line-height-sm');
+	color: props.prop('text-muted');
 }
 
 
@@ -66,22 +66,22 @@
 @mixin group {
 	position: relative;
 	display: flex;
-	line-height: prop('line-height-sm');
+	line-height: props.prop('line-height-sm');
 }
 
 /// A "choice" modifier for the field group container.
 /// Default: `.field__group--choice`
 @mixin group-choice {
-	@include set-props(
+	@include props.set-props(
 		$padding-y: spacing.rem(0.25),
 		$offset-x: spacing.rem(0.5),
 	);
 
 	display: flex;
-	padding: prop('padding-y') 0;
+	padding: props.prop('padding-y') 0;
 
 	> * {
-		margin-right: prop('offset-x');
+		margin-right: props.prop('offset-x');
 	}
 
 	> :last-child {
@@ -94,13 +94,13 @@
 
 		// still position it in the center of the visual control so that form
 		// validator tooltips will point at the right thing
-		top: calc(#{prop('font-size-base')} * #{prop('line-height-sm')} / 2);
+		top: calc(#{props.prop('font-size-base')} * #{props.prop('line-height-sm')} / 2);
 		left: calc(0.5em + 1px);
 		transform: translateX(-50%);
 	}
 
 	.#{util.prefix('field__label')} {
-		font-weight: prop('font-weight-regular');
+		font-weight: props.prop('font-weight-regular');
 	}
 
 	.#{util.prefix('field__desc')} {
@@ -113,30 +113,30 @@
 /// visually hidden (screen reader only) but still fully functional.
 /// Default: `.field__control`
 @mixin choice-control {
-	@include set-props(
-		$bg-color: prop('body-bg'),
-		$border-color: prop('base'),
+	@include props.set-props(
+		$bg-color: props.prop('body-bg'),
+		$border-color: props.prop('base'),
 		$border-width: 2px,
 		$offset-x: spacing.rem(0.5),
 	);
 
 	position: relative;
-	top: calc(#{prop('font-size-base')} * #{prop('line-height-sm')} / 2);
+	top: calc(#{props.prop('font-size-base')} * #{props.prop('line-height-sm')} / 2);
 	display: flex;
 	width: 1em;
 	height: 1em;
-	margin-right: prop('offset-x');
+	margin-right: props.prop('offset-x');
 	content: '';
-	background-color: prop('bg-color');
-	border: prop('border-width') solid prop('border-color');
+	background-color: props.prop('bg-color');
+	border: props.prop('border-width') solid props.prop('border-color');
 	transition: none;
 	transform: translateY(-50%);
 	align-items: center;
 	justify-content: center;
 
 	:checked + & {
-		@include set-props(
-			$bg-color: prop('primary'),
+		@include props.set-props(
+			$bg-color: props.prop('primary'),
 		);
 
 		border-color: transparent;
@@ -144,60 +144,60 @@
 
 	.disabled + &,
 	:disabled + & {
-		@include set-props(
-			$bg-color: prop('disabled-10'),
-			$border-color: prop('disabled-20'),
+		@include props.set-props(
+			$bg-color: props.prop('disabled-10'),
+			$border-color: props.prop('disabled-20'),
 		);
 
 		pointer-events: none;
-		border-color: prop('border-color');
+		border-color: props.prop('border-color');
 	}
 
 	.disabled:checked + &,
 	:disabled:checked + &, {
-		@include set-props($bg-color: prop('disabled-20'));
+		@include props.set-props($bg-color: props.prop('disabled-20'));
 
-		color: prop('body-bg');
+		color: props.prop('body-bg');
 		border-color: transparent;
 	}
 
 	.#{util.prefix('error')} &,
 	[aria-invalid='true'] + & {
-		@include set-props(
-			$border-color: prop('error'),
+		@include props.set-props(
+			$border-color: props.prop('error'),
 		);
 	}
 
 	.#{util.prefix('error')} :checked + &,
 	.#{util.prefix('error')} :indeterminate + & {
-		@include set-props(
-			$bg-color: prop('error'),
+		@include props.set-props(
+			$bg-color: props.prop('error'),
 		);
 	}
 
 	.#{util.prefix('warning')} & {
-		@include set-props(
-			$border-color: prop('warning'),
+		@include props.set-props(
+			$border-color: props.prop('warning'),
 		);
 	}
 
 	.#{util.prefix('warning')} :checked + &,
 	.#{util.prefix('warning')} :indeterminate + & {
-		@include set-props(
-			$bg-color: prop('warning'),
+		@include props.set-props(
+			$bg-color: props.prop('warning'),
 		);
 	}
 
 	.#{util.prefix('success')} & {
-		@include set-props(
-			$border-color: prop('success'),
+		@include props.set-props(
+			$border-color: props.prop('success'),
 		);
 	}
 
 	.#{util.prefix('success')} :checked + &,
 	.#{util.prefix('success')} :indeterminate + & {
-		@include set-props(
-			$bg-color: prop('success'),
+		@include props.set-props(
+			$bg-color: props.prop('success'),
 		);
 	}
 }
@@ -209,7 +209,7 @@
 	align-items: center;
 	text-align: center;
 	white-space: nowrap;
-	border-radius: prop('radius-base');
+	border-radius: props.prop('radius-base');
 
 	> * {
 		border-top: 0;
@@ -218,24 +218,24 @@
 	}
 
 	&:first-child {
-		border-top-left-radius: prop('radius-base');
-		border-bottom-left-radius: prop('radius-base');
+		border-top-left-radius: props.prop('radius-base');
+		border-bottom-left-radius: props.prop('radius-base');
 
 		> * {
 			border-left: 0;
-			border-top-left-radius: prop('radius-base');
-			border-bottom-left-radius: prop('radius-base');
+			border-top-left-radius: props.prop('radius-base');
+			border-bottom-left-radius: props.prop('radius-base');
 		}
 	}
 
 	&:last-child > * {
 		border-right: 0;
-		border-top-right-radius: prop('radius-base');
-		border-bottom-right-radius: prop('radius-base');
+		border-top-right-radius: props.prop('radius-base');
+		border-bottom-right-radius: props.prop('radius-base');
 	}
 
 	.#{util.prefix('field__group')} > & {
-		border: prop('border-width') solid prop('border-color');
+		border: props.prop('border-width') solid props.prop('border-color');
 	}
 
 	> .#{util.prefix('icon')} {
@@ -243,7 +243,7 @@
 	}
 
 	> .#{util.prefix('button--ghost')}:focus {
-		background-color: prop('button-color-10');
+		background-color: props.prop('button-color-10');
 		box-shadow: unset;
 	}
 }
@@ -256,10 +256,10 @@
 @mixin errors {
 	padding-left: 1rem;
 	margin: 0;
-	font-size: prop('font-size-sm');
+	font-size: props.prop('font-size-sm');
 	font-style: italic;
-	font-weight: prop('font-weight-bold');
-	color: prop('error');
+	font-weight: props.prop('font-weight-bold');
+	color: props.prop('error');
 
 	// when an error is alone, don't display it as a bullet
 	:first-child:last-child {

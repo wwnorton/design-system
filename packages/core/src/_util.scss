@@ -8,12 +8,12 @@
 @use 'sass:meta';
 @use 'sass:string';
 
-@use 'config' as *;
+@use 'config';
 
 $-declared: ();
 
 @mixin declare($name) {
-	@if $duplicate-declarations {
+	@if config.$duplicate-declarations {
 		@content;
 	}
 	@else if list.index($-declared, $name) == null {
@@ -87,12 +87,12 @@ $-declared: ();
 	@return $merged;
 }
 
-@function prefix($item, $ns: $namespace, $separator: '-') {
+@function prefix($item, $namespace: config.$namespace, $separator: '-') {
 	@if meta.type-of($item) == 'string' {
-		@return if($ns, $ns + $separator + $item, $item);
+		@return if($namespace, $namespace + $separator + $item, $item);
 	}
 	@else if meta.type-of($item) == 'number' {
-		@return if($ns, '#{$ns}#{$separator}#{$item}', $item);
+		@return if($namespace, '#{$namespace}#{$separator}#{$item}', $item);
 	}
 	@else if meta.type-of($item) == 'map' {
 		@return -prefix-map($item, $namespace, $separator);
@@ -109,8 +109,8 @@ $-declared: ();
 	@return $prefixed;
 }
 
-@function unprefix($prefixed-string, $ns: $namespace, $separator: '-') {
-	$prefix: $ns + $separator;
+@function unprefix($prefixed-string, $namespace: config.$namespace, $separator: '-') {
+	$prefix: $namespace + $separator;
 
 	@if string.index($prefixed-string, $prefix) == 1 {
 		@return string.slice($prefixed-string, string.length($prefix) + 1);
@@ -139,11 +139,11 @@ $-declared: ();
 	@return $value;
 }
 
-@function px-rem($px, $browser-font-size: $browser-font-size) {
+@function px-rem($px, $browser-font-size: config.$browser-font-size) {
 	@return $px / $browser-font-size;
 }
 
-@function rem-px($rem, $browser-font-size: $browser-font-size) {
+@function rem-px($rem, $browser-font-size: config.$browser-font-size) {
 	@return $rem * $browser-font-size;
 }
 

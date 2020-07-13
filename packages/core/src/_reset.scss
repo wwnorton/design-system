@@ -10,33 +10,33 @@
 
 @use 'a11y';
 @use 'type';
-@use 'properties' as *;
-@use 'spacing' as *;
+@use 'properties' as props;
+@use 'spacing';
 @use 'util';
 
 // Bootstrap tokens that are only used in the reset
 // TODO: adapt these to NDS props and move them elsewhere
-$paragraph-margin-bottom: prop('block-spacer-base') !default;
-$dt-font-weight: prop('font-weight-bold') !default;
+$paragraph-margin-bottom: props.prop('block-spacer-base') !default;
+$dt-font-weight: props.prop('font-weight-bold') !default;
 $font-weight-bolder: bolder !default;
 $mark-padding: 0.2em !default;
-$mark-bg: prop('yellow-10') !default;
-$sub-sup-font-size: prop('font-size-xs') !default;
-$font-family-code: prop('font-family-mono') !default;
-$code-font-size: prop('font-size-sm') !default;
+$mark-bg: props.prop('yellow-10') !default;
+$sub-sup-font-size: props.prop('font-size-xs') !default;
+$font-family-code: props.prop('font-family-mono') !default;
+$code-font-size: props.prop('font-size-sm') !default;
 $pre-color: null !default;
-$code-color: prop('body-text') !default;
+$code-color: props.prop('body-text') !default;
 $kbd-padding-y: 0.2rem !default;
 $kbd-padding-x: 0.4rem !default;
 $kbd-font-size: $code-font-size !default;
-$kbd-color: prop('body-bg') !default;
-$kbd-bg: prop('body-text') !default;
-$nested-kbd-font-weight: prop('font-weight-bold') !default;
-$table-cell-padding-y: rem(0.5) !default;
-$table-cell-padding-x: rem(0.5) !default;
-$table-caption-color: prop('text-muted') !default;
+$kbd-color: props.prop('body-bg') !default;
+$kbd-bg: props.prop('body-text') !default;
+$nested-kbd-font-weight: props.prop('font-weight-bold') !default;
+$table-cell-padding-y: spacing.rem(0.5) !default;
+$table-cell-padding-x: spacing.rem(0.5) !default;
+$table-caption-color: props.prop('text-muted') !default;
 $table-th-font-weight: null !default;
-$legend-margin-bottom: prop('block-spacer-base') !default;
+$legend-margin-bottom: props.prop('block-spacer-base') !default;
 $legend-font-size: 1.5rem !default;
 $legend-font-weight: null !default;
 
@@ -55,9 +55,9 @@ $legend-font-weight: null !default;
 		// NDS: Apply root font size to define the value of 1rem.
 
 		:root {
-			@include root-style;
+			@include props.root-style;
 
-			font-size: prop('font-size-root');
+			font-size: props.prop('font-size-root');
 		}
 
 		// Body
@@ -71,13 +71,13 @@ $legend-font-weight: null !default;
 			@include type.font-smoothing; // 1
 
 			// margin: 0; // 2
-			font-family: prop('font-family-base');
-			font-weight: prop('font-weight-base');
-			line-height: prop('line-height-base');
-			color: prop('body-text');
-			background-color: prop('body-bg'); // 3
+			font-family: props.prop('font-family-base');
+			font-weight: props.prop('font-weight-base');
+			line-height: props.prop('line-height-base');
+			color: props.prop('body-text');
+			background-color: props.prop('body-bg'); // 3
 			-webkit-text-size-adjust: 100%; // 4
-			-webkit-tap-highlight-color: rgba(prop('black'), 0); // 5
+			-webkit-tap-highlight-color: rgba(props.prop('black'), 0); // 5
 		}
 
 		// Future-proof rule: in browsers that support :focus-visible, suppress the focus outline
@@ -106,7 +106,7 @@ $legend-font-weight: null !default;
 		//    See https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_hr_size
 
 		hr {
-			margin: rem(1) 0;
+			margin: spacing.rem(1) 0;
 			color: inherit; // 1
 			background-color: currentColor;
 			border: 0;
@@ -126,37 +126,37 @@ $legend-font-weight: null !default;
 		h1 {
 			@include type.heading;
 
-			font-size: prop('font-size-h1');
+			font-size: props.prop('font-size-h1');
 		}
 
 		h2 {
 			@include type.heading;
 
-			font-size: prop('font-size-h2');
+			font-size: props.prop('font-size-h2');
 		}
 
 		h3 {
 			@include type.heading;
 
-			font-size: prop('font-size-h3');
+			font-size: props.prop('font-size-h3');
 		}
 
 		h4 {
 			@include type.heading;
 
-			font-size: prop('font-size-h4');
+			font-size: props.prop('font-size-h4');
 		}
 
 		h5 {
 			@include type.heading;
 
-			font-size: prop('font-size-h5');
+			font-size: props.prop('font-size-h5');
 		}
 
 		h6 {
 			@include type.heading;
 
-			font-size: prop('font-size-h6');
+			font-size: props.prop('font-size-h6');
 		}
 
 		// Reset margins on paragraphs
@@ -189,7 +189,7 @@ $legend-font-weight: null !default;
 		// Address
 
 		address {
-			margin-bottom: prop('block-spacer-base');
+			margin-bottom: props.prop('block-spacer-base');
 			font-style: normal;
 			line-height: inherit;
 		}
@@ -199,14 +199,14 @@ $legend-font-weight: null !default;
 
 		ol,
 		ul {
-			padding-left: rem(2);
+			padding-left: spacing.rem(2);
 		}
 
 		ol,
 		ul,
 		dl {
 			margin-top: 0;
-			margin-bottom: prop('block-spacer-base');
+			margin-bottom: props.prop('block-spacer-base');
 		}
 
 		ol ol,
@@ -223,7 +223,7 @@ $legend-font-weight: null !default;
 		// 1. Undo browser default
 
 		dd {
-			margin-bottom: rem(0.5);
+			margin-bottom: spacing.rem(0.5);
 			margin-left: 0; // 1
 		}
 
@@ -231,7 +231,7 @@ $legend-font-weight: null !default;
 		// Blockquote
 
 		blockquote {
-			margin: 0 0 rem(1);
+			margin: 0 0 spacing.rem(1);
 		}
 
 
@@ -250,7 +250,7 @@ $legend-font-weight: null !default;
 		// Add the correct font size in all browsers
 
 		small {
-			font-size: prop('font-size-sm');
+			font-size: props.prop('font-size-sm');
 		}
 
 
@@ -282,12 +282,12 @@ $legend-font-weight: null !default;
 		// Links
 
 		a {
-			color: prop('link-color');
-			text-decoration: prop('link-decoration');
+			color: props.prop('link-color');
+			text-decoration: props.prop('link-decoration');
 
 			&:hover {
-				color: prop('link-hover-color');
-				text-decoration: prop('link-hover-decoration');
+				color: props.prop('link-hover-color');
+				text-decoration: props.prop('link-hover-decoration');
 			}
 		}
 
@@ -296,10 +296,10 @@ $legend-font-weight: null !default;
 		// See https://www.nngroup.com/articles/change-the-color-of-visited-links/
 
 		a:visited {
-			color: prop('link-visited-color');
+			color: props.prop('link-visited-color');
 
 			&:hover {
-				color: prop('link-visited-hover-color');
+				color: props.prop('link-visited-hover-color');
 			}
 		}
 
@@ -336,7 +336,7 @@ $legend-font-weight: null !default;
 		pre {
 			display: block;
 			margin-top: 0; // 1
-			margin-bottom: prop('block-spacer-base'); // 2
+			margin-bottom: props.prop('block-spacer-base'); // 2
 			overflow: auto; // 3
 			font-size: $code-font-size;
 			color: $pre-color;
@@ -366,7 +366,7 @@ $legend-font-weight: null !default;
 			font-size: $kbd-font-size;
 			color: $kbd-color;
 			background-color: $kbd-bg;
-			border-radius: prop('radius-sm');
+			border-radius: props.prop('radius-sm');
 
 			kbd {
 				padding: 0;
@@ -381,7 +381,7 @@ $legend-font-weight: null !default;
 		// Apply a consistent margin strategy (matches our type styles).
 
 		figure {
-			margin: 0 0 rem(1);
+			margin: 0 0 spacing.rem(1);
 		}
 
 

@@ -1,16 +1,16 @@
 @use '../../motion';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as *;
+@use '../../properties' as props;
 
-$-expand: motion.scale(prop('duration-expand')) prop('easing-standard');
-$-collapse: motion.scale(prop('duration-collapse')) prop('easing-standard');
-$-border: prop('border-width') solid prop('base-40');
+$-expand: motion.scale(props.prop('duration-expand')) props.prop('easing-standard');
+$-collapse: motion.scale(props.prop('duration-collapse')) props.prop('easing-standard');
+$-border: props.prop('border-width') solid props.prop('base-40');
 
 @mixin base {
-	@include set-props(
+	@include props.set-props(
 		$border-width: spacing.px(0),
-		$border-radius: prop('radius-base'),
+		$border-radius: props.prop('radius-base'),
 		$padding-y: spacing.rem(0.75),
 		$padding-x: spacing.rem(1.5),
 		$marker-margin: spacing.rem(0.25),
@@ -39,7 +39,7 @@ $-border: prop('border-width') solid prop('base-40');
 }
 
 @mixin contents-inner {
-	padding-left: spacing.padding(calc(#{prop('padding-x')} + #{prop('marker-margin')}));
+	padding-left: spacing.padding(calc(#{props.prop('padding-x')} + #{props.prop('marker-margin')}));
 
 	:last-child {
 		margin-bottom: 0;
@@ -47,8 +47,8 @@ $-border: prop('border-width') solid prop('base-40');
 }
 
 @mixin marker-svg {
-	margin-right: prop('marker-margin');
-	margin-left: prop('marker-margin');
+	margin-right: props.prop('marker-margin');
+	margin-left: props.prop('marker-margin');
 
 	details:not(.closed) & {
 		transition: transform $-collapse;
@@ -69,17 +69,17 @@ $-border: prop('border-width') solid prop('base-40');
 }
 
 @mixin panel {
-	@include set-props(
+	@include props.set-props(
 		$border-width: 1px,
 		$padding-y: spacing.rem(1),
 		$padding-x: spacing.rem(1),
 	);
 
-	border-radius: prop('border-radius');
+	border-radius: props.prop('border-radius');
 
 	.#{util.prefix('disclosure__summary')} {
 		padding: spacing.padding-y() spacing.padding-x();
-		background-color: prop('base-20');
+		background-color: props.prop('base-20');
 		border: $-border;
 		border-radius: inherit;
 		justify-content: space-between;
@@ -100,8 +100,8 @@ $-border: prop('border-width') solid prop('base-40');
 	}
 
 	.#{util.prefix('disclosure__contents-inner')} {
-		padding-top: prop('padding-y');
-		padding-right: prop('padding-x');
+		padding-top: props.prop('padding-y');
+		padding-right: props.prop('padding-x');
 		padding-bottom: spacing.padding(spacing.rem(1.5));
 	}
 }

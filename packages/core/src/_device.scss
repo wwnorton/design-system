@@ -3,7 +3,7 @@
 ////
 
 @use 'sass:map';
-@use 'properties' as *;
+@use 'properties' as props;
 @use 'util';
 
 /// Extra small: a handset
@@ -35,7 +35,7 @@ $devices: map.merge(
 );
 
 // DEVICE PROPERTIES
-@include root-props(
+@include props.root-props(
 	$hd-dpi: $hd-dpi,
 	$hd-dppx: $hd-dppx,
 	$breakpoint: $devices,
