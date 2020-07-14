@@ -77,7 +77,7 @@ export const mergeRefs = <T>(
 	if (typeof propRef === 'function') {
 		propRef(innerRef.current);
 	} else {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		// eslint-disable-next-line no-param-reassign
 		propRef.current = innerRef.current;

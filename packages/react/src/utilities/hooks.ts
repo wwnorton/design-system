@@ -28,7 +28,7 @@ export const useForwardedRef = <T>(
 		if (typeof forwardedRef === 'function') {
 			forwardedRef(element);
 		} else {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			// eslint-disable-next-line no-param-reassign
 			forwardedRef.current = element;

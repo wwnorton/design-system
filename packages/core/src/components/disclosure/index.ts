@@ -230,12 +230,11 @@ export class Disclosure {
 		return el;
 	}
 
-	public addEventListener(
-		/* eslint-disable @typescript-eslint/no-explicit-any */
-		type: any,
-		listener: (this: HTMLDetailsElement, ev: any) => any,
-		options?: boolean | AddEventListenerOptions | undefined,
-		/* eslint-enable @typescript-eslint/no-explicit-any */
+	public addEventListener<K extends keyof HTMLElementEventMap>(
+		type: K,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		listener: (this: HTMLDetailsElement, ev: HTMLElementEventMap[K]) => any,
+		options?: boolean | AddEventListenerOptions,
 	): this {
 		this.details.addEventListener(type, listener, options);
 		return this;

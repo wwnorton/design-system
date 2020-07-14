@@ -93,7 +93,7 @@ export interface DropdownProps
 	onChange?: ({ value, contents }: OnChangeData) => void;
 }
 
-const matchRefWidth: Modifier<'matchRefWidth', {}> = {
+const matchRefWidth: Modifier<'matchRefWidth', unknown> = {
 	name: 'matchRefWidth',
 	enabled: true,
 	phase: 'beforeWrite',
