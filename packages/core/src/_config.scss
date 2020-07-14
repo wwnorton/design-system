@@ -23,3 +23,8 @@ $warn-on-missing-fallback: false !default;
 /// including a `style` mixin will result in duplicate CSS. If `false`, including
 /// a `style` mixin multiple times will only create a declaration the first time.
 $duplicate-declarations: false !default;
+
+/// Enable the dark scheme. This will only make it _possible_ for the dark scheme
+/// to be applied by either the user's OS setting or by manually applying a class
+/// to the :root element.
+$enable-dark-scheme: false !default;

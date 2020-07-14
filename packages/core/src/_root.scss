@@ -5,6 +5,7 @@
 @use 'sass:meta';
 @use 'a11y';
 @use 'color';
+@use 'config';
 @use 'device';
 @use 'motion';
 @use 'radius';
@@ -30,9 +31,6 @@
 		// add all of the root custom properties
 		@include props.set(props.get-props(true));
 
-		// default to the 'light' scheme
-		@include color.set-scheme('light');
-
 		// use the user's preferred scheme by default
 		@media screen and (prefers-color-scheme: 'light') {
 			@include color.set-scheme('light');
@@ -43,15 +41,16 @@
 			@include color.set-scheme('light');
 		}
 
-		// TODO: implement the dark scheme
+		// only apply the 'dark' scheme if it's enabled on build
+		@if config.$enable-dark-scheme {
+			@media screen and (prefers-color-scheme: 'dark') {
+				@include color.set-scheme('dark');
+			}
 
-		// @media screen and (prefers-color-scheme: 'dark') {
-		// 	@include color.set-scheme('dark');
-		// }
-
-		// &.#{util.prefix('scheme-dark')} {
-		// 	@include color.set-scheme('dark');
-		// }
+			&.#{util.prefix('scheme-dark')} {
+				@include color.set-scheme('dark');
+			}
+		}
 
 		// disable all motion by setting all durations to 0
 		@media (prefers-reduced-motion: reduce) {
