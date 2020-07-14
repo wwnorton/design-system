@@ -1,30 +1,24 @@
 import React from 'react';
 
 interface ErrorBoundaryState {
-	hasError: boolean;
 	error?: Error;
 }
 
-export class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
-	constructor(props) {
+export class ErrorBoundary extends React.Component<unknown, ErrorBoundaryState> {
+	constructor(props: unknown) {
 		super(props);
-		this.state = {
-			hasError: false,
-		};
+		this.state = { error: undefined };
 	}
 
 	componentDidCatch(error: Error): void {
-		this.setState({ hasError: true, error });
-		// console.log(error, info);
+		this.setState({ error });
 	}
 
 	render(): React.ReactNode {
 		const { children } = this.props;
-		const { hasError, error } = this.state;
+		const { error } = this.state;
 
-		if (hasError) {
-			return error.message;
-		}
+		if (error) return error.message;
 
 		return children;
 	}
