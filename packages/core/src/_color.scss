@@ -330,24 +330,18 @@ $-scheme-light: (
 ) !default;
 
 // WIP
-$-scheme-dark: (
-	'primary-family': 'teal',
-	'primary-grade': 30,
-	'base-family': 'navy',
-	'base-grade': 40,
-	'disabled-family': 'base',
+$-scheme-dark: map.merge($-scheme-light, (
+	'primary-grade': 50,
+	'base-grade': 50,
 	'disabled-grade': 80,
-	'error-family': 'red',
-	'error-grade': 60,
-	'success-family': 'red',
-	'success-grade': 60,
-	'warning-family': 'red',
-	'warning-grade': 60,
+	'error-grade': 50,
+	'success-grade': 50,
+	'warning-grade': 50,
 	'body-bg': props.prop('base-100'),
 	'body-text': props.prop('white'),
 	'text-muted': props.prop('base-40'),
 	'focus-ring': props.prop('blue-60'),
-) !default;
+)) !default;
 
 
 // MIXINS
