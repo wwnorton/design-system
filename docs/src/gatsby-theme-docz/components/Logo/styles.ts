@@ -1,13 +1,13 @@
 import { media } from 'gatsby-theme-docz/src/theme/breakpoints';
 
 export const link = {
-	color: 'link',
+	color: 'primary',
 	fontWeight: 600,
-	textDecoration: 'none',
+	textDecoration: 'none !important',
 };
 
 export const logo = {
-	maxHeight: 40,
+	width: 100,
 	color: 'logo',
 };
 

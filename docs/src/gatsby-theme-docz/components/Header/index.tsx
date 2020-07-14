@@ -8,6 +8,7 @@ import {
 	Edit, Menu, Sun, Moon,
 } from 'react-feather';
 import { withPrefix } from 'gatsby';
+import { useEffect, useRef } from 'react';
 import { Logo } from '../Logo';
 import * as styles from './styles';
 
@@ -21,11 +22,18 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 		themeConfig: { showDarkModeSwitch, showMarkdownEditButton },
 	} = useConfig();
 	const { edit = true, ...doc } = useCurrentDoc();
-	const [colorScheme, setColorScheme] = useColorMode();
+	const mediaScheme = useRef(window.matchMedia('(prefers-color-scheme: dark)'));
+	const [colorScheme, setColorScheme] = useColorMode((mediaScheme.current.matches) ? 'dark' : 'light');
 
 	const toggleColorScheme = (): void => {
 		setColorScheme((colorScheme === 'dark') ? 'light' : 'dark');
 	};
+
+	useEffect(() => {
+		const invert = (colorScheme === 'dark') ? 'light' : 'dark';
+		document.documentElement.classList.remove(`scheme-${invert}`);
+		document.documentElement.classList.add(`scheme-${colorScheme}`);
+	}, [colorScheme]);
 
 	return (
 		<header sx={styles.wrapper} data-testid="header">
@@ -58,12 +66,13 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 					)}
 					{showDarkModeSwitch && (
 						<Switch
-							title="Dark mode"
-							off={<Sun size={15} />}
-							on={<Moon size={15} />}
+							label="Dark mode"
+							tipped
 							checked={colorScheme === 'dark'}
 							onClick={toggleColorScheme}
-						/>
+						>
+							{ colorScheme === 'dark' ? <Moon size={15} /> : <Sun size={15} /> }
+						</Switch>
 					)}
 				</Flex>
 				{showMarkdownEditButton && edit && doc.a && (

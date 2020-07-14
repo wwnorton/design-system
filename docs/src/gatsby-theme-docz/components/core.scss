@@ -1,11 +1,8 @@
-@use '~@nds/core/src/main' as core with (
+@use '~@nds/core/full' as nds with (
 	$namespace: null,
+	$enable-dark-scheme: true,
+	$font-family-sans: 'proxima-nova',
 );
 
-.switch::after {
-	top: unset;
-}
-
-.button + .button {
-	margin-left: 0.5rem;
-}
+// Proxima Nova
+@import url("https://use.typekit.net/vjr7yrz.css");

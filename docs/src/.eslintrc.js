@@ -3,4 +3,7 @@ module.exports = {
 		'plugin:import/typescript',
 		'plugin:@typescript-eslint/recommended',
 	],
+	rules: {
+		'react/require-default-props': 'off',
+	},
 };

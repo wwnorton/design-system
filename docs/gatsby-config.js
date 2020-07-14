@@ -1,21 +1,5 @@
 const sass = require('sass');
 
-const createTheme = ({ primary, logo, ...rest }) => ({
-	primary,
-	logo,
-	link: primary,
-	button: {
-		bg: primary,
-	},
-	sidebar: {
-		navLinkActive: primary,
-	},
-	...rest,
-});
-
-const light = createTheme({ primary: 'var(--teal-60)', logo: 'var(--navy-80)' });
-const dark = createTheme({ primary: 'var(--teal-40)', logo: 'var(--navy-20)' });
-
 module.exports = {
 	pathPrefix: process.env.PATH_PREFIX || '/',
 	plugins: [
@@ -35,10 +19,20 @@ module.exports = {
 				},
 				themeConfig: {
 					colors: {
-						...light,
-						modes: {
-							dark,
-						},
+						text: 'var(--body-text)',
+						background: 'var(--body-bg)',
+						primary: 'var(--primary)',
+						logo: 'var(--navy-80)',
+						white: 'var(--white)',
+						blue: 'var(--blue-60)',
+						muted: 'var(--text-muted)',
+						link: 'var(--link-color)',
+						border: 'var(--base-30)',
+
+					},
+					fonts: {
+						body: 'var(--font-family-base)',
+						heading: 'var(--font-family-heading)',
 					},
 				},
 			},
