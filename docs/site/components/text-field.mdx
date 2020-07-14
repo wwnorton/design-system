@@ -5,7 +5,7 @@ menu: Components
 ---
 
 import { Playground } from "docz";
-import { TextField } from "@nds/react";
+import { TextField, Button } from "@nds/react";
 
 # Text Field
 
@@ -32,11 +32,19 @@ A text field includes:
 
 <Playground>
 	<TextField
-		label="Default Text Field"
 		maxLength={25}
-		help="This is the help text that the textfield can display. it is optional!"
+		description="Use the description to display hints about entry."
 		required
-	/>
+		requiredIndicator
+	>
+		Default text field
+	</TextField>
+</Playground>
+
+<Playground>
+	<TextField type="password" required minLength={8} maxLength={32} validateOnChange>
+		Password
+	</TextField>
 </Playground>
 
 ## Usage
