@@ -31,13 +31,16 @@
 		// add all of the root custom properties
 		@include props.set(props.get-props(true));
 
-		// use the user's preferred scheme by default
-		@media screen and (prefers-color-scheme: 'light') {
-			@include color.set-scheme('light');
-		}
+		// apply root font size (1em by default)
+		font-size: props.prop('font-size-root');
 
 		// manual override to force the 'light' scheme
 		&.#{util.prefix('scheme-light')} {
+			@include color.set-scheme('light');
+		}
+
+		// use the user's preferred scheme by default
+		@media screen and (prefers-color-scheme: 'light') {
 			@include color.set-scheme('light');
 		}
 
@@ -56,8 +59,5 @@
 		@media (prefers-reduced-motion: reduce) {
 			@include props.set($duration-scalar: 0);
 		}
-
-		// apply root font size (1em by default)
-		font-size: props.prop('font-size-root');
 	}
 }
