@@ -5,9 +5,6 @@ module.exports = {
 		'norton',
 	],
 	rules: {
-		// https://basarat.gitbook.io/typescript/main-1/defaultisbad
-		'import/prefer-default-export': 'off',
-		'import/no-default-export': 'error',
 		'import/no-extraneous-dependencies': [
 			'error',
 			{
@@ -17,13 +14,6 @@ module.exports = {
 					'./packages/core',
 					'./packages/react',
 				],
-			},
-		],
-		'lines-between-class-members': [
-			'error',
-			'always',
-			{
-				exceptAfterSingleLine: true,
 			},
 		],
 		'import/extensions': [
