@@ -134,6 +134,7 @@
     "jsdom-global": "^3.0.2",
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
+    "microbundle": "^0.12.3",
     "nyc": "^15.1.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
