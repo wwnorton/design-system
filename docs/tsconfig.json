@@ -3,5 +3,9 @@
   "compilerOptions": {
     "noImplicitAny": false
   },
-  "include": ["site/**/*", "src/**/*"]
+  "include": [
+    "site/**/*",
+    "src/**/*",
+    "../packages/react/**/*"
+  ]
 }
