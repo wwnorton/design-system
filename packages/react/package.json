@@ -32,7 +32,7 @@
     "build": "microbundle --jsx React.createElement --globals @popperjs/core=Popper,lodash.uniqueid=uniqueId,lodash.debounce=debounce"
   },
   "dependencies": {
-    "@popperjs/core": "^2.4.0",
+    "@popperjs/core": "^2.4.4",
     "classnames": "^2.2.6",
     "lodash.debounce": "^4.0.8",
     "lodash.uniqueid": "^4.0.1",
