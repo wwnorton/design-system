@@ -4,7 +4,6 @@ import {
 	ChoiceField, ChoiceFieldProps,
 } from '../ChoiceField';
 
-
 // Single Radio
 
 export type RadioProps = Omit<ChoiceProps, 'type'>;
@@ -13,7 +12,6 @@ export type RadioProps = Omit<ChoiceProps, 'type'>;
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
 	(props, ref) => <Choice type="radio" ref={ref} {...props} />,
 );
-
 
 // Radio Group
 

@@ -101,7 +101,6 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 		return <div className={descriptionClass} id={descriptionId}>{ description }</div>;
 	}, [labelIs, description, descriptionClass, descriptionId]);
 
-
 	// legend elements cannot be the child of a div so render without the container
 	if (labelIs === 'legend') {
 		return (
@@ -121,7 +120,6 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 		</div>
 	);
 };
-
 
 // FEEDBACK
 
@@ -184,7 +182,6 @@ export const FieldFeedback: React.FunctionComponent<FieldFeedbackProps> = ({
 	);
 };
 
-
 // ADDON
 
 export interface FieldAddonProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -196,7 +193,6 @@ export const FieldAddon: React.FunctionComponent<FieldAddonProps> = ({
 	baseName = prefix('field'),
 	className = `${baseName}__addon`,
 }: FieldAddonProps) => <span className={className}>{ children }</span>;
-
 
 // HOOKS
 

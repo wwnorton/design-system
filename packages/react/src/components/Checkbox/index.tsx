@@ -4,7 +4,6 @@ import {
 	ChoiceField, ChoiceFieldProps,
 } from '../ChoiceField';
 
-
 // Single Checkbox
 
 export type CheckboxProps = Omit<ChoiceProps, 'type'>;
@@ -13,7 +12,6 @@ export type CheckboxProps = Omit<ChoiceProps, 'type'>;
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 	(props, ref) => <Choice type="checkbox" ref={ref} {...props} />,
 );
-
 
 // Checkbox Group
 

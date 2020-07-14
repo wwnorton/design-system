@@ -313,7 +313,6 @@ export const IconOptions: Record<string, IconVariant> = {};
 	if (fullName) IconOptions[fullName] = name;
 });
 
-
 /**
  * Retrieve an SVGIcon object, which contains the path's `d` & `viewBox` needed
  * to set the SVG.
