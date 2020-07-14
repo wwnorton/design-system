@@ -166,10 +166,10 @@ export const LoginForm: React.FunctionComponent = () => {
 		setType((type === 'password') ? 'text' : 'password');
 	};
 
-	const errors = React.useCallback((errs: string[]) => {
+	const errors = React.useCallback((errs?: string[]) => {
 		const sameError = 'Username and password cannot be the same.';
 		if (isSame) return (errs) ? [...errs, sameError] : [sameError];
-		return errs;
+		return errs || [];
 	}, [isSame]);
 
 	React.useEffect(() => {
