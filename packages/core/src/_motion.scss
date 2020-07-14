@@ -9,6 +9,7 @@
 
 @use 'sass:list';
 @use 'sass:map';
+@use 'sass:meta';
 @use 'properties' as props;
 
 // FUNCTIONS
@@ -18,13 +19,20 @@
 }
 
 /// Apply one transition to many properties
-/// @param {String} $transition - An easing and/or duration.
-/// @param {String[]} $properties... - A list of CSS properties.
-@function transition($transition, $properties...) {
+/// @param {String | ListOf<String>} $properties - A single or list of CSS properties.
+/// @param {String} $duration - A duration value.
+/// @param {String} $easing - An easing value.
+@function transition(
+	$properties: 'all',
+	$duration: props.prop('duration-simple'),
+	$easing: props.prop('easing-standard'),
+) {
 	$full-transition: ();
 
-	@each $property in $properties {
-		$full-transition: list.join($full-transition, #{$property $transition}, $separator: comma);
+	$prop-list: if(meta.type-of($properties) == 'string', ($properties), $properties);
+
+	@each $property in $prop-list {
+		$full-transition: list.join($full-transition, #{$property scale($duration) $easing}, $separator: comma);
 	}
 
 	@return $full-transition;
@@ -56,6 +64,12 @@ $duration-expand: 300ms !default;
 /// A duration used when an element collapses (shrinks).
 $duration-collapse: 250ms !default;
 
+$duration-small: props.prop('duration-simple') !default;
+$duration-medium-expand: props.prop('duration-open') !default;
+$duration-medium-collapse: props.prop('duration-open') !default;
+$duration-large-expand: props.prop('duration-expand') !default;
+$duration-large-collapse: props.prop('duration-collapse') !default;
+
 /// Standard easing puts subtle attention at the end of an animation, by giving
 /// more time to deceleration than acceleration. It is the most common form of
 /// easing.
@@ -77,34 +91,3 @@ $easing-acceleration: cubic-bezier(0.4, 0, 1, 1) !default;
 /// Timing function to quickly accelerate and decelerate
 /// @source https://github.com/material-components/material-components-web/tree/master/packages/mdc-animation @material/animation
 $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1) !default;
-
-
-// :ROOT CSS PROPERTIES
-
-@include props.root-props(
-	$duration-scalar: $duration-scalar,
-);
-@include props.root-props(
-	$duration-simple: scale($duration-simple),
-	$duration-simple-enter: scale($duration-simple-enter),
-	$duration-simple-exit: scale($duration-simple-exit),
-	$duration-complex: scale($duration-complex),
-	$duration-detailed: scale($duration-detailed),
-	$duration-open: scale($duration-open),
-	$duration-close: scale($duration-close),
-	$duration-expand: scale($duration-expand),
-	$duration-collapse: scale($duration-collapse),
-);
-@include props.root-props(
-	$duration-small: props.prop('duration-simple'),
-	$duration-medium-expand: props.prop('duration-open'),
-	$duration-medium-collapse: props.prop('duration-open'),
-	$duration-large-expand: props.prop('duration-expand'),
-	$duration-large-collapse: props.prop('duration-collapse'),
-);
-@include props.root-props(
-	$easing-standard: $easing-standard,
-	$easing-deceleration: $easing-deceleration,
-	$easing-acceleration: $easing-acceleration,
-	$easing-sharp: $easing-sharp,
-);

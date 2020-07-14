@@ -22,7 +22,7 @@ $-basename: 'switch';
 	$-padding-y: calc((#{props.prop('height')} - #{props.prop('font-size')}) / 2);
 	$-thumb-size: calc(#{props.prop('height')} - #{props.prop('thumb-margin')} * 2);
 
-	@include props.set-props(
+	@include props.set(
 		$color-on: props.prop('primary'),
 		$color-off: props.prop('base-30'),
 		$font-size: props.prop('font-size-xs'),
@@ -57,15 +57,10 @@ $-basename: 'switch';
 		margin-right: auto;
 		cursor: pointer;
 		content: '';
-		background: props.prop('body-bg');
+		background: props.prop('white');
 		border-radius: 2rem;
 		box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
-		transition:
-			motion.transition(
-				props.prop('duration-simple') props.prop('easing-standard'),
-				border-color,
-				transform,
-			);
+		transition: motion.transition(('border-color', 'transform'));
 	}
 
 	&[aria-checked='false'] {

@@ -9,8 +9,10 @@
 ////
 
 @use 'a11y';
+@use 'color';
 @use 'type';
 @use 'properties' as props;
+@use 'root';
 @use 'spacing';
 @use 'util';
 
@@ -40,7 +42,7 @@ $legend-margin-bottom: props.prop('block-spacer-base') !default;
 $legend-font-size: 1.5rem !default;
 $legend-font-weight: null !default;
 
-@mixin style {
+@mixin reset {
 	@include util.declare('reset') {
 		// Document
 		// Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
@@ -55,9 +57,7 @@ $legend-font-weight: null !default;
 		// NDS: Apply root font size to define the value of 1rem.
 
 		:root {
-			@include props.root-style;
-
-			font-size: props.prop('font-size-root');
+			@include root.root;
 		}
 
 		// Body

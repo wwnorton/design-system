@@ -9,7 +9,7 @@
 
 	:checked + &,
 	:indeterminate + & {
-		@include props.set-props(
+		@include props.set(
 			$bg-color: props.prop('primary'),
 		);
 
@@ -22,7 +22,7 @@
 	}
 
 	[aria-invalid='true'] + & {
-		@include props.set-props(
+		@include props.set(
 			$checkbox-border: props.prop('error'),
 		);
 	}
@@ -31,7 +31,7 @@
 	:disabled:checked + &,
 	.disabled:indeterminate + &,
 	:disabled:indeterminate + & {
-		@include props.set-props($checkbox-bg: props.prop('disabled-20'));
+		@include props.set($checkbox-bg: props.prop('disabled-20'));
 
 		color: props.prop('body-bg');
 		border-color: transparent;

@@ -4,34 +4,6 @@
 @use '../../util';
 @use '../../properties' as props;
 
-// @mixin radio {
-// 	@include props.set-props(
-// 		$offset-x: spacing.rem(0.5),
-// 	);
-
-// 	display: flex;
-
-// 	> * {
-// 		margin-right: props.prop('offset-x');
-// 	}
-
-// 	> :last-child {
-// 		margin-right: unset;
-// 	}
-
-// 	.#{util.prefix('field__label')} {
-// 		font-weight: props.prop('font-weight-regular');
-// 	}
-
-// 	.#{util.prefix('field__desc')} {
-// 		margin-bottom: unset;
-// 	}
-// }
-
-// @mixin input {
-// 	@include a11y.sr-only;
-// }
-
 @mixin control {
 	$-inner-ring: inset 0 0 0 props.prop('border-width') props.prop('body-bg');
 
@@ -47,39 +19,12 @@
 	}
 
 	[aria-invalid='true'] + & {
-		@include props.set-props($bg-color: props.prop('error'));
+		@include props.set($bg-color: props.prop('error'));
 	}
-
-	// .disabled + &,
-	// :disabled + & {
-	// 	@include props.set-props(
-	// 		$radio-bg: props.prop('disabled-10'),
-	// 		$radio-border: props.prop('disabled-20'),
-	// 	);
-
-	// 	pointer-events: none;
-	// 	border-color: props.prop('radio-border');
-	// }
-
-	// .disabled:checked + &,
-	// :disabled:checked + &, {
-	// 	@include props.set-props($radio-bg: props.prop('disabled-20'));
-
-	// 	color: props.prop('body-bg');
-	// 	border-color: transparent;
-	// }
 }
 
 @mixin style {
 	@include util.declare('radio') {
-		// .#{util.prefix('field--radio')} {
-		// 	@include radio;
-		// }
-
-		// .#{util.prefix('field__input')}[type='radio'] {
-		// 	@include input;
-		// }
-
 		.#{util.prefix('field__control--radio')} {
 			@include control;
 		}

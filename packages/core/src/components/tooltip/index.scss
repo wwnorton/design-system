@@ -3,9 +3,9 @@
 @use '../../properties' as props;
 
 @mixin base {
-	@include props.set-props(
-		$body-text: props.prop('scheme-light-bg'),
-		$body-bg: props.prop('scheme-light-text'),
+	@include props.set(
+		$body-text: props.value('body-bg'),
+		$body-bg: props.value('body-text'),
 		$tooltip-arrow-size: 12px,
 		$tooltip-arrow-border: calc(#{props.prop('tooltip-arrow-size') / 2}),
 		$tooltip-offset-y: 6px,

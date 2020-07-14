@@ -72,7 +72,7 @@
 /// A "choice" modifier for the field group container.
 /// Default: `.field__group--choice`
 @mixin group-choice {
-	@include props.set-props(
+	@include props.set(
 		$padding-y: spacing.rem(0.25),
 		$offset-x: spacing.rem(0.5),
 	);
@@ -113,7 +113,7 @@
 /// visually hidden (screen reader only) but still fully functional.
 /// Default: `.field__control`
 @mixin choice-control {
-	@include props.set-props(
+	@include props.set(
 		$bg-color: props.prop('body-bg'),
 		$border-color: props.prop('base'),
 		$border-width: 2px,
@@ -135,7 +135,7 @@
 	justify-content: center;
 
 	:checked + & {
-		@include props.set-props(
+		@include props.set(
 			$bg-color: props.prop('primary'),
 		);
 
@@ -144,7 +144,7 @@
 
 	.disabled + &,
 	:disabled + & {
-		@include props.set-props(
+		@include props.set(
 			$bg-color: props.prop('disabled-10'),
 			$border-color: props.prop('disabled-20'),
 		);
@@ -155,7 +155,7 @@
 
 	.disabled:checked + &,
 	:disabled:checked + &, {
-		@include props.set-props($bg-color: props.prop('disabled-20'));
+		@include props.set($bg-color: props.prop('disabled-20'));
 
 		color: props.prop('body-bg');
 		border-color: transparent;
@@ -163,40 +163,40 @@
 
 	.#{util.prefix('error')} &,
 	[aria-invalid='true'] + & {
-		@include props.set-props(
+		@include props.set(
 			$border-color: props.prop('error'),
 		);
 	}
 
 	.#{util.prefix('error')} :checked + &,
 	.#{util.prefix('error')} :indeterminate + & {
-		@include props.set-props(
+		@include props.set(
 			$bg-color: props.prop('error'),
 		);
 	}
 
 	.#{util.prefix('warning')} & {
-		@include props.set-props(
+		@include props.set(
 			$border-color: props.prop('warning'),
 		);
 	}
 
 	.#{util.prefix('warning')} :checked + &,
 	.#{util.prefix('warning')} :indeterminate + & {
-		@include props.set-props(
+		@include props.set(
 			$bg-color: props.prop('warning'),
 		);
 	}
 
 	.#{util.prefix('success')} & {
-		@include props.set-props(
+		@include props.set(
 			$border-color: props.prop('success'),
 		);
 	}
 
 	.#{util.prefix('success')} :checked + &,
 	.#{util.prefix('success')} :indeterminate + & {
-		@include props.set-props(
+		@include props.set(
 			$bg-color: props.prop('success'),
 		);
 	}
@@ -206,6 +206,7 @@
 /// Default: `field__addon`
 @mixin addon {
 	display: flex;
+	color: props.prop('body-bg');
 	align-items: center;
 	text-align: center;
 	white-space: nowrap;

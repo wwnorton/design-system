@@ -1,0 +1,64 @@
+////
+/// @group Root
+////
+
+@use 'sass:meta';
+@use 'a11y';
+@use 'color';
+@use 'device';
+@use 'motion';
+@use 'radius';
+@use 'spacing';
+@use 'type';
+@use 'properties' as props;
+@use 'util';
+
+@include props.add-root(
+	meta.module-variables('a11y'),
+	meta.module-variables('color'),
+	meta.module-variables('device'),
+	meta.module-variables('motion'),
+	meta.module-variables('radius'),
+	meta.module-variables('spacing'),
+	meta.module-variables('type'),
+);
+
+/// Apply root styles. This is mean to be @included in your `:root` declaration
+/// but could be applied anywhere.
+@mixin root {
+	@include util.declare('root') {
+		// add all of the root custom properties
+		@include props.set(props.get-props(true));
+
+		// default to the 'light' scheme
+		@include color.set-scheme('light');
+
+		// use the user's preferred scheme by default
+		@media screen and (prefers-color-scheme: 'light') {
+			@include color.set-scheme('light');
+		}
+
+		// manual override to force the 'light' scheme
+		&.#{util.prefix('scheme-light')} {
+			@include color.set-scheme('light');
+		}
+
+		// TODO: implement the dark scheme
+
+		// @media screen and (prefers-color-scheme: 'dark') {
+		// 	@include color.set-scheme('dark');
+		// }
+
+		// &.#{util.prefix('scheme-dark')} {
+		// 	@include color.set-scheme('dark');
+		// }
+
+		// disable all motion by setting all durations to 0
+		@media (prefers-reduced-motion: reduce) {
+			@include props.set($duration-scalar: 0);
+		}
+
+		// apply root font size (1em by default)
+		font-size: props.prop('font-size-root');
+	}
+}

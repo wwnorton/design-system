@@ -1,3 +1,7 @@
+////
+/// @group Spacing
+////
+
 @use 'sass:meta';
 @use 'sass:map';
 @use 'util';
@@ -5,28 +9,36 @@
 
 // FUNCTIONS
 
+/// Convert a px value to a spacer unit. Spacers must be divisible by the `$base-unit`
+/// in pixels (default: 4) in order to conform to the underlying pixel grid. A
+/// warning will be emitted when a provided value does not conform.
+/// @access private
 @function -spacer($px, $unit-from, $unit-to) {
-	@if $px % $base != 0 {
+	@if $px % $base-unit != 0 {
 		$val: if($unit-from == 'px', #{$px}px, #{util.px2rem($px)}rem);
 
-		@warn '#{$val} is not a valid spacing unit. Spacing units must be a multiple of #{$base}px.';
+		@warn '#{$val} is not a valid spacing unit. Spacing units must be a multiple of #{$base-unit}px.';
 	}
 
 	@return if($unit-to == 'px', #{$px}px, #{util.px2rem($px)}rem);
 }
 
+/// Convert a px value to a rem spacer.
 @function px-rem($px) {
 	@return -spacer($px, 'px', 'rem');
 }
 
+/// Convert a rem value to a px spacer.
 @function rem-px($rem) {
 	@return -spacer(util.rem2px($rem), 'rem', 'px');
 }
 
+/// Use a px value as a px spacer.
 @function px($val) {
 	@return -spacer($val, 'px', 'px');
 }
 
+/// Use a rem value as a rem spacer.
 @function rem($val) {
 	@return -spacer(util.rem2px($val), 'rem', 'rem');
 }
@@ -58,27 +70,17 @@
 
 // TOKENS
 
-$base: 4 !default;
+$base-unit: 4 !default;
 
-$zindex-focus: 980;
+$block-spacer-base: rem(1) !default;
+
+$zindex-focus: 980 !default;
 // z-index values from Bootstrap
 // https://v5.getbootstrap.com/docs/5.0/layout/z-index/
-$zindex-dropdown: 1000;
-$zindex-sticky: 1020;
-$zindex-fixed: 1030;
-$zindex-modal-backdrop: 1040;
-$zindex-modal: 1050;
-$zindex-popover: 1060;
-$zindex-tooltip: 1070;
-
-@include props.root-props(
-	$block-spacer-base: rem(1),
-	$zindex-focus: $zindex-focus,
-	$zindex-dropdown: $zindex-dropdown,
-	$zindex-sticky: $zindex-sticky,
-	$zindex-fixed: $zindex-fixed,
-	$zindex-modal-backdrop: $zindex-modal-backdrop,
-	$zindex-modal: $zindex-modal,
-	$zindex-popover: $zindex-popover,
-	$zindex-tooltip: $zindex-tooltip,
-);
+$zindex-dropdown: 1000 !default;
+$zindex-sticky: 1020 !default;
+$zindex-fixed: 1030 !default;
+$zindex-modal-backdrop: 1040 !default;
+$zindex-modal: 1050 !default;
+$zindex-popover: 1060 !default;
+$zindex-tooltip: 1070 !default;

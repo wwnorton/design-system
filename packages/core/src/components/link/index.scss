@@ -1,7 +1,7 @@
 @use '../../util';
 @use '../../properties' as props;
 
-@include props.root-props(
+@include props.add-root(
 	$link-color: props.prop('primary'),
 	$link-decoration: underline,
 	$link-hover-color: props.prop('primary-dark'),

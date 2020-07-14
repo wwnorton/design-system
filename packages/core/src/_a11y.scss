@@ -9,20 +9,16 @@
 
 // TOKENS
 
+$focus-ring-inner: props.prop('body-bg');
 /// The default focus shadow has a 2px outer ring and an inner ring that matches
 /// the body's background color by default, giving the illusion of transparency.
 $focus-shadow: (
-	0 0 0 1px props.prop('focus-ring-color-inner'),
-	0 0 0 3px props.prop('focus-ring-color'),
+	0 0 0 1px props.prop('focus-ring-inner'),
+	0 0 0 3px props.prop('focus-ring'),
 ) !default;
 /// A collapsed focus shadow that is meant to be used the focused element
 /// conveys focus through some other mechanism, such as an `<input>`'s caret.
-$focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring-color');
-
-@include props.root-props(
-	$focus-shadow: $focus-shadow,
-	$focus-shadow-collapse: $focus-shadow-collapse,
-);
+$focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring') !default;
 
 // MIXINS
 
@@ -58,12 +54,7 @@ $focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring-color');
 	z-index: props.prop('zindex-focus');
 	outline: none;
 	box-shadow: $current-shadows, $shadow;
-	transition:
-		motion.transition(
-			props.prop('duration-simple-enter') props.prop('easing-standard'),
-			box-shadow,
-			border-radius,
-		);
+	transition: motion.transition(('box-shadow' 'border-radius'));
 
 	&:not(:focus-visible) {
 		@if list.length($current-shadows) > 0 {

@@ -8,7 +8,7 @@ $-collapse: motion.scale(props.prop('duration-collapse')) props.prop('easing-sta
 $-border: props.prop('border-width') solid props.prop('base-40');
 
 @mixin base {
-	@include props.set-props(
+	@include props.set(
 		$border-width: spacing.px(0),
 		$border-radius: props.prop('radius-base'),
 		$padding-y: spacing.rem(0.75),
@@ -69,7 +69,7 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 }
 
 @mixin panel {
-	@include props.set-props(
+	@include props.set(
 		$border-width: 1px,
 		$padding-y: spacing.rem(1),
 		$padding-x: spacing.rem(1),

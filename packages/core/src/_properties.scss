@@ -15,7 +15,11 @@ $-props: ();
 /// A global map of all `:root` CSS custom properties. Any token in this map
 /// will be globally available on the page.
 /// @access private
-$-root-props: ();
+$-props-root: ();
+
+@function get-props($root: false) {
+	@return if($root, $-props-root, $-props);
+}
 
 /// Reference a CSS property by name.
 /// @param {String} $name - The name of the CSS property that you'd like to use.
@@ -28,11 +32,12 @@ $-root-props: ();
 ///   .foo {
 ///     padding-top: var(--nds-foo-padding-top);
 ///   }
+///
 @function prop($name, $fallback: config.$css-property-fallback) {
 	$css-prop: string.unquote('--#{util.prefix($name)}');
 
 	@if $fallback {
-		$value: get-value($name);
+		$value: value($name);
 
 		@if not $value {
 			// stylelint-disable-next-line max-nesting-depth
@@ -50,13 +55,13 @@ $-root-props: ();
 }
 
 /// Resolve the value of a prop inside the `$-props` map. To be found, the
-/// property must first be added with either the `root-props` (global) or
+/// property must first be added with either the `add-root` (global) or
 /// `props` (local) mixins.
 /// @param {String} $prop-name - The name of the property you'd like to resolve.
 /// @param {Map} $prop-map [$-props] - The map that contains the value you'd like
 /// to resolve. Default is the global property map, `$-props`.
 /// @return {String | null} - the resolved value or `null` if not found.
-@function get-value($prop-name, $prop-map: $-props) {
+@function value($prop-name, $prop-map: $-props) {
 	$value: map.get($prop-map, $prop-name);
 
 	@if $value {
@@ -68,7 +73,7 @@ $-root-props: ();
 			$end-at: if($comma-index, $comma-index, string.length($value));
 			$var: string.slice($value, string.length($var-str) + 1, $end-at - 1);
 
-			@return get-value(util.unprefix($var));
+			@return value(util.unprefix($var));
 		}
 
 		@return $value;
@@ -78,7 +83,7 @@ $-root-props: ();
 }
 
 @function assert-prop($prop-name, $expected) {
-	$val: get-value($prop-name);
+	$val: value($prop-name);
 
 	@return $val == $expected;
 }
@@ -90,16 +95,16 @@ $-root-props: ();
 /// @param {Arglist | Map[]} $additions... - Either an arglist of key: value
 /// pairs or a list of maps with key: value pairs.
 /// @example scss - Arglist
-///   @include props(
+///   @include add
 ///     $button-border-radius: 4px,
 ///     $button-font-size: prop('font-size-18'),
 ///   );
 /// @example scss - List of maps
-///   @include props((
+///   @include add(
 ///     'button-border-radius': 4px,
 ///     'button-font-size': prop('font-size-18'),
 ///   ), $some-other-map);
-@mixin props($additions...) {
+@mixin add($additions...) {
 	@include -add(false, $additions...);
 }
 
@@ -109,47 +114,17 @@ $-root-props: ();
 /// pairs or a list of maps with key: value pairs.
 /// @see props
 /// @example scss - Arglist
-///   @include root-props(
+///   @include add-root(
 ///     $base-border-radius: 2px,
 ///     $base-font-size: prop('font-size-16'),
 ///   );
 /// @example scss - List of maps
-///   @include root-props((
+///   @include add-root((
 ///     'base-border-radius': 2px,
 ///     'base-font-size': prop('font-size-16'),
 ///   ), $some-other-map);
-@mixin root-props($additions...) {
+@mixin add-root($additions...) {
 	@include -add(true, $additions...);
-}
-
-/// Add a new local color family to the list of CSS properties. The resulting
-/// color family should be based on an existing reference family.
-/// @param {String} $name - The name of the new color family.
-/// @param {String} $ref-family - The name of the reference color family that
-/// will be the basis of the new color family.
-/// @param {Number} $grade-root [null] - An optional color grade (10 - 100). If
-/// included, the returned family will also include five shades that refer to
-/// grades. Shades will never go above 100 or below 10.
-/// - `{$name}-lighter`: two grades lighter.
-/// - `{$name}-light`: one grade lighter.
-/// - `{$name}` the specified $grade-root.
-/// - `{$name}-dark`: one grade darker.
-/// - `{$name}-darker`: two grades darker.
-/// @see props
-@mixin color-family($name, $ref-family, $grade-root: null) {
-	@include -family($name, $ref-family, $grade-root, false);
-}
-
-/// Add a new root color family to the list of CSS properties. The color family
-/// will be added to :root declaration for global usage.
-/// @param {String} $name - The name of the new color family.
-/// @param {String} $ref-family - The name of the reference color family that
-/// will be the basis of the new color family.
-/// @param {Number} $grade-root [null] - An optional color grade (10 - 100).
-/// @see root-props
-/// @see color-family
-@mixin root-color-family($name, $ref-family, $grade-root: null) {
-	@include -family($name, $ref-family, $grade-root, true);
 }
 
 /// Set a list of properties as CSS custom properties.
@@ -158,7 +133,7 @@ $-root-props: ();
 /// @example scss
 ///   .button {
 ///     // set properties local to .button
-///     @include set-props($button-border-radius: 2px);
+///     @include set($button-border-radius: 2px);
 ///     // use the now-defined property
 ///     border-radius: prop(button-border-radius);
 ///   }
@@ -167,7 +142,7 @@ $-root-props: ();
 ///     --nds-button-border-radius: 2px;
 ///     border-radius: var(--nds-button-border-radius, 2px);
 ///   }
-@mixin set-props($prop-maps...) {
+@mixin set($prop-maps...) {
 	$keywords: meta.keywords($prop-maps);
 
 	$props: ();
@@ -189,7 +164,7 @@ $-root-props: ();
 	@each $token, $value in $props {
 		@if $value {
 			@if meta.type-of($value) == 'map' {
-				@include set-props(util.flatten($value, $token));
+				@include set(util.flatten($value, $token));
 			}
 			@else {
 				@if not map.has-key($props, $token) {
@@ -213,17 +188,17 @@ $-root-props: ();
 		$prop-map: util.flatten($value, $key);
 
 		@if $root {
-			@include root-props($prop-map);
+			@include add-root($prop-map);
 		}
 		@else {
-			@include props($prop-map);
+			@include add($prop-map);
 		}
 	}
 	@else {
 		$prop-map: (string.quote($key): $value);
 
 		@if $root {
-			$-root-props: map.merge($-root-props, $prop-map) !global;
+			$-props-root: map.merge($-props-root, $prop-map) !global;
 		}
 		$-props: map.merge($-props, $prop-map) !global;
 	}
@@ -248,36 +223,5 @@ $-root-props: ();
 				@error 'Additions must all be `$variable: value` pairs.';
 			}
 		}
-	}
-}
-
-@mixin -family($name, $ref-family, $grade-root: null, $root) {
-	$map: ();
-
-	@for $n from 1 through 10 {
-		$grade: $n * 10;
-		$map: map.merge($map, ($grade: prop(#{$ref-family}-#{$grade})));
-	}
-
-	@include -add($root, util.flatten($map, $name));
-
-	@if $grade-root {
-		@include -add($root, util.flatten((
-			'lighter': prop('#{$name}-#{util.min-max($grade-root - 20, 10, 100)}'),
-			'light': prop('#{$name}-#{util.min-max($grade-root - 10, 10, 100)}'),
-			'#root': prop('#{$name}-#{util.min-max($grade-root, 10, 100)}'),
-			'dark': prop('#{$name}-#{util.min-max($grade-root + 10, 10, 100)}'),
-			'darker': prop('#{$name}-#{util.min-max($grade-root + 20, 10, 100)}'),
-		), $name));
-	}
-}
-
-@mixin root-style {
-	@include set-props($-root-props);
-
-	@media (prefers-reduced-motion: reduce) {
-		@include set-props(
-			$duration-scalar: 0,
-		);
 	}
 }

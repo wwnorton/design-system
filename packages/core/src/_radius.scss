@@ -5,12 +5,4 @@ $radius-md: 0.25rem !default;
 $radius-lg: 0.5rem !default;
 $radius-xl: 1rem !default;
 $radius-pill: 99rem !default;
-
-@include props.root-props(
-	$radius-sm: $radius-sm,
-	$radius-md: $radius-md,
-	$radius-lg: $radius-lg,
-	$radius-xl: $radius-xl,
-	$radius-pill: $radius-pill,
-	$radius-base: props.prop('radius-sm'),
-);
+$radius-base: props.prop('radius-sm') !default;

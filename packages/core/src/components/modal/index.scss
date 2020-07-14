@@ -6,7 +6,7 @@
 
 @mixin backdrop {
 	// set props on the backdrop since it wraps the modal
-	@include props.set-props(
+	@include props.set(
 		$border-width: 1px,
 		$backdrop-opacity: 0.6,
 		$padding-y: spacing.rem(1),
@@ -23,7 +23,7 @@
 	background-color: rgba(0, 0, 0, #{props.prop('backdrop-opacity')});
 
 	@include device.media-up('md') {
-		@include props.set-props(
+		@include props.set(
 			$min-width: unset,
 			$min-height: unset,
 			$max-width: spacing.rem(34.5),
@@ -38,13 +38,13 @@
 	}
 
 	@include device.media-up('lg') {
-		@include props.set-props(
+		@include props.set(
 			$offset-y: spacing.px(40),
 		);
 	}
 
 	@include device.media-up('xl') {
-		@include props.set-props(
+		@include props.set(
 			$offset-y: spacing.px(80),
 		);
 	}
@@ -105,9 +105,7 @@
 }
 
 @mixin close-btn {
-	@include props.set-props(util.flatten((
-		'button-color': color.family('button-color', 'base'),
-	)));
+	@include props.set($button-color: color.family('button-color', 'base'));
 
 	position: absolute;
 	top: 0;

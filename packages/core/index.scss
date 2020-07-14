@@ -1,15 +1,20 @@
+// Abstracts (these don't have declaration mixins)
 @forward 'src/config';
-@forward 'src/util';
+@forward 'src/color';
+@forward 'src/device';
+@forward 'src/motion';
+@forward 'src/radius';
+@forward 'src/spacing';
+@forward 'src/type';
+@forward 'src/a11y';
 @forward 'src/properties';
-@forward 'src/color' as color-*;
-@forward 'src/device' as device-*;
-@forward 'src/motion' as motion-*;
-@forward 'src/radius' as radius-*;
-@forward 'src/reset' as reset-*;
-@forward 'src/spacing' as spacing-*;
-@forward 'src/type' as type-*;
-@forward 'src/a11y' as a11y-*;
+@forward 'src/util';
 
+// Root & Reset - these have global styles (you should only use one)
+@forward 'src/root';
+@forward 'src/reset';
+
+// Components (namespaced because they all include a `style` mixin)
 @forward 'src/components/button' as button-*;
 @forward 'src/components/checkbox' as checkbox-*;
 @forward 'src/components/disclosure' as disclosure-*;

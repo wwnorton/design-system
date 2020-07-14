@@ -1,5 +1,5 @@
 ////
-/// @group device
+/// @group Device
 ////
 
 @use 'sass:map';
@@ -22,8 +22,8 @@ $hd-dpi: 200 !default;
 /// The minimum dots per pixel unit (dppx) for a high-resolution screen
 $hd-dppx: 1.25 !default;
 
-$devices: () !default;
-$devices: map.merge(
+$breakpoints: () !default;
+$breakpoints: map.merge(
 	(
 		'xs': $device-xs,
 		'sm': $device-sm,
@@ -31,14 +31,7 @@ $devices: map.merge(
 		'lg': $device-lg,
 		'xl': $device-xl,
 	),
-	$devices,
-);
-
-// DEVICE PROPERTIES
-@include props.root-props(
-	$hd-dpi: $hd-dpi,
-	$hd-dppx: $hd-dppx,
-	$breakpoint: $devices,
+	$breakpoints,
 );
 
 /// A media query helper for high definition screens.
@@ -55,7 +48,7 @@ $devices: map.merge(
 /// and up.
 /// @param {String} $size - The device size: xs, sm, md, lg, or xl.
 /// @param {Map} $breakpoints [$devices] - The map of breakpoints to use.
-@mixin media-up($size, $breakpoints: $devices) {
+@mixin media-up($size, $breakpoints: $breakpoints) {
 	$min: map.get($breakpoints, $size);
 
 	@if $min != 0 {

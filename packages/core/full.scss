@@ -1,30 +1,24 @@
 // The full design system as one stylesheet.
 
+// forward the whole thing so the variables/mixins/functions can be used downstream
 @forward '.';
-@use 'src/reset';
-@use 'src/components/button';
-@use 'src/components/checkbox';
-@use 'src/components/disclosure';
-@use 'src/components/dropdown';
-@use 'src/components/field';
-@use 'src/components/icon';
-@use 'src/components/link';
-@use 'src/components/modal';
-@use 'src/components/radio';
-@use 'src/components/switch';
-@use 'src/components/textfield';
-@use 'src/components/tooltip';
 
-@include reset.style;
-@include button.style;
-@include checkbox.style;
-@include disclosure.style;
-@include dropdown.style;
-@include field.style;
-@include icon.style;
-@include link.style;
-@include modal.style;
-@include radio.style;
-@include switch.style;
-@include textfield.style;
-@include tooltip.style;
+// use here to set styles. this will result in a complete stylesheet
+@use '.' as nds;
+
+// Reset first
+@include nds.reset;
+
+// All components
+@include nds.button-style;
+@include nds.checkbox-style;
+@include nds.disclosure-style;
+@include nds.dropdown-style;
+@include nds.field-style;
+@include nds.icon-style;
+@include nds.link-style;
+@include nds.modal-style;
+@include nds.radio-style;
+@include nds.switch-style;
+@include nds.textfield-style;
+@include nds.tooltip-style;

@@ -1,4 +1,7 @@
+@forward './tokens';
+
 @use 'sass:map';
+@use 'sass:meta';
 @use '../../a11y';
 @use '../../color';
 @use '../../type';
@@ -6,22 +9,10 @@
 @use '../../spacing';
 @use '../../util';
 @use '../../properties' as props;
-
-$default-props: (
-	'button-color': color.family('button-color', 'primary', color.$primary-grade),
-	'border-width': 1px,
-	'padding-x': spacing.px-rem(12),
-	'padding-y': spacing.px-rem(8),
-	'border-radius': props.prop('radius-base'),
-	'font-weight': props.prop('font-weight-bold'),
-	'transition': props.prop('duration-simple') props.prop('easing-standard'),
-);
-
-$props: () !default;
-$props: map.merge($default-props, $props);
+@use './tokens';
 
 @mixin base {
-	@include props.set-props($props);
+	@include props.set(meta.module-variables('tokens'));
 	@include type.ui;
 
 	position: relative;
@@ -51,14 +42,13 @@ $props: map.merge($default-props, $props);
 	background-color: $background-color;
 	border-color: $border-color;
 	transition:
-		motion.transition(
-			props.prop('transition'),
+		motion.transition((
 			color,
 			background-color,
 			border-color,
 			border-radius,
 			box-shadow,
-		);
+		));
 }
 
 @mixin solid {
@@ -191,24 +181,28 @@ $props: map.merge($default-props, $props);
 			@include icon;
 		}
 
-		@each $name, $value in color.$families {
+		@each $name, $val in color.families() {
 			.#{util.prefix('button--#{$name}')} {
-				@include props.set-props(util.flatten((
-					'button-color': color.family('button-color', $name),
-				)));
+				@include props.set(
+					$button-color: color.family('button-color', $name),
+				);
 			}
 		}
 
 		// .#{util.prefix('button--primary')} {
-		// 	@include props.set-props(util.flatten((
-		// 		\$color: color.family('button-color', 'primary'),
+		// 	@include props.set(util.flatten((
+		// 		\$color: color.family('color', 'primary'),
 		// 	)));
 		// }
 
 		// .#{util.prefix('button--base')} {
-		// 	@include props.set-props(util.flatten((
-		// 		\$color: color.family('button-color', 'base'),
+		// 	@include props.set(util.flatten((
+		// 		\$color: color.family('color', 'base'),
 		// 	)));
 		// }
 	}
+}
+
+@mixin module {
+	@include root.style;
 }

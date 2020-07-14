@@ -4,7 +4,7 @@
 @use '../../properties' as props;
 
 @mixin base {
-	@include props.set-props(
+	@include props.set(
 		$border-width: 1px,
 		$listbox-shadow: 0 2px 4px 0 rgba(#232323, 0.25),
 		$options-max-display: 5,
@@ -23,7 +23,7 @@
 }
 
 @mixin button {
-	@include props.set-props(util.flatten((
+	@include props.set(util.flatten((
 		'button-color': color.family('button-color', 'base'),
 	)));
 
