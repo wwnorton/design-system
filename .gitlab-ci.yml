@@ -116,9 +116,10 @@ review:
     # invalidate the cloudfront cache to force a refresh
     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_REVIEW_ID --paths "/${CI_COMMIT_REF_SLUG}/*"
   only:
-    - branches
+    - merge_requests
   except:
     - master
+    - tags
 
 clean-review:
   image: python
