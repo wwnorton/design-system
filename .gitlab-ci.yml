@@ -31,7 +31,11 @@ debug:
   variables:
     PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
   script:
-    - echo '../../docs/static${PATH_PREFIX}storybook'
+    - echo $CI_COMMIT_REF_SLUG
+    - echo /${CI_COMMIT_REF_SLUG}/
+    - echo $PATH_PREFIX
+    - echo ../../docs/static${PATH_PREFIX}storybook
+    - echo ../../docs/static$PATH_PREFIXstorybook
 
 install:
   stage: prepare
