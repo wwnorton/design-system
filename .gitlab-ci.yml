@@ -132,7 +132,7 @@ clean-review:
   script:
     - aws s3 rm s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
   environment:
-    name: review/${CI_COMMIT_REF_SLUG}
+    name: review/$CI_COMMIT_REF_NAME
     action: stop
   when: manual
 
