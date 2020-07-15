@@ -106,12 +106,15 @@ review:
     S3_BUCKET: norton-design-system-review
   environment:
     name: review/${CI_COMMIT_REF_SLUG}
-    url: http://${S3_BUCKET}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
+    url: https://d263y9gtte72na.cloudfront.net/${CI_COMMIT_REF_SLUG}
     on_stop: clean-review
   before_script:
     - pip install awscli
   script:
-    - aws s3 cp public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
+    - aws s3 sync public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive --delete
+  after_script:
+    # invalidate the cloudfront cache to force a refresh
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_REVIEW_ID --paths "/${CI_COMMIT_REF_SLUG}/*"
   only:
     - branches
   except:
