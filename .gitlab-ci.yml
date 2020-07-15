@@ -17,6 +17,7 @@ stages:
 
 .build-docs: &build-docs
   before_script:
+    - npm run build:sassdoc -- --dest docs/static${PATH_PREFIX}sassdoc
     - npm run build:stories -- -- --output-dir ../../docs/static${PATH_PREFIX}storybook
   script:
     - npm run build:docs
