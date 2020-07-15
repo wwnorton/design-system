@@ -111,6 +111,108 @@ var object = {};
 ```
 <!-- prettier-ignore-end -->
 
+## Types
+
+### Primitives
+
+When you access a primitive type you work directly on its value.
+
+- `string`
+- `number`
+- `boolean`
+- `null`
+- `undefined`
+- `symbol`
+- `bigint`
+
+<!-- prettier-ignore-start -->
+```js
+const foo = 1;
+let bar = foo;
+
+bar = 9;
+
+console.log(foo, bar); // => 1, 9
+```
+<!-- prettier-ignore-end -->
+
+- Symbols and BigInts cannot be faithfully polyfilled, so they should not be used when targeting browsers/environments that don't support them natively.
+
+### Complex:
+
+When you access a complex type you work on a reference to its value.
+
+- `object`
+- `array`
+- `function`
+
+<!-- prettier-ignore-start -->
+```js
+const foo = [1, 2];
+const bar = foo;
+
+bar[0] = 9;
+
+console.log(foo[0], bar[0]); // => 9, 9
+```
+<!-- prettier-ignore-end -->
+
+## References
+
+### Use `const` for all of your references:
+
+avoid using `var`. eslint: [`prefer-const`](https://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](https://eslint.org/docs/rules/no-const-assign.html)
+
+> IMPORTANCE: This ensures that you can't reassign your references, which can lead to bugs and difficult to comprehend code.
+
+<!-- prettier-ignore-start -->
+```js
+// bad 👎
+var a = 1;
+var b = 2;
+
+// good 👍
+const a = 1;
+const b = 2;
+```
+<!-- prettier-ignore-end -->
+
+### Use `let` instead of `var`.
+
+If you must reassign references, use 'let' instead of 'var'. eslint: [`no-var`](https://eslint.org/docs/rules/no-var.html)
+
+> IMPORTANCE: `let` is block-scoped rather than function-scoped like `var`.
+
+<!-- prettier-ignore-start -->
+```js
+// bad 👎
+var count = 1;
+if (true) {
+  count += 1;
+}
+
+// good 👍, use the let.
+let count = 1;
+if (true) {
+  count += 1;
+}
+```
+<!-- prettier-ignore-end -->
+
+### Note that both `let` and `const` are block-scoped.
+
+<!-- prettier-ignore-start -->
+```js
+// const and let only exist in the blocks they are defined in.
+{
+  let a = 1;
+  const b = 1;
+}
+console.log(a); // ReferenceError
+console.log(b); // ReferenceError
+```
+<!-- prettier-ignore-end -->
+
 ## Naming Conventions
 
 ### Use lowerCamelCase for variables, properties and function names
@@ -160,52 +262,6 @@ var SECOND = 1 * 1000;
 function File() {
 }
 File.FULL_PERMISSIONS = 0777;
-```
-<!-- prettier-ignore-end -->
-
-## Types
-
-### Primitives
-
-When you access a primitive type you work directly on its value.
-
-- `string`
-- `number`
-- `boolean`
-- `null`
-- `undefined`
-- `symbol`
-- `bigint`
-
-<!-- prettier-ignore-start -->
-```js
-const foo = 1;
-let bar = foo;
-
-bar = 9;
-
-console.log(foo, bar); // => 1, 9
-```
-<!-- prettier-ignore-end -->
-
-- Symbols and BigInts cannot be faithfully polyfilled, so they should not be used when targeting browsers/environments that don't support them natively.
-
-### Complex:
-
-When you access a complex type you work on a reference to its value.
-
-- `object`
-- `array`
-- `function`
-
-<!-- prettier-ignore-start -->
-```js
-const foo = [1, 2];
-const bar = foo;
-
-bar[0] = 9;
-
-console.log(foo[0], bar[0]); // => 9, 9
 ```
 <!-- prettier-ignore-end -->
 
@@ -441,62 +497,6 @@ var b = {
   good: 'code',
   'is generally': 'pretty',
 };
-```
-<!-- prettier-ignore-end -->
-
-## References
-
-### Use `const` for all of your references:
-
-avoid using `var`. eslint: [`prefer-const`](https://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](https://eslint.org/docs/rules/no-const-assign.html)
-
-> IMPORTANCE: This ensures that you can't reassign your references, which can lead to bugs and difficult to comprehend code.
-
-<!-- prettier-ignore-start -->
-```js
-// bad 👎
-var a = 1;
-var b = 2;
-
-// good 👍
-const a = 1;
-const b = 2;
-```
-<!-- prettier-ignore-end -->
-
-### Use `let` instead of `var`.
-
-If you must reassign references, use 'let' instead of 'var'. eslint: [`no-var`](https://eslint.org/docs/rules/no-var.html)
-
-> IMPORTANCE: `let` is block-scoped rather than function-scoped like `var`.
-
-<!-- prettier-ignore-start -->
-```js
-// bad 👎
-var count = 1;
-if (true) {
-  count += 1;
-}
-
-// good 👍, use the let.
-let count = 1;
-if (true) {
-  count += 1;
-}
-```
-<!-- prettier-ignore-end -->
-
-### Note that both `let` and `const` are block-scoped.
-
-<!-- prettier-ignore-start -->
-```js
-// const and let only exist in the blocks they are defined in.
-{
-  let a = 1;
-  const b = 1;
-}
-console.log(a); // ReferenceError
-console.log(b); // ReferenceError
 ```
 <!-- prettier-ignore-end -->
 
