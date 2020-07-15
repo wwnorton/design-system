@@ -4,17 +4,15 @@
 
 @mixin base {
 	@include props.set(
-		$body-text: props.prop('body-bg'),
-		$body-bg: props.prop('body-text'),
-		$tooltip-arrow-size: 12px,
-		$tooltip-arrow-border: calc(#{props.prop('tooltip-arrow-size') / 2}),
-		$tooltip-offset-y: 6px,
-		$tooltip-max-width: spacing.rem(18),
-		$tooltip-padding-x: spacing.rem(0.75),
-		$tooltip-padding-y: spacing.rem(0.5),
-		$tooltip-line-height: props.prop('line-height-sm'),
-		$tooltip-font-size: props.prop('font-size-xs'),
-		$tooltip-radius: props.prop('radius-base'),
+		$arrow-size: 12px,
+		$arrow-border: calc(#{props.prop('arrow-size') / 2}),
+		$offset-y: 6px,
+		$max-width: spacing.rem(18),
+		$padding-x: spacing.rem(0.75),
+		$padding-y: spacing.rem(0.5),
+		$line-height: props.prop('line-height-sm'),
+		$font-size: props.prop('font-size-xs'),
+		$border-radius: props.prop('radius-base'),
 	);
 
 	position: absolute;
@@ -24,18 +22,18 @@
 @mixin content {
 	position: relative;
 	z-index: 1;
-	max-width: props.prop('tooltip-max-width');
-	padding: props.prop('tooltip-padding-y') props.prop('tooltip-padding-x');
-	line-height: props.prop('tooltip-line-height');
-	color: props.prop('body-text');
-	background-color: props.prop('body-bg');
-	border-radius: props.prop('tooltip-radius');
+	max-width: props.prop('max-width');
+	padding: props.prop('padding-y') props.prop('padding-x');
+	line-height: props.prop('line-height');
+	color: props.prop('body-bg');
+	background-color: props.prop('body-text');
+	border-radius: props.prop('border-radius');
 }
 
 @mixin arrow {
 	position: absolute;
-	width: props.prop('tooltip-arrow-size');
-	height: props.prop('tooltip-arrow-size');
+	width: props.prop('arrow-size');
+	height: props.prop('arrow-size');
 
 	&::before {
 		position: absolute;
@@ -46,16 +44,16 @@
 }
 
 @mixin placement-arrow {
-	background-color: props.prop('body-bg');
+	background-color: props.prop('body-text');
 }
 
 @mixin placement-top-arrow {
 	bottom: 0;
 
 	&::before {
-		bottom: calc(-1 * #{props.prop('tooltip-arrow-border')});
+		bottom: calc(-1 * #{props.prop('arrow-border')});
 		left: 0;
-		border-width: props.prop('tooltip-arrow-border') props.prop('tooltip-arrow-border') 0;
+		border-width: props.prop('arrow-border') props.prop('arrow-border') 0;
 		border-top-color: initial;
 		transform-origin: center top;
 	}
@@ -65,8 +63,8 @@
 	left: 0;
 
 	&::before {
-		left: calc(-1 * #{props.prop('tooltip-arrow-border')});
-		border-width: props.prop('tooltip-arrow-border') props.prop('tooltip-arrow-border') props.prop('tooltip-arrow-border') 0;
+		left: calc(-1 * #{props.prop('arrow-border')});
+		border-width: props.prop('arrow-border') props.prop('arrow-border') props.prop('arrow-border') 0;
 		border-right-color: initial;
 		transform-origin: center right;
 	}
@@ -76,9 +74,9 @@
 	top: 0;
 
 	&::before {
-		top: calc(-1 * #{props.prop('tooltip-arrow-border')});
+		top: calc(-1 * #{props.prop('arrow-border')});
 		left: 0;
-		border-width: 0 props.prop('tooltip-arrow-border') props.prop('tooltip-arrow-border');
+		border-width: 0 props.prop('arrow-border') props.prop('arrow-border');
 		border-bottom-color: initial;
 		transform-origin: center bottom;
 	}
@@ -88,8 +86,8 @@
 	right: 0;
 
 	&::before {
-		right: calc(-1 * #{props.prop('tooltip-arrow-border')});
-		border-width: props.prop('tooltip-arrow-border') 0 props.prop('tooltip-arrow-border') props.prop('tooltip-arrow-border');
+		right: calc(-1 * #{props.prop('arrow-border')});
+		border-width: props.prop('arrow-border') 0 props.prop('arrow-border') props.prop('arrow-border');
 		border-left-color: initial;
 		transform-origin: center left;
 	}
