@@ -19,7 +19,6 @@ stages:
   before_script:
     - npm run build:stories -- -- --output-dir ../../docs/static${PATH_PREFIX}storybook
   script:
-    - echo $PATH_PREFIX
     - npm run build:docs
     - mv docs/public public
 
