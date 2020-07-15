@@ -36,6 +36,8 @@
     "docz": "^2.3.1",
     "gatsby": "^2.24.2",
     "gatsby-plugin-sass": "^2.3.12",
-    "gatsby-theme-docz": "^2.3.1"
+    "gatsby-theme-docz": "^2.3.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }
