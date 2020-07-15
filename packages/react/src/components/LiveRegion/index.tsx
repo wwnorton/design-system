@@ -109,6 +109,7 @@ export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
 		visible,
 	]);
 
+	if (typeof document === 'undefined') return null;
 	return createPortal((shouldRender) ? Node : null, document.body);
 };
 
