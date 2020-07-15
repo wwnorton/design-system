@@ -6,6 +6,7 @@
 
 @mixin control {
 	color: props.prop('body-bg');
+	border-radius: props.prop('radius-base');
 
 	:checked + &,
 	:indeterminate + & {
