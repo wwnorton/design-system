@@ -105,7 +105,7 @@ review:
   variables:
     S3_BUCKET: norton-design-system-review
   environment:
-    name: review/${CI_COMMIT_REF_SLUG}
+    name: review/$CI_COMMIT_REF_NAME
     url: https://d263y9gtte72na.cloudfront.net/${CI_COMMIT_REF_SLUG}
     on_stop: clean-review
   before_script:
