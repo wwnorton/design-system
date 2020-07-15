@@ -54,6 +54,9 @@
 				@include color.set-scheme('dark');
 			}
 		}
+		@else {
+			@include color.set-scheme('light');
+		}
 
 		// disable all motion by setting all durations to 0
 		@media (prefers-reduced-motion: reduce) {
