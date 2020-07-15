@@ -3,6 +3,7 @@
   "private": true,
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "workspaces": [
+    "docs",
     "packages/*"
   ],
   "scripts": {
