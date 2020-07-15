@@ -26,6 +26,13 @@ stages:
 
 # JOBS
 
+debug:
+  stage: .pre
+  variables:
+    PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
+  script:
+    - echo '../../docs/static${PATH_PREFIX}storybook'
+
 install:
   stage: prepare
   # don't use npm ci since we are using cached node_modules
