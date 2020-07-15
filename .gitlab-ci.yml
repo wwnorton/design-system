@@ -146,7 +146,7 @@ prod:
   before_script:
     - pip install awscli
   script:
-    - aws s3 cp public s3://${S3_BUCKET}/ --recursive
+    - aws s3 sync public s3://${S3_BUCKET}/ --delete
   after_script:
     # invalidate the cloudfront cache to force a refresh
     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
