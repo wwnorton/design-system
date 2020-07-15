@@ -112,7 +112,7 @@ $-props-root: ();
 /// declaration for global usage.
 /// @param {Arglist | Map[]} $additions... - Either an arglist of key: value
 /// pairs or a list of maps with key: value pairs.
-/// @see props
+/// @see add
 /// @example scss - Arglist
 ///   @include add-root(
 ///     $base-border-radius: 2px,
