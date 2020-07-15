@@ -22,8 +22,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 		themeConfig: { showDarkModeSwitch, showMarkdownEditButton },
 	} = useConfig();
 	const { edit = true, ...doc } = useCurrentDoc();
-	const mediaScheme = useRef(window.matchMedia('(prefers-color-scheme: dark)'));
-	const [colorScheme, setColorScheme] = useColorMode((mediaScheme.current.matches) ? 'dark' : 'light');
+	const [colorScheme, setColorScheme] = useColorMode<'light' | 'dark'>();
 
 	const toggleColorScheme = (): void => {
 		setColorScheme((colorScheme === 'dark') ? 'light' : 'dark');
@@ -34,6 +33,11 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 		document.documentElement.classList.remove(`scheme-${invert}`);
 		document.documentElement.classList.add(`scheme-${colorScheme}`);
 	}, [colorScheme]);
+
+	useEffect(() => {
+		const mql = window.matchMedia('(prefers-color-scheme: dark)');
+		setColorScheme((mql.matches) ? 'light' : 'dark');
+	}, []);
 
 	return (
 		<header sx={styles.wrapper} data-testid="header">
