@@ -16,26 +16,14 @@ stages:
 # ANCHORS - reusable sections of YAML
 
 .build-docs: &build-docs
-  variables:
-    PATH_PREFIX: /
   before_script:
-    - npm run build:stories -- -- --output-dir '../../docs/static${PATH_PREFIX}storybook'
+    - npm run build:stories -- -- --output-dir ../../docs/static${PATH_PREFIX}storybook
   script:
+    - echo $PATH_PREFIX
     - npm run build:docs
     - mv docs/public public
 
 # JOBS
-
-debug:
-  stage: .pre
-  variables:
-    PATH_PREFIX: /${CI_COMMIT_REF_SLUG}/
-  script:
-    - echo $CI_COMMIT_REF_SLUG
-    - echo /${CI_COMMIT_REF_SLUG}/
-    - echo $PATH_PREFIX
-    - echo ../../docs/static${PATH_PREFIX}storybook
-    - echo ../../docs/static$PATH_PREFIXstorybook
 
 install:
   stage: prepare
