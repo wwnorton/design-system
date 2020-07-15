@@ -54,6 +54,9 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 			<div sx={styles.innerContainer}>
 				<Logo />
 				<Flex sx={{ alignItems: 'center' }}>
+					<a href={withPrefix('/sassdoc')} sx={styles.headerLink}>
+						Sassdoc
+					</a>
 					<a href={withPrefix('/storybook')} sx={styles.headerLink}>
 						Storybook
 					</a>
