@@ -7,20 +7,20 @@
 @use 'util';
 
 /// Extra small: a handset
-$device-xs: 0 !default;
+$device-xs: 0;
 /// Small: a large handset or small tablet
-$device-sm: 600px !default;
+$device-sm: 600px;
 /// Medium: a large tablet or laptop
-$device-md: 960px !default;
+$device-md: 960px;
 /// Large: a desktop
-$device-lg: 1280px !default;
+$device-lg: 1280px;
 /// Extra large: a high-definition screen
-$device-xl: 1920px !default;
+$device-xl: 1920px;
 
 /// The minimum dots per inch (dpi) of a high-resolution screen
-$hd-dpi: 200 !default;
+$hd-dpi: 200;
 /// The minimum dots per pixel unit (dppx) for a high-resolution screen
-$hd-dppx: 1.25 !default;
+$hd-dppx: 1.25;
 
 $breakpoints: () !default;
 $breakpoints: map.merge(

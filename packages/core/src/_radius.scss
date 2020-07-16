@@ -1,8 +1,8 @@
 @use 'properties' as props;
 
-$radius-sm: 0.125rem !default;
-$radius-md: 0.25rem !default;
-$radius-lg: 0.5rem !default;
-$radius-xl: 1rem !default;
-$radius-pill: 99rem !default;
+$radius-sm: 0.125rem;
+$radius-md: 0.25rem;
+$radius-lg: 0.5rem;
+$radius-xl: 1rem;
+$radius-pill: 99rem;
 $radius-base: props.prop('radius-sm') !default;

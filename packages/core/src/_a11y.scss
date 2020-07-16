@@ -9,7 +9,7 @@
 
 // TOKENS
 
-$focus-ring-inner: props.prop('body-bg');
+$focus-ring-inner: props.prop('body-bg') !default;
 /// The default focus shadow has a 2px outer ring and an inner ring that matches
 /// the body's background color by default, giving the illusion of transparency.
 $focus-shadow: (

@@ -45,30 +45,30 @@
 $duration-scalar: 1 !default;
 
 /// A duration used for simple animations such as selection controls.
-$duration-simple: 100ms !default;
+$duration-simple: 100ms;
 /// A duration used for simple entrances such as fade-ins.
-$duration-simple-enter: 150ms !default;
+$duration-simple-enter: 150ms;
 /// A duration used for simple exits such as fade-outs.
-$duration-simple-exit: 75ms !default;
+$duration-simple-exit: 75ms;
 /// A duration used for complex animations such as shape changes.
-$duration-complex: 200ms !default;
+$duration-complex: 200ms;
 /// A duration used for detailed animations such as icon transformations.
-$duration-detailed: 500ms !default;
+$duration-detailed: 500ms;
 
 /// A duration used for elements that open from a closed state, such as a sidebar.
-$duration-open: 250ms !default;
+$duration-open: 250ms;
 /// A duration used for elements that close from an opened state, such as a sidebar.
-$duration-close: 200ms !default;
+$duration-close: 200ms;
 /// A duration used when an element expands (grows).
-$duration-expand: 300ms !default;
+$duration-expand: 300ms;
 /// A duration used when an element collapses (shrinks).
-$duration-collapse: 250ms !default;
+$duration-collapse: 250ms;
 
-$duration-small: props.prop('duration-simple') !default;
-$duration-medium-expand: props.prop('duration-open') !default;
-$duration-medium-collapse: props.prop('duration-open') !default;
-$duration-large-expand: props.prop('duration-expand') !default;
-$duration-large-collapse: props.prop('duration-collapse') !default;
+$duration-small: props.prop('duration-simple');
+$duration-medium-expand: props.prop('duration-open');
+$duration-medium-collapse: props.prop('duration-open');
+$duration-large-expand: props.prop('duration-expand');
+$duration-large-collapse: props.prop('duration-collapse');
 
 /// Standard easing puts subtle attention at the end of an animation, by giving
 /// more time to deceleration than acceleration. It is the most common form of
@@ -77,17 +77,17 @@ $duration-large-collapse: props.prop('duration-collapse') !default;
 /// Elements that begin and end at rest use standard easing. They speed up
 /// quickly and slow down gradually, in order to emphasize the end of the
 /// transition.
-$easing-standard: cubic-bezier(0.4, 0, 0.2, 1) !default;
+$easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
 
 /// Incoming elements are animated using deceleration easing, which starts a
 /// transition at peak velocity (the fastest point of an element’s movement) and
 /// ends at rest.
-$easing-deceleration: cubic-bezier(0, 0, 0.2, 1) !default;
+$easing-deceleration: cubic-bezier(0, 0, 0.2, 1);
 
 /// Elements exiting a screen use acceleration easing, where they start at rest
 /// and end at peak velocity.
-$easing-acceleration: cubic-bezier(0.4, 0, 1, 1) !default;
+$easing-acceleration: cubic-bezier(0.4, 0, 1, 1);
 
 /// Timing function to quickly accelerate and decelerate
 /// @source https://github.com/material-components/material-components-web/tree/master/packages/mdc-animation @material/animation
-$easing-sharp: cubic-bezier(0.4, 0, 0.6, 1) !default;
+$easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
