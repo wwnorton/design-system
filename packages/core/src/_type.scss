@@ -4,7 +4,10 @@
 ////
 
 @use 'sass:list';
+@use 'sass:map';
+@use 'config';
 @use 'device';
+@use 'spacing';
 @use 'properties' as props;
 
 // FUNCTIONS
@@ -146,10 +149,16 @@ $line-height-6: 1.75;
 	}
 }
 
-@mixin -text(
-	$family: props.prop(font-family-base),
-	$size: props.prop(font-size-base),
-	$height: props.prop(line-height-base),
+/// Create a composed set of typography design tokens. Explicitly specifying a
+/// value of `null` values will result in the property not being set.
+/// @param {font-family} $family [font-family-base] - The font size, which should be a `font-size-*` token.
+/// @param {line-height} $height [line-height-base] - The line height, which should be a `line-height-*` token.
+/// @param {font-size} $size [font-size-base] - The font size, which should be a `font-size-*` token.
+/// @param {font-size} $size [null] - The font weight, which should be a `font-weight-*` token.
+@mixin typeset(
+	$family: props.prop('font-family-base'),
+	$size: props.prop('font-size-base'),
+	$height: props.prop('line-height-base'),
 	$weight: null,
 ) {
 	font-family: $family;
@@ -158,32 +167,146 @@ $line-height-6: 1.75;
 	line-height: $height;
 }
 
-@mixin text-xs {
-	@include -text($size: props.prop(font-size-12));
+/// A `typeset` suitable for extra small body text.
+@mixin body-xs {
+	@include typeset($size: props.prop('font-size-xs'));
 }
 
-@mixin text-sm {
-	@include -text($size: props.prop(font-size-14));
+/// A `typeset` suitable for small body text.
+@mixin body-sm {
+	@include typeset($size: props.prop('font-size-sm'));
 }
 
-@mixin text-md {
-	@include -text;
+/// A `typeset` suitable for medium body text.
+@mixin body-md {
+	@include typeset($size: props.prop('font-size-md'));
 }
 
-@mixin text-lg {
-	@include -text($size: props.prop(font-size-18));
+/// A `typeset` suitable for large body text.
+@mixin body-lg {
+	@include typeset($size: props.prop('font-size-lg'));
 }
 
-@mixin ui {
-	@include -text($height: props.prop(line-height-sm));
+@mixin body-base {
+	@if config.$typeset-body-base == 'xs' {
+		@include body-xs;
+	}
+	@else if config.$typeset-body-base == 'sm' {
+		@include body-sm;
+	}
+	@else if config.$typeset-body-base == 'md' {
+		@include body-md;
+	}
+	@else if config.$typeset-body-base == 'lg' {
+		@include body-lg;
+	}
 }
 
-@mixin heading {
+/// A `typeset` suitable for extra small UI text.
+@mixin ui-xs {
+	@include typeset(
+		$height: lh('ui'),
+		$size: props.prop('font-size-xs'),
+	);
+}
+
+/// A `typeset` suitable for small UI text.
+@mixin ui-sm {
+	@include typeset(
+		$height: lh('ui'),
+		$size: props.prop('font-size-sm'),
+	);
+}
+
+/// A `typeset` suitable for medium UI text.
+@mixin ui-md {
+	@include typeset(
+		$height: lh('ui'),
+		$size: props.prop('font-size-md'),
+	);
+}
+
+/// A `typeset` suitable for large UI text.
+@mixin ui-lg {
+	@include typeset(
+		$height: lh('ui'),
+		$size: props.prop('font-size-lg'),
+	);
+}
+
+@mixin ui-base {
+	@if config.$typeset-ui-base == 'xs' {
+		@include ui-xs;
+	}
+	@else if config.$typeset-ui-base == 'sm' {
+		@include ui-sm;
+	}
+	@else if config.$typeset-ui-base == 'md' {
+		@include ui-md;
+	}
+	@else if config.$typeset-ui-base == 'lg' {
+		@include ui-lg;
+	}
+}
+
+/// A `typeset` intended for text that is meant to convey hierarchy (i.e., a heading).
+@mixin typeset-heading($size, $height) {
+	@include typeset(
+		$size: $size,
+		$height: $height,
+		$family: props.prop('font-family-headings'),
+		$weight: props.prop('font-weight-headings'),
+	);
+
 	margin-top: 0;
-	margin-bottom: props.prop('block-spacer-base');
-	font-family: props.prop(font-family-headings);
-	font-style: props.prop(font-style-headings);
-	font-weight: props.prop(font-weight-headings);
-	line-height: props.prop(line-height-headings);
-	color: props.prop(body-text);
+	margin-bottom: spacing.spacer('block-base');
+	font-style: props.prop('font-style-headings');
+}
+
+/// A `typeset` suitable for top-level headings (`h1`).
+@mixin heading-1 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h1'),
+		$height: lh('h1'),
+	);
+}
+
+/// A `typeset` suitable for second-level headings (`h2`).
+@mixin heading-2 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h2'),
+		$height: lh('h2'),
+	);
+}
+
+/// A `typeset` suitable for third-level headings (`h3`).
+@mixin heading-3 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h3'),
+		$height: lh('h3'),
+	);
+}
+
+/// A `typeset` suitable for fourth-level headings (`h4`).
+@mixin heading-4 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h4'),
+		$height: lh('h4'),
+	);
+}
+
+/// A `typeset` suitable for fifth-level headings (`h5`).
+@mixin heading-5 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h5'),
+		$height: lh('h5'),
+	);
+}
+
+/// A `typeset` suitable for sixth-level headings (`h6`).
+@mixin heading-6 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h6'),
+		$height: lh('h6'),
+	);
 }
