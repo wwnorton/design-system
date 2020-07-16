@@ -225,3 +225,39 @@ $-props-root: ();
 		}
 	}
 }
+
+@function from-role($role, $property, $role-map) {
+	$keys: ();
+
+	@each $map in $role-map {
+		$current: map.get($map, 'keys');
+
+		@if list.index($current, $role) {
+			@return map.get($map, 'token');
+		}
+
+		@each $key in $current {
+			$keys: list.append($keys, $key, comma);
+		}
+	}
+
+	@error '#{$role} is not a valid #{$property} role. Options are #{$keys}.';
+}
+
+@function get-roles($token, $property, $role-map) {
+	$token: ();
+
+	@each $map in $role-map {
+		$current: map.get($map, 'token');
+
+		@if list.index($current, $token) {
+			@return map.get($map, 'keys');
+		}
+
+		@each $key in $current {
+			$token: list.append($token, $key, comma);
+		}
+	}
+
+	@error '#{token} is not a token in the #{$property} role map. Options are #{$token}.';
+}
