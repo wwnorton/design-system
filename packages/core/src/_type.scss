@@ -13,13 +13,13 @@
 	$system: '';
 
 	@if $generic == 'sans' {
-		$system: props.prop(font-family-system-sans);
+		$system: props.prop('font-family-system-sans');
 	}
 	@else if $generic == 'serif' {
-		$system: props.prop(font-family-system-sans);
+		$system: props.prop('font-family-system-sans');
 	}
 	@else if $generic == 'mono' {
-		$system: props.prop(font-family-system-mono);
+		$system: props.prop('font-family-system-mono');
 	}
 
 	@return list.join($font-family, $system, $separator: comma);
