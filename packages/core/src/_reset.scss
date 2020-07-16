@@ -10,15 +10,15 @@
 
 @use 'a11y';
 @use 'color';
-@use 'type';
 @use 'properties' as props;
 @use 'root';
 @use 'spacing';
+@use 'type';
 @use 'util';
 
 // Bootstrap tokens that are only used in the reset
 // TODO: adapt these to NDS props and move them elsewhere
-$paragraph-margin-bottom: props.prop('block-spacer-base') !default;
+$paragraph-margin-bottom: spacing.spacer('block-base') !default;
 $dt-font-weight: props.prop('font-weight-bold') !default;
 $font-weight-bolder: bolder !default;
 $mark-padding: 0.2em !default;
@@ -34,11 +34,11 @@ $kbd-font-size: $code-font-size !default;
 $kbd-color: props.prop('body-bg') !default;
 $kbd-bg: props.prop('body-text') !default;
 $nested-kbd-font-weight: props.prop('font-weight-bold') !default;
-$table-cell-padding-y: spacing.rem(0.5) !default;
-$table-cell-padding-x: spacing.rem(0.5) !default;
-$table-caption-color: props.prop('text-muted') !default;
+$table-cell-padding-y: spacing.spacer('cell-base') !default;
+$table-cell-padding-x: spacing.spacer('cell-base') !default;
+$table-caption-color: props.prop('subdued') !default;
 $table-th-font-weight: null !default;
-$legend-margin-bottom: props.prop('block-spacer-base') !default;
+$legend-margin-bottom: spacing.spacer('block-base') !default;
 $legend-font-size: 1.5rem !default;
 $legend-font-weight: null !default;
 
@@ -73,7 +73,7 @@ $legend-font-weight: null !default;
 			// margin: 0; // 2
 			font-family: props.prop('font-family-base');
 			font-weight: props.prop('font-weight-base');
-			line-height: props.prop('line-height-base');
+			line-height: type.lh('body');
 			color: props.prop('body-text');
 			background-color: props.prop('body-bg'); // 3
 			-webkit-text-size-adjust: 100%; // 4
@@ -124,39 +124,27 @@ $legend-font-weight: null !default;
 		//    margin for easier control within type scales as it avoids margin collapsing.
 
 		h1 {
-			@include type.heading;
-
-			font-size: props.prop('font-size-h1');
+			@include type.heading-1;
 		}
 
 		h2 {
-			@include type.heading;
-
-			font-size: props.prop('font-size-h2');
+			@include type.heading-2;
 		}
 
 		h3 {
-			@include type.heading;
-
-			font-size: props.prop('font-size-h3');
+			@include type.heading-3;
 		}
 
 		h4 {
-			@include type.heading;
-
-			font-size: props.prop('font-size-h4');
+			@include type.heading-4;
 		}
 
 		h5 {
-			@include type.heading;
-
-			font-size: props.prop('font-size-h5');
+			@include type.heading-5;
 		}
 
 		h6 {
-			@include type.heading;
-
-			font-size: props.prop('font-size-h6');
+			@include type.heading-6;
 		}
 
 		// Reset margins on paragraphs
@@ -189,7 +177,7 @@ $legend-font-weight: null !default;
 		// Address
 
 		address {
-			margin-bottom: props.prop('block-spacer-base');
+			margin-bottom: spacing.spacer('block-base');
 			font-style: normal;
 			line-height: inherit;
 		}
@@ -206,7 +194,7 @@ $legend-font-weight: null !default;
 		ul,
 		dl {
 			margin-top: 0;
-			margin-bottom: props.prop('block-spacer-base');
+			margin-bottom: spacing.spacer('block-base');
 		}
 
 		ol ol,
@@ -223,7 +211,7 @@ $legend-font-weight: null !default;
 		// 1. Undo browser default
 
 		dd {
-			margin-bottom: spacing.rem(0.5);
+			margin-bottom: spacing.spacer('block-sm');
 			margin-left: 0; // 1
 		}
 
@@ -231,7 +219,7 @@ $legend-font-weight: null !default;
 		// Blockquote
 
 		blockquote {
-			margin: 0 0 spacing.rem(1);
+			margin: 0 0 spacing.spacer('block-base');
 		}
 
 
@@ -336,7 +324,7 @@ $legend-font-weight: null !default;
 		pre {
 			display: block;
 			margin-top: 0; // 1
-			margin-bottom: props.prop('block-spacer-base'); // 2
+			margin-bottom: spacing.spacer('block-base'); // 2
 			overflow: auto; // 3
 			font-size: $code-font-size;
 			color: $pre-color;

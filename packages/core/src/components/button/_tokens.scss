@@ -4,7 +4,7 @@
 
 $button-color: color.family('button-color', 'primary', color.get-grade('primary')) !default;
 $border-width: 1px !default;
-$padding-x: spacing.px-rem(12) !default;
-$padding-y: spacing.px-rem(8) !default;
+$padding-x: spacing.spacer('button-x') !default;
+$padding-y: spacing.spacer('button-y') !default;
 $border-radius: props.prop('radius-base') !default;
 $font-weight: props.prop('font-weight-bold') !default;

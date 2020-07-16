@@ -1,5 +1,6 @@
 @use '../../motion';
 @use '../../spacing';
+@use '../../type';
 @use '../../util';
 @use '../../properties' as props;
 
@@ -13,7 +14,7 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 		$border-radius: props.prop('radius-base'),
 		$padding-y: spacing.rem(0.75),
 		$padding-x: spacing.rem(1.5),
-		$marker-margin: spacing.rem(0.25),
+		$marker-margin: spacing.spacer('ui-inner'),
 	);
 
 	position: relative;
@@ -21,6 +22,8 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 }
 
 @mixin summary {
+	@include type.ui-base;
+
 	position: relative;
 	display: flex;
 	padding: spacing.padding-y() 0;

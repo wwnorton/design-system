@@ -1,6 +1,7 @@
 @use '../../color';
 @use '../../device';
 @use '../../spacing';
+@use '../../type';
 @use '../../util';
 @use '../../properties' as props;
 
@@ -93,15 +94,15 @@
 	}
 
 	&.#{util.prefix('stuck')} {
-		box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+		box-shadow: 0 0 8px 0 rgba(props.value('black'), 0.25);
 	}
 }
 
 @mixin title {
+	@include type.heading-4;
+
 	padding-right: calc(#{props.prop('padding-x')} / 2);
 	margin: 0;
-	font-size: props.prop('font-size-18');
-	line-height: props.prop('line-height-headings');
 }
 
 @mixin close-btn {
@@ -150,7 +151,7 @@
 	justify-content: flex-end;
 
 	> * + * {
-		margin-left: spacing.rem(0.5);
+		margin-left: spacing.spacer('inline-x');
 	}
 
 	&.#{util.prefix('modal__actionbar--fixed')} {
@@ -167,7 +168,7 @@
 	}
 
 	&.#{util.prefix('stuck')} {
-		box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+		box-shadow: 0 0 8px 0 rgba(props.value('black'), 0.25);
 	}
 }
 

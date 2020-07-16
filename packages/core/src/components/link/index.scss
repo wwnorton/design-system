@@ -7,9 +7,9 @@
 	$link-hover-color: props.prop('primary-dark'),
 	$link-hover-decoration: underline,
 	$link-active-color: props.prop('primary-darker'),
-	$link-visited-color: props.prop('purple-70'),
-	$link-visited-hover-color: props.prop('purple-80'),
-	$link-visited-active-color: props.prop('purple-90'),
+	$link-visited-color: null,			// props.prop('purple-70'),
+	$link-visited-hover-color: null,	// props.prop('purple-80'),
+	$link-visited-active-color: null,	// props.prop('purple-90'),
 );
 
 @mixin style {

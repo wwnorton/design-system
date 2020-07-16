@@ -1,25 +1,26 @@
 @use '../../color';
 @use '../../spacing';
+@use '../../type';
 @use '../../util';
 @use '../../properties' as props;
 
 @mixin base {
 	@include props.set(
 		$border-width: 1px,
-		$listbox-shadow: 0 2px 4px 0 rgba(#232323, 0.25),
+		$listbox-shadow: 0 2px 4px 0 rgba(props.value('black'), 0.25),
 		$options-max-display: 5,
 		$option-hover-color: props.prop('base-20'),
 		$option-hover-focus-color: props.prop('base-30'),
 		$option-focus-color: props.prop('primary-20'),
-		$option-padding-y: spacing.rem(0.5),
-		$option-padding-x: spacing.rem(0.75),
+		$option-padding-y: spacing.spacer('button-y'),
+		$option-padding-x: spacing.spacer('dropdown-x'),
 		$option-font-size: 1rem,
-		$option-line-height: props.prop('line-height-sm'),
-		$option-computed-height: calc(#{props.prop('option-font-size')} * #{props.prop('option-line-height')} + #{props.prop('option-padding-y')} * 2),
+		$option-line-height: type.lh('ui'),
 		$option-padding-left: calc(#{props.prop('option-icon-size')} + #{props.prop('option-padding-x')}),
 		$option-icon-padding-x: calc(#{props.prop('option-padding-x') / 2}),
 		$option-icon-size: 1em,
 	);
+	@include type.ui-base;
 }
 
 @mixin button {
@@ -49,11 +50,13 @@
 }
 
 @mixin listbox {
+	$-option-computed-height: calc(#{props.prop('option-font-size')} * #{props.prop('option-line-height')} + #{props.prop('option-padding-y')} * 2);
+
 	z-index: props.prop(zindex-dropdown);
-	max-height: calc(#{props.prop('options-max-display')} * #{props.prop('option-computed-height')} + #{props.prop('border-width')} * 2);
+	max-height: calc(#{props.prop('options-max-display')} * #{$-option-computed-height} + #{props.prop('border-width')} * 2);
 	padding: 0;
 	margin: 0;
-	overflow-y: scroll;
+	overflow-y: auto;
 	list-style-type: none;
 	background-color: props.prop('body-bg');
 	border: props.prop('border-width') solid props.prop('base-40');

@@ -13,7 +13,7 @@
 
 @mixin base {
 	@include props.set(meta.module-variables('tokens'));
-	@include type.ui;
+	@include type.ui-base;
 
 	position: relative;
 	display: inline-flex;
@@ -146,14 +146,14 @@
 
 @mixin icon {
 	height: 1.25rem;
-	margin: 0 0.25rem;
+	margin: 0 spacing.spacer('ui-inner');
 
 	&:first-child {
-		margin-left: -0.25rem;
+		margin-left: calc(-1 * #{spacing.spacer('ui-inner')});
 	}
 
 	&:last-child {
-		margin-right: -0.25rem;
+		margin-right: calc(-1 * #{spacing.spacer('ui-inner')});
 	}
 }
 
@@ -203,8 +203,4 @@
 		// 	)));
 		// }
 	}
-}
-
-@mixin module {
-	@include root.style;
 }

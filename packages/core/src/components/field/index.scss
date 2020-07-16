@@ -1,5 +1,6 @@
 @use '../../a11y';
 @use '../../spacing';
+@use '../../type';
 @use '../../util';
 @use '../../properties' as props;
 
@@ -9,8 +10,9 @@
 /// The base styling for all fields.
 /// Default: `.field`
 @mixin base {
-	margin-bottom: props.prop('block-spacer-base');
-	line-height: props.prop('line-height-sm');
+	@include type.ui-base;
+
+	margin-bottom: spacing.spacer('block-base');
 }
 
 
@@ -19,22 +21,23 @@
 /// The field info container.
 /// Default: `.field__info`
 @mixin info {
-	// margin-bottom: spacing.rem(0.25);
+	@include type.ui-base;
+
+	:last-child {
+		margin-bottom: spacing.spacer('ui-inner');
+	}
 }
 
 /// The field info's label, first child of the field info container.
 /// Default: `.field__label`
 @mixin label {
+	@include type.ui-base;
+
 	margin-bottom: 0;
-	font-size: props.prop('font-weight-base');
 	font-weight: props.prop('font-weight-bold');
 
 	.#{util.prefix('field__group--choice')} & {
 		font-weight: props.prop('font-weight-regular');
-	}
-
-	+ .#{util.prefix('field__group--choice')} {
-		margin-top: spacing.rem(0.5);
 	}
 }
 
@@ -48,10 +51,8 @@
 
 /// The field description, second child of the field info container.
 @mixin description {
-	margin-bottom: spacing.rem(0.5);
 	font-size: props.prop('font-size-sm');
-	line-height: props.prop('line-height-sm');
-	color: props.prop('text-muted');
+	color: props.prop('subdued');
 }
 
 
@@ -60,17 +61,19 @@
 /// The field group container.
 /// Default: `.field__group`
 @mixin group {
+	@include type.ui-base;
+
 	position: relative;
 	display: flex;
-	line-height: props.prop('line-height-sm');
 }
 
 /// A "choice" modifier for the field group container.
 /// Default: `.field__group--choice`
 @mixin group-choice {
 	@include props.set(
-		$padding-y: spacing.rem(0.25),
-		$offset-x: spacing.rem(0.5),
+		$spacing: null,
+		$padding-y: spacing.spacer('ui-inner'),
+		$offset-x: spacing.spacer('inline-x'),
 	);
 
 	display: flex;
@@ -78,6 +81,11 @@
 
 	> * {
 		margin-right: props.prop('offset-x');
+	}
+
+	.#{util.prefix('field__label')} + &,
+	.#{util.prefix('field__desc')} + & {
+		margin-top: spacing.spacer('block-base');
 	}
 
 	> :last-child {
@@ -90,7 +98,7 @@
 
 		// still position it in the center of the visual control so that form
 		// validator tooltips will point at the right thing
-		top: calc(#{props.prop('font-size-base')} * #{props.prop('line-height-sm')} / 2);
+		top: calc(#{props.prop('font-size-base')} * #{type.lh('ui')} / 2);
 		left: calc(0.5em + 1px);
 		transform: translateX(-50%);
 	}
@@ -113,11 +121,11 @@
 		$bg-color: props.prop('body-bg'),
 		$border-color: props.prop('base'),
 		$border-width: 2px,
-		$offset-x: spacing.rem(0.5),
+		$offset-x: spacing.spacer('inline-x'),
 	);
 
 	position: relative;
-	top: calc(#{props.prop('font-size-base')} * #{props.prop('line-height-sm')} / 2);
+	top: calc(#{props.prop('font-size-base')} * #{type.lh('ui')} / 2);
 	display: flex;
 	width: 1em;
 	height: 1em;
@@ -248,6 +256,12 @@
 
 // FEEDBACK - a container for errors and other feedback about user input
 
+/// The outer feedback container.
+/// Default: `.field__feedback`
+@mixin feedback {
+	@include type.ui-base;
+}
+
 /// The field errors list, which should be an unordered list (`ul`).
 /// Default: `.field__errors`
 @mixin errors {
@@ -315,6 +329,10 @@
 /// Field feedback style declaration
 @mixin style-feedback {
 	@include util.declare('field-feedback') {
+		.#{util.prefix('field__feedback')} {
+			@include feedback;
+		}
+
 		.#{util.prefix('field__errors')} {
 			@include errors;
 		}

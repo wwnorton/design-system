@@ -1,4 +1,5 @@
 @use '../../spacing';
+@use '../../type';
 @use '../../util';
 @use '../../properties' as props;
 
@@ -7,24 +8,24 @@
 		$arrow-size: 12px,
 		$arrow-border: calc(#{props.prop('arrow-size') / 2}),
 		$offset-y: 6px,
-		$max-width: spacing.rem(18),
-		$padding-x: spacing.rem(0.75),
-		$padding-y: spacing.rem(0.5),
-		$line-height: props.prop('line-height-sm'),
-		$font-size: props.prop('font-size-xs'),
+		$max-width: spacing.px-rem(256),
+		$padding-x: spacing.spacer('tooltip-x'),
+		$padding-y: spacing.spacer('tooltip-y'),
 		$border-radius: props.prop('radius-base'),
 	);
 
 	position: absolute;
 	z-index: props.prop('zindex-tooltip');
+	box-shadow: props.prop('shadow-tooltip');
 }
 
 @mixin content {
+	@include type.ui-sm;
+
 	position: relative;
 	z-index: 1;
 	max-width: props.prop('max-width');
 	padding: props.prop('padding-y') props.prop('padding-x');
-	line-height: props.prop('line-height');
 	color: props.prop('body-bg');
 	background-color: props.prop('body-text');
 	border-radius: props.prop('border-radius');

@@ -41,11 +41,11 @@
 	@include props.set(
 		$border-color: props.prop('base-40'),
 		$border-width: 1px,
-		$padding-y: spacing.rem(0.5),
-		$padding-x: spacing.rem(0.75),
+		$padding-y: spacing.spacer('input-y'),
+		$padding-x: spacing.spacer('input-x'),
 	);
 
-	margin-bottom: spacing.rem(0.25);
+	margin-bottom: spacing.spacer('ui-inner');
 	background-color: props.prop('white');
 	border-radius: props.prop('radius-base');
 	flex-wrap: wrap;
@@ -90,7 +90,7 @@
 	margin-left: auto;
 	font-size: props.prop('font-size-sm');
 	font-style: italic;
-	color: props.prop('text-muted');
+	color: props.prop('subdued');
 }
 
 @mixin style {
