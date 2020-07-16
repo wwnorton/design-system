@@ -47,6 +47,41 @@
 	@return #{$px / $font-size-root}rem;
 }
 
+$-lh-roles: (
+	(
+		keys: (1, null, 'null', 'reset'),
+		token: 'line-height-1',
+	),
+	(
+		keys: (2, 'heading-large', 'h1', 'h2', 'lead'),
+		token: 'line-height-2',
+	),
+	(
+		keys: (3, 'heading', 'display', 'h3', 'h4', 'h5', 'h6', 'ui'),
+		token: 'line-height-3',
+	),
+	(
+		keys: (4, 'short', 'short-text'),
+		token: 'line-height-4',
+	),
+	(
+		keys: (5, 'body', 'paragraph', 'p', 'reading'),
+		token: 'line-height-5',
+	),
+	(
+		keys: (6, 'pull', 'pull-quote', 'pullquote'),
+		token: 'line-height-6',
+	),
+);
+
+@function line-height($role: 'body') {
+	@return props.prop(props.from-role($role, 'line-height', $-lh-roles));
+}
+
+@function lh($role) {
+	@return line-height($role);
+}
+
 
 // TOKENS
 
@@ -94,12 +129,12 @@ $font-weight-black: 900 !default;
 $font-weight-base: props.prop('font-weight-regular') !default;
 $font-weight-heading: props.prop('font-weight-bold') !default;
 
-$line-height-base: 1.5 !default;  // 24px - used on the document
-$line-height-xs: 1.125 !default;  // 18px
-$line-height-sm: 1.25 !default;   // 20px
-
-$line-height-heading: props.prop('line-height-sm') !default;
-
+$line-height-1: 1;
+$line-height-2: 1.125;
+$line-height-3: 1.25;
+$line-height-4: 1.5;
+$line-height-5: 1.6;
+$line-height-6: 1.75;
 
 // MIXINS
 
