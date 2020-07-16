@@ -210,7 +210,6 @@
 /// Default: `field__addon`
 @mixin addon {
 	display: flex;
-	color: props.prop('body-bg');
 	align-items: center;
 	text-align: center;
 	white-space: nowrap;
