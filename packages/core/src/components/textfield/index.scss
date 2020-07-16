@@ -65,7 +65,7 @@
 	}
 
 	&:focus-within {
-		@include props.set($border-color: props.prop('focus-ring-color'));
+		@include props.set($border-color: props.prop('focus-ring'));
 		@include a11y.focus-ring-collapse;
 	}
 
