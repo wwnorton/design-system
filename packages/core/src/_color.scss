@@ -312,26 +312,45 @@ $white: #fdfdfd !default;
 
 // COLOR SCHEMES & ROLES - colors that have specific usage attached
 
+$primary-family: 'teal' !default;
+$primary-grade: 60 !default;
+$base-family: 'navy' !default;
+$base-grade: 60 !default;
+$disabled-family: 'base' !default;
+$disabled-grade: 20 !default;
+$error-family: 'red' !default;
+$error-grade: 60 !default;
+$success-family: 'red' !default;
+$success-grade: 60 !default;
+$warning-family: 'red' !default;
+$warning-grade: 60 !default;
+$body-bg: props.prop('white') !default;
+$body-text: props.prop('base-90') !default;
+$subdued: props.prop('base-60') !default;
+$focus-ring: props.prop('blue-50') !default;
+
+// role families have the full 10-grade + shades palette
 $-role-families: ('primary', 'base', 'disabled', 'error', 'success', 'warning');
+// role values are single values
 $-role-values: ('body-bg', 'body-text', 'subdued', 'focus-ring');
 
 $-scheme-light: (
-	'primary-family': 'teal',
-	'primary-grade': 60,
-	'base-family': 'navy',
-	'base-grade': 60,
-	'disabled-family': 'base',
-	'disabled-grade': 20,
-	'error-family': 'red',
-	'error-grade': 60,
-	'success-family': 'red',
-	'success-grade': 60,
-	'warning-family': 'red',
-	'warning-grade': 60,
-	'body-bg': props.prop('white'),
-	'body-text': props.prop('base-90'),
-	'subdued': props.prop('base-60'),
-	'focus-ring': props.prop('blue-50'),
+	'primary-family': $primary-family,
+	'primary-grade': $primary-grade,
+	'base-family': $base-family,
+	'base-grade': $base-grade,
+	'disabled-family': $disabled-family,
+	'disabled-grade': $disabled-grade,
+	'error-family': $error-family,
+	'error-grade': $error-grade,
+	'success-family': $success-family,
+	'success-grade': $success-grade,
+	'warning-family': $warning-family,
+	'warning-grade': $warning-grade,
+	'body-bg': $body-bg,
+	'body-text': $body-text,
+	'subdued': $subdued,
+	'focus-ring': $focus-ring,
 ) !default;
 
 // WIP
