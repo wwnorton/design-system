@@ -28,3 +28,14 @@ $duplicate-declarations: false !default;
 /// to be applied by either the user's OS setting or by manually applying a class
 /// to the :root element.
 $enable-dark-scheme: false !default;
+
+
+// Typeset sizing options.
+
+/// The body text's "base" t-shirt size. Options are `xs`, `sm`, `md`, and `lg`.
+/// Determines the definition of the `type.body-base` mixin.
+$typeset-body-base: 'md' !default;
+
+/// UI text's "base" t-shirt size. Options are `xs`, `sm`, `md`, and `lg`.
+/// Determines the definition of the `type.ui-base` mixin.
+$typeset-ui-base: 'md' !default;
