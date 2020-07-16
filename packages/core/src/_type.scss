@@ -96,7 +96,9 @@ $font-family-system-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Conso
 $font-family-sans: props.prop('font-family-system-sans') !default;
 $font-family-serif: props.prop('font-family-system-serif') !default;
 $font-family-mono: props.prop('font-family-system-mono') !default;
+/// The main font family that will be used throughout your application.
 $font-family-base: props.prop('font-family-sans') !default;
+/// The font family that will be used for all headings.
 $font-family-headings: props.prop('font-family-base') !default;
 
 $font-size-root: 1em !default;

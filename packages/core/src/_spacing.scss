@@ -9,10 +9,9 @@
 
 // FUNCTIONS
 
-/// Convert a px value to a spacer unit. Spacers must be divisible by the `$base-unit`
-/// in pixels (default: 4) in order to conform to the underlying pixel grid. A
-/// warning will be emitted when a provided value does not conform.
-/// @access private
+// Convert a px value to a spacer unit. Spacers must be divisible by the `$base-unit`
+// in pixels (default: 4) in order to conform to the underlying pixel grid. A
+// warning will be emitted when a provided value does not conform.
 @function -spacer($px, $unit-from, $unit-to) {
 	@if $px % $base-unit != 0 {
 		$val: if($unit-from == 'px', #{$px}px, #{util.px2rem($px)}rem);
@@ -115,6 +114,7 @@ $-spacer-roles: (
 	),
 );
 
+/// Get a spacer from a role or a value.
 @function spacer($role: 'block') {
 	@return props.prop(props.from-role($role, 'spacing', $-spacer-roles));
 }

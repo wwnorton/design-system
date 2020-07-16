@@ -24,8 +24,8 @@
 	meta.module-variables('type'),
 );
 
-/// Apply root styles. This is mean to be @included in your `:root` declaration
-/// but could be applied anywhere.
+/// Apply root styles. This should be @included in your `:root` declaration for
+/// best results.
 @mixin root {
 	@include util.declare('root') {
 		// add all of the root custom properties

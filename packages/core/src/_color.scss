@@ -36,6 +36,7 @@
 ///   //   'dark': var(--nds-foo-40),
 ///   //   'darker': var(--nds-foo-50),
 ///   // )
+///
 @function family($name, $ref-family, $grade-root: null) {
 	$map: ();
 
@@ -312,21 +313,44 @@ $white: #fdfdfd !default;
 
 // COLOR SCHEMES & ROLES - colors that have specific usage attached
 
+/// The primary color family is used in UI elements that use a default color.
 $primary-family: 'teal' !default;
+/// The grade that defines the "midpoint" of the primary family. For instance,
+/// setting this to `60` will cause the `primary` token to reference `primary-60`.
 $primary-grade: 60 !default;
+/// The base color family is used for background color gradients and text colors.
 $base-family: 'navy' !default;
+/// The grade that defines the "midpoint" of the base family. For instance,
+/// setting this to `60` will cause the `base` token to reference `base-60`.
 $base-grade: 60 !default;
+/// The color family that will be used for `disabled` controls.
 $disabled-family: 'base' !default;
-$disabled-grade: 20 !default;
+/// The grade that defines the "midpoint" of the disabled family. For instance,
+/// setting this to `60` will cause the `disabled` token to reference `disabled-60`.
+$disabled-grade: 30 !default;
+/// The color family that will be used to convey errors/failing.
 $error-family: 'red' !default;
+/// The grade that defines the "midpoint" of the error family. For instance,
+/// setting this to `60` will cause the `error` token to reference `error-60`.
 $error-grade: 60 !default;
+/// The color family that will be used to convey success/passing.
 $success-family: 'red' !default;
+/// The grade that defines the "midpoint" of the success family. For instance,
+/// setting this to `60` will cause the `success` token to reference `success-60`.
 $success-grade: 60 !default;
+/// The color family that will be used to convey warning/caution.
 $warning-family: 'red' !default;
+/// The grade that defines the "midpoint" of the warning family. For instance,
+/// setting this to `60` will cause the `warning` token to reference `warning-60`.
 $warning-grade: 60 !default;
+
+/// The main background color.
 $body-bg: props.prop('white') !default;
+/// The main text color.
 $body-text: props.prop('base-90') !default;
+/// A subdued or "muted" text color, used for less emphasized text.
 $subdued: props.prop('base-60') !default;
+/// The color used for the `:focus` state.
 $focus-ring: props.prop('blue-50') !default;
 
 // role families have the full 10-grade + shades palette

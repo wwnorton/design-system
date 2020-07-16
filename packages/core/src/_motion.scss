@@ -14,11 +14,7 @@
 
 // FUNCTIONS
 
-@function scale($duration) {
-	@return calc(#{$duration} * #{props.prop(duration-scalar)});
-}
-
-/// Apply one transition to many properties
+/// Apply one transition to many properties.
 /// @param {String | ListOf<String>} $properties - A single or list of CSS properties.
 /// @param {String} $duration - A duration value.
 /// @param {String} $easing - An easing value.
@@ -32,10 +28,14 @@
 	$prop-list: if(meta.type-of($properties) == 'string', ($properties), $properties);
 
 	@each $property in $prop-list {
-		$full-transition: list.join($full-transition, #{$property scale($duration) $easing}, $separator: comma);
+		$full-transition: list.join($full-transition, #{$property -scale($duration) $easing}, $separator: comma);
 	}
 
 	@return $full-transition;
+}
+
+@function -scale($duration) {
+	@return calc(#{$duration} * #{props.prop(duration-scalar)});
 }
 
 

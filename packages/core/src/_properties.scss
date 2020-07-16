@@ -9,14 +9,17 @@
 @use 'config';
 @use 'util';
 
-/// The global map of all CSS custom properties, including non-root properties.
-/// @access private
+// The global map of all CSS custom properties, including non-root properties.
+/// Access via `get-props()`.
 $-props: ();
-/// A global map of all `:root` CSS custom properties. Any token in this map
-/// will be globally available on the page.
-/// @access private
+// A global map of all `:root` CSS custom properties. Any token in this map will
+// be globally available on the page. Access via `get-props(true)`.
 $-props-root: ();
 
+/// Get a props map. By default, all of the props that have been declared via
+/// the `props` function or the `add` function will be returned.
+/// @param {Boolean} $root - Whether the map should only be props that have
+/// been declared at the `:root` level via the `add-root` mixin.
 @function get-props($root: false) {
 	@return if($root, $-props-root, $-props);
 }

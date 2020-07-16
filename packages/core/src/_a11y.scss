@@ -9,6 +9,9 @@
 
 // TOKENS
 
+/// The color of the inner focus ring ring. Change this to the background color
+/// if the focused element isn't sitting on an element with a background color of
+/// `body-bg`.
 $focus-ring-inner: props.prop('body-bg') !default;
 /// The default focus shadow has a 2px outer ring and an inner ring that matches
 /// the body's background color by default, giving the illusion of transparency.
@@ -66,12 +69,18 @@ $focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring') !default;
 	}
 }
 
-/// A box shadow focus indicator.
+/// A box shadow focus indicator. The rendered focus ring is offset from the
+/// focused element by 1px of `focus-ring-inner` (`body-bg` by default).
 /// @param {List[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
 @mixin focus-ring($current-shadows...) {
 	@include -focus(props.prop('focus-shadow'), $current-shadows...);
 }
 
+/// A collapsed shadow focus indicator. This is similar to the normal focus ring
+/// but does not have the `focus-ring-inner` offset. Instead, it changes the color
+/// of the focused element's border to match the focus ring, creating the effect
+/// of a 2px focus ring.
+/// @param {List[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
 @mixin focus-ring-collapse($current-shadows...) {
 	@include -focus(props.prop('focus-shadow-collapse'), $current-shadows...);
 
