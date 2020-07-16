@@ -4,8 +4,6 @@
 @use '../../util';
 @use '../../properties' as props;
 
-$-expand: motion.scale(props.prop('duration-expand')) props.prop('easing-standard');
-$-collapse: motion.scale(props.prop('duration-collapse')) props.prop('easing-standard');
 $-border: props.prop('border-width') solid props.prop('base-40');
 
 @mixin base {
@@ -33,11 +31,11 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 
 @mixin contents-outer {
 	overflow-y: hidden;
-	transition: height $-expand;
+	transition: motion.transition(height, props.prop('duration-expand'));
 
 	[open] & {
 		box-sizing: content-box;
-		transition: height $-collapse;
+		transition: motion.transition(height, props.prop('duration-collapse'));
 	}
 }
 
@@ -54,19 +52,19 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 	margin-left: props.prop('marker-margin');
 
 	details:not(.closed) & {
-		transition: transform $-collapse;
+		transition: motion.transition(props.prop('duration-collapse'));
 		transform-origin: center;
 	}
 }
 
 @mixin marker-transform($open-transform, $close-transform) {
 	[open] & {
-		transition: transform $-collapse;
+		transition: motion.transition(props.prop('duration-collapse'));
 		transform: $open-transform;
 	}
 
 	[open].closing & {
-		transition: transform $-expand;
+		transition: motion.transition(transform, props.prop('duration-expand'));
 		transform: $close-transform;
 	}
 }
