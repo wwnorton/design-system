@@ -86,27 +86,27 @@ $-lh-roles: (
 // TOKENS
 
 // System font stacks from https://systemfontstack.com/
-$font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif !default;
-$font-family-system-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !default;
-$font-family-system-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace !default;
+$font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+$font-family-system-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+$font-family-system-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 
 $font-family-sans: props.prop('font-family-system-sans') !default;
 $font-family-serif: props.prop('font-family-system-serif') !default;
 $font-family-mono: props.prop('font-family-system-mono') !default;
 $font-family-base: props.prop('font-family-sans') !default;
-$font-family-heading: props.prop('font-family-base') !default;
+$font-family-headings: props.prop('font-family-base') !default;
 
 $font-size-root: 1em !default;
-$font-size-10: 0.625rem !default;
-$font-size-12: 0.75rem !default;
-$font-size-14: 0.875rem !default;
-$font-size-16: 1rem !default;
-$font-size-18: 1.125rem !default;
-$font-size-20: 1.25rem !default;
-$font-size-24: 1.5rem !default;
-$font-size-32: 2rem !default;
-$font-size-40: 2.5rem !default;
-$font-size-48: 3rem !default;
+$font-size-10: 0.625rem;
+$font-size-12: 0.75rem;
+$font-size-14: 0.875rem;
+$font-size-16: 1rem;
+$font-size-18: 1.125rem;
+$font-size-20: 1.25rem;
+$font-size-24: 1.5rem;
+$font-size-32: 2rem;
+$font-size-40: 2.5rem;
+$font-size-48: 3rem;
 
 $font-size-xs: props.prop('font-size-12') !default;
 $font-size-sm: props.prop('font-size-14') !default;
@@ -120,14 +120,13 @@ $font-size-h5: props.prop('font-size-16') !default;
 $font-size-h6: props.prop('font-size-14') !default;
 $font-size-base: props.prop('font-size-md') !default;
 
-$font-weight-thin: 200 !default;
-$font-weight-light: 300 !default;
-$font-weight-regular: 400 !default;
-$font-weight-bold: 700 !default;
-$font-weight-black: 900 !default;
-
+$font-weight-thin: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+$font-weight-black: 900;
 $font-weight-base: props.prop('font-weight-regular') !default;
-$font-weight-heading: props.prop('font-weight-bold') !default;
+$font-weight-headings: props.prop('font-weight-bold') !default;
 
 $line-height-1: 1;
 $line-height-2: 1.125;
