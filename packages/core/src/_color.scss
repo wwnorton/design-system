@@ -313,8 +313,7 @@ $white: #fdfdfd !default;
 // COLOR SCHEMES & ROLES - colors that have specific usage attached
 
 $-role-families: ('primary', 'base', 'disabled', 'error', 'success', 'warning');
-
-$-role-values: ('body-bg', 'body-text', 'text-muted', 'focus-ring');
+$-role-values: ('body-bg', 'body-text', 'subdued', 'focus-ring');
 
 $-scheme-light: (
 	'primary-family': 'teal',
@@ -331,7 +330,7 @@ $-scheme-light: (
 	'warning-grade': 60,
 	'body-bg': props.prop('white'),
 	'body-text': props.prop('base-90'),
-	'text-muted': props.prop('base-60'),
+	'subdued': props.prop('base-60'),
 	'focus-ring': props.prop('blue-50'),
 ) !default;
 
@@ -347,7 +346,7 @@ $-scheme-dark: map.merge(
 		'warning-grade': 50,
 		'body-bg': props.prop('base-100'),
 		'body-text': props.prop('white'),
-		'text-muted': props.prop('base-40'),
+		'subdued': props.prop('base-40'),
 		'focus-ring': props.prop('blue-60'),
 	),
 ) !default;
