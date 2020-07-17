@@ -25,7 +25,7 @@ module.exports = {
 						logo: 'var(--navy-80)',
 						white: 'var(--white)',
 						blue: 'var(--blue-60)',
-						muted: 'var(--text-muted)',
+						muted: 'var(--subdued)',
 						link: 'var(--link-color)',
 						border: 'var(--base-30)',
 
