@@ -32,10 +32,12 @@
   },
   "dependencies": {
     "@nds/core": "*",
-    "@nds/react": "^0.9.4",
+    "@nds/react": "*",
     "docz": "^2.3.1",
-    "gatsby": "^2.22.12",
-    "gatsby-plugin-sass": "^2.3.2",
-    "gatsby-theme-docz": "^2.3.1"
+    "gatsby": "^2.24.2",
+    "gatsby-plugin-sass": "^2.3.12",
+    "gatsby-theme-docz": "^2.3.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }

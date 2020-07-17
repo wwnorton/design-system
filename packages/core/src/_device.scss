@@ -1,0 +1,62 @@
+////
+/// @group Device
+////
+
+@use 'sass:map';
+@use 'properties' as props;
+@use 'util';
+
+/// Extra small: a handset
+$device-xs: 0;
+/// Small: a large handset or small tablet
+$device-sm: 600px;
+/// Medium: a large tablet or laptop
+$device-md: 960px;
+/// Large: a desktop
+$device-lg: 1280px;
+/// Extra large: a high-definition screen
+$device-xl: 1920px;
+
+/// The minimum dots per inch (dpi) of a high-resolution screen
+$hd-dpi: 200;
+/// The minimum dots per pixel unit (dppx) for a high-resolution screen
+$hd-dppx: 1.25;
+
+$breakpoints: () !default;
+$breakpoints: map.merge(
+	(
+		'xs': $device-xs,
+		'sm': $device-sm,
+		'md': $device-md,
+		'lg': $device-lg,
+		'xl': $device-xl,
+	),
+	$breakpoints,
+);
+
+/// A media query helper for high definition screens.
+/// @param {Number} $dpi [$hd-dpi] - The dpi of a high definition (HD) screen.
+/// @param {Number} $dppx [$hd-dppx] - The dppx of a high definition (HD) screen.
+/// @link https://medium.com/@micjamking/hd-retina-display-media-queries-b5562b5430d6
+@mixin media-hd {
+	@media only screen and (min-resolution: #{$hd-dpi}dpi), only screen and (min-resolution: #{$hd-dppx}dppx) {
+		@content;
+	}
+}
+
+/// A media query helper for device sizes. @content will apply to the given size
+/// and up.
+/// @param {String} $size - The device size: xs, sm, md, lg, or xl.
+/// @param {Map} $breakpoints [$devices] - The map of breakpoints to use.
+@mixin media-up($size, $breakpoints: $breakpoints) {
+	$min: map.get($breakpoints, $size);
+
+	@if $min != 0 {
+		@media (min-width: $min) {
+			@content;
+		}
+	}
+	@else {
+		@content;
+	}
+}

@@ -3,10 +3,11 @@ import {
 	withKnobs,
 	number,
 	select,
+	color,
 	text,
 } from '@storybook/addon-knobs';
-import './index.stories.scss';
 import { Icon, IconProps } from '.';
+import { IconOptions } from '../../utilities';
 
 export default {
 	title: 'Icon',
@@ -14,48 +15,49 @@ export default {
 	decorators: [withKnobs],
 };
 
-const IconOptions: Record<string, IconProps['variant']> = {
-	Account: 'account',
-	'Arrow down': 'arrow-down',
-	'Arrow left': 'arrow-left',
-	'Arrow right': 'arrow-right',
-	Calendar: 'calendar',
-	Cancel: 'cancel',
-	'Caret down': 'caret-down',
-	'Caret right': 'caret-right',
-	Check: 'check',
-	'Check circle': 'check-circle',
-	'Chevron down': 'chevron-down',
-	'Chevron right': 'chevron-right',
-	Close: 'close',
-	Delete: 'delete',
-	Download: 'download',
-	Edit: 'edit',
-	Exclamation: 'exclamation',
-	Favorite: 'favorite',
-	'Favorite outline': 'favorite-outline',
-	Flag: 'flag',
-	Info: 'info',
-	Launch: 'launch',
-	Menu: 'menu',
-	Minus: 'minus',
-	'Minus circle': 'minus-circle',
-	'More horizontal': 'more-horizontal',
-	'More vertical': 'more-vertical',
-	Plus: 'plus',
-	'Plus circle': 'plus-circle',
-	Print: 'print',
-	Save: 'save',
-	Search: 'search',
-	Settings: 'settings',
-	Star: 'star',
-	'Star outline': 'star-outline',
-};
-
 export const Default: React.FunctionComponent = () => (
 	<Icon
 		variant={select<IconProps['variant']>('Icon', IconOptions, 'caret-right')}
-		label={text('Label', '')}
-		height={number('Height', 48)}
+		size={number('Size', 48)}
+	>
+		{ text('Contents', '') }
+	</Icon>
+);
+
+export const WithARIALabel: React.FunctionComponent = () => (
+	<Icon
+		variant={select<IconProps['variant']>('Icon', IconOptions, 'caret-right')}
+		size={number('Size', 48)}
+		aria-label={text('Label', '')}
 	/>
 );
+
+export const WithContent: React.FunctionComponent = () => (
+	<Icon variant="info">
+		When an icon has content, its content is used to label the icon and it
+		is rendered as its tooltip. This is effectively the &quot;alt text&quot;
+		of the icon and should never have structured or interactive content.
+	</Icon>
+);
+
+export const AllIcons: React.FunctionComponent = () => {
+	const size = number('Size', 48, { min: 4, max: 128, step: 4 });
+	const c = color('Color', 'currentColor');
+	return (
+		<div className="icon-list">
+			{
+				Object.keys(IconOptions).map((key) => (
+					<Icon
+						key={IconOptions[key]}
+						variant={IconOptions[key]}
+						size={size}
+						color={c}
+						hideTooltipDelay={0}
+					>
+						{ key }
+					</Icon>
+				))
+			}
+		</div>
+	);
+};

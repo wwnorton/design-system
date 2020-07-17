@@ -1,18 +1,118 @@
-@import './tokens';
-@import './mixins';
+@use '../../color';
+@use '../../spacing';
+@use '../../type';
+@use '../../util';
+@use '../../properties' as props;
 
-.dropdown__label {
-	@include dropdown-label;
+@mixin base {
+	@include props.set(
+		$border-width: 1px,
+		$listbox-shadow: 0 2px 4px 0 rgba(props.value('black'), 0.25),
+		$options-max-display: 5,
+		$option-hover-color: props.prop('base-20'),
+		$option-hover-focus-color: props.prop('base-30'),
+		$option-focus-color: props.prop('primary-20'),
+		$option-padding-y: spacing.spacer('button-y'),
+		$option-padding-x: spacing.spacer('dropdown-x'),
+		$option-font-size: 1rem,
+		$option-line-height: type.lh('ui'),
+		$option-padding-left: calc(#{props.prop('option-icon-size')} + #{props.prop('option-padding-x')}),
+		$option-icon-padding-x: calc(#{props.prop('option-padding-x') / 2}),
+		$option-icon-size: 1em,
+	);
+	@include type.ui-base;
 }
 
-.dropdown__button {
-	@include dropdown-button;
+@mixin button {
+	@include props.set(util.flatten((
+		'button-color': color.family('button-color', 'base'),
+	)));
+
+	font-weight: props.prop('font-weight-base');
+	justify-content: space-between;
+
+	.#{util.prefix('icon')} > path {
+		transition: transform props.prop('duration-expand') props.prop('easing-standard');
+		transform: rotate3d(1, 0, 0, 0);
+		transform-origin: center;
+	}
+
+	&[aria-expanded=true] .#{util.prefix('icon')} > path {
+		transform: rotate3d(1, 0, 0, 180deg);
+	}
+
+	&:disabled,
+	&.disabled {
+		color: props.prop('disabled-40');
+		background-color: props.prop('disabled-20');
+		border-color: props.prop('disabled-40');
+	}
 }
 
-.dropdown__listbox {
-	@include dropdown-listbox;
+@mixin listbox {
+	$-option-computed-height: calc(#{props.prop('option-font-size')} * #{props.prop('option-line-height')} + #{props.prop('option-padding-y')} * 2);
+
+	z-index: props.prop(zindex-dropdown);
+	max-height: calc(#{props.prop('options-max-display')} * #{$-option-computed-height} + #{props.prop('border-width')} * 2);
+	padding: 0;
+	margin: 0;
+	overflow-y: auto;
+	list-style-type: none;
+	background-color: props.prop('body-bg');
+	border: props.prop('border-width') solid props.prop('base-40');
+	border-radius: props.prop('radius-base');
+	box-shadow: props.prop('listbox-shadow');
 }
 
-.dropdown__option {
-	@include dropdown-listbox-option;
+@mixin listbox-option {
+	display: flex;
+	padding-top: props.prop('option-padding-y');
+	padding-right: props.prop('option-padding-x');
+	padding-bottom: props.prop('option-padding-y');
+	padding-left: props.prop('option-padding-left');
+	font-size: props.prop('option-font-size');
+	line-height: props.prop('option-line-height');
+	cursor: default;
+	user-select: none;
+	outline: none;
+	align-items: center;
+
+	&:hover {
+		background-color: props.prop('option-hover-color');
+	}
+
+	&:focus {
+		background-color: props.prop('option-focus-color');
+		box-shadow: none;
+	}
+
+	&:hover:focus {
+		background-color: props.prop('option-hover-focus-color');
+	}
+
+	> .#{util.prefix('icon')} {
+		width: props.prop('option-icon-size');
+		padding: 0 props.prop('option-icon-padding-x');
+		margin-left: calc(-1 * #{props.prop('option-padding-left')});
+	}
+}
+
+@mixin style {
+	@include util.declare('dropdown') {
+		.#{util.prefix('dropdown')} {
+			@include base;
+		}
+
+		.#{util.prefix('dropdown__button')} {
+			@include button;
+		}
+
+		.#{util.prefix('dropdown__listbox')} {
+			@include listbox;
+		}
+
+		.#{util.prefix('dropdown__option')} {
+			@include listbox-option;
+		}
+	}
 }

@@ -1,54 +1,106 @@
 import test from 'ava';
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { Button } from '.';
+import {
+	cleanup, render, fireEvent, screen, getByRole,
+	queryByRole, queryByText, queryByLabelText,
+} from '@testing-library/react';
+import { Button, IconButton } from '.';
+import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
+import { LiveRegion } from '../LiveRegion';
+import { ChangingContent } from './index.stories';
 
-test('renders its defaults', (t) => {
-	const component = renderer.create(<Button>Foo</Button>);
-	t.snapshot(component.toJSON());
+test.afterEach(cleanup);
+
+const defaultChildren = 'Button action';
+
+test('throws when an accessible name is not provided', (t) => {
+	// suppress JSDOM errors in the log
+	window.onerror = () => true;
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
+	const { container } = render(<ErrorBoundary><Button /></ErrorBoundary>);
+
+	t.truthy(queryByText(container, Button.errors.noName));
+	t.falsy(queryByRole(container, 'button'));
+	window.onerror = null;
 });
 
-test('throws when no children are provided', (t) => {
-	t.throws(() => {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-		// @ts-ignore
-		renderer.create(<Button />);
-	}, null, Button.errors.noChildren);
+test('renders a <button>', (t) => {
+	const { container } = render(<Button><span>{ defaultChildren }</span></Button>);
+	t.truthy(queryByRole(container, 'button'));
+	t.is(getByRole(container, 'button').textContent, defaultChildren);
 });
 
-test('a custom `baseName` is rendered as a className', (t) => {
-	const baseName = 'btn';
-	const component = renderer.create(<Button baseName={baseName}>Foo</Button>);
-	const btn = component.root.findByType('button');
-	t.is(btn.props.className, baseName);
-	t.snapshot(component.toJSON());
+test('clicking the button with space triggers the :active polyfill', (t) => {
+	const activeClass = 'active';
+	const { container } = render(<Button activeClass={activeClass}>{ defaultChildren }</Button>);
+	const button = getByRole(container, 'button');
+
+	fireEvent.keyDown(button, { key: ' ' });
+	t.true(button.classList.contains(activeClass));
+	fireEvent.keyUp(button, { key: ' ' });
+	t.false(button.classList.contains(activeClass));
 });
 
-test('`variant` is converted into a BEM modifier class', (t) => {
-	const variant = 'outline';
-	const { baseName } = Button.defaultProps;
-	const component = renderer.create(<Button variant={variant}>Foo</Button>);
-	const btn = component.root.findByType('button');
-	t.is(btn.props.className, `${baseName} ${baseName}--${variant}`);
-	t.snapshot(component.toJSON());
+test('icons are not included in the accessibility tree', (t) => {
+	const { container } = render(<Button icon="check">{ defaultChildren }</Button>);
+	const button = getByRole(container, 'button');
+
+	t.falsy(queryByRole(button, 'img'));
+	t.is(button.textContent, defaultChildren);
 });
 
-test('renders a valid icon variant', (t) => {
-	const component = renderer.create(<Button icon="close">Foo</Button>);
-	t.snapshot(component.toJSON());
+test('icon-only buttons still have an accessible label', (t) => {
+	const { container } = render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
+	const button = getByRole(container, 'button');
+
+	t.is(queryByLabelText(container, defaultChildren), button);
 });
 
-test('renders a valid icon variant on the right', (t) => {
-	const component = renderer.create(<Button icon="close" iconRight>Foo</Button>);
-	t.snapshot(component.toJSON());
+test('icon-only buttons display a tooltip when hovered', (t) => {
+	const { container } = render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
+	const button = getByRole(container, 'button');
+
+	fireEvent.pointerEnter(button);
+	t.truthy(container.querySelector('[role=tooltip]'));
 });
 
-test('an iconOnly button sets its children as the button title and the icon\'s aria-label', (t) => {
-	const text = 'Foo';
-	const component = renderer.create(<Button icon="close" iconOnly>{ text }</Button>);
-	const btn = component.root.findByType('button');
-	const icon = component.root.findByType('svg');
-	t.is(btn.props.title, text);
-	t.is(icon.props['aria-label'], text);
-	t.snapshot(component.toJSON());
+test('icon-only buttons display a tooltip when focused', (t) => {
+	const { container } = render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
+	const button = getByRole(container, 'button');
+
+	fireEvent.focus(button);
+	t.truthy(container.querySelector('[role=tooltip]'));
+});
+
+test('icon-only buttons are labelled by their tooltip when it exists', (t) => {
+	const { container } = render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
+	const button = getByRole(container, 'button');
+
+	fireEvent.pointerEnter(button);
+	const labelId = button.getAttribute('aria-labelledby') || button.getAttribute('aria-label');
+	t.is(document.getElementById(labelId).textContent, defaultChildren);
+});
+
+// known failure: the live region's contents are removed too quickly for our
+// test to pick them up.
+// TODO: figure out how to check for live contents before it's removed
+test.failing('changing content is added to a live region', async (t) => {
+	// force the live region to persist so we can check for its existence
+	LiveRegion.defaultProps.removeAfter = 0;
+	const { container } = render(<ChangingContent />);
+	const button = getByRole(container, 'button');
+
+	fireEvent.click(button);
+	const nodes = screen.queryAllByText(button.textContent);
+	t.is(nodes.length, 2);
+	t.is(nodes[1].getAttribute('aria-live'), 'assertive');
+});
+
+test('icon buttons render with tooltips by default', (t) => {
+	const { container } = render(<IconButton icon="close">{ defaultChildren }</IconButton>);
+	const button = getByRole(container, 'button');
+
+	fireEvent.pointerEnter(button);
+	t.truthy(container.querySelector('[role=tooltip]'));
 });

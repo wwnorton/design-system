@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { prefix } from '../../utilities';
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	/** Whether the button is currently depressed. Polyfill for :active on keydown. */
@@ -8,19 +9,26 @@ export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 	activeClass?: string;
 }
 
-export const BaseButtonDefaults = {
+export const defaultProps: BaseButtonProps = {
 	active: false,
-	activeClass: 'active',
+	activeClass: prefix('active'),
+	type: 'button',
 };
 
+/**
+ * A base `<button>` component with `type="button"` by default (browser default
+ * is "submit") and a polyfill to ensure that :active is triggered while the
+ * spacebar is being held down.
+ */
 export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
-	active = BaseButtonDefaults.active,
-	activeClass = BaseButtonDefaults.activeClass,
+	active = defaultProps.active,
+	activeClass = defaultProps.activeClass,
 	onKeyDown,
 	onKeyUp,
 	onBlur,
 	className,
 	children,
+	type = defaultProps.type,
 	...attributes
 }: BaseButtonProps, ref) => {
 	const [isActive, setActive] = React.useState(active);
@@ -43,21 +51,18 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>((
 	};
 
 	return (
-		/**
-		 * Known eslint-plugin-react bug when passing dynamic button type, even when
-		 * a default is defined.
-		 * @see https://github.com/yannickcr/eslint-plugin-react/issues/1846
-		 */
-		/* eslint-disable react/button-has-type */
 		<button
-			className={classNames({ [activeClass]: isActive }, className)}
+			className={classNames(activeClass && { [activeClass]: isActive }, className)}
 			onKeyDown={handleKeydown}
 			onKeyUp={handleKeyup}
 			onBlur={handleBlur}
 			ref={ref}
+			type={type}	// eslint-disable-line react/button-has-type
 			{...attributes}
 		>
 			{ children }
 		</button>
 	);
 });
+
+BaseButton.defaultProps = defaultProps;

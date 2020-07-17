@@ -1,61 +1,53 @@
 import React from 'react';
 import classNames from 'classnames';
 import {
-	findIcon, IconVariant, SVGIcon, materialDefaults,
+	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox, useForwardedRef, prefix,
 } from '../../utilities';
 import { BaseSVG, BaseSVGProps } from '../BaseSVG';
+import { Tooltip } from '../Tooltip';
 
 export interface IconProps extends BaseSVGProps {
 	/** The base class name according to BEM conventions */
 	baseName?: string;
-	/** A descriptive label for the icon. Will be set as the aria-label. */
-	label?: string;
 	/** The specific icon that you'd like to use. */
 	variant?: IconVariant;
 	/** A custom icon. Must contain the SVG path's `d` attribute at a minimum. */
 	icon?: SVGIcon;
+	/** The icon's color. Default is `currentColor`. */
+	color?: string;
+	/** The width and height of the icon. Default is `1.25rem`. */
+	size?: string | number;
 	/**
 	 * Indicates whether a console warning should be emitted when an `onClick`
 	 * callback is specified. Set to `true` by default to discourage actionable
 	 * icons, which will be inaccessible to many users.
 	 */
 	warnOnClick?: boolean;
+	/**
+	 * The time in milliseconds before the tooltip should disappear. Use this to
+	 * ensure that users can move their cursor from the icon to the tooltip
+	 * without it disappearing.
+	 */
+	hideTooltipDelay?: number;
 }
 
+/**
+ * An icon component. Children are assumed to be the icon's label and will be
+ * rendered in an accessible tooltip.
+ */
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
-	baseName = 'icon',
-	label,
-	variant,
-	height: heightProp,
-	width,
+	baseName = prefix('icon'),
 	className,
+	color = 'currentColor',
 	icon: iconProp,
-	onClick,
+	size = '1.25em',
+	variant,
 	warnOnClick = true,
-	...attributes
+	hideTooltipDelay,
+	onClick,
+	'aria-label': ariaLabel,
+	children,
 }: IconProps, ref) => {
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const svgRef = ref || React.useRef<SVGSVGElement>(null);
-	const [height, setHeight] = React.useState<typeof heightProp>();
-
-	React.useEffect(() => {
-		if (typeof svgRef === 'object' && svgRef.current) {
-			const heightAttr = svgRef.current.getAttribute('height');
-			if (heightProp) {
-				if (heightAttr !== heightProp) setHeight(heightProp);
-				return;
-			}
-			const cssHeight = parseInt(window.getComputedStyle(svgRef.current).height, 10);
-			if (cssHeight) {
-				setHeight(undefined);
-			} else if (!heightProp && !width) {
-				setHeight('1.25rem');
-			} else {
-				setHeight(heightProp);
-			}
-		}
-	}, [heightProp, svgRef, width]);
-
 	if (onClick && warnOnClick) {
 		// eslint-disable-next-line no-console
 		console.warn(
@@ -63,8 +55,24 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 			+ 'You probably want to use the IconButton component instead.',
 		);
 	}
+	const [svg, setSvg] = useForwardedRef(ref);
+
+	const ariaHidden = React.useMemo(() => {
+		if (children) return undefined;
+		if (!ariaLabel) return true;
+		return undefined;
+	}, [ariaLabel, children]);
 
 	const icon = iconProp || findIcon(variant);
+
+	const tooltip = React.useMemo(() => {
+		if (!children) return null;
+		return (
+			<Tooltip asLabel reference={svg} hideDelay={hideTooltipDelay}>
+				{ children }
+			</Tooltip>
+		);
+	}, [children, hideTooltipDelay, svg]);
 
 	if (!icon) {
 		// TODO: warn/error if no icon was found?
@@ -72,31 +80,37 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	}
 	const {
 		d,
-		name,
 		source,
-		viewBox = materialDefaults.viewBox,
+		viewBox = defaultViewBox,
+		children: svgChildren,
+		label,
 	} = icon;
 
 	const classes = classNames(baseName, {
-		[`${baseName}--${name}`]: name,
+		[`${baseName}--${variant}`]: variant,
 	}, className);
 
 	return (
-		<BaseSVG
-			ref={svgRef}
-			source={source}
-			viewBox={viewBox}
-			height={height}
-			width={width}
-			className={classes}
-			aria-label={label || undefined}
-			aria-hidden={(!label) ? 'true' : undefined}
-			focusable="false"
-			role="img"
-			onClick={onClick}
-			{...attributes}
-		>
-			<path fill="currentColor" d={d} />
-		</BaseSVG>
+		<>
+			<BaseSVG
+				ref={setSvg}
+				source={source}
+				viewBox={viewBox}
+				height={size}
+				width={size}
+				className={classes}
+				aria-label={ariaLabel || label}
+				aria-hidden={ariaHidden}
+				focusable="false"
+				tabIndex={(children) ? 0 : undefined}
+				role="img"
+				fill={color}
+				onClick={onClick}
+			>
+				{ d && <path d={d} aria-hidden="true" /> }
+				{ svgChildren }
+			</BaseSVG>
+			{ tooltip }
+		</>
 	);
 });

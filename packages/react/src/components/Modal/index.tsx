@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { noop, idGen, getFocusable } from '../../utilities';
+import { idGen, getFocusable, prefix } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
-import { IconButton } from '../IconButton';
-import { ButtonProps } from '../Button';
+import { IconButton, ButtonProps } from '../Button';
 
 export type ModalAnatomy =
 	| 'portal'
@@ -28,19 +27,34 @@ export interface ModalProps extends BaseDialogProps {
 	 * accessible to screen reader users.
 	 */
 	hideTitle?: boolean;
-	/** Indicates whether the close button in the top right should be included. */
-	addCloseButton?: boolean;
+	/**
+	 * Indicates that the built-in close button in the top right should not be
+	 * rendered.
+	 */
+	hideCloseButton?: boolean;
 	/**
 	 * A list of actions or React Fragment that will be set inside an action bar
 	 * at the bottom of the Modal dialog.
 	 */
 	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
 	/**
-	 * A ref that should be focused on open. If none is specified, the first
+	 * Indicates whether the header should stick to the top of the screen. Only
+	 * has an effect when the modal's content is longer than the window height
+	 * and the user scrolls enough to move the header above to top of the screen.
+	*/
+	stickyHeader?: boolean;
+	/**
+	 * Indicates whether the footer should stick to the bottom of the screen.
+	 * Only has an effect when the modal's content is longer than the window
+	 * height and the footer is below the bottom of the screen.
+	*/
+	stickyActionBar?: boolean;
+	/**
+	 * An element that should be focused on open. If none is specified, the first
 	 * focusable element in the Modal will be focused. If none can be found, the
-	 * header will be focused.
+	 * header or content will be focused.
 	 */
-	initialFocusRef?: React.RefObject<HTMLElement>;
+	focusOnOpen?: HTMLElement;
 	/** Indicates whether clicking the backdrop should close the Modal dialog. */
 	closeOnBackdropClick?: boolean;
 	/** Indicates whether `Escape` should close the Modal dialog. */
@@ -65,20 +79,13 @@ export interface ModalProps extends BaseDialogProps {
 	 * will happen under the following conditions:
 	 * * if `closeOnBackdropClick` is `true` and the user clicks the backdrop.
 	 * * if `closeOnEscape` is `true` and the user presses `Escape`.
-	 * * if `addCloseButton` is `true` and the user clicks the close button.
+	 * * if `hideCloseButton` is not `true` and the user clicks the close button.
 	 *
 	 * To close the Modal when `onRequestClose` triggers, simply update the
 	 * `isOpen` prop to `false`.
 	 */
 	onRequestClose?: () => void;
 	onOpen?: () => void;
-	onInitialFocus?: (focusedElement: HTMLElement) => void;
-	/**
-	 * Callback function that is called when the user presses `Tab` on the last
-	 * tabbable element or `Shift + Tab` on the first tabbable element. To
-	 * prevent wrapping in either direction, return `false`.
-	 */
-	onRequestFocusWrap?: (prevFocus: typeof document['activeElement'], nextFocus: HTMLElement) => void | boolean;
 
 	headerRef?: React.Ref<HTMLElement>;
 	contentRef?: React.Ref<HTMLElement>;
@@ -88,7 +95,9 @@ export interface ModalProps extends BaseDialogProps {
 export interface ModalState {
 	isOpen: boolean;
 	trigger: HTMLElement | null;
-	canFocus: boolean;
+	long: boolean;
+	stuckHeader: boolean;
+	stuckFooter: boolean;
 }
 
 export interface ModalSnapshot {
@@ -111,35 +120,47 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		actionBar: 'actionbar',
 	}
 
+	private baseName: string;
 	private getId: ReturnType<typeof idGen>;
 	private titleId: string;
 	private portalNode: HTMLElement;
-	private initialFocus: React.RefObject<HTMLElement>;
-	private dialogRef = React.createRef<HTMLDivElement>();
-	private headerRef = React.createRef<HTMLHeadingElement>();
-	private tabbable: NodeListOf<HTMLElement> | [] = [];
+	private dialog: HTMLDivElement | null = null;
+	private header: HTMLElement | null = null;
+	private content: HTMLElement | null = null;
+	private footer: HTMLElement | null = null;
+
+	/** A watcher to detect when the header/footer move off screen. */
+	private stickyObserver = new IntersectionObserver(([e]) => {
+		if (e.target === this.header) {
+			this.setState({ stuckHeader: e.intersectionRatio < 1 });
+		}
+		if (e.target === this.footer) {
+			this.setState({ stuckFooter: e.intersectionRatio < 1 });
+		}
+	}, { threshold: [1] });
 
 	static defaultProps = {
 		isOpen: false,
-		baseName: Modal.bemBase,
 		mountPoint: (): HTMLElement => document.body,
 		hideTitle: false,
-		addCloseButton: true,
 		closeOnBackdropClick: true,
 		closeOnEscape: true,
 	}
 
 	constructor(props: ModalProps) {
 		super(props);
+
+		this.baseName = props.baseName || prefix(Modal.bemBase);
 		this.getId = idGen(props, `${Modal.bemBase}-`);
 		this.titleId = this.getId(`-${Modal.bemElements.title}`);
 		this.portalNode = this.createPortalNode();
-		this.initialFocus = props.initialFocusRef || this.headerRef;
 
 		this.state = {
 			isOpen: props.isOpen || Modal.defaultProps.isOpen,
 			trigger: null,
-			canFocus: false,
+			long: false,
+			stuckHeader: false,
+			stuckFooter: false,
 		};
 	}
 
@@ -168,8 +189,9 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	): void {
 		const {
 			isOpen,
-			baseName,
-			portalClass = `${baseName}__${Modal.bemElements.portal}`,
+			children,
+			focusOnOpen,
+			portalClass = `${this.baseName}__${Modal.bemElements.portal}`,
 		} = this.props;
 		const { isOpen: stateOpen } = this.state;
 
@@ -199,6 +221,17 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		} else if (prevState.isOpen && !stateOpen) {
 			this.onClose();
 		}
+
+		if (prevProps.children !== children) {
+			this.updateLength();
+		}
+
+		// focus the specified element if the modal is open. this will be
+		// triggered _after_ the `onOpen` handler since the ref shouldn't exist
+		// until the modal exists.
+		if (stateOpen && !prevProps.focusOnOpen && focusOnOpen) {
+			focusOnOpen.focus();
+		}
 	}
 
 	componentWillUnmount(): void {
@@ -207,40 +240,48 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	}
 
 	private onOpen(): void {
-		const { initialFocusRef, onInitialFocus = noop } = this.props;
-		this.initialFocus = initialFocusRef || this.headerRef;
-		if (this.dialogRef.current) {
-			this.tabbable = this.Tabbable;
-			if (this.initialFocus === this.headerRef) {
-				if (this.tabbable.length) {
-					this.initialFocus = { current: Array.from(this.tabbable)[0] };
-				}
-			}
+		const { focusOnOpen } = this.props;
+		let el = focusOnOpen || null;
+		if (!el) {
+			const tabbable = getFocusable(this.dialog);
+			el = (tabbable && tabbable.length > 0) ? tabbable[0] : null;
 		}
-		if (this.initialFocus && this.initialFocus.current) {
-			this.initialFocus.current.focus();
-			onInitialFocus(this.initialFocus.current);
+		if (!el) {
+			el = this.header || this.content;
+			if (el) el.setAttribute('tabIndex', '-1');
 		}
+		if (el) {
+			el.focus();
+		}
+
+		this.updateLength();
+
+		if (this.header) this.stickyObserver.observe(this.header);
+		if (this.footer) this.stickyObserver.observe(this.footer);
 		document.addEventListener('keydown', this.onDocumentKeydown);
 	}
 
 	private onClose(): void {
 		const { trigger } = this.state;
+
+		if (this.header) this.stickyObserver.unobserve(this.header);
+		if (this.footer) this.stickyObserver.unobserve(this.footer);
 		document.removeEventListener('keydown', this.onDocumentKeydown);
+
+		// return focus on close
 		if (trigger) trigger.focus();
 	}
 
-	private get CloseButton(): React.ReactElement | null {
+	private get CloseButton(): JSX.Element | null {
 		const {
-			baseName,
-			addCloseButton,
-			closeButtonClass = `${baseName}__${Modal.bemElements.closeButton}`,
+			hideCloseButton,
+			closeButtonClass = `${this.baseName}__${Modal.bemElements.closeButton}`,
 		} = this.props;
-		if (!addCloseButton) return null;
+		if (hideCloseButton) return null;
 		return (
 			<IconButton
 				icon="close"
-				className={closeButtonClass}
+				className={classNames(closeButtonClass, 'button--base')}
 				onClick={this.requestClose}
 			>
 				Close
@@ -248,10 +289,9 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		);
 	}
 
-	private get Title(): React.ReactElement | null {
+	private get Title(): JSX.Element | null {
 		const {
-			baseName,
-			titleClass = `${baseName}__${Modal.bemElements.title}`,
+			titleClass = `${this.baseName}__${Modal.bemElements.title}`,
 			title,
 			hideTitle,
 		} = this.props;
@@ -259,21 +299,24 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		return <h2 className={titleClass} id={this.titleId}>{ title }</h2>;
 	}
 
-	private get Header(): React.ReactElement {
+	private get Header(): JSX.Element | null {
 		const {
-			baseName,
-			headerClass = `${baseName}__${Modal.bemElements.header}`,
-			hideTitle,
+			headerClass = `${this.baseName}__${Modal.bemElements.header}`,
+			stickyHeader,
 		} = this.props;
-		const { canFocus } = this.state;
-		const headerClasses = classNames(headerClass, {
-			[`${headerClass}--visible`]: !hideTitle,
-		});
+		if (!this.Title && !this.CloseButton) return null;
+		const { stuckHeader, long } = this.state;
+		const classes = classNames(
+			headerClass,
+			{
+				[`${headerClass}--sticky`]: stickyHeader && long,
+				[prefix('stuck')]: stickyHeader && stuckHeader,
+			},
+		);
 		return (
 			<header
-				className={headerClasses}
-				tabIndex={(canFocus) ? undefined : -1}
-				ref={this.headerRef}
+				className={classes}
+				ref={(el): void => { this.header = el; }}
 			>
 				{ this.Title }
 				{ this.CloseButton }
@@ -281,67 +324,73 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		);
 	}
 
-	private get ActionBar(): React.ReactElement | null {
+	private get ActionBar(): JSX.Element | null {
 		const {
-			baseName,
-			actionBarClass = `${baseName}__${Modal.bemElements.actionBar}`,
+			actionBarClass = `${this.baseName}__${Modal.bemElements.actionBar}`,
+			stickyActionBar,
 			actions,
 		} = this.props;
 		if (!actions) return null;
+		const { stuckFooter, long } = this.state;
+		const classes = classNames(
+			actionBarClass,
+			{
+				[`${actionBarClass}--sticky`]: stickyActionBar && long,
+				[prefix('stuck')]: stickyActionBar && stuckFooter,
+			},
+		);
 		return (
-			<footer className={actionBarClass}>
+			<footer className={classes} ref={(el): void => { this.footer = el; }}>
 				{ actions }
 			</footer>
 		);
 	}
 
-	private get Dialog(): React.ReactElement | null {
+	private get Dialog(): JSX.Element | null {
 		const {
 			title,
 			hideTitle,
-			baseName,
 			className,
 			children,
-			contentClass = `${baseName}__${Modal.bemElements.content}`,
-			backdropClass = `${baseName}__${Modal.bemElements.backdrop}`,
+			contentClass = `${this.baseName}__${Modal.bemElements.content}`,
+			backdropClass = `${this.baseName}__${Modal.bemElements.backdrop}`,
 		} = this.props;
-		const { isOpen } = this.state;
+		const { isOpen, long } = this.state;
 		if (!isOpen) return null;
-		const classes = classNames(baseName, className);
+		const classes = classNames(this.baseName, className);
 		const label = (hideTitle) ? { 'aria-label': title } : { 'aria-labelledby': this.titleId };
 		/*
 			eslint-disable
 			jsx-a11y/click-events-have-key-events,
-			jsx-a11y/no-noninteractive-element-interactions
+			jsx-a11y/no-static-element-interactions,
 		*/
 		return (
-			<section className={backdropClass} onClick={this.onBackdropClick}>
+			<section
+				className={classNames(backdropClass, { [`${this.baseName}--long`]: long })}
+				onClick={this.onBackdropClick}
+			>
 				<BaseDialog
 					modal
 					className={classes}
-					ref={this.dialogRef}
+					ref={(el): void => { this.dialog = el; }}
 					{...label}
 				>
 					{ this.Header }
-					<section className={contentClass}>{ children }</section>
+					<section
+						className={contentClass}
+						ref={(el): void => { this.content = el; }}
+					>
+						{ children }
+
+					</section>
 					{ this.ActionBar }
 				</BaseDialog>
 			</section>
 		);
 	}
 
-	private get Tabbable(): NodeListOf<HTMLElement> | [] {
-		const tabbable = (this.dialogRef.current)
-			? getFocusable(this.dialogRef.current)
-			: [] as [];
-		this.setState({ canFocus: tabbable.length > 0 });
-		return tabbable;
-	}
-
 	private open = (): void => {
-		const { onOpen = noop } = this.props;
 		this.setState({ isOpen: true, trigger: document.activeElement as HTMLElement });
-		onOpen();
 	}
 
 	public close = (): void => {
@@ -349,16 +398,26 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	}
 
 	public requestClose = (): void => {
-		const { onRequestClose = noop } = this.props;
-		onRequestClose();
+		const { onRequestClose } = this.props;
+		if (onRequestClose) onRequestClose();
+	}
+
+	private updateLength = (): void => {
+		if (this.dialog) {
+			const long = this.dialog.offsetHeight > window.innerHeight - 80;
+			this.setState({ long, stuckFooter: long });
+		}
 	}
 
 	private onBackdropClick = (
 		{ nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>,
 	): void => {
 		const { closeOnBackdropClick } = this.props;
-		if (closeOnBackdropClick && this.dialogRef.current
-			&& !nativeEvent.composedPath().includes(this.dialogRef.current)) {
+		if (
+			closeOnBackdropClick
+			&& this.dialog
+			&& !nativeEvent.composedPath().includes(this.dialog)
+		) {
 			this.requestClose();
 		}
 	}
@@ -369,39 +428,36 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		if (!isOpen) return;
 		if (e.key === 'Escape' && closeOnEscape) this.requestClose();
 		if (e.key === 'Tab') {
-			this.tabbable = this.Tabbable;
-			if (this.tabbable && this.tabbable.length) {
+			const tabbable = getFocusable(this.dialog);
+			if (tabbable && tabbable.length) {
 				let element: HTMLElement | undefined;
-				const tabIndex = Array.from(this.tabbable).indexOf(e.target as HTMLElement);
-				const wrapForward = tabIndex === this.tabbable.length - 1 && !e.shiftKey;
+				const tabIndex = Array.from(tabbable).indexOf(document.activeElement as HTMLElement);
+				const wrapForward = tabIndex === tabbable.length - 1 && !e.shiftKey;
 				const wrapBackward = tabIndex === 0 && e.shiftKey;
 
 				if (tabIndex < 0 || wrapForward) {
-					[element] = Array.from(this.tabbable);
+					// don't destructure since tabbable isn't iterable
+					// eslint-disable-next-line prefer-destructuring
+					element = tabbable[0];
 				}
 
 				if (wrapBackward) {
-					element = this.tabbable[this.tabbable.length - 1];
+					element = tabbable[tabbable.length - 1];
 				}
 
 				if (element) {
-					const { onRequestFocusWrap = noop } = this.props;
 					e.preventDefault();
-					if (onRequestFocusWrap(document.activeElement, element) !== false) {
-						element.focus();
-					}
+					element.focus();
 				}
 			} else {
 				e.preventDefault();
-				if (this.initialFocus.current) this.initialFocus.current.focus();
 			}
 		}
 	}
 
 	private createPortalNode(): HTMLDivElement {
 		const {
-			baseName,
-			portalClass = `${baseName}__${Modal.bemElements.portal}`,
+			portalClass = `${this.baseName}__${Modal.bemElements.portal}`,
 		} = this.props;
 		const node = document.createElement('div');
 		node.className = portalClass;

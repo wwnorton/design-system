@@ -1,65 +1,32 @@
-@import './mixins';
+@use '../../a11y';
+@use '../../motion';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as props;
 
-.radio {
-	@include radio-base;
-}
+@mixin control {
+	$-inner-ring: inset 0 0 0 props.prop('border-width') props.prop('body-bg');
 
-.radio__control {
-	@include radio-control;
-}
+	border-radius: 100%;
 
-.radio__container {
-	@include radio-container;
-}
-
-.radio__help {
-	@include radio-help;
-}
-
-.radio__thumbnail {
-	@include radio-thumbnail;
-}
-
-.radio__input {
-	@include sr-only;
-
-	&:disabled + .radio__control {
-		background-color: map-get($color-disabled, 10);
-		border-color: map-get($color-disabled, 30);
+	:checked + & {
+		box-shadow: $-inner-ring;
 	}
 
-	&:disabled ~ .radio__thumbnail {
-		opacity: 0.2;
+	.focus + &,
+	:focus + & {
+		@include a11y.focus-ring($-inner-ring);
 	}
 
-	&:disabled ~ .radio__container,
-	&:disabled ~ .radio__container .radio__help {
-		color: map-get($color-disabled, 40);
-	}
-
-	&.focus + .radio__control,
-	&:focus + .radio__control {
-		@include focus-indicator;
-	}
-
-	&:checked:not([disabled]) + .radio__control {
-		@include radio-checked;
-	}
-
-	&:disabled:checked + .radio__control {
-		box-shadow:
-			(
-				inset 0 0 0 $radio-border-size $white,
-				inset 0 0 0 $radio-check-size map-get($color-disabled, 30),
-			);
-	}
-
-	&.focus:checked + .radio__control,
-	&:focus:checked + .radio__control {
-		@include radio-focus-check;
+	[aria-invalid='true'] + & {
+		@include props.set($bg-color: props.prop('error'));
 	}
 }
 
-.radio__label {
-	@include radio-label;
+@mixin style {
+	@include util.declare('radio') {
+		.#{util.prefix('field__control--radio')} {
+			@include control;
+		}
+	}
 }

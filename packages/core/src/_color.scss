@@ -1,0 +1,421 @@
+////
+/// @group Color
+////
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+@use 'config';
+@use 'properties' as props;
+@use 'util';
+
+/// Create a new color family map that references an existing family map.
+/// @param {String} $name - The name of the family that you'd like to create.
+/// @param {String} $ref-family - The name of the family that you'd like to reference.
+/// @param {Number} $grade-root [null] - If provided, this will be the midpoint
+/// of the "lighter/darker" shade swatch.
+/// @example scss - Minimal usage
+///   @debug family('foo', 'teal');
+///   // (
+///   //   10: var(--nds-teal-10),
+///   //   20: var(--nds-teal-20),
+///   //   ...30 - 80...
+///   //   90: var(--nds-teal-90),
+///   //   100: var(--nds-teal-100),
+///   // )
+/// @example scss - With `$grade-root`
+///   @debug family('foo', 'teal', 30);
+///   // (
+///   //   10: var(--nds-teal-10),
+///   //   20: var(--nds-teal-20),
+///   //   ...all other grades...
+///   //   'lighter': var(--nds-foo-10),
+///   //   'light': var(--nds-foo-20),
+///   //   '#root': var(--nds-foo-30),
+///   //   'dark': var(--nds-foo-40),
+///   //   'darker': var(--nds-foo-50),
+///   // )
+///
+@function family($name, $ref-family, $grade-root: null) {
+	$map: ();
+
+	@for $n from 1 through 10 {
+		$grade: $n * 10;
+		$map: map.merge($map, ($grade: props.prop(#{$ref-family}-#{$grade})));
+	}
+
+	@if $grade-root {
+		$shades: (
+			-20: 'lighter',
+			-10: 'light',
+			0: '#root',
+			10: 'dark',
+			20: 'darker',
+		);
+
+		@for $g from -20 through 20 {
+			/* stylelint-disable max-nesting-depth */
+			@if math.abs($g % 10) == 0 {
+				$css-prop: string.unquote('--#{util.prefix(-get-shade($name, $grade-root, $g))}');
+				$prop: var($css-prop);
+
+				@if config.$css-property-fallback {
+					$prop-val: props.value($grade-root + $g, $map);
+
+					@if $prop-val {
+						$prop: var($css-prop, $prop-val);
+					}
+				}
+				$map: map.merge($map, (map.get($shades, $g): $prop));
+			}
+		}
+	}
+
+	@return $map;
+}
+
+@function -get-shade($name, $grade-root, $offset: 0) {
+	@return '#{$name}-#{util.min-max($grade-root + $offset, 10, 100)}';
+}
+
+/// Retrieve the full color scheme map.
+/// @param {'light' | 'dark'} $variant - The color scheme name that you'd like to retrieve.
+/// @link https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
+@function scheme($variant: 'light') {
+	@if ($variant == 'light') {
+		@return -scheme-map($-scheme-light);
+	}
+
+	@if ($variant == 'dark') {
+		@return -scheme-map($-scheme-dark);
+	}
+}
+
+/// Get the midpoint grade of a specified color role.
+/// @param {string} $role - The name of the role, e.g., "primary"
+/// @param {'light' | 'dark'} $scheme [light] - The color scheme you'd like to look up.
+@function get-grade($role, $scheme: 'light') {
+	$-scheme: if(($scheme == 'dark'), $-scheme-dark, $-scheme-light);
+
+	@return map.get($-scheme, '#{$role}-grade');
+}
+
+/// Get the color family for a specified color role.
+/// @param {string} $role - The name of the role, e.g., "primary"
+/// @param {'light' | 'dark'} $scheme [light] - The color scheme you'd like to look up.
+@function get-family($role, $scheme: 'light') {
+	$-scheme: if(($scheme == 'dark'), $-scheme-dark, $-scheme-light);
+
+	@return map.get($-scheme, '#{$role}-family');
+}
+
+@function families($exclude: ()) {
+	$fams: ();
+
+	@each $color in $-families {
+		@if not list.index($exclude, $color) {
+			$fams: list.append($fams, $color);
+		}
+	}
+
+	@return $fams;
+}
+
+@function -role($-scheme, $role) {
+	@return family($role, map.get($-scheme, '#{$role}-family'), map.get($-scheme, '#{$role}-grade'));
+}
+
+@function -scheme-map($-scheme) {
+	$map: ();
+
+	@each $role in $-role-families {
+		$map: map.merge($map, ($role: -role($-scheme, $role)));
+	}
+
+	@each $role in $-role-values {
+		$map: map.merge($map, ($role: map.get($-scheme, $role)));
+	}
+
+	@return $map;
+}
+
+// SYSTEM COLORS - named color value stores with 10 grades from 10 to 100
+
+$-families: (
+	'blue',
+	'cyan',
+	'gray',
+	'green',
+	'navy',
+	'purple',
+	'red',
+	'teal',
+	'yellow',
+) !default;
+
+$blue: () !default;
+$blue: map.merge(
+	(
+		10: #f0f7ff,
+		20: #d9ebff,
+		30: #badbff,
+		40: #8fc2f7,
+		50: #4696eb,
+		60: #2576cc,
+		70: #1d5da1,
+		80: #17477a,
+		90: #12365c,
+		100: #0e253d,
+	),
+	$blue,
+);
+
+$cyan: () !default;
+$cyan: map.merge(
+	(
+		10: #e9f7fb,
+		20: #d3eef5,
+		30: #afe0ed,
+		40: #7cc9de,
+		50: #2c9fbf,
+		60: #1f7e99,
+		70: #1c6275,
+		80: #1b4c59,
+		90: #163740,
+		100: #10252b,
+	),
+	$cyan,
+);
+
+$gray: () !default;
+$gray: map.merge(
+	(
+		10: #f5f5f5,
+		20: #e8e8e8,
+		30: #d6d6d6,
+		40: #bdbdbd,
+		50: #919191,
+		60: #737373,
+		70: #595959,
+		80: #424242,
+		90: #333,
+		100: #232323,
+	),
+	$gray,
+);
+
+$green: () !default;
+$green: map.merge(
+	(
+		10: #e6fae6,
+		20: #d0f2d0,
+		30: #aae3aa,
+		40: #7ccf7c,
+		50: #49a349,
+		60: #228522,
+		70: #216621,
+		80: #1c4f1c,
+		90: #163b16,
+		100: #112911,
+	),
+	$green,
+);
+
+$navy: () !default;
+$navy: map.merge(
+	(
+		10: #f2f5f8,
+		20: #e2e8ee,
+		30: #ced7e0,
+		40: #b1bdc9,
+		50: #8493a3,
+		60: #63768a,
+		70: #475b70,
+		80: #32475e,
+		90: #243547,
+		100: #192633,
+	),
+	$navy,
+);
+
+$purple: () !default;
+$purple: map.merge(
+	(
+		10: #f6f5ff,
+		20: #eae6ff,
+		30: #d9d1ff,
+		40: #bfb3ff,
+		50: #9684f0,
+		60: #7663d6,
+		70: #5e4fab,
+		80: #483c82,
+		90: #342d59,
+		100: #26213d,
+	),
+	$purple,
+);
+
+$red: () !default;
+$red: map.merge(
+	(
+		10: #fff2f2,
+		20: #ffe0e0,
+		30: #ffc8c7,
+		40: #ffa2a1,
+		50: #ed6664,
+		60: #c93f3c,
+		70: #9e3331,
+		80: #7a2a28,
+		90: #591e1d,
+		100: #3d1515,
+	),
+	$red,
+);
+
+$teal: () !default;
+$teal: map.merge(
+	(
+		10: #e9f7f7,
+		20: #d1eded,
+		30: #abe0e0,
+		40: #76cbcc,
+		50: #29a1a3,
+		60: #1a8082,
+		70: #196263,
+		80: #174c4d,
+		90: #133838,
+		100: #0f2929,
+	),
+	$teal,
+);
+
+$yellow: () !default;
+$yellow: map.merge(
+	(
+		10: #fff5d9,
+		20: #fae7af,
+		30: #f0d278,
+		40: #deb647,
+		50: #b88828,
+		60: #96690e,
+		70: #7a4f11,
+		80: #633b12,
+		90: #4a2a0f,
+		100: #331d0d,
+	),
+	$yellow,
+);
+
+$black: #101010 !default;
+$white: #fdfdfd !default;
+
+
+// COLOR SCHEMES & ROLES - colors that have specific usage attached
+
+/// The primary color family is used in UI elements that use a default color.
+$primary-family: 'teal' !default;
+/// The grade that defines the "midpoint" of the primary family. For instance,
+/// setting this to `60` will cause the `primary` token to reference `primary-60`.
+$primary-grade: 60 !default;
+/// The base color family is used for background color gradients and text colors.
+$base-family: 'navy' !default;
+/// The grade that defines the "midpoint" of the base family. For instance,
+/// setting this to `60` will cause the `base` token to reference `base-60`.
+$base-grade: 60 !default;
+/// The color family that will be used for `disabled` controls.
+$disabled-family: 'base' !default;
+/// The grade that defines the "midpoint" of the disabled family. For instance,
+/// setting this to `60` will cause the `disabled` token to reference `disabled-60`.
+$disabled-grade: 30 !default;
+/// The color family that will be used to convey errors/failing.
+$error-family: 'red' !default;
+/// The grade that defines the "midpoint" of the error family. For instance,
+/// setting this to `60` will cause the `error` token to reference `error-60`.
+$error-grade: 60 !default;
+/// The color family that will be used to convey success/passing.
+$success-family: 'red' !default;
+/// The grade that defines the "midpoint" of the success family. For instance,
+/// setting this to `60` will cause the `success` token to reference `success-60`.
+$success-grade: 60 !default;
+/// The color family that will be used to convey warning/caution.
+$warning-family: 'red' !default;
+/// The grade that defines the "midpoint" of the warning family. For instance,
+/// setting this to `60` will cause the `warning` token to reference `warning-60`.
+$warning-grade: 60 !default;
+
+/// The main background color.
+$body-bg: props.prop('white') !default;
+/// The main text color.
+$body-text: props.prop('base-90') !default;
+/// A subdued or "muted" text color, used for less emphasized text.
+$subdued: props.prop('base-60') !default;
+/// The color used for the `:focus` state.
+$focus-ring: props.prop('blue-50') !default;
+
+// role families have the full 10-grade + shades palette
+$-role-families: ('primary', 'base', 'disabled', 'error', 'success', 'warning');
+// role values are single values
+$-role-values: ('body-bg', 'body-text', 'subdued', 'focus-ring');
+
+$-scheme-light: (
+	'primary-family': $primary-family,
+	'primary-grade': $primary-grade,
+	'base-family': $base-family,
+	'base-grade': $base-grade,
+	'disabled-family': $disabled-family,
+	'disabled-grade': $disabled-grade,
+	'error-family': $error-family,
+	'error-grade': $error-grade,
+	'success-family': $success-family,
+	'success-grade': $success-grade,
+	'warning-family': $warning-family,
+	'warning-grade': $warning-grade,
+	'body-bg': $body-bg,
+	'body-text': $body-text,
+	'subdued': $subdued,
+	'focus-ring': $focus-ring,
+) !default;
+
+// WIP
+$-scheme-dark: map.merge(
+	$-scheme-light,
+	(
+		'primary-grade': 50,
+		'base-grade': 50,
+		'disabled-grade': 80,
+		'error-grade': 50,
+		'success-grade': 50,
+		'warning-grade': 50,
+		'body-bg': props.prop('base-100'),
+		'body-text': props.prop('white'),
+		'subdued': props.prop('base-40'),
+		'focus-ring': props.prop('blue-60'),
+	),
+) !default;
+
+
+// MIXINS
+
+/// Theme the design system by modifying a color scheme
+/// @param {'light' | 'dark'} $scheme-type - The scheme type that you intend to modify
+/// @param {Map} $scheme-map - A map of the values that you'd like to modify
+@mixin theme($scheme-type, $scheme-map) {
+	@if ($scheme-type == 'light') {
+		$-scheme-light: map.merge($-scheme-light, $scheme-map);
+	}
+
+	@if ($scheme-type == 'dark') {
+		$-scheme-dark: map.merge($-scheme-dark, $scheme-map);
+	}
+}
+
+/// Set a color scheme as CSS custom properties.
+/// @param {'light' | 'dark'} $scheme ['light'] - The name of the scheme that
+/// you'd like to set.
+@mixin set-scheme($scheme: 'light') {
+	$scheme-map: scheme($scheme);
+
+	@include props.add($scheme-map);
+	@include props.set($scheme-map);
+}

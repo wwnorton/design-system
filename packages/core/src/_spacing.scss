@@ -1,0 +1,150 @@
+////
+/// @group Spacing
+////
+
+@use 'sass:meta';
+@use 'sass:map';
+@use 'util';
+@use 'properties' as props;
+
+// FUNCTIONS
+
+// Convert a px value to a spacer unit. Spacers must be divisible by the `$base-unit`
+// in pixels (default: 4) in order to conform to the underlying pixel grid. A
+// warning will be emitted when a provided value does not conform.
+@function -spacer($px, $unit-from, $unit-to) {
+	@if $px % $base-unit != 0 {
+		$val: if($unit-from == 'px', #{$px}px, #{util.px2rem($px)}rem);
+
+		@warn '#{$val} is not a valid spacing unit. Spacing units must be a multiple of #{$base-unit}px.';
+	}
+
+	@return if($unit-to == 'px', #{$px}px, #{util.px2rem($px)}rem);
+}
+
+/// Convert a px value to a rem spacer.
+@function px-rem($px) {
+	@return -spacer($px, 'px', 'rem');
+}
+
+/// Convert a rem value to a px spacer.
+@function rem-px($rem) {
+	@return -spacer(util.rem2px($rem), 'rem', 'px');
+}
+
+/// Use a px value as a px spacer.
+@function px($val) {
+	@return -spacer($val, 'px', 'px');
+}
+
+/// Use a rem value as a rem spacer.
+@function rem($val) {
+	@return -spacer(util.rem2px($val), 'rem', 'rem');
+}
+
+/// Padding helper
+/// Ensures that padding fits the design system box model.
+/// @param {String|Number} $padding-length - The desired padding length.
+/// @param {String|Number} $border-width [0] - The desired border width.
+/// @link https://gitlab.com/wwnorton/platform/design-system/-/issues/96 GitLab Issue
+@function padding($padding-length, $border-width: 0) {
+	@if $border-width {
+		@if $border-width == 0 {
+			@return $padding-length;
+		}
+
+		@return calc(#{$padding-length} - #{$border-width});
+	}
+
+	@return $padding-length;
+}
+
+@function padding-x($padding-length: props.prop('padding-x'), $border-width: props.prop('border-width')) {
+	@return padding($padding-length, $border-width);
+}
+
+@function padding-y($padding-length: props.prop('padding-y'), $border-width: props.prop('border-width')) {
+	@return padding($padding-length, $border-width);
+}
+
+$-spacer-roles: (
+	(
+		keys: ('1px'),
+		token: 'spacing-1px',
+	),
+	(
+		keys: ('2px'),
+		token: 'spacing-2px',
+	),
+	(
+		keys: (1, '0.25rem', 'ui-inner'),
+		token: 'spacing-1',
+	),
+	(
+		keys: (2, '0.5rem', 'button-y', 'input-y', 'tooltip-y', 'inline-x', 'block-xs', 'cell-sm'),
+		token: 'spacing-2',
+	),
+	(
+		keys: (3, '0.75rem', 'button-x', 'input-x', 'tooltip-x', 'block-sm'),
+		token: 'spacing-3',
+	),
+	(
+		keys: (4, '1rem', 'dropdown-x', 'block-base', 'cell-base'),
+		token: 'spacing-4',
+	),
+	(
+		keys: (5, '1.25rem'),
+		token: 'spacing-5',
+	),
+	(
+		keys: (6, '1.5rem'),
+		token: 'spacing-6',
+	),
+	(
+		keys: (8, '2rem'),
+		token: 'spacing-8',
+	),
+	(
+		keys: (10, '2.5rem'),
+		token: 'spacing-10',
+	),
+	(
+		keys: (12, '3rem'),
+		token: 'spacing-12',
+	),
+);
+
+/// Get a spacer from a role or a value.
+@function spacer($role: 'block') {
+	@return props.prop(props.from-role($role, 'spacing', $-spacer-roles));
+}
+
+// TOKENS
+
+$base-unit: 4;
+
+$spacing-0: px(0);
+$spacing-1px: 1px;
+$spacing-2px: 2px;
+$spacing-1: rem(0.25);
+$spacing-2: rem(0.5);
+$spacing-3: rem(0.75);
+$spacing-4: rem(1);
+$spacing-5: rem(1.25);
+$spacing-6: rem(1.5);
+$spacing-8: rem(2);
+$spacing-10: rem(2.5);
+$spacing-12: rem(3);
+
+
+$zindex-focus: 980;
+
+// z-index values from Bootstrap
+// https://v5.getbootstrap.com/docs/5.0/layout/z-index/
+$zindex-dropdown: 1000;
+$zindex-sticky: 1020;
+$zindex-fixed: 1030;
+$zindex-modal-backdrop: 1040;
+$zindex-modal: 1050;
+$zindex-popover: 1060;
+$zindex-tooltip: 1070;

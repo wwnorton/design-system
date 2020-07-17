@@ -8,6 +8,7 @@ import {
 	Edit, Menu, Sun, Moon,
 } from 'react-feather';
 import { withPrefix } from 'gatsby';
+import { useEffect, useRef } from 'react';
 import { Logo } from '../Logo';
 import * as styles from './styles';
 
@@ -21,11 +22,22 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 		themeConfig: { showDarkModeSwitch, showMarkdownEditButton },
 	} = useConfig();
 	const { edit = true, ...doc } = useCurrentDoc();
-	const [colorScheme, setColorScheme] = useColorMode();
+	const [colorScheme, setColorScheme] = useColorMode<'light' | 'dark'>();
 
 	const toggleColorScheme = (): void => {
 		setColorScheme((colorScheme === 'dark') ? 'light' : 'dark');
 	};
+
+	useEffect(() => {
+		const invert = (colorScheme === 'dark') ? 'light' : 'dark';
+		document.documentElement.classList.remove(`scheme-${invert}`);
+		document.documentElement.classList.add(`scheme-${colorScheme}`);
+	}, [colorScheme]);
+
+	useEffect(() => {
+		const mql = window.matchMedia('(prefers-color-scheme: dark)');
+		setColorScheme((mql.matches) ? 'light' : 'dark');
+	}, []);
 
 	return (
 		<header sx={styles.wrapper} data-testid="header">
@@ -42,6 +54,9 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 			<div sx={styles.innerContainer}>
 				<Logo />
 				<Flex sx={{ alignItems: 'center' }}>
+					<a href={withPrefix('/sassdoc')} sx={styles.headerLink}>
+						Sassdoc
+					</a>
 					<a href={withPrefix('/storybook')} sx={styles.headerLink}>
 						Storybook
 					</a>
@@ -58,12 +73,13 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 					)}
 					{showDarkModeSwitch && (
 						<Switch
-							title="Dark mode"
-							off={<Sun size={15} />}
-							on={<Moon size={15} />}
+							label="Dark mode"
+							tipped
 							checked={colorScheme === 'dark'}
 							onClick={toggleColorScheme}
-						/>
+						>
+							{ colorScheme === 'dark' ? <Moon size={15} /> : <Sun size={15} /> }
+						</Switch>
 					)}
 				</Flex>
 				{showMarkdownEditButton && edit && doc.a && (

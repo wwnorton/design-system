@@ -1,0 +1,24 @@
+// The full design system as one stylesheet.
+
+// forward the whole thing so the variables/mixins/functions can be used downstream
+@forward '.';
+
+// use here to set styles. this will result in a complete stylesheet
+@use '.' as nds;
+
+// Reset first
+@include nds.reset;
+
+// All components
+@include nds.button-style;
+@include nds.checkbox-style;
+@include nds.disclosure-style;
+@include nds.dropdown-style;
+@include nds.field-style;
+@include nds.icon-style;
+@include nds.link-style;
+@include nds.modal-style;
+@include nds.radio-style;
+@include nds.switch-style;
+@include nds.textfield-style;
+@include nds.tooltip-style;

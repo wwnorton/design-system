@@ -1,0 +1,314 @@
+////
+/// Typography
+/// @group Typography
+////
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'config';
+@use 'device';
+@use 'spacing';
+@use 'properties' as props;
+
+// FUNCTIONS
+
+@function system-stack($font-family, $generic) {
+	$system: '';
+
+	@if $generic == 'sans' {
+		$system: props.prop('font-family-system-sans');
+	}
+	@else if $generic == 'serif' {
+		$system: props.prop('font-family-system-sans');
+	}
+	@else if $generic == 'mono' {
+		$system: props.prop('font-family-system-mono');
+	}
+
+	@return list.join($font-family, $system, $separator: comma);
+}
+
+/// Set a sans-serif font with the system stack fallback.
+@function sans($font-family) {
+	@return system-stack($font-family, 'sans');
+}
+
+/// Set a serif font with the system stack fallback.
+@function serif($font-family) {
+	@return system-stack($font-family, 'serif');
+}
+
+/// Set a monospace font with the system stack fallback.
+@function mono($font-family) {
+	@return system-stack($font-family, 'mono');
+}
+
+/// Get a font size using rem spacers.
+/// @param {Number} $px - The font size in pixels.
+/// @return {String} The font size spacer and rem conversion string.
+@function size($px) {
+	@return #{$px / $font-size-root}rem;
+}
+
+$-lh-roles: (
+	(
+		keys: (1, null, 'null', 'reset'),
+		token: 'line-height-1',
+	),
+	(
+		keys: (2, 'heading-large', 'h1', 'h2', 'lead'),
+		token: 'line-height-2',
+	),
+	(
+		keys: (3, 'heading', 'display', 'h3', 'h4', 'h5', 'h6', 'ui'),
+		token: 'line-height-3',
+	),
+	(
+		keys: (4, 'short', 'short-text'),
+		token: 'line-height-4',
+	),
+	(
+		keys: (5, 'body', 'paragraph', 'p', 'reading'),
+		token: 'line-height-5',
+	),
+	(
+		keys: (6, 'pull', 'pull-quote', 'pullquote'),
+		token: 'line-height-6',
+	),
+);
+
+@function line-height($role: 'body') {
+	@return props.prop(props.from-role($role, 'line-height', $-lh-roles));
+}
+
+@function lh($role) {
+	@return line-height($role);
+}
+
+
+// TOKENS
+
+// System font stacks from https://systemfontstack.com/
+$font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+$font-family-system-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+$font-family-system-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+$font-family-sans: props.prop('font-family-system-sans') !default;
+$font-family-serif: props.prop('font-family-system-serif') !default;
+$font-family-mono: props.prop('font-family-system-mono') !default;
+/// The main font family that will be used throughout your application.
+$font-family-base: props.prop('font-family-sans') !default;
+/// The font family that will be used for all headings.
+$font-family-headings: props.prop('font-family-base') !default;
+
+$font-size-root: 1em !default;
+$font-size-10: 0.625rem;
+$font-size-12: 0.75rem;
+$font-size-14: 0.875rem;
+$font-size-16: 1rem;
+$font-size-18: 1.125rem;
+$font-size-20: 1.25rem;
+$font-size-24: 1.5rem;
+$font-size-32: 2rem;
+$font-size-40: 2.5rem;
+$font-size-48: 3rem;
+
+$font-size-xs: props.prop('font-size-12') !default;
+$font-size-sm: props.prop('font-size-14') !default;
+$font-size-md: props.prop('font-size-16') !default;
+$font-size-lg: props.prop('font-size-18') !default;
+$font-size-h1: props.prop('font-size-32') !default;
+$font-size-h2: props.prop('font-size-24') !default;
+$font-size-h3: props.prop('font-size-20') !default;
+$font-size-h4: props.prop('font-size-18') !default;
+$font-size-h5: props.prop('font-size-16') !default;
+$font-size-h6: props.prop('font-size-14') !default;
+$font-size-base: props.prop('font-size-md') !default;
+
+$font-weight-thin: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+$font-weight-base: props.prop('font-weight-regular') !default;
+$font-weight-headings: props.prop('font-weight-bold') !default;
+
+$line-height-1: 1;
+$line-height-2: 1.125;
+$line-height-3: 1.25;
+$line-height-4: 1.5;
+$line-height-5: 1.6;
+$line-height-6: 1.75;
+
+// MIXINS
+
+/// Apply font smoothing.
+/// @link https://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/
+@mixin font-smoothing {
+	@include device.media-hd {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+	}
+}
+
+/// Create a composed set of typography design tokens. Explicitly specifying a
+/// value of `null` values will result in the property not being set.
+/// @param {font-family} $family [font-family-base] - The font size, which should be a `font-size-*` token.
+/// @param {line-height} $height [line-height-base] - The line height, which should be a `line-height-*` token.
+/// @param {font-size} $size [font-size-base] - The font size, which should be a `font-size-*` token.
+/// @param {font-size} $size [null] - The font weight, which should be a `font-weight-*` token.
+@mixin typeset(
+	$family: props.prop('font-family-base'),
+	$size: props.prop('font-size-base'),
+	$height: props.prop('line-height-base'),
+	$weight: null,
+) {
+	font-family: $family;
+	font-size: $size;
+	font-weight: $weight;
+	line-height: $height;
+}
+
+/// A `typeset` suitable for extra small body text.
+@mixin body-xs {
+	@include typeset($size: props.prop('font-size-xs'));
+}
+
+/// A `typeset` suitable for small body text.
+@mixin body-sm {
+	@include typeset($size: props.prop('font-size-sm'));
+}
+
+/// A `typeset` suitable for medium body text.
+@mixin body-md {
+	@include typeset($size: props.prop('font-size-md'));
+}
+
+/// A `typeset` suitable for large body text.
+@mixin body-lg {
+	@include typeset($size: props.prop('font-size-lg'));
+}
+
+@mixin body-base {
+	@if config.$typeset-body-base == 'xs' {
+		@include body-xs;
+	}
+	@else if config.$typeset-body-base == 'sm' {
+		@include body-sm;
+	}
+	@else if config.$typeset-body-base == 'md' {
+		@include body-md;
+	}
+	@else if config.$typeset-body-base == 'lg' {
+		@include body-lg;
+	}
+}
+
+/// A `typeset` suitable for extra small UI text.
+@mixin ui-xs {
+	@include typeset(
+		$height: lh('ui'),
+		$size: props.prop('font-size-xs'),
+	);
+}
+
+/// A `typeset` suitable for small UI text.
+@mixin ui-sm {
+	@include typeset(
+		$height: lh('ui'),
+		$size: props.prop('font-size-sm'),
+	);
+}
+
+/// A `typeset` suitable for medium UI text.
+@mixin ui-md {
+	@include typeset(
+		$height: lh('ui'),
+		$size: props.prop('font-size-md'),
+	);
+}
+
+/// A `typeset` suitable for large UI text.
+@mixin ui-lg {
+	@include typeset(
+		$height: lh('ui'),
+		$size: props.prop('font-size-lg'),
+	);
+}
+
+@mixin ui-base {
+	@if config.$typeset-ui-base == 'xs' {
+		@include ui-xs;
+	}
+	@else if config.$typeset-ui-base == 'sm' {
+		@include ui-sm;
+	}
+	@else if config.$typeset-ui-base == 'md' {
+		@include ui-md;
+	}
+	@else if config.$typeset-ui-base == 'lg' {
+		@include ui-lg;
+	}
+}
+
+/// A `typeset` intended for text that is meant to convey hierarchy (i.e., a heading).
+@mixin typeset-heading($size, $height) {
+	@include typeset(
+		$size: $size,
+		$height: $height,
+		$family: props.prop('font-family-headings'),
+		$weight: props.prop('font-weight-headings'),
+	);
+
+	margin-top: 0;
+	margin-bottom: spacing.spacer('block-base');
+	font-style: props.prop('font-style-headings');
+}
+
+/// A `typeset` suitable for top-level headings (`h1`).
+@mixin heading-1 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h1'),
+		$height: lh('h1'),
+	);
+}
+
+/// A `typeset` suitable for second-level headings (`h2`).
+@mixin heading-2 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h2'),
+		$height: lh('h2'),
+	);
+}
+
+/// A `typeset` suitable for third-level headings (`h3`).
+@mixin heading-3 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h3'),
+		$height: lh('h3'),
+	);
+}
+
+/// A `typeset` suitable for fourth-level headings (`h4`).
+@mixin heading-4 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h4'),
+		$height: lh('h4'),
+	);
+}
+
+/// A `typeset` suitable for fifth-level headings (`h5`).
+@mixin heading-5 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h5'),
+		$height: lh('h5'),
+	);
+}
+
+/// A `typeset` suitable for sixth-level headings (`h6`).
+@mixin heading-6 {
+	@include typeset-heading(
+		$size: props.prop('font-size-h6'),
+		$height: lh('h6'),
+	);
+}

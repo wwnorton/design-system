@@ -1,5 +1,55 @@
-@import '~@nds/core/src/globals/scss/reset';
+@use '~@nds/core/full' with (
+	$namespace: null,
+	$css-property-fallback: false,
+);
 
-.disclosure p {
-	margin: 0;
+// Center a component
+.centered {
+	display: flex;
+	height: 100vh;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+// General scrollbox helper for when a story needs to be scrollable
+.scrollbox {
+	display: block;
+	height: 400px;
+	margin: 40px auto;
+	content: '';
+
+	&::before,
+	&::after {
+		display: block;
+		height: 70vh;
+		content: '';
+	}
+}
+
+// Simple form styling
+.form {
+	max-width: 34rem;
+	padding: 1rem;
+	margin: 0 auto;
+}
+
+// Icon story helpers
+.icon-list {
+	--gap: 1rem;
+
+	display: inline-flex;
+	width: calc(100% + var(--gap));
+	max-width: calc(1024px + var(--gap));
+	margin: calc(-1 * var(--gap)) 0 0 calc(-1 * var(--gap));
+	flex-wrap: wrap;
+}
+
+.icon-list > * {
+	margin: var(--gap) 0 0 var(--gap);
+}
+
+// Glossary reference for inline tooltip example
+.glossref {
+	font-weight: 700;
 }

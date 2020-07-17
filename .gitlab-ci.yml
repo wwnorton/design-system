@@ -16,10 +16,9 @@ stages:
 # ANCHORS - reusable sections of YAML
 
 .build-docs: &build-docs
-  variables:
-    PATH_PREFIX: /
   before_script:
-    - npm run build:stories -- -- --output-dir '../../docs/static${PATH_PREFIX}storybook'
+    - npm run build:sassdoc -- --dest docs/static/sassdoc
+    - npm run build:stories -- -- --output-dir ../../docs/static/storybook
   script:
     - npm run build:docs
     - mv docs/public public
@@ -106,17 +105,18 @@ review:
   variables:
     S3_BUCKET: norton-design-system-review
   environment:
-    name: review/${CI_COMMIT_REF_SLUG}
+    name: review/$CI_COMMIT_REF_NAME
     url: http://${S3_BUCKET}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/${CI_COMMIT_REF_SLUG}
     on_stop: clean-review
   before_script:
     - pip install awscli
   script:
-    - aws s3 cp public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
+    - aws s3 sync public s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --delete
   only:
     - branches
   except:
     - master
+    - tags
 
 clean-review:
   image: python
@@ -129,7 +129,7 @@ clean-review:
   script:
     - aws s3 rm s3://${S3_BUCKET}/${CI_COMMIT_REF_SLUG} --recursive
   environment:
-    name: review/${CI_COMMIT_REF_SLUG}
+    name: review/$CI_COMMIT_REF_NAME
     action: stop
   when: manual
 
@@ -146,7 +146,7 @@ prod:
   before_script:
     - pip install awscli
   script:
-    - aws s3 cp public s3://${S3_BUCKET}/ --recursive
+    - aws s3 sync public s3://${S3_BUCKET}/ --delete
   after_script:
     # invalidate the cloudfront cache to force a refresh
     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"

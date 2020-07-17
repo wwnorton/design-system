@@ -1,61 +1,166 @@
-@import './mixins';
+@use '../../motion';
+@use '../../spacing';
+@use '../../type';
+@use '../../util';
+@use '../../properties' as props;
 
-.disclosure {
-	@include disclosure-base;
-}
+$-border: props.prop('border-width') solid props.prop('base-40');
 
-.disclosure__summary {
-	@include summary-base;
-}
-
-.disclosure__marker {
-	@include marker-svg;
-}
-
-.disclosure__marker.icon--caret-right {
-	@include marker-transform(
-		rotate(90deg),
-		rotate(0),
+@mixin base {
+	@include props.set(
+		$border-width: spacing.px(0),
+		$border-radius: props.prop('radius-base'),
+		$padding-y: spacing.rem(0.75),
+		$padding-x: spacing.rem(1.5),
+		$marker-margin: spacing.spacer('ui-inner'),
 	);
+
+	position: relative;
+	display: block;
 }
 
-// disable the user agent's marker (triangle/caret)
-summary::-moz-details-marker,
-summary::-ms-details-marker,
-summary::-o-details-marker {
-	display: none;
+@mixin summary {
+	@include type.ui-base;
+
+	position: relative;
+	display: flex;
+	padding: spacing.padding-y() 0;
+	cursor: pointer;
+	align-items: center;
 }
 
-summary::-webkit-details-marker {
-	display: none;
+@mixin contents-outer {
+	overflow-y: hidden;
+	transition: motion.transition(height, props.prop('duration-expand'));
+
+	[open] & {
+		box-sizing: content-box;
+		transition: motion.transition(height, props.prop('duration-collapse'));
+	}
 }
 
-summary::marker {
-	display: none;
-	content: '';
+@mixin contents-inner {
+	padding-left: spacing.padding(calc(#{props.prop('padding-x')} + #{props.prop('marker-margin')}));
+
+	:last-child {
+		margin-bottom: 0;
+	}
 }
 
-.disclosure__contents-outer {
-	@include disclosure-contents-outer;
+@mixin marker-svg {
+	margin-right: props.prop('marker-margin');
+	margin-left: props.prop('marker-margin');
+
+	details:not(.closed) & {
+		transition: motion.transition(props.prop('duration-collapse'));
+		transform-origin: center;
+	}
 }
 
-.disclosure__contents-inner {
-	@include disclosure-contents-inner;
+@mixin marker-transform($open-transform, $close-transform) {
+	[open] & {
+		transition: motion.transition(props.prop('duration-collapse'));
+		transform: $open-transform;
+	}
+
+	[open].closing & {
+		transition: motion.transition(transform, props.prop('duration-expand'));
+		transform: $close-transform;
+	}
 }
 
-.disclosure--panel {
-	@include disclosure--panel;
-}
-
-.disclosure__marker.icon--chevron-down {
-	@include marker-transform(
-		rotate3d(1, 0, 0, 180deg),
-		rotate3d(1, 0, 0, 0),
+@mixin panel {
+	@include props.set(
+		$border-width: 1px,
+		$padding-y: spacing.rem(1),
+		$padding-x: spacing.rem(1),
 	);
+
+	border-radius: props.prop('border-radius');
+
+	.#{util.prefix('disclosure__summary')} {
+		padding: spacing.padding-y() spacing.padding-x();
+		background-color: props.prop('base-20');
+		border: $-border;
+		border-radius: inherit;
+		justify-content: space-between;
+	}
+
+	&[open] > .#{util.prefix('disclosure__summary')} {
+		border-bottom: $-border;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	.#{util.prefix('disclosure__contents-outer')} {
+		border-right: $-border;
+		border-bottom: $-border;
+		border-left: $-border;
+		border-bottom-right-radius: inherit;
+		border-bottom-left-radius: inherit;
+	}
+
+	.#{util.prefix('disclosure__contents-inner')} {
+		padding-top: props.prop('padding-y');
+		padding-right: props.prop('padding-x');
+		padding-bottom: spacing.padding(spacing.rem(1.5));
+	}
 }
 
-// when requested, disable all motion on the following elements
-@include reduce-motion(
-	'.disclosure__contents-outer',
-	'.details-marker path',
-);
+@mixin style {
+	@include util.declare('disclosure') {
+		// disable the user agent's marker (triangle/caret)
+		summary::-moz-details-marker,
+		summary::-ms-details-marker,
+		summary::-o-details-marker {
+			display: none;
+		}
+
+		summary::-webkit-details-marker {
+			display: none;
+		}
+
+		summary::marker {
+			display: none;
+			content: '';
+		}
+
+		.#{util.prefix('disclosure')} {
+			@include base;
+		}
+
+		.#{util.prefix('disclosure__summary')} {
+			@include summary;
+		}
+
+		.#{util.prefix('disclosure__marker')} {
+			@include marker-svg;
+		}
+
+		.#{util.prefix('disclosure__marker.icon--caret-right')} {
+			@include marker-transform(
+				rotate(90deg),
+				rotate(0),
+			);
+		}
+
+		.#{util.prefix('disclosure__contents-outer')} {
+			@include contents-outer;
+		}
+
+		.#{util.prefix('disclosure__contents-inner')} {
+			@include contents-inner;
+		}
+
+		.#{util.prefix('disclosure--panel')} {
+			@include panel;
+		}
+
+		.#{util.prefix('disclosure__marker.icon--chevron-down')} {
+			@include marker-transform(
+				rotate3d(1, 0, 0, 180deg),
+				rotate3d(1, 0, 0, 0),
+			);
+		}
+	}
+}

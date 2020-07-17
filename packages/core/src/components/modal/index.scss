@@ -1,0 +1,205 @@
+@use '../../color';
+@use '../../device';
+@use '../../spacing';
+@use '../../type';
+@use '../../util';
+@use '../../properties' as props;
+
+@mixin backdrop {
+	// set props on the backdrop since it wraps the modal
+	@include props.set(
+		$border-width: 1px,
+		$backdrop-opacity: 0.6,
+		$padding-y: spacing.rem(1),
+		$padding-x: spacing.rem(2),
+		$offset-y: spacing.px(0),
+	);
+
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow-y: auto;
+	background-color: rgba(0, 0, 0, #{props.prop('backdrop-opacity')});
+
+	@include device.media-up('md') {
+		@include props.set(
+			$min-width: unset,
+			$min-height: unset,
+			$max-width: spacing.rem(34.5),
+			$offset-y: spacing.px(20),
+		);
+
+		&:not(.#{util.prefix('modal--long')}) {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
+	@include device.media-up('lg') {
+		@include props.set(
+			$offset-y: spacing.px(40),
+		);
+	}
+
+	@include device.media-up('xl') {
+		@include props.set(
+			$offset-y: spacing.px(80),
+		);
+	}
+}
+
+@mixin base {
+	width: props.prop('width');
+	min-width: props.prop('min-width');
+	max-width: props.prop('max-width');
+	min-height: 100%;
+	background-color: props.prop('body-bg');
+	border-radius: props.prop('radius-base');
+
+	@include device.media-up('sm') {
+		min-width: unset;
+		min-height: unset;
+		margin: 0 auto;
+
+		.#{util.prefix('modal--long')} & {
+			margin-top: props.prop('offset-y');
+			margin-bottom: props.prop('offset-y');
+		}
+	}
+}
+
+@mixin header {
+	position: relative;
+	padding: props.prop('padding-y') props.prop('padding-x') spacing.padding-y();
+	background-color: props.prop('base-10');
+	border-bottom: props.prop('border-width') solid props.prop('base-30');
+	border-top-left-radius: props.prop('radius-base');
+	border-top-right-radius: props.prop('radius-base');
+
+	&:focus {
+		box-shadow: unset;
+	}
+
+	[aria-label] > & {
+		background-color: unset;
+		border-bottom: unset;
+	}
+
+	&.#{util.prefix('modal__header--sticky')} {
+		position: sticky;
+		top: -1px;
+	}
+
+	&.#{util.prefix('stuck')} {
+		box-shadow: 0 0 8px 0 rgba(props.value('black'), 0.25);
+	}
+}
+
+@mixin title {
+	@include type.heading-4;
+
+	padding-right: calc(#{props.prop('padding-x')} / 2);
+	margin: 0;
+}
+
+@mixin close-btn {
+	@include props.set($button-color: color.family('button-color', 'base'));
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	// TODO: use a token for these rem values
+	transform:
+		translate(
+			calc(-50% + 0.125rem + #{props.prop('border-width')}),
+			calc(50% - 0.5rem - #{props.prop('border-width')})
+		);
+}
+
+@mixin content {
+	padding: props.prop('padding-y') props.prop('padding-x') calc(#{props.prop('padding-y')} * 2.5);
+	background-color: props.prop('body-bg');
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+
+	.#{util.prefix('modal__close')}:first-child & {
+		padding-top: calc(#{props.prop('padding-y')} * 3.5);
+	}
+
+	&:last-child {
+		border-bottom-right-radius: props.prop('radius-base');
+		border-bottom-left-radius: props.prop('radius-base');
+	}
+
+	&:focus {
+		box-shadow: unset;
+	}
+}
+
+@mixin actionbar {
+	display: flex;
+	padding: spacing.padding-y() props.prop('padding-x') props.prop('padding-y');
+	background-color: props.prop('body-bg');
+	border-top: props.prop('border-width') solid props.prop('base-30');
+	border-bottom-right-radius: props.prop('radius-base');
+	border-bottom-left-radius: props.prop('radius-base');
+	justify-content: flex-end;
+
+	> * + * {
+		margin-left: spacing.spacer('inline-x');
+	}
+
+	&.#{util.prefix('modal__actionbar--fixed')} {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: props.prop('body-bg');
+	}
+
+	&.#{util.prefix('modal__actionbar--sticky')} {
+		position: sticky;
+		bottom: -1px;
+	}
+
+	&.#{util.prefix('stuck')} {
+		box-shadow: 0 0 8px 0 rgba(props.value('black'), 0.25);
+	}
+}
+
+@mixin style {
+	@include util.declare('modal') {
+		.#{util.prefix('modal')} {
+			@include base;
+		}
+
+		.#{util.prefix('modal__backdrop')} {
+			@include backdrop;
+		}
+
+		.#{util.prefix('modal__header')} {
+			@include header;
+		}
+
+		.#{util.prefix('modal__title')} {
+			@include title;
+		}
+
+		.#{util.prefix('modal__close')} {
+			@include close-btn;
+		}
+
+		.#{util.prefix('modal__content')} {
+			@include content;
+		}
+
+		.#{util.prefix('modal__actionbar')} {
+			@include actionbar;
+		}
+	}
+}

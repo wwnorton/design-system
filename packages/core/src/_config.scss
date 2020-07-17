@@ -1,0 +1,41 @@
+////
+/// Global configuration for the design system. Local systems can be configured
+/// via the `@use with` syntax.
+/// @link https://sass-lang.com/documentation/at-rules/use#configuration
+/// @group Config
+////
+
+/// Used as the prefix for all named outputs, such as token names and class declarations
+$namespace: 'nds' !default;
+
+/// The expected browser font size. This is 16 in all browsers by default.
+$browser-font-size: 16 !default;
+
+/// Indicates whether CSS custom properties should include a fallback value.
+/// Disabling this will result in a much smaller bundle.
+$css-property-fallback: true !default;
+
+/// Indicates that unknown custom properties should log a warning. Useful while
+/// developing.
+$warn-on-missing-fallback: false !default;
+
+/// Indicates whether duplicate declarations should be allowed. If `true`,
+/// including a `style` mixin will result in duplicate CSS. If `false`, including
+/// a `style` mixin multiple times will only create a declaration the first time.
+$duplicate-declarations: false !default;
+
+/// Enable the dark scheme. This will only make it _possible_ for the dark scheme
+/// to be applied by either the user's OS setting or by manually applying a class
+/// to the :root element.
+$enable-dark-scheme: false !default;
+
+
+// Typeset sizing options.
+
+/// The body text's "base" t-shirt size. Options are `xs`, `sm`, `md`, and `lg`.
+/// Determines the definition of the `type.body-base` mixin.
+$typeset-body-base: 'md' !default;
+
+/// UI text's "base" t-shirt size. Options are `xs`, `sm`, `md`, and `lg`.
+/// Determines the definition of the `type.ui-base` mixin.
+$typeset-ui-base: 'md' !default;

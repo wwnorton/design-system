@@ -1,9 +1,105 @@
-@import './tokens';
-@import './mixins';
-@import '../button/mixins';
+@use '../../motion';
+@use '../../spacing';
+@use '../../type';
+@use '../../util';
+@use '../../properties' as props;
 
-/* switch */
-.switch {
-	@include button-base;
-	@include switch;
+$-basename: 'switch';
+
+@mixin base {
+	display: inline-flex;
+	align-items: flex-start;
+
+	> :first-child {
+		margin-right: spacing.rem(1);
+	}
+
+	> :last-child {
+		margin-right: unset;
+	}
+}
+
+@mixin control {
+	$-padding-y: calc((#{props.prop('height')} - #{props.prop('font-size')}) / 2);
+	$-thumb-size: calc(#{props.prop('height')} - #{props.prop('thumb-margin')} * 2);
+
+	@include props.set(
+		$color-on: props.prop('primary'),
+		$color-off: props.prop('base-30'),
+		$font-size: props.prop('font-size-xs'),
+		$height: spacing.spacer('2rem'),
+		$padding-x: spacing.spacer('0.5rem'),
+		$thumb-offset: 0.375rem,
+		$thumb-margin: 2px,
+	);
+	@include type.ui-xs;
+
+	position: relative;
+	display: inline-flex;
+	min-width: calc(#{props.prop('height')} * 2 + #{props.prop('thumb-offset')});
+	min-height: props.prop('height');
+	box-sizing: border-box;
+	// padding: $-padding-y props.prop('padding-x');
+	font-size: props.prop('font-size');
+	font-weight: props.prop('font-weight-bold');
+	line-height: type.lh(1);
+	border: 0;
+	border-radius: props.prop('radius-pill');
+	justify-content: flex-end;
+	align-items: center;
+
+	&::before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: $-thumb-size;
+		height: $-thumb-size;
+		box-sizing: border-box;
+		margin: props.prop('thumb-margin');
+		margin-right: auto;
+		cursor: pointer;
+		content: '';
+		background: props.prop('white');
+		border-radius: 2rem;
+		box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+		transition: motion.transition(('border-color', 'transform'));
+	}
+
+	&[aria-checked='false'] {
+		background-color: props.prop('color-off');
+	}
+
+	&[aria-checked='true'] {
+		color: props.prop('body-bg');
+		background-color: props.prop('color-on');
+		justify-content: flex-start;
+
+		&::before {
+			transform: translateX(calc(100% + #{props.prop('thumb-margin')} * 2 + #{props.prop('thumb-offset')}));
+		}
+	}
+
+	&:disabled,
+	&.disabled {
+		color: props.prop('disabled-30');
+		background-color: props.prop('disabled-10');
+	}
+
+	> .#{util.prefix('icon')} {
+		width: 1.25em;
+		height: 1.25em;
+		margin: calc(-1 * #{spacing.spacer('ui-inner')}) 0;
+	}
+}
+
+@mixin style {
+	@include util.declare($-basename) {
+		.#{util.prefix($-basename)} {
+			@include base;
+		}
+
+		.#{util.prefix('#{$-basename}__control')} {
+			@include control;
+		}
+	}
 }

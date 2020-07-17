@@ -2,7 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
-    "silvenon.mdx",
     "stylelint.vscode-stylelint"
   ]
 }

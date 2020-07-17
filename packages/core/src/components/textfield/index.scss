@@ -1,47 +1,110 @@
-@import './tokens';
-@import './mixins';
+@use '../../a11y';
+@use '../../spacing';
+@use '../../util';
+@use '../../properties' as props;
 
-/* textfield */
-.textfield {
-	@include textfield();
+@mixin input {
+	padding: spacing.padding-y() spacing.padding-x();
+	background-color: props.prop('white');
+	border-color: props.prop('border-color');
+	border-style: solid;
+	border-width: props.prop('border-width');
+	border-radius: props.prop('radius-base');
+	caret-color: props.prop('primary');
+
+	&:-moz-ui-invalid,
+	&:focus {
+		box-shadow: unset;
+	}
+
+	&:disabled,
+	&.disabled {
+		color: props.prop('disabled-40');
+		background-color: props.prop('disabled-20');
+		border-color: props.prop('disabled-40');
+	}
+
+	.#{util.prefix('field--invalid')} & {
+		border-color: props.prop('error');
+		// caret-color: props.prop('error');
+	}
+
+	.#{util.prefix('field__group')} > & {
+		position: relative;
+		width: 1%;
+		min-width: 0;
+		flex: 1 1 auto;
+	}
 }
 
-.textfield__label {
-	@include textfield-label();
+@mixin group {
+	@include props.set(
+		$border-color: props.prop('base-40'),
+		$border-width: 1px,
+		$padding-y: spacing.spacer('input-y'),
+		$padding-x: spacing.spacer('input-x'),
+	);
+
+	margin-bottom: spacing.spacer('ui-inner');
+	background-color: props.prop('white');
+	border-radius: props.prop('radius-base');
+	flex-wrap: wrap;
+	align-items: stretch;
+
+	> :not(:first-child) {
+		margin-left: -1px;
+		border-left: 0;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	> :not(:last-child) {
+		border-right: 0;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	&:focus-within {
+		@include props.set($border-color: props.prop('focus-ring'));
+		@include a11y.focus-ring-collapse;
+	}
+
+	.#{util.prefix('field--invalid')} & {
+		@include props.set(
+			$border-color: props.prop('error'),
+			$focus-ring-color: props.prop('error'),
+		);
+
+		&:focus-within {
+			box-shadow: 0 0 0 1px props.prop('focus-ring-color');
+		}
+	}
+
+	+ .#{util.prefix('field__feedback')} {
+		display: flex;
+		justify-content: space-between;
+	}
 }
 
-.textfield__optional {
-	@include textfield-optional();
+@mixin counter {
+	margin-left: auto;
+	font-size: props.prop('font-size-sm');
+	font-style: italic;
+	color: props.prop('subdued');
 }
 
-.textfield__help {
-	@include textfield-help();
-}
+@mixin style {
+	@include util.declare('textfield') {
+		.#{util.prefix('field__input--text')} {
+			@include input;
+		}
 
-.textfield__input {
-	@include textfield-input();
-}
+		.#{util.prefix('field__counter')} {
+			@include counter;
+		}
 
-.textfield__input--focus {
-	@include textfield-input-focus();
-}
-
-.textfield__input--error {
-	@include textfield-input-error();
-}
-
-.textfield__input--disabled {
-	@include textfield-input-disabled();
-}
-
-.textfield__feedback {
-	@include textfield-feedback();
-}
-
-.textfield__error {
-	@include textfield-error();
-}
-
-.textfield__count {
-	@include textfield-count();
+		.#{util.prefix('field__group--text')} {
+			@include group;
+		}
+	}
 }
