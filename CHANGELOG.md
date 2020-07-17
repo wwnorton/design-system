@@ -3,6 +3,103 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.9.4...v1.0.0-beta.0) (2020-07-17)
+
+### Bug Fixes
+
+- **a11y:** dropdown should not have aria-expanded ([fdb6c09](https://gitlab.com/wwnorton/platform/design-system/commit/fdb6c09445ac71b8e92ec4774c62049489bc8c5d))
+- **react:** clear timeout on cleanup to prevent memory leak ([f1b991e](https://gitlab.com/wwnorton/platform/design-system/commit/f1b991e3093ad452f5448f81eb556ac7856a633b))
+- **react:** remove the path from the a11y tree to prevent double speak ([4f2b5ca](https://gitlab.com/wwnorton/platform/design-system/commit/4f2b5ca59648421646ecd28669b4497dca695fba))
+
+### Code Refactoring
+
+- TextField uses children for its label ([413649f](https://gitlab.com/wwnorton/platform/design-system/commit/413649f99f35fc4e67922dac4720c10699c25315))
+- **core:** rewrite radio using new api ([7ef134a](https://gitlab.com/wwnorton/platform/design-system/commit/7ef134ac9d7a6fbc4c76b6ef7e8d9d7c651d5e3a))
+- **react:** rewrite checkbox as forwardRef ([6f313c0](https://gitlab.com/wwnorton/platform/design-system/commit/6f313c0e1c77f9d91956a599dd2b314a711e423f))
+- include close button by default ([7b44d6c](https://gitlab.com/wwnorton/platform/design-system/commit/7b44d6cd14a03368e405fef6551eebd98e457239))
+- **react:** remove focus callbacks ([fbfeb26](https://gitlab.com/wwnorton/platform/design-system/commit/fbfeb26cf6521330176207d2726220008754c33b))
+- **react:** simplify user-defined initial focus ([2c228b0](https://gitlab.com/wwnorton/platform/design-system/commit/2c228b059a5fd992b427a1f35a44fd1d241f9a5b))
+- extend other field components ([09d5bc4](https://gitlab.com/wwnorton/platform/design-system/commit/09d5bc49fc4848719d7a0a405fa101ab57bfab94))
+
+### Features
+
+- **core:** add "typeset" family of typography mixins ([185e775](https://gitlab.com/wwnorton/platform/design-system/commit/185e775707514ddd566e1114c938566b5bb192db))
+- **core:** add blue and purple, tweak red & green ([165e591](https://gitlab.com/wwnorton/platform/design-system/commit/165e5915e8748ae8fee84a75015d2a501befba5a)), closes [#136](https://gitlab.com/wwnorton/platform/design-system/issues/136)
+- **core:** add config for duplicate declarations ([553f453](https://gitlab.com/wwnorton/platform/design-system/commit/553f453e6e1f458898cbe83e4e571d14e996711c))
+- **core:** add config for enabling the dark scheme ([6fb773b](https://gitlab.com/wwnorton/platform/design-system/commit/6fb773b87e22040094a9a37c02deb659f103cfe6))
+- **core:** add field partials ([3d0065b](https://gitlab.com/wwnorton/platform/design-system/commit/3d0065b191bc270db7b0b3c53a093005c40c3c46))
+- **core:** add initial z-index tokens ([8d59e31](https://gitlab.com/wwnorton/platform/design-system/commit/8d59e312f3bfe788c4a34c92f5f76b8f9bc5455d)), closes [#19](https://gitlab.com/wwnorton/platform/design-system/issues/19)
+- **core:** add radius tokens ([4312b98](https://gitlab.com/wwnorton/platform/design-system/commit/4312b9855806aa2a03cbe1e0c7a3705c08dd8219)), closes [#109](https://gitlab.com/wwnorton/platform/design-system/issues/109)
+- **core:** add role-token mapping helpers ([25e3925](https://gitlab.com/wwnorton/platform/design-system/commit/25e3925983a49ca7dacc5524832065191fb9bdce))
+- **core:** add subtle transition to focus ring ([d3dcc69](https://gitlab.com/wwnorton/platform/design-system/commit/d3dcc69617c7a057a111d787749e79b0281cb7aa))
+- **core:** complete rewrite ([9f8a3d5](https://gitlab.com/wwnorton/platform/design-system/commit/9f8a3d56bf262d955b1e2060bfe534230e09a36b))
+- **core:** implement role-based line-heights ([b8e3c45](https://gitlab.com/wwnorton/platform/design-system/commit/b8e3c45dea489b9479fcce9bbb34c19def9049ba))
+- **core:** implement role-based spacers ([49b4cf8](https://gitlab.com/wwnorton/platform/design-system/commit/49b4cf847eb293ecac6dc958d71ac2b6e29d970f))
+- **core:** initial link styling, all through css props ([ae83a2e](https://gitlab.com/wwnorton/platform/design-system/commit/ae83a2ed2165a414f2c7fbf13d60d4abe68eab15))
+- **core:** initial modal implementation ([2550f8b](https://gitlab.com/wwnorton/platform/design-system/commit/2550f8b59cf50effb7bca766024dc16bd4af0a0f))
+- **core:** initial tooltip styles ([d24b1b2](https://gitlab.com/wwnorton/platform/design-system/commit/d24b1b24425ad92394339f1bdd0dfca34106f05d))
+- **core:** introduce block-spacer-base token ([2fa49f3](https://gitlab.com/wwnorton/platform/design-system/commit/2fa49f327d507885d17f3acb98c4cd472d002a55))
+- **core:** make typeset mixins globally configurable ([9ea6a0c](https://gitlab.com/wwnorton/platform/design-system/commit/9ea6a0ce286a16c998e08e0cd3f6def376a045a5))
+- **dropdown:** add composite focus indicator to listbox ([28e3aad](https://gitlab.com/wwnorton/platform/design-system/commit/28e3aad039052d4fda00b2fe0a58631c13ccf9ea))
+- **react:** add CheckboxGroup ([6645d6d](https://gitlab.com/wwnorton/platform/design-system/commit/6645d6d5786814c910c1fb7623a5299037e28acd))
+- **react:** add Choices container for easier selection control ([5422169](https://gitlab.com/wwnorton/platform/design-system/commit/54221692127a175a048419f2c152221043b3f95a))
+- **react:** add className prefixing to all components ([05d8c4d](https://gitlab.com/wwnorton/platform/design-system/commit/05d8c4d5402a41a29faab94ca6571cac4c0b4c0f)), closes [#123](https://gitlab.com/wwnorton/platform/design-system/issues/123)
+- **react:** add color & size props to icon ([2b41c21](https://gitlab.com/wwnorton/platform/design-system/commit/2b41c213926364d23e13eb0e626c7a1d417f9669))
+- **react:** add global configuration ([43dab2c](https://gitlab.com/wwnorton/platform/design-system/commit/43dab2c84cba9362ce32e5372de5cdb61ce45d70))
+- **react:** add hook to use props as state ([e24e1ab](https://gitlab.com/wwnorton/platform/design-system/commit/e24e1ab43fa1760ef52da37545028ea75fd6b3a5))
+- **react:** add LiveRegion component ([6bc907f](https://gitlab.com/wwnorton/platform/design-system/commit/6bc907feb0a90bdf4627e8b2a30fb0b1061cc04d))
+- **react:** add modal props to allow sticky header/footer ([7da5725](https://gitlab.com/wwnorton/platform/design-system/commit/7da572522cc32aea4d8f8f25869338583d21b2ad))
+- **react:** add RadioGroup ([685eeeb](https://gitlab.com/wwnorton/platform/design-system/commit/685eeeb304bd8af75ace7d547237477781a7a59a))
+- **react:** add screen reader-only helper styling ([7b2d4d6](https://gitlab.com/wwnorton/platform/design-system/commit/7b2d4d6cc1673b917169012b2985f6d2d8330dc8))
+- **react:** add search to list of allowed TextField types ([3bb86c7](https://gitlab.com/wwnorton/platform/design-system/commit/3bb86c74ab0fdf4452d50566b1875f941854074d))
+- **react:** add useSelect hook to help with multiselect ([401f767](https://gitlab.com/wwnorton/platform/design-system/commit/401f7679b06f1186a9aa2d44564bd7fb844c3670))
+- **react:** add useValidation for easier controlled validation ([69a56b9](https://gitlab.com/wwnorton/platform/design-system/commit/69a56b9815ae2e4a8f5e1f95e3b90613d753ebb8))
+- **react:** add validation for badInput ([373929c](https://gitlab.com/wwnorton/platform/design-system/commit/373929c0d56710fe58af2ffb293b34349608fdc7))
+- **react:** allow components to control the tooltip hiding delay ([cdb02f4](https://gitlab.com/wwnorton/platform/design-system/commit/cdb02f4369f27348d5f58a963495ef86238a156a))
+- **react:** allow custom icons to have a label ([f47f345](https://gitlab.com/wwnorton/platform/design-system/commit/f47f3454c81a3f84dbd726b7f35d4b295f05f70a))
+- **react:** close the dropdown when it's disabled ([1ef0146](https://gitlab.com/wwnorton/platform/design-system/commit/1ef014608d5e9c34e8eb63f6d340c466273c601c))
+- **react:** ensure that screen reader users are notified of button changes ([c989fb5](https://gitlab.com/wwnorton/platform/design-system/commit/c989fb59896695898ab45583686e10de844e43b9))
+- **react:** expose all utilities as part of the public api ([2508d4a](https://gitlab.com/wwnorton/platform/design-system/commit/2508d4a77d0b5f5bd9b08c2ecb054a21bff1f434))
+- **react:** initial FieldAddon ([76b39e8](https://gitlab.com/wwnorton/platform/design-system/commit/76b39e84c9cacae94b9108eafd6f131c21dc077f))
+- **react:** initial FieldFeedback component ([cbfe261](https://gitlab.com/wwnorton/platform/design-system/commit/cbfe2619394ad7ae70e9ab76050bdb07d4447de6))
+- **react:** initial FieldInfo component ([34d7275](https://gitlab.com/wwnorton/platform/design-system/commit/34d7275eb70e1ca8f36ec36da0a742be2efea854)), closes [#112](https://gitlab.com/wwnorton/platform/design-system/issues/112)
+- **react:** make all disclosure callbacks controllable ([c4818cc](https://gitlab.com/wwnorton/platform/design-system/commit/c4818ccbf0dab0d7e4a2f6619353146d6e38ad2b))
+- **react:** make icons tooltipable ([bc7c6b6](https://gitlab.com/wwnorton/platform/design-system/commit/bc7c6b637853325c42f0002a64057c41d0fc5fe5))
+- **react:** polyfill aria-modal on modal open ([852fa62](https://gitlab.com/wwnorton/platform/design-system/commit/852fa626b9e8b199e34c20a545cea369b40f08dc))
+- **react:** tooltip button when icon-only ([e665600](https://gitlab.com/wwnorton/platform/design-system/commit/e665600162295e47ee8e5a95afd7bc73921eadf4))
+- **react:** use field info as a fieldset legend ([fce99d2](https://gitlab.com/wwnorton/platform/design-system/commit/fce99d2efb5f45d19a739d40e5a37bb7bff476aa))
+- add props and prefixing helpers ([db92524](https://gitlab.com/wwnorton/platform/design-system/commit/db92524517f7e9eca51b2dc4f23434850191ad4f))
+- add usePopper hook ([3d05dc2](https://gitlab.com/wwnorton/platform/design-system/commit/3d05dc23032d3ec516992bba76136cdd08dfdd11))
+- add useTooltip hook ([d1b5a8b](https://gitlab.com/wwnorton/platform/design-system/commit/d1b5a8b1b0376cc3a15ed952641928fc4e41a30f))
+- add useTriggers hook to handle open state ([ac55b8c](https://gitlab.com/wwnorton/platform/design-system/commit/ac55b8c812bc1aea0224e44772655524d9dbef54))
+- update style guides documentation ([28852fd](https://gitlab.com/wwnorton/platform/design-system/commit/28852fd5bdc1daeb23a7ea240de93a12b2af9fc9))
+
+* refactor(react)!: overhaul MultipleChoice as ChoiceField ([604beda](https://gitlab.com/wwnorton/platform/design-system/commit/604bedadad9b919ea779ea2eb978c5d5c651e8d0))
+* refactor(react)!: completely rewrite TextField ([c159266](https://gitlab.com/wwnorton/platform/design-system/commit/c1592666c4abcf57f022a06fdddf8461bf950497))
+* refactor(react)!: rewrite & simplify BaseInput ([2efe83e](https://gitlab.com/wwnorton/platform/design-system/commit/2efe83e289c1273e62a71d06041f55e3c66cddb1))
+* refactor(react)!: simplify validation ([4bfe73b](https://gitlab.com/wwnorton/platform/design-system/commit/4bfe73b4127c811aeb2c4666bd1dec8fa17d7574))
+* feat(react)!: complete rewrite of Dropdown ([cf072a2](https://gitlab.com/wwnorton/platform/design-system/commit/cf072a2d165f40f054f74669da991944322251cf))
+
+### BREAKING CHANGES
+
+- The `label` prop has been removed from `TextField`, which now uses its children for its label.
+- `MultipleChoice` has been removed in favor of the new `ChoiceField`, which will be rendered as a `<fieldset>` with either checkbox or radio choices, depending on whether the `multiple` prop is `true` or `false`.
+- **core:** `Radio` now uses a `Field` class structure, similar to `TextField` and `Checkbox`.
+- **react:** `Checkbox` now uses a `Field` class structure, similar to `TextField`.
+- `Modal`: `addCloseButton` -> `hideCloseButton`, which is undefined by default.
+- **react:** both of the `Modal`'s focus-related callbacks have been removed. To replicate `onInitialFocus`, check for the `document.activeElement` inside an `onOpen` callback. The `onRequestFocusWrap` has no replacement but did not have a good use case.
+- **react:** `Modal` now uses the `focusOnOpen` prop to define what element should be focused on open, replacing the old `initialFocusRef`. This should be an actual HTMLElement, which the user can define with a ref.
+- Text Field prop rename: `help` -> `description`
+- Text Field prop rename: `helpClass` -> `descriptionClass`
+- Text Field prop rename: `errorClass` -> `errorsClass`
+- `TextField` labels cannot be React elements now--they must be strings.
+- the `TextField` anatomy has been reworked to allow for more flexible styling. The overall structure uses the new `FieldInfo` component, a `.field__group` wrapper for the `<input>` and its optional addons, and the new `FieldFeedback` component.
+- remove the `disableTooltip` prop entirely in the `BaseInput` stack. errors are now always reflected in the browser's constraint validation API.
+- validation errors can only be strings and can no longer be JSX Elements.
+- the `options` prop has been removed entirely in favor of using `children` to compose options. Children should now be `<Dropdown.Option value={value}>{ contents }</Dropdown.Option>` or an array of values.
+- `onRequestSelect` is now `onChange` to better match other form control callbacks.
+- sizing for the button and listbox can now be controlled independently via the `matchWidth` prop. To replicate the previous behavior of resizing the button to match the listbox, set `matchWidth="listbox"`.
+
 ## [0.9.4](https://gitlab.com/wwnorton/platform/design-system/compare/v0.9.3...v0.9.4) (2020-06-22)
 
 ### Bug Fixes
