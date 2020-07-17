@@ -12,7 +12,7 @@
   "homepage": "https://gitlab.com/wwnorton/platform/design-system",
   "bugs": "https://gitlab.com/wwnorton/platform/design-system/issues",
   "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
     "Gabriel Rumbaut <grumbaut@wwnorton.com>",
