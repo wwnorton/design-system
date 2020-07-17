@@ -4,7 +4,7 @@
   "npmClient": "npm",
   "command": {
     "publish": {
-      "allowBranch": "master",
+      "allowBranch": "main",
       "conventionalCommits": true,
       "createRelease": "gitlab",
       "registry": "https://npm.wwnorton.com",
@@ -12,7 +12,7 @@
       "signGitTag": true
     },
     "version": {
-      "allowBranch": "master",
+      "allowBranch": "main",
       "conventionalCommits": true,
       "createRelease": "gitlab",
       "registry": "https://npm.wwnorton.com",

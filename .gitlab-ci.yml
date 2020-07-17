@@ -72,7 +72,7 @@ docs:review:
   only:
     - branches
   except:
-    - master
+    - main
 
 docs:prod:
   stage: build
@@ -81,7 +81,7 @@ docs:prod:
     paths:
       - public
   only:
-    - master
+    - main
 
 pages:
   stage: deploy
@@ -95,7 +95,7 @@ pages:
     paths:
       - public
   only:
-    - master
+    - main
 
 review:
   image: python
@@ -115,7 +115,7 @@ review:
   only:
     - branches
   except:
-    - master
+    - main
     - tags
 
 clean-review:
@@ -151,7 +151,7 @@ prod:
     # invalidate the cloudfront cache to force a refresh
     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
   only:
-    - master
+    - main
 
 .publish:
   stage: deploy
@@ -159,5 +159,5 @@ prod:
     - npm run publish
   only:
     variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == master
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == main
       - $CI_MERGE_REQUEST_LABELS =~ /release/
