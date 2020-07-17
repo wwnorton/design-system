@@ -140,6 +140,7 @@
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
+    "rollup": "^2.21.0",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.2",
     "sassdoc": "^2.7.2",
