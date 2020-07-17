@@ -283,13 +283,13 @@ $legend-font-weight: null !default;
 		// NDS: Add :visited link colors
 		// See https://www.nngroup.com/articles/change-the-color-of-visited-links/
 
-		a:visited {
-			color: props.prop('link-visited-color');
+		// a:visited {
+		// 	color: props.prop('link-visited-color');
 
-			&:hover {
-				color: props.prop('link-visited-hover-color');
-			}
-		}
+		// 	&:hover {
+		// 		color: props.prop('link-visited-hover-color');
+		// 	}
+		// }
 
 		// And undo these styles for placeholder links/named anchors (without href).
 		// It would be more straightforward to just use a[href] in previous block, but that
