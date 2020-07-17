@@ -10,7 +10,7 @@
 @use 'util';
 
 // The global map of all CSS custom properties, including non-root properties.
-/// Access via `get-props()`.
+// Access via `get-props()`.
 $-props: ();
 // A global map of all `:root` CSS custom properties. Any token in this map will
 // be globally available on the page. Access via `get-props(true)`.
