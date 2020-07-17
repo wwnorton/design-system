@@ -4,6 +4,7 @@
   "npmClient": "npm",
   "command": {
     "publish": {
+      "access": "public",
       "allowBranch": "main",
       "conventionalCommits": true,
       "createRelease": "gitlab",
