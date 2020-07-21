@@ -252,7 +252,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **core:** add motion duration multiplier ([5618427](https://gitlab.com/wwnorton/platform/design-system/commit/56184271a3da51d7272dec17b3dd68f3a2b7429f))
 - **core:** add reduce-motion mixin ([2a88388](https://gitlab.com/wwnorton/platform/design-system/commit/2a88388dee4cb494e854443d80d52652e64e5aca))
 - **core:** add sr-only mixin ([725a3c6](https://gitlab.com/wwnorton/platform/design-system/commit/725a3c6f9c83e8006dd10f76ce24c5c7004053fc))
-- add checkbox to @nds/core ([8023ef9](https://gitlab.com/wwnorton/platform/design-system/commit/8023ef99681a6f99f12094f3bfd904ff477ee01d))
+- add checkbox to @wwnds/core ([8023ef9](https://gitlab.com/wwnorton/platform/design-system/commit/8023ef99681a6f99f12094f3bfd904ff477ee01d))
 - add initial testing framework ([a80f1a9](https://gitlab.com/wwnorton/platform/design-system/commit/a80f1a99443aa7eb6bdaa87945cf055ab4231a81))
 - add react checkbox implementation ([e51f78a](https://gitlab.com/wwnorton/platform/design-system/commit/e51f78af45d785d8114bb11fc1188f751e3835ed))
 - add react checkbox implementation ([22db133](https://gitlab.com/wwnorton/platform/design-system/commit/22db133dbca4dbeab752ff6cd040f3b2d5d5fa16))
@@ -310,7 +310,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - **components:** add global mixins for focus ring ([4da0658](https://gitlab.com/wwnorton/platform/design-system/commit/4da0658a000499cf1b59ebf1bb23c70c8fd430d0))
-- **docs:** add @nds/core to docs for examples ([16052d2](https://gitlab.com/wwnorton/platform/design-system/commit/16052d285322f7243884b099ddd4f064e65f8b0b))
+- **docs:** add @wwnds/core to docs for examples ([16052d2](https://gitlab.com/wwnorton/platform/design-system/commit/16052d285322f7243884b099ddd4f064e65f8b0b))
 - **docs:** initial accordion usage ([73e7d31](https://gitlab.com/wwnorton/platform/design-system/commit/73e7d31d163dd9512f6e4c84f16f5b672c8cc695))
 - **docs:** initial checkbox usage ([e4d7555](https://gitlab.com/wwnorton/platform/design-system/commit/e4d75559d1afba563ff45b7a1a65b9edd1c79e6f))
 - **docs:** initial disclosure usage ([82e1afd](https://gitlab.com/wwnorton/platform/design-system/commit/82e1afd1dc40ce9f99dfcb3f23ddfb88aa8e6c69))

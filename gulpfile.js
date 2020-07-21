@@ -15,7 +15,7 @@ const react = {
 	ts: typescript('react', packages.react.options, packages.react.typescript),
 };
 
-// `@nds/core` tasks
+// `@wwnds/core` tasks
 const buildCore = series(core.clean, parallel(core.sass.task, core.ts.task));
 buildCore.displayName = 'build:core';
 module.exports.buildCore = buildCore;
@@ -26,7 +26,7 @@ const devCore = series(buildCore, watchCore);
 devCore.displayName = 'dev:core';
 module.exports.displayName = devCore;
 
-// `@nds/react` tasks
+// `@wwnds/react` tasks
 const buildReact = series(react.clean, parallel(react.ts.task));
 buildReact.displayName = 'build:react';
 module.exports.buildReact = buildReact;

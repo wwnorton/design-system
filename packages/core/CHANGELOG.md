@@ -36,11 +36,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.9.0](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/compare/v0.8.1...v0.9.0) (2020-05-31)
 
-**Note:** Version bump only for package @nds/core
+**Note:** Version bump only for package @wwnds/core
 
 ## [0.8.1](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/compare/v0.8.0...v0.8.1) (2020-05-08)
 
-**Note:** Version bump only for package @nds/core
+**Note:** Version bump only for package @wwnds/core
 
 # [0.8.0](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/compare/v0.7.0...v0.8.0) (2020-05-02)
 
@@ -102,7 +102,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **core:** add reduce-motion mixin ([2a88388](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/2a88388dee4cb494e854443d80d52652e64e5aca))
 - **core:** add sr-only mixin ([725a3c6](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/725a3c6f9c83e8006dd10f76ce24c5c7004053fc))
 - **core:** validation errors now render in lists ([d82134e](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/d82134e7c450ed94159363bc503f0aa76b2184d2))
-- add checkbox to @nds/core ([8023ef9](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/8023ef99681a6f99f12094f3bfd904ff477ee01d))
+- add checkbox to @wwnds/core ([8023ef9](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/8023ef99681a6f99f12094f3bfd904ff477ee01d))
 - **core:** initial disclosure styling ([e8ddaf9](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/e8ddaf92cb72651be0c0ffb1ae89b56d69b18170))
 
 # [0.4.0](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/compare/v0.3.0...v0.4.0) (2020-01-02)
@@ -132,7 +132,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.2.1](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/compare/v0.2.0...v0.2.1) (2019-11-07)
 
-**Note:** Version bump only for package @nds/core
+**Note:** Version bump only for package @wwnds/core
 
 # [0.2.0](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/compare/v0.1.0...v0.2.0) (2019-10-31)
 

@@ -85,7 +85,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **docs:** add @nds/core to docs for examples ([16052d2](https://gitlab.com/wwnorton/platform/design-system/tree/main/docs/commit/16052d285322f7243884b099ddd4f064e65f8b0b))
+- **docs:** add @wwnds/core to docs for examples ([16052d2](https://gitlab.com/wwnorton/platform/design-system/tree/main/docs/commit/16052d285322f7243884b099ddd4f064e65f8b0b))
 - make docs an unpublished package ([45aeeb3](https://gitlab.com/wwnorton/platform/design-system/tree/main/docs/commit/45aeeb390b64d8fc51c32b55e489daa90102dae7))
 - **docs:** initial accordion usage ([73e7d31](https://gitlab.com/wwnorton/platform/design-system/tree/main/docs/commit/73e7d31d163dd9512f6e4c84f16f5b672c8cc695))
 - **docs:** initial checkbox usage ([e4d7555](https://gitlab.com/wwnorton/platform/design-system/tree/main/docs/commit/e4d75559d1afba563ff45b7a1a65b9edd1c79e6f))
