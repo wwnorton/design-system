@@ -72,7 +72,7 @@
     "all": true,
     "exclude": [
       "**/.*",
-      "**/*.{stories,test}.{ts,tsx}"
+      "**/*.{fixtures,stories,test}.{ts,tsx}"
     ],
     "include": [
       "packages/*/src"
