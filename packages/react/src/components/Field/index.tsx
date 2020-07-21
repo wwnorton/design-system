@@ -90,7 +90,12 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 			className: labelClass,
 			htmlFor,
 			id: labelId,
-			children: [label, Indicator],
+			children: (
+				<>
+					{ label }
+					{ Indicator }
+				</>
+			),
 		};
 		const LabelTag = (htmlFor) ? 'label' : labelIs || 'div';
 		return <LabelTag {...labelProps} />;
