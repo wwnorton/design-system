@@ -21,6 +21,8 @@ export const Default: React.FunctionComponent = () => (
 		description={text('Description', 'Additional information about this checkbox.')}
 		disabled={boolean('Disabled', false)}
 		required={boolean('Required', false)}
+		requiredIndicator={boolean('Required indicator', false)}
+		optionalIndicator={boolean('Optional indicator', false)}
 		onValidate={action('onValidate')}
 		indeterminate={boolean('Indeterminate', false)}
 	>
