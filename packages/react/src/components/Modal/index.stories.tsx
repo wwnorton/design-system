@@ -64,6 +64,7 @@ export const WithActionBar: React.FunctionComponent = () => (
 
 export const Controlled: React.FunctionComponent = () => {
 	const [isOpen, setOpen] = React.useState(false);
+	const [focus, setFocus] = React.useState<HTMLButtonElement | null>(null);
 	const open = (): void => { setOpen(true); };
 	const close = (): void => {
 		setOpen(false);
@@ -81,9 +82,10 @@ export const Controlled: React.FunctionComponent = () => {
 				isOpen={isOpen}
 				onOpen={action('onOpen')}
 				onRequestClose={close}
+				focusOnOpen={(boolean('Focus cancel on open', false)) ? focus : undefined}
 				actions={boolean('Action bar', true) ? (
 					<>
-						<Button variant="outline" onClick={close}>Not okay</Button>
+						<Button variant="outline" ref={setFocus} onClick={close}>Cancel</Button>
 						<Button variant="solid" onClick={close}>Okay</Button>
 					</>
 				) : undefined}
@@ -112,8 +114,6 @@ export const MultiModal: React.FunctionComponent = () => {
 	const open = (): void => setOpen(true);
 	const close = (): void => {
 		setOpen(false);
-		// setFirst('');
-		// setLast('');
 		action('onRequestClose')();
 	};
 	const submit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -148,8 +148,8 @@ export const MultiModal: React.FunctionComponent = () => {
 				closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
 			>
 				<form onSubmit={submit} onChange={handleChange}>
-					<TextField required value={firstName} label="First Name" ref={setFirstNameRef} />
-					<TextField required value={lastName} label="Last Name" ref={setLastNameRef} />
+					<TextField required value={firstName} ref={setFirstNameRef}>First Name</TextField>
+					<TextField required value={lastName} ref={setLastNameRef}>Last Name</TextField>
 					<Button variant="solid" type="submit">Submit</Button>
 				</form>
 			</Modal>
