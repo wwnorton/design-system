@@ -128,16 +128,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	private header: HTMLElement | null = null;
 	private content: HTMLElement | null = null;
 	private footer: HTMLElement | null = null;
-
 	/** A watcher to detect when the header/footer move off screen. */
-	private stickyObserver = new IntersectionObserver(([e]) => {
-		if (e.target === this.header) {
-			this.setState({ stuckHeader: e.intersectionRatio < 1 });
-		}
-		if (e.target === this.footer) {
-			this.setState({ stuckFooter: e.intersectionRatio < 1 });
-		}
-	}, { threshold: [1] });
+	private stickyObserver: IntersectionObserver | null = null;
 
 	static defaultProps = {
 		isOpen: false,
@@ -165,6 +157,17 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	}
 
 	componentDidMount(): void {
+		if ('IntersectionObserver' in window) {
+			this.stickyObserver = new IntersectionObserver(([e]) => {
+				if (e.target === this.header) {
+					this.setState({ stuckHeader: e.intersectionRatio < 1 });
+				}
+				if (e.target === this.footer) {
+					this.setState({ stuckFooter: e.intersectionRatio < 1 });
+				}
+			}, { threshold: [1] });
+		}
+
 		if (!document.contains(this.portalNode)) {
 			const { mountPoint = Modal.defaultProps.mountPoint } = this.props;
 			const mount = mountPoint();
@@ -256,16 +259,20 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 
 		this.updateLength();
 
-		if (this.header) this.stickyObserver.observe(this.header);
-		if (this.footer) this.stickyObserver.observe(this.footer);
+		if (this.stickyObserver) {
+			if (this.header) this.stickyObserver.observe(this.header);
+			if (this.footer) this.stickyObserver.observe(this.footer);
+		}
 		document.addEventListener('keydown', this.onDocumentKeydown);
 	}
 
 	private onClose(): void {
 		const { trigger } = this.state;
 
-		if (this.header) this.stickyObserver.unobserve(this.header);
-		if (this.footer) this.stickyObserver.unobserve(this.footer);
+		if (this.stickyObserver) {
+			if (this.header) this.stickyObserver.unobserve(this.header);
+			if (this.footer) this.stickyObserver.unobserve(this.footer);
+		}
 		document.removeEventListener('keydown', this.onDocumentKeydown);
 
 		// return focus on close
