@@ -1,10 +1,10 @@
-# @nds/core
+# @wwnds/core
 
 > Vanilla CSS, HTML, and JavaScript implementations of the Norton Design System.
 
 ## Usage
 
-To get started, install `@nds/core` as a dependency in your project.
+To get started, install `@wwnds/core` as a dependency in your project.
 Import components and foundations in Sass or just use the full CSS stylesheet in your project.
 
 ### Modular usage
@@ -14,7 +14,7 @@ To import modular stylesheets, start by forwarding [a configured version](#confi
 
 ```scss
 // ./my-app/src/styles/core.scss
-@forward '@nds/core/index' with (
+@forward '@wwnds/core/index' with (
   // ...custom config...
 );
 ```
@@ -52,13 +52,13 @@ Use your configured version of the design system inside your modules or componen
 
 Using the full CSS is one of the easiest ways to use the design system out of the box, but it is not [configurable](#configuration).
 
-This can be done in JavaScript if you are using a build tool that is capable of resolving `@nds/core`, such as Webpack's style-loader.
+This can be done in JavaScript if you are using a build tool that is capable of resolving `@wwnds/core`, such as Webpack's style-loader.
 
 ```javascript
-import "@nds/core/dist/main.css";
+import "@wwnds/core/dist/main.css";
 ```
 
-Or, if you just want to embed it in HTML, you can copy the `node_modules/@nds/core/dist/main.css` file to your project and just use it.
+Or, if you just want to embed it in HTML, you can copy the `node_modules/@wwnds/core/dist/main.css` file to your project and just use it.
 This will eventually be posted to a CDN for easier usage.
 
 ```html

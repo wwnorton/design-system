@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import doczComponents from 'gatsby-theme-docz/src/components/index';
-import * as ndsComponents from '@nds/react';
-import { configure } from '@nds/react';
+import * as ndsComponents from '@wwnds/react';
+import { configure } from '@wwnds/react';
 import './core.scss';
 
 configure({ namespace: null });

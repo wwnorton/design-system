@@ -2,7 +2,7 @@
 import { jsx, Box, Flex } from 'theme-ui';
 import { Link } from 'gatsby';
 import { useConfig } from 'docz';
-import { Icon } from '@nds/react';
+import { Icon } from '@wwnds/react';
 import * as styles from './styles';
 
 const seagull = {

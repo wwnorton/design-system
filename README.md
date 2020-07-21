@@ -8,9 +8,9 @@ Styles, components, and utilities for building accessible, responsive products.
 
 This repository uses [lerna](https://lerna.js.org/) to manage design system packages as a [monorepo](https://en.wikipedia.org/wiki/Monorepo).
 
-- [@nds/core](packages/core) is the foundation of the design system. It contains modular [Sass](https://sass-lang.com/) declarations, mixins, functions, and design tokens (variables). It is the source of truth for the theming system and default styles. It has no dependencies.
-- [@nds/react](packages/react) is a [React](https://reactjs.org/) component library implementation of the design system. It depends on `@nds/core`.
-- [nds-docs](docs) is the documentation website where usage guides and examples live. It depends on `@nds/core` and uses [Vuepress](https://vuepress.vuejs.org/) as its static site generator. It does not use the `@nds` scope because it is not a library and is not published to the NPM registry.
+- [@wwnds/core](packages/core) is the foundation of the design system. It contains modular [Sass](https://sass-lang.com/) declarations, mixins, functions, and design tokens (variables). It is the source of truth for the theming system and default styles. It has no dependencies.
+- [@wwnds/react](packages/react) is a [React](https://reactjs.org/) component library implementation of the design system. It depends on `@wwnds/core`.
+- [nds-docs](docs) is the documentation website where usage guides and examples live. It depends on `@wwnds/core` and uses [Vuepress](https://vuepress.vuejs.org/) as its static site generator. It does not use the `@wwnds` scope because it is not a library and is not published to the NPM registry.
 
 ## Contributing
 
@@ -38,12 +38,12 @@ npm run lerna bootstrap
 All development commands should be run from the root of the repository, though they are also available within each individual package.
 
 - `npm run build`: run a production build for each package, outputting to `packages/{package_name}/dist`.
-- `npm run dev`: run a development build with watch mode on. Note: if you're developing the `@nds/react` package, run `npm run storybook` below.
-- `npm run storybook`: run `@nds/react`'s [Storybook](https://storybook.js.org/) server.
+- `npm run dev`: run a development build with watch mode on. Note: if you're developing the `@wwnds/react` package, run `npm run storybook` below.
+- `npm run storybook`: run `@wwnds/react`'s [Storybook](https://storybook.js.org/) server.
 
 #### Docs & Core
 
-Since the documentation uses the design system foundation, it's recommended that you use it for your live development environment when making changes to `@nds/core`.
+Since the documentation uses the design system foundation, it's recommended that you use it for your live development environment when making changes to `@wwnds/core`.
 
 ```sh
 npm run dev:docs
@@ -51,7 +51,7 @@ npm run dev:docs
 
 This will run the Vuepress dev task, which itself uses [Webpack](https://webpack.js.org/) and is [fully configurable from Vuepress](https://vuepress.vuejs.org/config/#configurewebpack).
 Any Sass imported into the `nds-docs` markdown files will be transpiled to CSS and rendered in the dev environment.
-To import Sass, simply add a `style` tag with `lang="scss"` anywhere to your markdown and import the `~@nds/core` module that you want to be included on that page (note that the `~` alias will be interpreted as `node_modules` by Webpack).
+To import Sass, simply add a `style` tag with `lang="scss"` anywhere to your markdown and import the `~@wwnds/core` module that you want to be included on that page (note that the `~` alias will be interpreted as `node_modules` by Webpack).
 
 The following example resembles how [the button docs](docs/components/button.md) work:
 
@@ -65,6 +65,6 @@ Lorem, ipsum dolor sit amet consectetur adipisicing elit...
 <button class="button button--solid">Solid</button>
 
 <style lang"scss">
-@import '~@nds/core/src/components/button/index';
+@import '~@wwnds/core/src/components/button/index';
 </style>
 ```

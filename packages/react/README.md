@@ -1,4 +1,4 @@
-# @nds/react
+# @wwnds/react
 
 > React components for the Norton Design System.
 
@@ -6,10 +6,10 @@ A [React](https://reactjs.org/) implementation of the Norton Design System compo
 
 ## Usage
 
-To get started, install `@nds/react` as a dependency in your project.
+To get started, install `@wwnds/react` as a dependency in your project.
 
 ```sh
-npm install @nds/react
+npm install @wwnds/react
 ```
 
 From here, you can start using the components in your application.
@@ -19,7 +19,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // import the React component
-import { Button } from "@nds/react";
+import { Button } from "@wwnds/react";
 
 const App = () => {
   return (
@@ -34,11 +34,11 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 ### Styling
 
-For the time being, component styles are exclusively provided in `@nds/core` as Sass stylesheets.
-If you would like to use the default styles, simply install `@nds/core` alongside `@nds/react` and import the styles in your application.
+For the time being, component styles are exclusively provided in `@wwnds/core` as Sass stylesheets.
+If you would like to use the default styles, simply install `@wwnds/core` alongside `@wwnds/react` and import the styles in your application.
 
 ```sh
-npm install @nds/{core,react}
+npm install @wwnds/{core,react}
 ```
 
 **NOTE**: this example assumes that you're using a build system that can load `.scss` files, such as [webpack](https://webpack.js.org/) with [sass-loader](https://github.com/webpack-contrib/sass-loader).
@@ -48,8 +48,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // import the React component AND the corresponding styles
-import { Button } from "@nds/react";
-import "@nds/core/src/components/button/index.scss";
+import { Button } from "@wwnds/react";
+import "@wwnds/core/src/components/button/index.scss";
 
 const App = () => {
   return (

@@ -1,5 +1,5 @@
 {
-  "name": "@nds/react",
+  "name": "@wwnds/react",
   "version": "1.0.0-beta.0",
   "description": "React components for the Norton Design System.",
   "keywords": [
@@ -39,7 +39,7 @@
     "react-fast-compare": "^3.2.0"
   },
   "devDependencies": {
-    "@nds/core": "^1.0.0-beta.0"
+    "@wwnds/core": "^1.0.0-beta.0"
   },
   "peerDependencies": {
     "react": "^16.0.0",
