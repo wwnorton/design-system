@@ -77,7 +77,7 @@ Finally, properties are what give the selected elements of a rule declaration th
 
 ### Formatting
 
-* Use soft tabs (2 spaces) for indentation.
+* Use tabs for indentation.
 * Prefer dashes over camelCasing in class names.
   - Underscores and PascalCasing are okay if you are using BEM (see [OOCSS and BEM](#oocss-and-bem) below).
 * Do not use ID selectors.
@@ -222,17 +222,21 @@ Use `0` instead of `none` to specify that a style has no border.
 
 ### Ordering of property declarations
 
+> W.W. Norton & Company's property ordering style is inspired by [the order from GitHub's Primer design system](https://github.com/primer/primer/blob/master/tools/stylelint-config-primer/index.js#L47-L217) instead of alphabetical.
+W.W. Norton also adds and groups accessibility properties to the bottom of that list. This list can be found on our [Github respository](https://github.com/wwnorton/style/blob/main/packages/stylelint-config-norton/src/rules/plugins/property-order.js).
+
 1. Property declarations
 
     List all standard property declarations, anything that isn't an `@include` or a nested selector.
 
     ```scss
     .btn-green {
-      background: green;
       font-weight: bold;
+      background: 'green';
       // ...
     }
     ```
+
 
 2. `@include` declarations
 
@@ -240,8 +244,9 @@ Use `0` instead of `none` to specify that a style has no border.
 
     ```scss
     .btn-green {
-      background: green;
       font-weight: bold;
+      background: 'green';
+
       @include transition(background 0.5s ease);
       // ...
     }
@@ -252,15 +257,16 @@ Use `0` instead of `none` to specify that a style has no border.
     Nested selectors, _if necessary_, go last, and nothing goes after them. Add whitespace between your rule declarations and nested selectors, as well as between adjacent nested selectors. Apply the same guidelines as above to your nested selectors.
 
     ```scss
-    .btn {
-      background: green;
-      font-weight: bold;
-      @include transition(background 0.5s ease);
+	.btn {
+		font-weight: bold;
+		background: 'green';
 
-      .icon {
-        margin-right: 10px;
-      }
-    }
+		@include transition(background 0.5s ease);
+
+		.icon {
+			margin-right: 10px;
+		}
+	}
     ```
 
 ### Variables
