@@ -72,3 +72,15 @@ test.failing('a required checkbox errors when it\'s unchecked', (t) => {
 	t.is(input.getAttribute('aria-invalid'), 'true');
 	t.truthy(screen.getByText('This field is required.'));
 });
+
+test('a `CheckboxGroup` is rendered as a group of checkboxes with an accessible group name', (t) => {
+	const groupLabel = 'Checkbox group';
+	const groupChoiceLabels = ['A', 'B'];
+	const groupChoices = groupChoiceLabels.map((l) => <Checkbox key={l}>{ l }</Checkbox>);
+	render(<CheckboxGroup label={groupLabel}>{ groupChoices }</CheckboxGroup>);
+	t.truthy(screen.getByRole('group', { name: groupLabel }));
+	const inputs = screen.getAllByLabelText(
+		(text) => groupChoiceLabels.includes(text),
+	) as HTMLInputElement[];
+	t.true(inputs.every((el) => el.type === 'checkbox'));
+});
