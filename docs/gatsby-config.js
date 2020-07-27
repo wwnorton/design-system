@@ -8,7 +8,7 @@ module.exports = {
 			options: {
 				title: 'The Norton Design System',
 				description: 'Documentation for the Norton Design System',
-				menu: ['Home', 'Components', 'Foundations', 'Guides'],
+				menu: ['Home', 'Components', 'Foundations', { name: 'Guides', menu: ['JavaScript Style', 'React Style', 'Typescript Style', 'CSS/SASS Style'] }],
 				files: ['site/**/*.{md,markdown,mdx}'],
 				typescript: true,
 				docgenConfig: {
