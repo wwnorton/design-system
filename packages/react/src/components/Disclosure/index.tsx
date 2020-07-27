@@ -358,12 +358,15 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 			...attributes
 		} = this.props;
 		const { height, lifecycle } = this.state;
-		const classes = classNames({
-			[`${this.baseName}`]: true,
-			[`${this.baseName}--panel`]: variant === 'panel',
-			'reduced-motion': !animate,
-			[`${lifecycle}`]: true,
-		}, className);
+		const classes = classNames(
+			className,
+			this.baseName,
+			prefix(lifecycle),
+			{
+				[`${this.baseName}--panel`]: variant === 'panel',
+				[prefix('reduced-motion')]: !animate,
+			},
+		);
 
 		return (
 			<BaseDetails
