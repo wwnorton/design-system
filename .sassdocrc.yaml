@@ -1,0 +1,15 @@
+package:
+  title: Norton Design System Sassdoc
+  description: Styles, components, and utilities for building accessible, responsive products.
+
+groups:
+  accessibility: Accessibility
+  color: Color
+  config: Config
+  device: Device
+  motion: Motion
+  properties: Properties
+  reset: Reset
+  spacing: Spacing
+  typography: Typography
+  utilities: Utilities
