@@ -3,9 +3,7 @@ import React from 'react';
 import {
 	cleanup, render, fireEvent, screen,
 } from '@testing-library/react';
-import { Checkbox } from '.';
-
-// TODO: use something other than classes to select the control/thumbnail
+import { Checkbox, CheckboxGroup } from '.';
 
 test.afterEach(cleanup);
 
@@ -13,9 +11,9 @@ const defaultLabel = 'Checkbox';
 
 test('the checkbox `<input>` is labelled by its `<label>`', (t) => {
 	render(<Checkbox>{ defaultLabel }</Checkbox>);
-	const input = screen.getByLabelText(defaultLabel);
+	const input = screen.getByLabelText(defaultLabel) as HTMLInputElement;
 	t.is(input.tagName.toLowerCase(), 'input');
-	t.is(input.getAttribute('type').toLowerCase(), 'checkbox');
+	t.is(input.type.toLowerCase(), 'checkbox');
 });
 
 test('a checkbox can be checked and unchecked by clicking the label', (t) => {
@@ -30,7 +28,9 @@ test('a checkbox can be checked and unchecked by clicking the label', (t) => {
 
 test('a checkbox can be checked and unchecked by clicking the control', (t) => {
 	render(<Checkbox>{ defaultLabel }</Checkbox>);
-	const control = document.querySelector('.nds-field__control');
+	// this control is purely an affordance for sighted mouse users and is not
+	// rendered in the a11y tree so testing-library selectors can't reach it
+	const control = document.querySelector('.nds-field__control') as Element;
 	const input = screen.getByLabelText(defaultLabel) as HTMLInputElement;
 	fireEvent.click(control);
 	t.is(input.checked, true);
@@ -40,7 +40,7 @@ test('a checkbox can be checked and unchecked by clicking the control', (t) => {
 
 test('a checkbox can be checked and unchecked by clicking the thumbnail', (t) => {
 	render(<Checkbox thumbnail={<img src="https://picsum.photos/64" alt="" />}>{ defaultLabel }</Checkbox>);
-	const thumbnail = document.querySelector('.nds-field__thumbnail');
+	const thumbnail = screen.getByRole('img');
 	const input = screen.getByLabelText(defaultLabel) as HTMLInputElement;
 	fireEvent.click(thumbnail);
 	t.is(input.checked, true);
