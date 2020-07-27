@@ -176,25 +176,20 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	private onSummaryClick = (e: React.MouseEvent<HTMLElement>): void => {
 		e.preventDefault();
 		const { lifecycle } = this.state;
-		if (this.shouldAnimate) {
-			switch (lifecycle) {
-				case 'opening':
-					this.openCancel();
-					break;
-				case 'open':
-					this.closeStart();
-					break;
-				case 'closing':
-					this.closeCancel();
-					break;
-				case 'closed':
-					this.openStart();
-					break;
-				default:
-			}
-		} else {
-			const nextLifecycle = (lifecycle === 'open') ? 'closed' : 'open';
-			this.setState({ lifecycle: nextLifecycle });
+		switch (lifecycle) {
+			case 'opening':
+				this.openCancel();
+				break;
+			case 'open':
+				this.closeStart();
+				break;
+			case 'closing':
+				this.closeCancel();
+				break;
+			case 'closed':
+				this.openStart();
+				break;
+			default:
 		}
 	}
 
@@ -214,8 +209,8 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	}
 
 	private get shouldAnimate(): boolean {
-		const { animate = Disclosure.defaultProps.animate } = this.props;
-		return animate && hasTransition(this.contentsOuter);
+		const { animate } = this.props;
+		return Boolean(animate) && hasTransition(this.contentsOuter);
 	}
 
 	private get Summary(): JSX.Element {
@@ -245,7 +240,10 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 
 	private async closeStart(): Promise<void> {
 		if (await this.callback('onCloseStart')) {
-			this.setState({ lifecycle: 'closing', height: 0 });
+			this.setState({
+				lifecycle: (this.shouldAnimate) ? 'closing' : 'closed',
+				height: 0,
+			});
 		}
 	}
 
@@ -263,7 +261,10 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 
 	private async openStart(): Promise<void> {
 		if (await this.callback('onOpenStart')) {
-			this.setState({ lifecycle: 'opening', height: this.contentsHeight });
+			this.setState({
+				lifecycle: (this.shouldAnimate) ? 'opening' : 'open',
+				height: this.contentsHeight,
+			});
 		}
 	}
 
