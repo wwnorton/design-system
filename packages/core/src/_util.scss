@@ -24,13 +24,21 @@ $-declared: ();
 }
 
 /// Flatten a nested map.
-/// @param {Map} $map - The map that should be flattened.
+/// @param {Map} $map - The map that should be flattened. The `#root` key will
+/// be treated use the name as its key.
 /// @param {String} $name [null] - The name of the map. Resulting keys will use this as a prefix.
 /// @param {String} $key-separator [-] - The separator that will be used to join map names.
 /// @return {Map} The flattened map. Key names will reflect the nesting structure.
-/// @example scss
+/// @example
 ///   @debug flatten((a: (b: (c: 'd'))));
-///   // (a-b-c: 'd')
+///   // ("a-b-c": "d")
+/// @example named
+///   @debug flatten((a: (b: (c: 'd'))), 'foo');
+///   // ("foo-a-b-c": "d")
+/// @example named and a `#root` key
+///   @debug flatten(('a': ('b': 'c', '#root': 'd')), 'foo');
+///   // ("foo-a-b": "c", "foo-a": "d")
+///
 @function flatten($map, $name: null, $key-separator: '-') {
 	$flattened: ();
 
