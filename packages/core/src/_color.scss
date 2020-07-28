@@ -54,21 +54,20 @@
 			20: 'darker',
 		);
 
-		@for $g from -20 through 20 {
+		@for $g from -2 through 2 {
+			$g10: $g * 10;
+			$css-prop: string.unquote('--#{util.prefix(-get-shade($name, $grade-root, $g10))}');
+			$prop: var($css-prop);
+
 			/* stylelint-disable max-nesting-depth */
-			@if math.abs($g % 10) == 0 {
-				$css-prop: string.unquote('--#{util.prefix(-get-shade($name, $grade-root, $g))}');
-				$prop: var($css-prop);
+			@if config.$css-property-fallback {
+				$prop-val: props.value($grade-root + $g10, $map);
 
-				@if config.$css-property-fallback {
-					$prop-val: props.value($grade-root + $g, $map);
-
-					@if $prop-val {
-						$prop: var($css-prop, $prop-val);
-					}
+				@if $prop-val {
+					$prop: var($css-prop, $prop-val);
 				}
-				$map: map.merge($map, (map.get($shades, $g): $prop));
 			}
+			$map: map.merge($map, (map.get($shades, $g10): $prop));
 		}
 	}
 
