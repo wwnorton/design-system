@@ -57,7 +57,7 @@ $focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring') !default;
 	z-index: props.prop('zindex-focus');
 	outline: none;
 	box-shadow: $current-shadows, $shadow;
-	transition: motion.transition(('box-shadow' 'border-radius'));
+	transition: motion.transition(box-shadow border-radius);
 
 	&:not(:focus-visible) {
 		@if list.length($current-shadows) > 0 {
