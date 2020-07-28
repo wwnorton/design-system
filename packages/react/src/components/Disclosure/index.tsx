@@ -134,10 +134,8 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 			this.detailsRef = detailsRef;
 		}
 
-		if (prevProps.open && !open) {
-			this.close();
-		} else if (!prevProps.open && open) {
-			this.open();
+		if (prevProps.open !== open) {
+			this.toggle();
 		}
 
 		if (prevProps.animate && !animate) {
@@ -175,22 +173,7 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	 */
 	private onSummaryClick = (e: React.MouseEvent<HTMLElement>): void => {
 		e.preventDefault();
-		const { lifecycle } = this.state;
-		switch (lifecycle) {
-			case 'opening':
-				this.openCancel();
-				break;
-			case 'open':
-				this.closeStart();
-				break;
-			case 'closing':
-				this.closeCancel();
-				break;
-			case 'closed':
-				this.openStart();
-				break;
-			default:
-		}
+		this.toggle();
 	}
 
 	// The transition begins with the summary click. On end, update the state if it's closed.
@@ -238,6 +221,25 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		);
 	}
 
+	private toggle(): void {
+		const { lifecycle } = this.state;
+		switch (lifecycle) {
+			case 'opening':
+				this.openCancel();
+				break;
+			case 'open':
+				this.closeStart();
+				break;
+			case 'closing':
+				this.closeCancel();
+				break;
+			case 'closed':
+				this.openStart();
+				break;
+			default:
+		}
+	}
+
 	private async closeStart(): Promise<void> {
 		if (await this.callback('onCloseStart')) {
 			this.setState({
@@ -278,14 +280,6 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		if (await this.callback('onOpenEnd')) {
 			this.setState({ lifecycle: 'open' });
 		}
-	}
-
-	private open(): void {
-		this.setState({ lifecycle: (this.shouldAnimate) ? 'opening' : 'open' });
-	}
-
-	private close(): void {
-		this.setState({ lifecycle: (this.shouldAnimate) ? 'closing' : 'closed' });
 	}
 
 	private findHeight(): number {
