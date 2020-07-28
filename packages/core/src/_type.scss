@@ -169,89 +169,196 @@ $line-height-6: 1.75;
 	line-height: $height;
 }
 
+/// The "base" body typeset uses all `-base` tokens.
+/// @example
+///   .my-selector {
+///     @include nds.body-base;
+///   }
+///
+///   // CSS output
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-base);
+///     line-height: var(--nds-line-height-base);
+///   }
+///
+@mixin body-base {
+	@include typeset;
+}
+
 /// A `typeset` suitable for extra small body text.
+/// @example
+///   .my-selector {
+///     @include body-xs;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-xs);
+///     line-height: var(--nds-line-height-base);
+///   }
+///
 @mixin body-xs {
 	@include typeset($size: props.prop('font-size-xs'));
 }
 
 /// A `typeset` suitable for small body text.
+/// @example
+///   .my-selector {
+///     @include body-sm;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-sm);
+///     line-height: var(--nds-line-height-base);
+///   }
+///
 @mixin body-sm {
 	@include typeset($size: props.prop('font-size-sm'));
 }
 
 /// A `typeset` suitable for medium body text.
+/// @example
+///   .my-selector {
+///     @include body-md;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-md);
+///     line-height: var(--nds-line-height-base);
+///   }
+///
 @mixin body-md {
 	@include typeset($size: props.prop('font-size-md'));
 }
 
 /// A `typeset` suitable for large body text.
+/// @example
+///   .my-selector {
+///     @include body-lg;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-lg);
+///     line-height: var(--nds-line-height-base);
+///   }
+///
 @mixin body-lg {
 	@include typeset($size: props.prop('font-size-lg'));
 }
 
-@mixin body-base {
-	@if config.$typeset-body-base == 'xs' {
-		@include body-xs;
-	}
-	@else if config.$typeset-body-base == 'sm' {
-		@include body-sm;
-	}
-	@else if config.$typeset-body-base == 'md' {
-		@include body-md;
-	}
-	@else if config.$typeset-body-base == 'lg' {
-		@include body-lg;
-	}
+/// The "base" UI typeset uses the `ui` line height and `-base` tokens for
+/// everything else.
+/// @example
+///   .my-selector {
+///     @include ui-base;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-base);
+///     line-height: var(--nds-line-height-3);
+///   }
+///
+@mixin ui-base($size: props.prop('font-size-base')) {
+	@include typeset($height: lh('ui'), $size: $size);
 }
 
 /// A `typeset` suitable for extra small UI text.
+/// @example
+///   .my-selector {
+///     @include ui-xs;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-xs);
+///     line-height: var(--nds-line-height-3);
+///   }
+///
 @mixin ui-xs {
-	@include typeset(
-		$height: lh('ui'),
-		$size: props.prop('font-size-xs'),
-	);
+	@include ui-base($size: props.prop('font-size-xs'));
 }
 
 /// A `typeset` suitable for small UI text.
+/// @example
+///   .my-selector {
+///     @include ui-sm;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-sm);
+///     line-height: var(--nds-line-height-3);
+///   }
+///
 @mixin ui-sm {
-	@include typeset(
-		$height: lh('ui'),
-		$size: props.prop('font-size-sm'),
-	);
+	@include ui-base($size: props.prop('font-size-sm'));
 }
 
 /// A `typeset` suitable for medium UI text.
+/// @example
+///   .my-selector {
+///     @include ui-md;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-md);
+///     line-height: var(--nds-line-height-3);
+///   }
+///
 @mixin ui-md {
-	@include typeset(
-		$height: lh('ui'),
-		$size: props.prop('font-size-md'),
-	);
+	@include ui-base($size: props.prop('font-size-md'));
 }
 
 /// A `typeset` suitable for large UI text.
+/// @example
+///   .my-selector {
+///     @include ui-lg;
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     font-family: var(--nds-font-family-base);
+///     font-size: var(--nds-font-size-lg);
+///     line-height: var(--nds-line-height-3);
+///   }
+///
 @mixin ui-lg {
-	@include typeset(
-		$height: lh('ui'),
-		$size: props.prop('font-size-lg'),
-	);
-}
-
-@mixin ui-base {
-	@if config.$typeset-ui-base == 'xs' {
-		@include ui-xs;
-	}
-	@else if config.$typeset-ui-base == 'sm' {
-		@include ui-sm;
-	}
-	@else if config.$typeset-ui-base == 'md' {
-		@include ui-md;
-	}
-	@else if config.$typeset-ui-base == 'lg' {
-		@include ui-lg;
-	}
+	@include ui-base($size: props.prop('font-size-lg'));
 }
 
 /// A `typeset` intended for text that is meant to convey hierarchy (i.e., a heading).
+/// @param {font-size} $size - The font size. Required.
+/// @param {Number} $height - The line height. Required.
+/// @example
+///   .my-selector {
+///     @include typeset-heading($size: 3rem, $height: 1.25);
+///   }
+///
+///   // CSS output with default config
+///   .my-selector {
+///     margin-top: 0;
+///     margin-bottom: var(--nds-spacing-4);
+///     font-family: var(--nds-font-family-headings);
+///     font-size: 3rem;
+///     font-style: var(--nds-font-style-headings);
+///     font-weight: var(--nds-font-weight-headings);
+///     line-height: 1.25;
+///   }
+///
 @mixin typeset-heading($size, $height) {
 	@include typeset(
 		$size: $size,
@@ -265,7 +372,8 @@ $line-height-6: 1.75;
 	font-style: props.prop('font-style-headings');
 }
 
-/// A `typeset` suitable for top-level headings (`h1`).
+/// A `typeset` suitable for text that is meant to convey the top level of
+/// content hierarchy, such as an `h1`.
 @mixin heading-1 {
 	@include typeset-heading(
 		$size: props.prop('font-size-h1'),
@@ -273,7 +381,8 @@ $line-height-6: 1.75;
 	);
 }
 
-/// A `typeset` suitable for second-level headings (`h2`).
+/// A `typeset` suitable for text that is meant to convey the second level of
+/// content hierarchy, such as an `h2`.
 @mixin heading-2 {
 	@include typeset-heading(
 		$size: props.prop('font-size-h2'),
@@ -281,7 +390,8 @@ $line-height-6: 1.75;
 	);
 }
 
-/// A `typeset` suitable for third-level headings (`h3`).
+/// A `typeset` suitable for text that is meant to convey the third level of
+/// content hierarchy, such as an `h3`.
 @mixin heading-3 {
 	@include typeset-heading(
 		$size: props.prop('font-size-h3'),
@@ -289,7 +399,8 @@ $line-height-6: 1.75;
 	);
 }
 
-/// A `typeset` suitable for fourth-level headings (`h4`).
+/// A `typeset` suitable for text that is meant to convey the fourth level of
+/// content hierarchy, such as an `h4`.
 @mixin heading-4 {
 	@include typeset-heading(
 		$size: props.prop('font-size-h4'),
@@ -297,7 +408,8 @@ $line-height-6: 1.75;
 	);
 }
 
-/// A `typeset` suitable for fifth-level headings (`h5`).
+/// A `typeset` suitable for text that is meant to convey the fifth level of
+/// content hierarchy, such as an `h5`.
 @mixin heading-5 {
 	@include typeset-heading(
 		$size: props.prop('font-size-h5'),
@@ -305,7 +417,8 @@ $line-height-6: 1.75;
 	);
 }
 
-/// A `typeset` suitable for sixth-level headings (`h6`).
+/// A `typeset` suitable for text that is meant to convey the sixth (and lowest)
+/// level of content hierarchy, such as an `h6`.
 @mixin heading-6 {
 	@include typeset-heading(
 		$size: props.prop('font-size-h6'),
