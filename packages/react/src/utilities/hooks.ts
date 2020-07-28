@@ -174,7 +174,7 @@ export const useTriggers = ({
 	};
 
 	useLayoutEffect(() => {
-		if (reference && (reference instanceof HTMLElement || reference instanceof SVGElement)) {
+		if (reference && (reference instanceof HTMLElement || reference instanceof window.SVGElement)) {
 			// hide on Escape for all triggers
 			document.addEventListener('keydown', docKeydownHandler);
 
@@ -213,7 +213,9 @@ export const useTriggers = ({
 
 		return (): void => {
 			clearTimer();
-			if (reference && (reference instanceof HTMLElement || reference instanceof SVGElement)) {
+			if (reference && (
+				reference instanceof HTMLElement || reference instanceof window.SVGElement
+			)) {
 				// click
 				reference.removeEventListener('click', toggle);
 				reference.removeEventListener('keydown', keydownHandler as EventListener);
