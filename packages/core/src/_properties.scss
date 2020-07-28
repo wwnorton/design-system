@@ -15,6 +15,8 @@ $-props: ();
 // A global map of all `:root` CSS custom properties. Any token in this map will
 // be globally available on the page. Access via `get-props(true)`.
 $-props-root: ();
+// A map of all `:root` properties as valid `token: value` pairs.
+$tokens: ();
 
 /// Get a props map. By default, all of the props that have been declared via
 /// the `props` function or the `add` function will be returned.
