@@ -81,3 +81,18 @@ $focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring') !default;
 
 	border-color: props.prop('focus-ring-color');
 }
+
+/// Accessibility utility classes.
+/// Includes declarations for `.reduced-motion` and `.sr-only`.
+/// @group Utilities
+@mixin a11y-utilities {
+	@include util.declare('utilities-a11y') {
+		.#{util.prefix('reduced-motion')} {
+			@include reduce-motion;
+		}
+
+		.#{util.prefix('sr-only')} {
+			@include sr-only;
+		}
+	}
+}
