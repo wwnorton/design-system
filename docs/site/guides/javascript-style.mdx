@@ -3431,58 +3431,6 @@ class Calculator extends Abacus {
 
 ## Naming Conventions
 
-### Use lowerCamelCase for variables, properties and function names
-
-Variables, properties and function names should use lowerCamelCase. They should also be descriptive. Single character variables and uncommon abbreviations should generally be avoided.
-
-<!-- prettier-ignore-start -->
-```js
-// bad 👎
-var admin_user = db.query('SELECT * FROM users ...');
-
-// good 👍
-var adminUser = db.query('SELECT * FROM users ...');
-```
-<!-- prettier-ignore-end -->
-
-### Use UpperCamelCase for class names
-
-Class names should be capitalised using UpperCamelCase.
-
-<!-- prettier-ignore-start -->
-```js
-// bad 👎
-function bank_Account() {
-}
-
-// good 👍
-function BankAccount() {
-}
-```
-<!-- prettier-ignore-end -->
-
-### Use UPPERCASE for Constants
-
-Constants should be declared as regular variables or static class properties, using all uppercase letters.
-
-<!-- prettier-ignore-start -->
-```js
-// bad 👎
-const SECOND = 1 * 1000;
-function File() {
-}
-File.fullPermissions = 0777;
-
-// good 👍
-var SECOND = 1 * 1000;
-function File() {
-}
-File.FULL_PERMISSIONS = 0777;
-```
-<!-- prettier-ignore-end -->
-
-## Naming Conventions BNB
-
   <a name="naming--descriptive"></a><a name="22.1"></a>
   - [23.1](#naming--descriptive) Avoid single letter names. Be descriptive with your naming. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
 
@@ -3717,6 +3665,40 @@ File.FULL_PERMISSIONS = 0777;
       key: 'value'
     };
     ```
+
+### Use UPPERCASE for Constants
+
+Constants should be declared as regular variables or static class properties, using all uppercase letters.
+
+<!-- prettier-ignore-start -->
+```js
+// bad 👎
+const SECOND = 1 * 1000;
+function File() {
+}
+File.fullPermissions = 0777;
+
+// good 👍
+var SECOND = 1 * 1000;
+function File() {
+}
+File.FULL_PERMISSIONS = 0777;
+```
+<!-- prettier-ignore-end -->
+
+### Use camelCase for variables, properties and function names
+
+Variables, properties and function names should use camelCase. They should also be descriptive. Single character variables and uncommon abbreviations should generally be avoided.
+
+<!-- prettier-ignore-start -->
+```js
+// bad 👎
+var admin_user = db.query('SELECT * FROM users ...');
+
+// good 👍
+var adminUser = db.query('SELECT * FROM users ...');
+```
+<!-- prettier-ignore-end -->
 
 ## Accessors
 
