@@ -36,17 +36,22 @@ $-declared: ();
 
 	@each $key in map.keys($map) {
 		$val: map.get($map, $key);
-		$full-key: if($name, #{prefix($key, $name, $key-separator)}, #{$key});
+		$full-key: if($name, prefix($key, $name, $key-separator), $key);
 
 		@if $key == '#root' {
 			$full-key: $name;
 		}
 
+		@if not $full-key {
+			@error 'When flattening #root keys, ensure that the #root is either '
+				+ 'nested or a valid $name argument is included.';
+		}
+
 		@if meta.type-of($val) == 'map' {
-			$flattened: map.merge($flattened, flatten($val, $full-key));
+			$flattened: map.merge($flattened, flatten($val, string.quote($full-key)));
 		}
 		@else {
-			$flattened: map.merge($flattened, (#{$full-key}: #{$val}));
+			$flattened: map.merge($flattened, (string.quote($full-key): $val));
 		}
 	}
 
