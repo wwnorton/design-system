@@ -7,8 +7,8 @@
 
 // FIELD - the field container, which can contain field info, group(s), and feedback.
 
-/// The base styling for all fields.
-/// Default: `.field`
+// The base styling for all fields.
+// Default: `.field`
 @mixin base {
 	@include type.ui-base;
 
@@ -18,8 +18,8 @@
 
 // FIELD INFO - a container for the label & description
 
-/// The field info container.
-/// Default: `.field__info`
+// The field info container.
+// Default: `.field__info`
 @mixin info {
 	@include type.ui-base;
 
@@ -28,8 +28,8 @@
 	}
 }
 
-/// The field info's label, first child of the field info container.
-/// Default: `.field__label`
+// The field info's label, first child of the field info container.
+// Default: `.field__label`
 @mixin label {
 	@include type.ui-base;
 
@@ -41,15 +41,15 @@
 	}
 }
 
-/// The field label's indicator ("required"/"optional"), displayed inline as a
-/// parenthetical to the field label.
-/// Default: `.field__indicator`
+// The field label's indicator ("required"/"optional"), displayed inline as a
+// parenthetical to the field label.
+// Default: `.field__indicator`
 @mixin indicator {
 	font-style: italic;
 	font-weight: props.prop('font-weight-regular');
 }
 
-/// The field description, second child of the field info container.
+// The field description, second child of the field info container.
 @mixin description {
 	font-size: props.prop('font-size-sm');
 	color: props.prop('subdued');
@@ -58,8 +58,8 @@
 
 // FIELD GROUP - a container for field controls
 
-/// The field group container.
-/// Default: `.field__group`
+// The field group container.
+// Default: `.field__group`
 @mixin group {
 	@include type.ui-base;
 
@@ -67,8 +67,8 @@
 	display: flex;
 }
 
-/// A "choice" modifier for the field group container.
-/// Default: `.field__group--choice`
+// A "choice" modifier for the field group container.
+// Default: `.field__group--choice`
 @mixin group-choice {
 	@include props.set(
 		$spacing: null,
@@ -112,10 +112,10 @@
 	}
 }
 
-/// The "choice" control (checkbox/radio) in a field group.
-/// Note that this is a visual replacement the field's `<input>`, which will be
-/// visually hidden (screen reader only) but still fully functional.
-/// Default: `.field__control`
+// The "choice" control (checkbox/radio) in a field group.
+// Note that this is a visual replacement the field's `<input>`, which will be
+// visually hidden (screen reader only) but still fully functional.
+// Default: `.field__control`
 @mixin choice-control {
 	@include props.set(
 		$bg-color: props.prop('body-bg'),
@@ -206,8 +206,8 @@
 	}
 }
 
-/// Addons for field inputs inside a field group.
-/// Default: `field__addon`
+// Addons for field inputs inside a field group.
+// Default: `field__addon`
 @mixin addon {
 	display: flex;
 	align-items: center;
@@ -255,14 +255,14 @@
 
 // FEEDBACK - a container for errors and other feedback about user input
 
-/// The outer feedback container.
-/// Default: `.field__feedback`
+// The outer feedback container.
+// Default: `.field__feedback`
 @mixin feedback {
 	@include type.ui-base;
 }
 
-/// The field errors list, which should be an unordered list (`ul`).
-/// Default: `.field__errors`
+// The field errors list, which should be an unordered list (`ul`).
+// Default: `.field__errors`
 @mixin errors {
 	padding-left: 1rem;
 	margin: 0;
@@ -281,7 +281,7 @@
 
 // STYLE DECLARATIONS
 
-/// Field info style declaration
+// Field info style declaration
 @mixin style-info {
 	@include util.declare('field-info') {
 		.#{util.prefix('field__info')} {
@@ -325,7 +325,7 @@
 	}
 }
 
-/// Field feedback style declaration
+// Field feedback style declaration
 @mixin style-feedback {
 	@include util.declare('field-feedback') {
 		.#{util.prefix('field__feedback')} {
