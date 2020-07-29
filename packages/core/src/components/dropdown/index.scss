@@ -92,7 +92,8 @@
 	}
 
 	> .#{util.prefix('icon')} {
-		width: props.prop('option-icon-size');
+		min-width: props.prop('option-icon-size');
+		max-width: props.prop('option-icon-size');
 		padding: 0 props.prop('option-icon-padding-x');
 		margin-left: calc(-1 * #{props.prop('option-padding-left')});
 	}
