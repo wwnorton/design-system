@@ -24,9 +24,9 @@
 }
 
 @mixin button {
-	@include props.set(util.flatten((
-		'button-color': color.family('button-color', 'base'),
-	)));
+	@include props.set(
+		$button-color: color.family('button-color', 'base'),
+	);
 
 	font-weight: props.prop('font-weight-base');
 	color: props.prop('body-text');
