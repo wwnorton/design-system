@@ -135,7 +135,7 @@ export const BaseListbox = React.forwardRef(({
 	};
 
 	/** Move focus on keydown.(arrow keys). */
-	const onKeyDown = (e: React.KeyboardEvent<HTMLLIElement>): void => {
+	const onKeyDown = (payload: OnChangeData) => (e: React.KeyboardEvent<HTMLLIElement>): void => {
 		const nextKey = (ariaOrientation === 'vertical') ? 'ArrowDown' : 'ArrowRight';
 		const prevKey = (ariaOrientation === 'vertical') ? 'ArrowUp' : 'ArrowLeft';
 		if ([nextKey, prevKey, 'Home', 'End', ' '].includes(e.key)) {
@@ -154,6 +154,11 @@ export const BaseListbox = React.forwardRef(({
 		if (nextFocus !== focused) {
 			setFocused(nextFocus);
 		}
+
+		// Request selection on Enter
+		if (e.key === 'Enter' && onChange) {
+			onChange(payload);
+		}
 	};
 
 	/** Request selection on keyup.space. */
@@ -161,15 +166,6 @@ export const BaseListbox = React.forwardRef(({
 		e: React.KeyboardEvent<HTMLLIElement>,
 	): void => {
 		if (e.key === ' ' && onChange) {
-			onChange(payload);
-		}
-	};
-
-	/** Request selection on keypress.enter. */
-	const onKeyPress = (payload: OnChangeData) => (
-		e: React.KeyboardEvent<HTMLLIElement>,
-	): void => {
-		if (e.key === 'Enter' && onChange) {
 			onChange(payload);
 		}
 	};
@@ -187,9 +183,8 @@ export const BaseListbox = React.forwardRef(({
 				isSelected={selected.includes(value as React.ReactText)}
 				tabIndex={(i === focused) ? 0 : -1}
 				onClick={onClick({ value, contents })}
-				onKeyDown={onKeyDown}
+				onKeyDown={onKeyDown({ value, contents })}
 				onKeyUp={onKeyUp({ value, contents })}
-				onKeyPress={onKeyPress({ value, contents })}
 				ref={(item): void => {
 					optionRefs.current.push(item);
 					if (i === focused && item) item.focus();
