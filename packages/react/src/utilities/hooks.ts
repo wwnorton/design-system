@@ -114,6 +114,17 @@ export const useTriggers = ({
 }: {
 	reference?: Element | VirtualElement | null;
 	tooltip?: HTMLElement | null;
+	/**
+	 * A space-separated string of events. Triggers can be any combination of the
+	 * following:
+	 * * `click`
+	 * * `focus`
+	 * * `focusin`
+	 * * `mouseenter`
+	 * * `pointerenter`
+	 * * `manual` - this will override all other triggers, giving you full
+	 * control over visibility.
+	 */
 	trigger: string;
 	isOpen: boolean;
 	hideDelay?: number;
