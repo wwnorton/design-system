@@ -1,12 +1,10 @@
 import test from 'ava';
 import React from 'react';
 import {
-	cleanup, render, fireEvent, screen, getByRole,
-	queryByRole, queryByText, queryByLabelText,
+	cleanup, render, fireEvent, screen, waitFor,
 } from '@testing-library/react';
 import { Button, IconButton } from '.';
 import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
-import { LiveRegion } from '../LiveRegion';
 import { ChangingContent } from './index.stories';
 
 test.afterEach(cleanup);
@@ -18,23 +16,23 @@ test('throws when an accessible name is not provided', (t) => {
 	window.onerror = () => true;
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
-	const { container } = render(<ErrorBoundary><Button /></ErrorBoundary>);
+	render(<ErrorBoundary><Button /></ErrorBoundary>);
 
-	t.truthy(queryByText(container, Button.errors.noName));
-	t.falsy(queryByRole(container, 'button'));
+	t.truthy(screen.queryByText(Button.errors.noName));
+	t.falsy(screen.queryByRole('button'));
 	window.onerror = null;
 });
 
 test('renders a <button>', (t) => {
-	const { container } = render(<Button><span>{ defaultChildren }</span></Button>);
-	t.truthy(queryByRole(container, 'button'));
-	t.is(getByRole(container, 'button').textContent, defaultChildren);
+	render(<Button><span>{ defaultChildren }</span></Button>);
+	t.truthy(screen.queryByRole('button'));
+	t.is(screen.getByRole('button').textContent, defaultChildren);
 });
 
 test('clicking the button with space triggers the :active polyfill', (t) => {
 	const activeClass = 'active';
-	const { container } = render(<Button activeClass={activeClass}>{ defaultChildren }</Button>);
-	const button = getByRole(container, 'button');
+	render(<Button activeClass={activeClass}>{ defaultChildren }</Button>);
+	const button = screen.getByRole('button');
 
 	fireEvent.keyDown(button, { key: ' ' });
 	t.true(button.classList.contains(activeClass));
@@ -43,64 +41,59 @@ test('clicking the button with space triggers the :active polyfill', (t) => {
 });
 
 test('icons are not included in the accessibility tree', (t) => {
-	const { container } = render(<Button icon="check">{ defaultChildren }</Button>);
-	const button = getByRole(container, 'button');
+	render(<Button icon="check">{ defaultChildren }</Button>);
+	const button = screen.getByRole('button');
 
-	t.falsy(queryByRole(button, 'img'));
+	t.truthy(screen.queryByRole('img', { hidden: true }));
 	t.is(button.textContent, defaultChildren);
 });
 
 test('icon-only buttons still have an accessible label', (t) => {
-	const { container } = render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
-	const button = getByRole(container, 'button');
-
-	t.is(queryByLabelText(container, defaultChildren), button);
+	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
+	t.is(screen.getByLabelText(defaultChildren), screen.getByRole('button'));
 });
 
 test('icon-only buttons display a tooltip when hovered', (t) => {
-	const { container } = render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
-	const button = getByRole(container, 'button');
+	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.pointerEnter(button);
-	t.truthy(container.querySelector('[role=tooltip]'));
+	fireEvent.pointerEnter(screen.getByRole('button'));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
 test('icon-only buttons display a tooltip when focused', (t) => {
-	const { container } = render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
-	const button = getByRole(container, 'button');
+	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.focus(button);
-	t.truthy(container.querySelector('[role=tooltip]'));
+	fireEvent.focus(screen.getByRole('button'));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
 test('icon-only buttons are labelled by their tooltip when it exists', (t) => {
-	const { container } = render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
-	const button = getByRole(container, 'button');
+	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.pointerEnter(button);
-	const labelId = button.getAttribute('aria-labelledby') || button.getAttribute('aria-label');
-	t.is(document.getElementById(labelId).textContent, defaultChildren);
+	fireEvent.pointerEnter(screen.getByRole('button'));
+
+	t.is(screen.getByRole('tooltip', { hidden: true }).textContent, defaultChildren);
+	t.truthy(screen.getByRole('button', { name: defaultChildren }));
 });
 
-// known failure: the live region's contents are removed too quickly for our
-// test to pick them up.
 // TODO: figure out how to check for live contents before it's removed
-test.failing('changing content is added to a live region', async (t) => {
-	// force the live region to persist so we can check for its existence
-	LiveRegion.defaultProps.removeAfter = 0;
-	const { container } = render(<ChangingContent />);
-	const button = getByRole(container, 'button');
+test.skip('changing content is added to a live region', async (t) => {
+	render(<ChangingContent />);
+	const button = screen.getByRole('button');
 
+	button.focus();
 	fireEvent.click(button);
-	const nodes = screen.queryAllByText(button.textContent);
-	t.is(nodes.length, 2);
-	t.is(nodes[1].getAttribute('aria-live'), 'assertive');
+
+	await waitFor(() => {
+		const liveRegion = document.querySelector('[aria-live]') as Element;
+		t.is(liveRegion.textContent, button.textContent);
+	});
 });
 
 test('icon buttons render with tooltips by default', (t) => {
-	const { container } = render(<IconButton icon="close">{ defaultChildren }</IconButton>);
-	const button = getByRole(container, 'button');
+	render(<IconButton icon="close">{ defaultChildren }</IconButton>);
+	const button = screen.getByRole('button');
 
 	fireEvent.pointerEnter(button);
-	t.truthy(container.querySelector('[role=tooltip]'));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
