@@ -152,10 +152,10 @@ export const Dropdown: DropdownType = ({
 	const [open, setOpen] = React.useState(isOpen);
 	const [selected, setSelected] = React.useState(selectedProp);
 	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>(contentsProp);
-	const [returnFocus, setReturnFocus] = React.useState(false);
 	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
 	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
 	const [listboxWidth, setListboxWidth] = React.useState<number>();
+	const shouldReturnFocus = React.useRef(false);
 	const getListboxWidth = React.useRef(false);
 
 	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
@@ -186,8 +186,8 @@ export const Dropdown: DropdownType = ({
 	}, [onRequestOpen]);
 
 	/** Attempt to close the listbox. */
-	const closeListbox = React.useCallback((shouldReturnFocus: boolean): void => {
-		setReturnFocus(shouldReturnFocus);
+	const closeListbox = React.useCallback((returnFocus: boolean): void => {
+		shouldReturnFocus.current = returnFocus;
 		if (onRequestClose) onRequestClose();
 		else setOpen(false);
 	}, [onRequestClose]);
@@ -249,9 +249,9 @@ export const Dropdown: DropdownType = ({
 
 	// focus the button when focus should return to it
 	React.useEffect(() => {
-		if (returnFocus && button) button.focus();
-		return (): void => setReturnFocus(false);
-	}, [returnFocus, button]);
+		if (shouldReturnFocus.current && button) button.focus();
+		return (): void => { shouldReturnFocus.current = false; };
+	}, [button]);
 
 	// attach and detach document listeners
 	React.useLayoutEffect(() => {
