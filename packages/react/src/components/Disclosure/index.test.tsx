@@ -12,6 +12,8 @@ const shortContent = 'lorem ipsum';
 
 // TODO: investigate why summary clicks don't work in this testing context. They
 // do work in Storybook/real browsers.
+// TODO: investigate testing tools with rendering engines since most disclosure
+// features are visual/physical.
 
 test.failing('clicking the summary opens a closed disclosure', async (t) => {
 	render(<Disclosure summary={defaultSummary}>{ shortContent }</Disclosure>);
