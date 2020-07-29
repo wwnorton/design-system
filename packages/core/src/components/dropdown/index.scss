@@ -18,7 +18,7 @@
 		$option-line-height: type.lh('ui'),
 		$option-padding-left: calc(#{props.prop('option-icon-size')} + #{props.prop('option-padding-x')}),
 		$option-icon-padding-x: calc(#{props.prop('option-padding-x') / 2}),
-		$option-icon-size: 1em,
+		$option-icon-size: 0.75em,
 	);
 	@include type.ui-base;
 }
@@ -29,6 +29,7 @@
 	)));
 
 	font-weight: props.prop('font-weight-base');
+	color: props.prop('body-text');
 	justify-content: space-between;
 
 	.#{util.prefix('icon')} > path {
