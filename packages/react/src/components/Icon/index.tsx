@@ -52,7 +52,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 		// eslint-disable-next-line no-console
 		console.warn(
 			'You\'ve attached a click listener to an icon, which will be inaccessible to many users.'
-			+ 'You probably want to use the IconButton component instead.',
+			+ 'Use the Button or IconButton component instead.',
 		);
 	}
 	const [svg, setSvg] = useForwardedRef(ref);
@@ -105,7 +105,6 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 				tabIndex={(children) ? 0 : undefined}
 				role="img"
 				fill={color}
-				onClick={onClick}
 			>
 				{ d && <path d={d} aria-hidden="true" /> }
 				{ svgChildren }
