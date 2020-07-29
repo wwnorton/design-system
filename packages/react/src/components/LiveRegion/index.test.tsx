@@ -1,11 +1,18 @@
 import test from 'ava';
 import React from 'react';
 import {
-	cleanup, render, fireEvent, screen,
-	queryByRole, queryByText, queryByLabelText,
+	cleanup, render, screen, waitFor,
 } from '@testing-library/react';
 import { LiveRegion } from '.';
 
 test.afterEach(cleanup);
 
-test.todo('write tests');
+const defaultContents = 'Foo bar';
+
+test('live regions only update when their contents change', async (t) => {
+	const { rerender } = render(<LiveRegion />);
+	rerender(<LiveRegion>{ defaultContents }</LiveRegion>);
+	await waitFor(() => {
+		t.truthy(screen.getByText(defaultContents));
+	});
+});
