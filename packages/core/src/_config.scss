@@ -29,6 +29,10 @@ $duplicate-declarations: false !default;
 /// to the :root element.
 $enable-dark-scheme: false !default;
 
+/// Enable utility declarations. Only has an effect when using the full stylesheet.
+/// Utility declarations can always be used imperatively via `@include`.
+$enable-utilities: true !default;
+
 
 // Typeset sizing options.
 

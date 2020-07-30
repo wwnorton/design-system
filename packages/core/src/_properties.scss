@@ -4,6 +4,7 @@
 
 @use 'sass:list';
 @use 'sass:map';
+@use 'sass:math';
 @use 'sass:meta';
 @use 'sass:string';
 @use 'config';
@@ -15,6 +16,8 @@ $-props: ();
 // A global map of all `:root` CSS custom properties. Any token in this map will
 // be globally available on the page. Access via `get-props(true)`.
 $-props-root: ();
+// A map of all `:root` properties as valid `token: value` pairs.
+$tokens: ();
 
 /// Get a props map. By default, all of the props that have been declared via
 /// the `props` function or the `add` function will be returned.
@@ -70,13 +73,8 @@ $-props-root: ();
 	@if $value {
 		$var-str: 'var(--';
 
-		@if meta.type-of($value) == 'string' and string.index($value, $var-str) == 1 {
-			$comma-index: string.index($value, ',');
-
-			$end-at: if($comma-index, $comma-index, string.length($value));
-			$var: string.slice($value, string.length($var-str) + 1, $end-at - 1);
-
-			@return value(util.unprefix($var));
+		@if meta.type-of($value) == 'string' {
+			@return value(util.unprefix(-to-token($value)));
 		}
 
 		@return $value;
@@ -190,18 +188,21 @@ $-props-root: ();
 	@if meta.type-of($value) == 'map' {
 		$prop-map: util.flatten($value, $key);
 
-		@if $root {
-			@include add-root($prop-map);
-		}
-		@else {
-			@include add($prop-map);
-		}
+		@include -add($root, $prop-map);
 	}
 	@else {
+
 		$prop-map: (string.quote($key): $value);
 
 		@if $root {
 			$-props-root: map.merge($-props-root, $prop-map) !global;
+			$val: if(
+				meta.type-of($value) == 'number' and math.is-unitless($value),
+				$value,
+				'#{$value}',
+			);
+
+			$tokens: map.merge($tokens, (string.quote(-to-token($key)): $val)) !global;
 		}
 		$-props: map.merge($-props, $prop-map) !global;
 	}
@@ -263,4 +264,20 @@ $-props-root: ();
 	}
 
 	@error '#{token} is not a token in the #{$property} role map. Options are #{$token}.';
+}
+
+// get the token name. extracts the name from CSS variables (e.g., var(--{token}) => token)
+@function -to-token($value) {
+	$var-str: 'var(--';
+
+	@if string.index($value, $var-str) == 1 {
+		$comma-index: string.index($value, ',');
+
+		$end-at: if($comma-index, $comma-index, string.length($value));
+		$var: string.slice($value, string.length($var-str) + 1, $end-at - 1);
+
+		@return $var;
+	}
+
+	@return $value;
 }

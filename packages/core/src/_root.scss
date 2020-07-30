@@ -1,5 +1,5 @@
 ////
-/// @group Root
+/// @group Reset
 ////
 
 @use 'sass:meta';
@@ -8,10 +8,10 @@
 @use 'config';
 @use 'device';
 @use 'motion';
+@use 'properties' as props;
 @use 'radius';
 @use 'spacing';
 @use 'type';
-@use 'properties' as props;
 @use 'util';
 
 @include props.add-root(

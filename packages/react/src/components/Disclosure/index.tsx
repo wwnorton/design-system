@@ -134,10 +134,8 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 			this.detailsRef = detailsRef;
 		}
 
-		if (prevProps.open && !open) {
-			this.close();
-		} else if (!prevProps.open && open) {
-			this.open();
+		if (prevProps.open !== open) {
+			this.toggle();
 		}
 
 		if (prevProps.animate && !animate) {
@@ -175,27 +173,7 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	 */
 	private onSummaryClick = (e: React.MouseEvent<HTMLElement>): void => {
 		e.preventDefault();
-		const { lifecycle } = this.state;
-		if (this.shouldAnimate) {
-			switch (lifecycle) {
-				case 'opening':
-					this.openCancel();
-					break;
-				case 'open':
-					this.closeStart();
-					break;
-				case 'closing':
-					this.closeCancel();
-					break;
-				case 'closed':
-					this.openStart();
-					break;
-				default:
-			}
-		} else {
-			const nextLifecycle = (lifecycle === 'open') ? 'closed' : 'open';
-			this.setState({ lifecycle: nextLifecycle });
-		}
+		this.toggle();
 	}
 
 	// The transition begins with the summary click. On end, update the state if it's closed.
@@ -214,8 +192,8 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 	}
 
 	private get shouldAnimate(): boolean {
-		const { animate = Disclosure.defaultProps.animate } = this.props;
-		return animate && hasTransition(this.contentsOuter);
+		const { animate } = this.props;
+		return Boolean(animate) && hasTransition(this.contentsOuter);
 	}
 
 	private get Summary(): JSX.Element {
@@ -243,9 +221,31 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		);
 	}
 
+	private toggle(): void {
+		const { lifecycle } = this.state;
+		switch (lifecycle) {
+			case 'opening':
+				this.openCancel();
+				break;
+			case 'open':
+				this.closeStart();
+				break;
+			case 'closing':
+				this.closeCancel();
+				break;
+			case 'closed':
+				this.openStart();
+				break;
+			default:
+		}
+	}
+
 	private async closeStart(): Promise<void> {
 		if (await this.callback('onCloseStart')) {
-			this.setState({ lifecycle: 'closing', height: 0 });
+			this.setState({
+				lifecycle: (this.shouldAnimate) ? 'closing' : 'closed',
+				height: 0,
+			});
 		}
 	}
 
@@ -263,7 +263,10 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 
 	private async openStart(): Promise<void> {
 		if (await this.callback('onOpenStart')) {
-			this.setState({ lifecycle: 'opening', height: this.contentsHeight });
+			this.setState({
+				lifecycle: (this.shouldAnimate) ? 'opening' : 'open',
+				height: this.contentsHeight,
+			});
 		}
 	}
 
@@ -277,14 +280,6 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 		if (await this.callback('onOpenEnd')) {
 			this.setState({ lifecycle: 'open' });
 		}
-	}
-
-	private open(): void {
-		this.setState({ lifecycle: (this.shouldAnimate) ? 'opening' : 'open' });
-	}
-
-	private close(): void {
-		this.setState({ lifecycle: (this.shouldAnimate) ? 'closing' : 'closed' });
 	}
 
 	private findHeight(): number {
@@ -357,12 +352,15 @@ export class Disclosure extends React.PureComponent<DisclosureProps, DisclosureS
 			...attributes
 		} = this.props;
 		const { height, lifecycle } = this.state;
-		const classes = classNames({
-			[`${this.baseName}`]: true,
-			[`${this.baseName}--panel`]: variant === 'panel',
-			'reduced-motion': !animate,
-			[`${lifecycle}`]: true,
-		}, className);
+		const classes = classNames(
+			className,
+			this.baseName,
+			prefix(lifecycle),
+			{
+				[`${this.baseName}--panel`]: variant === 'panel',
+				[prefix('reduced-motion')]: !animate,
+			},
+		);
 
 		return (
 			<BaseDetails

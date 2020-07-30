@@ -24,29 +24,42 @@ $-declared: ();
 }
 
 /// Flatten a nested map.
-/// @param {Map} $map - The map that should be flattened.
+/// @param {Map} $map - The map that should be flattened. The `#root` key will
+/// be treated use the name as its key.
 /// @param {String} $name [null] - The name of the map. Resulting keys will use this as a prefix.
 /// @param {String} $key-separator [-] - The separator that will be used to join map names.
 /// @return {Map} The flattened map. Key names will reflect the nesting structure.
-/// @example scss
+/// @example
 ///   @debug flatten((a: (b: (c: 'd'))));
-///   // (a-b-c: 'd')
+///   // ("a-b-c": "d")
+/// @example named
+///   @debug flatten((a: (b: (c: 'd'))), 'foo');
+///   // ("foo-a-b-c": "d")
+/// @example named and a `#root` key
+///   @debug flatten(('a': ('b': 'c', '#root': 'd')), 'foo');
+///   // ("foo-a-b": "c", "foo-a": "d")
+///
 @function flatten($map, $name: null, $key-separator: '-') {
 	$flattened: ();
 
 	@each $key in map.keys($map) {
 		$val: map.get($map, $key);
-		$full-key: if($name, #{prefix($key, $name, $key-separator)}, #{$key});
+		$full-key: if($name, prefix($key, $name, $key-separator), $key);
 
 		@if $key == '#root' {
 			$full-key: $name;
 		}
 
+		@if not $full-key {
+			@error 'When flattening #root keys, ensure that the #root is either '
+				+ 'nested or a valid $name argument is included.';
+		}
+
 		@if meta.type-of($val) == 'map' {
-			$flattened: map.merge($flattened, flatten($val, $full-key));
+			$flattened: map.merge($flattened, flatten($val, string.quote($full-key)));
 		}
 		@else {
-			$flattened: map.merge($flattened, (#{$full-key}: #{$val}));
+			$flattened: map.merge($flattened, (string.quote($full-key): $val));
 		}
 	}
 

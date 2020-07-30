@@ -77,39 +77,39 @@ $-spacer-roles: (
 		token: 'spacing-2px',
 	),
 	(
-		keys: (1, '0.25rem', 'ui-inner'),
+		keys: (1, '0.25rem', '4px', 'ui-inner'),
 		token: 'spacing-1',
 	),
 	(
-		keys: (2, '0.5rem', 'button-y', 'input-y', 'tooltip-y', 'inline-x', 'block-xs', 'cell-sm'),
+		keys: (2, '0.5rem', '8px', 'button-y', 'input-y', 'tooltip-y', 'inline-x', 'block-xs', 'cell-sm'),
 		token: 'spacing-2',
 	),
 	(
-		keys: (3, '0.75rem', 'button-x', 'input-x', 'tooltip-x', 'block-sm'),
+		keys: (3, '0.75rem', '12px', 'button-x', 'input-x', 'dropdown-x', 'tooltip-x', 'block-sm'),
 		token: 'spacing-3',
 	),
 	(
-		keys: (4, '1rem', 'dropdown-x', 'block-base', 'cell-base'),
+		keys: (4, '1rem', '16px', 'block-base', 'cell-base'),
 		token: 'spacing-4',
 	),
 	(
-		keys: (5, '1.25rem'),
+		keys: (5, '1.25rem', '20px'),
 		token: 'spacing-5',
 	),
 	(
-		keys: (6, '1.5rem'),
+		keys: (6, '1.5rem', '24px'),
 		token: 'spacing-6',
 	),
 	(
-		keys: (8, '2rem'),
+		keys: (8, '2rem', '32px'),
 		token: 'spacing-8',
 	),
 	(
-		keys: (10, '2.5rem'),
+		keys: (10, '2.5rem', '40px'),
 		token: 'spacing-10',
 	),
 	(
-		keys: (12, '3rem'),
+		keys: (12, '3rem', '48px'),
 		token: 'spacing-12',
 	),
 );
@@ -123,7 +123,7 @@ $-spacer-roles: (
 
 $base-unit: 4;
 
-$spacing-0: px(0);
+$spacing-0: 0;
 $spacing-1px: 1px;
 $spacing-2px: 2px;
 $spacing-1: rem(0.25);

@@ -28,15 +28,10 @@ $focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring') !default;
 /// Disable animations and transitions when either children of `.reduced-motion`
 /// or the user has specified that they prefer reduced motion on their OS.
 @mixin reduce-motion {
-	@media screen and (prefers-reduced-motion: reduce) {
-		transition: none !important;
-		animation: none !important;
-	}
+	@include props.set($duration-scalar: 0);
 
-	.#{util.prefix(reduced-motion)} & {
-		transition: none !important;
-		animation: none !important;
-	}
+	transition: none !important;
+	animation: none !important;
 }
 
 /// Screen reader only - ensure that the element is only visible to screen readers.
@@ -57,7 +52,7 @@ $focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring') !default;
 	z-index: props.prop('zindex-focus');
 	outline: none;
 	box-shadow: $current-shadows, $shadow;
-	transition: motion.transition(('box-shadow' 'border-radius'));
+	transition: motion.transition(box-shadow border-radius);
 
 	&:not(:focus-visible) {
 		@if list.length($current-shadows) > 0 {
@@ -85,4 +80,19 @@ $focus-shadow-collapse: 0 0 0 1px props.prop('focus-ring') !default;
 	@include -focus(props.prop('focus-shadow-collapse'), $current-shadows...);
 
 	border-color: props.prop('focus-ring-color');
+}
+
+/// Accessibility utility classes.
+/// Includes declarations for `.reduced-motion` and `.sr-only`.
+/// @group Utilities
+@mixin a11y-utilities {
+	@include util.declare('utilities-a11y') {
+		.#{util.prefix('reduced-motion')} {
+			@include reduce-motion;
+		}
+
+		.#{util.prefix('sr-only')} {
+			@include sr-only;
+		}
+	}
 }

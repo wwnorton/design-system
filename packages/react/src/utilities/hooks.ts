@@ -114,6 +114,17 @@ export const useTriggers = ({
 }: {
 	reference?: Element | VirtualElement | null;
 	tooltip?: HTMLElement | null;
+	/**
+	 * A space-separated string of events. Triggers can be any combination of the
+	 * following:
+	 * * `click`
+	 * * `focus`
+	 * * `focusin`
+	 * * `mouseenter`
+	 * * `pointerenter`
+	 * * `manual` - this will override all other triggers, giving you full
+	 * control over visibility.
+	 */
 	trigger: string;
 	isOpen: boolean;
 	hideDelay?: number;
@@ -174,7 +185,7 @@ export const useTriggers = ({
 	};
 
 	useLayoutEffect(() => {
-		if (reference && (reference instanceof HTMLElement || reference instanceof SVGElement)) {
+		if (reference && (reference instanceof HTMLElement || reference instanceof window.SVGElement)) {
 			// hide on Escape for all triggers
 			document.addEventListener('keydown', docKeydownHandler);
 
@@ -213,7 +224,9 @@ export const useTriggers = ({
 
 		return (): void => {
 			clearTimer();
-			if (reference && (reference instanceof HTMLElement || reference instanceof SVGElement)) {
+			if (reference && (
+				reference instanceof HTMLElement || reference instanceof window.SVGElement
+			)) {
 				// click
 				reference.removeEventListener('click', toggle);
 				reference.removeEventListener('keydown', keydownHandler as EventListener);

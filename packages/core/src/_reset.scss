@@ -1,10 +1,6 @@
 // stylelint-disable at-rule-no-vendor-prefix, property-no-vendor-prefix, selector-no-qualifying-type, max-nesting-depth, no-descending-specificity
 
 ////
-/// Reset for HTML elements
-/// Manually forked from Bootstrap's reboot. Additional declarations are
-/// annotated with `NDS:` comments.
-/// @see https://github.com/twbs/bootstrap/blob/main/scss/_reboot.scss
 /// @group Reset
 ////
 
@@ -42,6 +38,10 @@ $legend-margin-bottom: spacing.spacer('block-base') !default;
 $legend-font-size: 1.5rem !default;
 $legend-font-weight: null !default;
 
+/// Apply the HTML reset.
+/// Manually forked from Bootstrap's reboot. Additional declarations are
+/// annotated with `NDS:` comments.
+/// @link https://github.com/twbs/bootstrap/blob/main/scss/_reboot.scss
 @mixin reset {
 	@include util.declare('reset') {
 		// Document

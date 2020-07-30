@@ -12,7 +12,7 @@
     "build:core": "gulp build:core",
     "build:docs": "lerna exec --scope=nds-docs -- npm run build",
     "build:react": "gulp build:react",
-    "build:sassdoc": "sassdoc packages/core/src",
+    "build:sassdoc": "sassdoc packages/core/src --config .sassdocrc.yaml",
     "build:stories": "lerna exec --scope=@wwnds/react -- npm run build:stories",
     "clean": "gulp clean & lerna exec --scope=nds-docs npm run clean",
     "coverage": "nyc --reporter=html --reporter=text npm run test",
@@ -72,7 +72,7 @@
     "all": true,
     "exclude": [
       "**/.*",
-      "**/*.{stories,test}.{ts,tsx}"
+      "**/*.{fixtures,stories,test}.{ts,tsx}"
     ],
     "include": [
       "packages/*/src"

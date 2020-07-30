@@ -43,13 +43,11 @@
 	border-color: $border-color;
 	transition:
 		motion.transition(
-			(
-				color,
-				background-color,
-				border-color,
-				border-radius,
-				box-shadow,
-			)
+			color
+			background-color
+			border-color
+			border-radius
+			box-shadow
 		);
 }
 

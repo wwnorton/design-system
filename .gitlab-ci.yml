@@ -17,6 +17,7 @@ stages:
 
 .build-docs: &build-docs
   before_script:
+    - mv coverage docs/static/
     - npm run build:sassdoc -- --dest docs/static/sassdoc
     - npm run build:stories -- -- --output-dir ../../docs/static/storybook
   script:
@@ -51,6 +52,10 @@ test:
   stage: codequality
   script:
     - npm run coverage
+  artifacts:
+    paths:
+      - coverage
+    expire_in: 30 days
 
 lib:
   stage: build
