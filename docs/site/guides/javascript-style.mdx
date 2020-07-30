@@ -113,13 +113,13 @@ var object = {};
 
 ## Whitespace
 
-### Use soft tabs (space character) set to 2 spaces.
+### Use hard tabs and set tab size to 2.
 eslint: [`indent`](https://eslint.org/docs/rules/indent.html)
 
 ```javascript
 // bad 👎
 function foo() {
-∙∙∙∙let name;
+∙∙let name;
 }
 
 // bad 👎
@@ -129,7 +129,7 @@ function bar() {
 
 // good 👍
 function baz() {
-∙∙let name;
+∙ let name;
 }
 ```
 
@@ -196,7 +196,8 @@ const x=y+5;
 const x = y + 5;
 ```
 
-### End files with a single newline character. eslint: [`eol-last`](https://github.com/eslint/eslint/blob/master/docs/rules/eol-last.md)
+### End files with a single newline character.
+eslint: [`eol-last`](https://github.com/eslint/eslint/blob/master/docs/rules/eol-last.md)
 
 ```javascript
 // bad 👎
@@ -361,7 +362,8 @@ if (baz) {
 }
 ```
 
-### Do not use multiple blank lines to pad your code. eslint: [`no-multiple-empty-lines`](https://eslint.org/docs/rules/no-multiple-empty-lines)
+### Do not use multiple blank lines to pad your code.
+eslint: [`no-multiple-empty-lines`](https://eslint.org/docs/rules/no-multiple-empty-lines)
 
 ```javascript
 // bad 👎
@@ -462,7 +464,7 @@ const foo = {clark: 'kent'};
 const foo = { clark: 'kent' };
 ```
 
-### Avoid having lines of code that are longer than 80 characters (including whitespace). Note: per [above](#strings--line-length), long strings are exempt from this rule, and should not be broken up.
+### Avoid having lines of code that are longer than 80 characters (including whitespace). Note: long strings are exempt from this rule, and should not be broken up.
 eslint: [`max-len`](https://eslint.org/docs/rules/max-len.html)
 > Why? This ensures readability and maintainability.
 
