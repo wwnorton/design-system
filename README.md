@@ -30,7 +30,7 @@ The following assumes that you already have [Node.js](https://nodejs.org/en/) an
 ```sh
 git clone https://gitlab.com/wwnorton/platform/design-system.git && cd design-system
 npm install
-npm run lerna bootstrap
+npm run bootstrap
 ```
 
 ### Developing
