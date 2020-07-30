@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.0.0-beta.1](https://gitlab.com/wwnorton/platform/design-system/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2020-07-30)
 
+With this release, the scope has been changed from `@nds` to `@wwnds` to allow us to publish on the public NPM registry.
+To update, you will need to uninstall `@nds/{core,react}` and then install `@wwnds/{core,react}`.
+
+```sh
+npm un @nds/{core,react}
+npm i @wwnds/{core,react}
+```
+
 ### Bug Fixes
 
 - **core:** only transition disclosure's transform property ([99c1740](https://gitlab.com/wwnorton/platform/design-system/commit/99c17405b65625b9377899faebb998d7558c8740))
