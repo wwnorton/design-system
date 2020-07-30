@@ -1,6 +1,8 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
+import {
+	withKnobs, boolean, select, number,
+} from '@storybook/addon-knobs';
 import { Button } from '../Button';
 import { OnChangeData } from '../BaseListbox';
 import { Dropdown, DropdownProps } from '.';
@@ -70,7 +72,7 @@ export const MatchButtonWidth: React.FunctionComponent = () => (
 	<Dropdown
 		label="Choose an element"
 		matchWidth="button"
-		buttonWidth="12rem"
+		buttonWidth={`${number('Button width (rem)', 12, { step: 0.25 })}rem`}
 		disabled={boolean('Disabled', false)}
 	>
 		{ options }
@@ -95,7 +97,7 @@ export const ComplexOptions: React.FunctionComponent = () => (
 		matchWidth="button"
 		buttonClass="dropdown__button fruits"
 		sort={select<DropdownProps['sort']>('Sort', sortOptions, undefined)}
-		buttonWidth="6rem"
+		buttonWidth={`${number('Button width (rem)', 6)}rem`}
 		disabled={boolean('Disabled', false)}
 	>
 		<Dropdown.Option value="apple">
