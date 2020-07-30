@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.1](https://gitlab.com/wwnorton/platform/design-system/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2020-07-30)
+
+### Bug Fixes
+
+- **core:** only transition disclosure's transform property ([99c1740](https://gitlab.com/wwnorton/platform/design-system/commit/99c17405b65625b9377899faebb998d7558c8740))
+- **react:** ensure that returnFocus doesn't have side effects ([eec5d6c](https://gitlab.com/wwnorton/platform/design-system/commit/eec5d6c9201809db85afdf1d89804ee5bc1613fd))
+- **react:** move deprecated keypress listener to keydown ([6306316](https://gitlab.com/wwnorton/platform/design-system/commit/6306316d3d0e882599785fff88b63bea615636e2))
+- **react:** render FieldInfo children in a fragment ([266e0d8](https://gitlab.com/wwnorton/platform/design-system/commit/266e0d88a082848b9c523b0bddf2c69607a330b1))
+- **react:** SVGElement does not exist on global ([f950cce](https://gitlab.com/wwnorton/platform/design-system/commit/f950cce50435d0de0efd0139182f401f0da97eda))
+
+### Features
+
+- **core:** add initial utility declarations ([d4c85b3](https://gitlab.com/wwnorton/platform/design-system/commit/d4c85b34345ca708b1ac1a847a47375fd5f510be))
+- **core:** add tokens map, to be used as JSON output ([e88d234](https://gitlab.com/wwnorton/platform/design-system/commit/e88d234cd6d168962353bc25c79046dcb2de0e93))
+- **react:** explicitly disallow click listeners on icons ([10066de](https://gitlab.com/wwnorton/platform/design-system/commit/10066de64fd0a8e58f09791e7a04474a2e942212))
+
+### Performance Improvements
+
+- reduce grade iterations ([2eb2b56](https://gitlab.com/wwnorton/platform/design-system/commit/2eb2b56bb5971651c4c9f63efee0280cdf203e3b))
+
 # [1.0.0-beta.0](https://gitlab.com/wwnorton/platform/design-system/compare/v0.9.4...v1.0.0-beta.0) (2020-07-17)
 
 ### Bug Fixes

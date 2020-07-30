@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.1](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2020-07-30)
+
+### Bug Fixes
+
+- **react:** ensure that returnFocus doesn't have side effects ([eec5d6c](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react/commit/eec5d6c9201809db85afdf1d89804ee5bc1613fd))
+- **react:** move deprecated keypress listener to keydown ([6306316](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react/commit/6306316d3d0e882599785fff88b63bea615636e2))
+- **react:** render FieldInfo children in a fragment ([266e0d8](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react/commit/266e0d88a082848b9c523b0bddf2c69607a330b1))
+- **react:** SVGElement does not exist on global ([f950cce](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react/commit/f950cce50435d0de0efd0139182f401f0da97eda))
+
+### Features
+
+- **react:** explicitly disallow click listeners on icons ([10066de](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react/commit/10066de64fd0a8e58f09791e7a04474a2e942212))
+
+* chore!: update the scope (nds -> wwnds) ([1c10f9f](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react/commit/1c10f9fe79dd10b8b6d518e5a1d0e47b4643b5e1))
+
+### BREAKING CHANGES
+
+- The design system scope is now `@wwnds`. Uninstall `@nds/{core,react}` and reinstall `@wwnds/{core,react}` to update and then change all imports to use the new package names.
+
 # [1.0.0-beta.0](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/react/compare/v0.9.4...v1.0.0-beta.0) (2020-07-17)
 
 ### Bug Fixes

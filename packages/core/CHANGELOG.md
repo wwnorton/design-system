@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.1](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2020-07-30)
+
+### Bug Fixes
+
+- **core:** only transition disclosure's transform property ([99c1740](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/99c17405b65625b9377899faebb998d7558c8740))
+
+### Features
+
+- **core:** add initial utility declarations ([d4c85b3](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/d4c85b34345ca708b1ac1a847a47375fd5f510be))
+- **core:** add tokens map, to be used as JSON output ([e88d234](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/e88d234cd6d168962353bc25c79046dcb2de0e93))
+
+### Performance Improvements
+
+- reduce grade iterations ([2eb2b56](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/2eb2b56bb5971651c4c9f63efee0280cdf203e3b))
+
+* chore!: update the scope (nds -> wwnds) ([1c10f9f](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/commit/1c10f9fe79dd10b8b6d518e5a1d0e47b4643b5e1))
+
+### BREAKING CHANGES
+
+- The design system scope is now `@wwnds`. Uninstall `@nds/{core,react}` and reinstall `@wwnds/{core,react}` to update and then change all imports to use the new package names.
+
 # [1.0.0-beta.0](https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core/compare/v0.9.4...v1.0.0-beta.0) (2020-07-17)
 
 ### Code Refactoring
