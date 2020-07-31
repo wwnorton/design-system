@@ -42,7 +42,7 @@ jobs:
           PATH_PREFIX: /${{ steps.extract.outputs.branch }}/
       - run: mv docs/public public
       - name: Deploy 🚀
-        uses: jakejarvis/s3-sync-action@0.5.1
+        uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
@@ -54,7 +54,7 @@ jobs:
           DEST_DIR: ${{ steps.extract.outputs.branch }}
       - name: Clean 🧹
         if: github.event.pull_request.merged == true
-        uses: vitorsgomes/s3-rm-action@1.0.1
+        uses: vitorsgomes/s3-rm-action@v1.0.1
         with:
           args: --recursive
         env:
