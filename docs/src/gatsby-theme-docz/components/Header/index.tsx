@@ -8,7 +8,7 @@ import {
 	Edit, Menu, Sun, Moon,
 } from 'react-feather';
 import { withPrefix } from 'gatsby';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Logo } from '../Logo';
 import * as styles from './styles';
 
@@ -37,7 +37,7 @@ export const Header: React.FunctionComponent<HeaderProps> = ({ onOpen }: HeaderP
 	useEffect(() => {
 		const mql = window.matchMedia('(prefers-color-scheme: dark)');
 		setColorScheme((mql.matches) ? 'light' : 'dark');
-	}, []);
+	}, [setColorScheme]);
 
 	return (
 		<header sx={styles.wrapper} data-testid="header">
