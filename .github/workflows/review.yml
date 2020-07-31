@@ -37,6 +37,11 @@ jobs:
         env:
           PATH_PREFIX: /${{ github.head_ref }}/
       - run: mv docs/public public
+      - name: Upload artifact ⬆
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.head_ref }}
+          path: public
       - name: Deploy 🚀
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -45,11 +50,6 @@ jobs:
           AWS_CF_DISTRIBUTION_ID: ${{ secrets.AWS_CF_DISTRIBUTION_ID }}
           SOURCE_DIR: public
           DEST_DIR: ${{ github.head_ref }}
-      - name: Upload artifact ⬆
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ github.head_ref }}
-          path: public
       - name: Clean 🧹
         if: github.event.pull_request.merged == true
         uses: vitorsgomes/s3-rm-action@master
