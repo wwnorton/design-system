@@ -19,6 +19,7 @@ jobs:
         run: |
           echo ref: ${{ github.ref }}
           echo event.ref: ${{ github.event.ref }}
+          echo head_ref: ${{ github.head_ref }}
           echo branch: ${{ steps.extract.outputs.branch }}
       - uses: actions/cache@v2
         id: cache
