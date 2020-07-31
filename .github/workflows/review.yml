@@ -45,3 +45,14 @@ jobs:
           AWS_REGION: "us-east-1"
           SOURCE_DIR: "public"
           DEST_DIR: ${{ github.ref }}
+      - name: Clean 🧹
+        if: github.event.pull_request.merged == true
+        uses: vitorsgomes/s3-rm-action@master
+        with:
+          args: --recursive
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          PATH_TO_DELETE: ${{ github.event.ref }}
