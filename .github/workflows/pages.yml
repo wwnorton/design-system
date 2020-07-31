@@ -21,7 +21,7 @@ jobs:
       - name: Restore Cache 💵
         uses: actions/cache@v2
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: NPM install 📦
         if: steps.cache.outputs.cache-hit != 'true'
