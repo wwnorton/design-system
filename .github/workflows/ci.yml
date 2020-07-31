@@ -21,9 +21,7 @@ jobs:
       - name: Cache 💵
         uses: actions/cache@v2
         with:
-          path: |
-            node_modules
-            */*/node_modules
+          path: '**/node_modules'
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: NPM install 📦
         if: steps.cache.outputs.cache-hit != 'true'
@@ -45,9 +43,7 @@ jobs:
       - name: Restore Cache 💵
         uses: actions/cache@v2
         with:
-          path: |
-            node_modules
-            */*/node_modules
+          path: '**/node_modules'
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: ESLint ✨
         run: npm run lint:es
@@ -65,9 +61,7 @@ jobs:
       - name: Restore Cache 💵
         uses: actions/cache@v2
         with:
-          path: |
-            node_modules
-            */*/node_modules
+          path: '**/node_modules'
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Stylelint ✨
         run: npm run lint:style
@@ -86,9 +80,7 @@ jobs:
       - name: Restore Cache 💵
         uses: actions/cache@v2
         with:
-          path: |
-            node_modules
-            */*/node_modules
+          path: '**/node_modules'
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Prettier ✨
         run: npm run lint:prettier
@@ -106,9 +98,7 @@ jobs:
       - name: Restore Cache 💵
         uses: actions/cache@v2
         with:
-          path: |
-            node_modules
-            */*/node_modules
+          path: '**/node_modules'
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Test 🧪
         run: npm run coverage
@@ -130,9 +120,7 @@ jobs:
       - name: Restore Cache 💵
         uses: actions/cache@v2
         with:
-          path: |
-            node_modules
-            */*/node_modules
+          path: '**/node_modules'
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Build 🔧
         run: npm run build
