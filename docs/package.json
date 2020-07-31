@@ -8,11 +8,11 @@
     "site",
     "www"
   ],
-  "homepage": "https://gitlab.com/wwnorton/platform/design-system/tree/main/docs#readme",
-  "bugs": "https://gitlab.com/wwnorton/platform/design-system/issues",
+  "homepage": "https://github.com/wwnorton/design-system/tree/main/docs#readme",
+  "bugs": "https://github.com/wwnorton/design-system/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/wwnorton/platform/design-system/tree/main/docs.git"
+    "url": "git+https://github.com/wwnorton/design-system/tree/main/docs.git"
   },
   "license": "UNLICENSED",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
