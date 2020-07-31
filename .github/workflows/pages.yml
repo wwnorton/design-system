@@ -24,10 +24,15 @@ jobs:
       - name: Lerna bootstrap 👢
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm run bootstrap
+      - name: Build Sassdoc 💄
+        run: npm run build:sassdoc -- --dest docs/static/sassdoc
+      - name: Build Storybook 📚
+        run: npm run build:stories -- -- --output-dir ../../docs/static/storybook
       - name: Build docs 📄
         run: npm run build:docs
         env:
           PATH_PREFIX: /design-system
+      - run: mv docs/public public
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
