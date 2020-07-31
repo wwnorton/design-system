@@ -15,7 +15,7 @@
     "build:sassdoc": "sassdoc packages/core/src --config .sassdocrc.yaml",
     "build:stories": "lerna exec --scope=@wwnds/react -- npm run build:stories",
     "clean": "gulp clean & lerna exec --scope=nds-docs npm run clean",
-    "coverage": "nyc --reporter=html --reporter=text npm run test",
+    "coverage": "nyc --reporter=html --reporter=json --reporter=text npm run test",
     "dev": "gulp dev",
     "dev:core": "gulp dev:core",
     "dev:docs": "lerna exec --scope=nds-docs -- npm run develop",
