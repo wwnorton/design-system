@@ -40,9 +40,14 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "us-east-1"
-          SOURCE_DIR: "public"
+          AWS_REGION: us-east-1
+          SOURCE_DIR: public
           DEST_DIR: ${{ github.head_ref }}
+      - name: Upload artifact ⬆
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.head_ref }}
+          path: public
       - name: Clean 🧹
         if: github.event.pull_request.merged == true
         uses: vitorsgomes/s3-rm-action@master
