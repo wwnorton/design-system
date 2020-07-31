@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
-      - name: Restore cache 💵
+      - name: Cache 💵
         uses: actions/cache@v2
         with:
           path: |
@@ -26,9 +26,11 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: NPM install 📦
-        run: npm install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Lerna bootstrap 👢
-        run: npm run bootstrap -- --no-ci
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
 
   eslint:
     needs: prepare
@@ -40,6 +42,13 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
+      - name: Restore Cache 💵
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: ESLint ✨
         run: npm run lint:es
 
@@ -53,6 +62,13 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
+      - name: Restore Cache 💵
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Stylelint ✨
         run: npm run lint:style
 
@@ -67,6 +83,13 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
+      - name: Restore Cache 💵
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Prettier ✨
         run: npm run lint:prettier
 
@@ -80,6 +103,13 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
+      - name: Restore Cache 💵
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
@@ -97,6 +127,13 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
+      - name: Restore Cache 💵
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Build 🔧
         run: npm run build
 
@@ -112,6 +149,13 @@ jobs:
         uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
+      - name: Restore Cache 💵
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Build docs 📄
         run: npm run build:docs
         env:
