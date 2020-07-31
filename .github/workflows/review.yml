@@ -6,6 +6,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug 🐛
+        run: |
+          echo ref: ${{ github.ref }}
+          echo event: ${{ github.event }}
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.1
         with:
