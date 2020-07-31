@@ -6,14 +6,18 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug 🐛
-        run: |
-          echo ref: ${{ github.ref }}
-          echo event: ${{ github.event }}
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
+      - run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        shell: bash
+        id: extract
+      - name: Debug 🐛
+        run: |
+          echo ref: ${{ github.ref }}
+          echo event.ref: ${{ github.event.ref }}
+          echo branch: ${{ steps.extract.outputs.branch }}
       - uses: actions/cache@v2
         id: cache
         with:
@@ -32,7 +36,7 @@ jobs:
       - name: Build docs 📄
         run: npm run build:docs
         env:
-          PATH_PREFIX: /design-system
+          PATH_PREFIX: /${{ steps.extract.outputs.branch }}/
       - run: mv docs/public public
       - name: Deploy 🚀
         uses: jakejarvis/s3-sync-action@master
@@ -44,7 +48,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1"
           SOURCE_DIR: "public"
-          DEST_DIR: ${{ github.ref }}
+          DEST_DIR: ${{ steps.extract.outputs.branch }}
       - name: Clean 🧹
         if: github.event.pull_request.merged == true
         uses: vitorsgomes/s3-rm-action@master
@@ -55,4 +59,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          PATH_TO_DELETE: ${{ github.event.ref }}
+          PATH_TO_DELETE: ${{ steps.extract.outputs.branch }}
