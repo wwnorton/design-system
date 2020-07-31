@@ -1,0 +1,41 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-docs-pages:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Setup Node.js environment 🌄
+        uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - name: Restore Cache 💵
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: NPM install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Lerna bootstrap 👢
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
+      - name: Build docs 📄
+        run: npm run build:docs
+        env:
+          PATH_PREFIX: /design-system
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: public
