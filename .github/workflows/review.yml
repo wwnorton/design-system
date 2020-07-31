@@ -1,9 +1,9 @@
-name: Integration
+name: Review
 
 on: [pull_request]
 
 jobs:
-  deploy-docs-review:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
