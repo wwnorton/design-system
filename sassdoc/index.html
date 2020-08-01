@@ -1,0 +1,1155 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Norton Design System Sassdoc</title><link rel="stylesheet" href="assets/css/main.css"><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,700" rel="stylesheet" type="text/css"><meta name="viewport" content="width=device-width"><meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible"><!-- Open Graph tags --><meta property="og:title" content="Norton Design System Sassdoc - SassDoc"><meta property="og:type" content="website"><meta property="og:description" content="<p>Styles, components, and utilities for building accessible, responsive products.</p>
+"><!-- Thanks to Sass-lang.com for the icons --><link href="assets/images/favicon.png" rel="shortcut icon"></head><body><aside class="sidebar" role="nav"><div class="sidebar__header"><h1 class="sidebar__title">Norton Design System Sassdoc</h1></div><div class="sidebar__body"><button type="button" class="btn-toggle js-btn-toggle" data-alt="Open all">Close all</button><p class="sidebar__item sidebar__item--heading" data-slug="accessibility"><a href="#accessibility">Accessibility</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="accessibility-variable"><a href="#accessibility-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="accessibility" data-name="focus-ring-inner" data-type="variable"><a href="#accessibility-variable-focus-ring-inner">focus-ring-inner</a></li><li class="sidebar__item sassdoc__item" data-group="accessibility" data-name="focus-shadow" data-type="variable"><a href="#accessibility-variable-focus-shadow">focus-shadow</a></li><li class="sidebar__item sassdoc__item" data-group="accessibility" data-name="focus-shadow-collapse" data-type="variable"><a href="#accessibility-variable-focus-shadow-collapse">focus-shadow-collapse</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="accessibility-mixin"><a href="#accessibility-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="accessibility" data-name="reduce-motion" data-type="mixin"><a href="#accessibility-mixin-reduce-motion">reduce-motion</a></li><li class="sidebar__item sassdoc__item" data-group="accessibility" data-name="sr-only" data-type="mixin"><a href="#accessibility-mixin-sr-only">sr-only</a></li><li class="sidebar__item sassdoc__item" data-group="accessibility" data-name="focus-ring" data-type="mixin"><a href="#accessibility-mixin-focus-ring">focus-ring</a></li><li class="sidebar__item sassdoc__item" data-group="accessibility" data-name="focus-ring-collapse" data-type="mixin"><a href="#accessibility-mixin-focus-ring-collapse">focus-ring-collapse</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="color"><a href="#color">Color</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="color-function"><a href="#color-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="color" data-name="family" data-type="function"><a href="#color-function-family">family</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="scheme" data-type="function"><a href="#color-function-scheme">scheme</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="get-grade" data-type="function"><a href="#color-function-get-grade">get-grade</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="get-family" data-type="function"><a href="#color-function-get-family">get-family</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="color-variable"><a href="#color-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="color" data-name="primary-family" data-type="variable"><a href="#color-variable-primary-family">primary-family</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="primary-grade" data-type="variable"><a href="#color-variable-primary-grade">primary-grade</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="base-family" data-type="variable"><a href="#color-variable-base-family">base-family</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="base-grade" data-type="variable"><a href="#color-variable-base-grade">base-grade</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="disabled-family" data-type="variable"><a href="#color-variable-disabled-family">disabled-family</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="disabled-grade" data-type="variable"><a href="#color-variable-disabled-grade">disabled-grade</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="error-family" data-type="variable"><a href="#color-variable-error-family">error-family</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="error-grade" data-type="variable"><a href="#color-variable-error-grade">error-grade</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="success-family" data-type="variable"><a href="#color-variable-success-family">success-family</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="success-grade" data-type="variable"><a href="#color-variable-success-grade">success-grade</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="warning-family" data-type="variable"><a href="#color-variable-warning-family">warning-family</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="warning-grade" data-type="variable"><a href="#color-variable-warning-grade">warning-grade</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="body-bg" data-type="variable"><a href="#color-variable-body-bg">body-bg</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="body-text" data-type="variable"><a href="#color-variable-body-text">body-text</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="subdued" data-type="variable"><a href="#color-variable-subdued">subdued</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="focus-ring" data-type="variable"><a href="#color-variable-focus-ring">focus-ring</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="color-mixin"><a href="#color-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="color" data-name="theme" data-type="mixin"><a href="#color-mixin-theme">theme</a></li><li class="sidebar__item sassdoc__item" data-group="color" data-name="set-scheme" data-type="mixin"><a href="#color-mixin-set-scheme">set-scheme</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="config"><a href="#config">Config</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="config-variable"><a href="#config-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="config" data-name="namespace" data-type="variable"><a href="#config-variable-namespace">namespace</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="browser-font-size" data-type="variable"><a href="#config-variable-browser-font-size">browser-font-size</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="css-property-fallback" data-type="variable"><a href="#config-variable-css-property-fallback">css-property-fallback</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="warn-on-missing-fallback" data-type="variable"><a href="#config-variable-warn-on-missing-fallback">warn-on-missing-fallback</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="duplicate-declarations" data-type="variable"><a href="#config-variable-duplicate-declarations">duplicate-declarations</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="enable-dark-scheme" data-type="variable"><a href="#config-variable-enable-dark-scheme">enable-dark-scheme</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="enable-utilities" data-type="variable"><a href="#config-variable-enable-utilities">enable-utilities</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="typeset-body-base" data-type="variable"><a href="#config-variable-typeset-body-base">typeset-body-base</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="typeset-ui-base" data-type="variable"><a href="#config-variable-typeset-ui-base">typeset-ui-base</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="device"><a href="#device">Device</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="device-variable"><a href="#device-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="device" data-name="device-xs" data-type="variable"><a href="#device-variable-device-xs">device-xs</a></li><li class="sidebar__item sassdoc__item" data-group="device" data-name="device-sm" data-type="variable"><a href="#device-variable-device-sm">device-sm</a></li><li class="sidebar__item sassdoc__item" data-group="device" data-name="device-md" data-type="variable"><a href="#device-variable-device-md">device-md</a></li><li class="sidebar__item sassdoc__item" data-group="device" data-name="device-lg" data-type="variable"><a href="#device-variable-device-lg">device-lg</a></li><li class="sidebar__item sassdoc__item" data-group="device" data-name="device-xl" data-type="variable"><a href="#device-variable-device-xl">device-xl</a></li><li class="sidebar__item sassdoc__item" data-group="device" data-name="hd-dpi" data-type="variable"><a href="#device-variable-hd-dpi">hd-dpi</a></li><li class="sidebar__item sassdoc__item" data-group="device" data-name="hd-dppx" data-type="variable"><a href="#device-variable-hd-dppx">hd-dppx</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="device-mixin"><a href="#device-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="device" data-name="media-hd" data-type="mixin"><a href="#device-mixin-media-hd">media-hd</a></li><li class="sidebar__item sassdoc__item" data-group="device" data-name="media-up" data-type="mixin"><a href="#device-mixin-media-up">media-up</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="motion"><a href="#motion">Motion</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="motion-function"><a href="#motion-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="motion" data-name="transition" data-type="function"><a href="#motion-function-transition">transition</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="motion-variable"><a href="#motion-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-scalar" data-type="variable"><a href="#motion-variable-duration-scalar">duration-scalar</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-simple" data-type="variable"><a href="#motion-variable-duration-simple">duration-simple</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-simple-enter" data-type="variable"><a href="#motion-variable-duration-simple-enter">duration-simple-enter</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-simple-exit" data-type="variable"><a href="#motion-variable-duration-simple-exit">duration-simple-exit</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-complex" data-type="variable"><a href="#motion-variable-duration-complex">duration-complex</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-detailed" data-type="variable"><a href="#motion-variable-duration-detailed">duration-detailed</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-open" data-type="variable"><a href="#motion-variable-duration-open">duration-open</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-close" data-type="variable"><a href="#motion-variable-duration-close">duration-close</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-expand" data-type="variable"><a href="#motion-variable-duration-expand">duration-expand</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="duration-collapse" data-type="variable"><a href="#motion-variable-duration-collapse">duration-collapse</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="easing-standard" data-type="variable"><a href="#motion-variable-easing-standard">easing-standard</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="easing-deceleration" data-type="variable"><a href="#motion-variable-easing-deceleration">easing-deceleration</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="easing-acceleration" data-type="variable"><a href="#motion-variable-easing-acceleration">easing-acceleration</a></li><li class="sidebar__item sassdoc__item" data-group="motion" data-name="easing-sharp" data-type="variable"><a href="#motion-variable-easing-sharp">easing-sharp</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="properties"><a href="#properties">Properties</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="properties-function"><a href="#properties-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="properties" data-name="get-props" data-type="function"><a href="#properties-function-get-props">get-props</a></li><li class="sidebar__item sassdoc__item" data-group="properties" data-name="prop" data-type="function"><a href="#properties-function-prop">prop</a></li><li class="sidebar__item sassdoc__item" data-group="properties" data-name="value" data-type="function"><a href="#properties-function-value">value</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="properties-mixin"><a href="#properties-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="properties" data-name="add" data-type="mixin"><a href="#properties-mixin-add">add</a></li><li class="sidebar__item sassdoc__item" data-group="properties" data-name="add-root" data-type="mixin"><a href="#properties-mixin-add-root">add-root</a></li><li class="sidebar__item sassdoc__item" data-group="properties" data-name="set" data-type="mixin"><a href="#properties-mixin-set">set</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="reset"><a href="#reset">Reset</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="reset-mixin"><a href="#reset-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="reset" data-name="reset" data-type="mixin"><a href="#reset-mixin-reset">reset</a></li><li class="sidebar__item sassdoc__item" data-group="reset" data-name="root" data-type="mixin"><a href="#reset-mixin-root">root</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="spacing"><a href="#spacing">Spacing</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="spacing-function"><a href="#spacing-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="spacing" data-name="px-rem" data-type="function"><a href="#spacing-function-px-rem">px-rem</a></li><li class="sidebar__item sassdoc__item" data-group="spacing" data-name="rem-px" data-type="function"><a href="#spacing-function-rem-px">rem-px</a></li><li class="sidebar__item sassdoc__item" data-group="spacing" data-name="px" data-type="function"><a href="#spacing-function-px">px</a></li><li class="sidebar__item sassdoc__item" data-group="spacing" data-name="rem" data-type="function"><a href="#spacing-function-rem">rem</a></li><li class="sidebar__item sassdoc__item" data-group="spacing" data-name="padding" data-type="function"><a href="#spacing-function-padding">padding</a></li><li class="sidebar__item sassdoc__item" data-group="spacing" data-name="spacer" data-type="function"><a href="#spacing-function-spacer">spacer</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="typography"><a href="#typography">Typography</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="typography-function"><a href="#typography-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="typography" data-name="sans" data-type="function"><a href="#typography-function-sans">sans</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="serif" data-type="function"><a href="#typography-function-serif">serif</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="mono" data-type="function"><a href="#typography-function-mono">mono</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="size" data-type="function"><a href="#typography-function-size">size</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="typography-variable"><a href="#typography-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="typography" data-name="font-family-base" data-type="variable"><a href="#typography-variable-font-family-base">font-family-base</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="font-family-headings" data-type="variable"><a href="#typography-variable-font-family-headings">font-family-headings</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="typography-mixin"><a href="#typography-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="typography" data-name="font-smoothing" data-type="mixin"><a href="#typography-mixin-font-smoothing">font-smoothing</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="typeset" data-type="mixin"><a href="#typography-mixin-typeset">typeset</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="body-base" data-type="mixin"><a href="#typography-mixin-body-base">body-base</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="body-xs" data-type="mixin"><a href="#typography-mixin-body-xs">body-xs</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="body-sm" data-type="mixin"><a href="#typography-mixin-body-sm">body-sm</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="body-md" data-type="mixin"><a href="#typography-mixin-body-md">body-md</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="body-lg" data-type="mixin"><a href="#typography-mixin-body-lg">body-lg</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="ui-base" data-type="mixin"><a href="#typography-mixin-ui-base">ui-base</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="ui-xs" data-type="mixin"><a href="#typography-mixin-ui-xs">ui-xs</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="ui-sm" data-type="mixin"><a href="#typography-mixin-ui-sm">ui-sm</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="ui-md" data-type="mixin"><a href="#typography-mixin-ui-md">ui-md</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="ui-lg" data-type="mixin"><a href="#typography-mixin-ui-lg">ui-lg</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="typeset-heading" data-type="mixin"><a href="#typography-mixin-typeset-heading">typeset-heading</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="heading-1" data-type="mixin"><a href="#typography-mixin-heading-1">heading-1</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="heading-2" data-type="mixin"><a href="#typography-mixin-heading-2">heading-2</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="heading-3" data-type="mixin"><a href="#typography-mixin-heading-3">heading-3</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="heading-4" data-type="mixin"><a href="#typography-mixin-heading-4">heading-4</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="heading-5" data-type="mixin"><a href="#typography-mixin-heading-5">heading-5</a></li><li class="sidebar__item sassdoc__item" data-group="typography" data-name="heading-6" data-type="mixin"><a href="#typography-mixin-heading-6">heading-6</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="utilities"><a href="#utilities">Utilities</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="utilities-mixin"><a href="#utilities-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="utilities" data-name="a11y-utilities" data-type="mixin"><a href="#utilities-mixin-a11y-utilities">a11y-utilities</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="utilities-function"><a href="#utilities-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="utilities" data-name="flatten" data-type="function"><a href="#utilities-function-flatten">flatten</a></li><li class="sidebar__item sassdoc__item" data-group="utilities" data-name="deep-merge" data-type="function"><a href="#utilities-function-deep-merge">deep-merge</a></li><li class="sidebar__item sassdoc__item" data-group="utilities" data-name="get-key" data-type="function"><a href="#utilities-function-get-key">get-key</a></li></ul></div></div></aside><article class="main" role="main"><header class="header" role="banner"><div class="container"><div class="sassdoc__searchbar searchbar"><label for="js-search-input" class="visually-hidden">Search</label><div class="searchbar__form" id="js-search"><input name="search" type="search" class="searchbar__field" autocomplete="off" autofocus id="js-search-input" placeholder="Search"><ul class="searchbar__suggestions" id="js-search-suggestions"></ul></div></div></div></header><section class="main__section"><h1 class="main__heading" id="accessibility"><div class="container">Accessibility</div></h1><section class="main__sub-section" id="accessibility-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="accessibility-variable-focus-ring-inner"><h3 class="item__heading"><a class="item__name" href="#variable-focus-ring-inner">focus-ring-inner</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$focus-ring-inner: props.prop(&#39;body-bg&#39;) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The color of the inner focus ring ring. Change this to the background color if the focused element isn&#39;t sitting on an element with a background color of <code>body-bg</code>.</p></div></section><section class="main__item container item" id="accessibility-variable-focus-shadow"><h3 class="item__heading"><a class="item__name" href="#variable-focus-shadow">focus-shadow</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$focus-shadow: (
+	0 0 0 1px props.prop(&#39;focus-ring-inner&#39;),
+	0 0 0 3px props.prop(&#39;focus-ring&#39;),
+) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The default focus shadow has a 2px outer ring and an inner ring that matches the body&#39;s background color by default, giving the illusion of transparency.</p></div></section><section class="main__item container item" id="accessibility-variable-focus-shadow-collapse"><h3 class="item__heading"><a class="item__name" href="#variable-focus-shadow-collapse">focus-shadow-collapse</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$focus-shadow-collapse: 0 0 0 1px props.prop(&#39;focus-ring&#39;) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A collapsed focus shadow that is meant to be used the focused element conveys focus through some other mechanism, such as an <code>&lt;input&gt;</code>&#39;s caret.</p></div></section></section><section class="main__sub-section" id="accessibility-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="accessibility-mixin-reduce-motion"><h3 class="item__heading"><a class="item__name" href="#mixin-reduce-motion">reduce-motion</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin reduce-motion() { 
+	@include props.set($duration-scalar: 0);
+
+	transition: none !important;
+	animation: none !important;
+ }" data-collapsed="@mixin reduce-motion() { ... }"><code>@mixin reduce-motion() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Disable animations and transitions when either children of <code>.reduced-motion</code> or the user has specified that they prefer reduced motion on their OS.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#motion-variable-duration-scalar"><code>duration-scalar</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#utilities-mixin-a11y-utilities"><code>a11y-utilities</code></a></li></ul></section><section class="main__item container item" id="accessibility-mixin-sr-only"><h3 class="item__heading"><a class="item__name" href="#mixin-sr-only">sr-only</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin sr-only() { 
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+ }" data-collapsed="@mixin sr-only() { ... }"><code>@mixin sr-only() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Screen reader only - ensure that the element is only visible to screen readers.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#utilities-mixin-a11y-utilities"><code>a11y-utilities</code></a></li></ul><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss">https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss</a></li></ul></section><section class="main__item container item" id="accessibility-mixin-focus-ring"><h3 class="item__heading"><a class="item__name" href="#mixin-focus-ring">focus-ring</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin focus-ring($current-shadows...) { 
+	@include -focus(props.prop(&#39;focus-shadow&#39;), $current-shadows...);
+ }" data-collapsed="@mixin focus-ring($current-shadows...) { ... }"><code>@mixin focus-ring($current-shadows...) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A box shadow focus indicator. The rendered focus ring is offset from the focused element by 1px of <code>focus-ring-inner</code> (<code>body-bg</code> by default).</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$current-shadows...</code></th><td data-label="desc"><p>Zero or more additional shadows to be applied in addition to the focus indicator.</p></td><td data-label="type"><code>List[]</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="accessibility-mixin-focus-ring-collapse"><h3 class="item__heading"><a class="item__name" href="#mixin-focus-ring-collapse">focus-ring-collapse</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin focus-ring-collapse($current-shadows...) { 
+	@include -focus(props.prop(&#39;focus-shadow-collapse&#39;), $current-shadows...);
+
+	border-color: props.prop(&#39;focus-ring-color&#39;);
+ }" data-collapsed="@mixin focus-ring-collapse($current-shadows...) { ... }"><code>@mixin focus-ring-collapse($current-shadows...) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A collapsed shadow focus indicator. This is similar to the normal focus ring but does not have the <code>focus-ring-inner</code> offset. Instead, it changes the color of the focused element&#39;s border to match the focus ring, creating the effect of a 2px focus ring.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$current-shadows...</code></th><td data-label="desc"><p>Zero or more additional shadows to be applied in addition to the focus indicator.</p></td><td data-label="type"><code>List[]</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="color"><div class="container">Color</div></h1><section class="main__sub-section" id="color-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="color-function-family"><h3 class="item__heading"><a class="item__name" href="#function-family">family</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function family($name, $ref-family, $grade-root: null) { 
+	$map: ();
+
+	@for $n from 1 through 10 {
+		$grade: $n * 10;
+		$map: map.merge($map, ($grade: props.prop(#{$ref-family}-#{$grade})));
+	}
+
+	@if $grade-root {
+		$shades: (
+			-20: &#39;lighter&#39;,
+			-10: &#39;light&#39;,
+			0: &#39;#root&#39;,
+			10: &#39;dark&#39;,
+			20: &#39;darker&#39;,
+		);
+
+		@for $g from -2 through 2 {
+			$g10: $g * 10;
+			$css-prop: string.unquote(&#39;--#{util.prefix(-get-shade($name, $grade-root, $g10))}&#39;);
+			$prop: var($css-prop);
+
+			/* stylelint-disable max-nesting-depth */
+			@if config.$css-property-fallback {
+				$prop-val: props.value($grade-root + $g10, $map);
+
+				@if $prop-val {
+					$prop: var($css-prop, $prop-val);
+				}
+			}
+			$map: map.merge($map, (map.get($shades, $g10): $prop));
+		}
+	}
+
+	@return $map;
+ }" data-collapsed="@function family($name, $ref-family, $grade-root: null) { ... }"><code>@function family($name, $ref-family, $grade-root: null) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Create a new color family map that references an existing family map.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$name</code></th><td data-label="desc"><p>The name of the family that you&#39;d like to create.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$ref-family</code></th><td data-label="desc"><p>The name of the family that you&#39;d like to reference.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$grade-root</code></th><td data-label="desc"><p>If provided, this will be the midpoint of the &quot;lighter/darker&quot; shade swatch.</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>null</code></td></tr></tbody></table><h3 class="item__sub-heading">Example</h3><div class="item__example example"><div class="example__description"><p>Minimal usage</p></div><pre class="example__code language-scss"><code>@debug family(&#39;foo&#39;, &#39;teal&#39;);
+// (
+//   10: var(--nds-teal-10),
+//   20: var(--nds-teal-20),
+//   ...30 - 80...
+//   90: var(--nds-teal-90),
+//   100: var(--nds-teal-100),
+// )</code></pre></div><div class="item__example example"><div class="example__description"><p>With <code>$grade-root</code></p></div><pre class="example__code language-scss"><code>@debug family(&#39;foo&#39;, &#39;teal&#39;, 30);
+// (
+//   10: var(--nds-teal-10),
+//   20: var(--nds-teal-20),
+//   ...all other grades...
+//   &#39;lighter&#39;: var(--nds-foo-10),
+//   &#39;light&#39;: var(--nds-foo-20),
+//   &#39;#root&#39;: var(--nds-foo-30),
+//   &#39;dark&#39;: var(--nds-foo-40),
+//   &#39;darker&#39;: var(--nds-foo-50),
+// )</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-value"><code>value</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#config-variable-css-property-fallback"><code>css-property-fallback</code></a></li></ul></section><section class="main__item container item" id="color-function-scheme"><h3 class="item__heading"><a class="item__name" href="#function-scheme">scheme</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function scheme($variant) { 
+	@if ($variant == &#39;light&#39;) {
+		@return -scheme-map($-scheme-light);
+	}
+
+	@if ($variant == &#39;dark&#39;) {
+		@return -scheme-map($-scheme-dark);
+	}
+ }" data-collapsed="@function scheme($variant) { ... }"><code>@function scheme($variant) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Retrieve the full color scheme map.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$variant</code></th><td data-label="desc"><p>The color scheme name that you&#39;d like to retrieve.</p></td><td data-label="type"><code>'light'</code> or <code>'dark'</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#color-mixin-set-scheme"><code>set-scheme</code></a></li></ul><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme">https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme</a></li></ul></section><section class="main__item container item" id="color-function-get-grade"><h3 class="item__heading"><a class="item__name" href="#function-get-grade">get-grade</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function get-grade($role, $scheme: light) { 
+	$-scheme: if(($scheme == &#39;dark&#39;), $-scheme-dark, $-scheme-light);
+
+	@return map.get($-scheme, &#39;#{$role}-grade&#39;);
+ }" data-collapsed="@function get-grade($role, $scheme: light) { ... }"><code>@function get-grade($role, $scheme: light) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Get the midpoint grade of a specified color role.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$role</code></th><td data-label="desc"><p>The name of the role, e.g., &quot;primary&quot;</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$scheme</code></th><td data-label="desc"><p>The color scheme you&#39;d like to look up.</p></td><td data-label="type"><code>'light'</code> or <code>'dark'</code></td><td data-label="default"><code>light</code></td></tr></tbody></table></section><section class="main__item container item" id="color-function-get-family"><h3 class="item__heading"><a class="item__name" href="#function-get-family">get-family</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function get-family($role, $scheme: light) { 
+	$-scheme: if(($scheme == &#39;dark&#39;), $-scheme-dark, $-scheme-light);
+
+	@return map.get($-scheme, &#39;#{$role}-family&#39;);
+ }" data-collapsed="@function get-family($role, $scheme: light) { ... }"><code>@function get-family($role, $scheme: light) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Get the color family for a specified color role.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$role</code></th><td data-label="desc"><p>The name of the role, e.g., &quot;primary&quot;</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$scheme</code></th><td data-label="desc"><p>The color scheme you&#39;d like to look up.</p></td><td data-label="type"><code>'light'</code> or <code>'dark'</code></td><td data-label="default"><code>light</code></td></tr></tbody></table></section></section><section class="main__sub-section" id="color-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="color-variable-primary-family"><h3 class="item__heading"><a class="item__name" href="#variable-primary-family">primary-family</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$primary-family: &#39;teal&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The primary color family is used in UI elements that use a default color.</p></div></section><section class="main__item container item" id="color-variable-primary-grade"><h3 class="item__heading"><a class="item__name" href="#variable-primary-grade">primary-grade</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$primary-grade: 60 !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The grade that defines the &quot;midpoint&quot; of the primary family. For instance, setting this to <code>60</code> will cause the <code>primary</code> token to reference <code>primary-60</code>.</p></div></section><section class="main__item container item" id="color-variable-base-family"><h3 class="item__heading"><a class="item__name" href="#variable-base-family">base-family</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$base-family: &#39;navy&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The base color family is used for background color gradients and text colors.</p></div></section><section class="main__item container item" id="color-variable-base-grade"><h3 class="item__heading"><a class="item__name" href="#variable-base-grade">base-grade</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$base-grade: 60 !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The grade that defines the &quot;midpoint&quot; of the base family. For instance, setting this to <code>60</code> will cause the <code>base</code> token to reference <code>base-60</code>.</p></div></section><section class="main__item container item" id="color-variable-disabled-family"><h3 class="item__heading"><a class="item__name" href="#variable-disabled-family">disabled-family</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$disabled-family: &#39;base&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The color family that will be used for <code>disabled</code> controls.</p></div></section><section class="main__item container item" id="color-variable-disabled-grade"><h3 class="item__heading"><a class="item__name" href="#variable-disabled-grade">disabled-grade</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$disabled-grade: 30 !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The grade that defines the &quot;midpoint&quot; of the disabled family. For instance, setting this to <code>60</code> will cause the <code>disabled</code> token to reference <code>disabled-60</code>.</p></div></section><section class="main__item container item" id="color-variable-error-family"><h3 class="item__heading"><a class="item__name" href="#variable-error-family">error-family</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$error-family: &#39;red&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The color family that will be used to convey errors/failing.</p></div></section><section class="main__item container item" id="color-variable-error-grade"><h3 class="item__heading"><a class="item__name" href="#variable-error-grade">error-grade</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$error-grade: 60 !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The grade that defines the &quot;midpoint&quot; of the error family. For instance, setting this to <code>60</code> will cause the <code>error</code> token to reference <code>error-60</code>.</p></div></section><section class="main__item container item" id="color-variable-success-family"><h3 class="item__heading"><a class="item__name" href="#variable-success-family">success-family</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$success-family: &#39;red&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The color family that will be used to convey success/passing.</p></div></section><section class="main__item container item" id="color-variable-success-grade"><h3 class="item__heading"><a class="item__name" href="#variable-success-grade">success-grade</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$success-grade: 60 !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The grade that defines the &quot;midpoint&quot; of the success family. For instance, setting this to <code>60</code> will cause the <code>success</code> token to reference <code>success-60</code>.</p></div></section><section class="main__item container item" id="color-variable-warning-family"><h3 class="item__heading"><a class="item__name" href="#variable-warning-family">warning-family</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$warning-family: &#39;red&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The color family that will be used to convey warning/caution.</p></div></section><section class="main__item container item" id="color-variable-warning-grade"><h3 class="item__heading"><a class="item__name" href="#variable-warning-grade">warning-grade</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$warning-grade: 60 !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The grade that defines the &quot;midpoint&quot; of the warning family. For instance, setting this to <code>60</code> will cause the <code>warning</code> token to reference <code>warning-60</code>.</p></div></section><section class="main__item container item" id="color-variable-body-bg"><h3 class="item__heading"><a class="item__name" href="#variable-body-bg">body-bg</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$body-bg: props.prop(&#39;white&#39;) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The main background color.</p></div></section><section class="main__item container item" id="color-variable-body-text"><h3 class="item__heading"><a class="item__name" href="#variable-body-text">body-text</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$body-text: props.prop(&#39;base-90&#39;) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The main text color.</p></div></section><section class="main__item container item" id="color-variable-subdued"><h3 class="item__heading"><a class="item__name" href="#variable-subdued">subdued</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$subdued: props.prop(&#39;base-60&#39;) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A subdued or &quot;muted&quot; text color, used for less emphasized text.</p></div></section><section class="main__item container item" id="color-variable-focus-ring"><h3 class="item__heading"><a class="item__name" href="#variable-focus-ring">focus-ring</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$focus-ring: props.prop(&#39;blue-50&#39;) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The color used for the <code>:focus</code> state.</p></div></section></section><section class="main__sub-section" id="color-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="color-mixin-theme"><h3 class="item__heading"><a class="item__name" href="#mixin-theme">theme</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin theme($scheme-type, $scheme-map) { 
+	@if ($scheme-type == &#39;light&#39;) {
+		$-scheme-light: map.merge($-scheme-light, $scheme-map);
+	}
+
+	@if ($scheme-type == &#39;dark&#39;) {
+		$-scheme-dark: map.merge($-scheme-dark, $scheme-map);
+	}
+ }" data-collapsed="@mixin theme($scheme-type, $scheme-map) { ... }"><code>@mixin theme($scheme-type, $scheme-map) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Theme the design system by modifying a color scheme</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$scheme-type</code></th><td data-label="desc"><p>The scheme type that you intend to modify</p></td><td data-label="type"><code>'light'</code> or <code>'dark'</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$scheme-map</code></th><td data-label="desc"><p>A map of the values that you&#39;d like to modify</p></td><td data-label="type"><code>Map</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table></section><section class="main__item container item" id="color-mixin-set-scheme"><h3 class="item__heading"><a class="item__name" href="#mixin-set-scheme">set-scheme</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin set-scheme($scheme: &#39;light&#39;) { 
+	$scheme-map: scheme($scheme);
+
+	@include props.add($scheme-map);
+	@include props.set($scheme-map);
+ }" data-collapsed="@mixin set-scheme($scheme: &#39;light&#39;) { ... }"><code>@mixin set-scheme($scheme: &#39;light&#39;) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Set a color scheme as CSS custom properties.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$scheme</code></th><td data-label="desc"><p>The name of the scheme that you&#39;d like to set.</p></td><td data-label="type"><code>'light'</code> or <code>'dark'</code></td><td data-label="default"><code>&#39;light&#39;</code></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#color-function-scheme"><code>scheme</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="config"><div class="container">Config</div></h1><section class="main__sub-section" id="config-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="config-variable-namespace"><h3 class="item__heading"><a class="item__name" href="#variable-namespace">namespace</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$namespace: &#39;nds&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Used as the prefix for all named outputs, such as token names and class declarations</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section><section class="main__item container item" id="config-variable-browser-font-size"><h3 class="item__heading"><a class="item__name" href="#variable-browser-font-size">browser-font-size</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$browser-font-size: 16 !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The expected browser font size. This is 16 in all browsers by default.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section><section class="main__item container item" id="config-variable-css-property-fallback"><h3 class="item__heading"><a class="item__name" href="#variable-css-property-fallback">css-property-fallback</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$css-property-fallback: true !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Indicates whether CSS custom properties should include a fallback value. Disabling this will result in a much smaller bundle.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[function]</span> <a href="#color-function-family"><code>family</code></a></li></ul><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section><section class="main__item container item" id="config-variable-warn-on-missing-fallback"><h3 class="item__heading"><a class="item__name" href="#variable-warn-on-missing-fallback">warn-on-missing-fallback</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$warn-on-missing-fallback: false !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Indicates that unknown custom properties should log a warning. Useful while developing.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section><section class="main__item container item" id="config-variable-duplicate-declarations"><h3 class="item__heading"><a class="item__name" href="#variable-duplicate-declarations">duplicate-declarations</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duplicate-declarations: false !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Indicates whether duplicate declarations should be allowed. If <code>true</code>, including a <code>style</code> mixin will result in duplicate CSS. If <code>false</code>, including a <code>style</code> mixin multiple times will only create a declaration the first time.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section><section class="main__item container item" id="config-variable-enable-dark-scheme"><h3 class="item__heading"><a class="item__name" href="#variable-enable-dark-scheme">enable-dark-scheme</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$enable-dark-scheme: false !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Enable the dark scheme. This will only make it <em>possible</em> for the dark scheme to be applied by either the user&#39;s OS setting or by manually applying a class to the :root element.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-root"><code>root</code></a></li></ul><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section><section class="main__item container item" id="config-variable-enable-utilities"><h3 class="item__heading"><a class="item__name" href="#variable-enable-utilities">enable-utilities</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$enable-utilities: true !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Enable utility declarations. Only has an effect when using the full stylesheet. Utility declarations can always be used imperatively via <code>@include</code>.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section><section class="main__item container item" id="config-variable-typeset-body-base"><h3 class="item__heading"><a class="item__name" href="#variable-typeset-body-base">typeset-body-base</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$typeset-body-base: &#39;md&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The body text&#39;s &quot;base&quot; t-shirt size. Options are <code>xs</code>, <code>sm</code>, <code>md</code>, and <code>lg</code>. Determines the definition of the <code>type.body-base</code> mixin.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section><section class="main__item container item" id="config-variable-typeset-ui-base"><h3 class="item__heading"><a class="item__name" href="#variable-typeset-ui-base">typeset-ui-base</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$typeset-ui-base: &#39;md&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>UI text&#39;s &quot;base&quot; t-shirt size. Options are <code>xs</code>, <code>sm</code>, <code>md</code>, and <code>lg</code>. Determines the definition of the <code>type.ui-base</code> mixin.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://sass-lang.com/documentation/at-rules/use#configuration">https://sass-lang.com/documentation/at-rules/use#configuration</a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="device"><div class="container">Device</div></h1><section class="main__sub-section" id="device-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="device-variable-device-xs"><h3 class="item__heading"><a class="item__name" href="#variable-device-xs">device-xs</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$device-xs: 0;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Extra small: a handset</p></div></section><section class="main__item container item" id="device-variable-device-sm"><h3 class="item__heading"><a class="item__name" href="#variable-device-sm">device-sm</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$device-sm: 600px;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Small: a large handset or small tablet</p></div></section><section class="main__item container item" id="device-variable-device-md"><h3 class="item__heading"><a class="item__name" href="#variable-device-md">device-md</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$device-md: 960px;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Medium: a large tablet or laptop</p></div></section><section class="main__item container item" id="device-variable-device-lg"><h3 class="item__heading"><a class="item__name" href="#variable-device-lg">device-lg</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$device-lg: 1280px;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Large: a desktop</p></div></section><section class="main__item container item" id="device-variable-device-xl"><h3 class="item__heading"><a class="item__name" href="#variable-device-xl">device-xl</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$device-xl: 1920px;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Extra large: a high-definition screen</p></div></section><section class="main__item container item" id="device-variable-hd-dpi"><h3 class="item__heading"><a class="item__name" href="#variable-hd-dpi">hd-dpi</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$hd-dpi: 200;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The minimum dots per inch (dpi) of a high-resolution screen</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#device-mixin-media-hd"><code>media-hd</code></a></li></ul></section><section class="main__item container item" id="device-variable-hd-dppx"><h3 class="item__heading"><a class="item__name" href="#variable-hd-dppx">hd-dppx</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$hd-dppx: 1.25;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The minimum dots per pixel unit (dppx) for a high-resolution screen</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#device-mixin-media-hd"><code>media-hd</code></a></li></ul></section></section><section class="main__sub-section" id="device-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="device-mixin-media-hd"><h3 class="item__heading"><a class="item__name" href="#mixin-media-hd">media-hd</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin media-hd($dpi: $hd-dpi, $dppx: $hd-dppx) { 
+	@media only screen and (min-resolution: #{$hd-dpi}dpi), only screen and (min-resolution: #{$hd-dppx}dppx) {
+		@content;
+	}
+ }" data-collapsed="@mixin media-hd($dpi: $hd-dpi, $dppx: $hd-dppx) { ... }"><code>@mixin media-hd($dpi: $hd-dpi, $dppx: $hd-dppx) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A media query helper for high definition screens.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$dpi</code></th><td data-label="desc"><p>The dpi of a high definition (HD) screen.</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>$hd-dpi</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$dppx</code></th><td data-label="desc"><p>The dppx of a high definition (HD) screen.</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>$hd-dppx</code></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#device-variable-hd-dpi"><code>hd-dpi</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#device-variable-hd-dppx"><code>hd-dppx</code></a></li></ul><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://medium.com/@micjamking/hd-retina-display-media-queries-b5562b5430d6">https://medium.com/@micjamking/hd-retina-display-media-queries-b5562b5430d6</a></li></ul></section><section class="main__item container item" id="device-mixin-media-up"><h3 class="item__heading"><a class="item__name" href="#mixin-media-up">media-up</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin media-up($size, $breakpoints: $devices) { 
+	$min: map.get($breakpoints, $size);
+
+	@if $min != 0 {
+		@media (min-width: $min) {
+			@content;
+		}
+	}
+	@else {
+		@content;
+	}
+ }" data-collapsed="@mixin media-up($size, $breakpoints: $devices) { ... }"><code>@mixin media-up($size, $breakpoints: $devices) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A media query helper for device sizes. @content will apply to the given size and up.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$size</code></th><td data-label="desc"><p>The device size: xs, sm, md, lg, or xl.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$breakpoints</code></th><td data-label="desc"><p>The map of breakpoints to use.</p></td><td data-label="type"><code>Map</code></td><td data-label="default"><code>$devices</code></td></tr></tbody></table></section></section></section><section class="main__section"><h1 class="main__heading" id="motion"><div class="container">Motion</div></h1><section class="main__sub-section" id="motion-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="motion-function-transition"><h3 class="item__heading"><a class="item__name" href="#function-transition">transition</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function transition($properties, $duration, $easing) { 
+	$full-transition: ();
+
+	$prop-list: if(meta.type-of($properties) == &#39;string&#39;, ($properties), $properties);
+
+	@each $property in $prop-list {
+		$full-transition: list.join($full-transition, #{$property -scale($duration) $easing}, $separator: comma);
+	}
+
+	@return $full-transition;
+ }" data-collapsed="@function transition($properties, $duration, $easing) { ... }"><code>@function transition($properties, $duration, $easing) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Apply one transition to many properties.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$properties</code></th><td data-label="desc"><p>A single or list of CSS properties.</p></td><td data-label="type"><code>String</code> or <code>Listof<string></string></code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$duration</code></th><td data-label="desc"><p>A duration value.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$easing</code></th><td data-label="desc"><p>An easing value.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section></section><section class="main__sub-section" id="motion-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="motion-variable-duration-scalar"><h3 class="item__heading"><a class="item__name" href="#variable-duration-scalar">duration-scalar</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-scalar: 1 !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A multiplier used for increasing/decreasing all motion speed.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#accessibility-mixin-reduce-motion"><code>reduce-motion</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-root"><code>root</code></a></li></ul><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-simple"><h3 class="item__heading"><a class="item__name" href="#variable-duration-simple">duration-simple</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-simple: 100ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used for simple animations such as selection controls.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-simple-enter"><h3 class="item__heading"><a class="item__name" href="#variable-duration-simple-enter">duration-simple-enter</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-simple-enter: 150ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used for simple entrances such as fade-ins.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-simple-exit"><h3 class="item__heading"><a class="item__name" href="#variable-duration-simple-exit">duration-simple-exit</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-simple-exit: 75ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used for simple exits such as fade-outs.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-complex"><h3 class="item__heading"><a class="item__name" href="#variable-duration-complex">duration-complex</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-complex: 200ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used for complex animations such as shape changes.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-detailed"><h3 class="item__heading"><a class="item__name" href="#variable-duration-detailed">duration-detailed</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-detailed: 500ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used for detailed animations such as icon transformations.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-open"><h3 class="item__heading"><a class="item__name" href="#variable-duration-open">duration-open</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-open: 250ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used for elements that open from a closed state, such as a sidebar.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-close"><h3 class="item__heading"><a class="item__name" href="#variable-duration-close">duration-close</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-close: 200ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used for elements that close from an opened state, such as a sidebar.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-expand"><h3 class="item__heading"><a class="item__name" href="#variable-duration-expand">duration-expand</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-expand: 300ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used when an element expands (grows).</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-duration-collapse"><h3 class="item__heading"><a class="item__name" href="#variable-duration-collapse">duration-collapse</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$duration-collapse: 250ms;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A duration used when an element collapses (shrinks).</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-easing-standard"><h3 class="item__heading"><a class="item__name" href="#variable-easing-standard">easing-standard</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$easing-standard: cubic-bezier(0.4, 0, 0.2, 1);</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Standard easing puts subtle attention at the end of an animation, by giving more time to deceleration than acceleration. It is the most common form of easing.</p><p>Elements that begin and end at rest use standard easing. They speed up quickly and slow down gradually, in order to emphasize the end of the transition.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-easing-deceleration"><h3 class="item__heading"><a class="item__name" href="#variable-easing-deceleration">easing-deceleration</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$easing-deceleration: cubic-bezier(0, 0, 0.2, 1);</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Incoming elements are animated using deceleration easing, which starts a transition at peak velocity (the fastest point of an element’s movement) and ends at rest.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-easing-acceleration"><h3 class="item__heading"><a class="item__name" href="#variable-easing-acceleration">easing-acceleration</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$easing-acceleration: cubic-bezier(0.4, 0, 1, 1);</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Elements exiting a screen use acceleration easing, where they start at rest and end at peak velocity.</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://material.io/design/motion/understanding-html">Material Design: Understanding Motion</a></li><li><a href="https://material.io/design/motion/speed.html#duration">Material Design: Durations</a></li><li><a href="https://material.io/design/motion/speed.html#easing">Material Design: Easings</a></li></ul></section><section class="main__item container item" id="motion-variable-easing-sharp"><h3 class="item__heading"><a class="item__name" href="#variable-easing-sharp">easing-sharp</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Timing function to quickly accelerate and decelerate</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://github.com/material-components/material-components-web/tree/master/packages/mdc-animation">@material/animation</a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="properties"><div class="container">Properties</div></h1><section class="main__sub-section" id="properties-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="properties-function-get-props"><h3 class="item__heading"><a class="item__name" href="#function-get-props">get-props</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function get-props($root) { 
+	@return if($root, $-props-root, $-props);
+ }" data-collapsed="@function get-props($root) { ... }"><code>@function get-props($root) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Get a props map. By default, all of the props that have been declared via the <code>props</code> function or the <code>add</code> function will be returned.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$root</code></th><td data-label="desc"><p>Whether the map should only be props that have been declared at the <code>:root</code> level via the <code>add-root</code> mixin.</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-root"><code>root</code></a></li></ul></section><section class="main__item container item" id="properties-function-prop"><h3 class="item__heading"><a class="item__name" href="#function-prop">prop</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function prop($name) { 
+	$css-prop: string.unquote(&#39;--#{util.prefix($name)}&#39;);
+
+	@if $fallback {
+		$value: value($name);
+
+		@if not $value {
+			// stylelint-disable-next-line max-nesting-depth
+			@if config.$warn-on-missing-fallback {
+				@warn &#39;No fallback was value was found for &quot;#{$name}.&quot; Ensure that you\&#39;ve added a value for &quot;#{$name}&quot; before using it.&#39;;
+			}
+
+			@return var($css-prop);
+		}
+
+		@return var($css-prop, $value);
+	}
+
+	@return var($css-prop);
+ }" data-collapsed="@function prop($name) { ... }"><code>@function prop($name) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Reference a CSS property by name.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$name</code></th><td data-label="desc"><p>The name of the CSS property that you&#39;d like to use.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>A CSS custom property with value fallback.</p></div><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.foo {
+  padding-top: prop(foo-padding-top);
+}
+// CSS output with config ($namespace: &#39;nds&#39;, $css-property-fallback: false)
+.foo {
+  padding-top: var(--nds-foo-padding-top);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-value"><code>value</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#config-variable-warn-on-missing-fallback"><code>warn-on-missing-fallback</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#accessibility-mixin-focus-ring"><code>focus-ring</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#accessibility-mixin-focus-ring-collapse"><code>focus-ring-collapse</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#accessibility-mixin-focus-ring-collapse"><code>focus-ring-collapse</code></a></li><li><span class="item__cross-type">[function]</span> <a href="#color-function-family"><code>family</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-root"><code>root</code></a></li><li><span class="item__cross-type">[function]</span> <a href="#spacing-function-spacer"><code>spacer</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-xs"><code>body-xs</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-sm"><code>body-sm</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-md"><code>body-md</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-lg"><code>body-lg</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-xs"><code>ui-xs</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-sm"><code>ui-sm</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-md"><code>ui-md</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-lg"><code>ui-lg</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-1"><code>heading-1</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-2"><code>heading-2</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-3"><code>heading-3</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-4"><code>heading-4</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-5"><code>heading-5</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-6"><code>heading-6</code></a></li></ul></section><section class="main__item container item" id="properties-function-value"><h3 class="item__heading"><a class="item__name" href="#function-value">value</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function value($prop-name, $prop-map: $-props) { 
+	$value: map.get($prop-map, $prop-name);
+
+	@if $value {
+		$var-str: &#39;var(--&#39;;
+
+		@if meta.type-of($value) == &#39;string&#39; {
+			@return value(util.unprefix(-to-token($value)));
+		}
+
+		@return $value;
+	}
+
+	@return null;
+ }" data-collapsed="@function value($prop-name, $prop-map: $-props) { ... }"><code>@function value($prop-name, $prop-map: $-props) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Resolve the value of a prop inside the <code>$-props</code> map. To be found, the property must first be added with either the <code>add-root</code> (global) or <code>props</code> (local) mixins.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$prop-name</code></th><td data-label="desc"><p>The name of the property you&#39;d like to resolve.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$prop-map</code></th><td data-label="desc"><p>The map that contains the value you&#39;d like to resolve. Default is the global property map, <code>$-props</code>.</p></td><td data-label="type"><code>Map</code></td><td data-label="default"><code>$-props</code></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String&lt;/code&gt; or &lt;code&gt;Null</code> &mdash;<p>the resolved value or <code>null</code> if not found.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[function]</span> <a href="#color-function-family"><code>family</code></a></li><li><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section></section><section class="main__sub-section" id="properties-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="properties-mixin-add"><h3 class="item__heading"><a class="item__name" href="#mixin-add">add</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin add($additions...) { 
+	@include -add(false, $additions...);
+ }" data-collapsed="@mixin add($additions...) { ... }"><code>@mixin add($additions...) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Add a list of local CSS properties.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$additions...</code></th><td data-label="desc"><p>Either an arglist of key: value pairs or a list of maps with key: value pairs.</p></td><td data-label="type"><code>Arglist</code> or <code>Map[]</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Example</h3><div class="item__example example"><div class="example__description"><p>Arglist</p></div><pre class="example__code language-scss"><code>@include add
+  $button-border-radius: 4px,
+  $button-font-size: prop(&#39;font-size-18&#39;),
+);</code></pre></div><div class="item__example example"><div class="example__description"><p>List of maps</p></div><pre class="example__code language-scss"><code>@include add(
+  &#39;button-border-radius&#39;: 4px,
+  &#39;button-font-size&#39;: prop(&#39;font-size-18&#39;),
+), $some-other-map);</code></pre></div></section><section class="main__item container item" id="properties-mixin-add-root"><h3 class="item__heading"><a class="item__name" href="#mixin-add-root">add-root</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin add-root($additions...) { 
+	@include -add(true, $additions...);
+ }" data-collapsed="@mixin add-root($additions...) { ... }"><code>@mixin add-root($additions...) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Add a list of root CSS properties. These will be added to the :root declaration for global usage.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$additions...</code></th><td data-label="desc"><p>Either an arglist of key: value pairs or a list of maps with key: value pairs.</p></td><td data-label="type"><code>Arglist</code> or <code>Map[]</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Example</h3><div class="item__example example"><div class="example__description"><p>Arglist</p></div><pre class="example__code language-scss"><code>@include add-root(
+  $base-border-radius: 2px,
+  $base-font-size: prop(&#39;font-size-16&#39;),
+);</code></pre></div><div class="item__example example"><div class="example__description"><p>List of maps</p></div><pre class="example__code language-scss"><code>@include add-root((
+  &#39;base-border-radius&#39;: 2px,
+  &#39;base-font-size&#39;: prop(&#39;font-size-16&#39;),
+), $some-other-map);</code></pre></div><h3 class="item__sub-heading">See</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#mixin-add"><code>add</code></a></li></ul></section><section class="main__item container item" id="properties-mixin-set"><h3 class="item__heading"><a class="item__name" href="#mixin-set">set</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin set($prop-maps...) { 
+	$keywords: meta.keywords($prop-maps);
+
+	$props: ();
+
+	@if list.length($keywords) &gt; 0 {
+		$props: $keywords;
+	}
+	@else {
+		@each $prop-map in $prop-maps {
+			@if meta.type-of($prop-map) != &#39;map&#39; {
+				@error &#39;All arguments must be maps&#39;;
+			}
+			@else {
+				$props: map.merge($props, $prop-map);
+			}
+		}
+	}
+
+	@each $token, $value in $props {
+		@if $value {
+			@if meta.type-of($value) == &#39;map&#39; {
+				@include set(util.flatten($value, $token));
+			}
+			@else {
+				@if not map.has-key($props, $token) {
+					@warn &#39;#{$token} not found. Adding it as #{$value}.&#39;;
+
+					@include -add-one($token, $value);
+				}
+
+				@include -set-one($token, $value);
+			}
+		}
+	}
+ }" data-collapsed="@mixin set($prop-maps...) { ... }"><code>@mixin set($prop-maps...) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Set a list of properties as CSS custom properties.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$prop-maps...</code></th><td data-label="desc"><p>Either an arglist of key: value pairs or a list of maps with key: value pairs.</p></td><td data-label="type"><code>Arglist</code> or <code>Map[]</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.button {
+  // set properties local to .button
+  @include set($button-border-radius: 2px);
+  // use the now-defined property
+  border-radius: prop(button-border-radius);
+}
+// CSS output with config ($namespace: &#39;nds&#39;, $css-property-fallback: true)
+.button {
+  --nds-button-border-radius: 2px;
+  border-radius: var(--nds-button-border-radius, 2px);
+}</code></pre></div><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>All arguments must be maps</p></li></ul><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#utilities-function-flatten"><code>flatten</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="reset"><div class="container">Reset</div></h1><section class="main__sub-section" id="reset-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="reset-mixin-reset"><h3 class="item__heading"><a class="item__name" href="#mixin-reset">reset</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin reset() { 
+	@include util.declare(&#39;reset&#39;) {
+		// Document
+		// Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
+
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+		}
+
+		// Root
+		// NDS: Apply root font size to define the value of 1rem.
+
+		:root {
+			@include root.root;
+		}
+
+		// Body
+		// 1. Apply progressive font smoothing.
+		// 2. Remove the margin in all browsers.
+		// 3. As a best practice, apply a default `background-color`.
+		// 4. Prevent adjustments of font size after orientation changes in iOS.
+		// 5. Change the default tap highlight to be completely transparent in iOS.
+
+		body {
+			@include type.font-smoothing; // 1
+
+			// margin: 0; // 2
+			font-family: props.prop(&#39;font-family-base&#39;);
+			font-weight: props.prop(&#39;font-weight-base&#39;);
+			line-height: type.lh(&#39;body&#39;);
+			color: props.prop(&#39;body-text&#39;);
+			background-color: props.prop(&#39;body-bg&#39;); // 3
+			-webkit-text-size-adjust: 100%; // 4
+			-webkit-tap-highlight-color: rgba(props.prop(&#39;black&#39;), 0); // 5
+		}
+
+		// Future-proof rule: in browsers that support :focus-visible, suppress the focus outline
+		// on elements that programmatically receive focus but wouldn&#39;t normally show a visible
+		// focus outline. In general, this would mean that the outline is only applied if the
+		// interaction that led to the element receiving programmatic focus was a keyboard interaction,
+		// or the browser has somehow determined that the user is primarily a keyboard user and/or
+		// wants focus outlines to always be presented.
+		// See https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible
+		// and https://developer.paciellogroup.com/blog/2018/03/focus-visible-and-backwards-compatibility/
+
+		[tabindex=&#39;-1&#39;]:focus:not(:focus-visible) {
+			outline: 0 !important;
+		}
+
+		// NDS: use the default focus indicator on everything to start.
+
+		*:focus {
+			@include a11y.focus-ring;
+		}
+
+		// Content grouping
+		//
+		// 1. Reset Firefox&#39;s gray color
+		// 2. Set correct height and prevent the `size` attribute to make the `hr` look like an input field
+		//    See https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_hr_size
+
+		hr {
+			margin: spacing.rem(1) 0;
+			color: inherit; // 1
+			background-color: currentColor;
+			border: 0;
+			opacity: 0.25;
+		}
+
+		hr:not([size]) {
+			height: 1px; // 2
+		}
+
+		// Typography
+		//
+		// 1. Remove top margins from headings
+		//    By default, `&lt;h1&gt;`-`&lt;h6&gt;` all receive top and bottom margins. We nuke the top
+		//    margin for easier control within type scales as it avoids margin collapsing.
+
+		h1 {
+			@include type.heading-1;
+		}
+
+		h2 {
+			@include type.heading-2;
+		}
+
+		h3 {
+			@include type.heading-3;
+		}
+
+		h4 {
+			@include type.heading-4;
+		}
+
+		h5 {
+			@include type.heading-5;
+		}
+
+		h6 {
+			@include type.heading-6;
+		}
+
+		// Reset margins on paragraphs
+		//
+		// Similarly, the top margin on `&lt;p&gt;`s get reset. However, we also reset the
+		// bottom margin to use `rem` units instead of `em`.
+
+		p {
+			margin-top: 0;
+			margin-bottom: $paragraph-margin-bottom;
+		}
+
+
+		// Abbreviations
+		//
+		// 1. Duplicate behavior to the data-* attribute for our tooltip plugin
+		// 2. Add the correct text decoration in Chrome, Edge, Opera, and Safari.
+		// 3. Add explicit cursor to indicate changed behavior.
+		// 4. Prevent the text-decoration to be skipped.
+
+		abbr[title],
+		abbr[data-original-title] { // 1
+			text-decoration: underline; // 2
+			text-decoration: underline dotted; // 2
+			cursor: help; // 3
+			text-decoration-skip-ink: none; // 4
+		}
+
+
+		// Address
+
+		address {
+			margin-bottom: spacing.spacer(&#39;block-base&#39;);
+			font-style: normal;
+			line-height: inherit;
+		}
+
+
+		// Lists
+
+		ol,
+		ul {
+			padding-left: spacing.rem(2);
+		}
+
+		ol,
+		ul,
+		dl {
+			margin-top: 0;
+			margin-bottom: spacing.spacer(&#39;block-base&#39;);
+		}
+
+		ol ol,
+		ul ul,
+		ol ul,
+		ul ol {
+			margin-bottom: 0;
+		}
+
+		dt {
+			font-weight: $dt-font-weight;
+		}
+
+		// 1. Undo browser default
+
+		dd {
+			margin-bottom: spacing.spacer(&#39;block-sm&#39;);
+			margin-left: 0; // 1
+		}
+
+
+		// Blockquote
+
+		blockquote {
+			margin: 0 0 spacing.spacer(&#39;block-base&#39;);
+		}
+
+
+		// Strong
+		//
+		// Add the correct font weight in Chrome, Edge, and Safari
+
+		b,
+		strong {
+			font-weight: $font-weight-bolder;
+		}
+
+
+		// Small
+		//
+		// Add the correct font size in all browsers
+
+		small {
+			font-size: props.prop(&#39;font-size-sm&#39;);
+		}
+
+
+		// Mark
+
+		mark {
+			padding: $mark-padding;
+			background-color: $mark-bg;
+		}
+
+
+		// Sub and Sup
+		//
+		// Prevent `sub` and `sup` elements from affecting the line height in
+		// all browsers.
+
+		sub,
+		sup {
+			position: relative;
+			font-size: $sub-sup-font-size;
+			line-height: 0;
+			vertical-align: baseline;
+		}
+
+		sub { bottom: -0.25em; }
+		sup { top: -0.5em; }
+
+
+		// Links
+
+		a {
+			color: props.prop(&#39;link-color&#39;);
+			text-decoration: props.prop(&#39;link-decoration&#39;);
+
+			&amp;:hover {
+				color: props.prop(&#39;link-hover-color&#39;);
+				text-decoration: props.prop(&#39;link-hover-decoration&#39;);
+			}
+		}
+
+
+		// NDS: Add :visited link colors
+		// See https://www.nngroup.com/articles/change-the-color-of-visited-links/
+
+		// a:visited {
+		// 	color: props.prop(&#39;link-visited-color&#39;);
+
+		// 	&amp;:hover {
+		// 		color: props.prop(&#39;link-visited-hover-color&#39;);
+		// 	}
+		// }
+
+		// And undo these styles for placeholder links/named anchors (without href).
+		// It would be more straightforward to just use a[href] in previous block, but that
+		// causes specificity issues in many other styles that are too complex to fix.
+		// See https://github.com/twbs/bootstrap/issues/19402
+
+		a:not([href]):not([class]) {
+			&amp;,
+			&amp;:hover {
+				color: inherit;
+				text-decoration: none;
+			}
+		}
+
+
+		// Code
+
+		pre,
+		code,
+		kbd,
+		samp {
+			font-family: $font-family-code;
+			font-size: 1em; // Correct the odd `em` font sizing in all browsers.
+		}
+
+		// 1. Remove browser default top margin
+		// 2. Reset browser default of `1em` to use `rem`s
+		// 3. Don&#39;t allow content to break outside
+		// 4. Disable auto-hiding scrollbar in legacy Edge to avoid overlap,
+		//    making it impossible to interact with the content
+
+		pre {
+			display: block;
+			margin-top: 0; // 1
+			margin-bottom: spacing.spacer(&#39;block-base&#39;); // 2
+			overflow: auto; // 3
+			font-size: $code-font-size;
+			color: $pre-color;
+			-ms-overflow-style: scrollbar; // 4
+
+			// Account for some code outputs that place code tags in pre tags
+			code {
+				font-size: inherit;
+				color: inherit;
+				word-break: normal;
+			}
+		}
+
+		code {
+			font-size: $code-font-size;
+			color: $code-color;
+			word-wrap: break-word;
+
+			// Streamline the style when inside anchors to avoid broken underline and more
+			a &gt; &amp; {
+				color: inherit;
+			}
+		}
+
+		kbd {
+			padding: $kbd-padding-y $kbd-padding-x;
+			font-size: $kbd-font-size;
+			color: $kbd-color;
+			background-color: $kbd-bg;
+			border-radius: props.prop(&#39;radius-sm&#39;);
+
+			kbd {
+				padding: 0;
+				font-size: 1em;
+				font-weight: $nested-kbd-font-weight;
+			}
+		}
+
+
+		// Figures
+		//
+		// Apply a consistent margin strategy (matches our type styles).
+
+		figure {
+			margin: 0 0 spacing.rem(1);
+		}
+
+
+		// Images and content
+
+		img,
+		svg {
+			vertical-align: middle;
+		}
+
+
+		// Tables
+		//
+		// Prevent double borders
+
+		table {
+			caption-side: bottom;
+			border-collapse: collapse;
+		}
+
+		caption {
+			padding-top: $table-cell-padding-y;
+			padding-bottom: $table-cell-padding-y;
+			color: $table-caption-color;
+			text-align: left;
+		}
+
+		// 1. Removes font-weight bold by inheriting
+		// 2. Matches default `&lt;td&gt;` alignment by inheriting `text-align`.
+		// 3. Fix alignment for Safari
+
+		th {
+			font-weight: $table-th-font-weight; // 1
+			text-align: inherit; // 2
+			text-align: -webkit-match-parent; // 3
+		}
+
+		thead,
+		tbody,
+		tfoot,
+		tr,
+		td,
+		th {
+			border-color: inherit;
+			border-style: solid;
+			border-width: 0;
+		}
+
+
+		// Forms
+		//
+		// 1. Allow labels to use `margin` for spacing.
+
+		label {
+			display: inline-block; // 1
+		}
+
+		// Remove the default `border-radius` that macOS Chrome adds.
+		// See https://github.com/twbs/bootstrap/issues/24093
+
+		button {
+			// stylelint-disable-next-line property-blacklist
+			border-radius: 0;
+		}
+
+		// NDS: override this, as we&#39;re using a custom focus ring
+		// Work around a Firefox bug where the transparent `button` background
+		// results in a loss of the default `button` focus styles.
+		// Credit https://github.com/suitcss/base/
+
+		// button:focus {
+		// 	outline: 1px dotted;
+		// 	outline: 5px auto -webkit-focus-ring-color;
+		// }
+
+		// 1. Remove the margin in Firefox and Safari
+
+		input,
+		button,
+		select,
+		optgroup,
+		textarea {
+			margin: 0; // 1
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+
+		// Show the overflow in Edge
+
+		button,
+		input {
+			overflow: visible;
+		}
+
+		// Remove the inheritance of text transform in Firefox
+
+		button,
+		select {
+			text-transform: none;
+		}
+
+		// Set the cursor for non-`&lt;button&gt;` buttons
+		//
+		// Details at https://github.com/twbs/bootstrap/pull/30562
+		[role=&#39;button&#39;] {
+			cursor: pointer;
+		}
+
+		// Remove the inheritance of word-wrap in Safari.
+		// See https://github.com/twbs/bootstrap/issues/24990
+
+		select {
+			word-wrap: normal;
+		}
+
+		// Remove the dropdown arrow in Chrome from inputs built with datalists.
+		// See https://stackoverflow.com/a/54997118
+
+		[list]::-webkit-calendar-picker-indicator {
+			display: none;
+		}
+
+		// 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+		//    controls in Android 4.
+		// 2. Correct the inability to style clickable types in iOS and Safari.
+		// 3. Opinionated: add &quot;hand&quot; cursor to non-disabled button elements.
+
+		button,
+		[type=&#39;button&#39;],
+		[type=&#39;reset&#39;],
+		[type=&#39;submit&#39;] {
+			-webkit-appearance: button; // 2
+
+			&amp;:not(:disabled) {
+				cursor: pointer; // 3
+			}
+		}
+
+		// Remove inner border and padding from Firefox, but don&#39;t restore the outline like Normalize.
+
+		::-moz-focus-inner {
+			padding: 0;
+			border-style: none;
+		}
+
+		// 1. Textareas should really only resize vertically so they don&#39;t break their (horizontal) containers.
+
+		textarea {
+			resize: vertical; // 1
+		}
+
+		// 1. Browsers set a default `min-width: min-content;` on fieldsets,
+		//    unlike e.g. `&lt;div&gt;`s, which have `min-width: 0;` by default.
+		//    So we reset that to ensure fieldsets behave more like a standard block element.
+		//    See https://github.com/twbs/bootstrap/issues/12359
+		//    and https://html.spec.whatwg.org/multipage/#the-fieldset-and-legend-elements
+		// 2. Reset the default outline behavior of fieldsets so they don&#39;t affect page layout.
+
+		fieldset {
+			min-width: 0; // 1
+			padding: 0; // 2
+			margin: 0; // 2
+			border: 0; // 2
+		}
+
+		// 1. By using `float: left`, the legend will behave like a block element.
+		//    This way the border of a fieldset wraps around the legend if present.
+		// 2. Correct the text wrapping in Edge.
+		// 3. Fix wrapping bug.
+		//    See https://github.com/twbs/bootstrap/issues/29712
+
+		legend {
+			float: left; // 1
+			width: 100%;
+			padding: 0;
+			margin-bottom: $legend-margin-bottom;
+			font-size: $legend-font-size;
+			font-weight: $legend-font-weight;
+			line-height: inherit;
+			white-space: normal; // 2
+
+			+ * {
+				clear: left; // 3
+			}
+		}
+
+		// Fix height of inputs with a type of datetime-local, date, month, week, or time
+		// See https://github.com/twbs/bootstrap/issues/18842
+
+		::-webkit-datetime-edit-fields-wrapper,
+		::-webkit-datetime-edit-text,
+		::-webkit-datetime-edit-minute,
+		::-webkit-datetime-edit-hour-field,
+		::-webkit-datetime-edit-day-field,
+		::-webkit-datetime-edit-month-field,
+		::-webkit-datetime-edit-year-field {
+			padding: 0;
+		}
+
+		::-webkit-inner-spin-button {
+			height: auto;
+		}
+
+		// 1. Correct the outline style in Safari.
+		// 2. This overrides the extra rounded corners on search inputs in iOS so that our
+		//    `.form-control` class can properly style them. Note that this cannot simply
+		//    be added to `.form-control` as it&#39;s not specific enough. For details, see
+		//    https://github.com/twbs/bootstrap/issues/11586.
+
+		[type=&#39;search&#39;] {
+			outline-offset: -2px; // 1
+			-webkit-appearance: textfield; // 2
+		}
+
+		// Remove the inner padding in Chrome and Safari on macOS.
+
+		::-webkit-search-decoration {
+			-webkit-appearance: none;
+		}
+
+		// Remove padding around color pickers in webkit browsers
+
+		::-webkit-color-swatch-wrapper {
+			padding: 0;
+		}
+
+		// 1. Change font properties to `inherit` in Safari.
+		// 2. Correct the inability to style clickable types in iOS and Safari.
+
+		::-webkit-file-upload-button {
+			font: inherit; // 1
+			-webkit-appearance: button; // 2
+		}
+
+		// Correct element displays
+
+		output {
+			display: inline-block;
+		}
+
+		// Remove border from iframe
+
+		iframe {
+			border: 0;
+		}
+
+		// Summary
+		//
+		// 1. Add the correct display in all browsers
+
+		summary {
+			display: list-item; // 1
+			cursor: pointer;
+		}
+
+
+		// Progress
+		//
+		// Add the correct vertical alignment in Chrome, Firefox, and Opera.
+
+		progress {
+			vertical-align: baseline;
+		}
+
+
+		// Hidden attribute
+		//
+		// Always hide an element with the `hidden` HTML attribute.
+
+		[hidden] {
+			display: none !important;
+		}
+
+		@content;
+	}
+ }" data-collapsed="@mixin reset() { ... }"><code>@mixin reset() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Apply the HTML reset. Manually forked from Bootstrap&#39;s reboot. Additional declarations are annotated with <code>NDS:</code> comments.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-rem"><code>rem</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-spacer"><code>spacer</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-rem"><code>rem</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-spacer"><code>spacer</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-spacer"><code>spacer</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-spacer"><code>spacer</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-spacer"><code>spacer</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-rem"><code>rem</code></a></li></ul><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://github.com/twbs/bootstrap/blob/main/scss/_reboot.scss">https://github.com/twbs/bootstrap/blob/main/scss/_reboot.scss</a></li></ul></section><section class="main__item container item" id="reset-mixin-root"><h3 class="item__heading"><a class="item__name" href="#mixin-root">root</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin root() { 
+	@include util.declare(&#39;root&#39;) {
+		// add all of the root custom properties
+		@include props.set(props.get-props(true));
+
+		// apply root font size (1em by default)
+		font-size: props.prop(&#39;font-size-root&#39;);
+
+		// manual override to force the &#39;light&#39; scheme
+		&amp;.#{util.prefix(&#39;scheme-light&#39;)} {
+			@include color.set-scheme(&#39;light&#39;);
+		}
+
+		// use the user&#39;s preferred scheme by default
+		@media screen and (prefers-color-scheme: &#39;light&#39;) {
+			@include color.set-scheme(&#39;light&#39;);
+		}
+
+		// only apply the &#39;dark&#39; scheme if it&#39;s enabled on build
+		@if config.$enable-dark-scheme {
+			@media screen and (prefers-color-scheme: &#39;dark&#39;) {
+				@include color.set-scheme(&#39;dark&#39;);
+			}
+
+			&amp;.#{util.prefix(&#39;scheme-dark&#39;)} {
+				@include color.set-scheme(&#39;dark&#39;);
+			}
+		}
+		@else {
+			@include color.set-scheme(&#39;light&#39;);
+		}
+
+		// disable all motion by setting all durations to 0
+		@media (prefers-reduced-motion: reduce) {
+			@include props.set($duration-scalar: 0);
+		}
+	}
+ }" data-collapsed="@mixin root() { ... }"><code>@mixin root() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Apply root styles. This should be @included in your <code>:root</code> declaration for best results.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-get-props"><code>get-props</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#typography-function-size"><code>size</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#config-variable-enable-dark-scheme"><code>enable-dark-scheme</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#motion-variable-duration-scalar"><code>duration-scalar</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="spacing"><div class="container">Spacing</div></h1><section class="main__sub-section" id="spacing-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="spacing-function-px-rem"><h3 class="item__heading"><a class="item__name" href="#function-px-rem">px-rem</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function px-rem() { 
+	@return -spacer($px, &#39;px&#39;, &#39;rem&#39;);
+ }" data-collapsed="@function px-rem() { ... }"><code>@function px-rem() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Convert a px value to a rem spacer.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p></section><section class="main__item container item" id="spacing-function-rem-px"><h3 class="item__heading"><a class="item__name" href="#function-rem-px">rem-px</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function rem-px() { 
+	@return -spacer(util.rem2px($rem), &#39;rem&#39;, &#39;px&#39;);
+ }" data-collapsed="@function rem-px() { ... }"><code>@function rem-px() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Convert a rem value to a px spacer.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p></section><section class="main__item container item" id="spacing-function-px"><h3 class="item__heading"><a class="item__name" href="#function-px">px</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function px() { 
+	@return -spacer($val, &#39;px&#39;, &#39;px&#39;);
+ }" data-collapsed="@function px() { ... }"><code>@function px() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Use a px value as a px spacer.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p></section><section class="main__item container item" id="spacing-function-rem"><h3 class="item__heading"><a class="item__name" href="#function-rem">rem</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function rem() { 
+	@return -spacer(util.rem2px($val), &#39;rem&#39;, &#39;rem&#39;);
+ }" data-collapsed="@function rem() { ... }"><code>@function rem() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Use a rem value as a rem spacer.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li></ul></section><section class="main__item container item" id="spacing-function-padding"><h3 class="item__heading"><a class="item__name" href="#function-padding">padding</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function padding($padding-length, $border-width: 0) { 
+	@if $border-width {
+		@if $border-width == 0 {
+			@return $padding-length;
+		}
+
+		@return calc(#{$padding-length} - #{$border-width});
+	}
+
+	@return $padding-length;
+ }" data-collapsed="@function padding($padding-length, $border-width: 0) { ... }"><code>@function padding($padding-length, $border-width: 0) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Padding helper Ensures that padding fits the design system box model.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$padding-length</code></th><td data-label="desc"><p>The desired padding length.</p></td><td data-label="type"><code>String</code> or <code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$border-width</code></th><td data-label="desc"><p>The desired border width.</p></td><td data-label="type"><code>String</code> or <code>Number</code></td><td data-label="default"><code>0</code></td></tr></tbody></table><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://gitlab.com/wwnorton/platform/design-system/-/issues/96">GitLab Issue</a></li></ul></section><section class="main__item container item" id="spacing-function-spacer"><h3 class="item__heading"><a class="item__name" href="#function-spacer">spacer</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function spacer() { 
+	@return props.prop(props.from-role($role, &#39;spacing&#39;, $-spacer-roles));
+ }" data-collapsed="@function spacer() { ... }"><code>@function spacer() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Get a spacer from a role or a value.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-reset"><code>reset</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="typography"><div class="container">Typography</div></h1><section class="main__sub-section" id="typography-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="typography-function-sans"><h3 class="item__heading"><a class="item__name" href="#function-sans">sans</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function sans() { 
+	@return system-stack($font-family, &#39;sans&#39;);
+ }" data-collapsed="@function sans() { ... }"><code>@function sans() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Set a sans-serif font with the system stack fallback.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p></section><section class="main__item container item" id="typography-function-serif"><h3 class="item__heading"><a class="item__name" href="#function-serif">serif</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function serif() { 
+	@return system-stack($font-family, &#39;serif&#39;);
+ }" data-collapsed="@function serif() { ... }"><code>@function serif() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Set a serif font with the system stack fallback.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p></section><section class="main__item container item" id="typography-function-mono"><h3 class="item__heading"><a class="item__name" href="#function-mono">mono</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function mono() { 
+	@return system-stack($font-family, &#39;mono&#39;);
+ }" data-collapsed="@function mono() { ... }"><code>@function mono() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Set a monospace font with the system stack fallback.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p></section><section class="main__item container item" id="typography-function-size"><h3 class="item__heading"><a class="item__name" href="#function-size">size</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function size($px) { 
+	@return #{$px / $font-size-root}rem;
+ }" data-collapsed="@function size($px) { ... }"><code>@function size($px) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Get a font size using rem spacers.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$px</code></th><td data-label="desc"><p>The font size in pixels.</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>The font size spacer and rem conversion string.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#reset-mixin-root"><code>root</code></a></li></ul></section></section><section class="main__sub-section" id="typography-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="typography-variable-font-family-base"><h3 class="item__heading"><a class="item__name" href="#variable-font-family-base">font-family-base</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$font-family-base: props.prop(&#39;font-family-sans&#39;) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The main font family that will be used throughout your application.</p></div></section><section class="main__item container item" id="typography-variable-font-family-headings"><h3 class="item__heading"><a class="item__name" href="#variable-font-family-headings">font-family-headings</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$font-family-headings: props.prop(&#39;font-family-base&#39;) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The font family that will be used for all headings.</p></div></section></section><section class="main__sub-section" id="typography-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="typography-mixin-font-smoothing"><h3 class="item__heading"><a class="item__name" href="#mixin-font-smoothing">font-smoothing</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin font-smoothing() { 
+	@include device.media-hd {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+	}
+ }" data-collapsed="@mixin font-smoothing() { ... }"><code>@mixin font-smoothing() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Apply font smoothing.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/">https://usabilitypost.com/2012/11/05/stop-fixing-font-smoothing/</a></li></ul></section><section class="main__item container item" id="typography-mixin-typeset"><h3 class="item__heading"><a class="item__name" href="#mixin-typeset">typeset</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin typeset($family: font-family-base, $height: line-height-base, $size: font-size-base, $size: null) { 
+	font-family: $family;
+	font-size: $size;
+	font-weight: $weight;
+	line-height: $height;
+ }" data-collapsed="@mixin typeset($family: font-family-base, $height: line-height-base, $size: font-size-base, $size: null) { ... }"><code>@mixin typeset($family: font-family-base, $height: line-height-base, $size: font-size-base, $size: null) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Create a composed set of typography design tokens. Explicitly specifying a value of <code>null</code> values will result in the property not being set.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$family</code></th><td data-label="desc"><p>The font size, which should be a <code>font-size-*</code> token.</p></td><td data-label="type"><code>Font-family</code></td><td data-label="default"><code>font-family-base</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$height</code></th><td data-label="desc"><p>The line height, which should be a <code>line-height-*</code> token.</p></td><td data-label="type"><code>Line-height</code></td><td data-label="default"><code>line-height-base</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$size</code></th><td data-label="desc"><p>The font size, which should be a <code>font-size-*</code> token.</p></td><td data-label="type"><code>Font-size</code></td><td data-label="default"><code>font-size-base</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$size</code></th><td data-label="desc"><p>The font weight, which should be a <code>font-weight-*</code> token.</p></td><td data-label="type"><code>Font-size</code></td><td data-label="default"><code>null</code></td></tr></tbody></table><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-base"><code>body-base</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-xs"><code>body-xs</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-sm"><code>body-sm</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-md"><code>body-md</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-body-lg"><code>body-lg</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-base"><code>ui-base</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-body-base"><h3 class="item__heading"><a class="item__name" href="#mixin-body-base">body-base</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin body-base() { 
+	@include typeset;
+ }" data-collapsed="@mixin body-base() { ... }"><code>@mixin body-base() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The &quot;base&quot; body typeset uses all <code>-base</code> tokens.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include nds.body-base;
+}
+
+// CSS output
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-base);
+  line-height: var(--nds-line-height-base);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset"><code>typeset</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-body-xs"><h3 class="item__heading"><a class="item__name" href="#mixin-body-xs">body-xs</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin body-xs() { 
+	@include typeset($size: props.prop(&#39;font-size-xs&#39;));
+ }" data-collapsed="@mixin body-xs() { ... }"><code>@mixin body-xs() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for extra small body text.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include body-xs;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-xs);
+  line-height: var(--nds-line-height-base);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset"><code>typeset</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-body-sm"><h3 class="item__heading"><a class="item__name" href="#mixin-body-sm">body-sm</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin body-sm() { 
+	@include typeset($size: props.prop(&#39;font-size-sm&#39;));
+ }" data-collapsed="@mixin body-sm() { ... }"><code>@mixin body-sm() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for small body text.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include body-sm;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-sm);
+  line-height: var(--nds-line-height-base);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset"><code>typeset</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-body-md"><h3 class="item__heading"><a class="item__name" href="#mixin-body-md">body-md</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin body-md() { 
+	@include typeset($size: props.prop(&#39;font-size-md&#39;));
+ }" data-collapsed="@mixin body-md() { ... }"><code>@mixin body-md() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for medium body text.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include body-md;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-md);
+  line-height: var(--nds-line-height-base);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset"><code>typeset</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-body-lg"><h3 class="item__heading"><a class="item__name" href="#mixin-body-lg">body-lg</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin body-lg() { 
+	@include typeset($size: props.prop(&#39;font-size-lg&#39;));
+ }" data-collapsed="@mixin body-lg() { ... }"><code>@mixin body-lg() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for large body text.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include body-lg;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-lg);
+  line-height: var(--nds-line-height-base);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset"><code>typeset</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-ui-base"><h3 class="item__heading"><a class="item__name" href="#mixin-ui-base">ui-base</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin ui-base() { 
+	@include typeset($height: lh(&#39;ui&#39;), $size: $size);
+ }" data-collapsed="@mixin ui-base() { ... }"><code>@mixin ui-base() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The &quot;base&quot; UI typeset uses the <code>ui</code> line height and <code>-base</code> tokens for everything else.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include ui-base;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-base);
+  line-height: var(--nds-line-height-3);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset"><code>typeset</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-xs"><code>ui-xs</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-sm"><code>ui-sm</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-md"><code>ui-md</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-lg"><code>ui-lg</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-ui-xs"><h3 class="item__heading"><a class="item__name" href="#mixin-ui-xs">ui-xs</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin ui-xs() { 
+	@include ui-base($size: props.prop(&#39;font-size-xs&#39;));
+ }" data-collapsed="@mixin ui-xs() { ... }"><code>@mixin ui-xs() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for extra small UI text.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include ui-xs;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-xs);
+  line-height: var(--nds-line-height-3);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-base"><code>ui-base</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-ui-sm"><h3 class="item__heading"><a class="item__name" href="#mixin-ui-sm">ui-sm</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin ui-sm() { 
+	@include ui-base($size: props.prop(&#39;font-size-sm&#39;));
+ }" data-collapsed="@mixin ui-sm() { ... }"><code>@mixin ui-sm() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for small UI text.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include ui-sm;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-sm);
+  line-height: var(--nds-line-height-3);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-base"><code>ui-base</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-ui-md"><h3 class="item__heading"><a class="item__name" href="#mixin-ui-md">ui-md</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin ui-md() { 
+	@include ui-base($size: props.prop(&#39;font-size-md&#39;));
+ }" data-collapsed="@mixin ui-md() { ... }"><code>@mixin ui-md() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for medium UI text.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include ui-md;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-md);
+  line-height: var(--nds-line-height-3);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-base"><code>ui-base</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-ui-lg"><h3 class="item__heading"><a class="item__name" href="#mixin-ui-lg">ui-lg</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin ui-lg() { 
+	@include ui-base($size: props.prop(&#39;font-size-lg&#39;));
+ }" data-collapsed="@mixin ui-lg() { ... }"><code>@mixin ui-lg() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for large UI text.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include ui-lg;
+}
+
+// CSS output with default config
+.my-selector {
+  font-family: var(--nds-font-family-base);
+  font-size: var(--nds-font-size-lg);
+  line-height: var(--nds-line-height-3);
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-ui-base"><code>ui-base</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-typeset-heading"><h3 class="item__heading"><a class="item__name" href="#mixin-typeset-heading">typeset-heading</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin typeset-heading($size, $height) { 
+	@include typeset(
+		$size: $size,
+		$height: $height,
+		$family: props.prop(&#39;font-family-headings&#39;),
+		$weight: props.prop(&#39;font-weight-headings&#39;),
+	);
+
+	margin-top: 0;
+	margin-bottom: spacing.spacer(&#39;block-base&#39;);
+	font-style: props.prop(&#39;font-style-headings&#39;);
+ }" data-collapsed="@mixin typeset-heading($size, $height) { ... }"><code>@mixin typeset-heading($size, $height) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> intended for text that is meant to convey hierarchy (i.e., a heading).</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$size</code></th><td data-label="desc"><p>The font size. Required.</p></td><td data-label="type"><code>Font-size</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$height</code></th><td data-label="desc"><p>The line height. Required.</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.my-selector {
+  @include typeset-heading($size: 3rem, $height: 1.25);
+}
+
+// CSS output with default config
+.my-selector {
+  margin-top: 0;
+  margin-bottom: var(--nds-spacing-4);
+  font-family: var(--nds-font-family-headings);
+  font-size: 3rem;
+  font-style: var(--nds-font-style-headings);
+  font-weight: var(--nds-font-weight-headings);
+  line-height: 1.25;
+}</code></pre></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset"><code>typeset</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#spacing-function-spacer"><code>spacer</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-1"><code>heading-1</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-2"><code>heading-2</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-3"><code>heading-3</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-4"><code>heading-4</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-5"><code>heading-5</code></a></li><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-heading-6"><code>heading-6</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-heading-1"><h3 class="item__heading"><a class="item__name" href="#mixin-heading-1">heading-1</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin heading-1() { 
+	@include typeset-heading(
+		$size: props.prop(&#39;font-size-h1&#39;),
+		$height: lh(&#39;h1&#39;),
+	);
+ }" data-collapsed="@mixin heading-1() { ... }"><code>@mixin heading-1() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for text that is meant to convey the top level of content hierarchy, such as an <code>h1</code>.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-heading-2"><h3 class="item__heading"><a class="item__name" href="#mixin-heading-2">heading-2</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin heading-2() { 
+	@include typeset-heading(
+		$size: props.prop(&#39;font-size-h2&#39;),
+		$height: lh(&#39;h2&#39;),
+	);
+ }" data-collapsed="@mixin heading-2() { ... }"><code>@mixin heading-2() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for text that is meant to convey the second level of content hierarchy, such as an <code>h2</code>.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-heading-3"><h3 class="item__heading"><a class="item__name" href="#mixin-heading-3">heading-3</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin heading-3() { 
+	@include typeset-heading(
+		$size: props.prop(&#39;font-size-h3&#39;),
+		$height: lh(&#39;h3&#39;),
+	);
+ }" data-collapsed="@mixin heading-3() { ... }"><code>@mixin heading-3() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for text that is meant to convey the third level of content hierarchy, such as an <code>h3</code>.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-heading-4"><h3 class="item__heading"><a class="item__name" href="#mixin-heading-4">heading-4</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin heading-4() { 
+	@include typeset-heading(
+		$size: props.prop(&#39;font-size-h4&#39;),
+		$height: lh(&#39;h4&#39;),
+	);
+ }" data-collapsed="@mixin heading-4() { ... }"><code>@mixin heading-4() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for text that is meant to convey the fourth level of content hierarchy, such as an <code>h4</code>.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-heading-5"><h3 class="item__heading"><a class="item__name" href="#mixin-heading-5">heading-5</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin heading-5() { 
+	@include typeset-heading(
+		$size: props.prop(&#39;font-size-h5&#39;),
+		$height: lh(&#39;h5&#39;),
+	);
+ }" data-collapsed="@mixin heading-5() { ... }"><code>@mixin heading-5() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for text that is meant to convey the fifth level of content hierarchy, such as an <code>h5</code>.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section><section class="main__item container item" id="typography-mixin-heading-6"><h3 class="item__heading"><a class="item__name" href="#mixin-heading-6">heading-6</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin heading-6() { 
+	@include typeset-heading(
+		$size: props.prop(&#39;font-size-h6&#39;),
+		$height: lh(&#39;h6&#39;),
+	);
+ }" data-collapsed="@mixin heading-6() { ... }"><code>@mixin heading-6() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>A <code>typeset</code> suitable for text that is meant to convey the sixth (and lowest) level of content hierarchy, such as an <code>h6</code>.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typeset-heading"><code>typeset-heading</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#properties-function-prop"><code>prop</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="utilities"><div class="container">Utilities</div></h1><section class="main__sub-section" id="utilities-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="utilities-mixin-a11y-utilities"><h3 class="item__heading"><a class="item__name" href="#mixin-a11y-utilities">a11y-utilities</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin a11y-utilities() { 
+	@include util.declare(&#39;utilities-a11y&#39;) {
+		.#{util.prefix(&#39;reduced-motion&#39;)} {
+			@include reduce-motion;
+		}
+
+		.#{util.prefix(&#39;sr-only&#39;)} {
+			@include sr-only;
+		}
+	}
+ }" data-collapsed="@mixin a11y-utilities() { ... }"><code>@mixin a11y-utilities() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Accessibility utility classes. Includes declarations for <code>.reduced-motion</code> and <code>.sr-only</code>.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#accessibility-mixin-reduce-motion"><code>reduce-motion</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[mixin]</span> <a href="#accessibility-mixin-sr-only"><code>sr-only</code></a></li></ul></section></section><section class="main__sub-section" id="utilities-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="utilities-function-flatten"><h3 class="item__heading"><a class="item__name" href="#function-flatten">flatten</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function flatten($map, $name: null, $key-separator: -) { 
+	$flattened: ();
+
+	@each $key in map.keys($map) {
+		$val: map.get($map, $key);
+		$full-key: if($name, prefix($key, $name, $key-separator), $key);
+
+		@if $key == &#39;#root&#39; {
+			$full-key: $name;
+		}
+
+		@if not $full-key {
+			@error &#39;When flattening #root keys, ensure that the #root is either &#39;
+				+ &#39;nested or a valid $name argument is included.&#39;;
+		}
+
+		@if meta.type-of($val) == &#39;map&#39; {
+			$flattened: map.merge($flattened, flatten($val, string.quote($full-key)));
+		}
+		@else {
+			$flattened: map.merge($flattened, (string.quote($full-key): $val));
+		}
+	}
+
+	@return $flattened;
+ }" data-collapsed="@function flatten($map, $name: null, $key-separator: -) { ... }"><code>@function flatten($map, $name: null, $key-separator: -) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Flatten a nested map.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$map</code></th><td data-label="desc"><p>The map that should be flattened. The <code>#root</code> key will be treated use the name as its key.</p></td><td data-label="type"><code>Map</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$name</code></th><td data-label="desc"><p>The name of the map. Resulting keys will use this as a prefix.</p></td><td data-label="type"><code>String</code></td><td data-label="default"><code>null</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$key-separator</code></th><td data-label="desc"><p>The separator that will be used to join map names.</p></td><td data-label="type"><code>String</code></td><td data-label="default"><code>-</code></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Map</code> &mdash;<p>The flattened map. Key names will reflect the nesting structure.</p></div><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>@debug flatten((a: (b: (c: &#39;d&#39;))));
+// (&quot;a-b-c&quot;: &quot;d&quot;)</code></pre></div><div class="item__example example"><pre class="example__code language-named"><code>@debug flatten((a: (b: (c: &#39;d&#39;))), &#39;foo&#39;);
+// (&quot;foo-a-b-c&quot;: &quot;d&quot;)</code></pre></div><div class="item__example example"><div class="example__description"><p>and a <code>#root</code> key</p></div><pre class="example__code language-named"><code>@debug flatten((&#39;a&#39;: (&#39;b&#39;: &#39;c&#39;, &#39;#root&#39;: &#39;d&#39;)), &#39;foo&#39;);
+// (&quot;foo-a-b&quot;: &quot;c&quot;, &quot;foo-a&quot;: &quot;d&quot;)</code></pre></div><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>When flattening #root keys, ensure that the #root is either</p></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#properties-mixin-set"><code>set</code></a></li></ul></section><section class="main__item container item" id="utilities-function-deep-merge"><h3 class="item__heading"><a class="item__name" href="#function-deep-merge">deep-merge</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function deep-merge($maps...) { 
+	$merged: list.nth($maps, 1);
+	$length: list.length($maps);
+
+	@if $length &lt;= 1 { @return $merged; }
+
+	@for $i from 2 through $length {
+		$map: list.nth($maps, $i);
+		$map-type: meta.type-of($map);
+
+		@if $map-type == &#39;map&#39; or ($map-type == &#39;list&#39; and list.length($map) == 0) {
+			@each $key in map.keys($map) {
+				$new-val: map.get($map, $key);
+				$cur-val: map.get($merged, $key);
+
+				@if meta.type-of($new-val) == &#39;map&#39; and meta.type-of($cur-val) == &#39;map&#39; {
+					$new-val: deep-merge($cur-val, $new-val);
+				}
+
+				$merged: map.merge($merged, ($key: $new-val));
+			}
+		}
+		@else {
+			@error &#39;All arguments must be maps.&#39;;
+		}
+	}
+
+	@return $merged;
+ }" data-collapsed="@function deep-merge($maps...) { ... }"><code>@function deep-merge($maps...) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Recursively merge a list of maps. Similar to <code>map.merge</code> but takes many maps and merges any sub-maps recursively.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$maps...</code></th><td data-label="desc"><p>A list of maps that will be merged.</p></td><td data-label="type"><code>Map[]</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Map</code> &mdash;<p>A deeply merged map.</p></div><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>All arguments must be maps.</p></li></ul></section><section class="main__item container item" id="utilities-function-get-key"><h3 class="item__heading"><a class="item__name" href="#function-get-key">get-key</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function get-key($map, $value) { 
+	$keys: map.keys($map);
+	$values: map.values($map);
+	$index: list.index($values, $value);
+
+	@if $index {
+		@return list.nth($keys, $index);
+	}
+
+	@return $value;
+ }" data-collapsed="@function get-key($map, $value) { ... }"><code>@function get-key($map, $value) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Get the key that corresponds to a value in a map.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$map</code></th><td data-label="desc"><p>The map that will be used for lookup.</p></td><td data-label="type"><code>Map</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$value</code></th><td data-label="desc"><p>The value of the corresponding key.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>The map&#39;s key name corresponding to the provided value.</p></div><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>$my-map: (&#39;red&#39;: #f00, &#39;yellow&#39;: #ba7);
+@debug get-key($my-map, #ba7);
+// yellow</code></pre></div></section></section></section><footer class="footer" role="contentinfo"><div class="container"><div class="footer__project-info project-info"><!-- Name and URL --> <span class="project-info__name">Norton Design System Sassdoc</span><!-- Version --><!-- License --></div><a class="footer__watermark" href="http://sassdoc.com"><img src="assets/images/logo_light_inline.svg" alt="SassDoc Logo"></a></div></footer></article><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script><script src="assets/js/main.min.js"></script></body></html>
