@@ -1,0 +1,108 @@
+name: Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - name: Cache 💵
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: NPM install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Lerna bootstrap 👢
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
+
+  eslint:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: ESLint ✨
+        run: npm run lint:es
+
+  stylelint:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Stylelint ✨
+        run: npm run lint:style
+
+  prettier:
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Prettier ✨
+        run: npm run lint:prettier
+
+  test:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Test 🧪
+        run: npm run coverage
+      - name: Codecov ☂
+        uses: codecov/codecov-action@v1
+        with:
+          directory: coverage
+
+  build-lib:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Build 🔧
+        run: npm run build

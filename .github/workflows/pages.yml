@@ -1,0 +1,41 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: NPM install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Lerna bootstrap 👢
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run bootstrap
+      - name: Build Sassdoc 💄
+        run: npm run build:sassdoc -- --dest docs/static/sassdoc
+      - name: Build Storybook 📚
+        run: npm run build:stories -- -- --output-dir ../../docs/static/storybook
+      - name: Build docs 📄
+        run: npm run build:docs
+        env:
+          PATH_PREFIX: /design-system
+      - run: mv docs/public public
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: public

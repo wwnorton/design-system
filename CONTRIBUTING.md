@@ -1,7 +1,7 @@
 # Contributing
 
 Anyone who would like to contribute is welcome and encouraged to help in any way shape or form.
-To contribute code, copy edits, or any other type of modification, make changes in a branch and create a merge request to allow maintainers to review your changes.
+To contribute code, copy edits, or any other type of modification, make changes in a branch and create a pull request to allow maintainers to review your changes.
 
 [[_TOC_]]
 
@@ -10,21 +10,21 @@ To contribute code, copy edits, or any other type of modification, make changes 
 **Contributions are meant to be easy and low-stakes**.
 Don't worry about making mistakes or getting things wrong&mdash;every contribution is helpful and our maintainers will help you through your first contribution.
 
-The easiest way to know what needs to be done is to look through [unassigned open issues](https://gitlab.com/wwnorton/platform/design-system/-/issues?scope=all&utf8=%E2%9C%93&state=opened&assignee_id=None) or [our development board](https://gitlab.com/wwnorton/platform/design-system/-/boards/1270953). To get started, write a message in an issue to let the maintainers know you'd like to tackle it and they will help you through the process.
+The easiest way to know what needs to be done is to look through [unassigned open issues](https://github.com/wwnorton/design-system/issues?q=is%3Aopen). To get started, write a message in an issue to let the maintainers know you'd like to tackle it and they will help you through the process.
 
-- Read [getting started with GitLab](https://gitlab.com/wwnorton/platform/design-system/wikis/Guides/Git%20&%20GitLab#getting-started-with-gitlab) for more details on the basics of Git and GitLab.
-- Issues labelled [good first issue](https://gitlab.com/wwnorton/platform/design-system/issues?label_name[]=good+first+issue) are a great place to start if you'd like to contribute but aren't sure how.
+- Read [getting started with GitHub](https://docs.github.com/en/github/getting-started-with-github) for more details on the basics of Git and GitHub.
+- Issues labelled [good first issue](https://github.com/wwnorton/design-system/labels/good%20first%20issue) are a great place to start if you'd like to contribute but aren't sure how.
 
-## Merge Requests
+## Pull Requests
 
-A merge request is a request to change the design system's source of truth in some way.
+A pull request is a request to change the design system's source of truth in some way.
 This could be a new feature, documentation updates, a bug fix, a copy change, or any other type of change.
 
-- **Every merge request is a proposal**. While issues are helpful for definition and open questions, merge requests are the place to propose changes, fixes, and solutions. It's where the design system gets built.
-- **Expect discussion**. Let others know when your merge request is ready for review directly in the merge request thread and [remove the work in progress flag](https://docs.gitlab.com/ee/user/project/merge_requests/work_in_progress_merge_requests.html) if it exists and then wait for feedback. Maintainers and other contributors will review it and comment on the proposal, possibly requesting changes.
-- **Start small**. Small changes are _always_ better than big ones. Opening a merge request that includes changes to many files and big API changes will take much longer to review and there's a good chance that some portions will be rejected.
-- **Define the problem** in the merge request description. Merge requests often introduce solutions to problems, so don't forget to state the problem you're solving.
-- When in doubt, refer to [GitLab-the-company's own best practices for merge requests](https://about.gitlab.com/handbook/communication/#everything-starts-with-a-merge-request).
+- **Every pull request is a proposal**. While issues are helpful for definition and open questions, pull requests are the place to propose changes, fixes, and solutions. It's where the design system gets built.
+- **Expect discussion**. Let others know when your pull request is ready for review directly in the pull request thread and then wait for feedback. Maintainers and other contributors will review it and comment on the proposal, possibly requesting changes.
+- **Start small**. Small changes are _always_ better than big ones. Opening a pull request that includes changes to many files and big API changes will take much longer to review and there's a good chance that some portions will be rejected.
+- **Define the problem** in the pull request description. Merge requests often introduce solutions to problems, so don't forget to state the problem you're solving.
+- When in doubt, refer to [GitLab's best practices for merge requests](https://about.gitlab.com/handbook/communication/#everything-starts-with-a-merge-request) (GitLab calls a pull request a "merge request").
 
 ## Code and Commit Standards
 

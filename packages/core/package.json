@@ -13,9 +13,9 @@
     "scss",
     "tokens"
   ],
-  "homepage": "https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core#readme",
-  "bugs": "https://gitlab.com/wwnorton/platform/design-system/issues",
-  "repository": "https://gitlab.com/wwnorton/platform/design-system/tree/main/packages/core",
+  "homepage": "https://github.com/wwnorton/design-system/tree/main/packages/core#readme",
+  "bugs": "https://github.com/wwnorton/design-system/issues",
+  "repository": "https://github.com/wwnorton/design-system/tree/main/packages/core",
   "license": "MIT",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [

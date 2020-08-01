@@ -28,7 +28,7 @@ The following assumes that you already have [Node.js](https://nodejs.org/en/) an
 3. Install package-level dependencies and symlink them via `npm run bootstrap` (or `lerna bootstrap` if you have Lerna installed globally).
 
 ```sh
-git clone https://gitlab.com/wwnorton/platform/design-system.git && cd design-system
+git clone https://github.com/wwnorton/design-system.git && cd design-system
 npm install
 npm run bootstrap
 ```
