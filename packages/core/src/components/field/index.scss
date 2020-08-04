@@ -169,9 +169,10 @@
 		border-color: transparent;
 	}
 
-	.#{util.prefix('error')} &,
+	.#{util.prefix('error')} + &,
 	[aria-invalid='true'] + & {
 		@include props.set(
+			$bg-color: props.prop('error-10'),
 			$border-color: props.prop('error'),
 		);
 	}
