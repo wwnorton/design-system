@@ -5,7 +5,7 @@
 @use '../../properties' as props;
 
 @mixin control {
-	color: props.prop('body-bg');
+	color: transparent;
 	border-radius: props.prop('radius-base');
 
 	:checked + &,
@@ -14,6 +14,7 @@
 			$bg-color: props.prop('primary'),
 		);
 
+		color: props.prop('body-bg');
 		border-color: transparent;
 	}
 
@@ -24,7 +25,7 @@
 
 	[aria-invalid='true'] + & {
 		@include props.set(
-			$checkbox-border: props.prop('error'),
+			$border-color: props.prop('error'),
 		);
 	}
 
@@ -32,7 +33,9 @@
 	:disabled:checked + &,
 	.disabled:indeterminate + &,
 	:disabled:indeterminate + & {
-		@include props.set($checkbox-bg: props.prop('disabled-20'));
+		@include props.set(
+			$bg-color: props.prop('disabled-20'),
+		);
 
 		color: props.prop('body-bg');
 		border-color: transparent;
