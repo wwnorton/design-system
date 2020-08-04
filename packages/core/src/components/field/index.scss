@@ -110,6 +110,10 @@
 	.#{util.prefix('field__desc')} {
 		margin-bottom: unset;
 	}
+
+	.#{util.prefix('field__info')} .#{util.prefix('field__feedback')} {
+		margin-top: spacing.spacer('ui-inner');
+	}
 }
 
 // The "choice" control (checkbox/radio) in a field group.
