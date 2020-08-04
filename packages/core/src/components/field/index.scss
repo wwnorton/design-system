@@ -177,8 +177,10 @@
 		);
 	}
 
-	.#{util.prefix('error')} :checked + &,
-	.#{util.prefix('error')} :indeterminate + & {
+	.#{util.prefix('error')}:checked + &,
+	.#{util.prefix('error')}:indeterminate + &,
+	[aria-invalid='true']:checked + &,
+	[aria-invalid='true']:indeterminate + & {
 		@include props.set(
 			$bg-color: props.prop('error'),
 		);
