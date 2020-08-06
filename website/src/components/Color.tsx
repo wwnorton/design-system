@@ -25,7 +25,7 @@ type ColorableA11y = {
 const getHighestA11y = (obj?: ColorableA11y): string | undefined => {
 	if (!obj) return undefined;
 	const {
-		aa, aaLarge, aaa, aaaLarge,
+		aa, aaLarge, aaa,
 	} = obj;
 	if (aaa) return 'AAA';
 	// if (aaaLarge) return 'AAA Large';
@@ -123,8 +123,6 @@ export const ColorFamily = (
 
 export const AllFamilies = (): JSX.Element => {
 	const [families, setFamilies] = React.useState<HTMLDivElement | null>(null);
-	const [textLight, setLight] = React.useState('#fff');
-	const [textDark, setDark] = React.useState('#000');
 	const toggleFullscreen = (): void => {
 		if (document.fullscreenElement) {
 			document.exitFullscreen();
@@ -134,18 +132,6 @@ export const AllFamilies = (): JSX.Element => {
 	};
 	return (
 		<>
-			{/* <TextField
-				value={textLight}
-				onChange={(e) => setLight(e.target.value)}
-			>
-				Light text
-			</TextField>
-			<TextField
-				value={textDark}
-				onChange={(e) => setDark(e.target.value)}
-			>
-				Dark text
-			</TextField> */}
 			<Button variant="outline" onClick={toggleFullscreen}>View fullscreen</Button>
 			<div className="families-outer" ref={setFamilies}>
 				<div className="families">
@@ -163,8 +149,8 @@ export const AllFamilies = (): JSX.Element => {
 						<ColorFamily
 							key={color}
 							name={color}
-							textLight={textLight}
-							textDark={textDark}
+							textLight='#fff'
+							textDark='#000'
 						/>
 					)) }
 				</div>
