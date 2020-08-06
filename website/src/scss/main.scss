@@ -24,13 +24,12 @@ nds.$font-family-sans: nds.sans('proxima-nova');
 	--ifm-color-emphasis-900: var(--nds-base-90);
 	--ifm-color-primary: var(--nds-primary);
 	--ifm-color-info: var(--nds-blue-60);
-	--ifm-color-success: #{nds.prop('success')};
-	--ifm-color-warning: #{nds.prop('warning-lighter')};
-	--ifm-color-danger: #{nds.prop('error')};
-	// --ifm-color-content: #{nds.prop('body-text')};
-	// --ifm-color-content-inverse: #{nds.prop('body-bg')};
-	--ifm-background-color: #{nds.prop('body-bg')};
-	--ifm-font-family-base: #{nds.prop('font-family-sans')};
+	--ifm-color-success: var(--nds-success);
+	--ifm-color-warning: var(--nds-warning-lighter);
+	--ifm-color-danger: var(--nds-error);
+	--ifm-background-color: var(--nds-body-bg);
+	--ifm-font-family-base: var(--nds-font-family-sans);
+	/* stylelint-enable order/order */
 
 	&[data-theme='dark'] {
 		--ifm-color-emphasis-0: var(--nds-base-100);
@@ -45,9 +44,16 @@ nds.$font-family-sans: nds.sans('proxima-nova');
 		--ifm-color-emphasis-900: var(--nds-base-10);
 		--ifm-color-emphasis-1000: var(--nds-white);
 		--ifm-background-color: var(--nds-base-100);
-		--ifm-color-primary: var(--nds-primary-40);
+		--ifm-color-success: var(--nds-success-light);
+		--ifm-color-danger: var(--nds-error-light);
+		--nds-body-bg: var(--ifm-background-color);
+		--nds-body-text: var(--ifm-font-color-base);
+		--nds-primary: var(--nds-teal-50);
+		--nds-primary-light: var(--nds-teal-40);
+		--nds-primary-lighter: var(--nds-teal-30);
+		--nds-primary-dark: var(--nds-teal-60);
+		--nds-primary-darker: var(--nds-teal-70);
 	}
-	/* stylelint-enable order/order */
 }
 
 @include nds.button-style;
@@ -68,6 +74,18 @@ nds.$font-family-sans: nds.sans('proxima-nova');
 	@include nds.a11y-utilities;
 }
 
+*:focus {
+	@include nds.focus-ring;
+}
+
+blockquote {
+	--ifm-blockquote-color: var(--ifm-color-emphasis-600);
+
+	[data-theme='dark'] & {
+		--ifm-blockquote-color: var(--ifm-color-emphasis-500);
+	}
+}
+
 .navbar__link--github::before {
 	display: flex;
 	width: 24px;
@@ -80,29 +98,12 @@ nds.$font-family-sans: nds.sans('proxima-nova');
 	}
 }
 
-.navbar__logo {
-	color: var(--nds-base-80);
+.alert--warning {
+	--ifm-alert-color: var(--ifm-font-color-base);
+	--ra-admonition-icon-color: --ifm-alert-color;
 
 	[data-theme='dark'] & {
-		color: var(--nds-base-20);
-	}
-}
-
-// .admonition-note code {
-// 	color: nds.prop('body-bg');
-// 	background-color: nds.prop('body-text');
-// }
-
-.alert--warning {
-	color: var(--nds-base-90);
-
-	.admonition-icon svg {
-		fill: var(--nds-body-text);
-		stroke: var(--nds-body-text);
-	}
-
-	a {
-		color: var(--nds-body-text);
+		--ifm-alert-color: var(--ifm-font-color-base-inverse);
 	}
 }
 
