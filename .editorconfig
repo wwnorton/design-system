@@ -11,6 +11,5 @@ insert_final_newline = true
 [*.{md,jade,pug}]
 trim_trailing_whitespace = false
 
-[*.{md,json,yaml,yml}]
+[*.{json,yaml,yml}]
 indent_style = space
-indent_size = 2
