@@ -45,7 +45,7 @@
     "*.{css,sass,scss,html}": [
       "stylelint --fix"
     ],
-    "*.{js,jsx,mdx,ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ]
   },

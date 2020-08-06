@@ -38,7 +38,7 @@ module.exports = {
 		},
 		// MDX
 		{
-			files: ['*.md', '*.mdx'],
+			files: ['*.mdx'],
 			extends: ['plugin:mdx/recommended'],
 			rules: {
 				'max-len': 'off',
