@@ -36,5 +36,19 @@ module.exports = {
 				'import/no-default-export': 'off',
 			},
 		},
+		// MDX
+		{
+			files: ['*.md', '*.mdx'],
+			extends: ['plugin:mdx/recommended'],
+			rules: {
+				'max-len': 'off',
+				semi: 'off',
+				'react/jsx-indent': 'off',
+				'react/jsx-filename-extension': [
+					'error',
+					{ extensions: ['.jsx', '.mdx', '.tsx'] },
+				],
+			},
+		},
 	],
 };
