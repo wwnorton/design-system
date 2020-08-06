@@ -50,9 +50,7 @@ const Navbar = (): JSX.Element => {
 	const [isSearchBarExpanded, setIsSearchBarExpanded] = useState(false);
 	const { isDarkTheme, setLightTheme, setDarkTheme } = useThemeContext();
 	const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
-	const {
-		logoLink, logoLinkProps, logoImageUrl, logoAlt,
-	} = useLogo();
+	const { logoLink, logoLinkProps } = useLogo();
 	useLockBodyScroll(sidebarShown);
 	const showSidebar = useCallback(() => {
 		setSidebarShown(true);
@@ -62,12 +60,12 @@ const Navbar = (): JSX.Element => {
 	}, [setSidebarShown]);
 	const onToggleChange = useCallback((checked) => {
 		if (checked) {
-			// document.documentElement.classList.add('nds-scheme-dark');
-			// document.documentElement.classList.remove('nds-scheme-light');
+			document.documentElement.classList.add('nds-scheme-dark');
+			document.documentElement.classList.remove('nds-scheme-light');
 			setDarkTheme();
 		} else {
-			// document.documentElement.classList.add('nds-scheme-dark');
-			// document.documentElement.classList.remove('nds-scheme-light');
+			document.documentElement.classList.add('nds-scheme-dark');
+			document.documentElement.classList.remove('nds-scheme-light');
 			setLightTheme();
 		}
 	}, [setLightTheme, setDarkTheme]);
