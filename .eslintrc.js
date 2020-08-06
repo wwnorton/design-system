@@ -10,9 +10,9 @@ module.exports = {
 			{
 				packageDir: [
 					'.',
-					'./docs',
 					'./packages/core',
 					'./packages/react',
+					'./website',
 				],
 			},
 		],

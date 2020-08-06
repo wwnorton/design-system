@@ -1,0 +1,140 @@
+@use 'sass:meta';
+@use '../../../packages/core' as nds with (
+	$enable-dark-scheme: false,
+);
+
+// Proxima Nova
+@import url('https://use.typekit.net/vjr7yrz.css');
+
+nds.$font-family-sans: nds.sans('proxima-nova');
+
+:root {
+	/* stylelint-disable order/order */
+	@include nds.root;
+
+	--ifm-color-emphasis-0: var(--nds-white);
+	--ifm-color-emphasis-100: var(--nds-base-10);
+	--ifm-color-emphasis-200: var(--nds-base-20);
+	--ifm-color-emphasis-300: var(--nds-base-30);
+	--ifm-color-emphasis-400: var(--nds-base-40);
+	--ifm-color-emphasis-500: var(--nds-base-50);
+	--ifm-color-emphasis-600: var(--nds-base-60);
+	--ifm-color-emphasis-700: var(--nds-base-70);
+	--ifm-color-emphasis-800: var(--nds-base-80);
+	--ifm-color-emphasis-900: var(--nds-base-90);
+	--ifm-color-primary: var(--nds-primary);
+	--ifm-color-info: var(--nds-blue-60);
+	--ifm-color-success: #{nds.prop('success')};
+	--ifm-color-warning: #{nds.prop('warning-lighter')};
+	--ifm-color-danger: #{nds.prop('error')};
+	// --ifm-color-content: #{nds.prop('body-text')};
+	// --ifm-color-content-inverse: #{nds.prop('body-bg')};
+	--ifm-background-color: #{nds.prop('body-bg')};
+	--ifm-font-family-base: #{nds.prop('font-family-sans')};
+
+	&[data-theme='dark'] {
+		--ifm-color-emphasis-0: var(--nds-base-100);
+		--ifm-color-emphasis-100: var(--nds-base-90);
+		--ifm-color-emphasis-200: var(--nds-base-80);
+		--ifm-color-emphasis-300: var(--nds-base-70);
+		--ifm-color-emphasis-400: var(--nds-base-60);
+		--ifm-color-emphasis-500: var(--nds-base-50);
+		--ifm-color-emphasis-600: var(--nds-base-40);
+		--ifm-color-emphasis-700: var(--nds-base-30);
+		--ifm-color-emphasis-800: var(--nds-base-20);
+		--ifm-color-emphasis-900: var(--nds-base-10);
+		--ifm-color-emphasis-1000: var(--nds-white);
+		--ifm-background-color: var(--nds-base-100);
+		--ifm-color-primary: var(--nds-primary-40);
+	}
+	/* stylelint-enable order/order */
+}
+
+@include nds.button-style;
+@include nds.checkbox-style;
+@include nds.disclosure-style;
+@include nds.dropdown-style;
+@include nds.field-style;
+@include nds.icon-style;
+@include nds.link-style;
+@include nds.modal-style;
+@include nds.radio-style;
+@include nds.switch-style;
+@include nds.textfield-style;
+@include nds.tooltip-style;
+
+// Utilities
+@if nds.$enable-utilities {
+	@include nds.a11y-utilities;
+}
+
+.navbar__link--github::before {
+	display: flex;
+	width: 24px;
+	height: 24px;
+	content: '';
+	background: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
+
+	[data-theme='dark'] & {
+		background: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23fff' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
+	}
+}
+
+.navbar__logo {
+	color: var(--nds-base-80);
+
+	[data-theme='dark'] & {
+		color: var(--nds-base-20);
+	}
+}
+
+// .admonition-note code {
+// 	color: nds.prop('body-bg');
+// 	background-color: nds.prop('body-text');
+// }
+
+.alert--warning {
+	color: var(--nds-base-90);
+
+	.admonition-icon svg {
+		fill: var(--nds-body-text);
+		stroke: var(--nds-body-text);
+	}
+
+	a {
+		color: var(--nds-body-text);
+	}
+}
+
+.families-outer {
+	display: flex;
+}
+
+.families {
+	display: flex;
+	margin: auto;
+	overflow-x: auto;
+}
+
+.family + .family {
+	margin-left: 1rem;
+}
+
+.swatch {
+	display: flex;
+	min-width: 11rem;
+	padding: 0.75rem 1rem;
+	justify-content: space-between;
+
+	&:hover * {
+		color: inherit !important;
+	}
+
+	.a11y {
+		text-align: right;
+	}
+}
+
+.swatch__name {
+	font-weight: var(--nds-font-weight-bold);
+}

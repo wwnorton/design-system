@@ -1,0 +1,38 @@
+{
+  "name": "website",
+  "version": "1.0.0-beta.1",
+  "private": true,
+  "scripts": {
+    "build": "docusaurus build --out-dir ../public",
+    "deploy": "docusaurus deploy",
+    "docusaurus": "docusaurus",
+    "serve": "docusaurus serve",
+    "start": "docusaurus start",
+    "swizzle": "docusaurus swizzle"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@docusaurus/core": "^2.0.0-alpha.61",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.61",
+    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.61",
+    "@mdx-js/react": "^1.5.8",
+    "@wwnds/core": "*",
+    "@wwnds/react": "*",
+    "clsx": "^1.1.1",
+    "colorable": "^1.0.5",
+    "docusaurus-plugin-sass": "^0.1.9",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  }
+}

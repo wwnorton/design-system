@@ -115,7 +115,7 @@ dist
 
 # Documentation
 public
-docs/static/sassdoc
-docs/static/storybook
-.docz
+website/static/storybook
 sassdoc
+.docusaurus
+.cache-loader
