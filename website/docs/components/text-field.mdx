@@ -1,84 +1,92 @@
 ---
-name: Text Field
-route: /components/text-field
-menu: Components
+title: Text Field
+description: A text field allows a user to enter and edit text.
 ---
 
-import { Playground } from "docz";
-import { TextField, Button } from "@wwnds/react";
-
-# Text Field
+// import { TextField, Button } from '@wwnds/react';
 
 > A text field allows a user to enter and edit text.
 
 ## Anatomy
 
-![A diagram of the text field's various pieces, defined below.](../assets/anatomy_text-field.png)
+![A diagram of the text field's various pieces, defined below.](/img/anatomy_text-field.png)
 
 A text field includes:
 
 1. Label
 2. Container
-3. Optional Field Indicator (optional)
-4. Help Text (optional)
-5. Icon - Left (optional)
+3. Optional Field Indicator `optional`
+4. Help Text `optional`
+5. Icon - Left `optional`
 6. Text
-7. Icon/Control - Right (optional)
+7. Icon/Control - Right `optional`
     - An icon or control can go in this space. A text field can have multiple right-side icons/controls
-8. Error Text (optional)
-9. Character count (optional)
+8. Error Text `optional`
+9. Character count `optional`
 
 ## Examples
 
-<Playground>
-	<TextField
-		maxLength={25}
-		description="Use the description to display hints about entry."
-		required
-		requiredIndicator
-	>
-		Default text field
-	</TextField>
-</Playground>
+```jsx live
+<TextField
+	maxLength={25}
+	description="Use the description to display hints about entry."
+	required
+	requiredIndicator
+>
+	Default text field
+</TextField>
+```
 
-<Playground>
-	<TextField type="password" required minLength={8} maxLength={32} validateOnChange>
-		Password
-	</TextField>
-</Playground>
+```jsx live
+<TextField type="password" required minLength={8} maxLength={32} validateOnChange>
+    Password
+</TextField>
+```
 
 ## Usage
 
 - A text field allows a user to freeform type or paste their own response to a prompt.
 - A text field has a label that describes what the user should type.
 - A text field’s label must be visible at all times.
-- `Accessibility` A text field’s label must be associated with its input. To associate a label with an input, either use the [for attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#attr-for) or wrap the input in the label element.
+- A text field’s label must be associated with its input. To associate a label with an input, either use the [for attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#attr-for) or wrap the input in the label element.
 
+:::tip Dos
 - Do let the size of the input area indicate the amount of content you expect the user to enter.
     - By default, the text field should be full width, defined by the size of its containe.
     - Only use a fixed-width input area if the text entry has a specific, known length. The width should remain fixed unless it is wider than its container&mdash;then shrink width to fit.
+:::
 
+:::danger Don'ts
 - Don’t use labels that are too long. Labels should be very concise.
 - Don’t include instructions in a label&mdash;use help text instead.
 - Don’t disable the user’s ability to select, copy or paste.
 - Don’t require users to write paragraphs of text in a single-line text field.
+:::
 
+:::info Character Counter
 - A text field may have a character counter, but it is not an intuitive way for users to understand content length.
 - Use a character counter only if it is important for users to know how long their text entry can be, or to clarify if the user surpasses the character limit.
 - By default, a text field does not have a character limit. If necessary, set a limit higher than most users will need.
 - Allow users to enter more than the character limit, and then display an error. This lets a user type or copy and paste their full text entry, then edit it down.
-- `Accessibility` The character count should be announced to assistive technology users after they stop typing.
+- The character count should be announced to assistive technology users after they stop typing.
+:::
 
+:::caution Placeholder
 - A text field may have placeholder text to provide hints or examples, but placeholder text should not contain important information.
 - Don’t use placeholder text in place of a label, because it will disappear once the user starts typing in the field.
-- `Accessibility` Set an accessible color for placeholder text. Most browsers’ default rendering of placeholder text does not provide a high enough contrast ratio.
+- Set an accessible color for placeholder text. Most browsers’ default rendering of placeholder text does not provide a high enough contrast ratio.
+:::
 
+:::caution Required Text Fields
 - By default, a text field should be optional unless there is a significant reason to mark it as required.
 - If using both required and optional text fields in a form, include a clear signifier to differentiate required fields from optional fields.
+:::
 
+:::caution Error Validation
 - By default, display error validation on a text field as soon as the user has moved to the next field.
 - Use caution if displaying error validation before the user has finished entering text.
 - Use caution if displaying error validation on Save or Submit, especially if the text field will not be visible on screen when Save or Submit is activated.
+:::
 
 ## Types
 

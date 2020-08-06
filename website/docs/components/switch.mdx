@@ -1,39 +1,39 @@
 ---
-name: Switch
-route: /components/switch
-menu: Components
+title: Switch
+description: A switch allows a user to immediately turn an option on or off.
 ---
 
-import { Playground } from "docz";
-import { Switch } from "@wwnds/react";
-
-# Switch
+// import { Switch } from '@wwnds/react';
 
 > A switch allows a user to immediately turn an option on or off.
 
 ## Anatomy
 
-![A diagram of the switch's various pieces, defined below.](../assets/anatomy_switch.png)
+![A diagram of the switch's various pieces, defined below.](/img/anatomy_switch.png)
 
 1. Label
-2. Description (optional)
+2. Description `optional`
 3. Control
 
 ## Examples
 
-<Playground>
-	<Switch label="Switch"></Switch>
-</Playground>
+```jsx live
+<Switch label="Switch" />
+```
 
 ## Usage
 
 - When a user toggles a switch, its corresponding action takes effect right away.
 - A switch has two mutually exclusive states&mdash;on and off.
 
+:::tip Dos
 - Do use a switch to mimic a physical on/off switch in the interface.
 - Do allow users to select the switch by clicking the control or its text label.
 - Do position the switch to the left of its text label by default.
+:::
 
+:::danger Don'ts
 - Don’t use the words “on/off” in the switch’s text label. The option that the switch controls should be clear from its label. A tooltip/title attribute may be added to convey the on/off state.
 - Don’t use a switch if the option is part of a larger flow, with a final confirmation step or Submit button. Use a [checkbox](checkbox) instead.
 - Don’t use a switch if users can select multiple options from a list. Use [checkboxes](checkbox) instead.
+:::

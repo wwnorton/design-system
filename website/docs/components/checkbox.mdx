@@ -1,65 +1,64 @@
 ---
-name: Checkbox
-menu: Components
-route: /components/checkbox
+title: Checkbox
+description: A checkbox allows a user to select or deselect an option before submitting it.
 ---
 
-import { Playground } from "docz";
-import { Checkbox } from "@wwnds/react";
+// import { Checkbox } from '@wwnds/react';
 
-# Checkbox
-
-> A checkbox allows a user to select or deselect an option. A group of checkboxes allows a user to select any number of options from a list.
+> A checkbox allows a user to select or deselect an option before submitting it.
 
 ## Anatomy
 
 A single checkbox includes:
 
-1. A Checkbox Control
-2. A Label
+1. A checkbox control
+2. A label
+3. `Optional` A description
 
-A group of checkboxes includes:
+## Playground
 
-1. Two or more Checkbox Controls and their Labels
-
-A group of checkboxes may also include:
-
-2. A Group Label
-
-## Examples
-
-<Playground>
-	<Checkbox description="Additional information about this checkbox.">Checkbox</Checkbox>
-</Playground>
+```jsx live
+<Checkbox
+	description="Additional information about this checkbox."
+	required
+	requiredIndicator
+>
+	Checkbox
+</Checkbox>
+```
 
 Use `indeterminate` to set a checkbox in its [indeterminate state](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Indeterminate_state_checkboxes).
 
-<Playground>
-	<Checkbox
-		description="This checkbox starts out in the indeterminate/mixed state."
-		indeterminate
-	>
-		Indeterminate
-	</Checkbox>
-</Playground>
+```jsx live
+<Checkbox
+	description="This checkbox starts out in the indeterminate/mixed state."
+	indeterminate
+>
+	Indeterminate
+</Checkbox>
+```
 
 ## Usage
 
 - A single checkbox has two mutually exclusive states: selected or not selected.
-- `Accessibility` <kbd>Space</kbd> changes the state of the checkbox.
+- <kbd>Space</kbd> changes the state of the checkbox.
 - Use a group of checkboxes to allow a user to select zero, one or multiple options from a list, and display all available options.
 - Checkboxes may allow users to sub-select options from a nested list (see tri-state checkboxes).
 - Checkboxes work independently of other checkboxes, unless they are controlled by a tri-state checkbox.
 
+:::tip Dos
 - Do allow users to select an option by clicking the checkbox or its label.
 - Do position the checkbox to the left of its label.
 - Do separate groups of checkboxes with group labels.
 - Do display options in a vertical layout for easier scanning.
-- `Accessibility` Do define a label for the checkbox, even if it is not visible (example: when selecting a row in a table).
+- Do define a label for the checkbox, even if it is not visible (example: when selecting a row in a table).
+:::
 
+:::danger Don'ts
 - Don’t use checkboxes if only one item can be selected from a list. Use radio buttons or a dropdown instead.
 - Don’t use a checkbox if an action will take immediate effect when the user selects or deselects it. Add a Submit button to confirm, or use a toggle instead.
 - Don’t use negative statements for a checkbox, because taking action to select it is confusing and counter-intuitive. (example: “I don’t want to receive email…”)
+:::
 
 - Avoid setting default options, because pre-selecting an option makes it more likely that users will not make a conscious choice and submit an option unintentionally.
 - Consider the most logical order to list options. Options may be listed alphabetically, by popularity, or some other ordered system that should be clear to the user.

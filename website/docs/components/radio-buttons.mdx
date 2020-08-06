@@ -1,13 +1,9 @@
 ---
-name: Radio Buttons
-menu: Components
-route: /components/radio-buttons
+title: Radio Buttons
+description: Radio buttons allow a user to select one Radio from a list.
 ---
 
-import { Playground } from "docz";
-import { RadioGroup, Radio } from "@wwnds/react";
-
-# Radio Buttons
+// import { RadioGroup, Radio } from '@wwnds/react';
 
 > Radio buttons allow a user to select one Radio from a list.
 
@@ -20,15 +16,15 @@ A group of radio buttons includes:
 
 ## Examples
 
-<Playground>
-	<RadioGroup label="Select your native fruit">
-		<Radio>Apple</Radio>
-		<Radio>Cherry</Radio>
-		<Radio>Orange</Radio>
-		<Radio>Peach</Radio>
-		<Radio>Pear</Radio>
-	</RadioGroup>
-</Playground>
+```jsx live
+<RadioGroup label="Select your native fruit">
+	<Radio>Apple</Radio>
+	<Radio>Cherry</Radio>
+	<Radio>Orange</Radio>
+	<Radio>Peach</Radio>
+	<Radio>Pear</Radio>
+</RadioGroup>
+```
 
 ## Usage
 
@@ -37,16 +33,20 @@ A group of radio buttons includes:
     - If you have more than 5 options, use a [dropdown](dropdown) or [combo box](combo-box).
 - The options in a group of radio buttons must be mutually exclusive. The user can only select 1 Radio.
 - Only use radio buttons when the field is required. If all radio buttons are in an unselected state on load, a user must select one of the radio buttons before proceeding.
-- `Accessibility` Arrow keys move focus within the group, uncheck the previously focused button, and check the newly focused button.
-- `Accessibility` <kbd>Space</kbd> selects the focused radio button if it is not already selected.
+- Arrow keys move focus within the group, uncheck the previously focused button, and check the newly focused button.
+- <kbd>Space</kbd> selects the focused radio button if it is not already selected.
 
+:::tip Dos
 - Do allow users to select an Radio by clicking the radio button or its text label.
 - Do position the radio button to the left of its label.
 - Do display options in a vertical layout, by default, for easier scanning.
 - Consider the most logical order to display options, such as alphabetical, chronological or by popularity.
+:::
 
+:::danger Don'ts
 - Don’t use radio buttons if a user could select multiple options. Use [checkboxes](checkbox) instead.
 - Don't use radio buttons if a user could select NO Radio. Use [checkboxes](checkbox) instead.
 - Don’t use radio buttons if an action will take immediate effect when the user selects or deselects it.
     - Use a [switch](switch) if there are two opposite options (example: YES/NO, ON/OFF).
     - Otherwise, use a group of regular [buttons](button).
+:::
