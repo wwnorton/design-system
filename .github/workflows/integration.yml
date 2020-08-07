@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
@@ -37,7 +37,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: ESLint ✨
         run: npm run lint:es
 
@@ -52,7 +52,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Stylelint ✨
         run: npm run lint:style
 
@@ -68,7 +68,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Prettier ✨
         run: npm run lint:prettier
 
@@ -83,7 +83,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂

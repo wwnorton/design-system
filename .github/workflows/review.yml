@@ -21,7 +21,7 @@ jobs:
         id: cache
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: NPM install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
