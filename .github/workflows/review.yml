@@ -22,12 +22,9 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-      - name: NPM install 📦
+      - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-      - name: Lerna bootstrap 👢
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm run bootstrap
+        run: yarn
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc -- --dest website/static/sassdoc
       - name: Build Storybook 📚
