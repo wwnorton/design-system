@@ -1,5 +1,5 @@
 @use 'sass:meta';
-@use '../../../packages/core' as nds with (
+@use '~@wwnds/core/index' as nds with (
 	$enable-dark-scheme: false,
 );
 
