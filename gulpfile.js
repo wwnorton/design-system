@@ -1,57 +1,124 @@
-const { series, parallel } = require('gulp');
-const packages = require('./tasks/config');
-const sass = require('./tasks/sass');
-const typescript = require('./tasks/typescript');
-const clean = require('./tasks/utilities');
+const del = require('del');
+const gulp = require('gulp');
+const fiber = require('fibers');
+const sass = require('gulp-sass');
+const shell = require('gulp-shell');
+const header = require('gulp-header');
+const postcss = require('gulp-postcss');
+const postcssPresetEnv = require('postcss-preset-env');
+const corePackage = require('./packages/core/package.json');
+const reactPackage = require('./packages/react/package.json');
 
-const core = {
-	clean: clean('core', packages.core.options),
-	sass: sass('core', packages.core.options, packages.core.sass),
-	ts: typescript('core', packages.core.options, packages.core.typescript),
-};
+const production = ['ci', 'production'].includes(process.env.NODE_ENV);
+const copyrightYear = `2019-${(new Date()).getFullYear()}`;
 
-const react = {
-	clean: clean('react', packages.react.options),
-	ts: typescript('react', packages.react.options, packages.react.typescript),
-};
+const createBanner = ({
+	name, version, license, homepage,
+}) => `/***
+ * ${name} v${version}
+ * Copyright ${copyrightYear} W. W. Norton & Company
+ * Licensed under the ${license} license found in the LICENSE file in the root
+ * directory at ${homepage}.
+ **/
+`;
 
-// `@wwnds/core` tasks
-const buildCore = series(core.clean, parallel(core.sass.task, core.ts.task));
-buildCore.displayName = 'build:core';
-module.exports.buildCore = buildCore;
-const watchCore = parallel(core.sass.watch, core.ts.watch);
-watchCore.displayName = 'watch:core';
-module.exports.watchCore = watchCore;
-const devCore = series(buildCore, watchCore);
-devCore.displayName = 'dev:core';
-module.exports.displayName = devCore;
+const clean = () => del([
+	'./packages/*/dist',
+	'./website/.docusaurus',
+	'./.nyc_output',
+	'./coverage',
+	'./public',
+]);
 
-// `@wwnds/react` tasks
-const buildReact = series(react.clean, parallel(react.ts.task));
-buildReact.displayName = 'build:react';
-module.exports.buildReact = buildReact;
-const watchReact = parallel(react.ts.watch);
-watchReact.displayName = 'watch:react';
-module.exports.watchReact = watchReact;
-const devReact = series(buildReact, watchReact);
-devReact.displayName = 'dev:react';
-module.exports.devReact = devReact;
+const cleanDocs = () => del([
+	'./website/.docusaurus',
+	'./.nyc_output',
+	'./coverage',
+	'./public',
+]);
+cleanDocs.displayName = 'clean:docs';
 
-// combined tasks
-const cleanTask = parallel(core.clean, react.clean);
-exports.clean = cleanTask;
-const sassTask = parallel(core.sass.task);
+const cleanAll = gulp.parallel(clean, cleanDocs);
+cleanAll.displayName = 'clean:all';
+
+const createSass = ({ src, dest }) => () => gulp.src(src, {
+	sourcemaps: !production,
+	since: gulp.lastRun(sass),
+})
+	.pipe(
+		sass({
+			fiber,
+			outputStyle: (production) ? 'compressed' : 'expanded',
+		}).on('error', sass.logError),
+	)
+	.pipe(
+		postcss([
+			postcssPresetEnv(),
+		]),
+	)
+	.pipe(
+		header(createBanner(corePackage)),
+	)
+	.pipe(
+		gulp.dest(dest, { sourcemaps: !production && '.' }),
+	);
+
+const createTs = (cwd) => shell.task('npm run build', { cwd });
+
+const createJsBanner = (
+	cwd, { name, version, license },
+) => () => gulp.src('dist/**/*.js', { cwd })
+	.pipe(header(createBanner({ name, version, license })))
+	.pipe(gulp.dest('dist', { cwd }));
+
+// `@wwnds/core`
+const coreSass = createSass({
+	src: './packages/core/src/main.scss',
+	dest: './packages/core/dist/main.css',
+});
+coreSass.displayName = 'core:sass';
+const coreTs = createTs('./packages/core');
+coreTs.displayName = 'core:ts';
+const coreBanner = createJsBanner('./packages/core', corePackage);
+coreBanner.displayName = 'core:banner';
+
+const tsCore = gulp.series(coreTs, coreBanner);
+tsCore.displayName = 'ts:core';
+
+const core = gulp.parallel(coreSass, tsCore);
+
+// `@wwnds/react`
+const reactTs = createTs('./packages/react');
+reactTs.displayName = 'react:ts';
+const reactBanner = createJsBanner('./packages/react', reactPackage);
+reactBanner.displayName = 'react:banner';
+
+const tsReact = gulp.series(reactTs, reactBanner);
+tsReact.displayName = 'ts:react';
+
+const react = gulp.parallel(tsReact);
+
+// typescript/sass
+const sassTask = gulp.parallel(coreSass);
+sassTask.displayName = 'sass';
+const ts = gulp.parallel(tsCore, tsReact);
+
+exports.clean = clean;
+exports.cleanDocs = cleanDocs;
+exports.cleanAll = cleanAll;
 exports.sass = sassTask;
-const tsTask = parallel(core.ts.task, react.ts.task);
-exports.ts = tsTask;
-const watch = parallel(core.sass.watch, core.ts.watch, react.ts.watch);
-exports.watch = watch;
+exports.ts = ts;
+exports.core = core;
+exports.react = react;
 
-// chained tasks
-const build = series(cleanTask, parallel(sassTask, tsTask));
-exports.build = build;
-const dev = series(build, watch);
-exports.dev = dev;
+const buildLib = gulp.series(
+	clean,
+	gulp.parallel(core, react),
+);
+buildLib.displayName = 'build';
 
-// primary task (run with just `gulp`)
-exports.default = build;
+exports.buildLib = buildLib;
+exports.default = gulp.series(
+	clean,
+	gulp.parallel(core, react),
+);

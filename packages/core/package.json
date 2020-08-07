@@ -28,14 +28,16 @@
     "Kellie Porter <kporter@wwnorton.com>"
   ],
   "main": "dist/index.js",
+  "unpkg": "dist/index.umd.js",
+  "module": "dist/index.module.js",
+  "source": "src/index.ts",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "build": "echo all build scripts should be run from root",
-    "dev": "echo all dev scripts should be run from root"
+    "build": "microbundle --globals lodash.debounce=debounce"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8"
