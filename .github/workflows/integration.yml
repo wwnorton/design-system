@@ -23,6 +23,8 @@ jobs:
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
+      - name: Bootstrap 👢
+        run: lerna bootstrap
       - name: Build 🔧
         run: npm run build
 
