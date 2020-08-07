@@ -41,7 +41,8 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-      - run: ls -l website/node_modules/@wwnds
+      - name: Lerna bootstrap 👢
+        run: npm run bootstrap --no-ci
       - name: ESLint ✨
         run: npm run lint:es
 
