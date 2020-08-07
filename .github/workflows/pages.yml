@@ -20,7 +20,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: npm run bootstrap
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc -- --dest website/static/sassdoc
       - name: Build Storybook 📚
