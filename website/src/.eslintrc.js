@@ -9,7 +9,7 @@ module.exports = {
 	rules: {
 		'import/no-unresolved': [
 			2,
-			{ ignore: ['^@theme', '^@docusaurus', '^@generated'] },
+			{ ignore: ['^@theme', '^@docusaurus', '^@generated', '^@wwnds'] },
 		],
 		'react/require-default-props': 'off',
 	},
