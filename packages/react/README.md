@@ -22,11 +22,11 @@ import ReactDOM from "react-dom";
 import { Button } from "@wwnds/react";
 
 const App = () => {
-  return (
-    <main>
-      <Button variant="solid">Do something</Button>
-    </main>
-  );
+	return (
+		<main>
+			<Button variant="solid">Do something</Button>
+		</main>
+	);
 };
 
 ReactDOM.render(<App />, document.getElementById("app"));
@@ -52,11 +52,11 @@ import { Button } from "@wwnds/react";
 import "@wwnds/core/src/components/button/index.scss";
 
 const App = () => {
-  return (
-    <main>
-      <Button variant="solid">Do something</Button>
-    </main>
-  );
+	return (
+		<main>
+			<Button variant="solid">Do something</Button>
+		</main>
+	);
 };
 
 ReactDOM.render(<App />, document.getElementById("app"));

@@ -43,8 +43,8 @@ Use your configured version of the design system inside your modules or componen
 @include button-style;
 
 .my-custom-button {
-  padding: spacing-px-rem(20);
-  font-family: props("font-family-serif");
+	padding: spacing-px-rem(20);
+	font-family: props("font-family-serif");
 }
 ```
 
@@ -64,13 +64,13 @@ This will eventually be posted to a CDN for easier usage.
 ```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Awesome NDS project</title>
-    <link rel="stylesheet" href="path/to/main.css" />
-  </head>
-  <body>
-    <!-- awesome HTML -->
-  </body>
+	<head>
+		<title>Awesome NDS project</title>
+		<link rel="stylesheet" href="path/to/main.css" />
+	</head>
+	<body>
+		<!-- awesome HTML -->
+	</body>
 </html>
 ```
 

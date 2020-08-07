@@ -126,9 +126,9 @@ Disable a single line with a reasonable explanation of why it's disabled:
 
 ```javascript
 function foo(arg) {
-  /* the _foo method is defined by <third_party_library_name> */
-  /* eslint-disable-next-line no-underscore-dangle */
-  return MyLib._foo(arg);
+	/* the _foo method is defined by <third_party_library_name> */
+	/* eslint-disable-next-line no-underscore-dangle */
+	return MyLib._foo(arg);
 }
 ```
 
@@ -136,14 +136,14 @@ Disable a block and then re-enable it after, with a reasonable explanation of wh
 
 ```javascript
 function foo(arg) {
-  if (someCondition) {
-    /* <third_party_library_name> does not provide a method for reassignment */
-    /* eslint-disable no-param-reassign */
-    arg.foo = "bar";
-    arg.bar = "baz";
-    /* eslint-enable no-param-reassign */
-  }
-  return arg;
+	if (someCondition) {
+		/* <third_party_library_name> does not provide a method for reassignment */
+		/* eslint-disable no-param-reassign */
+		arg.foo = "bar";
+		arg.bar = "baz";
+		/* eslint-enable no-param-reassign */
+	}
+	return arg;
 }
 ```
 
@@ -155,7 +155,7 @@ Overriding the [no-underscore-dangle rule](https://eslint.org/docs/rules/no-unde
 /* DON'T: DISABLE RULES AT THE DOCUMENT LEVEL */
 /* eslint-disable no-underscore-dangle */ // <- BAD!
 function foo(arg) {
-  arg._foo("bar");
+	arg._foo("bar");
 }
 ```
 
