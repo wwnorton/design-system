@@ -119,5 +119,60 @@ module.exports = {
 				implementation: require('sass'),
 			},
 		],
+		[
+			'@docusaurus/plugin-pwa',
+			{
+				debug: process.env.NODE_ENV !== 'production',
+				offlineModeActivationStrategies: ['appInstalled', 'queryString'],
+				pwaHead: [
+					{
+						tagName: 'link',
+						rel: 'icon',
+						href: '/img/android-chrome-512x512.png',
+					},
+					{
+						tagName: 'link',
+						rel: 'manifest',
+						href: '/manifest.json',
+					},
+					{
+						tagName: 'meta',
+						name: 'theme-color',
+						content: 'rgb(26, 128, 130)',
+					},
+					{
+						tagName: 'meta',
+						name: 'apple-mobile-web-app-capable',
+						content: 'yes',
+					},
+					{
+						tagName: 'meta',
+						name: 'apple-mobile-web-app-status-bar-style',
+						content: '#000',
+					},
+					{
+						tagName: 'link',
+						rel: 'apple-touch-icon',
+						href: '/img/android-chrome-512x512.png',
+					},
+					{
+						tagName: 'link',
+						rel: 'mask-icon',
+						href: '/img/seagull-dark.svg',
+						color: 'rgb(50, 71, 94)',
+					},
+					{
+						tagName: 'meta',
+						name: 'msapplication-TileImage',
+						content: '/img/android-chrome-512x512.png',
+					},
+					{
+						tagName: 'meta',
+						name: 'msapplication-TileColor',
+						content: '#000',
+					},
+				],
+			},
+		],
 	],
 };
