@@ -74,7 +74,7 @@ const createJsBanner = (
 // `@wwnds/core`
 const coreSass = createSass({
 	src: './packages/core/src/main.scss',
-	dest: './packages/core/dist/main.css',
+	dest: './packages/core/dist',
 });
 coreSass.displayName = 'core:sass';
 const coreTs = createTs('./packages/core');
