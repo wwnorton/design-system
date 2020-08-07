@@ -50,7 +50,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		placement = 'top',
 		asLabel = false,
 		trigger = 'focus pointerenter',
-		hideDelay,
+		hideDelay = 200,
 		reference,
 		isOpen = false,
 		id: userId,

@@ -1,5 +1,7 @@
 # @wwnds/react
 
+[![React version](https://img.shields.io/npm/v/@wwnds/react?label=%40wwnds%2Freact)](https://www.npmjs.com/package/@wwnds/react)
+
 > React components for the Norton Design System.
 
 A [React](https://reactjs.org/) implementation of the Norton Design System components, written in [TypeScript](https://www.typescriptlang.org/).
@@ -22,11 +24,11 @@ import ReactDOM from "react-dom";
 import { Button } from "@wwnds/react";
 
 const App = () => {
-  return (
-    <main>
-      <Button variant="solid">Do something</Button>
-    </main>
-  );
+	return (
+		<main>
+			<Button variant="solid">Do something</Button>
+		</main>
+	);
 };
 
 ReactDOM.render(<App />, document.getElementById("app"));
@@ -52,11 +54,11 @@ import { Button } from "@wwnds/react";
 import "@wwnds/core/src/components/button/index.scss";
 
 const App = () => {
-  return (
-    <main>
-      <Button variant="solid">Do something</Button>
-    </main>
-  );
+	return (
+		<main>
+			<Button variant="solid">Do something</Button>
+		</main>
+	);
 };
 
 ReactDOM.render(<App />, document.getElementById("app"));

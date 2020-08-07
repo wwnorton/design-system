@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,16 +19,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-      - name: NPM install 📦
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-      - name: Lerna bootstrap 👢
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm run bootstrap
+        run: yarn
+      - name: Build 🔧
+        run: npm run build
 
   eslint:
-    needs: prepare
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -38,12 +37,12 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: ESLint ✨
         run: npm run lint:es
 
   stylelint:
-    needs: prepare
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -53,12 +52,12 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Stylelint ✨
         run: npm run lint:style
 
   prettier:
-    needs: prepare
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -69,12 +68,12 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Prettier ✨
         run: npm run lint:prettier
 
   test:
-    needs: prepare
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -84,25 +83,10 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
         uses: codecov/codecov-action@v1
         with:
           directory: coverage
-
-  build-lib:
-    needs: prepare
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.1
-        with:
-          node-version: 12.x
-      - uses: actions/cache@v2
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-      - name: Build 🔧
-        run: npm run build

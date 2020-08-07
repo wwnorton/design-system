@@ -306,8 +306,8 @@ $yellow: map.merge(
 	$yellow,
 );
 
-$black: #101010 !default;
-$white: #fdfdfd !default;
+$black: #000 !default;
+$white: #fff !default;
 
 
 // COLOR SCHEMES & ROLES - colors that have specific usage attached
@@ -333,12 +333,12 @@ $error-family: 'red' !default;
 /// setting this to `60` will cause the `error` token to reference `error-60`.
 $error-grade: 60 !default;
 /// The color family that will be used to convey success/passing.
-$success-family: 'red' !default;
+$success-family: 'green' !default;
 /// The grade that defines the "midpoint" of the success family. For instance,
 /// setting this to `60` will cause the `success` token to reference `success-60`.
 $success-grade: 60 !default;
 /// The color family that will be used to convey warning/caution.
-$warning-family: 'red' !default;
+$warning-family: 'yellow' !default;
 /// The grade that defines the "midpoint" of the warning family. For instance,
 /// setting this to `60` will cause the `warning` token to reference `warning-60`.
 $warning-grade: 60 !default;

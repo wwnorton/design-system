@@ -1,0 +1,37 @@
+/* stylelint-disable selector-class-pattern */
+
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+	position: relative;
+	padding: 4rem 0;
+	overflow: hidden;
+	text-align: center;
+}
+
+@media screen and (max-width: 966px) {
+	.heroBanner {
+		padding: 2rem;
+	}
+}
+
+.buttons {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.features {
+	display: flex;
+	width: 100%;
+	padding: 2rem 0;
+	align-items: center;
+}
+
+.featureImage {
+	width: 200px;
+	height: 200px;
+}

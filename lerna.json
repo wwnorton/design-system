@@ -1,7 +1,8 @@
 {
   "version": "1.0.0-beta.1",
-  "packages": ["docs", "packages/*"],
-  "npmClient": "npm",
+  "packages": ["packages/*", "website"],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
   "command": {
     "publish": {
       "access": "public",
