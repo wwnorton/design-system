@@ -1,13 +1,14 @@
-const path = require('path');	// eslint-disable-line
+const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = () => ({
-	name: 'ts-docgen',
+	name: 'plugin-typescript',
 	configureWebpack: () => ({
 		module: {
 			rules: [
 				{
 					test: /\.tsx?$/,
-					include: path.resolve(__dirname, '../packages/react/src'),
+					include: path.resolve(__dirname, '../packages/react'),
 					use: [
 						require.resolve('ts-loader'),
 						{
@@ -20,6 +21,11 @@ module.exports = () => ({
 				},
 			],
 		},
-		resolve: { extensions: ['.ts', '.tsx'] },
+		resolve: {
+			extensions: ['.ts', '.tsx'],
+			plugins: [new TsconfigPathsPlugin({
+				configFile: path.resolve(__dirname, '../tsconfig.json'),
+			})],
+		},
 	}),
 });

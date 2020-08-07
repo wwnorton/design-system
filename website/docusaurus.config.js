@@ -110,7 +110,7 @@ module.exports = {
 	],
 	themes: ['@docusaurus/theme-live-codeblock'],
 	plugins: [
-		path.resolve(__dirname, 'tsDocGen'),
+		path.resolve(__dirname, 'plugin-typescript.js'),
 		'docusaurus-lunr-search',
 		[
 			'docusaurus-plugin-sass',

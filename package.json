@@ -153,7 +153,7 @@
     "ts-loader": "^8.0.1",
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^3.9.0",
-    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "tsconfig-paths-webpack-plugin": "^3.3.0",
     "typescript": "^3.9.7",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
