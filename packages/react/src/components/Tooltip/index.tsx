@@ -13,6 +13,17 @@ export type Triggers =
 	| 'manual'
 	| 'mouseenter'
 	| 'pointerenter'
+
+type TooltipPicks =
+	| 'placement'
+	| 'modifiers'
+	| 'strategy'
+	| 'onFirstUpdate'
+	| 'hideDelay'
+	| 'trigger'
+
+export type TooltipCoreProps = Pick<TooltipProps, TooltipPicks>;
+
 export interface TooltipProps extends BasePopperProps {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;

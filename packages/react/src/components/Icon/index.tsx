@@ -4,7 +4,7 @@ import {
 	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox, useForwardedRef, prefix,
 } from '../../utilities';
 import { BaseSVG, BaseSVGProps } from '../BaseSVG';
-import { Tooltip } from '../Tooltip';
+import { Tooltip, TooltipCoreProps } from '../Tooltip';
 
 export interface IconProps extends BaseSVGProps {
 	/** The base class name according to BEM conventions */
@@ -24,11 +24,10 @@ export interface IconProps extends BaseSVGProps {
 	 */
 	warnOnClick?: boolean;
 	/**
-	 * The time in milliseconds before the tooltip should disappear. Use this to
-	 * ensure that users can move their cursor from the icon to the tooltip
-	 * without it disappearing.
+	 * Tooltip props that should be included when the icon's children are
+	 * rendered as a tooltip.
 	 */
-	hideTooltipDelay?: number;
+	tooltipProps?: TooltipCoreProps;
 }
 
 /**
@@ -43,7 +42,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	size = '1.25em',
 	variant,
 	warnOnClick = true,
-	hideTooltipDelay,
+	tooltipProps,
 	onClick,
 	'aria-label': ariaLabel,
 	children,
@@ -68,11 +67,11 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	const tooltip = React.useMemo(() => {
 		if (!children) return null;
 		return (
-			<Tooltip asLabel reference={svg} hideDelay={hideTooltipDelay}>
+			<Tooltip asLabel reference={svg} {...tooltipProps}>
 				{ children }
 			</Tooltip>
 		);
-	}, [children, hideTooltipDelay, svg]);
+	}, [children, tooltipProps, svg]);
 
 	if (!icon) {
 		// TODO: warn/error if no icon was found?
