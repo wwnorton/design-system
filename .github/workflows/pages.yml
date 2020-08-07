@@ -31,7 +31,7 @@ jobs:
       - name: Build docs 📄
         run: npm run build:docs
         env:
-          PATH_PREFIX: /design-system
+          BASE_URL: /design-system/
       - run: mv docs/public public
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
