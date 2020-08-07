@@ -31,6 +31,7 @@
     "@wwnds/react": "*",
     "clsx": "^1.1.1",
     "colorable": "^1.0.5",
+    "docusaurus-lunr-search": "^2.1.6",
     "docusaurus-plugin-sass": "^0.1.9",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
