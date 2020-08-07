@@ -24,7 +24,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
       - name: Bootstrap 👢
-        run: lerna bootstrap
+        run: npm run bootstrap
       - name: Build 🔧
         run: npm run build
 
