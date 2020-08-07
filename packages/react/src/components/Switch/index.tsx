@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
-import { Tooltip } from '../Tooltip';
+import { Tooltip, TooltipCoreProps } from '../Tooltip';
 import { useForwardedRef, prefix } from '../../utilities';
 
 export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
@@ -28,11 +28,10 @@ export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'chil
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/**
-	 * The time in milliseconds before the tooltip should disappear. Use this to
-	 * ensure that users can move their cursor from the switch to the tooltip
-	 * without it disappearing.
+	 * Tooltip props that should be included when the switch's label is rendered
+	 * as a tooltip.
 	 */
-	hideTooltipDelay?: number;
+	tooltipProps?: TooltipCoreProps;
 }
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
@@ -41,7 +40,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 		labelClass,
 		descriptionClass,
 		checked: isChecked = false,
-		hideTooltipDelay,
+		tooltipProps,
 		children,
 		className,
 		description,
@@ -80,7 +79,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 
 	// label can either be a <FieldInfo> or a tooltip
 	const Label = (tipped)
-		? <Tooltip asLabel reference={button} hideDelay={hideTooltipDelay}>{ label }</Tooltip>
+		? <Tooltip asLabel reference={button} {...tooltipProps}>{ label }</Tooltip>
 		: (
 			<FieldInfo
 				htmlFor={id}

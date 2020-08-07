@@ -54,6 +54,7 @@ export const iconButton: React.FunctionComponent = () => (
 	<IconButton
 		disabled={boolean('Disabled', false)}
 		icon={select<IconVariant>('Icon', IconOptions, 'close')}
+		tooltipProps={{ placement: 'right' }}
 	>
 		{ text('Text', 'Close') }
 	</IconButton>

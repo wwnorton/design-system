@@ -125,20 +125,23 @@ export class Disclosure {
 				e.preventDefault();
 				switch (this.state) {
 					// clicked while opening -> cancel open
-					case 'opening':
+					case 'opening': {
 						await this.setState('closing');
 						this.emit('opencancel');
 						break;
+					}
 					// clicked while closing -> cancel close
-					case 'closing':
+					case 'closing': {
 						await this.setState('opening');
 						this.emit('closecancel');
 						break;
+					}
 					// clicked while fully open -> begin closing
-					case 'open':
+					case 'open': {
 						await this.setState('closing');
 						this.emit('closestart');
 						break;
+					}
 					default:
 				}
 			// clicked while fully closed -> begin opening

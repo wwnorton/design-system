@@ -5,7 +5,7 @@ import {
 } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon } from '../Icon';
-import { Tooltip } from '../Tooltip';
+import { Tooltip, TooltipCoreProps } from '../Tooltip';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
@@ -37,11 +37,10 @@ export interface ButtonProps extends BaseButtonProps {
 	/** The className for the Button's text, which will be placed in a `<span>` */
 	textClass?: string;
 	/**
-	 * The time in milliseconds before the tooltip should disappear. Use this to
-	 * ensure that users can move their cursor from the button to the tooltip
-	 * without it disappearing.
+	 * Tooltip props that should be included when the button's children are
+	 * rendered as a tooltip.
 	 */
-	hideTooltipDelay?: number;
+	tooltipProps?: TooltipCoreProps;
 }
 
 /**
@@ -56,7 +55,7 @@ export const Button = React.forwardRef((
 		icon,
 		iconRight,
 		iconOnly,
-		hideTooltipDelay,
+		tooltipProps,
 		iconClass = `${baseName}__icon`,
 		textClass = `${baseName}__text`,
 		className,
@@ -111,7 +110,7 @@ export const Button = React.forwardRef((
 				<Tooltip
 					asLabel
 					reference={button}
-					hideDelay={hideTooltipDelay}
+					{...tooltipProps}
 				>
 					{ children }
 				</Tooltip>
