@@ -1,6 +1,7 @@
-# design-system
+# The Norton Design System
 
-> The Norton Design System
+[![Build Status](https://github.com/wwnorton/design-system/workflows/Integration/badge.svg)](https://github.com/wwnorton/design-system/actions?query=workflow%3AIntegration)
+[![codecov](https://codecov.io/gh/wwnorton/design-system/branch/main/graph/badge.svg)](https://codecov.io/gh/wwnorton/design-system)
 
 Styles, components, and utilities for building accessible, responsive products.
 

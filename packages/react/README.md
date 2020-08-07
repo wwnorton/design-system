@@ -1,5 +1,7 @@
 # @wwnds/react
 
+[![React version](https://img.shields.io/npm/v/@wwnds/react?label=%40wwnds%2Freact)](https://www.npmjs.com/package/@wwnds/react)
+
 > React components for the Norton Design System.
 
 A [React](https://reactjs.org/) implementation of the Norton Design System components, written in [TypeScript](https://www.typescriptlang.org/).

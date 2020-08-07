@@ -1,5 +1,7 @@
 # @wwnds/core
 
+[![Core version](https://img.shields.io/npm/v/@wwnds/core?label=%40wwnds%2Fcore)](https://www.npmjs.com/package/@wwnds/core)
+
 > Vanilla CSS, HTML, and JavaScript implementations of the Norton Design System.
 
 ## Usage
