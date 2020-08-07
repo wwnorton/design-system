@@ -35,7 +35,6 @@ jobs:
         run: npm run build:docs
         env:
           BASE_URL: /${{ github.head_ref }}/
-      - run: mv docs/public public && ls
       - name: Upload artifact ⬆
         uses: actions/upload-artifact@v2
         with:
