@@ -11,7 +11,11 @@
   ],
   "homepage": "https://github.com/wwnorton/design-system",
   "bugs": "https://github.com/wwnorton/design-system/issues",
-  "repository": "https://github.com/wwnorton/design-system/tree/main/packages/react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wwnorton/design-system",
+    "directory": "packages/react"
+  },
   "license": "MIT",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
@@ -27,9 +31,9 @@
     "dist"
   ],
   "scripts": {
+    "build": "microbundle --jsx React.createElement --globals @popperjs/core=Popper,lodash.uniqueid=uniqueId,lodash.debounce=debounce",
     "build:stories": "build-storybook",
-    "dev:stories": "start-storybook",
-    "build": "microbundle --jsx React.createElement --globals @popperjs/core=Popper,lodash.uniqueid=uniqueId,lodash.debounce=debounce"
+    "dev:stories": "start-storybook"
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
