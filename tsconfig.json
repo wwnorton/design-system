@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["DOM", "ESNext"],
-    "module": "commonjs",
+    "module": "ESNext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
@@ -17,15 +15,15 @@
     "noUnusedParameters": true,
     "outDir": "dist",
     "removeComments": false,
+    "resolveJsonModule": true,
     "rootDir": ".",
     "skipLibCheck": false,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2015",
+    "target": "ESNext",
     "baseUrl": ".",
     "paths": {
       "@wwnds/*": ["packages/*/src"]
     }
-  },
-  "references": [{ "path": "packages/core" }, { "path": "packages/react" }]
+  }
 }
