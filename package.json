@@ -29,6 +29,7 @@
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/!(package-lock)*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "publish": "lerna publish",
+    "serve:docs": "lerna exec --scope=website npm run serve",
     "storybook": "lerna exec --scope=@wwnds/react -- npm run dev:stories",
     "test": "ava --serial"
   },
