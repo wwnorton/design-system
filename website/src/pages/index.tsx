@@ -81,7 +81,7 @@ const Home = (): JSX.Element => {
 					<div className={styles.buttons}>
 						<Link
 							className={clsx(
-								'button button--outline button--secondary button--lg',
+								'nds-button nds-button--outline button--lg',
 								styles.getStarted,
 							)}
 							to={useBaseUrl('docs/')}

@@ -139,3 +139,15 @@ blockquote {
 .swatch__name {
 	font-weight: var(--nds-font-weight-bold);
 }
+
+// stylelint-disable-next-line selector-no-qualifying-type
+a.nds-button {
+	text-decoration: none;
+}
+
+.nds-button.button--lg {
+	padding:
+		calc(var(--ifm-button-size-multiplier) * var(--nds-padding-y))
+		calc(var(--ifm-button-size-multiplier) * var(--nds-padding-x));
+	border-radius: var(--nds-radius-md);
+}
