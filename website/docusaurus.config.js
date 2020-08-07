@@ -5,7 +5,7 @@ module.exports = {
 	tagline: 'Create beautiful, flexible, content-focused products, born accessible.',
 	url: 'https://wwnorton.github.io/design-system',
 	baseUrl: process.env.BASE_URL || '/',
-	onBrokenLinks: 'throw',
+	onBrokenLinks: 'warn',
 	favicon: 'img/favicon.ico',
 	organizationName: 'wwnorton',
 	projectName: 'design-system',
