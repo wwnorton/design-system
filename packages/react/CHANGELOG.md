@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.2](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2020-08-07)
+
+- feat(react)!: provide access to core tooltip props in components that use tooltips ([e7df6fd](https://github.com/wwnorton/design-system/commit/e7df6fd0bc4042d4b72a7526a15c18d976ac0e65))
+
+### BREAKING CHANGES
+
+- the `hideTooltipDelay` prop that was used in `Button`/`IconButton`/`Switch` has been removed. Use `tooltipProps={{ hideDelay: n }}` to replicate the behavior.
+
 # [1.0.0-beta.1](https://github.com/wwnorton/design-system/tree/main/packages/react/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2020-07-30)
 
 ### Bug Fixes

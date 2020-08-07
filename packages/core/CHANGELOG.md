@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.2](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2020-08-07)
+
+### Bug Fixes
+
+- **core:** set correct success/warning families ([5b12169](https://github.com/wwnorton/design-system/commit/5b12169293d5aa36c1aaf9cfbfb9ae9c3242dc98))
+
 # [1.0.0-beta.1](https://github.com/wwnorton/design-system/tree/main/packages/core/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2020-07-30)
 
 ### Bug Fixes
