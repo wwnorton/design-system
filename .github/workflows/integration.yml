@@ -26,6 +26,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: Build 🔧
         run: npm run build
