@@ -98,7 +98,7 @@ jobs:
         run: yarn install
       - name: Debug
         run: |
-          ls -al
+          apt install tree -qq
           tree -I '.*|node_modules|dist'
           cat packages/react/src/utilities/index.ts
       - name: Test 🧪
