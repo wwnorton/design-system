@@ -28,6 +28,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: Build 🔧
         run: npm run build
@@ -53,6 +54,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: ESLint ✨
         run: npm run lint:es
@@ -78,6 +80,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: Stylelint ✨
         run: npm run lint:style
@@ -103,6 +106,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: Prettier ✨
         run: npm run lint:prettier
@@ -128,6 +132,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
       - name: Test 🧪
         run: npm run coverage
