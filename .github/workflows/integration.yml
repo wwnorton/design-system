@@ -73,17 +73,24 @@ jobs:
         run: npm run lint:prettier
 
   test:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.1
         with:
           node-version: 12.x
-      - uses: actions/cache@v2
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - run: echo yarn-cache-dir-path
+      - name: Cache 💵
+        id: cache
+        uses: actions/cache@v2
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Install 📦
+        run: yarn install
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
