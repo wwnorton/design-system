@@ -22,7 +22,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm run bootstrap
+        run: yarn install
       - name: Build 🔧
         run: npm run build
 
