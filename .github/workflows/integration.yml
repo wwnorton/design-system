@@ -96,7 +96,13 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install 📦
         run: yarn install
+      - name: Debug
+        run: |
+          ls -al
+          tree -I '.*|node_modules|dist'
+          cat packages/react/src/utilities/index.ts
       - name: Test 🧪
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm run coverage
       - name: Codecov ☂
         uses: codecov/codecov-action@v1
