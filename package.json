@@ -29,7 +29,7 @@
     "publish": "lerna publish",
     "serve:docs": "lerna exec --scope=website npm run serve",
     "storybook": "lerna exec --scope=@wwnds/react -- npm run dev:stories",
-    "test": "ava --serial"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ava --serial"
   },
   "husky": {
     "hooks": {
@@ -62,7 +62,6 @@
       "!**/test/helpers"
     ],
     "require": [
-      "esm",
       "ts-node/register/transpile-only",
       "jsdom-global/register"
     ]
@@ -121,7 +120,6 @@
     "eslint-plugin-mdx": "^1.7.1",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "esm": "^3.2.25",
     "fibers": "^5.0.0",
     "fork-ts-checker-webpack-plugin": "^5.0.7",
     "gulp": "^4.0.2",
