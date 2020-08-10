@@ -9,6 +9,8 @@ const postcssPresetEnv = require('postcss-preset-env');
 const corePackage = require('./packages/core/package.json');
 const reactPackage = require('./packages/react/package.json');
 
+sass.compiler = require('sass');
+
 const production = ['ci', 'production'].includes(process.env.NODE_ENV);
 const copyrightYear = `2019-${(new Date()).getFullYear()}`;
 
