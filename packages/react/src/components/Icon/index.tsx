@@ -1,10 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import {
-	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox, useForwardedRef, prefix,
-} from '../../utilities';
+	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox,
+} from './icons';
+import { prefix } from '../../config';
+import { useForwardedRef } from '../../hooks';
 import { BaseSVG, BaseSVGProps } from '../BaseSVG';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
+
+export * from './icons';
 
 export interface IconProps extends BaseSVGProps {
 	/** The base class name according to BEM conventions */

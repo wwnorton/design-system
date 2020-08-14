@@ -7,7 +7,7 @@ import {
 } from '../Field';
 import { Choice, ChoiceProps } from './Choice';
 import { Choices, ChoicesProps } from './Choices';
-import { prefix } from '../../utilities';
+import { prefix } from '../../config';
 
 export interface ChoiceFieldProps
 	extends FieldInfoCoreProps, FieldFeedbackCoreProps, React.HTMLAttributes<HTMLFieldSetElement> {

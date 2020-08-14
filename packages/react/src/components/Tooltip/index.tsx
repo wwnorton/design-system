@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
 import { BasePopper, BasePopperProps } from '../BasePopper';
-import {
-	getProp, useTriggers, useForwardedRef, innerText, prefix,
-} from '../../utilities';
+import { prefix } from '../../config';
+import { innerText } from '../../utilities';
+import { useForwardedRef, usePopperTriggers, useToken } from '../../hooks';
 
 export type Triggers =
 	| 'click'
@@ -70,11 +70,11 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		...props
 	}: TooltipProps, ref,
 ) => {
-	const [tooltip, setTooltip] = useForwardedRef(ref);
-	const [offsetY, setOffsetY] = React.useState<number>(6);
+	const [popper, setPopper] = useForwardedRef(ref);
+	const [offsetY] = useToken({ name: 'offset-y', el: popper });
 	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
-	const open = useTriggers({
-		reference, trigger, isOpen, tooltip, hideDelay,
+	const open = usePopperTriggers({
+		reference, popper, trigger, isOpen, hideDelay,
 	});
 
 	const ariaAttribute = React.useMemo(() => {
@@ -82,15 +82,18 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		return 'aria-describedby';
 	}, [asLabel]);
 
-	const offsetMod = React.useMemo(() => ({
-		name: 'offset',
-		options: {
-			offset: [
-				0,
-				offsetY,
-			],
-		},
-	}), [offsetY]);
+	const offsetMod = React.useMemo(() => {
+		let y: number;
+		if (typeof offsetY === 'string') y = parseInt(offsetY, 10);
+		else if (offsetY === null) y = 6;
+		else y = offsetY;
+		return {
+			name: 'offset',
+			options: {
+				offset: [0, y],
+			},
+		};
+	}, [offsetY]);
 
 	const arrowMod = React.useMemo(() => ({
 		name: 'arrow',
@@ -98,13 +101,6 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 			element: `.${arrowClass}`,
 		},
 	}), [arrowClass]);
-
-	React.useLayoutEffect(() => {
-		if (tooltip) {
-			const token = parseInt(getProp('tooltip-offset-y', tooltip), 10);
-			if (token) setOffsetY(token);
-		}
-	}, [tooltip]);
 
 	/**
 	 * Attach aria labelling and describing attributes.
@@ -143,7 +139,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 			reference={reference}
 			isOpen={open}
 			id={id}
-			ref={setTooltip}
+			ref={setPopper}
 			{...props}
 		>
 			<div className={contentClass}>{ children }</div>

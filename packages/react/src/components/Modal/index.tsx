@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import uniqueId from 'lodash.uniqueid';
+import { prefix } from '../../config';
+import { getFocusable } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton, ButtonProps } from '../Button';
 

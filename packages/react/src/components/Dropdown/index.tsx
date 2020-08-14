@@ -5,7 +5,8 @@ import { Options as PopperOptions, Modifier } from '@popperjs/core';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';
-import { usePopper, prefix } from '../../utilities';
+import { prefix } from '../../config';
+import { usePopper } from '../../hooks';
 
 type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 

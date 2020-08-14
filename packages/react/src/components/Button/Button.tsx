@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import {
-	IconVariant, SVGIcon, useForwardedRef, NDSForwardRef, prefix,
-} from '../../utilities';
+import { prefix } from '../../config';
+import { useForwardedRef } from '../../hooks';
+import { NDSForwardRef } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
-import { Icon } from '../Icon';
+import { Icon, IconVariant, SVGIcon } from '../Icon';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
 

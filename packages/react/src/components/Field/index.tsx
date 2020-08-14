@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { prefix } from '../../utilities';
+import { prefix } from '../../config';
 
 /**
  * Field components - "partials" that are not meant to be used alone. These

@@ -7,7 +7,7 @@ import {
 	FieldAddon,
 } from '../Field';
 import { BaseInput, BaseInputProps } from '../BaseInput';
-import { prefix } from '../../utilities';
+import { prefix } from '../../config';
 
 export type TextFieldType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
