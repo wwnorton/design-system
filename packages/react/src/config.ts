@@ -29,7 +29,7 @@ export class Config implements NDSConfig {
 	}
 
 	public prefix = (val: string, delimiter = '-'): string => {
-		if (!this.namespace) return val;
+		if (!this.namespace || val.startsWith(this.namespace + delimiter)) return val;
 		return this.namespace + delimiter + val;
 	}
 }
