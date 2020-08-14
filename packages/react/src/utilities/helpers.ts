@@ -35,16 +35,6 @@ export const innerText = (children: React.ReactNode): string => {
 	return '';
 };
 
-interface PropId { id?: string }
-
-/** Create a prefixed id generator that can be used to generate suffixed ids. */
-export const idGen = ({ id }: PropId, prefix?: string): ((suffix?: string) => string) => {
-	const uid = uniqueId(prefix);
-	const ID = (): string => id || uid;
-
-	return (suffix?: string): string => ID() + suffix;
-};
-
 export const focusableSelectors = [
 	'[contentEditable=true]:not([tabindex="-1"])',
 	'[tabindex]:not([tabindex="-1"])',

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { idGen, getFocusable, prefix } from '../../utilities';
+import uniqueId from 'lodash.uniqueid';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton, ButtonProps } from '../Button';
 
@@ -121,7 +121,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	}
 
 	private baseName: string;
-	private getId: ReturnType<typeof idGen>;
+	private id: string;
 	private titleId: string;
 	private portalNode: HTMLElement;
 	private dialog: HTMLDivElement | null = null;
@@ -143,8 +143,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		super(props);
 
 		this.baseName = props.baseName || prefix(Modal.bemBase);
-		this.getId = idGen(props, `${Modal.bemBase}-`);
-		this.titleId = this.getId(`-${Modal.bemElements.title}`);
+		this.id = props.id || uniqueId(`${this.baseName}-`);
+		this.titleId = `${this.id}-${Modal.bemElements.title}`;
 		this.portalNode = this.createPortalNode();
 
 		this.state = {
@@ -378,6 +378,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			>
 				<BaseDialog
 					modal
+					id={this.id}
 					className={classes}
 					ref={(el): void => { this.dialog = el; }}
 					{...label}
