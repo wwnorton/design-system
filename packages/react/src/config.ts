@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import localForage from 'localforage';
 
 export interface NDSConfig {
@@ -41,3 +42,5 @@ export const { prefix } = config;
 export const configure = (conf: NDSConfig): NDSConfig => Object.assign(config, conf);
 
 export const reset = (): NDSConfig => Object.assign(config, Config.defaults);
+
+export const NDSContext = createContext(config);
