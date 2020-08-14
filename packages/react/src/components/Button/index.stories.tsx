@@ -2,9 +2,8 @@ import React from 'react';
 import {
 	withKnobs, select, boolean, text,
 } from '@storybook/addon-knobs';
-import {
-	IconVariant, SVGIcon, IconOptions, prefix,
-} from '../../utilities';
+import { IconVariant, SVGIcon, IconOptions } from '../Icon';
+import { prefix } from '../../config';
 import {
 	Button, ButtonVariant, IconButton, ButtonProps,
 } from '.';

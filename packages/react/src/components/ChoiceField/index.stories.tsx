@@ -7,7 +7,7 @@ import {
 	ChoiceField, Choice, Choices,
 } from '.';
 import { Button } from '../Button';
-import { useSelect } from '../../utilities';
+import { useSelect } from '../../hooks';
 
 export default {
 	title: 'ChoiceField',
