@@ -73,7 +73,7 @@
 	@include props.set(
 		$spacing: null,
 		$padding-y: spacing.spacer('ui-inner'),
-		$offset-x: spacing.spacer('inline-x'),
+		$offset-x: spacing.spacer('inline-x-sm'),
 	);
 
 	display: flex;
@@ -125,7 +125,7 @@
 		$bg-color: props.prop('body-bg'),
 		$border-color: props.prop('base'),
 		$border-width: 2px,
-		$offset-x: spacing.spacer('inline-x'),
+		$offset-x: spacing.spacer('inline-x-sm'),
 	);
 
 	position: relative;
