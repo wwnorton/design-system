@@ -1,7 +1,7 @@
 export * from './config';
-export * from './utilities';
+export * from './hooks';
 
-// Components
+// Public components
 export * from './components/Button';
 export * from './components/Checkbox';
 export * from './components/ChoiceField';
