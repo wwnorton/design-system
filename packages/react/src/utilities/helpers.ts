@@ -1,6 +1,4 @@
 import React from 'react';
-import uniqueId from 'lodash.uniqueid';
-import { config } from '../config';
 
 /** Test if an element is hidden. By default, this includes `aria-hidden`. */
 export const isHidden = (el: React.ReactElement, ariaHidden = true): boolean => {
@@ -87,44 +85,6 @@ export const hasTransition = (el?: HTMLElement | null, pseudoEl?: string): boole
 			.some((value) => Number(value.replace('s', '')) > 0);
 	}
 	return false;
-};
-
-export const prefix = (
-	val: string,
-	namespace = config.namespace,
-	delimiter = '-',
-): string => {
-	if (!namespace) return val;
-	return namespace + delimiter + val;
-};
-
-export const setProp = (
-	prop: string,
-	value: string | number,
-	el: HTMLElement = document.documentElement,
-): void => {
-	el.style.setProperty(`--${prefix(prop)}`, String(value));
-};
-
-export const getProp = (
-	prop: string,
-	el: HTMLElement = document.documentElement,
-): string => window.getComputedStyle(el).getPropertyValue(`--${prefix(prop)}`).trim();
-
-export const setProps = (
-	props: Record<string, string | number>,
-	el: HTMLElement = document.documentElement,
-): void => Object.keys(props).forEach((prop) => setProp(prop, props[prop], el));
-
-export const getProps = (el: HTMLElement = document.documentElement): Record<string, string> => {
-	const props: Record<string, string> = {};
-	const styles = window.getComputedStyle(el);
-	Array.from(styles)
-		.filter((prop) => prop.startsWith('--'))
-		.forEach((prop) => {
-			props[prop] = styles.getPropertyValue(prop).trim();
-		});
-	return props;
 };
 
 export const srOnly: React.CSSProperties = {
