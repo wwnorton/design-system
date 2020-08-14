@@ -157,7 +157,7 @@
 	justify-content: flex-end;
 
 	> * + * {
-		margin-left: spacing.spacer('inline-x');
+		margin-left: spacing.spacer('inline-x-md');
 	}
 
 	&.#{util.prefix('modal__actionbar--fixed')} {
