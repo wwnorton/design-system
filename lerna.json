@@ -17,7 +17,53 @@
       "conventionalCommits": true,
       "createRelease": "github",
       "signGitCommit": true,
-      "signGitTag": true
+      "signGitTag": true,
+      "changelogPreset": {
+        "name": "conventionalcommits",
+        "types": [
+          {
+            "type": "feat",
+            "section": "✨ Features"
+          },
+          {
+            "type": "fix",
+            "section": "🐛 Bug Fixes"
+          },
+          {
+            "type": "perf",
+            "hidden": false,
+            "section": "⚡️ Performance"
+          },
+          {
+            "type": "chore",
+            "hidden": false,
+            "section": "🛠 Maintenance"
+          },
+          {
+            "type": "docs",
+            "hidden": false,
+            "section": "📝 Documentation"
+          },
+          {
+            "type": "style",
+            "hidden": true
+          },
+          {
+            "type": "refactor",
+            "hidden": false,
+            "section": "♻️ Refactor"
+          },
+          {
+            "type": "test",
+            "hidden": true
+          },
+          {
+            "type": "visual",
+            "hidden": false,
+            "section": "💄 Visual"
+          }
+        ]
+      }
     }
   }
 }
