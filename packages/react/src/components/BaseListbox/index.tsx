@@ -42,11 +42,12 @@ export interface BaseListboxProps extends Omit<React.HTMLAttributes<HTMLUListEle
 /**
  * A listbox is "a widget that allows the user to select one or more items from
  * a list of choices." Similar to a `<select>` element.
- * @ARIA https://w3c.github.io/aria/#listbox
- * @APG https://w3c.github.io/aria-practices/#BaseListbox
+ *
+ * Reference:
+ * - [ARIA - `listbox`](https://w3c.github.io/aria/#listbox)
+ * - [ARIA Practices - Listbox](https://w3c.github.io/aria-practices/#Listbox)
  */
 export const BaseListbox = React.forwardRef(({
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	children,
 	className,
 	selected: selectedProp,

@@ -18,12 +18,16 @@ export const usePopper = ({
 }: Partial<PopperOptions> & {
 	/**
 	 * The reference element that the popper will be attached to.
-	 * @see https://popper.js.org/docs/v2/constructors/#createpopper
+	 *
+	 * Reference:
+	 * - [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
 	 */
 	reference?: Element | VirtualElement | null;
 	/**
 	 * The popper element, which will be attached to the reference element.
-	 * @see https://popper.js.org/docs/v2/constructors/#createpopper
+	 *
+	 * Reference:
+	 * - [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
 	 */
 	popper?: HTMLElement | null;
 	/** The contents of the popper. */

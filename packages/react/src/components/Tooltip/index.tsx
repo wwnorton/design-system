@@ -34,7 +34,9 @@ export interface TooltipProps extends BasePopperProps {
 	/**
 	 * Indicates that the tooltip is labelling the reference. If `false`, the
 	 * tooltip will be used as description.
-	 * @see https://w3c.github.io/aria-practices/#names_and_descriptions
+	 *
+	 * Reference:
+	 * - [ARIA Practices - Providing Accessible Names and Descriptions](https://w3c.github.io/aria-practices/#names_and_descriptions)
 	 */
 	asLabel?: boolean;
 	/**

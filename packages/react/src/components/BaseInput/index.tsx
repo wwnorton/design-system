@@ -10,7 +10,7 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	 * list will be concatenated into a single string with a new line separator.
 	 */
 	errors?: string[];
-	/** @DOM https://html.spec.whatwg.org/multipage/input.html#attr-input-type */
+	/** [DOM - `type`](https://html.spec.whatwg.org/multipage/input.html#attr-input-type) */
 	type?: InputType;
 	/**
 	 * A list of validators. A validator contains a function that tests the value
@@ -21,20 +21,24 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	 * Indicates that validation should occur when the DOM's `change` event is
 	 * triggered. Note that this event is different from React's `onChange`
 	 * callback, which triggers on the DOM's `input` event.
-	 * @MDN https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+	 *
+	 * Reference:
+	 * - [MDN - `change event`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event)
 	 */
 	validateOnDOMChange?: boolean;
 	/**
-	 * Indicates that validation should occur when `onChange` is triggered.
-	 * @alias `validateOnInput`
+	 * Indicates that validation should occur when `onChange` is triggered. Alias
+	 * of `validateOnInput`.
 	 */
 	validateOnChange?: boolean;
 	/**
 	 * A callback that will be triggered any time the DOM's `change` event is
 	 * triggered. Note that this event is different from React's `onChange`
 	 * event, which triggers on the DOM's `input` event.
-	 * @MDN https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
-	 * @MDN https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event
+	 *
+	 * Reference:
+	 * - [MDN - `change event`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event)
+	 * - [MDN - `input event`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event)
 	 */
 	onDOMChange?: (e: Event) => void;
 	/**

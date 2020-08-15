@@ -9,15 +9,16 @@ export interface BasePopperProps extends React.HTMLAttributes<HTMLElement>, Part
 	tagName?: 'div' | 'section' | 'ul' | 'ol' | 'dl';
 	/**
 	 * The reference element that the popper will be attached to.
-	 * @see https://popper.js.org/docs/v2/constructors/#createpopper
+	 *
+	 * Reference:
+	 * - [Popper - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
 	 */
 	reference?: Element | VirtualElement | null;
 }
 
 /**
- * A Popper.js component. Position the BasePopper's children relative to a
- * reference element.
- * @see https://popper.js.org
+ * A [Popper.js](https://popper.js.org) component. Position the BasePopper's
+ * children relative to a reference element.
  */
 export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 	{

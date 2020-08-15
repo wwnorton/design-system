@@ -18,7 +18,9 @@ export interface BaseOptionProps extends React.LiHTMLAttributes<HTMLLIElement> {
 /**
  * An option is "a selectable item in a listbox." Used in `BaseListbox`. Similar to
  * an `<option>` element.
- * @ARIA https://w3c.github.io/aria/#option
+ *
+ * Reference:
+ * - [ARIA - `option`](https://w3c.github.io/aria/#option)
  */
 export const BaseOption = React.forwardRef<HTMLLIElement, BaseOptionProps>(({
 	isSelected = false,
