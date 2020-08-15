@@ -45,9 +45,8 @@ export interface FieldInfoProps
 	/**
 	 * The HTML element name for the label. If `htmlFor` is included, this will
 	 * automatically be `label`. If undefined, this will be `div`.
-	 * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
 	 */
-	labelIs?: 'div' | 'label' | 'legend';
+	labelTag?: 'div' | 'label' | 'legend';
 }
 
 /**
@@ -57,7 +56,7 @@ export interface FieldInfoProps
  */
 export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 	label,
-	labelIs,
+	labelTag,
 	indicator,
 	description,
 	baseName = prefix('field'),
@@ -97,17 +96,17 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 				</>
 			),
 		};
-		const LabelTag = (htmlFor) ? 'label' : labelIs || 'div';
+		const LabelTag = (htmlFor) ? 'label' : labelTag || 'div';
 		return <LabelTag {...labelProps} />;
-	}, [label, labelClass, htmlFor, labelId, Indicator, labelIs]);
+	}, [label, labelClass, htmlFor, labelId, Indicator, labelTag]);
 
 	const Description = React.useMemo(() => {
-		if (labelIs !== 'legend' && !description) return null;
+		if (labelTag !== 'legend' && !description) return null;
 		return <div className={descriptionClass} id={descriptionId}>{ description }</div>;
-	}, [labelIs, description, descriptionClass, descriptionId]);
+	}, [labelTag, description, descriptionClass, descriptionId]);
 
 	// legend elements cannot be the child of a div so render without the container
-	if (labelIs === 'legend') {
+	if (labelTag === 'legend') {
 		return (
 			<>
 				{ Label }
