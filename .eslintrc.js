@@ -4,6 +4,16 @@ module.exports = {
 		'airbnb',
 		'norton',
 	],
+	settings: {
+		'import/resolver': {
+			webpack: {
+				extensions: ['.js', '.jsx', '.ts', '.tsx'],
+			},
+			node: {
+				extensions: ['.js', '.jsx', '.ts', '.tsx'],
+			},
+		},
+	},
 	rules: {
 		'import/no-extraneous-dependencies': [
 			'error',

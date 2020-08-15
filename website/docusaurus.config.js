@@ -45,7 +45,7 @@ module.exports = {
 					items: [
 						{
 							label: 'Migration',
-							to: 'docs/guides/migration',
+							to: 'docs/migration',
 						},
 					],
 				},
