@@ -11,7 +11,11 @@ import { LiveRegion, useContentMonitor } from '../LiveRegion';
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
 export interface ButtonProps extends BaseButtonProps {
-	/** The button's children are required at all times for accessibility. */
+	/**
+	 * Button `children` are required because they are used to provide an accessible
+	 * label for the button. When rendering with `iconOnly`, the children will be
+	 * rendered as an accessible `Tooltip` that labels the button.
+	 */
 	children: BaseButtonProps['children'];
 	/** Button variant conveys the button's level of visual emphasis. */
 	variant?: ButtonVariant;
@@ -43,11 +47,7 @@ export interface ButtonProps extends BaseButtonProps {
 	tooltipProps?: TooltipCoreProps;
 }
 
-/**
- * Button `children` are required because they are used to provide an accessible
- * label for the button. When rendering with `iconOnly`, the children will be
- * rendered as an accessible `Tooltip` that labels the button.
- */
+/** A button allows a user to perform an action. */
 export const Button = React.forwardRef((
 	{
 		baseName = prefix('button'),
