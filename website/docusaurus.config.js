@@ -1,5 +1,9 @@
 const path = require('path');
 
+const basePath = (process.env.BASE_URL)
+	? 'https://wwnorton.github.io/design-system'
+	: 'http://localhost:3000';
+
 module.exports = {
 	title: 'Norton Design System',
 	tagline: 'Create beautiful, flexible, content-focused products, born accessible.',
@@ -70,6 +74,14 @@ module.exports = {
 							to: 'blog',
 						},
 						{
+							label: 'Sassdoc',
+							href: `${basePath}/sassdoc`,
+						},
+						{
+							label: 'Storybook',
+							href: `${basePath}/storybook`,
+						},
+						{
 							label: 'GitHub',
 							href: 'https://github.com/wwnorton/design-system',
 						},
@@ -89,17 +101,14 @@ module.exports = {
 			'@docusaurus/preset-classic',
 			{
 				docs: {
-					// It is recommended to set document id as docs home page (`docs/` path).
 					homePageId: 'introduction',
 					sidebarPath: require.resolve('./sidebars.js'),
 					showLastUpdateAuthor: true,
 					showLastUpdateTime: true,
-					// Please change this to your repo.
 					editUrl: 'https://github.com/wwnorton/design-system/edit/main/website/',
 				},
 				blog: {
 					showReadingTime: true,
-					// Please change this to your repo.
 					editUrl: 'https://github.com/wwnorton/design-system/edit/main/website/blog/',
 				},
 				theme: {
