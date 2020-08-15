@@ -28,13 +28,6 @@ export class Config implements NDSConfig {
 		localForage.config({ name: this.namespace as string });
 	}
 
-	/** A helper property that will be `false` in server-side renders. */
-	public canUseDOM = (): boolean => (
-		typeof window !== 'undefined'
-		&& 'document' in window
-		&& 'createElement' in window.document
-	);
-
 	/** Prefix a string with the global namespace and delimiter. */
 	public prefix = (val: string, delimiter = '-'): string => {
 		if (!this.namespace || val.startsWith(this.namespace + delimiter)) return val;
@@ -45,7 +38,14 @@ export class Config implements NDSConfig {
 // Global configuration
 export const config = new Config();
 
-export const { prefix, canUseDOM } = config;
+export const { prefix } = config;
+
+/** A helper property that will be `false` in server-side renders. */
+export const canUseDOM = !!(
+	typeof window !== 'undefined'
+	&& typeof window.document !== 'undefined'
+	&& typeof window.document.createElement !== 'undefined'
+);
 
 export const configure = (conf: NDSConfig): NDSConfig => Object.assign(config, conf);
 
