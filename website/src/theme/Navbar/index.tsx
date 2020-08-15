@@ -18,7 +18,7 @@ import useLockBodyScroll from '@theme/hooks/useLockBodyScroll';
 import useWindowSize, { windowSizes } from '@theme/hooks/useWindowSize';
 import useLogo from '@theme/hooks/useLogo';
 import NavbarItem from '@theme/NavbarItem'; // retrocompatible with v1
-import { Seagull } from '../../components';
+import { Seagull } from '../Seagull';
 import styles from './styles.module.css';
 
 const DefaultNavItemPosition = 'right'; // If split links by left/right
