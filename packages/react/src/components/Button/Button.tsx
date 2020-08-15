@@ -11,8 +11,8 @@ import { LiveRegion, useContentMonitor } from '../LiveRegion';
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
 export interface ButtonProps extends BaseButtonProps {
-	/** The base class name according to BEM conventions */
-	baseName?: string;
+	/** The button's children are required at all times for accessibility. */
+	children: BaseButtonProps['children'];
 	/** Button variant conveys the button's level of visual emphasis. */
 	variant?: ButtonVariant;
 	/** An icon to include in the button. */
@@ -30,8 +30,8 @@ export interface ButtonProps extends BaseButtonProps {
 	iconOnly?: boolean;
 	/** A reference to the inner `<button>` element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
-	/** The button's children are required at all times for accessibility. */
-	children: BaseButtonProps['children'];
+	/** The base class name according to BEM conventions. */
+	baseName?: string;
 	/** The className for the Button's icon, if one exists. */
 	iconClass?: string;
 	/** The className for the Button's text, which will be placed in a `<span>` */
