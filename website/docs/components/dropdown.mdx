@@ -3,6 +3,9 @@ title: Dropdown
 description: A dropdown allows a user to select one option from a list, and collapse the other options.
 ---
 
+import { Dropdown } from '@wwnds/react';
+import { PropsTable } from '../../src/theme/PropsTable';
+
 > A dropdown allows a user to select one option from a list, and collapse the other options.
 
 ## Anatomy
@@ -14,7 +17,7 @@ A dropdown includes:
 3. A List of Options
 4. Default Text (`"Select"`)
 
-## Examples
+## Playground
 
 ```jsx live
 <Dropdown
@@ -31,6 +34,10 @@ A dropdown includes:
 	<Dropdown.Option>Arrested Development</Dropdown.Option>
 </Dropdown>
 ```
+
+## Props
+
+<PropsTable from={Dropdown} />
 
 ## Usage
 
