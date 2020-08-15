@@ -19,7 +19,9 @@ module.exports = {
 		reactDocgenTypescriptOptions: {
 			shouldExtractLiteralValuesFromEnum: true,
 			propFilter: (prop) => {
-				if (prop.parent) return !/node_modules/.test(prop.parent.fileName);
+				if (prop.parent) {
+					return !prop.parent.fileName.includes('node_modules');
+				}
 				return true;
 			},
 		},
