@@ -28,7 +28,7 @@ export interface ButtonProps extends BaseButtonProps {
 	 * `aria-label`. If no `icon` is specified, this prop has no effect.
 	 */
 	iconOnly?: boolean;
-	/** A reference to the inner <button> element. */
+	/** A reference to the inner `<button>` element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
 	/** The button's children are required at all times for accessibility. */
 	children: BaseButtonProps['children'];
