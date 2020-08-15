@@ -78,6 +78,10 @@ nds.$font-family-sans: nds.sans('proxima-nova');
 	@include nds.focus-ring;
 }
 
+.anchor[aria-hidden='true']:focus {
+	box-shadow: none;
+}
+
 blockquote {
 	--ifm-blockquote-color: var(--ifm-color-emphasis-600);
 
