@@ -28,12 +28,6 @@ module.exports = {
 				'components/text-field',
 			],
 		},
-		{
-			type: 'category',
-			label: 'Guides',
-			items: [
-				'guides/migration',
-			],
-		},
+		'migration',
 	],
 };
