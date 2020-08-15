@@ -82,7 +82,6 @@
     "@babel/preset-typescript": "^7.10.4",
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
-    "@commitlint/config-lerna-scopes": "^9.1.1",
     "@docusaurus/module-type-aliases": "^2.0.0-alpha.61",
     "@storybook/addon-a11y": "^6.0.7",
     "@storybook/addon-essentials": "^6.0.7",
