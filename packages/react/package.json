@@ -33,7 +33,7 @@
   "scripts": {
     "build": "microbundle --jsx React.createElement --globals @popperjs/core=Popper,lodash.uniqueid=uniqueId,lodash.debounce=debounce",
     "build:stories": "build-storybook",
-    "dev:stories": "start-storybook"
+    "dev:stories": "start-storybook -p 9009"
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
