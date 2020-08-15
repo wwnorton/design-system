@@ -84,6 +84,7 @@
     "@commitlint/config-conventional": "^9.1.2",
     "@docusaurus/module-type-aliases": "^2.0.0-alpha.61",
     "@storybook/addon-a11y": "^6.0.7",
+    "@storybook/addon-actions": "^6.0.10",
     "@storybook/addon-essentials": "^6.0.7",
     "@storybook/addon-knobs": "^6.0.7",
     "@storybook/addons": "^6.0.7",
