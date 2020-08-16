@@ -10,7 +10,7 @@ Styles, components, and utilities for building accessible, responsive products.
 General documentation can be found at https://wwnorton.github.io/design-system.
 Additionally, [Sassdoc](http://sassdoc.com/) documentation for `@wwnds/core` and
 [Storybook](https://storybook.js.org/) documentation for `@wwnds/react` can be
-found as subsites of the main documentation:
+found as sub-sites of the main documentation:
 
 - https://wwnorton.github.io/design-system/sassdoc
 - https://wwnorton.github.io/design-system/storybook

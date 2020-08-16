@@ -4,8 +4,8 @@ import { BaseOption, BaseOptionProps } from '../BaseOption';
 export interface OnChangeData { value: React.ReactText; contents: React.ReactNode }
 export interface BaseListboxProps extends Omit<React.HTMLAttributes<HTMLUListElement>, 'onChange'> {
 	/**
-	 * The listbox's options, which can be either an array of strings, numbers,
-	 * or `<BaseOption>` elements.
+	 * The options for the listbox, which can be either an array of strings,
+	 * numbers, or `<BaseOption>` elements.
 	 */
 	children: React.ReactChild[];
 	/** The currently selected option value(s). */
@@ -21,7 +21,7 @@ export interface BaseListboxProps extends Omit<React.HTMLAttributes<HTMLUListEle
 	optionClass?: string;
 	/**
 	 * The class name that will be applied to the `BaseOption`'s selection
-	 * marker (an SVG checkmark). Only visible when the option is selected.
+	 * marker (an SVG check mark). Only visible when the option is selected.
 	 */
 	markerClass?: string;
 	/** The class name that will be applied to the `BaseOption`'s children. */

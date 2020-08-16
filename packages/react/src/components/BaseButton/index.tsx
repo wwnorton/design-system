@@ -18,7 +18,7 @@ export const defaultProps: BaseButtonProps = {
 /**
  * A base `<button>` component with `type="button"` by default (browser default
  * is "submit") and a polyfill to ensure that :active is triggered while the
- * spacebar is being held down.
+ * space bar is being held down.
  */
 export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(({
 	active = defaultProps.active,

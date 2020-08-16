@@ -110,6 +110,7 @@
 }
 
 @function families($exclude: ()) {
+	/* cspell:ignore fams */
 	$fams: ();
 
 	@each $color in $-families {

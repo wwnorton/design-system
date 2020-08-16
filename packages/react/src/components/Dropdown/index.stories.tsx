@@ -13,6 +13,7 @@ export default {
 	decorators: [withKnobs],
 };
 
+/* cspell:disable */
 const options = [
 	'Americium',
 	'Berkelium',
@@ -41,6 +42,7 @@ const options = [
 	'Seaborgium',
 	'Tennessine',
 ];
+/* cspell:enable */
 
 const sortOptions: Record<string, DropdownProps['sort']> = {
 	None: undefined,
@@ -80,6 +82,7 @@ export const MatchButtonWidth: React.FunctionComponent = () => (
 );
 
 export const FlippingPlacement: React.FunctionComponent = () => (
+	// cspell:ignore scrollbox
 	<div className="scrollbox">
 		<Dropdown
 			label="Choose an element"

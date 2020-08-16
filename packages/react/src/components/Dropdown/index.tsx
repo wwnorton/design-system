@@ -13,10 +13,10 @@ type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 export interface DropdownProps
 	extends FieldInfoCoreProps, Partial<PopperOptions>,
 	Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, BaseProps> {
-	/** The dropdown's name. Required. */
+	/** The name of the dropdown. Required. */
 	label: React.ReactNode;
 	/**
-	 * The listbox's options. Each will be rendered inside a `BaseOption`
+	 * The options for the listbox. Each will be rendered inside a `BaseOption`
 	 * component. When specifying an option as a `BaseOptionProps` object,
 	 * the option's value must be the `BaseOptionProps['children']`.
 	 */
@@ -31,7 +31,7 @@ export interface DropdownProps
 	 * callback is provided.
 	 */
 	buttonContents?: React.ReactNode;
-	/** Indicates whether the Dropdown's listbox is open. */
+	/** Indicates whether the listbox is open. */
 	isOpen?: boolean;
 	/** Indicates whether clicking outside the listbox should close the listbox. */
 	closeOnExternalClick?: boolean;
@@ -45,7 +45,7 @@ export interface DropdownProps
 	 */
 	matchWidth?: 'button' | 'listbox';
 	/**
-	 * Set the width of the button. Use when `matchwidth="button"` and the
+	 * Set the width of the button. Use when `matchWidth="button"` and the
 	 * button's width is not set with CSS.
 	 */
 	buttonWidth?: string | number;
@@ -265,14 +265,14 @@ export const Dropdown: DropdownType = ({
 		};
 	}, [documentKeydownHandler, documentClickHandler]);
 
-	// get the listbox's width any time it changes
+	// get the width of the listbox any time it changes
 	React.useLayoutEffect(() => {
 		if (listbox) setListboxWidth(listbox.offsetWidth);
 	}, [listbox]);
 
 	/**
-	 * If the listbox width is being retrieved, set the listbox's open state to
-	 * its initial state. If `isOpen` is `false` (default), this will close the
+	 * If the listbox width is being retrieved, set the open state to its
+	 * initial state. If `isOpen` is `false` (default), this will close the
 	 * listbox. Triggered by the on load effect.
 	 */
 	React.useLayoutEffect(() => {

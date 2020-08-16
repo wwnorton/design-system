@@ -56,19 +56,12 @@ git commit -m "update commitlint"
 git commit -m "chore(deps): update commitlint"
 ```
 
-**TIP**: if you're unfamiliar with the commit types, try [commitizen](https://github.com/commitizen/cz-cli), a commitlint-aware tool that provides an interactive commandline interface that allows you to select your type.
+**TIP**: if you're unfamiliar with the commit types, try [commitizen](https://github.com/commitizen/cz-cli),
+a commitlint-aware tool that provides an interactive command line interface that allows you to select your type.
 Call it without having to install it globally with [npx](https://github.com/npm/npx):
 
 ```sh
 npx git-cz
-? Select the type of change that youre committing: (Use arrow keys)
-❯ 💍  test:       Adding missing tests
-  🎸  feat:       A new feature
-  🐛  fix:        A bug fix
-  🤖  chore:      Build process or auxiliary tool changes
-  ✏️  docs:       Documentation only changes
-  💡  refactor:   A code change that neither fixes a bug or adds a feature
-  💄  style:      Markup, white-space, formatting, missing semi-colons...
 ```
 
 ### Code Conformance
@@ -107,7 +100,7 @@ npm run fix
 Additionally, [lint-staged](https://github.com/okonet/lint-staged) and [husky](https://github.com/typicode/husky) will auto-fix any staged files.
 Read their documentation to learn more about how this happens.
 
-#### Rule overrrides
+#### Rule overrides
 
 Both eslint and stylelint rules can be [overridden](https://eslint.org/docs/user-guide/configuring.html#using-configuration-comments) or [disabled](https://stylelint.io/user-guide/configuration/#turning-rules-off-from-within-your-css) via code comments.
 This should only ever be done as a very last resort.
