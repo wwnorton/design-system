@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-beta.3](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2020-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **react:** The `Disclosure` prop `variant` has been removed in favor of the boolean `panel` since it is either in panel mode or it is not.
+* **react:** The `Disclosure` prop `animate` has been inverted and renamed `reducedMotion`. This allows developers to imperatively declare `reducedMotion` when they want to disable animations on the component.
+* **react:** The `Disclosure` prop `open` has been renamed `isOpen` to better align with other openable components.
+* **react:** The `Disclosure` prop `updateOnResize` has been removed entirely as sizing considerations will be handled automatically.
+* **react:** The `Disclosure` now allows any icon to be used as the "marker" via the `marker` prop. Additionally, the marker can be displayed on the left or right via `markerPosition`.
+* **react:** The `Disclosure` is now a forwardRef, so the `detailsRef` prop has been removed. Use `ref` instead.
+* **react:** renamed `FieldInfo` prop: `labelIs` → `labelTag`
+
+### ✨ Features
+
+* **react:** add list & subdirectory icons ([0d48d25](https://github.com/wwnorton/design-system/commit/0d48d252b4b4f3c92c2b319d81ccbfdbcb0ad1a8)), closes [gitlab#154](https://github.com/wwnorton/gitlab/issues/154)
+* **react:** add NDS context & corresponding hook ([4c73e07](https://github.com/wwnorton/design-system/commit/4c73e074a0ecf80db164bd9f7fc1bfd7fa1c01fc))
+* **react:** add persistent client storage ([17bca75](https://github.com/wwnorton/design-system/commit/17bca757444dfaf3f1e0d05232f328b33872e4d6))
+* **react:** add useColorScheme hook ([7dfd6ff](https://github.com/wwnorton/design-system/commit/7dfd6ff0695075009d0a28663be03a4ffbf20ce0))
+
+
+### 📝 Documentation
+
+* **storybook:** reorder panel addons ([bb8dba8](https://github.com/wwnorton/design-system/commit/bb8dba83382f1b8d90dca79a0962503307be0aa2))
+
+
+### 🛠 Maintenance
+
+* remove unused testing helper ([9f97661](https://github.com/wwnorton/design-system/commit/9f97661e345126aaf483ef219e2a3e120099ee8d))
+* reset should not return anything ([94caa5b](https://github.com/wwnorton/design-system/commit/94caa5b660ad4fd8b2e68a7bd8a8790a3e0a12d7))
+* **react:** remove unused debounce package ([bcef6ce](https://github.com/wwnorton/design-system/commit/bcef6ce5a09ffa0c9075eacdbe762d78e18015bb))
+* fix spelling errors ([caa8284](https://github.com/wwnorton/design-system/commit/caa8284a7952cbc802204ca1953ffa35aebb9691))
+* re-add missing addons ([9b2ea80](https://github.com/wwnorton/design-system/commit/9b2ea8007c53cdb1a74459706ac7fb536e8c0da5))
+* suppress console warn ([cfb482c](https://github.com/wwnorton/design-system/commit/cfb482c43611f354c41973cb481f542fce22aa86))
+* use the same propFilter for storybook & docs ([26b4f08](https://github.com/wwnorton/design-system/commit/26b4f08d66e88470517decd88ee3bd096f927e06))
+* **dev-deps:** update storybook to v6 ([ee7a662](https://github.com/wwnorton/design-system/commit/ee7a6625582deef355da77221c7cfe19497ce186))
+* **react:** code-escape HTML in comment ([989178e](https://github.com/wwnorton/design-system/commit/989178e13a23a3117f0f249c33f90e7750cd9597))
+* **storybook:** use fixed port for dev ([ac32b26](https://github.com/wwnorton/design-system/commit/ac32b2624ae94f1a0a5b75f2c712859bf8b51ba0))
+
+
+### ♻️ Refactor
+
+* **react:** labelIs → labelTag ([d1f276b](https://github.com/wwnorton/design-system/commit/d1f276b6f7987cfba491573db1555086dee5260b))
+* **react:** make canUseDOM a standalone export ([e4fb53c](https://github.com/wwnorton/design-system/commit/e4fb53c646af9f6280a5411c942affc3f1f4ebda))
+* **react:** remove transitionEnd callback ([a8c7d13](https://github.com/wwnorton/design-system/commit/a8c7d131cbc5c214b525ff2e8e8e4d667604991c))
+* **react:** reorder button props ([99bb417](https://github.com/wwnorton/design-system/commit/99bb417bea3490577db83a409fddd69fd1b399fc))
+* **react:** rewrite disclosure as a function component ([4a12981](https://github.com/wwnorton/design-system/commit/4a12981776711488f6c8310b10bf81f8d09fa83a))
+* **react:** simplify transition parsing ([1986156](https://github.com/wwnorton/design-system/commit/1986156f3978c1192f64177af0bb99e11c170bd2))
+* **storybook:** update disclosure stories ([3fc58f6](https://github.com/wwnorton/design-system/commit/3fc58f65e8b9274ab8da0781c4760d2d914c233f))
+* add canUseDOM to help with SSR ([663705e](https://github.com/wwnorton/design-system/commit/663705ec9bb4ce23ba327f88af78c37a2fe6afc7))
+* move `children` description to the prop ([d18ffa9](https://github.com/wwnorton/design-system/commit/d18ffa985e5bfc9975306b92397c2b1126aee90c))
+* move icon store to Icon component ([ee247b7](https://github.com/wwnorton/design-system/commit/ee247b78f7400500f62090643562f71273052397))
+* move remaining hooks to standalone files ([7485511](https://github.com/wwnorton/design-system/commit/7485511ee0d2be923bd58a4aea862fb407ad827a))
+* prefer storybook layout for centering ([9a1d5be](https://github.com/wwnorton/design-system/commit/9a1d5be7ab5725550cab392c75ae6913135f5d31))
+* **react:** move token helpers to useToken hook ([1cffc76](https://github.com/wwnorton/design-system/commit/1cffc7619002abf76ee741bc09abcd45e6b0a617))
+* **react:** remove idGen helper ([8e96643](https://github.com/wwnorton/design-system/commit/8e96643895bbcf09f7dec44ad4aece101b1d3994))
+* **react:** use markdown links in ts docs ([7adbcc0](https://github.com/wwnorton/design-system/commit/7adbcc0d6eb765a17cceeb98d3d6160e9cb2b7d2))
+* **react:** use more readable `tagName` and avoid `is` HTML conflict ([b02d6e0](https://github.com/wwnorton/design-system/commit/b02d6e08234ba8989943e37ca81cf13f5e369297))
+* **react:** use updated hooks and utilities in all components ([4daac91](https://github.com/wwnorton/design-system/commit/4daac91250f9b0a08837ab2dc171aa25abe5b685))
+* **storybook:** update button stories for v6 ([9172070](https://github.com/wwnorton/design-system/commit/9172070dead69f3d9d6308ebaf723805f2071d2a))
+* prevent multi-prefixing ([2f4c8fb](https://github.com/wwnorton/design-system/commit/2f4c8fbe602583eb4621b63391dc5837597b4a31))
+* remove unused utility ([8328440](https://github.com/wwnorton/design-system/commit/83284409c4bb794a74dbbfbefe0891890c5121d1))
+* update main exports ([6784a0c](https://github.com/wwnorton/design-system/commit/6784a0ca952c47d2799ff57c440d1ad96478b952))
+* use updated hooks and utilities in stories ([f570537](https://github.com/wwnorton/design-system/commit/f570537ea5edfb88fe0fbb48bf8d061c19e46cfd))
+
+
+
 # [1.0.0-beta.2](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2020-08-07)
 
 - feat(react)!: provide access to core tooltip props in components that use tooltips ([e7df6fd](https://github.com/wwnorton/design-system/commit/e7df6fd0bc4042d4b72a7526a15c18d976ac0e65))

@@ -1,6 +1,9 @@
 {
-  "version": "1.0.0-beta.2",
-  "packages": ["packages/*", "website"],
+  "version": "1.0.0-beta.3",
+  "packages": [
+    "packages/*",
+    "website"
+  ],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -62,7 +65,14 @@
             "type": "test",
             "hidden": true
           }
-        ]
+        ],
+        "issuePrefixes": [
+          "#"
+        ],
+        "issueUrlFormat": "{{host}}/{{owner}}/{{repository}}/issues/{{id}}",
+        "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
+        "compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}",
+        "userUrlFormat": "{{host}}/{{user}}"
       }
     }
   }
