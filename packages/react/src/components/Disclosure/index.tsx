@@ -125,7 +125,6 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		onOpenStart,
 		onOpenCancel,
 		onOpenEnd,
-		onTransitionEnd,
 		...attributes
 	}: DisclosureProps, ref,
 ): JSX.Element => {
@@ -176,7 +175,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		else open();
 	};
 
-	const transitionEndHandler = (e: React.TransitionEvent<HTMLDetailsElement>): void => {
+	const transitionEndHandler = (): void => {
 		setState(undefined);
 		setStyle(undefined);
 
@@ -187,8 +186,6 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 			setOpen(false);
 			if (onCloseEnd) onCloseEnd();
 		}
-
-		if (onTransitionEnd) onTransitionEnd(e);
 	};
 
 	// control via `isOpen` prop
