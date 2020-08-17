@@ -99,7 +99,7 @@ This will eventually be posted to a CDN for easier usage.
 
 Any Sass variable with the `!default` flag can be configured through the following Sass techniques.
 
-- [`@forward` configration](https://sass-lang.com/documentation/at-rules/forward#configuring-modules) (preferred)
+- [`@forward` configuration](https://sass-lang.com/documentation/at-rules/forward#configuring-modules) (preferred)
 - [`@use` configuration](https://sass-lang.com/documentation/at-rules/use#configuration) (okay)
 - [`@import` configuration](https://sass-lang.com/documentation/at-rules/import#configuring-modules-through-imports) (discouraged)
 

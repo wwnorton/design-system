@@ -7,7 +7,7 @@ import {
 } from '../Field';
 import { Choice, ChoiceProps } from './Choice';
 import { Choices, ChoicesProps } from './Choices';
-import { prefix } from '../../utilities';
+import { prefix } from '../../config';
 
 export interface ChoiceFieldProps
 	extends FieldInfoCoreProps, FieldFeedbackCoreProps, React.HTMLAttributes<HTMLFieldSetElement> {
@@ -118,7 +118,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 				label={label}
 				labelClass={labelClass}
 				labelId={labelId}
-				labelIs="legend"
+				labelTag="legend"
 				description={description}
 				descriptionClass={descriptionClass}
 				descriptionId={descId}

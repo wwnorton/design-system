@@ -4,13 +4,14 @@ import uniqueId from 'lodash.uniqueid';
 import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
-import { useForwardedRef, prefix } from '../../utilities';
+import { useForwardedRef } from '../../hooks';
+import { prefix } from '../../config';
 
 export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
 	/** The name of the Switch. Required. */
 	label: React.ReactNode;
 	/**
-	 * Children are set inside the Swtich control. Default is 'ON' when `checked`
+	 * Children are set inside the Switch control. Default is 'ON' when `checked`
 	 * and `OFF` when unchecked. Disable default with `displayDefault={false}`.
 	 */
 	children?: React.ReactNode;
@@ -58,6 +59,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 ) => {
 	const [checked, setChecked] = React.useState(isChecked);
 	const [defaultValue, setDefaultValue] = React.useState('OFF');
+	const prevChecked = React.useRef(checked);
 	const [button, setButton] = useForwardedRef(ref);
 
 	// ids stored as refs since they shouldn't change between renders
@@ -69,7 +71,8 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 
 	React.useEffect(() => {
 		setDefaultValue((checked) ? 'ON' : 'OFF');
-		if (onToggle) onToggle(checked);
+		if (onToggle && checked !== prevChecked.current) onToggle(checked);
+		prevChecked.current = checked;
 	}, [checked, onToggle]);
 
 	const clickHandler: ButtonProps['onClick'] = (e) => {

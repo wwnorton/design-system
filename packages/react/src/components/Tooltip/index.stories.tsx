@@ -14,24 +14,25 @@ export default {
 	title: 'Tooltip',
 	component: Tooltip,
 	decorators: [withKnobs],
+	parameters: {
+		layout: 'centered',
+	},
 };
 
 export const Default: React.FunctionComponent = () => (
-	<div className="centered">
-		<Tooltip isOpen>
-			Tooltips require a
-			{' '}
-			<code>reference</code>
-			{' '}
-			in order to render their arrow.
-		</Tooltip>
-	</div>
+	<Tooltip isOpen>
+		Tooltips require a
+		{' '}
+		<code>reference</code>
+		{' '}
+		in order to render their arrow.
+	</Tooltip>
 );
 
 export const CustomTriggers: React.FunctionComponent = () => {
 	const [ref, setRef] = React.useState<HTMLSpanElement | null>();
 	return (
-		<div className="centered">
+		<>
 			<p>
 				<span className="glossref" role="button" tabIndex={0} ref={setRef}>Lorem ipsum</span>
 				{' '}
@@ -45,7 +46,7 @@ export const CustomTriggers: React.FunctionComponent = () => {
 				Lorem ipsum is a placeholder text commonly used to demonstrate
 				the visual form of a document or a typeface without relying on meaningful content.
 			</Tooltip>
-		</div>
+		</>
 	);
 };
 
@@ -55,7 +56,7 @@ export const Controlled: React.FunctionComponent = () => {
 	const toggle = (): void => setOpen(!isOpen);
 
 	return (
-		<div className="centered">
+		<>
 			<Button variant="solid" ref={setRef} onClick={toggle}>Show tooltip</Button>
 			<Tooltip
 				reference={ref}
@@ -66,22 +67,22 @@ export const Controlled: React.FunctionComponent = () => {
 				This tooltip is triggered manually and can only be opened/closed
 				by clicking its reference button.
 			</Tooltip>
-		</div>
+		</>
 	);
 };
 
-export const Popper: React.FunctionComponent = () => {
-	const [reference, setReference] = React.useState<HTMLButtonElement | null>();
-	return (
-		<div className="centered">
-			<button type="button" ref={setReference}>Reference</button>
-			<BasePopper
-				isOpen={boolean('Open', true)}
-				placement={select('Placement', placements, 'auto')}
-				reference={reference}
-			>
-				{text('Contents', 'Popper text')}
-			</BasePopper>
-		</div>
-	);
-};
+// export const Popper: React.FunctionComponent = () => {
+// 	const [reference, setReference] = React.useState<HTMLButtonElement | null>();
+// 	return (
+// 		<>
+// 			<button type="button" ref={setReference}>Reference</button>
+// 			<BasePopper
+// 				isOpen={boolean('Open', true)}
+// 				placement={select('Placement', placements, 'auto')}
+// 				reference={reference}
+// 			>
+// 				{text('Contents', 'Popper text')}
+// 			</BasePopper>
+// 		</>
+// 	);
+// };

@@ -24,7 +24,16 @@ There are two main entry points:
 @use '@wwnds/core' as nds with (
 	$font-family-base: 'Proxima Nova',
 );
+
+.my-declaration {
+	font-family: var(--nds-font-family-base); // 'Proxima Nova'
+	// font-family: nds.$font-family-base;		// alternatively use the Sass variable
+	// (these will compile to the same thing)
+}
 ```
+
+View [the @wwnds/core readme](https://github.com/wwnorton/design-system/tree/main/packages/core#readme)
+for more about this.
 
 ### `@wwnds/react`: `TextField`
 
@@ -53,44 +62,48 @@ There are two main entry points:
 </TextField>
 ```
 
-<!--
 The resulting HTML has also changed to make better use of field composition.
-
-```html title="v0.9.x"
-```
+Most notably, the text field is now a modified `field` component instead of a
+root "block" (in BEM conventions).
+In other words, the "block" class name is now `field` instead of `textfield`.
+This was done to reuse field components across form fields.
 
 ```html title="v1.0.0-beta.x"
-<div class="field field--text field--invalid" id="field-1">
-	<div class="field__info">
-		<label class="field__label" for="field-1-input" id="field-1-label">
+<div class="nds-field nds-field--text nds-field--invalid" id="nds-field-1">
+	<div class="nds-field__info">
+		<label
+			class="nds-field__label"
+			for="nds-field-1-input"
+			id="nds-field-1-label"
+		>
 			Default Text Field
 		</label>
-		<div class="field__desc" id="field-1-desc">
+		<div class="nds-field__desc" id="nds-field-1-desc">
 			The default Text Field has a type of "text"
 		</div>
 	</div>
-	<div class="field__group field__group--text">
+	<div class="nds-field__group nds-field__group--text">
 		<input
-			id="field-1-input"
-			class="field__input field__input--text"
-			aria-describedby="field-1-desc"
+			id="nds-field-1-input"
+			class="nds-field__input nds-field__input--text"
+			aria-describedby="nds-field-1-desc"
 			aria-invalid="true"
 			type="text"
 			value=""
 			required=""
-			aria-errormessage="field-1-err"
+			aria-errormessage="nds-field-1-err"
 		/>
 	</div>
-	<div class="field__feedback">
+	<div class="nds-field__feedback">
 		<ul
-			class="field__errors"
-			id="field-1-err"
+			class="nds-field__errors"
+			id="nds-field-1-err"
 			aria-label="Errors"
 			aria-live="assertive"
 			aria-atomic="true"
 		>
-			<li>This field is required.</li>
+			<li>This nds-field is required.</li>
 		</ul>
 	</div>
 </div>
-``` -->
+```

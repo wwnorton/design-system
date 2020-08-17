@@ -37,7 +37,9 @@ const defaultProps: LiveRegionProps = {
  * 3. Update it with a duplicate of the new children to ensure that screen
  * reader users will perceive the change in content.
  * 4. Remove the live region a moment later.
- * @ARIA https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions
+ *
+ * Reference:
+ * - [MDN - ARIA Live Regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)
  */
 export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
 	removeAfter = defaultProps.removeAfter,

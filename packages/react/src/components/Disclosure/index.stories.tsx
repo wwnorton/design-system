@@ -1,16 +1,21 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import {
 	withKnobs,
 	text,
 	boolean,
+	select,
 } from '@storybook/addon-knobs';
+import { Story } from '@storybook/react/types-6-0';
 import { Disclosure } from '.';
+import { IconOptions, IconVariant } from '../Icon';
 
 export default {
 	title: 'Disclosure',
 	component: Disclosure,
-	decorators: [withKnobs],
+	decorators: [
+		withKnobs,
+		(Comp: Story): JSX.Element => <div style={{ maxWidth: '30rem' }}><Comp /></div>,
+	],
 };
 
 const defaultContents = [
@@ -20,38 +25,31 @@ const defaultContents = [
 	'suscipit, deserunt debitis.',
 ].toString();
 
-const { defaultProps } = Disclosure;
+// const DisclosureTemplate: Story<DisclosureProps> = (args) => <Disclosure {...args} />;
+
+// export const Default = DisclosureTemplate.bind({});
+// Default.args = { summary: 'More information', children: defaultContents };
 
 export const Default: React.FunctionComponent = () => (
 	<Disclosure
+		panel={boolean('Panel', false)}
 		summary={text('Summary', 'More information')}
-		animate={boolean('Animate', defaultProps.animate)}
-		onToggle={action('onToggle')}
-		onOpenStart={action('onOpenStart')}
-		onOpenCancel={action('onOpenCancel')}
-		onOpenEnd={action('onOpenEnd')}
-		onCloseStart={action('onCloseStart')}
-		onCloseCancel={action('onCloseCancel')}
-		onCloseEnd={action('onCloseEnd')}
-		open={boolean('Open', false)}
+		isOpen={boolean('Open', false)}
+		reducedMotion={boolean('Reduced motion', false)}
 	>
 		<p>{text('Contents', defaultContents)}</p>
 	</Disclosure>
 );
 
-export const Panel: React.FunctionComponent = () => (
+export const CustomMarker: React.FunctionComponent = () => (
 	<Disclosure
+		panel={boolean('Panel', false)}
 		summary={text('Summary', 'More information')}
-		variant="panel"
-		animate={boolean('Animate', defaultProps.animate)}
-		onToggle={action('onToggle')}
-		onOpenStart={action('onOpenStart')}
-		onOpenCancel={action('onOpenCancel')}
-		onOpenEnd={action('onOpenEnd')}
-		onCloseStart={action('onCloseStart')}
-		onCloseCancel={action('onCloseCancel')}
-		onCloseEnd={action('onCloseEnd')}
-		open={boolean('Open', false)}
+		isOpen={boolean('Open', false)}
+		marker={select<IconVariant>('Marker', IconOptions, 'plus')}
+		markerPosition={
+			select<'left' | 'right'>('Marker position', { Left: 'left', Right: 'right' }, 'left')
+		}
 	>
 		<p>{text('Contents', defaultContents)}</p>
 	</Disclosure>
@@ -83,8 +81,8 @@ export const Controlled: React.FunctionComponent = () => {
 
 	return (
 		<Disclosure
+			panel
 			summary={summary}
-			variant="panel"
 			onOpenStart={getContents}
 			onCloseEnd={(): void => setContents(undefined)}
 		>

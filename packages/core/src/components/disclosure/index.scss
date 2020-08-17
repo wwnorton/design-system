@@ -27,6 +27,10 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 	padding: spacing.padding-y() 0;
 	cursor: pointer;
 	align-items: center;
+
+	.#{util.prefix('disclosure__marker')}:last-child {
+		margin-left: auto;
+	}
 }
 
 @mixin contents-outer {
@@ -47,25 +51,39 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 	}
 }
 
-@mixin marker-svg {
-	margin-right: props.prop('marker-margin');
-	margin-left: props.prop('marker-margin');
-
-	details:not(.closed) & {
-		transition: motion.transition(transform, props.prop('duration-collapse'));
-		transform-origin: center;
-	}
-}
-
 @mixin marker-transform($open-transform, $close-transform) {
 	[open] & {
 		transition: motion.transition(transform, props.prop('duration-collapse'));
 		transform: $open-transform;
 	}
 
-	[open].closing & {
+	[open].#{util.prefix('closing')} & {
 		transition: motion.transition(transform, props.prop('duration-expand'));
 		transform: $close-transform;
+	}
+}
+
+@mixin marker-svg {
+	margin-right: props.prop('marker-margin');
+	margin-left: props.prop('marker-margin');
+
+	[open] & {
+		transition: motion.transition(transform, props.prop('duration-collapse'));
+		transform-origin: center;
+	}
+
+	&.#{util.prefix('icon--caret-right')} {
+		@include marker-transform(
+			rotate(90deg),
+			rotate(0),
+		);
+	}
+
+	&.#{util.prefix('icon--chevron-down')} {
+		@include marker-transform(
+			rotate3d(1, 0, 0, 180deg),
+			rotate3d(1, 0, 0, 0),
+		);
 	}
 }
 
@@ -83,7 +101,6 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 		background-color: props.prop('base-20');
 		border: $-border;
 		border-radius: inherit;
-		justify-content: space-between;
 	}
 
 	&[open] > .#{util.prefix('disclosure__summary')} {
@@ -137,13 +154,6 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 			@include marker-svg;
 		}
 
-		.#{util.prefix('disclosure__marker.icon--caret-right')} {
-			@include marker-transform(
-				rotate(90deg),
-				rotate(0),
-			);
-		}
-
 		.#{util.prefix('disclosure__contents-outer')} {
 			@include contents-outer;
 		}
@@ -154,13 +164,6 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 
 		.#{util.prefix('disclosure--panel')} {
 			@include panel;
-		}
-
-		.#{util.prefix('disclosure__marker.icon--chevron-down')} {
-			@include marker-transform(
-				rotate3d(1, 0, 0, 180deg),
-				rotate3d(1, 0, 0, 0),
-			);
 		}
 	}
 }

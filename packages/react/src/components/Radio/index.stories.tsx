@@ -8,7 +8,7 @@ import {
 import './index.stories.scss';
 import { Radio, RadioGroup as RadioGroupComp } from '.';
 import { Choices } from '../ChoiceField';
-import { useSelect } from '../../utilities';
+import { useSelect } from '../../hooks';
 
 export default {
 	title: 'Radio',

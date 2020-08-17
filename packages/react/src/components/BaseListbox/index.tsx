@@ -4,8 +4,8 @@ import { BaseOption, BaseOptionProps } from '../BaseOption';
 export interface OnChangeData { value: React.ReactText; contents: React.ReactNode }
 export interface BaseListboxProps extends Omit<React.HTMLAttributes<HTMLUListElement>, 'onChange'> {
 	/**
-	 * The listbox's options, which can be either an array of strings, numbers,
-	 * or `<BaseOption>` elements.
+	 * The options for the listbox, which can be either an array of strings,
+	 * numbers, or `<BaseOption>` elements.
 	 */
 	children: React.ReactChild[];
 	/** The currently selected option value(s). */
@@ -21,7 +21,7 @@ export interface BaseListboxProps extends Omit<React.HTMLAttributes<HTMLUListEle
 	optionClass?: string;
 	/**
 	 * The class name that will be applied to the `BaseOption`'s selection
-	 * marker (an SVG checkmark). Only visible when the option is selected.
+	 * marker (an SVG check mark). Only visible when the option is selected.
 	 */
 	markerClass?: string;
 	/** The class name that will be applied to the `BaseOption`'s children. */
@@ -42,11 +42,12 @@ export interface BaseListboxProps extends Omit<React.HTMLAttributes<HTMLUListEle
 /**
  * A listbox is "a widget that allows the user to select one or more items from
  * a list of choices." Similar to a `<select>` element.
- * @ARIA https://w3c.github.io/aria/#listbox
- * @APG https://w3c.github.io/aria-practices/#BaseListbox
+ *
+ * Reference:
+ * - [ARIA - `listbox`](https://w3c.github.io/aria/#listbox)
+ * - [ARIA Practices - Listbox](https://w3c.github.io/aria-practices/#Listbox)
  */
 export const BaseListbox = React.forwardRef(({
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	children,
 	className,
 	selected: selectedProp,

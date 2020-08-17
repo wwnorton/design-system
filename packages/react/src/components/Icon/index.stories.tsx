@@ -6,8 +6,7 @@ import {
 	color,
 	text,
 } from '@storybook/addon-knobs';
-import { Icon, IconProps } from '.';
-import { IconOptions } from '../../utilities';
+import { Icon, IconProps, IconOptions } from '.';
 
 export default {
 	title: 'Icon',

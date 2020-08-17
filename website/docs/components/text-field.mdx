@@ -2,14 +2,18 @@
 title: Text Field
 description: A text field allows a user to enter and edit text.
 ---
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import { TextField } from '@wwnds/react';
+import { PropsTable } from '../../src/theme/PropsTable';
 
 > A text field allows a user to enter and edit text.
 
 ## Anatomy
 
-![A diagram of the text field's various pieces, defined below.](/img/anatomy_text-field.png)
-
-A text field includes:
+<img
+	alt="A diagram of the text field's various components."
+	src={useBaseUrl('/img/anatomy_text-field.png')}
+/>
 
 1. Label
 2. Container
@@ -22,7 +26,7 @@ A text field includes:
 8. Error Text `optional`
 9. Character count `optional`
 
-## Examples
+## Playground
 
 ```jsx live
 <TextField
@@ -41,6 +45,10 @@ A text field includes:
 </TextField>
 ```
 
+## Props
+
+<PropsTable from={TextField} />
+
 ## Usage
 
 - A text field allows a user to freeform type or paste their own response to a prompt.
@@ -50,7 +58,7 @@ A text field includes:
 
 :::tip Dos
 - Do let the size of the input area indicate the amount of content you expect the user to enter.
-    - By default, the text field should be full width, defined by the size of its containe.
+    - By default, the text field should be full width, defined by the size of its container.
     - Only use a fixed-width input area if the text entry has a specific, known length. The width should remain fixed unless it is wider than its container&mdash;then shrink width to fit.
 :::
 

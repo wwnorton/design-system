@@ -7,7 +7,8 @@ import {
 	FieldInfo, FieldInfoCoreProps,
 	FieldFeedback, FieldFeedbackCoreProps,
 } from '../Field';
-import { prefix, useForwardedRef } from '../../utilities';
+import { useForwardedRef } from '../../hooks';
+import { prefix } from '../../config';
 
 export interface ChoiceProps extends
 	Omit<FieldInfoCoreProps, 'label'>,
@@ -16,8 +17,10 @@ export interface ChoiceProps extends
 	type?: 'checkbox' | 'radio';
 	/**
 	 * Mark the checkbox as indeterminate. Has no effect when `type="radio"`.
-	 * @DOM https://html.spec.whatwg.org/multipage/input.html#dom-input-indeterminate
-	 * @MDN https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Indeterminate_state_checkboxes
+	 *
+	 * Reference:
+	 * - [DOM - `indeterminate`](https://html.spec.whatwg.org/multipage/input.html#dom-input-indeterminate)
+	 * - [MDN - `indeterminate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Indeterminate_state_checkboxes)
 	 */
 	indeterminate?: boolean;
 	/** Indicates that the indicator should be "required" when `required=true`. */

@@ -10,6 +10,7 @@ export const shortContent = (
 
 const line = { style: { display: 'block' } };
 
+/* cspell:disable */
 export const longContent = (
 	<>
 		{ shortContent }
@@ -68,3 +69,4 @@ export const longContent = (
 		</p>
 	</>
 );
+/* cspell:enable */

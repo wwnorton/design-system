@@ -10,12 +10,8 @@ $-basename: 'switch';
 	display: inline-flex;
 	align-items: flex-start;
 
-	> :first-child {
+	> :first-child:not(:last-child) {
 		margin-right: spacing.rem(1);
-	}
-
-	> :last-child {
-		margin-right: unset;
 	}
 }
 

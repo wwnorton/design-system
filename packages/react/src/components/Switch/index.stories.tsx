@@ -11,48 +11,42 @@ export default {
 };
 
 export const Default: React.FunctionComponent = () => (
-	<div className="centered">
-		<Switch
-			label={text('Label', 'Label')}
-			description={text('Description', 'Descriptive text')}
-			onToggle={action('onToggle')}
-			displayDefault={boolean('Default text', true)}
-			disabled={boolean('Disabled', false)}
-			tipped={boolean('Label with tooltip', false)}
-		/>
-	</div>
+	<Switch
+		label={text('Label', 'Label')}
+		description={text('Description', 'Descriptive text')}
+		onToggle={action('onToggle')}
+		displayDefault={boolean('Default text', true)}
+		disabled={boolean('Disabled', false)}
+		tipped={boolean('Label with tooltip', false)}
+	/>
 );
 
 export const InitiallyOn: React.FunctionComponent = () => (
-	<div className="centered">
-		<Switch
-			label={text('Label', 'Label')}
-			description={text('Description', 'Descriptive text')}
-			onToggle={action('onToggle')}
-			disabled={boolean('Disabled', false)}
-			tipped={boolean('Label with tooltip', false)}
-			checked
-		/>
-	</div>
+	<Switch
+		label={text('Label', 'Label')}
+		description={text('Description', 'Descriptive text')}
+		onToggle={action('onToggle')}
+		disabled={boolean('Disabled', false)}
+		tipped={boolean('Label with tooltip', false)}
+		checked
+	/>
 );
 
 export const CustomContent: React.FunctionComponent = () => {
 	const [checked, setChecked] = React.useState(false);
 
 	return (
-		<div className="centered">
-			<Switch
-				label={text('Label', 'Label')}
-				description={text('Description', 'Descriptive text')}
-				checked={checked}
-				onToggle={action('onToggle')}
-				onClick={(): void => setChecked(!checked)}
-				disabled={boolean('Disabled', false)}
-				tipped={boolean('Label with tooltip', false)}
-			>
-				<Icon variant={(checked) ? 'check' : 'close'} />
-			</Switch>
-		</div>
+		<Switch
+			label={text('Label', 'Label')}
+			description={text('Description', 'Descriptive text')}
+			checked={checked}
+			onToggle={action('onToggle')}
+			onClick={(): void => setChecked(!checked)}
+			disabled={boolean('Disabled', false)}
+			tipped={boolean('Label with tooltip', false)}
+		>
+			<Icon variant={(checked) ? 'check' : 'close'} />
+		</Switch>
 	);
 };
 

@@ -32,9 +32,14 @@ test('icons are focusable when they have contents', (t) => {
 });
 
 test('click listeners cannot be attached to icons', (t) => {
+	/* eslint-disable no-console */
+	const { warn } = console;
+	console.warn = () => true;
 	let clicked = false;
 	render(<Icon variant="account" onClick={() => { clicked = true; }} />);
 	const icon = screen.getByRole('img', { hidden: true });
 	fireEvent.click(icon);
 	t.false(clicked);
+	console.warn = warn;
+	/* eslint-enable no-console */
 });

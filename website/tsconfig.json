@@ -2,8 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
-    "noEmit": true,
-    "rootDir": "src"
+    "noEmit": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "../packages/react/src/**/*"]
 }

@@ -33,6 +33,32 @@ jobs:
       - name: Build 🔧
         run: npm run build
 
+  cspell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.1
+        with:
+          node-version: 12.x
+      - name: Get yarn cache directory
+        id: yarn-cache-dir
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache 💵
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+            ${{ steps.yarn-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install 📦
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+      - name: CSpell ✏️
+        run: npm run cspell
+
   eslint:
     runs-on: ubuntu-latest
     steps:

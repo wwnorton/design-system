@@ -21,19 +21,15 @@ module.exports = {
 				'components/checkbox',
 				'components/disclosure',
 				'components/dropdown',
+				// 'components/icon',
 				// 'components/layout-grid',
 				'components/link',
 				'components/radio-buttons',
 				'components/switch',
 				'components/text-field',
+				// 'components/tooltip',
 			],
 		},
-		{
-			type: 'category',
-			label: 'Guides',
-			items: [
-				'guides/migration',
-			],
-		},
+		'migration',
 	],
 };

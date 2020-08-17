@@ -1,18 +1,22 @@
 import React from 'react';
 import classNames from 'classnames';
-import {
-	IconVariant, SVGIcon, useForwardedRef, NDSForwardRef, prefix,
-} from '../../utilities';
+import { prefix } from '../../config';
+import { useForwardedRef } from '../../hooks';
+import { NDSForwardRef } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
-import { Icon } from '../Icon';
+import { Icon, IconVariant, SVGIcon } from '../Icon';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
 export interface ButtonProps extends BaseButtonProps {
-	/** The base class name according to BEM conventions */
-	baseName?: string;
+	/**
+	 * Button `children` are required because they are used to provide an accessible
+	 * label for the button. When rendering with `iconOnly`, the children will be
+	 * rendered as an accessible `Tooltip` that labels the button.
+	 */
+	children: BaseButtonProps['children'];
 	/** Button variant conveys the button's level of visual emphasis. */
 	variant?: ButtonVariant;
 	/** An icon to include in the button. */
@@ -28,10 +32,10 @@ export interface ButtonProps extends BaseButtonProps {
 	 * `aria-label`. If no `icon` is specified, this prop has no effect.
 	 */
 	iconOnly?: boolean;
-	/** A reference to the inner <button> element. */
+	/** A reference to the inner `<button>` element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
-	/** The button's children are required at all times for accessibility. */
-	children: BaseButtonProps['children'];
+	/** The base class name according to BEM conventions. */
+	baseName?: string;
 	/** The className for the Button's icon, if one exists. */
 	iconClass?: string;
 	/** The className for the Button's text, which will be placed in a `<span>` */
@@ -43,11 +47,7 @@ export interface ButtonProps extends BaseButtonProps {
 	tooltipProps?: TooltipCoreProps;
 }
 
-/**
- * Button `children` are required because they are used to provide an accessible
- * label for the button. When rendering with `iconOnly`, the children will be
- * rendered as an accessible `Tooltip` that labels the button.
- */
+/** A button allows a user to perform an action. */
 export const Button = React.forwardRef((
 	{
 		baseName = prefix('button'),

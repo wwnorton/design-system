@@ -24,7 +24,9 @@ export const validityStateTest = (
 
 /**
  * All `<input>` types since the standard DOM library isn't specific.
- * @DOM https://html.spec.whatwg.org/multipage/input.html#attr-input-type
+ *
+ * Reference:
+ * - [DOM - `input[type]`](https://html.spec.whatwg.org/multipage/input.html#attr-input-type)
  */
 export type InputType =
 	| 'button'
@@ -62,7 +64,9 @@ type ValidationAttributeNames =
 
 /**
  * Attributes that are used in constraint validation.
- * @MDN https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+ *
+ * Reference:
+ * - [MDN - Validation-related attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes)
  */
 export type ValidationAttributes =
 	Pick<React.InputHTMLAttributes<HTMLInputElement>, ValidationAttributeNames>;

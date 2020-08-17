@@ -1,16 +1,6 @@
 @use '~@wwnds/core/full' with (
-	$namespace: null,
 	$css-property-fallback: false,
 );
-
-// Center a component
-.centered {
-	display: flex;
-	height: 100vh;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
 
 // General scrollbox helper for when a story needs to be scrollable
 .scrollbox {

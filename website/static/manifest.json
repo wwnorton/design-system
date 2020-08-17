@@ -4,16 +4,16 @@
   "theme_color": "#1a8082",
   "background_color": "#192633",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "/design-system/",
+  "start_url": "/design-system/",
   "icons": [
     {
-      "src": "/img/android-chrome-192x192.png",
+      "src": "/design-system/img/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/img/android-chrome-512x512.png",
+      "src": "/design-system/img/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

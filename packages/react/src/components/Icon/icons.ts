@@ -35,6 +35,7 @@ export type IconVariant =
 	| 'flag'
 	| 'info'
 	| 'launch'
+	| 'list'
 	| 'menu'
 	| 'minus'
 	| 'minus-circle'
@@ -47,7 +48,9 @@ export type IconVariant =
 	| 'search'
 	| 'settings'
 	| 'star'
-	| 'star-outline';
+	| 'star-outline'
+	| 'subdirectory-left'
+	| 'subdirectory-right'
 
 export const viewBox = '0 0 24 24';
 
@@ -222,6 +225,12 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		d: 'M16 14h2v5a2.006 2.006 0 01-2 2H5a2.006 2.006 0 01-2-2V8a2.006 2.006 0 012-2h5v2H5v11h11zM14 3v2h3.586l-9.293 9.293 1.414 1.414L19 6.414V10h2V3z',
 		viewBox,
 	},
+	list: {
+		fullName: 'List',
+		d: 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z',
+		source: 'https://material.io/resources/icons/?icon=list&style=baseline',
+		viewBox,
+	},
 	menu: {
 		fullName: 'Menu',
 		d: 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z',
@@ -242,7 +251,7 @@ export const icons: Record<IconVariant, SVGIcon> = {
 	},
 	'more-horizontal': {
 		fullName: 'More horizontal',
-		originalName: 'more_horiz',
+		originalName: 'more_horiz',	// cspell:disable-line
 		d: 'M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
 		source: 'https://material.io/resources/icons/?icon=more_horiz&style=baseline',
 		viewBox,
@@ -303,6 +312,20 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		originalName: 'star_border',
 		d: 'M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z',
 		source: 'https://material.io/resources/icons/?icon=star_border&style=baseline',
+		viewBox,
+	},
+	'subdirectory-left': {
+		fullName: 'Subdirectory left',
+		originalName: 'subdirectory_arrow_left',
+		d: 'M11 9l1.42 1.42L8.83 14H18V4h2v12H8.83l3.59 3.58L11 21l-6-6 6-6z',
+		source: 'https://material.io/resources/icons/?icon=subdirectory_arrow_left&style=baseline',
+		viewBox,
+	},
+	'subdirectory-right': {
+		fullName: 'Subdirectory right',
+		originalName: 'subdirectory_arrow_right',
+		d: 'M19 15l-6 6-1.42-1.42L15.17 16H4V4h2v10h9.17l-3.59-3.58L13 9l6 6z',
+		source: 'https://material.io/resources/icons/?icon=subdirectory_arrow_right&style=baseline',
 		viewBox,
 	},
 };
