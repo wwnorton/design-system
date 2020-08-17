@@ -31,7 +31,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "microbundle --jsx React.createElement --globals @popperjs/core=Popper,lodash.uniqueid=uniqueId,lodash.debounce=debounce",
+    "build": "microbundle --jsx React.createElement --globals @popperjs/core=Popper,lodash.uniqueid=uniqueId",
     "build:stories": "build-storybook",
     "dev:stories": "start-storybook -p 9009"
   },
@@ -39,7 +39,6 @@
     "@popperjs/core": "^2.4.4",
     "classnames": "^2.2.6",
     "localforage": "^1.9.0",
-    "lodash.debounce": "^4.0.8",
     "lodash.uniqueid": "^4.0.1",
     "react-fast-compare": "^3.2.0"
   },
