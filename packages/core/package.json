@@ -32,10 +32,6 @@
   "module": "dist/index.module.js",
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
   "scripts": {
     "build": "microbundle --globals lodash.debounce=debounce"
   },
