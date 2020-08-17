@@ -3,10 +3,10 @@ const path = require('path');
 module.exports = {
 	stories: [path.resolve(__dirname, '../src/**/*.stories.{ts,tsx,mdx}')],
 	addons: [
-		'@storybook/addon-a11y',
+		'@storybook/addon-knobs',
 		'@storybook/addon-essentials',
 		'@storybook/addon-actions',
-		'@storybook/addon-knobs',
+		'@storybook/addon-a11y',
 		{
 			name: '@storybook/preset-scss',
 			options: {
