@@ -64,7 +64,7 @@ export const hasTransition = (el?: HTMLElement | null, pseudoEl?: string): boole
 		const styles = window.getComputedStyle(el, pseudoEl);
 		return styles.getPropertyValue('transition-duration')
 			.split(/,\s*/)
-			.some((value) => Number(value.replace('s', '')) > 0);
+			.some((value) => parseFloat(value) > 0);
 	}
 	return false;
 };
