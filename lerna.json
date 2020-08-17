@@ -30,19 +30,24 @@
             "section": "🐛 Bug Fixes"
           },
           {
+            "type": "visual",
+            "hidden": false,
+            "section": "💄 Visual"
+          },
+          {
             "type": "perf",
             "hidden": false,
             "section": "⚡️ Performance"
           },
           {
-            "type": "chore",
-            "hidden": false,
-            "section": "🛠 Maintenance"
-          },
-          {
             "type": "docs",
             "hidden": false,
             "section": "📝 Documentation"
+          },
+          {
+            "type": "chore",
+            "hidden": false,
+            "section": "🛠 Maintenance"
           },
           {
             "type": "style",
@@ -56,11 +61,6 @@
           {
             "type": "test",
             "hidden": true
-          },
-          {
-            "type": "visual",
-            "hidden": false,
-            "section": "💄 Visual"
           }
         ]
       }
