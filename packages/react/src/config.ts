@@ -49,6 +49,6 @@ export const canUseDOM = !!(
 
 export const configure = (conf: NDSConfig): NDSConfig => Object.assign(config, conf);
 
-export const reset = (): NDSConfig => Object.assign(config, Config.defaults);
+export const reset = (): void => { Object.assign(config, Config.defaults); };
 
 export const NDSContext = createContext(config);
