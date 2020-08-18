@@ -114,7 +114,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [1.0.0-beta.2](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2020-08-07)
+## [1.0.0-beta.2](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2020-08-07)
 
 - feat(react)!: provide access to core tooltip props in components that use tooltips ([e7df6fd](https://github.com/wwnorton/design-system/commit/e7df6fd0bc4042d4b72a7526a15c18d976ac0e65))
 
@@ -126,7 +126,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - the `hideTooltipDelay` prop that was used in `Button`/`IconButton`/`Switch` has been removed. Use `tooltipProps={{ hideDelay: n }}` to replicate the behavior.
 
-# [1.0.0-beta.1](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2020-07-30)
+## [1.0.0-beta.1](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2020-07-30)
 
 With this release, the scope has been changed from `@nds` to `@wwnds` to allow us to publish on the public NPM registry.
 To update, you will need to uninstall `@nds/{core,react}` and then install `@wwnds/{core,react}`.
@@ -154,7 +154,7 @@ npm i @wwnds/{core,react}
 
 - reduce grade iterations ([2eb2b56](https://github.com/wwnorton/design-system/commit/2eb2b56bb5971651c4c9f63efee0280cdf203e3b))
 
-# [1.0.0-beta.0](https://github.com/wwnorton/design-system/compare/v0.9.4...v1.0.0-beta.0) (2020-07-17)
+## [1.0.0-beta.0](https://github.com/wwnorton/design-system/compare/v0.9.4...v1.0.0-beta.0) (2020-07-17)
 
 ### Bug Fixes
 
@@ -275,7 +275,7 @@ npm i @wwnds/{core,react}
 
 - **react:** use relative paths ([2b97289](https://github.com/wwnorton/design-system/commit/2b97289989edecd2ba2eb58926eeebdff3d00cd5))
 
-# [0.9.0](https://github.com/wwnorton/design-system/compare/v0.8.1...v0.9.0) (2020-05-31)
+## [0.9.0](https://github.com/wwnorton/design-system/compare/v0.8.1...v0.9.0) (2020-05-31)
 
 ### Features
 
@@ -285,7 +285,7 @@ npm i @wwnds/{core,react}
 
 **Note:** Version bump only for package nds
 
-# [0.8.0](https://github.com/wwnorton/design-system/compare/v0.7.0...v0.8.0) (2020-05-02)
+## [0.8.0](https://github.com/wwnorton/design-system/compare/v0.7.0...v0.8.0) (2020-05-02)
 
 ### Bug Fixes
 
@@ -301,7 +301,7 @@ npm i @wwnds/{core,react}
 - **react:** initial BasePopper and Tooltip ([75815a5](https://github.com/wwnorton/design-system/commit/75815a5f23980bf71f853e64bbaeee7135923a78))
 - **react:** initial Dropdown ([8eac9d7](https://github.com/wwnorton/design-system/commit/8eac9d7326387aa609d0f73ce2f228f7aad4114d))
 
-# [0.7.0](https://github.com/wwnorton/design-system/compare/v0.6.1...v0.7.0) (2020-04-01)
+## [0.7.0](https://github.com/wwnorton/design-system/compare/v0.6.1...v0.7.0) (2020-04-01)
 
 ### Bug Fixes
 
@@ -330,7 +330,7 @@ npm i @wwnds/{core,react}
 - **core:** add missing components ([13688c7](https://github.com/wwnorton/design-system/commit/13688c756c077f1b4848b95a760731d95dae1163))
 - **core:** import missing component tokens ([c1e27c2](https://github.com/wwnorton/design-system/commit/c1e27c2221fcfca5c4d142fc654f2ce3a4decc37))
 
-# [0.6.0](https://github.com/wwnorton/design-system/compare/v0.5.1...v0.6.0) (2020-02-28)
+## [0.6.0](https://github.com/wwnorton/design-system/compare/v0.5.1...v0.6.0) (2020-02-28)
 
 ### Bug Fixes
 
@@ -379,7 +379,7 @@ npm i @wwnds/{core,react}
 - build all files to root of dist ([7698a82](https://github.com/wwnorton/design-system/commit/7698a8286ac1dcbdd7ae04858468f8821e7b3720))
 - **react:** add missing components to main export ([5d8ccd4](https://github.com/wwnorton/design-system/commit/5d8ccd4d7373adcedd0768879a40f8352cbcf633))
 
-# [0.5.0](https://github.com/wwnorton/design-system/compare/v0.4.0...v0.5.0) (2020-01-31)
+## [0.5.0](https://github.com/wwnorton/design-system/compare/v0.4.0...v0.5.0) (2020-01-31)
 
 ### Bug Fixes
 
@@ -413,7 +413,7 @@ npm i @wwnds/{core,react}
 
 - **deps:** now requires Node v10+
 
-# [0.4.0](https://github.com/wwnorton/design-system/compare/v0.3.0...v0.4.0) (2020-01-02)
+## [0.4.0](https://github.com/wwnorton/design-system/compare/v0.3.0...v0.4.0) (2020-01-02)
 
 ### Bug Fixes
 
@@ -431,7 +431,7 @@ npm i @wwnds/{core,react}
 - **react:** initial text field ([d7ec06c](https://github.com/wwnorton/design-system/commit/d7ec06cf9fd4ebfc9a11ce4d7e619929453addd5))
 - **react:** more consistent callbacks ([34bddfc](https://github.com/wwnorton/design-system/commit/34bddfc38221f5170b60d5e6bc3ae5e71278ed7f))
 
-# [0.3.0](https://github.com/wwnorton/design-system/compare/v0.2.1...v0.3.0) (2019-11-27)
+## [0.3.0](https://github.com/wwnorton/design-system/compare/v0.2.1...v0.3.0) (2019-11-27)
 
 ### Features
 
@@ -448,7 +448,7 @@ npm i @wwnds/{core,react}
 
 - **react:** output and use type declarations ([a1e1dc9](https://github.com/wwnorton/design-system/commit/a1e1dc9601108e06361dceba9b0f82f93e8319db))
 
-# [0.2.0](https://github.com/wwnorton/design-system/compare/v0.1.0...v0.2.0) (2019-10-31)
+## [0.2.0](https://github.com/wwnorton/design-system/compare/v0.1.0...v0.2.0) (2019-10-31)
 
 ### Bug Fixes
 
@@ -483,7 +483,7 @@ npm i @wwnds/{core,react}
 - refactored button ([56beef5](https://github.com/wwnorton/design-system/commit/56beef52b04df60acbc173348eb51b7ae3c3047c))
 - updated per zeplin color sample ([227df2d](https://github.com/wwnorton/design-system/commit/227df2dcd3c539ce86a74b81efea2ab0e5dde8da))
 
-# 0.1.0 (2019-09-27)
+## 0.1.0 (2019-09-27)
 
 ### Bug Fixes
 
