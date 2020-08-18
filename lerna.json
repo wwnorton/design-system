@@ -1,9 +1,6 @@
 {
   "version": "1.0.0-beta.3",
-  "packages": [
-    "packages/*",
-    "website"
-  ],
+  "packages": ["packages/*", "website"],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -66,9 +63,7 @@
             "hidden": true
           }
         ],
-        "issuePrefixes": [
-          "#"
-        ],
+        "issuePrefixes": ["#"],
         "issueUrlFormat": "{{host}}/{{owner}}/{{repository}}/issues/{{id}}",
         "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commit/{{hash}}",
         "compareUrlFormat": "{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}",

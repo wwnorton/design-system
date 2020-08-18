@@ -5,32 +5,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [1.0.0-beta.3](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2020-08-17)
 
-
 ### 💄 Visual
 
-* **core:** double modal content top-padding ([9f2bf4e](https://github.com/wwnorton/design-system/commit/9f2bf4ec1601070a35489cede452fe9998f51cb2))
-* **core:** expand button spacing slightly ([a4baee2](https://github.com/wwnorton/design-system/commit/a4baee28862e59276860bb79453aa56085596870)), closes [gitlab#155](https://github.com/wwnorton/gitlab/issues/155)
-* **core:** modal title should be full width when alone ([3dc1f65](https://github.com/wwnorton/design-system/commit/3dc1f65e948848ddfd3445536ad6a93eca822bd2))
-
+- **core:** double modal content top-padding ([9f2bf4e](https://github.com/wwnorton/design-system/commit/9f2bf4ec1601070a35489cede452fe9998f51cb2))
+- **core:** expand button spacing slightly ([a4baee2](https://github.com/wwnorton/design-system/commit/a4baee28862e59276860bb79453aa56085596870)), closes [gitlab#155](https://github.com/wwnorton/gitlab/issues/155)
+- **core:** modal title should be full width when alone ([3dc1f65](https://github.com/wwnorton/design-system/commit/3dc1f65e948848ddfd3445536ad6a93eca822bd2))
 
 ### 🛠 Maintenance
 
-* fix spelling errors ([caa8284](https://github.com/wwnorton/design-system/commit/caa8284a7952cbc802204ca1953ffa35aebb9691))
-* ignore spelling in core disclosure ([e4c321b](https://github.com/wwnorton/design-system/commit/e4c321b99d7f32623bae363d9769c59bd28e28af))
-
+- fix spelling errors ([caa8284](https://github.com/wwnorton/design-system/commit/caa8284a7952cbc802204ca1953ffa35aebb9691))
+- ignore spelling in core disclosure ([e4c321b](https://github.com/wwnorton/design-system/commit/e4c321b99d7f32623bae363d9769c59bd28e28af))
 
 ### ♻️ Refactor
 
-* **core:** add t-shirt sizing to inline sizing ([d0688d1](https://github.com/wwnorton/design-system/commit/d0688d1f3aaf9738d61a6ca5f64f45bcaca62fbd))
-* **core:** clean up disclosure styling ([1cec431](https://github.com/wwnorton/design-system/commit/1cec43118ee17a0c53b0329a8e7ae49d4ca40e43))
-* **core:** simplify switch spacing ([94b54ca](https://github.com/wwnorton/design-system/commit/94b54caf19d9e37ae95a99964e0429f832d3c3b8))
-
+- **core:** add t-shirt sizing to inline sizing ([d0688d1](https://github.com/wwnorton/design-system/commit/d0688d1f3aaf9738d61a6ca5f64f45bcaca62fbd))
+- **core:** clean up disclosure styling ([1cec431](https://github.com/wwnorton/design-system/commit/1cec43118ee17a0c53b0329a8e7ae49d4ca40e43))
+- **core:** simplify switch spacing ([94b54ca](https://github.com/wwnorton/design-system/commit/94b54caf19d9e37ae95a99964e0429f832d3c3b8))
 
 ### 🐛 Bug Fixes
 
-* **core:** make sure that all files are published ([9daaceb](https://github.com/wwnorton/design-system/commit/9daacebb9a6247d08bc1d6cf9d1e0b8e8c0e80c8))
-
-
+- **core:** make sure that all files are published ([9daaceb](https://github.com/wwnorton/design-system/commit/9daacebb9a6247d08bc1d6cf9d1e0b8e8c0e80c8))
 
 # [1.0.0-beta.2](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2020-08-07)
 
