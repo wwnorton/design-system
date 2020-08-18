@@ -1,14 +1,16 @@
 const path = require('path');
 
-const basePath = (process.env.BASE_URL)
-	? 'https://wwnorton.github.io/design-system'
+const baseUrl = process.env.BASE_URL || '/';
+const base = baseUrl.replace(/\/$/, '');
+const url = (process.env.BASE_URL)
+	? `https://wwnorton.github.io${base}`
 	: 'http://localhost:3000';
 
 module.exports = {
 	title: 'Norton Design System',
 	tagline: 'Create beautiful, flexible, content-focused products, born accessible.',
-	url: 'https://wwnorton.github.io/design-system',
-	baseUrl: process.env.BASE_URL || '/',
+	url,
+	baseUrl,
 	onBrokenLinks: 'warn',
 	favicon: 'img/favicon.ico',
 	organizationName: 'wwnorton',
@@ -75,11 +77,11 @@ module.exports = {
 						},
 						{
 							label: 'Sassdoc',
-							href: `${basePath}/sassdoc`,
+							href: `${url}/sassdoc`,
 						},
 						{
 							label: 'Storybook',
-							href: `${basePath}/storybook`,
+							href: `${url}/storybook`,
 						},
 						{
 							label: 'GitHub',
@@ -137,12 +139,12 @@ module.exports = {
 					{
 						tagName: 'link',
 						rel: 'icon',
-						href: '/img/android-chrome-512x512.png',
+						href: `${base}/img/android-chrome-512x512.png`,
 					},
 					{
 						tagName: 'link',
 						rel: 'manifest',
-						href: '/manifest.json',
+						href: `${base}/manifest.json`,
 					},
 					{
 						tagName: 'meta',
@@ -162,18 +164,18 @@ module.exports = {
 					{
 						tagName: 'link',
 						rel: 'apple-touch-icon',
-						href: '/img/android-chrome-512x512.png',
+						href: `${base}/img/android-chrome-512x512.png`,
 					},
 					{
 						tagName: 'link',
 						rel: 'mask-icon',
-						href: '/img/seagull-dark.svg',
+						href: `${base}/img/seagull-dark.svg`,
 						color: 'rgb(50, 71, 94)',
 					},
 					{
 						tagName: 'meta',
 						name: 'msapplication-TileImage',
-						content: '/img/android-chrome-512x512.png',
+						content: `${base}/img/android-chrome-512x512.png`,
 					},
 					{
 						tagName: 'meta',
