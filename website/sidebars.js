@@ -27,7 +27,7 @@ module.exports = {
 				'components/radio-buttons',
 				'components/switch',
 				'components/text-field',
-				// 'components/tooltip',
+				'components/tooltip',
 			],
 		},
 		'migration',
