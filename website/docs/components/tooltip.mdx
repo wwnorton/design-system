@@ -1,0 +1,91 @@
+---
+title: Tooltip
+---
+
+import { Tooltip } from '@wwnds/react';
+import { PropsTable } from '../../src/theme/PropsTable';
+
+> A tooltip displays a name or description in an overlay on demand.
+
+## Anatomy
+
+1. Contents - the contents of the tooltip can only be simple text.
+2. Arrow - the arrow points to the element that the tooltip references.
+
+## Playground
+
+```tsx live
+function ButtonWithTooltip() {
+	const [button, setButton] = React.useState(null);
+	return (
+		<div style={{ margin: '2rem 0' }}>
+			<Button variant="solid" ref={setButton}>I'm a reference element</Button>
+			<Tooltip
+				isOpen
+				placement="top"
+				reference={button}
+			>
+				I'm a tooltip!
+			</Tooltip>
+		</div>
+	);
+}
+```
+
+## Props
+
+<PropsTable from={Tooltip} />
+
+## Usage
+
+Tooltips display _simple_ contextual information about a related element on demand.
+They are used to [name or describe](#naming-and-describing) a related element.
+
+:::tip Dos
+- Do use a tooltip to label an interactive element with no visible text such as a button with no text.
+- Do use a tooltip to provide add additional descriptive information to a named element.
+:::
+
+:::danger Don'ts
+- Don't use a tooltip if the contents of the tooltip contain any meaningful markup such as italics, headings, or lists.
+- Don't use a tooltip if the contents of the tooltip are contain even one interactive element, such as links, buttons, or form controls.
+:::
+
+:::info Use a tooltip...
+- to name a control when there isn't enough space to display the label inline.
+- to display an additional description about a control or element that already has an accessible name.
+:::
+
+## Naming and describing
+
+In the Norton design system, a tooltip can only be used to [name](https://w3c.github.io/aria-practices/#accessible_names)
+or [describe](https://w3c.github.io/aria-practices/#accessible_descriptions) its related element.
+This restriction ensures that the user experience of the tooltip is consistent for everyone.
+
+### Naming
+
+A tooltip is said to be **naming** its related element when it is acting as a label for that element.
+For instance, an icon button's call to action could be captured as a tooltip to ensure
+that the purpose of the icon button is clear to everyone.
+If the element contains textual content and you also want to use
+a tooltip, the tooltip should be a _describing_ tooltip.
+
+:::a11y Naming tooltips & screen reader experience
+When a tooltip **names** its related element, screen readers will read the value
+of the tooltip when they encounter the related element, entirely ignoring any
+textual content inside the element. For this reason, naming tooltips should only
+be used for elements that do not already contain textual content.
+:::
+
+### Describing
+
+A tooltip is said to be **describing** its related element when it is acting as
+additional or supplemental information about an element that already has a name.
+For instance, an `<input>` that already has an associated `<label>` could use a
+tooltip to display help text about the expected input format.
+
+:::a11y Describing tooltips & screen reader experience
+When a tooltip **describes** its related element, many screen readers will read the
+name of the related element, pause briefly, and then read the description contained
+in the tooltip.
+:::
