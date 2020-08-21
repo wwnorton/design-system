@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-	withKnobs,
-	select,
-	text,
-	boolean,
-} from '@storybook/addon-knobs';
+import { withKnobs, select } from '@storybook/addon-knobs';
 import { placements } from '@popperjs/core/lib/enums';
 import { Tooltip } from '.';
-import { BasePopper } from '../BasePopper';
 import { Button } from '../Button';
 
 export default {
@@ -70,19 +64,3 @@ export const Controlled: React.FunctionComponent = () => {
 		</>
 	);
 };
-
-// export const Popper: React.FunctionComponent = () => {
-// 	const [reference, setReference] = React.useState<HTMLButtonElement | null>();
-// 	return (
-// 		<>
-// 			<button type="button" ref={setReference}>Reference</button>
-// 			<BasePopper
-// 				isOpen={boolean('Open', true)}
-// 				placement={select('Placement', placements, 'auto')}
-// 				reference={reference}
-// 			>
-// 				{text('Contents', 'Popper text')}
-// 			</BasePopper>
-// 		</>
-// 	);
-// };
