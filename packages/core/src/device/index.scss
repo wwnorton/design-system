@@ -3,12 +3,21 @@
 ////
 
 @use 'sass:map';
+@use 'tokens';
 @use '../util';
 
 /// The minimum dots per inch (dpi) of a high-resolution screen
 $hd-dpi: 200 !default;
 /// The minimum dots per pixel unit (dppx) for a high-resolution screen
 $hd-dppx: 1.25 !default;
+
+$breakpoints: (
+	'xs': tokens.$device-xs,
+	'sm': tokens.$device-sm,
+	'md': tokens.$device-md,
+	'lg': tokens.$device-lg,
+	'xl': tokens.$device-xl,
+);
 
 /// A media query helper for high definition screens.
 /// @param {Number} $dpi [$hd-dpi] - The dpi of a high definition (HD) screen.
@@ -24,8 +33,8 @@ $hd-dppx: 1.25 !default;
 /// and up.
 /// @param {String} $size - The device size: xs, sm, md, lg, or xl.
 /// @param {Map} $breakpoints [$devices] - The map of breakpoints to use.
-@mixin media-up($size) {
-	$min: var(--nds-device-#{$size});
+@mixin media-up($size, $breakpoints: $breakpoints) {
+	$min: map-get($breakpoints, $size);
 
 	@if $size != 'xs' {
 		@media (min-width: $min) {
