@@ -1,0 +1,49 @@
+////
+/// All design tokens as Sass variables and corresponding :root CSS custom
+/// property declarations. Tokens that belong to a specific system are forwarded
+/// from their system directory. Additional miscellaneous tokens are declared
+/// here.
+////
+
+@forward 'color/tokens';
+@forward 'device/tokens';
+@forward 'motion/tokens';
+@forward 'spacing/tokens';
+@forward 'type/tokens';
+
+@use 'spacing';
+
+/// The default focus shadow has a 2px outer ring and an inner ring that matches
+/// the body's background color by default, giving the illusion of transparency.
+/// @group Accessibility
+$focus-halo: (
+	0 0 0 1px var(--nds-focus-halo-inner-color),
+	0 0 0 3px var(--nds-focus-halo-outer-color),
+) !default;
+
+/// A collapsed focus shadow that is meant to be used when the focused element
+/// conveys focus through some other mechanism, such as an `<input>`'s caret.
+/// @group Accessibility
+$focus-ring: 0 0 0 1px var(--nds-focus-color) !default;
+
+// Border radius
+$radius-sm: 0.125rem;
+$radius-md: 0.25rem;
+$radius-lg: 0.5rem;
+$radius-xl: 1rem;
+$radius-pill: 99rem;
+$radius-base: var(--nds-radius-sm) !default;
+
+:root {
+	// Focus shadows
+	--nds-focus-halo: #{$focus-halo};
+	--nds-focus-ring: #{$focus-ring};
+
+	// Border radius
+	--nds-radius-sm: #{$radius-sm};
+	--nds-radius-md: #{$radius-md};
+	--nds-radius-lg: #{$radius-lg};
+	--nds-radius-xl: #{$radius-xl};
+	--nds-radius-pill: #{$radius-pill};
+	--nds-radius-base: #{$radius-base};
+}
