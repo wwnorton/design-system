@@ -22,13 +22,12 @@ $enable-dark-scheme: false !default;
 /// Utility declarations can always be used imperatively via `@include`.
 $enable-utilities: true !default;
 
+/// Enable link styling for the specified selector context. Setting this to
+/// `null` will result in link styling being applied to all links. The default
+/// (`main`) means the link styling is applied to the `main :link` selector.
+/// @type String | List | null
+$link-styling-context: 'main' !default;
 
-// Typeset sizing options.
-
-/// The body text's "base" t-shirt size. Options are `xs`, `sm`, `md`, and `lg`.
-/// Determines the definition of the `type.body-base` mixin.
-$typeset-body-base: 'md' !default;
-
-/// UI text's "base" t-shirt size. Options are `xs`, `sm`, `md`, and `lg`.
-/// Determines the definition of the `type.ui-base` mixin.
-$typeset-ui-base: 'md' !default;
+/// Enable the `:visited` pseudo class styling.
+/// @type String | List | null
+$link-visited-context: null !default;
