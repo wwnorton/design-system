@@ -5,39 +5,14 @@
 /// @group Reset
 ////
 
-@use 'a11y';
-@use 'color';
-@use 'properties' as props;
-@use 'root';
-@use 'spacing';
-@use 'type';
-@use 'util';
+@forward 'tokens';
 
-// Bootstrap tokens that are only used in the reset
-// TODO: adapt these to NDS props and move them elsewhere
-$paragraph-margin-bottom: spacing.spacer('block-base') !default;
-$dt-font-weight: props.prop('font-weight-bold') !default;
-$font-weight-bolder: bolder !default;
-$mark-padding: 0.2em !default;
-$mark-bg: props.prop('yellow-10') !default;
-$sub-sup-font-size: props.prop('font-size-xs') !default;
-$font-family-code: props.prop('font-family-mono') !default;
-$code-font-size: props.prop('font-size-sm') !default;
-$pre-color: null !default;
-$code-color: null !default;
-$kbd-padding-y: 0.2rem !default;
-$kbd-padding-x: 0.4rem !default;
-$kbd-font-size: $code-font-size !default;
-$kbd-color: props.prop('body-bg') !default;
-$kbd-bg: props.prop('body-text') !default;
-$nested-kbd-font-weight: props.prop('font-weight-bold') !default;
-$table-cell-padding-y: spacing.spacer('cell-base') !default;
-$table-cell-padding-x: spacing.spacer('cell-base') !default;
-$table-caption-color: props.prop('subdued') !default;
-$table-th-font-weight: null !default;
-$legend-margin-bottom: spacing.spacer('block-base') !default;
-$legend-font-size: 1.5rem !default;
-$legend-font-weight: null !default;
+@use 'tokens' as *;
+@use '../a11y';
+@use '../color';
+@use '../spacing';
+@use '../type';
+@use '../util';
 
 /// Apply the HTML reset.
 /// Manually forked from Bootstrap's reboot. Additional declarations are
@@ -54,11 +29,11 @@ $legend-font-weight: null !default;
 			box-sizing: border-box;
 		}
 
-		// Root
-		// NDS: Apply root font size to define the value of 1rem.
+		// NDS: add selection styling
 
-		:root {
-			@include root.root;
+		::selection {
+			color: var(--nds-selection-text-color);
+			background-color: var(--nds-selection-background-color);
 		}
 
 		// Body
@@ -71,14 +46,14 @@ $legend-font-weight: null !default;
 		body {
 			@include type.font-smoothing; // 1
 
-			// margin: 0; // 2
-			font-family: props.prop('font-family-base');
-			font-weight: props.prop('font-weight-base');
+			margin: 0; // 2
+			font-family: var(--nds-font-family-base);
+			font-weight: var(--nds-font-weight-base);
 			line-height: type.lh('body');
-			color: props.prop('body-text');
-			background-color: props.prop('body-bg'); // 3
+			color: var(--nds-text-color);
+			background-color: var(--nds-background-color); // 3
 			-webkit-text-size-adjust: 100%; // 4
-			-webkit-tap-highlight-color: rgba(props.prop('black'), 0); // 5
+			-webkit-tap-highlight-color: rgba(var(--nds-black), 0); // 5
 		}
 
 		// Future-proof rule: in browsers that support :focus-visible, suppress the focus outline
@@ -97,14 +72,17 @@ $legend-font-weight: null !default;
 		// NDS: use the default focus indicator on everything to start.
 
 		*:focus {
-			@include a11y.focus-ring;
+			@include a11y.focus-halo;
+
+			@include a11y.not-focus-visible {
+				box-shadow: inherit;
+			}
 		}
 
 		// Content grouping
 		//
 		// 1. Reset Firefox's gray color
 		// 2. Set correct height and prevent the `size` attribute to make the `hr` look like an input field
-		//    See https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_hr_size
 
 		hr {
 			margin: spacing.rem(1) 0;
@@ -239,7 +217,7 @@ $legend-font-weight: null !default;
 		// Add the correct font size in all browsers
 
 		small {
-			font-size: props.prop('font-size-sm');
+			font-size: var(--nds-font-size-sm);
 		}
 
 
@@ -270,27 +248,7 @@ $legend-font-weight: null !default;
 
 		// Links
 
-		a {
-			color: props.prop('link-color');
-			text-decoration: props.prop('link-decoration');
-
-			&:hover {
-				color: props.prop('link-hover-color');
-				text-decoration: props.prop('link-hover-decoration');
-			}
-		}
-
-
-		// NDS: Add :visited link colors
-		// See https://www.nngroup.com/articles/change-the-color-of-visited-links/
-
-		// a:visited {
-		// 	color: props.prop('link-visited-color');
-
-		// 	&:hover {
-		// 		color: props.prop('link-visited-hover-color');
-		// 	}
-		// }
+		// Moved to link component
 
 		// And undo these styles for placeholder links/named anchors (without href).
 		// It would be more straightforward to just use a[href] in previous block, but that
@@ -355,7 +313,9 @@ $legend-font-weight: null !default;
 			font-size: $kbd-font-size;
 			color: $kbd-color;
 			background-color: $kbd-bg;
-			border-radius: props.prop('radius-sm');
+			border: 1px solid var(--nds-base-color-40);		// NDS addition
+			border-radius: var(--nds-radius-sm);
+			box-shadow: inset 0 -1px 0 var(--nds-base-color-40);	// NDS addition
 
 			kbd {
 				padding: 0;
@@ -370,7 +330,7 @@ $legend-font-weight: null !default;
 		// Apply a consistent margin strategy (matches our type styles).
 
 		figure {
-			margin: 0 0 spacing.rem(1);
+			margin: 0 0 spacing.spacer('block-base');
 		}
 
 
@@ -436,7 +396,7 @@ $legend-font-weight: null !default;
 			border-radius: 0;
 		}
 
-		// NDS: override this, as we're using a custom focus ring
+		// NDS: override this, as we're using a global (:focus) focus
 		// Work around a Firefox bug where the transparent `button` background
 		// results in a loss of the default `button` focus styles.
 		// Credit https://github.com/suitcss/base/

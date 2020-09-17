@@ -1,14 +1,12 @@
 ////
-/// Typography
 /// @group Typography
 ////
 
 @use 'sass:list';
 @use 'sass:map';
-@use 'config';
-@use 'device';
-@use 'spacing';
-@use 'properties' as props;
+@use '../device';
+@use '../spacing';
+@use '../util';
 
 // FUNCTIONS
 
@@ -16,13 +14,13 @@
 	$system: '';
 
 	@if $generic == 'sans' {
-		$system: props.prop('font-family-system-sans');
+		$system: var(--nds-font-family-system-sans);
 	}
 	@else if $generic == 'serif' {
-		$system: props.prop('font-family-system-sans');
+		$system: var(--nds-font-family-system-sans);
 	}
 	@else if $generic == 'mono' {
-		$system: props.prop('font-family-system-mono');
+		$system: var(--nds-font-family-system-mono);
 	}
 
 	@return list.join($font-family, $system, $separator: comma);
@@ -78,67 +76,13 @@ $-lh-roles: (
 );
 
 @function line-height($role: 'body') {
-	@return props.prop(props.from-role($role, 'line-height', $-lh-roles));
+	@return var(--nds-#{util.from-role($role, 'line-height', $-lh-roles)});
 }
 
 @function lh($role) {
 	@return line-height($role);
 }
 
-
-// TOKENS
-
-// System font stacks from https://systemfontstack.com/
-$font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
-$font-family-system-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-$font-family-system-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
-
-$font-family-sans: props.prop('font-family-system-sans') !default;
-$font-family-serif: props.prop('font-family-system-serif') !default;
-$font-family-mono: props.prop('font-family-system-mono') !default;
-/// The main font family that will be used throughout your application.
-$font-family-base: props.prop('font-family-sans') !default;
-/// The font family that will be used for all headings.
-$font-family-headings: props.prop('font-family-base') !default;
-
-$font-size-root: 1em !default;
-$font-size-10: 0.625rem;
-$font-size-12: 0.75rem;
-$font-size-14: 0.875rem;
-$font-size-16: 1rem;
-$font-size-18: 1.125rem;
-$font-size-20: 1.25rem;
-$font-size-24: 1.5rem;
-$font-size-32: 2rem;
-$font-size-40: 2.5rem;
-$font-size-48: 3rem;
-
-$font-size-xs: props.prop('font-size-12') !default;
-$font-size-sm: props.prop('font-size-14') !default;
-$font-size-md: props.prop('font-size-16') !default;
-$font-size-lg: props.prop('font-size-18') !default;
-$font-size-h1: props.prop('font-size-32') !default;
-$font-size-h2: props.prop('font-size-24') !default;
-$font-size-h3: props.prop('font-size-20') !default;
-$font-size-h4: props.prop('font-size-18') !default;
-$font-size-h5: props.prop('font-size-16') !default;
-$font-size-h6: props.prop('font-size-14') !default;
-$font-size-base: props.prop('font-size-md') !default;
-
-$font-weight-thin: 200;
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-bold: 700;
-$font-weight-black: 900;
-$font-weight-base: props.prop('font-weight-regular') !default;
-$font-weight-headings: props.prop('font-weight-bold') !default;
-
-$line-height-1: 1;
-$line-height-2: 1.125;
-$line-height-3: 1.25;
-$line-height-4: 1.5;
-$line-height-5: 1.6;
-$line-height-6: 1.75;
 
 // MIXINS
 
@@ -158,9 +102,9 @@ $line-height-6: 1.75;
 /// @param {font-size} $size [font-size-base] - The font size, which should be a `font-size-*` token.
 /// @param {font-size} $size [null] - The font weight, which should be a `font-weight-*` token.
 @mixin typeset(
-	$family: props.prop('font-family-base'),
-	$size: props.prop('font-size-base'),
-	$height: props.prop('line-height-base'),
+	$family: var(--nds-font-family-base),
+	$size: var(--nds-font-size-base),
+	$height: var(--nds-line-height-base),
 	$weight: null,
 ) {
 	font-family: $family;
@@ -200,7 +144,7 @@ $line-height-6: 1.75;
 ///   }
 ///
 @mixin body-xs {
-	@include typeset($size: props.prop('font-size-xs'));
+	@include typeset($size: var(--nds-font-size-xs));
 }
 
 /// A `typeset` suitable for small body text.
@@ -217,7 +161,7 @@ $line-height-6: 1.75;
 ///   }
 ///
 @mixin body-sm {
-	@include typeset($size: props.prop('font-size-sm'));
+	@include typeset($size: var(--nds-font-size-sm));
 }
 
 /// A `typeset` suitable for medium body text.
@@ -234,7 +178,7 @@ $line-height-6: 1.75;
 ///   }
 ///
 @mixin body-md {
-	@include typeset($size: props.prop('font-size-md'));
+	@include typeset($size: var(--nds-font-size-md));
 }
 
 /// A `typeset` suitable for large body text.
@@ -251,7 +195,7 @@ $line-height-6: 1.75;
 ///   }
 ///
 @mixin body-lg {
-	@include typeset($size: props.prop('font-size-lg'));
+	@include typeset($size: var(--nds-font-size-lg));
 }
 
 /// The "base" UI typeset uses the `ui` line height and `-base` tokens for
@@ -268,7 +212,7 @@ $line-height-6: 1.75;
 ///     line-height: var(--nds-line-height-3);
 ///   }
 ///
-@mixin ui-base($size: props.prop('font-size-base')) {
+@mixin ui-base($size: var(--nds-font-size-base)) {
 	@include typeset($height: lh('ui'), $size: $size);
 }
 
@@ -286,7 +230,7 @@ $line-height-6: 1.75;
 ///   }
 ///
 @mixin ui-xs {
-	@include ui-base($size: props.prop('font-size-xs'));
+	@include ui-base($size: var(--nds-font-size-xs));
 }
 
 /// A `typeset` suitable for small UI text.
@@ -303,7 +247,7 @@ $line-height-6: 1.75;
 ///   }
 ///
 @mixin ui-sm {
-	@include ui-base($size: props.prop('font-size-sm'));
+	@include ui-base($size: var(--nds-font-size-sm));
 }
 
 /// A `typeset` suitable for medium UI text.
@@ -320,7 +264,7 @@ $line-height-6: 1.75;
 ///   }
 ///
 @mixin ui-md {
-	@include ui-base($size: props.prop('font-size-md'));
+	@include ui-base($size: var(--nds-font-size-md));
 }
 
 /// A `typeset` suitable for large UI text.
@@ -337,7 +281,7 @@ $line-height-6: 1.75;
 ///   }
 ///
 @mixin ui-lg {
-	@include ui-base($size: props.prop('font-size-lg'));
+	@include ui-base($size: var(--nds-font-size-lg));
 }
 
 /// A `typeset` intended for text that is meant to convey hierarchy (i.e., a heading).
@@ -363,20 +307,20 @@ $line-height-6: 1.75;
 	@include typeset(
 		$size: $size,
 		$height: $height,
-		$family: props.prop('font-family-headings'),
-		$weight: props.prop('font-weight-headings'),
+		$family: var(--nds-font-family-headings),
+		$weight: var(--nds-font-weight-headings),
 	);
 
 	margin-top: 0;
 	margin-bottom: spacing.spacer('block-base');
-	font-style: props.prop('font-style-headings');
+	font-style: var(--nds-font-style-headings);
 }
 
 /// A `typeset` suitable for text that is meant to convey the top level of
 /// content hierarchy, such as an `h1`.
 @mixin heading-1 {
 	@include typeset-heading(
-		$size: props.prop('font-size-h1'),
+		$size: var(--nds-font-size-h1),
 		$height: lh('h1'),
 	);
 }
@@ -385,7 +329,7 @@ $line-height-6: 1.75;
 /// content hierarchy, such as an `h2`.
 @mixin heading-2 {
 	@include typeset-heading(
-		$size: props.prop('font-size-h2'),
+		$size: var(--nds-font-size-h2),
 		$height: lh('h2'),
 	);
 }
@@ -394,7 +338,7 @@ $line-height-6: 1.75;
 /// content hierarchy, such as an `h3`.
 @mixin heading-3 {
 	@include typeset-heading(
-		$size: props.prop('font-size-h3'),
+		$size: var(--nds-font-size-h3),
 		$height: lh('h3'),
 	);
 }
@@ -403,7 +347,7 @@ $line-height-6: 1.75;
 /// content hierarchy, such as an `h4`.
 @mixin heading-4 {
 	@include typeset-heading(
-		$size: props.prop('font-size-h4'),
+		$size: var(--nds-font-size-h4),
 		$height: lh('h4'),
 	);
 }
@@ -412,7 +356,7 @@ $line-height-6: 1.75;
 /// content hierarchy, such as an `h5`.
 @mixin heading-5 {
 	@include typeset-heading(
-		$size: props.prop('font-size-h5'),
+		$size: var(--nds-font-size-h5),
 		$height: lh('h5'),
 	);
 }
@@ -421,7 +365,7 @@ $line-height-6: 1.75;
 /// level of content hierarchy, such as an `h6`.
 @mixin heading-6 {
 	@include typeset-heading(
-		$size: props.prop('font-size-h6'),
+		$size: var(--nds-font-size-h6),
 		$height: lh('h6'),
 	);
 }

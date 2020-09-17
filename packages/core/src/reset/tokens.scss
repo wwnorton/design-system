@@ -1,0 +1,32 @@
+////
+/// @group Reset
+////
+
+@use '../spacing';
+
+// Bootstrap tokens that are only used in the reset
+// TODO: adapt these to NDS props and move them elsewhere
+$paragraph-margin-bottom: spacing.spacer('block-base') !default;
+$dt-font-weight: var(--nds-font-weight-bold) !default;
+$font-weight-bolder: bolder !default;
+$mark-padding: 0.2em !default;
+$mark-bg: var(--nds-yellow-10) !default;
+$sub-sup-font-size: var(--nds-font-size-xs) !default;
+$font-family-code: var(--nds-font-family-mono) !default;
+$code-font-size: var(--nds-font-size-sm) !default;
+$pre-color: null !default;
+$code-color: null !default;
+$code-background-color: var(--nds-base-color-20) !default;
+$kbd-padding-y: 0.15rem !default;
+$kbd-padding-x: 0.3rem !default;
+$kbd-font-size: $code-font-size !default;
+$kbd-color: var(--nds-text-color) !default;
+$kbd-bg: var(--nds-background-color) !default;
+$nested-kbd-font-weight: var(--nds-font-weight-bold) !default;
+$table-cell-padding-y: spacing.spacer('cell-base') !default;
+$table-cell-padding-x: spacing.spacer('cell-base') !default;
+$table-caption-color: var(--nds-subdued-color) !default;
+$table-th-font-weight: null !default;
+$legend-margin-bottom: spacing.spacer('block-base') !default;
+$legend-font-size: 1.5rem !default;
+$legend-font-weight: null !default;

@@ -13,7 +13,7 @@
 $-declared: ();
 
 @mixin declare($name) {
-	@if config.$duplicate-declarations {
+	@if config.$enable-duplicate-declarations {
 		@content;
 	}
 	@else if list.index($-declared, $name) == null {
@@ -100,7 +100,108 @@ $-declared: ();
 	@return $merged;
 }
 
-@function prefix($item, $namespace: config.$namespace, $separator: '-') {
+/// Set a list of properties as CSS custom properties.
+/// @param {Arglist | Map[]} $prop-maps... - Either an arglist of key: value
+/// pairs or a list of maps with key: value pairs. Note that if the key does not
+/// begin with `--`, it will be added.
+/// @example Sass variables
+///   .button {
+///     // set properties local to .button with Sass variables as parameters
+///     @include set($button-border-radius: 2px);
+///     // use the property
+///     border-radius: var(--button-border-radius);
+///   }
+///   // CSS output
+///   .button {
+///     --button-border-radius: 2px;
+///     border-radius: var(--nds-button-border-radius, 2px);
+///   }
+///
+/// @example CSS custom properties map
+///   .button {
+///     // set properties local to .button with a map of CSS custom properties
+///     @include set((
+///       --button-border-radius: 2px,
+///     ));
+///     // use the property
+///     border-radius: var(--button-border-radius);
+///   }
+///   // CSS output
+///   .button {
+///     --button-border-radius: 2px;
+///     border-radius: var(--button-border-radius, 2px);
+///   }
+///
+@mixin set($prop-maps...) {
+	$keywords: meta.keywords($prop-maps);
+
+	$props: ();
+
+	@if list.length($keywords) > 0 {
+		$props: $keywords;
+	}
+	@else {
+		@each $prop-map in $prop-maps {
+			@if meta.type-of($prop-map) != 'map' {
+				@error 'All arguments must be maps';
+			}
+			@else {
+				$props: map.merge($props, $prop-map);
+			}
+		}
+	}
+
+	@each $token, $value in $props {
+		@if $value {
+			@if meta.type-of($value) == 'map' {
+				@include set(flatten($value, $token));
+			}
+			@else {
+				$css-prop: if(string.index($token, '--') == 1, $token, --#{$token});
+
+				#{string.unquote($css-prop)}: #{$value};
+			}
+		}
+	}
+}
+
+@function from-role($role, $property, $role-map) {
+	$keys: ();
+
+	@each $map in $role-map {
+		$current: map.get($map, 'keys');
+
+		@if list.index($current, $role) {
+			@return map.get($map, 'token');
+		}
+
+		@each $key in $current {
+			$keys: list.append($keys, $key, comma);
+		}
+	}
+
+	@error '#{$role} is not a valid #{$property} role. Options are #{$keys}.';
+}
+
+@function get-roles($token, $property, $role-map) {
+	$token: ();
+
+	@each $map in $role-map {
+		$current: map.get($map, 'token');
+
+		@if list.index($current, $token) {
+			@return map.get($map, 'keys');
+		}
+
+		@each $key in $current {
+			$token: list.append($token, $key, comma);
+		}
+	}
+
+	@error '#{token} is not a token in the #{$property} role map. Options are #{$token}.';
+}
+
+@function prefix($item, $namespace, $separator: '-') {
 	@if meta.type-of($item) == 'string' {
 		@return if($namespace, $namespace + $separator + $item, $item);
 	}
@@ -120,16 +221,6 @@ $-declared: ();
 	}
 
 	@return $prefixed;
-}
-
-@function unprefix($prefixed-string, $namespace: config.$namespace, $separator: '-') {
-	$prefix: $namespace + $separator;
-
-	@if string.index($prefixed-string, $prefix) == 1 {
-		@return string.slice($prefixed-string, string.length($prefix) + 1);
-	}
-
-	@return $prefixed-string;
 }
 
 /// Get the key that corresponds to a value in a map.
@@ -162,4 +253,22 @@ $-declared: ();
 
 @function min-max($val, $min, $max) {
 	@return math.max($min, math.min($max, $val));
+}
+
+@function child-selector($parent, $child) {
+	@if $parent {
+		@if meta.type-of($parent) == 'string' {
+			@return $parent $child;
+		}
+
+		@if meta.type-of($parent) == 'list' {
+			$list: ();
+
+			@each $selector in $parent {
+				$list: list.append($list, string.unquote('#{$selector} #{$child}'), 'comma');
+			}
+
+			@return $list;
+		}
+	}
 }

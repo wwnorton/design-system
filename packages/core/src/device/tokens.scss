@@ -1,0 +1,22 @@
+////
+/// @group Device
+////
+
+/// Extra small: a handset
+$device-xs: 0;
+/// Small: a large handset or small tablet
+$device-sm: 600px;
+/// Medium: a large tablet or laptop
+$device-md: 960px;
+/// Large: a desktop
+$device-lg: 1280px;
+/// Extra large: a high-definition screen
+$device-xl: 1920px;
+
+:root {
+	--nds-device-xs: #{$device-xs};
+	--nds-device-sm: #{$device-sm};
+	--nds-device-md: #{$device-md};
+	--nds-device-lg: #{$device-lg};
+	--nds-device-xl: #{$device-xl};
+}

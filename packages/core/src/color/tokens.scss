@@ -1,0 +1,272 @@
+////
+/// @group Color
+////
+
+@use 'sass:list';
+@use 'sass:map';
+@use '.' as color;
+@use '../config';
+@use '../util';
+
+$-families: (
+	'blue',
+	'cyan',
+	'gray',
+	'green',
+	'navy',
+	'purple',
+	'red',
+	'teal',
+	'yellow',
+);
+
+/// A list of the color families that should be used.
+$colors: () !default;
+/// A list of the color families that should not be used.
+$colors-omitted: () !default;
+
+@if list.length($colors) == 0 {
+	@each $family in $-families {
+		@if list.index($colors-omitted, $family) == null {
+			$colors: list.append($colors, $family) !global;
+		}
+	}
+}
+
+@function -get-color($name, $map) {
+	@return if(list.index($colors, $name) == null, null, $map);
+}
+
+$black: #000 !default;
+$white: #fff !default;
+
+/// The default blue family. Override by declaring a `$blue` map.
+$-blue-default: (
+	10: #f0f7ff,
+	20: #d9ebff,
+	30: #badbff,
+	40: #8fc2f7,
+	50: #4696eb,
+	60: #2576cc,
+	70: #1d5da1,
+	80: #17477a,
+	90: #12365c,
+	100: #0e253d,
+);
+$blue: () !default;
+
+/// The default cyan family. Override by declaring a `$cyan` map.
+$-cyan-default: (
+	10: #e9f7fb,
+	20: #d3eef5,
+	30: #afe0ed,
+	40: #7cc9de,
+	50: #2c9fbf,
+	60: #1f7e99,
+	70: #1c6275,
+	80: #1b4c59,
+	90: #163740,
+	100: #10252b,
+);
+$cyan: () !default;
+
+/// The default gray family. Override by declaring a `$gray` map.
+$-gray-default: (
+	10: #f5f5f5,
+	20: #e8e8e8,
+	30: #d6d6d6,
+	40: #bdbdbd,
+	50: #919191,
+	60: #737373,
+	70: #595959,
+	80: #424242,
+	90: #333,
+	100: #232323,
+);
+$gray: () !default;
+
+/// The default green family. Override by declaring a `$green` map.
+$-green-default: (
+	10: #e6fae6,
+	20: #d0f2d0,
+	30: #aae3aa,
+	40: #7ccf7c,
+	50: #49a349,
+	60: #228522,
+	70: #216621,
+	80: #1c4f1c,
+	90: #163b16,
+	100: #112911,
+);
+$green: () !default;
+
+/// The default navy family. Override by declaring a `$navy` map.
+$-navy-default: (
+	10: #f2f5f8,
+	20: #e2e8ee,
+	30: #ced7e0,
+	40: #b1bdc9,
+	50: #8493a3,
+	60: #63768a,
+	70: #475b70,
+	80: #32475e,
+	90: #243547,
+	100: #192633,
+);
+$navy: () !default;
+
+/// The default purple family. Override by declaring a `$purple` map.
+$-purple-default: (
+	10: #f6f5ff,
+	20: #eae6ff,
+	30: #d9d1ff,
+	40: #bfb3ff,
+	50: #9684f0,
+	60: #7663d6,
+	70: #5e4fab,
+	80: #483c82,
+	90: #342d59,
+	100: #26213d,
+);
+$purple: () !default;
+
+/// The default red family. Override by declaring a `$red` map.
+$-red-default: (
+	10: #fff2f2,
+	20: #ffe0e0,
+	30: #ffc8c7,
+	40: #ffa2a1,
+	50: #ed6664,
+	60: #c93f3c,
+	70: #9e3331,
+	80: #7a2a28,
+	90: #591e1d,
+	100: #3d1515,
+);
+$red: () !default;
+
+/// The default teal family. Override by declaring a `$teal` map.
+$-teal-default: (
+	10: #e9f7f7,
+	20: #d1eded,
+	30: #abe0e0,
+	40: #76cbcc,
+	50: #29a1a3,
+	60: #1a8082,
+	70: #196263,
+	80: #174c4d,
+	90: #133838,
+	100: #0f2929,
+);
+$teal: () !default;
+
+/// The default yellow family. Override by declaring a `$yellow` map.
+$-yellow-default: (
+	10: #fff5d9,
+	20: #fae7af,
+	30: #f0d278,
+	40: #deb647,
+	50: #b88828,
+	60: #96690e,
+	70: #7a4f11,
+	80: #633b12,
+	90: #4a2a0f,
+	100: #331d0d,
+);
+$yellow: () !default;
+
+$system-colors: (
+	--nds-blue: -get-color('blue', map.merge($-blue-default, $blue)),
+	--nds-cyan: -get-color('cyan', map.merge($-cyan-default, $cyan)),
+	--nds-gray: -get-color('gray', map.merge($-gray-default, $gray)),
+	--nds-green: -get-color('green', map.merge($-green-default, $green)),
+	--nds-navy: -get-color('navy', map.merge($-navy-default, $navy)),
+	--nds-purple: -get-color('purple', map.merge($-purple-default, $purple)),
+	--nds-red: -get-color('red', map.merge($-red-default, $red)),
+	--nds-teal: -get-color('teal', map.merge($-teal-default, $teal)),
+	--nds-yellow: -get-color('yellow', map.merge($-yellow-default, $yellow)),
+);
+
+
+/// The main background color.
+$background-color: var(--nds-white) !default;
+/// The main text color.
+$text-color: var(--nds-base-color-90) !default;
+/// The inverse text color.
+$text-color-inverse: var(--nds-background-color) !default;
+/// A subdued or "muted" text color, used for less emphasized text.
+$subdued-color: var(--nds-base-color-60) !default;
+/// The background color for the `::selection` state.
+$selection-background-color: var(--nds-primary-color) !default;
+/// The text color for the `::selection` state.
+$selection-text-color: var(--nds-background-color) !default;
+/// The color used for the `:focus` state.
+$focus-color: var(--nds-blue-50) !default;
+/// The color of the inner ring for the focus halo. Used to visually offset the
+/// default focus halo from the focused element.
+$focus-halo-inner-color: var(--nds-background-color) !default;
+/// The color of the outer ring for the focus halo.
+$focus-halo-outer-color: var(--nds-focus-color) !default;
+
+$scheme-light: (
+	--nds-background-color: #{$background-color},
+	--nds-text-color: #{$text-color},
+	--nds-text-color-inverse: #{$text-color-inverse},
+	--nds-subdued-color: #{$subdued-color},
+	--nds-selection-background-color: #{$selection-background-color},
+	--nds-selection-text-color: #{$selection-text-color},
+	--nds-focus-color: #{$focus-color},
+	--nds-focus-halo-inner-color: #{$focus-halo-inner-color},
+	--nds-focus-halo-outer-color: #{$focus-halo-outer-color},
+	--nds-black: #{$black},
+	--nds-white: #{$white},
+	--nds-primary-color: color.family('primary-color', color.$primary-family, color.$primary-grade),
+	--nds-base-color: color.family('base-color', color.$base-family, color.$base-grade),
+	--nds-disabled-color: color.family('disabled-color', color.$disabled-family, color.$disabled-grade),
+	--nds-error-color: color.family('error-color', color.$error-family, color.$error-grade),
+	--nds-success-color: color.family('success-color', color.$success-family, color.$success-grade),
+	--nds-warning-color: color.family('warning-color', color.$warning-family, color.$warning-grade),
+) !default;
+
+$scheme-dark: (
+	--nds-background-color: var(--nds-base-color-10),
+	--nds-primary-color: color.family('primary-color', color.$primary-family, color.$primary-grade, true),
+	--nds-base-color: color.family('base-color', color.$base-family, color.$base-grade, true),
+	--nds-disabled-color: color.family('disabled-color', color.$disabled-family, color.$disabled-grade, true),
+	--nds-error-color: color.family('error-color', color.$error-family, color.$error-grade, true),
+	--nds-success-color: color.family('success-color', color.$success-family, color.$success-grade, true),
+	--nds-warning-color: color.family('warning-color', color.$warning-family, color.$warning-grade, true),
+) !default;
+
+@mixin dark-scheme {
+	@include util.set($scheme-dark);
+}
+
+@mixin light-scheme {
+	@include util.set($scheme-light);
+}
+
+/* stylelint-disable no-duplicate-selectors */
+:root {
+	@include util.set($system-colors);
+	@include light-scheme;
+
+	@if config.$enable-dark-scheme {
+		/* stylelint-disable max-nesting-depth */
+		&[data-color-scheme='light'] {
+			@include light-scheme;
+		}
+	}
+}
+
+@if config.$enable-dark-scheme {
+	:root {
+		@media screen and (prefers-color-scheme: 'dark') {
+			@include dark-scheme;
+		}
+
+		&[data-color-scheme='dark'] {
+			@include dark-scheme;
+		}
+	}
+}
