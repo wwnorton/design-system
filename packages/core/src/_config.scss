@@ -5,21 +5,26 @@
 /// @group Config
 ////
 
-/// The expected browser font size. This is 16 in all browsers by default.
+/// The expected browser font size, which determines the value of `1rem`. This is
+/// 16 in all browsers by default and shouldn't be changed under most scenarios.
+/// @type Number
 $browser-font-size: 16 !default;
 
 /// Indicates whether duplicate declarations should be allowed. If `true`,
 /// including a `style` mixin will result in duplicate CSS. If `false`, including
 /// a `style` mixin multiple times will only create a declaration the first time.
-$duplicate-declarations: false !default;
+/// @type Boolean
+$enable-duplicate-declarations: false !default;
 
 /// Enable the dark scheme. This will only make it _possible_ for the dark scheme
 /// to be applied by either the user's OS setting or by manually applying a class
 /// to the :root element.
+/// @type Boolean
 $enable-dark-scheme: false !default;
 
 /// Enable utility declarations. Only has an effect when using the full stylesheet.
 /// Utility declarations can always be used imperatively via `@include`.
+/// @type Boolean
 $enable-utilities: true !default;
 
 /// Enable link styling for the specified selector context. Setting this to
