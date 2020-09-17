@@ -3,15 +3,15 @@
 ////
 
 /// Extra small: a handset
-$device-xs: 0;
+$device-xs: 0 !default;
 /// Small: a large handset or small tablet
-$device-sm: 600px;
+$device-sm: 600px !default;
 /// Medium: a large tablet or laptop
-$device-md: 960px;
+$device-md: 960px !default;
 /// Large: a desktop
-$device-lg: 1280px;
+$device-lg: 1280px !default;
 /// Extra large: a high-definition screen
-$device-xl: 1920px;
+$device-xl: 1920px !default;
 
 :root {
 	--nds-device-xs: #{$device-xs};
