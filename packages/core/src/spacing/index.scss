@@ -90,7 +90,7 @@ $-spacer-roles: (
 		token: 'spacing-3',
 	),
 	(
-		keys: (4, '1rem', '16px', 'block-base', 'cell-base'),
+		keys: (4, '1rem', '16px', 'block-base', 'cell-base', 'modal-y'),
 		token: 'spacing-4',
 	),
 	(
@@ -98,11 +98,11 @@ $-spacer-roles: (
 		token: 'spacing-5',
 	),
 	(
-		keys: (6, '1.5rem', 'disclosure-x', '24px'),
+		keys: (6, '1.5rem', '24px', 'disclosure-x'),
 		token: 'spacing-6',
 	),
 	(
-		keys: (8, '2rem', '32px'),
+		keys: (8, '2rem', '32px', 'modal-x'),
 		token: 'spacing-8',
 	),
 	(
