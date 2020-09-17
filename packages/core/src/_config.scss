@@ -31,3 +31,9 @@ $link-styling-context: 'main' !default;
 /// Enable the `:visited` pseudo class styling.
 /// @type String | List | null
 $link-visited-context: null !default;
+
+/// Indicates whether the :focus-visible polyfill is being used. When `true`,
+/// focus selectors will use the focus-visible polyfill classes.
+/// @link https://github.com/WICG/focus-visible
+/// @type Boolean
+$focus-visible-polyfill: false !default;
