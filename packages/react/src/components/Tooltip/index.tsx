@@ -73,7 +73,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	}: TooltipProps, ref,
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
-	const [offsetY] = useToken({ name: 'offset-y', el: popper });
+	const [offsetY] = useToken({ name: 'tooltip-offset-y', el: popper });
 	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
 	const open = usePopperTriggers({
 		reference, popper, trigger, isOpen, hideDelay,
