@@ -5,7 +5,9 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React, { useCallback, useState, useEffect } from 'react';
+import React, {
+	useCallback, useState, useEffect, useLayoutEffect,
+} from 'react';
 import clsx from 'clsx';
 import { Switch, Icon, useColorScheme } from '@wwnds/react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -65,7 +67,7 @@ const Navbar = (): JSX.Element => {
 		else setLight();
 	}, [setLight, setDark]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (isDark) setDarkTheme();
 		else setLightTheme();
 	}, [isDark, setDarkTheme, setLightTheme]);
