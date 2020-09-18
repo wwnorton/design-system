@@ -1,5 +1,6 @@
 @use '~@wwnds/core/full' as nds with (
 	$enable-dark-scheme: false,
+	$focus-visible-polyfill: true,
 );
 
 // General scroll box helper for when a story needs to be scrollable
