@@ -8,7 +8,6 @@ groups:
   config: Config
   device: Device
   motion: Motion
-  properties: Properties
   reset: Reset
   spacing: Spacing
   typography: Typography
