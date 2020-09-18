@@ -2,10 +2,9 @@
 @use '../../motion';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as props;
 
 @mixin control {
-	$-inner-ring: inset 0 0 0 props.prop('border-width') props.prop('body-bg');
+	$-inner-ring: inset 0 0 0 var(--nds-field-control-border-width) var(--nds-background-color);
 
 	border-radius: 100%;
 
@@ -15,17 +14,13 @@
 
 	.focus + &,
 	:focus + & {
-		@include a11y.focus-ring($-inner-ring);
-	}
-
-	[aria-invalid='true'] + & {
-		@include props.set($bg-color: props.prop('error'));
+		@include a11y.focus-halo($-inner-ring);
 	}
 }
 
 @mixin style {
 	@include util.declare('radio') {
-		.#{util.prefix('field__control--radio')} {
+		.nds-field__control--radio {
 			@include control;
 		}
 	}

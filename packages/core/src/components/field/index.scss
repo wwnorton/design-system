@@ -1,8 +1,10 @@
+@forward 'tokens';
+
+@use 'tokens';
 @use '../../a11y';
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
-@use '../../properties' as props;
 
 
 // FIELD - the field container, which can contain field info, group(s), and feedback.
@@ -34,10 +36,10 @@
 	@include type.ui-base;
 
 	margin-bottom: 0;
-	font-weight: props.prop('font-weight-bold');
+	font-weight: var(--nds-font-weight-bold);
 
-	.#{util.prefix('field__group--choice')} & {
-		font-weight: props.prop('font-weight-regular');
+	.nds-field__group--choice & {
+		font-weight: var(--nds-font-weight-regular);
 	}
 }
 
@@ -46,13 +48,13 @@
 // Default: `.field__indicator`
 @mixin indicator {
 	font-style: italic;
-	font-weight: props.prop('font-weight-regular');
+	font-weight: var(--nds-font-weight-regular);
 }
 
 // The field description, second child of the field info container.
 @mixin description {
-	font-size: props.prop('font-size-sm');
-	color: props.prop('subdued');
+	font-size: var(--nds-font-size-sm);
+	color: var(--nds-subdued-color);
 }
 
 
@@ -61,6 +63,9 @@
 // The field group container.
 // Default: `.field__group`
 @mixin group {
+	--nds-field-padding-y: #{tokens.$padding-y};
+	--nds-field-offset-x: #{tokens.$offset-x};
+
 	@include type.ui-base;
 
 	position: relative;
@@ -70,21 +75,15 @@
 // A "choice" modifier for the field group container.
 // Default: `.field__group--choice`
 @mixin group-choice {
-	@include props.set(
-		$spacing: null,
-		$padding-y: spacing.spacer('ui-inner'),
-		$offset-x: spacing.spacer('inline-x-sm'),
-	);
-
 	display: flex;
-	padding: props.prop('padding-y') 0;
+	padding: var(--nds-field-padding-y) 0;
 
 	> * {
-		margin-right: props.prop('offset-x');
+		margin-right: var(--nds-field-offset-x);
 	}
 
-	.#{util.prefix('field__label')} + &,
-	.#{util.prefix('field__desc')} + & {
+	.nds-field__label + &,
+	.nds-field__desc + & {
 		margin-top: spacing.spacer('block-base');
 	}
 
@@ -92,170 +91,103 @@
 		margin-right: unset;
 	}
 
-	> .#{util.prefix('field__input')} {
+	> .nds-field__input {
 		// make it invisible
 		@include a11y.sr-only;
 
 		// still position it in the center of the visual control so that form
 		// validator tooltips will point at the right thing
-		top: calc(#{props.prop('font-size-base')} * #{type.lh('ui')} / 2);
+		top: calc(var(--nds-font-size-base) * #{type.lh('ui')} / 2);
 		left: calc(0.5em + 1px);
 		transform: translateX(-50%);
 	}
 
-	.#{util.prefix('field__label')} {
-		font-weight: props.prop('font-weight-regular');
+	.nds-field__label {
+		font-weight: var(--nds-font-weight-regular);
 	}
 
-	.#{util.prefix('field__desc')} {
+	.nds-field__desc {
 		margin-bottom: unset;
 	}
 
-	.#{util.prefix('field__info')} .#{util.prefix('field__feedback')} {
+	.nds-field__info .nds-field__feedback {
 		margin-top: spacing.spacer('ui-inner');
 	}
 }
 
 // The "choice" control (checkbox/radio) in a field group.
-// Note that this is a visual replacement the field's `<input>`, which will be
-// visually hidden (screen reader only) but still fully functional.
+// Note that this is a visual replacement for the field's `<input>`, which will
+// be visually hidden (screen reader only) but still fully functional.
 // Default: `.field__control`
 @mixin choice-control {
-	@include props.set(
-		$bg-color: props.prop('body-bg'),
-		$border-color: props.prop('base'),
-		$border-width: 2px,
-		$offset-x: spacing.spacer('inline-x-sm'),
-	);
+	--nds-field-control-background-color: #{tokens.$control-background-color};
+	--nds-field-control-border-color: #{tokens.$control-border-color};
+	--nds-field-control-border-width: #{tokens.$control-border-width};
 
 	position: relative;
-	top: calc(#{props.prop('font-size-base')} * #{type.lh('ui')} / 2);
+	top: calc(var(--nds-font-size-base) * #{type.lh('ui')} / 2);
 	display: flex;
 	width: 1em;
 	height: 1em;
-	margin-right: props.prop('offset-x');
+	margin-right: var(--nds-field-offset-x);
 	content: '';
-	background-color: props.prop('bg-color');
-	border: props.prop('border-width') solid props.prop('border-color');
+	background-color: var(--nds-field-control-background-color);
+	border: var(--nds-field-control-border-width) solid var(--nds-field-control-border-color);
 	transition: none;
 	transform: translateY(-50%);
 	align-items: center;
 	justify-content: center;
 
-	:checked + & {
-		@include props.set(
-			$bg-color: props.prop('primary'),
-		);
+	.nds-error + &,
+	[aria-invalid='true'] + & {
+		--nds-field-control-background-color: var(--nds-error-color-10);
+		--nds-field-control-border-color: var(--nds-error-color);
+	}
 
-		border-color: transparent;
+	.nds-warning & {
+		--nds-field-control-border-color: var(--nds-warning-color);
+	}
+
+	.nds-success & {
+		--nds-field-control-border-color: var(--nds-success-color);
+	}
+
+	:checked + & {
+		--nds-field-control-background-color: var(--nds-primary-color);
+		--nds-field-control-border-color: transparent;
 	}
 
 	.disabled + &,
 	:disabled + & {
-		@include props.set(
-			$bg-color: props.prop('disabled-10'),
-			$border-color: props.prop('disabled-20'),
-		);
+		--nds-field-control-background-color: var(--nds-disabled-color-10);
+		--nds-field-control-border-color: var(--nds-disabled-color-20);
 
 		pointer-events: none;
-		border-color: props.prop('border-color');
 	}
 
 	.disabled:checked + &,
-	:disabled:checked + &, {
-		@include props.set($bg-color: props.prop('disabled-20'));
+	:disabled:checked + & {
+		--nds-field-control-background-color: var(--nds-disabled-color-20);
 
-		color: props.prop('body-bg');
+		color: var(--nds-background-color);
 		border-color: transparent;
 	}
 
-	.#{util.prefix('error')} + &,
-	[aria-invalid='true'] + & {
-		@include props.set(
-			$bg-color: props.prop('error-10'),
-			$border-color: props.prop('error'),
-		);
-	}
-
-	.#{util.prefix('error')}:checked + &,
-	.#{util.prefix('error')}:indeterminate + &,
+	.nds-error:checked + &,
+	.nds-error:indeterminate + &,
 	[aria-invalid='true']:checked + &,
 	[aria-invalid='true']:indeterminate + & {
-		@include props.set(
-			$bg-color: props.prop('error'),
-		);
+		--nds-field-control-background-color: var(--nds-error-color);
 	}
 
-	.#{util.prefix('warning')} & {
-		@include props.set(
-			$border-color: props.prop('warning'),
-		);
+	.nds-warning :checked + &,
+	.nds-warning :indeterminate + & {
+		--nds-field-control-background-color: var(--nds-warning-color);
 	}
 
-	.#{util.prefix('warning')} :checked + &,
-	.#{util.prefix('warning')} :indeterminate + & {
-		@include props.set(
-			$bg-color: props.prop('warning'),
-		);
-	}
-
-	.#{util.prefix('success')} & {
-		@include props.set(
-			$border-color: props.prop('success'),
-		);
-	}
-
-	.#{util.prefix('success')} :checked + &,
-	.#{util.prefix('success')} :indeterminate + & {
-		@include props.set(
-			$bg-color: props.prop('success'),
-		);
-	}
-}
-
-// Addons for field inputs inside a field group.
-// Default: `field__addon`
-@mixin addon {
-	display: flex;
-	align-items: center;
-	text-align: center;
-	white-space: nowrap;
-	border-radius: props.prop('radius-base');
-
-	> * {
-		border-top: 0;
-		border-bottom: 0;
-		border-radius: 0;
-	}
-
-	&:first-child {
-		border-top-left-radius: props.prop('radius-base');
-		border-bottom-left-radius: props.prop('radius-base');
-
-		> * {
-			border-left: 0;
-			border-top-left-radius: props.prop('radius-base');
-			border-bottom-left-radius: props.prop('radius-base');
-		}
-	}
-
-	&:last-child > * {
-		border-right: 0;
-		border-top-right-radius: props.prop('radius-base');
-		border-bottom-right-radius: props.prop('radius-base');
-	}
-
-	.#{util.prefix('field__group')} > & {
-		border: props.prop('border-width') solid props.prop('border-color');
-	}
-
-	> .#{util.prefix('icon')} {
-		padding: spacing.padding-y();
-	}
-
-	> .#{util.prefix('button--ghost')}:focus {
-		background-color: props.prop('button-color-10');
-		box-shadow: unset;
+	.nds-success :checked + &,
+	.nds-success :indeterminate + & {
+		--nds-field-control-background-color: var(--nds-success-color);
 	}
 }
 
@@ -273,10 +205,10 @@
 @mixin errors {
 	padding-left: 1rem;
 	margin: 0;
-	font-size: props.prop('font-size-sm');
+	font-size: var(--nds-font-size-sm);
 	font-style: italic;
-	font-weight: props.prop('font-weight-bold');
-	color: props.prop('error');
+	font-weight: var(--nds-font-weight-bold);
+	color: var(--nds-error-color);
 
 	// when an error is alone, don't display it as a bullet
 	:first-child:last-child {
@@ -291,19 +223,19 @@
 // Field info style declaration
 @mixin style-info {
 	@include util.declare('field-info') {
-		.#{util.prefix('field__info')} {
+		.nds-field__info {
 			@include info;
 		}
 
-		.#{util.prefix('field__label')} {
+		.nds-field__label {
 			@include label;
 		}
 
-		.#{util.prefix('field__indicator')} {
+		.nds-field__indicator {
 			@include indicator;
 		}
 
-		.#{util.prefix('field__desc')} {
+		.nds-field__desc {
 			@include description;
 		}
 	}
@@ -312,22 +244,16 @@
 // Field group style declaration
 @mixin style-group {
 	@include util.declare('field-group') {
-		.#{util.prefix('field__group')} {
+		.nds-field__group {
 			@include group;
 		}
 
-		.#{util.prefix('field__group--choice')} {
+		.nds-field__group--choice {
 			@include group-choice;
 		}
 
-		.#{util.prefix('field__control')} {
+		.nds-field__control {
 			@include choice-control;
-		}
-	}
-
-	@include util.declare('field-addon') {
-		.#{util.prefix('field__addon')} {
-			@include addon;
 		}
 	}
 }
@@ -335,11 +261,11 @@
 // Field feedback style declaration
 @mixin style-feedback {
 	@include util.declare('field-feedback') {
-		.#{util.prefix('field__feedback')} {
+		.nds-field__feedback {
 			@include feedback;
 		}
 
-		.#{util.prefix('field__errors')} {
+		.nds-field__errors {
 			@include errors;
 		}
 	}
@@ -351,7 +277,7 @@
 	@include style-group;
 
 	@include util.declare('field') {
-		.#{util.prefix('field')} {
+		.nds-field {
 			@include base;
 		}
 	}

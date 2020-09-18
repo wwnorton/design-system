@@ -1,53 +1,21 @@
+@forward 'tokens';
+@use 'tokens';
 @use '../../a11y';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as props;
-
-@mixin input {
-	padding: spacing.padding-y() spacing.padding-x();
-	background-color: props.prop('white');
-	border-color: props.prop('border-color');
-	border-style: solid;
-	border-width: props.prop('border-width');
-	border-radius: props.prop('radius-base');
-	caret-color: props.prop('primary');
-
-	&:-moz-ui-invalid,
-	&:focus {
-		box-shadow: unset;
-	}
-
-	&:disabled,
-	&.disabled {
-		color: props.prop('disabled-40');
-		background-color: props.prop('disabled-20');
-		border-color: props.prop('disabled-40');
-	}
-
-	.#{util.prefix('field--invalid')} & {
-		border-color: props.prop('error');
-		// caret-color: props.prop('error');
-	}
-
-	.#{util.prefix('field__group')} > & {
-		position: relative;
-		width: 1%;
-		min-width: 0;
-		flex: 1 1 auto;
-	}
-}
 
 @mixin group {
-	@include props.set(
-		$border-color: props.prop('base-40'),
-		$border-width: 1px,
-		$padding-y: spacing.spacer('input-y'),
-		$padding-x: spacing.spacer('input-x'),
-	);
+	--nds-textfield-border-color: #{tokens.$border-color};
+	--nds-textfield-border-width: #{tokens.$border-width};
+	--nds-textfield-padding-y: #{tokens.$padding-y};
+	--nds-textfield-padding-x: #{tokens.$padding-x};
 
 	margin-bottom: spacing.spacer('ui-inner');
-	background-color: props.prop('white');
-	border-radius: props.prop('radius-base');
+	background-color: var(--nds-white);
+	border-color: var(--nds-textfield-border-color);
+	border-style: solid;
+	border-width: var(--nds-textfield-border-width);
+	border-radius: var(--nds-radius-base);
 	flex-wrap: wrap;
 	align-items: stretch;
 
@@ -65,46 +33,119 @@
 	}
 
 	&:focus-within {
-		@include props.set($border-color: props.prop('focus-ring'));
-		@include a11y.focus-ring-collapse;
+		@include a11y.focus-ring;
 	}
 
-	.#{util.prefix('field--invalid')} & {
-		@include props.set(
-			$border-color: props.prop('error'),
-			$focus-ring-color: props.prop('error'),
-		);
-
-		&:focus-within {
-			box-shadow: 0 0 0 1px props.prop('focus-ring-color');
-		}
+	.nds-field--invalid & {
+		--nds-focus-color: var(--nds-error-color);
+		--nds-focus-ring: 0 0 0 1px var(--nds-focus-color);
 	}
 
-	+ .#{util.prefix('field__feedback')} {
+	+ .nds-field__feedback {
 		display: flex;
 		justify-content: space-between;
 	}
 }
 
+// Addons for field inputs inside a field group.
+// Default: `field__addon`
+@mixin addon {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	white-space: nowrap;
+	border-radius: var(--nds-radius-base);
+
+	// &:focus-within {
+	// 	@include a11y.focus-ring;
+	// }
+
+	> * {
+		border-top: 0;
+		border-bottom: 0;
+		border-radius: 0;
+	}
+
+	&:first-child {
+		border-top-left-radius: var(--nds-radius-base);
+		border-bottom-left-radius: var(--nds-radius-base);
+
+		> * {
+			border-left: 0;
+			border-top-left-radius: var(--nds-radius-base);
+			border-bottom-left-radius: var(--nds-radius-base);
+		}
+	}
+
+	&:last-child > * {
+		border-right: 0;
+		border-top-right-radius: var(--nds-radius-base);
+		border-bottom-right-radius: var(--nds-radius-base);
+	}
+
+	.nds-field__group > & {
+		border: var(--nds-field-border-width) solid var(--nds-field-control-border-color);
+	}
+
+	> .nds-icon {
+		padding: var(--nds-textfield-padding-y);
+	}
+
+	> .nds-button--ghost:focus {
+		background-color: var(--nds-button-color-10);
+		box-shadow: unset;
+	}
+}
+
+@mixin input {
+	padding: var(--nds-textfield-padding-y) var(--nds-textfield-padding-x);
+	background-color: var(--nds-white);
+	border: 0;
+	border-radius: inherit;
+	caret-color: var(--nds-primary-color);
+
+	&:focus {
+		box-shadow: none !important;
+	}
+
+	&:disabled,
+	&.disabled {
+		color: var(--nds-disabled-color-40);
+		background-color: var(--nds-disabled-color-20);
+		border-color: var(--nds-disabled-color-40);
+	}
+
+	.nds-field__group > & {
+		position: relative;
+		width: 1%;
+		min-width: 0;
+		flex: 1 1 auto;
+	}
+}
+
 @mixin counter {
 	margin-left: auto;
-	font-size: props.prop('font-size-sm');
+	font-size: var(--nds-font-size-sm);
 	font-style: italic;
-	color: props.prop('subdued');
+	color: var(--nds-subdued-color);
 }
 
 @mixin style {
 	@include util.declare('textfield') {
-		.#{util.prefix('field__input--text')} {
+		.nds-field__input--text {
 			@include input;
 		}
 
-		.#{util.prefix('field__counter')} {
+		.nds-field__counter {
 			@include counter;
 		}
 
-		.#{util.prefix('field__group--text')} {
+		.nds-field__group--text {
 			@include group;
+		}
+
+		.nds-field__addon {
+			@include addon;
 		}
 	}
 }

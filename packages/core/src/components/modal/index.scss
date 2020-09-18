@@ -1,19 +1,48 @@
+@forward 'tokens';
+@use 'tokens';
+@use 'sass:map';
 @use '../../color';
 @use '../../device';
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
-@use '../../properties' as props;
+
+@mixin base {
+	--nds-modal-border-width: #{tokens.$border-width};
+	--nds-modal-padding-x: #{tokens.$padding-x};
+	--nds-modal-padding-y: #{tokens.$padding-y};
+	--nds-modal-width: #{tokens.$width};
+	--nds-modal-border-radius: #{tokens.$border-radius-mobile};
+	--nds-modal-max-width: #{tokens.$max-width-mobile};
+	--nds-modal-offset-y: #{tokens.$offset-y-mobile};
+
+	width: var(--nds-modal-width);
+	max-width: var(--nds-modal-max-width);
+	min-height: 100%;
+	background-color: var(--nds-background-color);
+	border-radius: var(--nds-modal-border-radius);
+
+	@include device.media-up('sm') {
+		--nds-modal-border-radius: #{tokens.$border-radius-desktop};
+		--nds-modal-max-width: #{tokens.$max-width-desktop-md};
+		--nds-modal-offset-y: #{tokens.$offset-y-desktop};
+
+		min-height: unset;
+		margin: 0 auto;
+
+		&.nds-modal--large {
+			--nds-modal-max-width: #{tokens.$max-width-desktop-lg};
+		}
+	}
+
+	.nds-modal--long & {
+		margin-top: var(--nds-modal-offset-y);
+		margin-bottom: var(--nds-modal-offset-y);
+	}
+}
 
 @mixin backdrop {
-	// set props on the backdrop since it wraps the modal
-	@include props.set(
-		$border-width: 1px,
-		$backdrop-opacity: 0.6,
-		$padding-y: spacing.rem(1),
-		$padding-x: spacing.rem(2),
-		$offset-y: spacing.px(0),
-	);
+	--nds-modal-backdrop-opacity: #{tokens.$backdrop-opacity};
 
 	position: fixed;
 	top: 0;
@@ -21,63 +50,24 @@
 	bottom: 0;
 	left: 0;
 	overflow-y: auto;
-	background-color: rgba(0, 0, 0, #{props.prop('backdrop-opacity')});
+	background-color: rgba(0, 0, 0, var(--nds-modal-backdrop-opacity));
 
-	@include device.media-up('md') {
-		@include props.set(
-			$min-width: unset,
-			$min-height: unset,
-			$max-width: spacing.rem(34.5),
-			$offset-y: spacing.px(20),
-		);
-
-		&:not(.#{util.prefix('modal--long')}) {
+	@include device.media-up('sm') {
+		&:not(.nds-modal--long) {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-		}
-	}
-
-	@include device.media-up('lg') {
-		@include props.set(
-			$offset-y: spacing.px(40),
-		);
-	}
-
-	@include device.media-up('xl') {
-		@include props.set(
-			$offset-y: spacing.px(80),
-		);
-	}
-}
-
-@mixin base {
-	width: props.prop('width');
-	min-width: props.prop('min-width');
-	max-width: props.prop('max-width');
-	min-height: 100%;
-	background-color: props.prop('body-bg');
-	border-radius: props.prop('radius-base');
-
-	@include device.media-up('sm') {
-		min-width: unset;
-		min-height: unset;
-		margin: 0 auto;
-
-		.#{util.prefix('modal--long')} & {
-			margin-top: props.prop('offset-y');
-			margin-bottom: props.prop('offset-y');
 		}
 	}
 }
 
 @mixin header {
 	position: relative;
-	padding: props.prop('padding-y') props.prop('padding-x') spacing.padding-y();
-	background-color: props.prop('base-10');
-	border-bottom: props.prop('border-width') solid props.prop('base-30');
-	border-top-left-radius: props.prop('radius-base');
-	border-top-right-radius: props.prop('radius-base');
+	padding: var(--nds-modal-padding-y) var(--nds-modal-padding-x);
+	background-color: var(--nds-base-color-10);
+	border-bottom: var(--nds-modal-border-width) solid var(--nds-base-color-30);
+	border-top-left-radius: var(--nds-modal-border-radius);
+	border-top-right-radius: var(--nds-modal-border-radius);
 
 	&:focus {
 		box-shadow: unset;
@@ -88,13 +78,13 @@
 		border-bottom: unset;
 	}
 
-	&.#{util.prefix('modal__header--sticky')} {
+	&.nds-modal__header--sticky {
 		position: sticky;
 		top: -1px;
 	}
 
-	&.#{util.prefix('stuck')} {
-		box-shadow: 0 0 8px 0 rgba(props.value('black'), 0.25);
+	&.nds-stuck {
+		box-shadow: 0 0 8px 0 rgba(var(--nds-black), 0.25);
 	}
 }
 
@@ -104,12 +94,14 @@
 	margin: 0;
 
 	&:not(:last-child) {
-		padding-right: calc(#{props.prop('padding-x')} / 2);
+		padding-right: calc(var(--nds-modal-padding-x) / 2);
 	}
 }
 
 @mixin close-btn {
-	@include props.set($button-color: color.family('button-color', 'base'));
+	@include util.set(
+		$nds-button-color: color.family('button-color', 'base-color'),
+	);
 
 	position: absolute;
 	top: 0;
@@ -117,94 +109,94 @@
 	// TODO: use a token for these rem values
 	transform:
 		translate(
-			calc(-50% + 0.125rem + #{props.prop('border-width')}),
-			calc(50% - 0.5rem - #{props.prop('border-width')})
+			calc(-50% + 0.125rem + var(--nds-modal-border-width)),
+			calc(50% - 0.5rem - var(--nds-modal-border-width))
 		);
 }
 
 @mixin content {
 	padding:
-		calc(#{props.prop('padding-y')} * 2)
-		props.prop('padding-x')
-		calc(#{props.prop('padding-y')} * 2.5);
-	background-color: props.prop('body-bg');
+		calc(var(--nds-modal-padding-y) * 2)
+		var(--nds-modal-padding-x)
+		calc(var(--nds-modal-padding-y) * 2.5);
+	background-color: var(--nds-background-color);
 
 	> :last-child {
 		margin-bottom: 0;
 	}
 
-	.#{util.prefix('modal__close')}:first-child & {
-		padding-top: calc(#{props.prop('padding-y')} * 3.5);
-	}
-
 	&:last-child {
-		border-bottom-right-radius: props.prop('radius-base');
-		border-bottom-left-radius: props.prop('radius-base');
+		border-bottom-right-radius: var(--nds-modal-border-radius);
+		border-bottom-left-radius: var(--nds-modal-border-radius);
 	}
 
 	&:focus {
 		box-shadow: unset;
 	}
+
+	.nds-modal__close:first-child & {
+		padding-top: calc(var(--nds-modal-padding-y) * 3.5);
+	}
 }
 
 @mixin actionbar {
 	display: flex;
-	padding: spacing.padding-y() props.prop('padding-x') props.prop('padding-y');
-	background-color: props.prop('body-bg');
-	border-top: props.prop('border-width') solid props.prop('base-30');
-	border-bottom-right-radius: props.prop('radius-base');
-	border-bottom-left-radius: props.prop('radius-base');
+	padding: var(--nds-modal-padding-y) var(--nds-modal-padding-x);
+	background-color: var(--nds-background-color);
+	border-top: var(--nds-modal-border-width) solid var(--nds-base-color-30);
+	border-bottom-right-radius: var(--nds-modal-border-radius);
+	border-bottom-left-radius: var(--nds-modal-border-radius);
 	justify-content: flex-end;
 
 	> * + * {
 		margin-left: spacing.spacer('inline-x-md');
 	}
 
-	&.#{util.prefix('modal__actionbar--fixed')} {
+	&.nds-modal__actionbar--fixed {
 		position: absolute;
 		right: 0;
 		bottom: 0;
 		left: 0;
-		background-color: props.prop('body-bg');
+		background-color: var(--nds-background-color);
 	}
 
-	&.#{util.prefix('modal__actionbar--sticky')} {
+	&.nds-modal__actionbar--sticky {
 		position: sticky;
 		bottom: -1px;
 	}
 
-	&.#{util.prefix('stuck')} {
-		box-shadow: 0 0 8px 0 rgba(props.value('black'), 0.25);
+	&.nds-stuck {
+		box-shadow: 0 0 8px 0 rgba(var(--nds-black), 0.25);
 	}
 }
 
 @mixin style {
 	@include util.declare('modal') {
-		.#{util.prefix('modal')} {
+		.nds-modal {
 			@include base;
 		}
 
-		.#{util.prefix('modal__backdrop')} {
+		.nds-modal__backdrop {
 			@include backdrop;
 		}
 
-		.#{util.prefix('modal__header')} {
+		.nds-modal__header {
 			@include header;
 		}
 
-		.#{util.prefix('modal__title')} {
+		.nds-modal__title {
 			@include title;
 		}
 
-		.#{util.prefix('modal__close')} {
+		.nds-modal__close {
 			@include close-btn;
 		}
 
-		.#{util.prefix('modal__content')} {
+		.nds-modal__content {
 			@include content;
 		}
 
-		.#{util.prefix('modal__actionbar')} {
+		.nds-modal__actionbar {
 			@include actionbar;
 		}
 	}

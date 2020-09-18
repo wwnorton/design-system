@@ -1,0 +1,8 @@
+@use '../../spacing';
+
+$color: 'primary-color' !default;
+$border-width: 1px !default;
+$padding-x: calc(#{spacing.spacer('button-x')} - var(--nds-button-border-width)) !default;
+$padding-y: calc(#{spacing.spacer('button-y')} - var(--nds-button-border-width)) !default;
+$border-radius: var(--nds-radius-base) !default;
+$font-weight: var(--nds-font-weight-bold) !default;

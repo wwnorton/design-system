@@ -1,50 +1,52 @@
+@forward 'tokens';
+@use 'tokens';
 @use '../../motion';
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
-@use '../../properties' as props;
-
-$-border: props.prop('border-width') solid props.prop('base-40');
 
 @mixin base {
-	@include props.set(
-		$border-width: spacing.px(0),
-		$border-radius: props.prop('radius-base'),
-		$padding-y: spacing.rem(0.75),
-		$padding-x: spacing.rem(1.5),
-		$marker-margin: spacing.spacer('ui-inner'),
-	);
+	--nds-disclosure-border-width: #{tokens.$border-width};
+	--nds-disclosure-border-radius: #{tokens.$border-radius};
+	--nds-disclosure-border: #{tokens.$border};
+	--nds-disclosure-padding-y: #{tokens.$padding-y};
+	--nds-disclosure-padding-x: #{tokens.$padding-x};
+	--nds-disclosure-marker-margin: #{tokens.$marker-margin};
+	--nds-disclosure-summary-background-color: #{tokens.$summary-background-color};
 
 	position: relative;
 	display: block;
 }
 
 @mixin summary {
+	--nds-disclosure-padding-x: 0;
+
 	@include type.ui-base;
 
 	position: relative;
 	display: flex;
-	padding: spacing.padding-y() 0;
+	padding: var(--nds-disclosure-padding-y) var(--nds-disclosure-padding-x);
 	cursor: pointer;
+	background-color: var(--nds-disclosure-summary-background-color);
 	align-items: center;
 
-	.#{util.prefix('disclosure__marker')}:last-child {
+	.nds-disclosure__marker:last-child {
 		margin-left: auto;
 	}
 }
 
 @mixin contents-outer {
 	overflow-y: hidden;
-	transition: motion.transition(height, props.prop('duration-expand'));
+	transition: motion.transition(height, var(--nds-duration-expand));
 
 	[open] & {
 		box-sizing: content-box;
-		transition: motion.transition(height, props.prop('duration-collapse'));
+		transition: motion.transition(height, var(--nds-duration-collapse));
 	}
 }
 
 @mixin contents-inner {
-	padding-left: spacing.padding(calc(#{props.prop('padding-x')} + #{props.prop('marker-margin')}));
+	padding-left: spacing.padding(calc(var(--nds-disclosure-padding-x) + var(--nds-disclosure-marker-margin)));
 
 	:last-child {
 		margin-bottom: 0;
@@ -53,33 +55,33 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 
 @mixin marker-transform($open-transform, $close-transform) {
 	[open] & {
-		transition: motion.transition(transform, props.prop('duration-collapse'));
+		transition: motion.transition(transform, var(--nds-duration-collapse));
 		transform: $open-transform;
 	}
 
-	[open].#{util.prefix('closing')} & {
-		transition: motion.transition(transform, props.prop('duration-expand'));
+	[open].nds-closing & {
+		transition: motion.transition(transform, var(--nds-duration-expand));
 		transform: $close-transform;
 	}
 }
 
 @mixin marker-svg {
-	margin-right: props.prop('marker-margin');
-	margin-left: props.prop('marker-margin');
+	margin-right: var(--nds-disclosure-marker-margin);
+	margin-left: var(--nds-disclosure-marker-margin);
 
 	[open] & {
-		transition: motion.transition(transform, props.prop('duration-collapse'));
+		transition: motion.transition(transform, var(--nds-duration-collapse));
 		transform-origin: center;
 	}
 
-	&.#{util.prefix('icon--caret-right')} {
+	&.nds-icon--caret-right {
 		@include marker-transform(
 			rotate(90deg),
 			rotate(0),
 		);
 	}
 
-	&.#{util.prefix('icon--chevron-down')} {
+	&.nds-icon--chevron-down {
 		@include marker-transform(
 			rotate3d(1, 0, 0, 180deg),
 			rotate3d(1, 0, 0, 0),
@@ -88,39 +90,38 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 }
 
 @mixin panel {
-	@include props.set(
-		$border-width: 1px,
-		$padding-y: spacing.rem(1),
-		$padding-x: spacing.rem(1),
-	);
+	--nds-disclosure-border-width: 1px;
+	--nds-disclosure-padding-y: calc(#{spacing.rem(1)} - var(--nds-disclosure-border-width));
 
-	border-radius: props.prop('border-radius');
+	border-radius: var(--nds-disclosure-border-radius);
 
-	.#{util.prefix('disclosure__summary')} {
-		padding: spacing.padding-y() spacing.padding-x();
-		background-color: props.prop('base-20');
-		border: $-border;
-		border-radius: inherit;
+	.nds-disclosure__summary {
+		--nds-disclosure-padding-x: var(--nds-disclosure-padding-y);
+		--nds-disclosure-summary-background-color: var(--nds-base-color-20);
+
+		border: var(--nds-disclosure-border);
+		border-radius: var(--nds-disclosure-border-radius);
 	}
 
-	&[open] > .#{util.prefix('disclosure__summary')} {
-		border-bottom: $-border;
+	&[open] > .nds-disclosure__summary {
+		border-bottom: var(--nds-disclosure-border);
 		border-bottom-right-radius: 0;
 		border-bottom-left-radius: 0;
 	}
 
-	.#{util.prefix('disclosure__contents-outer')} {
-		border-right: $-border;
-		border-bottom: $-border;
-		border-left: $-border;
-		border-bottom-right-radius: inherit;
-		border-bottom-left-radius: inherit;
+	.nds-disclosure__contents-outer {
+		border-right: var(--nds-disclosure-border);
+		border-bottom: var(--nds-disclosure-border);
+		border-left: var(--nds-disclosure-border);
+		border-bottom-right-radius: var(--nds-disclosure-border-radius);
+		border-bottom-left-radius: var(--nds-disclosure-border-radius);
 	}
 
-	.#{util.prefix('disclosure__contents-inner')} {
-		padding-top: props.prop('padding-y');
-		padding-right: props.prop('padding-x');
+	.nds-disclosure__contents-inner {
+		padding-top: var(--nds-disclosure-padding-y);
+		padding-right: var(--nds-disclosure-padding-x);
 		padding-bottom: spacing.padding(spacing.rem(1.5));
+		padding-left: var(--nds-disclosure-padding-y);
 	}
 }
 
@@ -142,27 +143,27 @@ $-border: props.prop('border-width') solid props.prop('base-40');
 			content: '';
 		}
 
-		.#{util.prefix('disclosure')} {
+		.nds-disclosure {
 			@include base;
 		}
 
-		.#{util.prefix('disclosure__summary')} {
+		.nds-disclosure__summary {
 			@include summary;
 		}
 
-		.#{util.prefix('disclosure__marker')} {
+		.nds-disclosure__marker {
 			@include marker-svg;
 		}
 
-		.#{util.prefix('disclosure__contents-outer')} {
+		.nds-disclosure__contents-outer {
 			@include contents-outer;
 		}
 
-		.#{util.prefix('disclosure__contents-inner')} {
+		.nds-disclosure__contents-inner {
 			@include contents-inner;
 		}
 
-		.#{util.prefix('disclosure--panel')} {
+		.nds-disclosure--panel {
 			@include panel;
 		}
 	}
