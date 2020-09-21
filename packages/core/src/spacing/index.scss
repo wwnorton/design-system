@@ -4,8 +4,9 @@
 
 @use 'sass:meta';
 @use 'sass:map';
-@use 'util';
-@use 'properties' as props;
+@use '../util';
+
+$base-unit: 4;
 
 // FUNCTIONS
 
@@ -59,11 +60,11 @@
 	@return $padding-length;
 }
 
-@function padding-x($padding-length: props.prop('padding-x'), $border-width: props.prop('border-width')) {
+@function padding-x($padding-length: var(--nds-padding-x), $border-width: var(--nds-border-width)) {
 	@return padding($padding-length, $border-width);
 }
 
-@function padding-y($padding-length: props.prop('padding-y'), $border-width: props.prop('border-width')) {
+@function padding-y($padding-length: var(--nds-padding-y), $border-width: var(--nds-border-width)) {
 	@return padding($padding-length, $border-width);
 }
 
@@ -85,11 +86,11 @@ $-spacer-roles: (
 		token: 'spacing-2',
 	),
 	(
-		keys: (3, '0.75rem', '12px', 'button-x', 'input-x', 'dropdown-x', 'tooltip-x', 'inline-x-md', 'block-sm'),
+		keys: (3, '0.75rem', '12px', 'button-x', 'input-x', 'dropdown-x', 'tooltip-x', 'inline-x-md', 'disclosure-y', 'block-sm'),
 		token: 'spacing-3',
 	),
 	(
-		keys: (4, '1rem', '16px', 'block-base', 'cell-base'),
+		keys: (4, '1rem', '16px', 'block-base', 'cell-base', 'modal-y'),
 		token: 'spacing-4',
 	),
 	(
@@ -97,11 +98,11 @@ $-spacer-roles: (
 		token: 'spacing-5',
 	),
 	(
-		keys: (6, '1.5rem', '24px'),
+		keys: (6, '1.5rem', '24px', 'disclosure-x'),
 		token: 'spacing-6',
 	),
 	(
-		keys: (8, '2rem', '32px'),
+		keys: (8, '2rem', '32px', 'modal-x'),
 		token: 'spacing-8',
 	),
 	(
@@ -116,35 +117,5 @@ $-spacer-roles: (
 
 /// Get a spacer from a role or a value.
 @function spacer($role: 'block') {
-	@return props.prop(props.from-role($role, 'spacing', $-spacer-roles));
+	@return var(--nds-#{util.from-role($role, 'spacing', $-spacer-roles)});
 }
-
-// TOKENS
-
-$base-unit: 4;
-
-$spacing-0: 0;
-$spacing-1px: 1px;
-$spacing-2px: 2px;
-$spacing-1: rem(0.25);
-$spacing-2: rem(0.5);
-$spacing-3: rem(0.75);
-$spacing-4: rem(1);
-$spacing-5: rem(1.25);
-$spacing-6: rem(1.5);
-$spacing-8: rem(2);
-$spacing-10: rem(2.5);
-$spacing-12: rem(3);
-
-
-$zindex-focus: 980;
-
-// z-index values from Bootstrap
-// https://v5.getbootstrap.com/docs/5.0/layout/z-index/
-$zindex-dropdown: 1000;
-$zindex-sticky: 1020;
-$zindex-fixed: 1030;
-$zindex-modal-backdrop: 1040;
-$zindex-modal: 1050;
-$zindex-popover: 1060;
-$zindex-tooltip: 1070;

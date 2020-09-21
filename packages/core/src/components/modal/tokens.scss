@@ -1,0 +1,18 @@
+@use 'sass:map';
+@use '../../spacing';
+
+$backdrop-opacity: 0.6 !default;
+$border-width: 1px !default;
+$padding-x: spacing.spacer('modal-x') !default;
+$padding-y: spacing.spacer('modal-y') !default;
+$width: null !default;
+
+$border-radius-mobile: 0 !default;
+$border-radius-desktop: var(--nds-radius-md) !default;
+
+$offset-y-mobile: 0 !default;
+$offset-y-desktop: spacing.px(80) !default;
+
+$max-width-mobile: 100% !default;
+$max-width-desktop-md: spacing.px(552) !default;
+$max-width-desktop-lg: spacing.px(832) !default;

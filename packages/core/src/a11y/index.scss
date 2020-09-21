@@ -1,0 +1,85 @@
+////
+/// @group Accessibility
+////
+
+@use 'sass:list';
+@use '../config';
+@use '../motion';
+@use '../util';
+
+// MIXINS
+
+/// Disable animations and transitions when either children of `.reduced-motion`
+/// or the user has specified that they prefer reduced motion on their OS.
+@mixin reduce-motion {
+	@include util.set($nds-duration-scalar: 0);
+
+	transition: none !important;
+	animation: none !important;
+}
+
+/// Screen reader only - ensure that the element is only visible to screen readers.
+/// @link https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
+@mixin sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
+
+@mixin -focus($shadow, $current-shadows...) {
+	z-index: var(--nds-zindex-focus);
+	outline: none;
+	box-shadow: $current-shadows, $shadow;
+	transition: motion.transition(box-shadow border-radius);
+}
+
+/// A box shadow focus indicator that is offset from the focused element.
+/// @param {box-shadow[]} $current-shadows... - Zero or more additional shadows
+/// to be applied in addition to the focus indicator.
+@mixin focus-halo($current-shadows...) {
+	@include -focus(var(--nds-focus-halo), $current-shadows...);
+}
+
+/// A box shadow focus indicator that is directly attached to the focused element.
+/// Should only be used when the focused element conveys focus through some
+/// additional mechanism, such as the `<input>`'s caret.
+/// @param {box-shadow[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
+@mixin focus-ring($current-shadows...) {
+	@include -focus(var(--nds-focus-ring), $current-shadows...);
+
+	border-color: var(--nds-focus-color);
+}
+
+@mixin not-focus-visible {
+	&:not(:focus-visible) {
+		@content;
+	}
+
+	@if config.$focus-visible-polyfill {
+		&:not(.focus-visible),
+		&:not([data-focus-visible-added]) {
+			@content;
+		}
+	}
+}
+
+/// Accessibility utility classes.
+/// Includes declarations for `.reduced-motion` and `.sr-only`.
+/// @group Utilities
+@mixin a11y-utilities {
+	@include util.declare('utilities-a11y') {
+		.nds-reduced-motion {
+			@include reduce-motion;
+		}
+
+		.nds-sr-only {
+			@include sr-only;
+		}
+	}
+}

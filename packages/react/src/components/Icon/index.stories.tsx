@@ -27,7 +27,7 @@ export const WithARIALabel: React.FunctionComponent = () => (
 	<Icon
 		variant={select<IconProps['variant']>('Icon', IconOptions, 'caret-right')}
 		size={number('Size', 48)}
-		aria-label={text('Label', '')}
+		aria-label={text('ARIA label', 'caret')}
 	/>
 );
 

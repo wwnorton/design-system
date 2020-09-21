@@ -1,8 +1,9 @@
-@use '~@wwnds/core/full' with (
-	$css-property-fallback: false,
+@use '~@wwnds/core/full' as nds with (
+	$enable-dark-scheme: false,
+	$focus-visible-polyfill: true,
 );
 
-// General scrollbox helper for when a story needs to be scrollable
+// General scroll box helper for when a story needs to be scrollable
 .scrollbox {
 	display: block;
 	height: 400px;
@@ -42,4 +43,9 @@
 // Glossary reference for inline tooltip example
 .glossref {
 	font-weight: 700;
+}
+
+.px-3 {
+	padding-right: nds.spacer(3);
+	padding-left: nds.spacer(3);
 }

@@ -1,0 +1,38 @@
+////
+/// Motion
+/// An implementation of Material Design's motion guidelines.
+/// @group motion
+/// @source https://material.io/design/motion/understanding-html Material Design: Understanding Motion
+/// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
+/// @source https://material.io/design/motion/speed.html#easing Material Design: Easings
+////
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+
+// FUNCTIONS
+
+/// Apply one transition to many properties.
+/// @param {String | ListOf<String>} $properties - A single or list of CSS properties.
+/// @param {String} $duration - A duration value.
+/// @param {String} $easing - An easing value.
+@function transition(
+	$properties: 'all',
+	$duration: var(--nds-duration-simple),
+	$easing: var(--nds-easing-standard),
+) {
+	$full-transition: ();
+
+	$prop-list: if(meta.type-of($properties) == 'string', ($properties), $properties);
+
+	@each $property in $prop-list {
+		$full-transition: list.join($full-transition, #{$property -scale($duration) $easing}, $separator: comma);
+	}
+
+	@return $full-transition;
+}
+
+@function -scale($duration) {
+	@return calc(#{$duration} * var(--nds-duration-scalar));
+}

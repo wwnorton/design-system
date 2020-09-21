@@ -3,35 +3,30 @@
 ////
 
 @use 'sass:map';
-@use 'properties' as props;
-@use 'util';
-
-/// Extra small: a handset
-$device-xs: 0;
-/// Small: a large handset or small tablet
-$device-sm: 600px;
-/// Medium: a large tablet or laptop
-$device-md: 960px;
-/// Large: a desktop
-$device-lg: 1280px;
-/// Extra large: a high-definition screen
-$device-xl: 1920px;
+@use '../util';
 
 /// The minimum dots per inch (dpi) of a high-resolution screen
-$hd-dpi: 200;
+$hd-dpi: 200 !default;
 /// The minimum dots per pixel unit (dppx) for a high-resolution screen
-$hd-dppx: 1.25;
+$hd-dppx: 1.25 !default;
 
-$breakpoints: () !default;
-$breakpoints: map.merge(
-	(
-		'xs': $device-xs,
-		'sm': $device-sm,
-		'md': $device-md,
-		'lg': $device-lg,
-		'xl': $device-xl,
-	),
-	$breakpoints,
+/// The minimum width for an extra small screen: a handset.
+$min-xs: 0 !default;
+/// The minimum width for a small screen: a large handset or small tablet.
+$min-sm: 600px !default;
+/// The minimum width for a medium screen: a large tablet or small laptop.
+$min-md: 960px !default;
+/// The minimum width for a large screen: a desktop.
+$min-lg: 1280px !default;
+/// The minimum width for an extra large screen: a high-definition device.
+$min-xl: 1920px !default;
+
+$breakpoints: (
+	'xs': $min-xs,
+	'sm': $min-sm,
+	'md': $min-md,
+	'lg': $min-lg,
+	'xl': $min-xl,
 );
 
 /// A media query helper for high definition screens.
@@ -49,9 +44,9 @@ $breakpoints: map.merge(
 /// @param {String} $size - The device size: xs, sm, md, lg, or xl.
 /// @param {Map} $breakpoints [$devices] - The map of breakpoints to use.
 @mixin media-up($size, $breakpoints: $breakpoints) {
-	$min: map.get($breakpoints, $size);
+	$min: map-get($breakpoints, $size);
 
-	@if $min != 0 {
+	@if $size != 'xs' {
 		@media (min-width: $min) {
 			@content;
 		}

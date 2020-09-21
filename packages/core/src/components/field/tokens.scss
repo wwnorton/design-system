@@ -1,0 +1,8 @@
+@use '../../spacing';
+
+$offset-x: spacing.spacer('inline-x-sm') !default;
+$padding-y: spacing.spacer('ui-inner') !default;
+
+$control-background-color: var(--nds-background-color) !default;
+$control-border-color: var(--nds-base-color-60) !default;
+$control-border-width: 2px !default;

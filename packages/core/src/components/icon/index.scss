@@ -8,7 +8,7 @@
 
 @mixin style {
 	@include util.declare('icon') {
-		.#{util.prefix('icon')} {
+		.nds-icon {
 			@include icon;
 		}
 	}

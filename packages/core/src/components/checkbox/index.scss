@@ -2,53 +2,46 @@
 @use '../../motion';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as props;
 
 @mixin control {
 	color: transparent;
-	border-radius: props.prop('radius-base');
+	border-radius: var(--nds-radius-base);
 
 	:checked + &,
 	:indeterminate + & {
-		@include props.set(
-			$bg-color: props.prop('primary'),
-		);
+		--nds-field-control-background-color: var(--nds-primary-color);
 
-		color: props.prop('body-bg');
+		color: var(--nds-background-color);
 		border-color: transparent;
 	}
 
 	.focus + &,
 	:focus + & {
-		@include a11y.focus-ring;
+		@include a11y.focus-halo;
 	}
 
 	[aria-invalid='true'] + & {
-		@include props.set(
-			$border-color: props.prop('error'),
-		);
+		--nds-field-control-border-color: var(--nds-error-color);
 	}
 
 	.disabled:checked + &,
 	:disabled:checked + &,
 	.disabled:indeterminate + &,
 	:disabled:indeterminate + & {
-		@include props.set(
-			$bg-color: props.prop('disabled-20'),
-		);
+		--nds-field-control-background-color: var(--nds-disabled-color-20);
 
-		color: props.prop('body-bg');
+		color: var(--nds-field-control-background-color);
 		border-color: transparent;
 	}
 
-	> .#{util.prefix('icon')} {
+	> .nds-icon {
 		transform: scale(1.25);
 	}
 }
 
 @mixin style {
 	@include util.declare('checkbox') {
-		.#{util.prefix('field__control--checkbox')} {
+		.nds-field__control--checkbox {
 			@include control;
 		}
 	}

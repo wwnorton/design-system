@@ -1,32 +1,39 @@
-@forward './tokens';
+@forward 'tokens';
 
 @use 'sass:map';
 @use 'sass:meta';
+@use 'tokens';
 @use '../../a11y';
 @use '../../color';
 @use '../../type';
 @use '../../motion';
 @use '../../spacing';
 @use '../../util';
-@use '../../properties' as props;
-@use './tokens';
 
 @mixin base {
-	@include props.set(meta.module-variables('tokens'));
+	--nds-button-border-width: #{tokens.$border-width};
+	--nds-button-padding-x: #{tokens.$padding-x};
+	--nds-button-padding-y: #{tokens.$padding-y};
+	--nds-button-border-radius: #{tokens.$border-radius};
+	--nds-button-font-weight: #{tokens.$font-weight};
+
+	@include util.set(
+		$nds-button-color: color.family('button-color', tokens.$color, color.$primary-grade),
+	);
 	@include type.ui-base;
 
 	position: relative;
 	display: inline-flex;
 	box-sizing: border-box;
-	padding: spacing.padding-y() spacing.padding-x();
-	border: props.prop('border-width') solid transparent;
-	border-radius: props.prop('border-radius');
+	padding: var(--nds-button-padding-y) var(--nds-button-padding-x);
+	border: var(--nds-button-border-width) solid transparent;
+	border-radius: var(--nds-button-border-radius);
 	justify-content: center;
 	align-items: center;
 
 	&:disabled,
 	&.disabled {
-		color: props.prop('disabled');
+		color: var(--nds-disabled-color);
 		pointer-events: none;
 	}
 }
@@ -36,7 +43,7 @@
 	$background-color: null,
 	$border-color: null,
 ) {
-	font-weight: props.prop('font-weight');
+	font-weight: var(--nds-button-font-weight);
 	color: $text-color;
 	cursor: pointer;
 	background-color: $background-color;
@@ -53,88 +60,88 @@
 
 @mixin solid {
 	@include variant(
-		$text-color: props.prop('body-bg'),
-		$background-color: props.prop('button-color'),
-		$border-color: props.prop('button-color'),
+		$text-color: var(--nds-background-color),
+		$background-color: var(--nds-button-color),
+		$border-color: var(--nds-button-color),
 	);
 
 	&:disabled,
 	&.disabled {
-		color: props.prop('disabled-dark');
-		background-color: props.prop('disabled-light');
-		border-color: props.prop('disabled-light');
+		color: var(--nds-disabled-color-dark);
+		background-color: var(--nds-disabled-color-light);
+		border-color: var(--nds-disabled-color-light);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		background-color: props.prop('button-color-dark');
-		border-color: props.prop('button-color-dark');
+		background-color: var(--nds-button-color-dark);
+		border-color: var(--nds-button-color-dark);
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		background-color: props.prop('button-color-darker');
-		border-color: props.prop('button-color-darker');
+		background-color: var(--nds-button-color-darker);
+		border-color: var(--nds-button-color-darker);
 	}
 }
 
 @mixin outline {
 	@include variant(
-		$text-color: props.prop('button-color'),
-		$background-color: props.prop('body-bg'),
-		$border-color: props.prop('button-color'),
+		$text-color: var(--nds-button-color),
+		$background-color: var(--nds-background-color),
+		$border-color: var(--nds-button-color),
 	);
 
 	&:disabled,
 	&.disabled {
-		color: props.prop('disabled');
-		border-color: props.prop('disabled');
+		color: var(--nds-disabled-color);
+		border-color: var(--nds-disabled-color);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		color: props.prop('button-color-dark');
-		background-color: props.prop('button-color-10');
-		border-color: props.prop('button-color-dark');
+		color: var(--nds-button-color-dark);
+		background-color: var(--nds-button-color-10);
+		border-color: var(--nds-button-color-dark);
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		color: props.prop('button-color-darker');
-		background-color: props.prop('button-color-20');
-		border-color: props.prop('button-color-darker');
+		color: var(--nds-button-color-darker);
+		background-color: var(--nds-button-color-20);
+		border-color: var(--nds-button-color-darker);
 	}
 }
 
 @mixin ghost {
 	@include variant(
-		$text-color: props.prop('button-color'),
+		$text-color: var(--nds-button-color),
 		$background-color: transparent,
 		$border-color: transparent,
 	);
 
 	&:disabled,
 	&.disabled {
-		color: props.prop('disabled');
+		color: var(--nds-disabled-color);
 	}
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		color: props.prop('button-color-dark');
-		background-color: props.prop('button-color-10');
-		border-color: props.prop('button-color-10');
+		color: var(--nds-button-color-dark);
+		background-color: var(--nds-button-color-10);
+		border-color: var(--nds-button-color-10);
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		color: props.prop('button-color-darker');
-		background-color: props.prop('button-color-20');
-		border-color: props.prop('button-color-20');
+		color: var(--nds-button-color-darker);
+		background-color: var(--nds-button-color-20);
+		border-color: var(--nds-button-color-20);
 	}
 }
 
 @mixin icon-only {
-	padding: spacing.padding-y();
+	padding: var(--nds-button-padding-y);
 
 	> :first-child {
 		margin-right: 0 !important;
@@ -157,46 +164,46 @@
 
 @mixin style {
 	@include util.declare('button') {
-		.#{util.prefix('button')} {
+		.nds-button {
 			@include base;
 		}
 
-		.#{util.prefix('button--solid')} {
+		.nds-button--solid {
 			@include solid;
 		}
 
-		.#{util.prefix('button--outline')} {
+		.nds-button--outline {
 			@include outline;
 		}
 
-		.#{util.prefix('button--ghost')} {
+		.nds-button--ghost {
 			@include ghost;
 		}
 
-		.#{util.prefix('button--icon-only')} {
+		.nds-button--icon-only {
 			@include icon-only;
 		}
 
-		.#{util.prefix('button__icon')} {
+		.nds-button__icon {
 			@include icon;
 		}
 
-		@each $name, $val in color.families() {
-			.#{util.prefix('button--#{$name}')} {
-				@include props.set(
-					$button-color: color.family('button-color', $name),
+		@each $name, $val in color.$families {
+			.nds-button--#{$name} {
+				@include util.set(
+					$nds-button-color: color.family('button-color', $name, color.$primary-grade),
 				);
 			}
 		}
 
-		// .#{util.prefix('button--primary')} {
-		// 	@include props.set(util.flatten((
+		// .nds-button--primary {
+		// 	@include util.set(util.flatten((
 		// 		\$color: color.family('color', 'primary'),
 		// 	)));
 		// }
 
-		// .#{util.prefix('button--base')} {
-		// 	@include props.set(util.flatten((
+		// .nds-button--base {
+		// 	@include util.set(util.flatten((
 		// 		\$color: color.family('color', 'base'),
 		// 	)));
 		// }

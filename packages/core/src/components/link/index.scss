@@ -1,19 +1,81 @@
-@use '../../util';
-@use '../../properties' as props;
+@forward 'tokens';
 
-@include props.add-root(
-	$link-color: props.prop('primary'),
-	$link-decoration: underline,
-	$link-hover-color: props.prop('primary-dark'),
-	$link-hover-decoration: underline,
-	$link-active-color: props.prop('primary-darker'),
-	$link-visited-color: props.prop('purple-70'),
-	$link-visited-hover-color: props.prop('purple-80'),
-	$link-visited-active-color: props.prop('purple-90'),
-);
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:string';
+@use 'tokens';
+@use '../../config';
+@use '../../util';
+
+:root {
+	--nds-link-color: #{tokens.$color};
+	--nds-link-decoration: #{tokens.$decoration};
+	--nds-link-hover-color: #{tokens.$hover-color};
+	--nds-link-hover-decoration: #{tokens.$hover-decoration};
+	--nds-link-active-color: #{tokens.$active-color};
+	--nds-link-visited-color: #{tokens.$visited-color};
+	--nds-link-visited-hover-color: #{tokens.$visited-hover-color};
+	--nds-link-visited-active-color: #{tokens.$visited-active-color};
+}
+
+@mixin base {
+	color: var(--nds-link-color);
+	text-decoration: var(--nds-link-decoration);
+}
+
+@mixin hover {
+	color: var(--nds-link-hover-color);
+	text-decoration: var(--nds-link-hover-decoration);
+}
+
+@mixin active {
+	color: var(--nds-link-active-color);
+}
+
+@mixin visited {
+	color: var(--nds-link-visited-color);
+
+	&:hover {
+		color: var(--nds-link-visited-hover-color);
+	}
+
+	&:active {
+		color: var(--nds-link-visited-active-color);
+	}
+}
+
+@mixin link {
+	@include base;
+
+	&:hover {
+		@include hover;
+	}
+
+	&:active {
+		@include active;
+	}
+}
 
 @mixin style {
 	@include util.declare('link') {
-		// todo: define link styles apart from the global props?
+		.nds-link {
+			@include link;
+		}
+
+		.nds-link--visited {
+			@include visited;
+		}
+
+		@if config.$link-styling-context and meta.type-of(config.$link-styling-context) == 'string' {
+			#{util.child-selector(config.$link-styling-context, 'a')} {
+				@include link;
+			}
+		}
+
+		@if config.$link-visited-context and meta.type-of(config.$link-visited-context) == 'string' {
+			#{util.child-selector(config.$link-visited-context, ':visited')} {
+				@include visited;
+			}
+		}
 	}
 }

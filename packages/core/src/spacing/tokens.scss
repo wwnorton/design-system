@@ -1,0 +1,52 @@
+////
+/// @group Spacing
+////
+
+// TOKENS
+
+$spacing-0: 0;
+$spacing-1px: 1px;
+$spacing-2px: 2px;
+$spacing-1: 0.25rem;
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 1rem;
+$spacing-5: 1.25rem;
+$spacing-6: 1.5rem;
+$spacing-8: 2rem;
+$spacing-10: 2.5rem;
+$spacing-12: 3rem;
+
+// z-index values from Bootstrap
+// https://v5.getbootstrap.com/docs/5.0/layout/z-index/
+$zindex-focus: 980;
+$zindex-dropdown: 1000;
+$zindex-sticky: 1020;
+$zindex-fixed: 1030;
+$zindex-modal-backdrop: 1040;
+$zindex-modal: 1050;
+$zindex-popover: 1060;
+$zindex-tooltip: 1070;
+
+:root {
+	--nds-spacing-0: #{$spacing-0};
+	--nds-spacing-1px: #{$spacing-1px};
+	--nds-spacing-2px: #{$spacing-2px};
+	--nds-spacing-1: #{$spacing-1};
+	--nds-spacing-2: #{$spacing-2};
+	--nds-spacing-3: #{$spacing-3};
+	--nds-spacing-4: #{$spacing-4};
+	--nds-spacing-5: #{$spacing-5};
+	--nds-spacing-6: #{$spacing-6};
+	--nds-spacing-8: #{$spacing-8};
+	--nds-spacing-10: #{$spacing-10};
+	--nds-spacing-12: #{$spacing-12};
+	--nds-zindex-focus: #{$zindex-focus};
+	--nds-zindex-dropdown: #{$zindex-dropdown};
+	--nds-zindex-sticky: #{$zindex-sticky};
+	--nds-zindex-fixed: #{$zindex-fixed};
+	--nds-zindex-modal-backdrop: #{$zindex-modal-backdrop};
+	--nds-zindex-modal: #{$zindex-modal};
+	--nds-zindex-popover: #{$zindex-popover};
+	--nds-zindex-tooltip: #{$zindex-tooltip};
+}

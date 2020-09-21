@@ -1,0 +1,111 @@
+////
+/// @group Color
+////
+
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+@use '../config';
+@use '../util';
+
+/// Create a new color family map that references an existing family map.
+/// @param {String} $name - The name of the family that you'd like to create.
+/// @param {String} $ref-family - The name of the family that you'd like to reference.
+/// @param {Number} $grade-root [null] - If provided, this will be the midpoint
+/// of the "lighter/darker" shade swatch.
+/// @param {Boolean} $inverse [false] - Invert the grade map.
+/// @example scss - Minimal usage
+///   @debug family('foo', 'teal');
+///   // (
+///   //   10: var(--nds-teal-10),
+///   //   20: var(--nds-teal-20),
+///   //   ...30 - 80...
+///   //   90: var(--nds-teal-90),
+///   //   100: var(--nds-teal-100),
+///   // )
+/// @example scss - With `$grade-root`
+///   @debug family('foo', 'teal', 30);
+///   // (
+///   //   10: var(--nds-teal-10),
+///   //   20: var(--nds-teal-20),
+///   //   ...all other grades...
+///   //   'lighter': var(--nds-foo-10),
+///   //   'light': var(--nds-foo-20),
+///   //   '#root': var(--nds-foo-30),
+///   //   'dark': var(--nds-foo-40),
+///   //   'darker': var(--nds-foo-50),
+///   // )
+///
+@function family($name, $ref-family, $grade-root: null, $inverse: false) {
+	$map: ();
+
+	@for $n from 1 through 10 {
+		$grade: if($inverse, 110 - $n * 10, $n * 10);
+		$map: map.merge($map, ($grade: var(--nds-#{$ref-family}-#{$n * 10})));
+	}
+
+	@if $grade-root {
+		$shades: (
+			-20: if($inverse, 'darker', 'lighter'),
+			-10: if($inverse, 'dark', 'light'),
+			0: '#root',
+			10: if($inverse, 'light', 'dark'),
+			20: if($inverse, 'lighter', 'darker'),
+		);
+
+		@for $g from -2 through 2 {
+			$g10: $g * 10;
+
+			$prop: var(--nds-#{$name}-#{util.min-max($grade-root + $g10, 10, 100)});
+			$map: map.merge($map, (map.get($shades, $g10): $prop));
+		}
+	}
+
+	@return $map;
+}
+
+// SYSTEM COLORS - named color value stores with 10 grades from 10 to 100
+
+$families: (
+	'blue',
+	'cyan',
+	'gray',
+	'green',
+	'navy',
+	'purple',
+	'red',
+	'teal',
+	'yellow',
+) !default;
+
+/// The primary color family is used in UI elements that use a default color.
+$primary-family: 'teal' !default;
+/// The grade that defines the "midpoint" of the primary family. For instance,
+/// setting this to `60` will cause the `primary` token to reference `primary-60`.
+$primary-grade: 60 !default;
+/// The base color family is used for background color gradients and text colors.
+$base-family: 'navy' !default;
+/// The grade that defines the "midpoint" of the base family. For instance,
+/// setting this to `60` will cause the `base` token to reference `base-60`.
+$base-grade: null !default;
+/// The color family that will be used for `disabled` controls.
+$disabled-family: 'base-color' !default;
+/// The grade that defines the "midpoint" of the disabled family. For instance,
+/// setting this to `60` will cause the `disabled` token to reference `disabled-60`.
+$disabled-grade: 30 !default;
+/// The color family that will be used to convey errors/failing.
+$error-family: 'red' !default;
+/// The grade that defines the "midpoint" of the error family. For instance,
+/// setting this to `60` will cause the `error` token to reference `error-60`.
+$error-grade: 60 !default;
+/// The color family that will be used to convey success/passing.
+$success-family: 'green' !default;
+/// The grade that defines the "midpoint" of the success family. For instance,
+/// setting this to `60` will cause the `success` token to reference `success-60`.
+$success-grade: 60 !default;
+/// The color family that will be used to convey warning/caution.
+$warning-family: 'yellow' !default;
+/// The grade that defines the "midpoint" of the warning family. For instance,
+/// setting this to `60` will cause the `warning` token to reference `warning-60`.
+$warning-grade: 60 !default;

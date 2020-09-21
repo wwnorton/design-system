@@ -1,0 +1,9 @@
+@use '../../spacing';
+
+$color-on: var(--nds-primary-color) !default;
+$color-off: var(--nds-base-color-30) !default;
+$font-size: var(--nds-font-size-xs) !default;
+$height: spacing.spacer('2rem') !default;
+$padding-x: spacing.spacer('0.5rem') !default;
+$thumb-offset: 0.375rem !default;
+$thumb-margin: 2px !default;
