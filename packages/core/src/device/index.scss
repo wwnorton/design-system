@@ -3,7 +3,6 @@
 ////
 
 @use 'sass:map';
-@use 'tokens';
 @use '../util';
 
 /// The minimum dots per inch (dpi) of a high-resolution screen
@@ -11,12 +10,23 @@ $hd-dpi: 200 !default;
 /// The minimum dots per pixel unit (dppx) for a high-resolution screen
 $hd-dppx: 1.25 !default;
 
+/// The minimum width for an extra small screen: a handset.
+$min-xs: 0 !default;
+/// The minimum width for a small screen: a large handset or small tablet.
+$min-sm: 600px !default;
+/// The minimum width for a medium screen: a large tablet or small laptop.
+$min-md: 960px !default;
+/// The minimum width for a large screen: a desktop.
+$min-lg: 1280px !default;
+/// The minimum width for an extra large screen: a high-definition device.
+$min-xl: 1920px !default;
+
 $breakpoints: (
-	'xs': tokens.$device-xs,
-	'sm': tokens.$device-sm,
-	'md': tokens.$device-md,
-	'lg': tokens.$device-lg,
-	'xl': tokens.$device-xl,
+	'xs': $min-xs,
+	'sm': $min-sm,
+	'md': $min-md,
+	'lg': $min-lg,
+	'xl': $min-xl,
 );
 
 /// A media query helper for high definition screens.
