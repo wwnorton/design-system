@@ -119,3 +119,34 @@ $-spacer-roles: (
 @function spacer($role: 'block') {
 	@return var(--nds-#{util.from-role($role, 'spacing', $-spacer-roles)});
 }
+
+/// Utility declarations for spacing tokens.
+/// @group Utilities
+@mixin spacing-utilities {
+	@include util.declare('utilities-spacing') {
+		$-spacers: ('0', '1px', '2px', '1', '2', '3', '4', '5', '6', '8', '10', '12');
+		$-dirs: (
+			't': ('top'),
+			'r': ('right'),
+			'b': ('bottom'),
+			'l': ('left'),
+			'x': ('left', 'right'),
+			'y': ('top', 'bottom'),
+		);
+
+		@each $spacer in $-spacers {
+			@each $dir, $props in $-dirs {
+				.nds-p#{$dir}#{$spacer} {
+					@each $prop in $props {
+						padding-#{$prop}: var(--nds-spacing-#{$spacer}) !important;
+					}
+				}
+				.nds-m#{$dir}#{$spacer} {
+					@each $prop in $props {
+						margin-#{$prop}: var(--nds-spacing-#{$spacer}) !important;
+					}
+				}
+			}
+		}
+	}
+}
