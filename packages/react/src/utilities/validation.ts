@@ -125,14 +125,19 @@ export const defaultValidators = ({
 			message: defaultMessages.valueMissing({}),
 		});
 	}
-	if (maxLength) {
+	if (maxLength && maxLength >= 0) {
 		validators.push({
 			name: 'tooLong',
 			test: validityStateTest('tooLong'),
 			message: defaultMessages.tooLong({ maxLength }),
 		});
+		validators.push({
+			name: 'tooLong',
+			test: (value) => value.length <= maxLength,
+			message: defaultMessages.tooLong({ maxLength }),
+		});
 	}
-	if (minLength) {
+	if (minLength && minLength >= 0) {
 		validators.push({
 			name: 'tooShort',
 			test: validityStateTest('tooShort'),

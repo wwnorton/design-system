@@ -64,6 +64,9 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 		validateOnDOMChange = defaultProps.validateOnDOMChange,
 		validators,
 		value: valueProp = defaultProps.value,
+		// pull out maxLength because it prevents user input past the given
+		// length, which is an anti-pattern according to our usage guidelines.
+		maxLength,
 		onChange,
 		onInput,
 		onDOMChange,
@@ -81,10 +84,10 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 
 	const validator = useValidation(validators);
 	const validate = React.useCallback((el: ValidationElement) => {
-		const errs = validator(el);
+		const errs = validator((maxLength) ? { ...el, maxLength } : el);
 		if (onValidate) onValidate(errs);
 		if (!errorsProp) setErrors(errs);
-	}, [validator, onValidate, errorsProp]);
+	}, [validator, onValidate, errorsProp, maxLength]);
 
 	/**
 	 * React's custom `onChange` event does not match the DOM's but it is where
