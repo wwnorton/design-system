@@ -5,6 +5,8 @@
 /// @group Config
 ////
 
+@use 'sass:map';
+
 /// The expected browser font size, which determines the value of `1rem`. This is
 /// 16 in all browsers by default and shouldn't be changed under most scenarios.
 /// @type Number
@@ -22,10 +24,25 @@ $enable-duplicate-declarations: false !default;
 /// @type Boolean
 $enable-dark-scheme: false !default;
 
-/// Enable utility declarations. Only has an effect when using the full stylesheet.
-/// Utility declarations can always be used imperatively via `@include`.
+/// Enable helper declarations. Only has an effect when using the full stylesheet.
+/// Helper declarations can always be used imperatively via `@include`.
 /// @type Boolean
-$enable-utilities: true !default;
+$enable-helpers: true !default;
+
+/// The default map of utilities for reference. All utilities are disabled by default.
+$-default-utilities: (
+	'color-families': false,
+	'color-roles': false,
+	'spacing': false,
+);
+
+/// A map of utility declarations that should be included in the full stylesheet.
+/// Only has an effect when using the full stylesheet. See `$-default-utilities`
+/// for a list of the possible utilities.
+/// Utility declarations can always be used imperatively via `@include`.
+/// @type Map
+$utilities: () !default;
+$utilities: map.merge($-default-utilities, $utilities);
 
 /// Enable link styling for the specified selector context. Setting this to
 /// `null` will result in link styling being applied to all links. The default

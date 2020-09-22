@@ -109,3 +109,59 @@ $warning-family: 'yellow' !default;
 /// The grade that defines the "midpoint" of the warning family. For instance,
 /// setting this to `60` will cause the `warning` token to reference `warning-60`.
 $warning-grade: 60 !default;
+
+$roles: (
+	(name: 'primary', grade: $primary-grade),
+	(name: 'base', grade: $base-grade),
+	(name: 'disabled', grade: $disabled-grade),
+	(name: 'error', grade: $error-grade),
+	(name: 'success', grade: $success-grade),
+	(name: 'warning', grade: $warning-grade),
+);
+
+/// Utility declarations for color families.
+/// @group Utilities
+@mixin color-family-utilities {
+	@include util.declare('utilities-color-families') {
+		@each $name, $val in $families {
+			@for $g from 1 to 10 {
+				$grade: $g * 10;
+
+				.nds-bg-#{$name}-#{$grade} {
+					background-color: var(--nds-#{$name}-#{$grade}) !important;
+				}
+
+				.nds-color-#{$name}-#{$grade} {
+					color: var(--nds-#{$name}-#{$grade}) !important;
+				}
+			}
+		}
+	}
+}
+
+/// Utility declarations for color roles.
+/// @group Utilities
+@mixin color-role-utilities {
+	@include util.declare('utilities-color-roles') {
+		@each $role in $roles {
+			$name: map.get($role, 'name');
+			$grade: map.get($role, 'grade');
+			$steps: (null, 'light', 'lighter', 'dark', 'darker');
+
+			@if $grade {
+				@each $step in $steps {
+					$token: if($step, '#{$name}-color-#{$step}', '#{$name}-color');
+					$class: if($step, '#{$name}-#{$step}', $name);
+
+					.nds-bg-#{$class} {
+						background-color: var(--nds-#{$token}) !important;
+					}
+
+					.nds-color-#{$class} {
+						color: var(--nds-#{$token}) !important;
+					}
+				}
+			}
+		}
+	}
+}

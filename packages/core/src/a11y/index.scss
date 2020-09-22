@@ -69,11 +69,10 @@
 	}
 }
 
-/// Accessibility utility classes.
-/// Includes declarations for `.reduced-motion` and `.sr-only`.
-/// @group Utilities
-@mixin a11y-utilities {
-	@include util.declare('utilities-a11y') {
+/// Accessibility helper classes.
+/// @group Helpers
+@mixin a11y-helpers {
+	@include util.declare('helpers-a11y') {
 		.nds-reduced-motion {
 			@include reduce-motion;
 		}

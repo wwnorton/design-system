@@ -1,5 +1,7 @@
 // The full design system as one stylesheet.
 
+@use 'sass:map';
+
 // forward the whole thing so the variables/mixins/functions can be used downstream
 @forward '.';
 
@@ -23,7 +25,21 @@
 @include nds.textfield-style;
 @include nds.tooltip-style;
 
-// Utilities
-@if nds.$enable-utilities {
-	@include nds.a11y-utilities;
+// Helpers - declarations that set a composed style
+@if nds.$enable-helpers {
+	@include nds.a11y-helpers;
+}
+
+// Utilities - declarations that only set one property
+
+@if map.get(nds.$utilities, 'color-families') {
+	@include nds.color-family-utilities;
+}
+
+@if map.get(nds.$utilities, 'color-roles') {
+	@include nds.color-role-utilities;
+}
+
+@if map.get(nds.$utilities, 'spacing') {
+	@include nds.spacing-utilities;
 }
