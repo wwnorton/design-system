@@ -11,11 +11,6 @@ import { prefix } from '../../config';
 
 export type TextFieldType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
-interface TextInputCounterProps {
-	remaining: number;
-	max: number;
-}
-
 export interface TextFieldProps
 	extends FieldInfoCoreProps, FieldFeedbackCoreProps, BaseInputProps {
 	/** Text fields can be a limited subset of `<input>` types. */
@@ -36,7 +31,10 @@ export interface TextFieldProps
 	 * number of characters and returns the string or element that will be
 	 * rendered in the character counter slot.
 	 */
-	counter?: ({ remaining, max }: TextInputCounterProps) => React.ReactElement | string;
+	counter?: ({ remaining, max }: {
+		remaining: number;
+		max: number;
+	}) => React.ReactNode;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** The className for the TextField's `<input>` element. */
@@ -69,9 +67,10 @@ export interface TextFieldProps
 
 const defaultProps: Partial<TextFieldProps> = {
 	counterStart: 25,
-	counter: (
-		{ remaining, max }: TextInputCounterProps,
-	): string => `${remaining}/${max} characters remaining`,
+	counter: ({ remaining, max }) => {
+		if (remaining < 0) return null;
+		return `${remaining}/${max} characters remaining`;
+	},
 	type: 'text',
 };
 
