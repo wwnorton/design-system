@@ -22,10 +22,10 @@ $enable-duplicate-declarations: false !default;
 /// @type Boolean
 $enable-dark-scheme: false !default;
 
-/// Enable utility declarations. Only has an effect when using the full stylesheet.
-/// Utility declarations can always be used imperatively via `@include`.
+/// Enable helper declarations. Only has an effect when using the full stylesheet.
+/// Helper declarations can always be used imperatively via `@include`.
 /// @type Boolean
-$enable-utilities: true !default;
+$enable-helpers: true !default;
 
 /// Enable link styling for the specified selector context. Setting this to
 /// `null` will result in link styling being applied to all links. The default

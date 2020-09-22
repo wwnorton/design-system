@@ -7,6 +7,7 @@ groups:
   color: Color
   config: Config
   device: Device
+  helpers: Helpers
   motion: Motion
   reset: Reset
   spacing: Spacing
