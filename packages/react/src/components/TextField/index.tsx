@@ -237,3 +237,25 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		</div>
 	);
 });
+
+/**
+ * An uncontrolled variant of the `TextField` component. The `value` prop doesn't
+ * exist on this version, as it is managed internally. Use when the value does not
+ * need to be controlled via React state, such as prototyping or when
+ * values are submitted with native APIs like
+ * [HTMLFormElement.submit()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit).
+ */
+export const TextFieldUncontrolled = (props: Omit<TextFieldProps, 'value'>): JSX.Element => {
+	const [value, setValue] = React.useState('');
+	return (
+		<TextField
+			value={value}
+			onChange={(e) => {
+				setValue(e.target.value);
+				const { onChange } = props;
+				if (onChange) onChange(e);
+			}}
+			{...props}
+		/>
+	);
+};
