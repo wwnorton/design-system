@@ -54,13 +54,13 @@ This should help clarify that the token is a color token.
 
 \* A grade is a number like `20` and a shade is an adjective like `lighter`.
 
-## `v0.9.x` → `v1.0.0-beta.x`
+## v0.9.x → v1.0.0-beta.0
 
 The first beta release contained many breaking changes, most notably a complete rewrite of `@wwnds/core`.
 
-### `@wwnds/core`
+### Core
 
-Core now makes full use of [Sass modules](https://css-tricks.com/introducing-sass-modules/) and [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*).
+`@wwnds/core` now makes full use of [Sass modules](https://css-tricks.com/introducing-sass-modules/) and [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*).
 If you were previously using `@import` statements to use the design system's Sass, it is highly recommended that you update to `@forward` and `@use`.
 
 #### Entry points
@@ -85,7 +85,9 @@ There are two main entry points:
 View [the @wwnds/core readme](https://github.com/wwnorton/design-system/tree/main/packages/core#readme)
 for more about this.
 
-### `@wwnds/react`: `TextField`
+### React
+
+`@wwnds/react` changed some elements of the `TextField` component.
 
 - The `label` prop has been removed in favor of `children`.
 - The following props have been renamed:
