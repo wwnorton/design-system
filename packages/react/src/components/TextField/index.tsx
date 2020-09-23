@@ -116,10 +116,9 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		maxLength,
 		required,
 		type = defaultProps.type,
-		value: valueProp = '',
+		value,
 
 		// event callbacks
-		onChange,
 		onCount,
 		onDOMChange,
 		onValidate,
@@ -128,13 +127,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		...inputProps
 	}: TextFieldProps, ref,
 ) => {
-	const [value, setValue] = React.useState(valueProp);
 	const [errors, setErrors] = React.useState(errorsProp);
-	const [remaining, setRemaining] = React.useState(maxLength);
-
-	// treat prop versions of errors and value as source of truth
-	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
-	React.useEffect(() => setValue(valueProp), [valueProp]);
 
 	// ids stored as refs since they shouldn't change between renders
 	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
@@ -143,10 +136,14 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	const { current: errId } = React.useRef(errIdProp || `${id}-err`);
 	const { current: inputId } = React.useRef(`${id}-input`);
 
-	React.useEffect(() => {
+	// treat prop version of errors as source of truth
+	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
+
+	const remaining = React.useMemo(() => {
 		if (maxLength) {
-			setRemaining(maxLength - value.toString().length);
+			return maxLength - (value || '').toString().length;
 		}
+		return undefined;
 	}, [value, maxLength]);
 
 	React.useEffect(() => {
@@ -154,11 +151,6 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	}, [onCount, remaining]);
 
 	const isValid = React.useMemo(() => Boolean(!errors || errors.length === 0), [errors]);
-
-	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		if (onChange) onChange(e);
-		else setValue(e.currentTarget.value);
-	};
 
 	const validateHandler = (e: string[]): void => {
 		if (onValidate) onValidate(e);
@@ -213,9 +205,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 				{ createFieldAddons(addonBefore) }
 				<BaseInput
 					ref={ref}
-					value={value}
 					errors={errors}
-					onChange={changeHandler}
 					onDOMChange={onDOMChange}
 					onValidate={validateHandler}
 					id={inputId}
