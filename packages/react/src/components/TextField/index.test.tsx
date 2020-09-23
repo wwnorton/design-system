@@ -79,20 +79,19 @@ test('invalid input is reflected in both constraint validation and in ARIA', (t)
 	t.is(input.getAttribute('aria-invalid'), 'true');
 });
 
-test('the character counter counts down as the user types when `maxLength` is defined', (t) => {
-	render(<TextField maxLength={10}>{ defaultLabel }</TextField>);
-
-	t.truthy(screen.queryByText('10/10 characters remaining'));
-
-	fireEvent.change(screen.getByLabelText(defaultLabel), { target: { value: 'abc' } });
+test('the character counter counts down as `value` changes when `maxLength` is defined', (t) => {
+	render(<TextField maxLength={10} value='abc'>{ defaultLabel }</TextField>);
 	t.truthy(screen.getByText('7/10 characters remaining'));
 });
 
 test('the character counter doesn\'t appear until the `counterStart` threshold is met', (t) => {
-	render(<TextField maxLength={10} counterStart={8}>{ defaultLabel }</TextField>);
-
+	const { rerender } = render((
+		<TextField maxLength={10} counterStart={8}>{ defaultLabel }</TextField>
+	));
 	t.falsy(screen.queryByText('10/10 characters remaining'));
 
-	fireEvent.change(screen.getByLabelText(defaultLabel), { target: { value: 'abc' } });
+	rerender((
+		<TextField maxLength={10} counterStart={8} value='abc'>{ defaultLabel }</TextField>
+	));
 	t.truthy(screen.getByText('7/10 characters remaining'));
 });

@@ -50,7 +50,6 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 
 const defaultProps: BaseInputProps = {
 	validateOnDOMChange: true,
-	value: '',
 };
 
 /**
@@ -63,11 +62,9 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 		validateOnChange,
 		validateOnDOMChange = defaultProps.validateOnDOMChange,
 		validators,
-		value: valueProp = defaultProps.value,
 		// pull out maxLength because it prevents user input past the given
 		// length, which is an anti-pattern according to our usage guidelines.
 		maxLength,
-		onChange,
 		onInput,
 		onDOMChange,
 		onValidate,
@@ -75,12 +72,10 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 	}: BaseInputProps, ref,
 ): React.ReactElement => {
 	const [input, setInput] = useForwardedRef(ref);
-	const [value, setValue] = React.useState(valueProp);
 	const [errors, setErrors] = React.useState(errorsProp);
 
-	// treat the prop versions of `errors` and `value` as the source of truth
+	// treat the prop version of `errors` as the source of truth
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
-	React.useEffect(() => setValue(valueProp), [valueProp]);
 
 	const validator = useValidation(validators);
 	const validate = React.useCallback((el: ValidationElement) => {
@@ -88,15 +83,6 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 		if (onValidate) onValidate(errs);
 		if (!errorsProp) setErrors(errs);
 	}, [validator, onValidate, errorsProp, maxLength]);
-
-	/**
-	 * React's custom `onChange` event does not match the DOM's but it is where
-	 * we are expected to control the input's value.
-	 */
-	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		if (onChange) onChange(e);
-		else setValue(e.currentTarget.value);
-	};
 
 	/**
 	 * Unlike `onChange`, `onInput` will trigger even when the user enters a bad
@@ -111,7 +97,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 
 	const domChangeHandler = React.useCallback((e: Event): void => {
 		if (onDOMChange) onDOMChange(e);
-		if (validateOnDOMChange) validate(e.currentTarget as HTMLInputElement);
+		if (validateOnDOMChange) validate(e.target as HTMLInputElement);
 	}, [onDOMChange, validateOnDOMChange, validate]);
 
 	// Reflect errors on the DOM's constraint validation API. This ensures that
@@ -135,15 +121,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 		};
 	}, [input, domChangeHandler]);
 
-	return (
-		<input
-			ref={setInput}
-			value={value}
-			onChange={changeHandler}
-			onInput={inputHandler}
-			{...attributes}
-		/>
-	);
+	return <input ref={setInput} onInput={inputHandler} {...attributes} />;
 });
 
 BaseInput.defaultProps = defaultProps;
