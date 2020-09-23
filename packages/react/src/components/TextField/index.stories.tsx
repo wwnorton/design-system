@@ -7,7 +7,9 @@ import {
 	text,
 	select,
 } from '@storybook/addon-knobs';
-import { TextField, TextFieldType, TextFieldProps } from '.';
+import {
+	TextField, TextFieldUncontrolled, TextFieldType, TextFieldProps,
+} from '.';
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
 import { useValidation } from '../../utilities';
@@ -18,10 +20,12 @@ export default {
 	decorators: [withKnobs],
 };
 
+export const Test = (): JSX.Element => <TextField>TextField</TextField>;
+
 export const Default: React.FunctionComponent = () => {
 	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
 	return (
-		<TextField
+		<TextFieldUncontrolled
 			description='The default Text Field has a type of "text"'
 			disabled={boolean('Disabled', false)}
 
@@ -33,7 +37,7 @@ export const Default: React.FunctionComponent = () => {
 			optionalIndicator={indicator === 'optional'}
 		>
 			{ text('Label', 'Default Text Field') }
-		</TextField>
+		</TextFieldUncontrolled>
 	);
 };
 
@@ -93,44 +97,44 @@ export const EveryType: React.FunctionComponent = () => {
 
 	return (
 		<>
-			<TextField type="email" {...props}>Email</TextField>
-			<TextField type="number" {...props}>Number</TextField>
-			<TextField type="password" {...props}>Password</TextField>
-			<TextField type="search" {...props}>Search</TextField>
-			<TextField type="tel" {...props}>Telephone</TextField>
-			<TextField type="text" {...props}>Text</TextField>
-			<TextField type="url" {...props}>URL</TextField>
+			<TextFieldUncontrolled type="email" {...props}>Email</TextFieldUncontrolled>
+			<TextFieldUncontrolled type="number" {...props}>Number</TextFieldUncontrolled>
+			<TextFieldUncontrolled type="password" {...props}>Password</TextFieldUncontrolled>
+			<TextFieldUncontrolled type="search" {...props}>Search</TextFieldUncontrolled>
+			<TextFieldUncontrolled type="tel" {...props}>Telephone</TextFieldUncontrolled>
+			<TextFieldUncontrolled type="text" {...props}>Text</TextFieldUncontrolled>
+			<TextFieldUncontrolled type="url" {...props}>URL</TextFieldUncontrolled>
 		</>
 	);
 };
 
 export const WithMaxLength: React.FunctionComponent = () => (
-	<TextField
+	<TextFieldUncontrolled
 		maxLength={number('Maximum length', 10)}
 		counterStart={number('Start counter at', 8)}
 		onCount={action('onCount')}
 		validateOnChange
 	>
 		Text Field with max length
-	</TextField>
+	</TextFieldUncontrolled>
 );
 
 export const WithAddonBefore: React.FunctionComponent = () => (
-	<TextField
+	<TextFieldUncontrolled
 		type="text"
 		addonBefore={<Button variant="ghost">Do something</Button>}
 	>
 		Text field with a button addon
-	</TextField>
+	</TextFieldUncontrolled>
 );
 
 export const WithAddonAfter: React.FunctionComponent = () => (
-	<TextField
+	<TextFieldUncontrolled
 		type="text"
 		addonAfter={<Button variant="outline">Do something else</Button>}
 	>
 		Text field with a button addon
-	</TextField>
+	</TextFieldUncontrolled>
 );
 
 const show: ButtonProps = {
