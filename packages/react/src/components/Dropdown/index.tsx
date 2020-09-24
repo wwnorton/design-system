@@ -156,7 +156,7 @@ export const Dropdown: DropdownType = ({
 	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
 	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
 	const [listboxWidth, setListboxWidth] = React.useState<number>();
-	const shouldReturnFocus = React.useRef(false);
+	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
 	const getListboxWidth = React.useRef(false);
 
 	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
@@ -187,15 +187,14 @@ export const Dropdown: DropdownType = ({
 	}, [onRequestOpen]);
 
 	/** Attempt to close the listbox. */
-	const closeListbox = React.useCallback((returnFocus: boolean): void => {
-		shouldReturnFocus.current = returnFocus;
+	const closeListbox = React.useCallback((): void => {
 		if (onRequestClose) onRequestClose();
 		else setOpen(false);
 	}, [onRequestClose]);
 
 	/** Toggle the listbox on button click. */
 	const buttonClickHandler = (): void => {
-		if (open) closeListbox(false);
+		if (open) closeListbox();
 		else openListbox();
 	};
 
@@ -219,17 +218,20 @@ export const Dropdown: DropdownType = ({
 			setSelected(value);
 		}
 		setButtonContents(contents || value);
-		closeListbox(true);
+		setShouldReturnFocus(true);
+		closeListbox();
 	};
 
 	/** Attempt to close the listbox on `Escape` or `Tab`. */
 	const documentKeydownHandler = React.useCallback((e: KeyboardEvent): void => {
 		if (!open) return;
 		if (closeOnDocumentEscape && e.key === 'Escape') {
-			closeListbox(true);
+			setShouldReturnFocus(true);
+			closeListbox();
 		}
 		if (e.key === 'Tab') {
-			closeListbox(false);
+			setShouldReturnFocus(false);
+			closeListbox();
 		}
 	}, [open, closeListbox, closeOnDocumentEscape]);
 
@@ -239,20 +241,26 @@ export const Dropdown: DropdownType = ({
 		const buttonClicked = button && path.includes(button);
 		const listboxClicked = listbox && path.includes(listbox);
 		if (closeOnExternalClick && !buttonClicked && !listboxClicked) {
-			closeListbox(false);
+			setShouldReturnFocus(false);
+			closeListbox();
 		}
 	}, [button, listbox, closeOnExternalClick, closeListbox]);
 
 	// close the listbox if the Dropdown is disabled while open
 	React.useEffect(() => {
-		if (disabled) closeListbox(true);
+		if (disabled) {
+			setShouldReturnFocus(true);
+			closeListbox();
+		}
 	}, [disabled, closeListbox]);
 
 	// focus the button when focus should return to it
 	React.useEffect(() => {
-		if (shouldReturnFocus.current && button) button.focus();
-		return (): void => { shouldReturnFocus.current = false; };
-	}, [button]);
+		if (!open && shouldReturnFocus && button !== null) {
+			button.focus();
+			setShouldReturnFocus(false);
+		}
+	}, [button, open, shouldReturnFocus]);
 
 	// attach and detach document listeners
 	React.useLayoutEffect(() => {
