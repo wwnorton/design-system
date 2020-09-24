@@ -8,6 +8,7 @@ module.exports = {
 			label: 'Foundations',
 			items: [
 				'accessibility',
+				'design-tokens',
 				'color',
 				'motion',
 				'typography',
