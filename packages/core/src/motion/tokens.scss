@@ -38,10 +38,20 @@ $duration-expand: 300ms;
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-collapse: 250ms;
 
+/// A duration used for elements with a small transition areas, such as icons and selection controls.
+/// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-small: var(--nds-duration-simple);
+/// A duration used for expanding elements with larger transition areas, such as bottom sheets and expanding chips.
+/// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-medium-expand: var(--nds-duration-open);
+/// A duration used for collapsing elements with larger transition areas, such as bottom sheets and expanding chips.
+/// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-medium-collapse: var(--nds-duration-close);
+/// A duration used for expanding elements that traverse a large portion of the screen.
+/// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-large-expand: var(--nds-duration-expand);
+/// A duration used for collapsing elements that traverse a large portion of the screen.
+/// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-large-collapse: var(--nds-duration-collapse);
 
 /// Standard easing puts subtle attention at the end of an animation, by giving
