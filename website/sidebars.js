@@ -7,6 +7,7 @@ module.exports = {
 			type: 'category',
 			label: 'Foundations',
 			items: [
+				'accessibility',
 				'color',
 				'motion',
 				'typography',
