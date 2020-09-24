@@ -63,9 +63,9 @@ const Search = props => {
 
   const toggleSearchIconClick = useCallback(
     e => {
-      if (!searchBarRef.current.contains(e.target)) {
+      /* if (!searchBarRef.current.contains(e.target)) {
         searchBarRef.current.focus();
-      }
+      } */
 
       props.handleSearchBarToggle(!props.isSearchBarExpanded);
     },
@@ -74,7 +74,7 @@ const Search = props => {
 
   return (
     <div className="navbar__search" key="search-box">
-      <span
+      {/* <span
         aria-label="expand searchbar"
         role="button"
         className={classnames("search-icon", {
@@ -83,11 +83,10 @@ const Search = props => {
         onClick={toggleSearchIconClick}
         onKeyDown={toggleSearchIconClick}
         tabIndex={0}
-      />
+      /> */}
       <input
         id="search_input_react"
         type="search"
-        placeholder="Search"
         aria-label="Search"
         className={classnames(
           "navbar__search-input",
