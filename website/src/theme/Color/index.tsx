@@ -132,7 +132,9 @@ export const AllFamilies = (): JSX.Element => {
 	};
 	return (
 		<>
-			<Button variant="outline" onClick={toggleFullscreen}>View fullscreen</Button>
+			<div style={{ marginBottom: 'var(--nds-spacing-4)' }}>
+				<Button variant="outline" onClick={toggleFullscreen}>View fullscreen</Button>
+			</div>
 			<div className="families-outer" ref={setFamilies}>
 				<div className="families">
 					{ [
