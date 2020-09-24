@@ -1,6 +1,5 @@
 @use '~@wwnds/core/full' as nds with (
 	$enable-dark-scheme: true,
-	$link-decoration: none,
 	$font-family-base: proxima-nova,
 );
 
@@ -92,6 +91,10 @@ code {
 	[data-theme='dark'] & {
 		--ifm-alert-color: var(--ifm-font-color-base-inverse);
 	}
+}
+
+.table-of-contents__link {
+	--nds-link-decoration: none;
 }
 
 .families-outer {
