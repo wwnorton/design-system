@@ -5,7 +5,6 @@ import {
 	boolean,
 	text,
 } from '@storybook/addon-knobs';
-import './index.stories.scss';
 import { Checkbox, CheckboxGroup as CheckboxGroupComp } from '.';
 import { Button } from '../Button';
 import { useValidation } from '../../utilities';
