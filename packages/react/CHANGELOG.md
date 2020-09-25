@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-rc.0](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.3...v1.0.0-rc.0) (2020-09-25)
+
+### ⚠ BREAKING CHANGES
+
+- **react:** `TextField` can no longer be uncontrolled.
+  To use in an uncontrolled way, use the new `TextFieldUncontrolled`.
+
+### ✨ Features
+
+- **react:** add uncontrolled variant of TextField ([8cc63ca](https://github.com/wwnorton/design-system/commit/8cc63cadf36c38e1c7960291a5f59f803115b432))
+
+### ♻️ Refactor
+
+- **react:** use updated TextField in stories and tests ([3507dc2](https://github.com/wwnorton/design-system/commit/3507dc2803a2c775a2155bd3d362a18da43def0b))
+
+### 🐛 Bug Fixes
+
+- **react:** allow >maxLength text field input ([84c97e5](https://github.com/wwnorton/design-system/commit/84c97e5f8863b0569e0561e0ac3ceabe48e9bf67)), closes [#11](https://github.com/wwnorton/design-system/issues/11)
+- **react:** correctly focus the dropdown button on close ([51ad297](https://github.com/wwnorton/design-system/commit/51ad297b6066f70c4a71c6ae8641bf4057a33086))
+- **react:** make TextField and input fully controlled ([a39ba8d](https://github.com/wwnorton/design-system/commit/a39ba8dafb74f9f5d22c6828a49c26f1a538290a))
+
+### 🛠 Maintenance
+
+- remove empty files ([eea1aa2](https://github.com/wwnorton/design-system/commit/eea1aa2b6f6fe44b414f830c0cfa0b8ab96d9e23))
+- remove non-existent imports ([dcc00a7](https://github.com/wwnorton/design-system/commit/dcc00a772c42d8a159a50ab516f25c97b49d2539))
+- **storybook:** clarify aria-label story ([f3ac9f6](https://github.com/wwnorton/design-system/commit/f3ac9f6137bf4b3791792a1a2f8372c7b2ff6ad2))
+- update storybook core config ([1043cbb](https://github.com/wwnorton/design-system/commit/1043cbb19740210c4dc87ae89106b5a33f9725ad))
+- use full color tokens ([7807c5d](https://github.com/wwnorton/design-system/commit/7807c5d140bd8c942428b22058381abbc7f7b24a))
+
+### 📝 Documentation
+
+- update react readme ([84bc525](https://github.com/wwnorton/design-system/commit/84bc525878b759c34fabaa56a63597815c65f32c))
+- **storybook:** add focus-visible polyfill ([16598ea](https://github.com/wwnorton/design-system/commit/16598ea15a54034cff295a6a180c836d02a9e0ee))
+
 ## [1.0.0-beta.3](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2020-08-17)
 
 ### ⚠ BREAKING CHANGES

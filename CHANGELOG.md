@@ -3,6 +3,104 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-rc.0](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.3...v1.0.0-rc.0) (2020-09-25)
+
+### ⚠ BREAKING CHANGES
+
+- **react:** `TextField` can no longer be uncontrolled.
+  To use in an uncontrolled way, use the new `TextFieldUncontrolled`.
+- **core:** role color tokens have been renamed to include the
+  `-color` suffix. See the migration guide for details.
+- **core:** the `$namespace` config option has been removed. All
+  tokens and declarations are now hard-coded with the `nds` namespace.
+- **core:** the `prop` function has been removed. Custom properties
+  are now used and declared directly.
+- **core:** remove custom property fallbacks
+- **core:** remove optional namespacing
+
+### ♻️ Refactor
+
+- **core:** add typing and improve config comments ([21b657d](https://github.com/wwnorton/design-system/commit/21b657d4a629449556d6a3ab7c850b85272b3f6f))
+- **core:** change "utilities" to "helpers" ([7109a44](https://github.com/wwnorton/design-system/commit/7109a44f0d2f63bb9063e0c87403bc888bfab780))
+- **core:** make device tokens overrideable ([1a46ce9](https://github.com/wwnorton/design-system/commit/1a46ce9ecfff1f12c8b25484cf407e61bb4c0a6d))
+- **core:** remove device tokens ([d37659b](https://github.com/wwnorton/design-system/commit/d37659bbd658455f9e90c55664130a7a8694ba9b))
+- **core:** simplify structure and api ([88b4a2d](https://github.com/wwnorton/design-system/commit/88b4a2d77763f42a71c53bd6089398ff68ebbb04))
+- **core:** swap root/src entrypoints ([984c943](https://github.com/wwnorton/design-system/commit/984c94311eb125b6ceb4b275a5c2980f080cb4c9))
+- **core:** update components to use new api ([568a2a2](https://github.com/wwnorton/design-system/commit/568a2a2cc9745e87f06b68468bd639f3d698fd85))
+- **core:** update main export to use helpers/utilities ([1de7da8](https://github.com/wwnorton/design-system/commit/1de7da8c0549e39bcee0d1aab5424427584fb32c))
+- **core:** use values in media queries ([9b2befb](https://github.com/wwnorton/design-system/commit/9b2befb351448cc431b27bd52461d9143c145a2f))
+- **react:** use updated TextField in stories and tests ([3507dc2](https://github.com/wwnorton/design-system/commit/3507dc2803a2c775a2155bd3d362a18da43def0b))
+
+### 🐛 Bug Fixes
+
+- **core:** use correct default duration ([01d094b](https://github.com/wwnorton/design-system/commit/01d094b010d6ef83f72c8b0c2e910bc182a3e7d5))
+- **react:** allow >maxLength text field input ([84c97e5](https://github.com/wwnorton/design-system/commit/84c97e5f8863b0569e0561e0ac3ceabe48e9bf67)), closes [#11](https://github.com/wwnorton/design-system/issues/11)
+- **react:** correctly focus the dropdown button on close ([51ad297](https://github.com/wwnorton/design-system/commit/51ad297b6066f70c4a71c6ae8641bf4057a33086))
+- **react:** make TextField and input fully controlled ([a39ba8d](https://github.com/wwnorton/design-system/commit/a39ba8dafb74f9f5d22c6828a49c26f1a538290a))
+
+### ✨ Features
+
+- **core:** add color utilities ([57a62f2](https://github.com/wwnorton/design-system/commit/57a62f265aa806d71d2126498cf5dcc949b42c27))
+- **core:** add config for :focus-visible polyfill ([7641a2d](https://github.com/wwnorton/design-system/commit/7641a2d5d0ef7b732f510ff136c25638b8902db2))
+- **core:** add configs for link styling; remove unused configs ([acfad2b](https://github.com/wwnorton/design-system/commit/acfad2b65ef8596246563728e2c422289b8fc74b))
+- **core:** add configurable link component styles ([a8d3ff3](https://github.com/wwnorton/design-system/commit/a8d3ff34287387b45d566d15b81417ae9b980018))
+- **core:** add modal keys to spacer map ([00ae10d](https://github.com/wwnorton/design-system/commit/00ae10d4b58f900dfa148bdb0f1a24accba684f1))
+- **core:** add spacing utilities ([8f5b186](https://github.com/wwnorton/design-system/commit/8f5b1862bc570707771c1d57256b363744d807de))
+- **core:** add tokens entrypoint ([0a4990d](https://github.com/wwnorton/design-system/commit/0a4990ddd7dfde2841d4e39a1dbaad165056fd0d))
+- **core:** add tokens entrypoint ([fb83c28](https://github.com/wwnorton/design-system/commit/fb83c28d463594bef9ab5cda10eebe94ae37c0ed))
+- **core:** add utility api ([0ad9428](https://github.com/wwnorton/design-system/commit/0ad942893632c533bad9e5e2cac0657043c2d8d8))
+- **core:** remove custom property fallbacks ([a429dc1](https://github.com/wwnorton/design-system/commit/a429dc15db78f2064a2c26739c2a0068334fb6b8))
+- **core:** remove optional namespacing ([0410649](https://github.com/wwnorton/design-system/commit/04106493dff7a6c59d399e37f11e250526ee82e2))
+- **react:** add uncontrolled variant of TextField ([8cc63ca](https://github.com/wwnorton/design-system/commit/8cc63cadf36c38e1c7960291a5f59f803115b432))
+
+### 📝 Documentation
+
+- (hopefully) fix pwa resolution ([92991ab](https://github.com/wwnorton/design-system/commit/92991abcea7ee55fe1ff3e32b3b490eaceeb79da))
+- add changelog to footer ([044957a](https://github.com/wwnorton/design-system/commit/044957a155a7f85343c2961b0d14a7afa6087ded))
+- add design tokens section to color foundation ([1f02bdd](https://github.com/wwnorton/design-system/commit/1f02bdda10cf8b82652abc93e87a911951c471e9))
+- add initial accessibility foundations ([ba875e8](https://github.com/wwnorton/design-system/commit/ba875e8ee63e7296ab10c343e330c9218f89a488))
+- add initial design token foundations ([8cde973](https://github.com/wwnorton/design-system/commit/8cde973c0409371e8a01b2e387458ad7cca0d0c8))
+- add motion design tokens and `duration-scalar` docs ([f683083](https://github.com/wwnorton/design-system/commit/f683083cb58c2d42e3ed5511f20cf77f86c3ca9b))
+- add rc.0 migration guide ([1cb0ea4](https://github.com/wwnorton/design-system/commit/1cb0ea460044ab578ed4f5082781450c05743287))
+- add styling for Infima secondary alerts ([3941db1](https://github.com/wwnorton/design-system/commit/3941db1570621c463a4c8b7b8e01f797cdb602d3))
+- fix bad a11y in search ([5e931eb](https://github.com/wwnorton/design-system/commit/5e931eb0098edc37c4d3ed848ffbaf91b9c84ea1))
+- fix changelog headings ([e5b50f6](https://github.com/wwnorton/design-system/commit/e5b50f6f958d8abf9ebf9769587192836be7f901))
+- improve infima dark footer ([a350010](https://github.com/wwnorton/design-system/commit/a3500104171a16b433d0470a9e5fc725fe868074))
+- remove unnecessary word ([36d7475](https://github.com/wwnorton/design-system/commit/36d747573668241c4dac77f9edbb54919edc16d1))
+- update react readme ([84bc525](https://github.com/wwnorton/design-system/commit/84bc525878b759c34fabaa56a63597815c65f32c))
+- **core:** update core readme ([cafb97a](https://github.com/wwnorton/design-system/commit/cafb97a7260f2b0d65ec0ea2d0cad46e754fa7f8))
+- minor copy edits ([dee70c5](https://github.com/wwnorton/design-system/commit/dee70c5652b5645d793e894a7b9b3a13966c9c80)), closes [#12](https://github.com/wwnorton/design-system/issues/12)
+- re-enable link underlines ([df2d125](https://github.com/wwnorton/design-system/commit/df2d125d3c8e278226d39c745a06a83574ef641f))
+- switch to frontmatter slug ([d4f6b54](https://github.com/wwnorton/design-system/commit/d4f6b544cd82d078528c189a422dccfdb3b849a5))
+- tweak getting started structure ([48092ad](https://github.com/wwnorton/design-system/commit/48092ad18ba9d810f7913d70b42176d3688506de))
+- **fix:** set color scheme as layout effect ([a2de5f9](https://github.com/wwnorton/design-system/commit/a2de5f98e884c7e8fcb283ad5d2e8a12c76342cc))
+- **storybook:** add focus-visible polyfill ([16598ea](https://github.com/wwnorton/design-system/commit/16598ea15a54034cff295a6a180c836d02a9e0ee))
+- update main styles to use new core api ([06aa6e6](https://github.com/wwnorton/design-system/commit/06aa6e6b4d5e841738f2fffbc63b356ff87b4cfd))
+- **website:** add initial tooltip component docs ([1dcf7f6](https://github.com/wwnorton/design-system/commit/1dcf7f676dc4e97e0ba00d881adc48f76d3a2d14))
+- **website:** create a11y admonition ([911b08a](https://github.com/wwnorton/design-system/commit/911b08ab177def75bc1f0d81be388b1bffdb1010))
+
+### 🛠 Maintenance
+
+- add development browserslist ([414726c](https://github.com/wwnorton/design-system/commit/414726ca837cf72b4d0859b657b89ac0a7ffaf1e))
+- add some spellings ([47f2cdc](https://github.com/wwnorton/design-system/commit/47f2cdcc28b1b8d7a6e74d96d00bdcfc8e7ecb2e))
+- freeze eslint-config-norton at beta.0 ([35019ae](https://github.com/wwnorton/design-system/commit/35019ae7eb81536b933e34457a0580347c52776d))
+- remove empty files ([eea1aa2](https://github.com/wwnorton/design-system/commit/eea1aa2b6f6fe44b414f830c0cfa0b8ab96d9e23))
+- remove non-existent imports ([dcc00a7](https://github.com/wwnorton/design-system/commit/dcc00a772c42d8a159a50ab516f25c97b49d2539))
+- temporarily disable broken stylelint properties ([744d0d4](https://github.com/wwnorton/design-system/commit/744d0d45eb39c5b516ef5a469c7481f4bdd8e407))
+- update formatting of previous migration guide ([61d41d4](https://github.com/wwnorton/design-system/commit/61d41d4412e9ba3f007e562aefb612679a0c20ce))
+- update sassdoc groups ([0667eb9](https://github.com/wwnorton/design-system/commit/0667eb96c1782e9f56237369eda941a0354977f6))
+- update storybook core config ([1043cbb](https://github.com/wwnorton/design-system/commit/1043cbb19740210c4dc87ae89106b5a33f9725ad))
+- update stylelint and restore formerly-broken rules ([a967eaa](https://github.com/wwnorton/design-system/commit/a967eaa4d8044696b4c0c2536ef71c1216dfa145))
+- upgrade @testing-library/react to v11 ([34b71a8](https://github.com/wwnorton/design-system/commit/34b71a834c75b6d6b8588273d7cfbf87049c9e92))
+- upgrade commitlint to v11 ([7b781c7](https://github.com/wwnorton/design-system/commit/7b781c7b961f7711289da8cd617d427145748eb0))
+- upgrade gulp-postcss & add postcss ([3bc92fa](https://github.com/wwnorton/design-system/commit/3bc92fac6e55fbd6ae99cb26fdaa54f66c6cc42e))
+- upgrade ts-node to v9 ([dedf852](https://github.com/wwnorton/design-system/commit/dedf8520ddcac4b378a25e7debd93dbec13be046))
+- use full color tokens ([7807c5d](https://github.com/wwnorton/design-system/commit/7807c5d140bd8c942428b22058381abbc7f7b24a))
+- yarn upgrade ([c6fc2a0](https://github.com/wwnorton/design-system/commit/c6fc2a06655f1e3bb0f28754ecd32465d74b760f))
+- yarn upgrade typescript --latest ([0b8bcd2](https://github.com/wwnorton/design-system/commit/0b8bcd2ffda0f8c9c1eac501b362b1204e1191c0))
+- **deps-dev:** upgrade storybook ([a9dddd7](https://github.com/wwnorton/design-system/commit/a9dddd7b4873c16367ac33d4347a420b7f78c809))
+- **storybook:** clarify aria-label story ([f3ac9f6](https://github.com/wwnorton/design-system/commit/f3ac9f6137bf4b3791792a1a2f8372c7b2ff6ad2))
+
 ## [1.0.0-beta.3](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2020-08-17)
 
 ### ⚠ BREAKING CHANGES

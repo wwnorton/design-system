@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-rc.0](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.3...v1.0.0-rc.0) (2020-09-25)
+
+### ⚠ BREAKING CHANGES
+
+- **core:** role color tokens have been renamed to include the
+  `-color` suffix. See the migration guide for details.
+- **core:** the `$namespace` config option has been removed. All
+  tokens and declarations are now hard-coded with the `nds` namespace.
+- **core:** the `prop` function has been removed. Custom properties
+  are now used and declared directly.
+- **core:** remove custom property fallbacks
+- **core:** remove optional namespacing
+
+### ♻️ Refactor
+
+- **core:** add typing and improve config comments ([21b657d](https://github.com/wwnorton/design-system/commit/21b657d4a629449556d6a3ab7c850b85272b3f6f))
+- **core:** change "utilities" to "helpers" ([7109a44](https://github.com/wwnorton/design-system/commit/7109a44f0d2f63bb9063e0c87403bc888bfab780))
+- **core:** make device tokens overrideable ([1a46ce9](https://github.com/wwnorton/design-system/commit/1a46ce9ecfff1f12c8b25484cf407e61bb4c0a6d))
+- **core:** remove device tokens ([d37659b](https://github.com/wwnorton/design-system/commit/d37659bbd658455f9e90c55664130a7a8694ba9b))
+- **core:** simplify structure and api ([88b4a2d](https://github.com/wwnorton/design-system/commit/88b4a2d77763f42a71c53bd6089398ff68ebbb04))
+- **core:** swap root/src entrypoints ([984c943](https://github.com/wwnorton/design-system/commit/984c94311eb125b6ceb4b275a5c2980f080cb4c9))
+- **core:** update components to use new api ([568a2a2](https://github.com/wwnorton/design-system/commit/568a2a2cc9745e87f06b68468bd639f3d698fd85))
+- **core:** update main export to use helpers/utilities ([1de7da8](https://github.com/wwnorton/design-system/commit/1de7da8c0549e39bcee0d1aab5424427584fb32c))
+- **core:** use values in media queries ([9b2befb](https://github.com/wwnorton/design-system/commit/9b2befb351448cc431b27bd52461d9143c145a2f))
+
+### 🐛 Bug Fixes
+
+- **core:** use correct default duration ([01d094b](https://github.com/wwnorton/design-system/commit/01d094b010d6ef83f72c8b0c2e910bc182a3e7d5))
+
+### ✨ Features
+
+- **core:** add color utilities ([57a62f2](https://github.com/wwnorton/design-system/commit/57a62f265aa806d71d2126498cf5dcc949b42c27))
+- **core:** add config for :focus-visible polyfill ([7641a2d](https://github.com/wwnorton/design-system/commit/7641a2d5d0ef7b732f510ff136c25638b8902db2))
+- **core:** add configs for link styling; remove unused configs ([acfad2b](https://github.com/wwnorton/design-system/commit/acfad2b65ef8596246563728e2c422289b8fc74b))
+- **core:** add configurable link component styles ([a8d3ff3](https://github.com/wwnorton/design-system/commit/a8d3ff34287387b45d566d15b81417ae9b980018))
+- **core:** add modal keys to spacer map ([00ae10d](https://github.com/wwnorton/design-system/commit/00ae10d4b58f900dfa148bdb0f1a24accba684f1))
+- **core:** add spacing utilities ([8f5b186](https://github.com/wwnorton/design-system/commit/8f5b1862bc570707771c1d57256b363744d807de))
+- **core:** add tokens entrypoint ([0a4990d](https://github.com/wwnorton/design-system/commit/0a4990ddd7dfde2841d4e39a1dbaad165056fd0d))
+- **core:** add tokens entrypoint ([fb83c28](https://github.com/wwnorton/design-system/commit/fb83c28d463594bef9ab5cda10eebe94ae37c0ed))
+- **core:** add utility api ([0ad9428](https://github.com/wwnorton/design-system/commit/0ad942893632c533bad9e5e2cac0657043c2d8d8))
+- **core:** remove custom property fallbacks ([a429dc1](https://github.com/wwnorton/design-system/commit/a429dc15db78f2064a2c26739c2a0068334fb6b8))
+- **core:** remove optional namespacing ([0410649](https://github.com/wwnorton/design-system/commit/04106493dff7a6c59d399e37f11e250526ee82e2))
+
+### 📝 Documentation
+
+- **core:** update core readme ([cafb97a](https://github.com/wwnorton/design-system/commit/cafb97a7260f2b0d65ec0ea2d0cad46e754fa7f8))
+- add motion design tokens and `duration-scalar` docs ([f683083](https://github.com/wwnorton/design-system/commit/f683083cb58c2d42e3ed5511f20cf77f86c3ca9b))
+
 ## [1.0.0-beta.3](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2020-08-17)
 
 ### 💄 Visual
