@@ -17,9 +17,20 @@ npm i @wwnds/core
 
 And then use components and foundations in Sass or just use the full CSS stylesheet in your project.
 
+### Entry points
+
+We expose three Sass entry points:
+
+- `@wwnds/core` - the default entry point includes all abstracts, tokens, and `:root` declarations, but no other declarations.
+  - Use this if you want to use the design system in a modular fashion.
+  - Note that [this entry point may be different for sass-loader](#usage-with-sass-loader) environments.
+- `@wwnds/core/full` - the full entry point includes everything, including all component declarations.
+  - Use this if you want everything in one stylesheet and don't need it to be modular.
+- `@wwnds/core/tokens` - the design tokens and their corresponding `:root` declarations, but nothing else.
+  - Use this if you just want to use the design tokens as the building blocks for your own styles.
+
 ### Modular usage
 
-The design system was built to be modular.
 To import modular stylesheets, start by forwarding [a configured version](#configuration), which will be the basis of all modules.
 Note that the following examples may require some modification if you are using
 Webpack to bundle your Sass. See more about this in the [Usage with sass-loader](#usage-with-sass-loader) section.
@@ -31,7 +42,7 @@ Webpack to bundle your Sass. See more about this in the [Usage with sass-loader]
 );
 ```
 
-Set the reset styles, which includes the required `:root` CSS properties.
+Set the reset styles to use our reset. It's recommended to isolate this in its own stylesheet.
 
 ```scss
 // my-app/src/reset.scss
@@ -39,11 +50,6 @@ Set the reset styles, which includes the required `:root` CSS properties.
 
 // use the reset, which includes the `:root` properties plus HTML styles based on Bootstrap
 @include nds.reset;
-
-// alternatively, set just the `:root` properties.
-:root {
-	@include nds.root;
-}
 ```
 
 Use your configured version of the design system inside your modules or components.
@@ -58,14 +64,13 @@ $primary: var(--nds-cyan-60);
 @include button-style;
 
 .my-custom-button {
-	// use nds mixins
-	@include transition(color background-color);
-
-	// use nds functions
-	font-family: prop("font-family-serif");
-
+	// use @wwnds/core functions
+	font-family: sans("Proxima Nova");
 	// use custom properties directly
 	border-radius: var(--nds-radius-xl);
+
+	// use @wwnds/core mixins
+	@include sr-only;
 }
 ```
 
