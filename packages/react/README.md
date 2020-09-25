@@ -38,6 +38,7 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 For the time being, component styles are exclusively provided in `@wwnds/core` as Sass stylesheets.
 If you would like to use the default styles, simply install `@wwnds/core` alongside `@wwnds/react` and import the styles in your application.
+See [`@wwnds/core`'s documentation on modular usage](https://github.com/wwnorton/design-system/tree/main/packages/core#modular-usage) for details about how to set up your `button.module.scss`.
 
 ```sh
 npm install @wwnds/{core,react}
@@ -51,7 +52,7 @@ import ReactDOM from "react-dom";
 
 // import the React component AND the corresponding styles
 import { Button } from "@wwnds/react";
-import "@wwnds/core/src/components/button/index.scss";
+import "./button.module.scss";
 
 const App = () => {
 	return (
