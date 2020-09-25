@@ -43,8 +43,12 @@ module.exports = {
 			style: 'dark',
 			links: [
 				{
-					title: 'Guides',
+					title: 'Changes',
 					items: [
+						{
+							label: 'Changelog',
+							to: 'https://github.com/wwnorton/design-system/blob/main/CHANGELOG.md',
+						},
 						{
 							label: 'Migration',
 							to: 'docs/migration',
@@ -103,7 +107,6 @@ module.exports = {
 			'@docusaurus/preset-classic',
 			{
 				docs: {
-					homePageId: 'introduction',
 					sidebarPath: require.resolve('./sidebars.js'),
 					showLastUpdateAuthor: true,
 					showLastUpdateTime: true,

@@ -304,16 +304,16 @@ $-lh-roles: (
 ///   }
 ///
 @mixin typeset-heading($size, $height) {
+	margin-top: 0;
+	margin-bottom: spacing.spacer('block-base');
+	font-style: var(--nds-font-style-headings);
+
 	@include typeset(
 		$size: $size,
 		$height: $height,
 		$family: var(--nds-font-family-headings),
 		$weight: var(--nds-font-weight-headings),
 	);
-
-	margin-top: 0;
-	margin-bottom: spacing.spacer('block-base');
-	font-style: var(--nds-font-style-headings);
 }
 
 /// A `typeset` suitable for text that is meant to convey the top level of

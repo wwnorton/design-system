@@ -1,6 +1,5 @@
 @use '~@wwnds/core/full' as nds with (
 	$enable-dark-scheme: true,
-	$link-decoration: none,
 	$font-family-base: proxima-nova,
 );
 
@@ -20,6 +19,7 @@
 	--ifm-color-emphasis-800: var(--nds-base-color-80);
 	--ifm-color-emphasis-900: var(--nds-base-color-90);
 	--ifm-color-primary: var(--nds-primary-color);
+	--ifm-color-secondary: var(--nds-base-color-20);
 	--ifm-color-info: var(--nds-blue-60);
 	--ifm-color-success: var(--nds-success-color);
 	--ifm-color-warning: var(--nds-warning-color-lighter);
@@ -73,6 +73,12 @@ code {
 	}
 }
 
+.alert--secondary {
+	--ifm-alert-color: var(--ifm-font-color-base);
+	--ra-admonition-icon-color: var(--ifm-font-color-base);
+	--ifm-code-background: var(--ifm-color-emphasis-300);
+}
+
 .alert--info {
 	--ifm-alert-background-color: var(--ifm-color-info);
 	--ifm-alert-border-color: var(--ifm-color-info);
@@ -85,6 +91,15 @@ code {
 	[data-theme='dark'] & {
 		--ifm-alert-color: var(--ifm-font-color-base-inverse);
 	}
+}
+
+.table-of-contents__link {
+	--nds-link-decoration: none;
+}
+
+.footer--dark {
+	--ifm-footer-link-color: var(--nds-link-color);
+	--ifm-footer-color: var(--nds-text-color);
 }
 
 .families-outer {

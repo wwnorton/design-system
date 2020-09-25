@@ -12,9 +12,9 @@
 // The base styling for all fields.
 // Default: `.field`
 @mixin base {
-	@include type.ui-base;
-
 	margin-bottom: spacing.spacer('block-base');
+
+	@include type.ui-base;
 }
 
 
@@ -33,10 +33,10 @@
 // The field info's label, first child of the field info container.
 // Default: `.field__label`
 @mixin label {
-	@include type.ui-base;
-
 	margin-bottom: 0;
 	font-weight: var(--nds-font-weight-bold);
+
+	@include type.ui-base;
 
 	.nds-field__group--choice & {
 		font-weight: var(--nds-font-weight-regular);
@@ -66,10 +66,10 @@
 	--nds-field-padding-y: #{tokens.$padding-y};
 	--nds-field-offset-x: #{tokens.$offset-x};
 
-	@include type.ui-base;
-
 	position: relative;
 	display: flex;
+
+	@include type.ui-base;
 }
 
 // A "choice" modifier for the field group container.
@@ -92,14 +92,14 @@
 	}
 
 	> .nds-field__input {
-		// make it invisible
-		@include a11y.sr-only;
 
 		// still position it in the center of the visual control so that form
 		// validator tooltips will point at the right thing
 		top: calc(var(--nds-font-size-base) * #{type.lh('ui')} / 2);
 		left: calc(0.5em + 1px);
 		transform: translateX(-50%);
+		// make it invisible
+		@include a11y.sr-only;
 	}
 
 	.nds-field__label {

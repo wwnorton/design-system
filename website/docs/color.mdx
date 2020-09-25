@@ -20,6 +20,64 @@ a lighter color.
 By default, grades start at `10` and increase by increments of `10` up to `100`.
 :::
 
+## Design Tokens
+
+The Norton color system uses two types of design tokens for color:
+
+- **System** tokens, which have static (unchangeable) values for their grades.
+  - These follow a naming pattern of `nds-{family}-{grade}`, such as `nds-cyan-30`.
+- **Role** tokens, which have customizable values for their grades.
+  - These follow a naming pattern of `nds-{role}-color-{grade}`, such as `nds-primary-color-60`.
+
+### System Tokens
+
+The following chart contains every system color in the Norton color system.
+Token names (`teal-60`), values (`#1a8082`), and the maximum level of WCAG
+conformance against black and white are listed on the color swatch.
+
+<AllFamilies />
+
+### Role Tokens
+
+All color roles reference either a single system color or a family of colors.
+
+| Token                        | Usage                                                         |
+| ---------------------------- | ------------------------------------------------------------- |
+| `background-color`           | The main background color                                     |
+| `text-color`                 | The main text color                                           |
+| `text-color-inverse`         | A contrasting text color                                      |
+| `subdued-color`              | De-emphasized, muted, or subdued content                      |
+| `selection-background-color` | The background color of user-selected text (`::selection`)    |
+| `selection-text-color`       | The text color of user-selected text (`::selection`)          |
+| `focus-color`                | The color used when an element has been focused (`:focus`)    |
+| `focus-halo-inner-color`     | The inner color of the [focus halo](accessibility#focus-halo) |
+| `focus-halo-outer-color`     | The outer color of the [focus halo](accessibility#focus-halo) |
+| `primary-color`\*            | The main application color                                    |
+| `base-color`\*               | Background, border, or shadow gradients                       |
+| `disabled-color`\*           | Not currently usable, non-interactive                         |
+| `error-color`\*              | Error, danger, or incorrect                                   |
+| `success-color`\*            | Success, passing, or correct                                  |
+| `warning-color`\*            | Warning or caution                                            |
+
+\* These color tokens are part of an entire **color family** and should be customized on build by specifying a custom `${role}-family` and `${role}-grade`.
+For instance, setting `$primary-family: 'blue'` and `$primary-grade: 70` would result in `primary-color` equaling `blue-70`.
+
+In Sass, this can easily be done on use:
+
+```scss
+@use '@wwnds/core' with (
+	$primary-family: 'blue',
+	$primary-grade: 70,
+	$base-color: 'gray',
+);
+```
+
+### Color Schemes
+
+Customizing the color system's [role tokens](design-tokens#role-tokens) is one of the easiest ways to begin theming an application.
+We ships with a light color scheme and a dark color scheme, both of set default values for these tokens.
+See [the full color tokens stylesheet](https://github.com/wwnorton/design-system/blob/main/packages/core/src/color/tokens.scss) for more on how this is done.
+
 ## Accessibility
 
 The Norton color system is built to ensure consistent color contrast across all
@@ -30,13 +88,3 @@ Grades of `60` and higher will always meet [the minimum color contrast ratio for
 when used with pure white (`#fff`).
 Conversely, grades of `50` and lower will always meet WCAG AA requirements against
 pure black (`#000`).
-
-## Full Family List
-
-The following contains every color in the Norton color system.
-Token names (`teal-60`), values (`#1a8082`), and the maximum level of WCAG
-conformance against black and white are listed on the color swatch.
-In CSS, these will be available as design tokens via CSS custom properties
-prefixed with `nds-` (e.g., `--nds-teal-60`).
-
-<AllFamilies />

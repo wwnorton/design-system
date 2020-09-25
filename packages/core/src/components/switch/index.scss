@@ -26,8 +26,6 @@
 	$-padding-y: calc((var(--nds-switch-height) - var(--nds-switch-font-size)) / 2);
 	$-thumb-size: calc(var(--nds-switch-height) - var(--nds-switch-thumb-margin) * 2);
 
-	@include type.ui-xs;
-
 	position: relative;
 	display: inline-flex;
 	min-width: calc(var(--nds-switch-height) * 2 + var(--nds-switch-thumb-offset));
@@ -41,6 +39,8 @@
 	border-radius: var(--nds-radius-pill);
 	justify-content: flex-end;
 	align-items: center;
+
+	@include type.ui-xs;
 
 	&::before {
 		position: absolute;

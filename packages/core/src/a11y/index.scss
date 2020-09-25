@@ -1,7 +1,6 @@
 ////
 /// @group Accessibility
 ////
-
 @use 'sass:list';
 @use '../config';
 @use '../motion';
@@ -12,10 +11,10 @@
 /// Disable animations and transitions when either children of `.reduced-motion`
 /// or the user has specified that they prefer reduced motion on their OS.
 @mixin reduce-motion {
-	@include util.set($nds-duration-scalar: 0);
-
 	transition: none !important;
 	animation: none !important;
+
+	@include util.set($nds-duration-scalar: 0);
 }
 
 /// Screen reader only - ensure that the element is only visible to screen readers.
@@ -51,9 +50,9 @@
 /// additional mechanism, such as the `<input>`'s caret.
 /// @param {box-shadow[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
 @mixin focus-ring($current-shadows...) {
-	@include -focus(var(--nds-focus-ring), $current-shadows...);
-
 	border-color: var(--nds-focus-color);
+
+	@include -focus(var(--nds-focus-ring), $current-shadows...);
 }
 
 @mixin not-focus-visible {
