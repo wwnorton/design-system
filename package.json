@@ -52,11 +52,18 @@
       "cspell"
     ]
   },
-  "browserslist": [
-    "last 2 years",
-    "not dead",
-    "maintained node versions"
-  ],
+  "browserslist": {
+    "production": [
+      "last 2 years",
+      "not dead",
+      "maintained node versions"
+    ],
+    "default": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "ava": {
     "extensions": [
       "ts",
