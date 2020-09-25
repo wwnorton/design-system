@@ -4143,7 +4143,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin@^3.6.1", "@typescript-eslint/eslint-plugin@^3.9.0":
+"@typescript-eslint/eslint-plugin@^3.6.1":
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-3.10.1.tgz#7e061338a1383f59edc204c605899f93dc2e2c8f"
   integrity sha512-PQg0emRtzZFWq6PxBcdxRH3QIQiyFO3WCVpRL3fgj5oQS3CDs3AeAKfv4DxNhzn8ITdNJGJ4D3Qw8eAJf3lXeQ==
@@ -4166,7 +4166,7 @@
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
-"@typescript-eslint/parser@^3.6.1", "@typescript-eslint/parser@^3.9.0":
+"@typescript-eslint/parser@^3.6.1":
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-3.10.1.tgz#1883858e83e8b442627e1ac6f408925211155467"
   integrity sha512-Ug1RcWcrJP02hmtaXVS3axPPTTPnZjupqhgj+NnZ6BCkwSImWk/283347+x9wN+lqOdK9Eo3vsyiyDHgsmiEJw==
@@ -8917,22 +8917,12 @@ eslint-config-airbnb@^18.2.0:
     object.assign "^4.1.0"
     object.entries "^1.1.2"
 
-eslint-config-norton@^4.0.0-beta.0:
-  version "4.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-norton/-/eslint-config-norton-4.0.0-beta.4.tgz#396faf705a301eab1d8c8cbe6af6e6c7ade32344"
-  integrity sha512-Mc+JQCRq7A+vJatehhFKiSYbd1dxbumVMBzl/LXrha/XM4Li+O/0VnoVATEEvjOVt6KPHrq+FnV/cLw+VIp78Q==
+eslint-config-norton@4.0.0-beta.0:
+  version "4.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-norton/-/eslint-config-norton-4.0.0-beta.0.tgz#b0857b8d377d34e12c45c815155175595ad92995"
+  integrity sha512-eKRBN6uYeop+XSSbYKsxi8BP1X7P1AqZTJTGCgKCChXG2Hj2fvk+ct2mPJ6fVleeKoBdlCawi1atJO+kTUEavQ==
   dependencies:
-    "@typescript-eslint/eslint-plugin" "^3.9.0"
-    "@typescript-eslint/parser" "^3.9.0"
-    eslint-config-airbnb "^18.2.0"
-    eslint-config-prettier "^6.11.0"
-
-eslint-config-prettier@^6.11.0:
-  version "6.11.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.11.0.tgz#f6d2238c1290d01c859a8b5c1f7d352a0b0da8b1"
-  integrity sha512-oB8cpLWSAjOVFEJhhyMZh6NOEOtBVziaqdDQ86+qhDHFbZXoRTM7pNSvFRfW/W/L/LrQ38C99J5CGuRBBzBsdA==
-  dependencies:
-    get-stdin "^6.0.0"
+    eslint-config-airbnb-base "^14.2.0"
 
 eslint-import-resolver-node@^0.3.3:
   version "0.3.4"
@@ -10189,11 +10179,6 @@ get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
   integrity sha1-uWjGsKBDhDJJAui/Gl3zJXmkUP4=
-
-get-stdin@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-6.0.0.tgz#9e09bf712b360ab9225e812048f71fde9c89657b"
-  integrity sha512-jp4tHawyV7+fkkSKyvjuLZswblUtz+SQKzSWnBbii16BuZksJlU1wuBYXY75r+duh/llF1ur6oNwi+2ZzjKZ7g==
 
 get-stdin@^7.0.0:
   version "7.0.0"
