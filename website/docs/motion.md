@@ -82,21 +82,25 @@ to set your transitions, as it will automatically multiply your duration by the
 Alternatively, if you'd like to skip the `transition` function, you can multiply
 your durations by the `duration-scalar` yourself.
 
+<!-- prettier-ignore-start -->
 ```scss
 @use '@wwnds/core' as nds;
 
 .my-sidebar {
-	transition: transform calc(
-			var(--nds-duration-scalar) * var(--nds-duration-close)
-		) var(--nds-easing-standard);
+	transition:
+		transform
+		calc(var(--nds-duration-scalar) * var(--nds-duration-close))
+		var(--nds-easing-standard);
 }
 
 .my-sidebar.open {
-	transition: transform calc(
-			var(--nds-duration-scalar) * var(--nds-duration-open)
-		) var(--nds-easing-standard);
+	transition:
+		transform
+		calc(var(--nds-duration-scalar) * var(--nds-duration-open))
+		var(--nds-easing-standard);
 }
 ```
+<!-- prettier-ignore-end -->
 
 ### Reduced Motion
 

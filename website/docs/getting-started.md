@@ -49,9 +49,9 @@ Similarly, this can be used as the basis for CSS modules.
 @include nds.button-style;
 
 .my-custom-button {
-	@include nds.button-base;
-
 	background-color: var(--nds-teal-70);
+
+	@include nds.button-base;
 }
 ```
 
