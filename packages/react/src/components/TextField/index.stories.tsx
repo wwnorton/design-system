@@ -28,7 +28,6 @@ export const Default: React.FunctionComponent = () => {
 		<TextFieldUncontrolled
 			description='The default Text Field has a type of "text"'
 			disabled={boolean('Disabled', false)}
-
 			onDOMChange={action('onDOMChange')}
 			required={boolean('Required', false)}
 			validateOnChange={boolean('Validate on React change', true)}
@@ -71,11 +70,9 @@ export const ControlledEmail: React.FunctionComponent = () => {
 			description="This example won't allow you to enter vowels (don't do this in the real world)"
 			disabled={boolean('Disabled', false)}
 			type="email"
-
 			onChange={changeHandler}
 			value={value}
 			errors={errors}
-
 			onDOMChange={action('onDOMChange')}
 			required={boolean('Required', false)}
 			validateOnChange={boolean('Validate on React change', true)}
@@ -281,7 +278,6 @@ export const CustomValidation: React.FunctionComponent = () => {
 			value={value}
 			errors={errors}
 			onChange={changeHandler}
-
 			description="Change the required name in the Storybook knobs below."
 			feedback={feedback}
 			required

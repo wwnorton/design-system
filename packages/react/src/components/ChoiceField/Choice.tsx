@@ -182,16 +182,13 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 				className={inputClass}
 				errors={errors}
 				validators={validators}
-
 				aria-labelledby={labelId}
 				aria-describedby={(description) ? descId : undefined}
 				aria-invalid={!isValid}
 				aria-errormessage={(!isValid) ? errorsId : undefined}
-
 				onChange={changeHandler}
 				onDOMChange={onDOMChange}
 				onValidate={validateHandler}
-
 				required={required}
 				value={value}
 				{...inputProps}
