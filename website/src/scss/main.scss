@@ -97,6 +97,11 @@ code {
 	--nds-link-decoration: none;
 }
 
+.footer--dark {
+	--ifm-footer-link-color: var(--nds-link-color);
+	--ifm-footer-color: var(--nds-text-color);
+}
+
 .families-outer {
 	display: flex;
 }
