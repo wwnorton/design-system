@@ -21,14 +21,14 @@
 @mixin summary {
 	--nds-disclosure-padding-x: 0;
 
-	@include type.ui-base;
-
 	position: relative;
 	display: flex;
 	padding: var(--nds-disclosure-padding-y) var(--nds-disclosure-padding-x);
 	cursor: pointer;
 	background-color: var(--nds-disclosure-summary-background-color);
 	align-items: center;
+
+	@include type.ui-base;
 
 	.nds-disclosure__marker:last-child {
 		margin-left: auto;

@@ -19,8 +19,6 @@
 }
 
 @mixin content {
-	@include type.ui-sm;
-
 	position: relative;
 	z-index: 1;
 	max-width: var(--nds-tooltip-max-width);
@@ -28,6 +26,8 @@
 	color: var(--nds-text-color-inverse);
 	background-color: var(--nds-text-color);
 	border-radius: var(--nds-tooltip-border-radius);
+
+	@include type.ui-sm;
 }
 
 @mixin arrow {

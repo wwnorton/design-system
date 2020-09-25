@@ -44,8 +44,6 @@
 		// 5. Change the default tap highlight to be completely transparent in iOS.
 
 		body {
-			@include type.font-smoothing; // 1
-
 			margin: 0; // 2
 			font-family: var(--nds-font-family-base);
 			font-weight: var(--nds-font-weight-base);
@@ -54,6 +52,8 @@
 			background-color: var(--nds-background-color); // 3
 			-webkit-text-size-adjust: 100%; // 4
 			-webkit-tap-highlight-color: rgba(var(--nds-black), 0); // 5
+
+			@include type.font-smoothing; // 1
 		}
 
 		// Future-proof rule: in browsers that support :focus-visible, suppress the focus outline

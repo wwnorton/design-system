@@ -89,9 +89,9 @@
 }
 
 @mixin title {
-	@include type.heading-4;
-
 	margin: 0;
+
+	@include type.heading-4;
 
 	&:not(:last-child) {
 		padding-right: calc(var(--nds-modal-padding-x) / 2);
@@ -99,10 +99,6 @@
 }
 
 @mixin close-btn {
-	@include util.set(
-		$nds-button-color: color.family('button-color', 'base-color'),
-	);
-
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -112,6 +108,10 @@
 			calc(-50% + 0.125rem + var(--nds-modal-border-width)),
 			calc(50% - 0.5rem - var(--nds-modal-border-width))
 		);
+
+	@include util.set(
+		$nds-button-color: color.family('button-color', 'base-color'),
+	);
 }
 
 @mixin content {

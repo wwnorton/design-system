@@ -24,13 +24,13 @@
 }
 
 @mixin button {
-	@include util.set((
-		--nds-button-color: color.family('button-color', 'base-color'),
-	));
-
 	font-weight: var(--nds-font-weight-base);
 	color: var(--nds-text-color);
 	justify-content: space-between;
+
+	@include util.set((
+		--nds-button-color: color.family('button-color', 'base-color'),
+	));
 
 	.nds-icon > path {
 		transition: transform var(--nds-duration-expand) var(--nds-easing-standard);
@@ -74,8 +74,8 @@
 	font-size: var(--nds-dropdown-option-font-size);
 	line-height: var(--nds-dropdown-option-line-height);
 	cursor: default;
-	user-select: none;
 	outline: none;
+	user-select: none;
 	align-items: center;
 
 	&:hover {
