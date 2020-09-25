@@ -2,7 +2,7 @@
 title: Design Tokens
 ---
 
-We capture all of our design elements as discrete entities tokens called **design tokens**.
+We capture all of our design elements as discrete entities called **design tokens**.
 
 Design tokens have a **static name** and a **variable value**, allowing you to theme the entire design of an application with design tokens alone.
 Most design tokens have a default value assigned, which effectively represents the default theme of the Norton Design System.
