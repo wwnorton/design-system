@@ -95,3 +95,44 @@ test('the character counter doesn\'t appear until the `counterStart` threshold i
 	));
 	t.truthy(screen.getByText('7/10 characters remaining'));
 });
+
+test('a programmatically-set value overwrites the user\'s input', (t) => {
+	const CURRENT_PAGE_ID = 'current-page';
+	const TwoWayBinding = (): JSX.Element => {
+		const [pageNumber, setPageNumber] = React.useState('');
+
+		const handleChange = React.useCallback((e) => {
+			const { value } = e.target;
+			setPageNumber(value.slice(0, 6));
+		}, [setPageNumber]);
+
+		const setPageNumberTo76 = React.useCallback(() => {
+			setPageNumber('76');
+		}, [setPageNumber]);
+
+		return (
+			<div className="App">
+				<p data-testid={CURRENT_PAGE_ID}>{ pageNumber }</p>
+				<TextField value={pageNumber} onChange={handleChange} />
+				<button
+					type="button"
+					onClick={setPageNumberTo76}
+				>
+					Set page number to 76
+				</button>
+			</div>
+		);
+	};
+
+	render(<TwoWayBinding />);
+	const button = screen.getByRole('button');
+	const input = screen.getByRole('textbox');
+
+	// user input
+	fireEvent.change(input, { target: { value: '74' } });
+	t.is(screen.getByTestId(CURRENT_PAGE_ID).textContent, '74');
+
+	// change value
+	fireEvent.click(button);
+	t.is(screen.getByTestId(CURRENT_PAGE_ID).textContent, '76');
+});
