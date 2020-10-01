@@ -205,6 +205,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 				{ createFieldAddons(addonBefore) }
 				<BaseInput
 					ref={ref}
+					value={value}
 					errors={errors}
 					onDOMChange={onDOMChange}
 					onValidate={validateHandler}
