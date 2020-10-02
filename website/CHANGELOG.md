@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-rc.1](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2020-10-02)
+
+**Note:** Version bump only for package website
+
 ## [1.0.0-rc.0](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.3...v1.0.0-rc.0) (2020-09-25)
 
 ### 🛠 Maintenance
