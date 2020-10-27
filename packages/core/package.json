@@ -1,6 +1,6 @@
 {
   "name": "@wwnds/core",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "Vanilla CSS, HTML, and JavaScript implementations of the Norton Design System.",
   "keywords": [
     "component",
