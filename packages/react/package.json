@@ -1,6 +1,6 @@
 {
-  "name": "@nds/react",
-  "version": "0.9.4",
+  "name": "@wwnds/react",
+  "version": "0.9.5",
   "description": "React components for the Norton Design System.",
   "keywords": [
     "component",

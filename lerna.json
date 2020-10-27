@@ -1,21 +1,19 @@
 {
-  "version": "0.9.4",
+  "version": "0.9.5",
   "packages": ["docs", "packages/*"],
   "npmClient": "npm",
   "command": {
     "publish": {
       "allowBranch": "master",
       "conventionalCommits": true,
-      "createRelease": "gitlab",
-      "registry": "https://npm.wwnorton.com",
+      "createRelease": "github",
       "signGitCommit": true,
       "signGitTag": true
     },
     "version": {
       "allowBranch": "master",
       "conventionalCommits": true,
-      "createRelease": "gitlab",
-      "registry": "https://npm.wwnorton.com",
+      "createRelease": "github",
       "signGitCommit": true,
       "signGitTag": true
     }
