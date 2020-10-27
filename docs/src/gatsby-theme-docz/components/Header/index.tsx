@@ -3,7 +3,7 @@ import {
 	jsx, Box, Flex, useColorMode,
 } from 'theme-ui';
 import { useConfig, useCurrentDoc } from 'docz';
-import { Icon, Switch } from '@nds/react';
+import { Icon, Switch } from '@wwnds/react';
 import {
 	Edit, Menu, Sun, Moon,
 } from 'react-feather';

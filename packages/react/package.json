@@ -34,7 +34,7 @@
     "lodash.uniqueid": "^4.0.1"
   },
   "devDependencies": {
-    "@nds/core": "*"
+    "@wwnds/core": "*"
   },
   "peerDependencies": {
     "react": "^16.0.0",

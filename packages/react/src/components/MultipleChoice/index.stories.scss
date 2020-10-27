@@ -1,6 +1,6 @@
-@use '@nds/core/src/components/multiple-choice';
-@use '@nds/core/src/components/button/_mixins' as button;
-@use '@nds/core/src/globals/scss/tokens/_color-system' as color;
+@use '@wwnds/core/src/components/multiple-choice';
+@use '@wwnds/core/src/components/button/_mixins' as button;
+@use '@wwnds/core/src/globals/scss/tokens/_color-system' as color;
 
 .mc__choice.incorrect {
 	@include button.button-solid(color.$red);

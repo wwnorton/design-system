@@ -17,7 +17,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.9.2](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.9.1...v0.9.2) (2020-06-08)
 
-**Note:** Version bump only for package @nds/react
+**Note:** Version bump only for package @wwnds/react
 
 ## [0.9.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.9.0...v0.9.1) (2020-06-03)
 
@@ -33,7 +33,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.8.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.8.0...v0.8.1) (2020-05-08)
 
-**Note:** Version bump only for package @nds/react
+**Note:** Version bump only for package @wwnds/react
 
 # [0.8.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.7.0...v0.8.0) (2020-05-02)
 
@@ -70,7 +70,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.6.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.6.0...v0.6.1) (2020-03-03)
 
-**Note:** Version bump only for package @nds/react
+**Note:** Version bump only for package @wwnds/react
 
 # [0.6.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.5.1...v0.6.0) (2020-02-28)
 
@@ -136,7 +136,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.3.0](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.2.1...v0.3.0) (2019-11-27)
 
-**Note:** Version bump only for package @nds/react
+**Note:** Version bump only for package @wwnds/react
 
 ## [0.2.1](https://gitlab.com/wwnorton/platform/design-system/tree/master/packages/react/compare/v0.2.0...v0.2.1) (2019-11-07)
 
@@ -156,4 +156,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # 0.1.0 (2019-09-27)
 
-**Note:** Version bump only for package @nds/react
+**Note:** Version bump only for package @wwnds/react

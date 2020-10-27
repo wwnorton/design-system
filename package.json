@@ -11,7 +11,7 @@
     "build:core": "gulp build:core",
     "build:docs": "lerna exec --scope=nds-docs -- npm run build",
     "build:react": "gulp build:react",
-    "build:stories": "lerna exec --scope=@nds/react -- npm run build:stories",
+    "build:stories": "lerna exec --scope=@wwnds/react -- npm run build:stories",
     "coverage": "nyc --reporter=html --reporter=text npm run test",
     "dev": "gulp dev",
     "dev:core": "gulp dev:core",
@@ -26,7 +26,7 @@
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/!(package-lock)*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "publish": "lerna publish",
-    "storybook": "lerna exec --scope=@nds/react -- npm run dev:stories",
+    "storybook": "lerna exec --scope=@wwnds/react -- npm run dev:stories",
     "test": "ava"
   },
   "husky": {

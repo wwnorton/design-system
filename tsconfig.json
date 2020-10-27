@@ -24,7 +24,7 @@
     "target": "ES2015",
     "baseUrl": ".",
     "paths": {
-      "@nds/*": ["packages/*/src"]
+      "@wwnds/*": ["packages/*/src"]
     }
   },
   "references": [{ "path": "packages/core" }, { "path": "packages/react" }]
