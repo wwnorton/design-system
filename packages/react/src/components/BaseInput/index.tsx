@@ -31,6 +31,8 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 	 * of `validateOnInput`.
 	 */
 	validateOnChange?: boolean;
+	/** Indicates that a `maxLength` value should prevent input beyond the `maxLength`. */
+	maxLengthRestrictsInput?: boolean;
 	/**
 	 * A callback that will be triggered any time the DOM's `change` event is
 	 * triggered. Note that this event is different from React's `onChange`
@@ -65,6 +67,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 		// pull out maxLength because it prevents user input past the given
 		// length, which is an anti-pattern according to our usage guidelines.
 		maxLength,
+		maxLengthRestrictsInput = false,
 		onInput,
 		onDOMChange,
 		onValidate,
@@ -121,7 +124,14 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 		};
 	}, [input, domChangeHandler]);
 
-	return <input ref={setInput} onInput={inputHandler} {...attributes} />;
+	return (
+		<input
+			ref={setInput}
+			onInput={inputHandler}
+			maxLength={(maxLengthRestrictsInput) ? maxLength : undefined}
+			{...attributes}
+		/>
+	);
 });
 
 BaseInput.defaultProps = defaultProps;
