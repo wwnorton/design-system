@@ -27,7 +27,7 @@
 	align-items: center;
 
 	@include util.set(
-		$nds-button-color: color.family('button-color', tokens.$color, color.$primary-grade),
+		$nds-button-color: color.family('button-color', tokens.$color, tokens.$grade),
 	);
 	@include type.ui-base;
 
@@ -196,16 +196,15 @@
 			}
 		}
 
-		// .nds-button--primary {
-		// 	@include util.set(util.flatten((
-		// 		\$color: color.family('color', 'primary'),
-		// 	)));
-		// }
+		@each $map in color.$roles {
+			$name: map.get($map, 'name');
+			$grade: map.get($map, 'grade');
 
-		// .nds-button--base {
-		// 	@include util.set(util.flatten((
-		// 		\$color: color.family('color', 'base'),
-		// 	)));
-		// }
+			.nds-button--#{$name} {
+				@include util.set(
+					$nds-button-color: color.family('button-color', '#{$name}-color', $grade),
+				);
+			}
+		}
 	}
 }

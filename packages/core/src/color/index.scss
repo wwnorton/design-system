@@ -121,8 +121,8 @@ $roles: (
 
 /// Utility declarations for color families.
 /// @group Utilities
-@mixin color-family-utilities {
-	@include util.declare('utilities-color-families') {
+@mixin color-utilities {
+	@include util.declare('utilities-color') {
 		@each $name, $val in $families {
 			@for $g from 1 to 10 {
 				$grade: $g * 10;
@@ -136,13 +136,7 @@ $roles: (
 				}
 			}
 		}
-	}
-}
 
-/// Utility declarations for color roles.
-/// @group Utilities
-@mixin color-role-utilities {
-	@include util.declare('utilities-color-roles') {
 		@each $role in $roles {
 			$name: map.get($role, 'name');
 			$grade: map.get($role, 'grade');

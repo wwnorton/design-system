@@ -16,6 +16,7 @@
 	--nds-modal-max-width: #{tokens.$max-width-mobile};
 	--nds-modal-offset-y: #{tokens.$offset-y-mobile};
 
+	z-index: var(--nds-zindex-modal);
 	width: var(--nds-modal-width);
 	max-width: var(--nds-modal-max-width);
 	min-height: 100%;
@@ -49,6 +50,7 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
+	z-index: var(--nds-zindex-modal-backdrop);
 	overflow-y: auto;
 	background-color: rgba(0, 0, 0, var(--nds-modal-backdrop-opacity));
 

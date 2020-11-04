@@ -75,8 +75,22 @@ In Sass, this can easily be done on use:
 ### Color Schemes
 
 Customizing the color system's [role tokens](design-tokens#role-tokens) is one of the easiest ways to begin theming an application.
-We ships with a light color scheme and a dark color scheme, both of set default values for these tokens.
-See [the full color tokens stylesheet](https://github.com/wwnorton/design-system/blob/main/packages/core/src/color/tokens.scss) for more on how this is done.
+We ship default light and dark and color schemes, but you are encouraged to create your own scheme(s) to suit your needs.
+By default, the dark color scheme uses the same color families as the light scheme but simply inverts the grade scale.
+
+See the `$light-scheme` and `$dark-scheme` maps in the
+[color tokens stylesheet](https://github.com/wwnorton/design-system/blob/main/packages/core/src/color/tokens.scss)
+for a closer look at how this is accomplished.
+
+:::caution Work in progress
+The dark color scheme is still being tested and must be turned on with the `$enable-dark-scheme` flag at this time.
+
+```scss
+@use '@wwnds/core' as nds with (
+	$enable-dark-scheme: true,
+);
+```
+:::
 
 ## Accessibility
 
