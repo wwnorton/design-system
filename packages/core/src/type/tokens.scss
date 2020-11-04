@@ -9,12 +9,18 @@ $font-family-system-sans: -apple-system, BlinkMacSystemFont, avenir next, avenir
 $font-family-system-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 $font-family-system-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 
+/// The main sans serif font family. Overrides will have `$font-family-system-sans`
+/// appended as a fallback.
 $font-family-sans: () !default;
 $font-family-sans: list.append($font-family-sans, var(--nds-font-family-system-sans), 'comma');
 
+/// The main serif font family. Overrides will have `$font-family-system-serif`
+/// appended as a fallback.
 $font-family-serif: () !default;
 $font-family-serif: list.append($font-family-serif, var(--nds-font-family-system-serif), 'comma');
 
+/// The main monospace font family. Overrides will have `$font-family-system-mono`
+/// appended as a fallback.
 $font-family-mono: () !default;
 $font-family-mono: list.append($font-family-mono, var(--nds-font-family-system-mono), 'comma');
 
@@ -62,15 +68,30 @@ $line-height-4: 1.5;
 $line-height-5: 1.6;
 $line-height-6: 1.75;
 
+/* stylelint-disable no-duplicate-selectors */
 :root {
-	--nds-font-family-system-sans: #{$font-family-system-sans};
-	--nds-font-family-system-serif: #{$font-family-system-serif};
-	--nds-font-family-system-mono: #{$font-family-system-mono};
+	--nds-font-family-base: #{$font-family-base};
+	--nds-font-family-headings: #{$font-family-headings};
 	--nds-font-family-sans: #{$font-family-sans};
 	--nds-font-family-serif: #{$font-family-serif};
 	--nds-font-family-mono: #{$font-family-mono};
-	--nds-font-family-base: #{$font-family-base};
-	--nds-font-family-headings: #{$font-family-headings};
+	--nds-font-family-system-sans: #{$font-family-system-sans};
+	--nds-font-family-system-serif: #{$font-family-system-serif};
+	--nds-font-family-system-mono: #{$font-family-system-mono};
+}
+
+:root {
+	--nds-font-size-base: #{$font-size-base};
+	--nds-font-size-xs: #{$font-size-xs};
+	--nds-font-size-sm: #{$font-size-sm};
+	--nds-font-size-md: #{$font-size-md};
+	--nds-font-size-lg: #{$font-size-lg};
+	--nds-font-size-h1: #{$font-size-h1};
+	--nds-font-size-h2: #{$font-size-h2};
+	--nds-font-size-h3: #{$font-size-h3};
+	--nds-font-size-h4: #{$font-size-h4};
+	--nds-font-size-h5: #{$font-size-h5};
+	--nds-font-size-h6: #{$font-size-h6};
 	--nds-font-size-root: #{$font-size-root};
 	--nds-font-size-10: #{$font-size-10};
 	--nds-font-size-12: #{$font-size-12};
@@ -82,24 +103,19 @@ $line-height-6: 1.75;
 	--nds-font-size-32: #{$font-size-32};
 	--nds-font-size-40: #{$font-size-40};
 	--nds-font-size-48: #{$font-size-48};
-	--nds-font-size-xs: #{$font-size-xs};
-	--nds-font-size-sm: #{$font-size-sm};
-	--nds-font-size-md: #{$font-size-md};
-	--nds-font-size-lg: #{$font-size-lg};
-	--nds-font-size-h1: #{$font-size-h1};
-	--nds-font-size-h2: #{$font-size-h2};
-	--nds-font-size-h3: #{$font-size-h3};
-	--nds-font-size-h4: #{$font-size-h4};
-	--nds-font-size-h5: #{$font-size-h5};
-	--nds-font-size-h6: #{$font-size-h6};
-	--nds-font-size-base: #{$font-size-base};
+}
+
+:root {
+	--nds-font-weight-base: #{$font-weight-base};
+	--nds-font-weight-headings: #{$font-weight-headings};
 	--nds-font-weight-thin: #{$font-weight-thin};
 	--nds-font-weight-light: #{$font-weight-light};
 	--nds-font-weight-regular: #{$font-weight-regular};
 	--nds-font-weight-bold: #{$font-weight-bold};
 	--nds-font-weight-black: #{$font-weight-black};
-	--nds-font-weight-base: #{$font-weight-base};
-	--nds-font-weight-headings: #{$font-weight-headings};
+}
+
+:root {
 	--nds-line-height-1: #{$line-height-1};
 	--nds-line-height-2: #{$line-height-2};
 	--nds-line-height-3: #{$line-height-3};
