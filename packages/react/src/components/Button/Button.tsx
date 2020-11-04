@@ -7,6 +7,7 @@ import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon, IconVariant, SVGIcon } from '../Icon';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
+import { AllColors } from '../../utilities/color';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
@@ -32,6 +33,12 @@ export interface ButtonProps extends BaseButtonProps {
 	 * `aria-label`. If no `icon` is specified, this prop has no effect.
 	 */
 	iconOnly?: boolean;
+	/**
+	 * The button's color, restricted to [design system colors](https://wwnorton.github.io/design-system/docs/color),
+	 * excluding `disabled` (prefer the `disabled` prop). Note that an `undefined`
+	 * color will result in the "primary" color being used.
+	 */
+	color?: Exclude<AllColors, 'disabled'>;
 	/** A reference to the inner `<button>` element. */
 	buttonRef?: React.Ref<HTMLButtonElement>;
 	/** The base class name according to BEM conventions. */
@@ -55,6 +62,7 @@ export const Button = React.forwardRef((
 		icon,
 		iconRight,
 		iconOnly,
+		color,
 		tooltipProps,
 		iconClass = `${baseName}__icon`,
 		textClass = `${baseName}__text`,
@@ -94,6 +102,7 @@ export const Button = React.forwardRef((
 			[`${baseName}--outline`]: variant === 'outline',
 			[`${baseName}--ghost`]: variant === 'ghost',
 			[`${baseName}--icon-only`]: icon && iconOnly,
+			[`${baseName}--${color}`]: color !== undefined,
 		},
 		baseName,
 		className,
