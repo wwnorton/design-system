@@ -1,6 +1,7 @@
 @use '../../spacing';
 
 $color: 'primary-color' !default;
+$grade: 60 !default;
 $border-width: 1px !default;
 $padding-x: calc(#{spacing.spacer('button-x')} - var(--nds-button-border-width)) !default;
 $padding-y: calc(#{spacing.spacer('button-y')} - var(--nds-button-border-width)) !default;

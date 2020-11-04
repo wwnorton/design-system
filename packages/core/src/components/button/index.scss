@@ -27,7 +27,7 @@
 	align-items: center;
 
 	@include util.set(
-		$nds-button-color: color.family('button-color', tokens.$color, color.$primary-grade),
+		$nds-button-color: color.family('button-color', tokens.$color, tokens.$grade),
 	);
 	@include type.ui-base;
 
