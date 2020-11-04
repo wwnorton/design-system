@@ -32,12 +32,8 @@
 
 // Utilities - declarations that only set one property
 
-@if map.get(nds.$utilities, 'color-families') {
-	@include nds.color-family-utilities;
-}
-
-@if map.get(nds.$utilities, 'color-roles') {
-	@include nds.color-role-utilities;
+@if map.get(nds.$utilities, 'color') {
+	@include nds.color-utilities;
 }
 
 @if map.get(nds.$utilities, 'spacing') {

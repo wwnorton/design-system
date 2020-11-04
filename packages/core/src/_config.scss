@@ -31,8 +31,7 @@ $enable-helpers: true !default;
 
 /// The default map of utilities for reference. All utilities are disabled by default.
 $-default-utilities: (
-	'color-families': false,
-	'color-roles': false,
+	'color': false,
 	'spacing': false,
 );
 
