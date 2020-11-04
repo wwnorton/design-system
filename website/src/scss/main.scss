@@ -1,6 +1,7 @@
+@use 'sass:meta';
 @use '~@wwnds/core/full' as nds with (
 	$enable-dark-scheme: true,
-	$font-family-base: proxima-nova,
+	$font-family-sans: proxima-nova,
 );
 
 // Proxima Nova
@@ -149,4 +150,58 @@ a.nds-button {
 
 .nds-dropdown__option {
 	margin-top: 0 !important;
+}
+
+// TODO: support utilities like these in the design system
+@mixin create-utility($items, $prefix, $property, $important: true) {
+	@each $item in $items {
+		$name: '';
+		$value: '';
+
+		@if meta.type-of($item) == 'string' {
+			$name: $item;
+			$value: var(--nds-#{$property}-#{$item});
+		}
+
+		@if meta.type-of($item) == 'list' {
+			$name: list.nth($item, 1);
+			$value: list.nth($item, 2);
+		}
+
+		@if meta.type-of($item) == 'map' {
+			$name: map.get($item, 'name');
+			$value: map.get($item, 'value');
+		}
+
+		.#{$prefix}-#{$name} {
+			#{$property}: $value if($important, !important, '');
+		}
+	}
+}
+
+@include create-utility((
+	'system-sans', 'system-serif', 'system-mono',
+	'sans', 'serif', 'mono', 'base', 'headings',
+), 'ff', 'font-family');
+
+// font-size
+@include create-utility((
+	'10', '12', '14', '16', '18', '20', '24', '32', '40', '48',
+	'base', 'xs', 'sm', 'md', 'lg',
+	'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+), 'fs', 'font-size');
+
+@each $size in ('xs', 'sm', 'md', 'lg', 'base') {
+	.body-#{$size} {
+		@include nds.typeset(
+			$size: var(--nds-font-size-#{$size}),
+		);
+	}
+
+	.ui-#{$size} {
+		@include nds.typeset(
+			$size: var(--nds-font-size-#{$size}),
+			$height: var(--nds-line-height-3),
+		);
+	}
 }
