@@ -3,9 +3,6 @@ import { Story } from '@storybook/react';
 import { Button, IconButton, ButtonProps } from '.';
 import { IconButtonProps } from './IconButton';
 import { IconOptions } from '../Icon';
-import { prefix } from '../../config';
-
-const baseName = prefix('button');
 
 export default {
 	title: 'Button',
@@ -27,24 +24,6 @@ export default {
 			control: {
 				type: 'select',
 				options: { None: undefined, ...IconOptions },
-			},
-		},
-		className: {
-			name: 'color modifier (className)',
-			control: {
-				type: 'select',
-				options: {
-					None: undefined,
-					Blue: `${baseName}--blue`,
-					Cyan: `${baseName}--cyan`,
-					Gray: `${baseName}--gray`,
-					Green: `${baseName}--green`,
-					Navy: `${baseName}--navy`,
-					Purple: `${baseName}--purple`,
-					Red: `${baseName}--red`,
-					Teal: `${baseName}--teal`,
-					Yellow: `${baseName}--yellow`,
-				},
 			},
 		},
 	},
