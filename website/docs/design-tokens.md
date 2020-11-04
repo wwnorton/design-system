@@ -69,3 +69,25 @@ A **component** token is scoped to a specific component.
 - Component token names generally follow the pattern of `{component}-{property}`, where `component` is the name of the component and `property` captures the CSS property where the token is used.
   - Examples: `button-border-width` or `tooltip-offset-y`.
 - Component tokens can and should be used directly when creating custom components based on a Norton Design System component.
+
+## Token Conventions
+
+In addition to the system of inheritance that our design tokens use, we follow a few key conventions that help you to better understand how to use them in your application.
+
+### Base Tokens
+
+Base tokens always have the `-base` suffix, denoting that they are used as the default value for the corresponding property across the application.
+Customizing these will have the most wide-ranging impact on the design language of your application.
+
+```scss title="Example: custom base border-radius"
+@use '@wwnds/core' as nds with (
+	$radius-base: var(--nds-radius-lg),
+);
+
+// buttons, text fields, and other inline components will all have more rounded corners
+```
+
+### T-Shirt Sizing
+
+For tokens that fall on a linear scale such as font size, we sometimes use t-shirt sizing suffixes of `-xs`, `-sm`, `-md`, and `-lg` to capture a normalized subset of values.
+Customizing these will allow you to change the sense of scale across your application.
