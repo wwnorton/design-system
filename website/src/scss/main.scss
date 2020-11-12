@@ -58,6 +58,10 @@ code {
 	border-radius: var(--nds-radius-sm);
 }
 
+td code {
+	white-space: pre;
+}
+
 .anchor[aria-hidden='true']:focus {
 	box-shadow: none;
 }
