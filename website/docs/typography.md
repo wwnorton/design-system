@@ -34,36 +34,35 @@ The default typeset, which is used as the default [body typeset](#body-typesets)
 Used for content, the body typesets are typically set at the document body to define the defaults for most content.
 They always use a font family of `font-family-base` and a line height of `line-height-base`.
 
-:::note Body Typesets
-| `body-xs` | `body-sm` | `body-md` | `body-lg` |
-| -- | -- | -- | -- |
+| `body-xs`                                                                            | `body-sm`                                                                            | `body-md`                                                                            | `body-lg`                                                                            |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | <div class="body-xs">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="body-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="body-md">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="body-lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> |
 
 Additionally, the `body-base` typeset uses the base font size token (`font-size-base`).
-:::
 
 ### UI Typesets
 
 Used for user interface elements where text doesn't typically reflow, the UI typesets have a smaller default line height than body typesets.
 They always use a font family of `font-family-base` and a line height of `line-height-3`.
 
-:::note UI Typesets
-| `ui-xs` | `ui-sm` | `ui-md` | `ui-lg` |
-| -- | -- | -- | -- |
+| `ui-xs`                                                                            | `ui-sm`                                                                            | `ui-md`                                                                            | `ui-lg`                                                                            |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | <div class="ui-xs">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="ui-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="ui-md">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="ui-lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> |
 
 Additionally, the `ui-base` typeset uses the base font size token (`font-size-base`).
-:::
 
 ### Heading Typesets
 
 Used to convey hierarchy, the heading typesets create greater vertical separation while still adhering to a consistent vertical rhythm.
 
-:::note Heading Typesets
-| `heading-xs` | `heading-sm` | `heading-md` | `heading-lg` |
-| -- | -- | -- | -- |
-| <div class="heading-xs">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="heading-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="heading-md">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> | <div class="heading-lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div> |
-:::
+| Heading     | Example                                     |
+| ----------- | ------------------------------------------- |
+| `heading-1` | <div class="h1">Lorem ipsum dolor sit</div> |
+| `heading-2` | <div class="h2">Lorem ipsum dolor sit</div> |
+| `heading-3` | <div class="h3">Lorem ipsum dolor sit</div> |
+| `heading-4` | <div class="h4">Lorem ipsum dolor sit</div> |
+| `heading-5` | <div class="h5">Lorem ipsum dolor sit</div> |
+| `heading-6` | <div class="h6">Lorem ipsum dolor sit</div> |
 
 ## Font Family
 
