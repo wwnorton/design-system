@@ -10,7 +10,7 @@ type FeatureProps = {
 	title: string;
 	imageUrl?: string;
 	description?: React.ReactNode;
-}
+};
 
 const features: FeatureProps[] = [
 	{
@@ -97,6 +97,7 @@ const Home = (): JSX.Element => {
 						<div className="container">
 							<div className="row">
 								{features.map((p) => (
+									/* eslint-disable-next-line react/jsx-props-no-spreading */
 									<Feature key={p.title} {...p} />
 								))}
 							</div>

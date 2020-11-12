@@ -1,5 +1,6 @@
 import React from 'react';
 
+/* eslint-disable react/jsx-props-no-spreading */
 export const Seagull = (props: React.SVGAttributes<SVGSVGElement>): JSX.Element => (
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 30" {...props}>
 		<title>W. W. Norton &amp; Company</title>

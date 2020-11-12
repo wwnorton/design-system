@@ -19,9 +19,10 @@ export class Config implements NDSConfig {
 	public static readonly defaults: Required<NDSConfig> = {
 		namespace: 'nds',
 		colorScheme: 'light',
-	}
+	};
 
 	public namespace: string | null = Config.defaults.namespace;
+
 	public colorScheme: 'light' | 'dark' = Config.defaults.colorScheme;
 
 	public constructor() {
@@ -32,7 +33,7 @@ export class Config implements NDSConfig {
 	public prefix = (val: string, delimiter = '-'): string => {
 		if (!this.namespace || val.startsWith(this.namespace + delimiter)) return val;
 		return this.namespace + delimiter + val;
-	}
+	};
 }
 
 // Global configuration

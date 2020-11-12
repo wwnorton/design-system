@@ -14,7 +14,7 @@ export type ModalAnatomy =
 	| 'title'
 	| 'closeButton'
 	| 'content'
-	| 'actionBar'
+	| 'actionBar';
 
 export interface ModalProps extends BaseDialogProps {
 	/** Indicates whether the Modal dialog is open. */
@@ -112,6 +112,7 @@ export interface ModalSnapshot {
  */
 export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	public static bemBase = 'modal';
+
 	public static bemElements: Record<ModalAnatomy, string> = {
 		portal: 'portal',
 		backdrop: 'backdrop',
@@ -120,16 +121,24 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		closeButton: 'close',
 		content: 'content',
 		actionBar: 'actionbar',
-	}
+	};
 
 	private baseName: string;
+
 	private id: string;
+
 	private titleId: string;
+
 	private portalNode: HTMLElement;
+
 	private dialog: HTMLDivElement | null = null;
+
 	private header: HTMLElement | null = null;
+
 	private content: HTMLElement | null = null;
+
 	private footer: HTMLElement | null = null;
+
 	/** A watcher to detect when the header/footer move off screen. */
 	private stickyObserver: IntersectionObserver | null = null;
 
@@ -139,7 +148,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		hideTitle: false,
 		closeOnBackdropClick: true,
 		closeOnEscape: true,
-	}
+	};
 
 	constructor(props: ModalProps) {
 		super(props);
@@ -401,23 +410,23 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 
 	private open = (): void => {
 		this.setState({ isOpen: true, trigger: document.activeElement as HTMLElement });
-	}
+	};
 
 	public close = (): void => {
 		this.setState({ isOpen: false });
-	}
+	};
 
 	public requestClose = (): void => {
 		const { onRequestClose } = this.props;
 		if (onRequestClose) onRequestClose();
-	}
+	};
 
 	private updateLength = (): void => {
 		if (this.dialog) {
 			const long = this.dialog.offsetHeight > window.innerHeight - 80;
 			this.setState({ long, stuckFooter: long });
 		}
-	}
+	};
 
 	private onBackdropClick = (
 		{ nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -430,7 +439,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		) {
 			this.requestClose();
 		}
-	}
+	};
 
 	private onDocumentKeydown = (e: KeyboardEvent): void => {
 		const { closeOnEscape } = this.props;
@@ -463,7 +472,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 				e.preventDefault();
 			}
 		}
-	}
+	};
 
 	private createPortalNode(): HTMLDivElement {
 		const {

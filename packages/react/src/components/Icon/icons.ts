@@ -50,7 +50,7 @@ export type IconVariant =
 	| 'star'
 	| 'star-outline'
 	| 'subdirectory-left'
-	| 'subdirectory-right'
+	| 'subdirectory-right';
 
 export const viewBox = '0 0 24 24';
 

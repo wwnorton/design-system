@@ -23,7 +23,7 @@ const PropRow = ({
 
 type PropsTableProps = {
 	from: typeof React.Component & { __docgenInfo: ComponentDoc; };
-}
+};
 
 export const PropsTable = ({ from: component }: PropsTableProps): JSX.Element | null => {
 	if (!('__docgenInfo' in component)) return null;
@@ -31,6 +31,7 @@ export const PropsTable = ({ from: component }: PropsTableProps): JSX.Element | 
 	const { displayName, props } = component.__docgenInfo;
 	const propMap = Object.keys(props).map((prop) => {
 		const propItem = props[prop];
+		/* eslint-disable-next-line react/jsx-props-no-spreading */
 		return <PropRow key={propItem.name} {...propItem} />;
 	});
 	return (

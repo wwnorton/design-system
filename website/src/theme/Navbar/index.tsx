@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+/* eslint-disable react/jsx-props-no-spreading */
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

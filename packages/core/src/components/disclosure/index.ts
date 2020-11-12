@@ -40,15 +40,23 @@ export interface DisclosureOptions {
 
 export class Disclosure {
 	public static foo = 'foo';
+
 	public details: HTMLDetailsElement;
+
 	public container: HTMLDivElement = document.createElement('div');
+
 	public contents: HTMLElement | null = null;
+
 	public contentsHeight = 0;
+
 	public options: DisclosureOptions;
+
 	public enabled = false;
+
 	public bindings: [DisclosureEvent, EventListener][] = [];
 
 	private initialContainerStyle?: string;
+
 	private internalState: DisclosureState = 'closed';
 
 	public static customEvents: DisclosureEvent[] = [
@@ -58,7 +66,7 @@ export class Disclosure {
 		'openstart',
 		'opencancel',
 		'openend',
-	]
+	];
 
 	public static defaultOptions: DisclosureOptions = {
 		containerClass: 'disclosure__container',
@@ -67,7 +75,7 @@ export class Disclosure {
 		updateOnResize: true,
 		openingClass: 'opening',
 		closingClass: 'closing',
-	}
+	};
 
 	/**
 	 * The time in milliseconds to delay when recalculating the contents height
@@ -151,7 +159,7 @@ export class Disclosure {
 				this.emit('openstart');
 			}
 		}
-	}
+	};
 
 	private onTransitionend = async (): Promise<void> => {
 		// was closing -> finish close
@@ -164,12 +172,12 @@ export class Disclosure {
 			await this.setState('open');
 			this.emit('openend');
 		}
-	}
+	};
 
 	private onToggle = (): void => {
 		if (this.isOpen && this.state === 'closed') this.setState('opening');
 		if (!this.isOpen && this.state !== 'closed') this.setState('closed');
-	}
+	};
 
 	private onWindowresize = debounce(() => {
 		this.removeHeight();
@@ -180,7 +188,7 @@ export class Disclosure {
 		if (this.state === 'closing') {
 			this.setHeight(0);
 		}
-	}, Disclosure.RESIZE_DEBOUNCE_DELAY)
+	}, Disclosure.RESIZE_DEBOUNCE_DELAY);
 
 	public get isOpen(): HTMLDetailsElement['open'] {
 		return this.details.open;

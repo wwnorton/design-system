@@ -181,7 +181,7 @@ export const BaseListbox = React.forwardRef(({
 				className={optionClass}
 				markerClass={markerClass}
 				contentsClass={contentsClass}
-				isSelected={selected.includes(value as React.ReactText)}
+				isSelected={selected.includes(value)}
 				tabIndex={(i === focused) ? 0 : -1}
 				onClick={onClick({ value, contents })}
 				onKeyDown={onKeyDown({ value, contents })}

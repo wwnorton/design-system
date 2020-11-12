@@ -34,6 +34,7 @@ module.exports = {
 			files: ['*.stories.tsx'],
 			rules: {
 				'import/no-default-export': 'off',
+				'react/jsx-props-no-spreading': 'off'
 			},
 		},
 		// MDX

@@ -110,7 +110,7 @@ const matchRefWidth: Modifier<'matchRefWidth', unknown> = {
 
 type DropdownType = React.FunctionComponent<DropdownProps> & {
 	Option: typeof BaseListbox['Option'];
-}
+};
 
 export const Dropdown: DropdownType = ({
 	label,

@@ -27,7 +27,7 @@ type ChoiceFieldInterface =
 React.ForwardRefExoticComponent<ChoiceFieldProps & React.RefAttributes<HTMLFieldSetElement>> & {
 	Choice: typeof Choice;
 	Choices: typeof Choices;
-}
+};
 
 export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProps>(({
 	// options

@@ -12,7 +12,7 @@ export type Triggers =
 	| 'focusin'
 	| 'manual'
 	| 'mouseenter'
-	| 'pointerenter'
+	| 'pointerenter';
 
 type TooltipPicks =
 	| 'placement'
@@ -20,7 +20,7 @@ type TooltipPicks =
 	| 'strategy'
 	| 'onFirstUpdate'
 	| 'hideDelay'
-	| 'trigger'
+	| 'trigger';
 
 export type TooltipCoreProps = Pick<TooltipProps, TooltipPicks>;
 
