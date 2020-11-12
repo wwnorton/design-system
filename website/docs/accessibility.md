@@ -48,7 +48,7 @@ The focus ring is more akin to the typical focus outline seen on the web.
 It contains a `2px` ring with a color of `focus-color`.
 
 It is used in situations where some other focus affordance is included.
-Most notably, this is seen in `<input>` fields, which provide an additional indication of focus via the [insertion caret](https://developer.mozilla.org/en-US/docs/Web/CSS/caret-color).
+Most notably, this is seen in `<input>` fields, which provide an additional indication of focus via the [insertion caret](https://developer.mozilla.org/en-US/docs/Glossary/caret).
 
 :::note Example: focus ring
 To see the focus ring in action, tab to the following text field.
