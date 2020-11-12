@@ -8,10 +8,9 @@ for motion. All motion tokens and utilities are available in the `@wwnds/core` l
 
 ## Design Tokens
 
-<!--
-| Token                      | Value                          | Usage                                                                                            |
+| Token                      | Default Value                  | Usage                                                                                            |
 | -------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `duration-scalar`\*        | `1`                            | a multiplier used for increasing/decreasing all motion speed                                     |
+| `duration-scalar`[^1]      | `1`                            | a multiplier used for increasing/decreasing all motion speed                                     |
 | `duration-simple`          | `100ms`                        | simple animations such as selection controls                                                     |
 | `duration-simple-enter`    | `150ms`                        | simple entrances such as fade-ins                                                                |
 | `duration-simple-exit`     | `75ms`                         | simple exits such as fade-outs                                                                   |
@@ -30,31 +29,8 @@ for motion. All motion tokens and utilities are available in the `@wwnds/core` l
 | `easing-deceleration`      | `cubic-bezier(0, 0, 0.2, 1)`   | incoming elements that end at rest                                                               |
 | `easing-acceleration`      | `cubic-bezier(0.4, 0, 1, 1)`   | elements that begin at rest and exit the screen                                                  |
 | `easing-sharp`             | `cubic-bezier(0.4, 0, 0.6, 1)` | elements that temporarily exit                                                                   |
--->
 
-| Token                      | Usage                                                                                            |
-| -------------------------- | ------------------------------------------------------------------------------------------------ |
-| `duration-scalar`\*        | a multiplier used for increasing/decreasing all motion speed                                     |
-| `duration-simple`          | simple animations such as selection controls                                                     |
-| `duration-simple-enter`    | simple entrances such as fade-ins                                                                |
-| `duration-simple-exit`     | simple exits such as fade-outs                                                                   |
-| `duration-complex`         | complex animations such as shape changes                                                         |
-| `duration-detailed`        | detailed animations such as icon transformations                                                 |
-| `duration-open`            | elements that open from a closed state, such as a sidebar                                        |
-| `duration-close`           | elements that close from an opened state, such as a sidebar                                      |
-| `duration-expand`          | used when an element expands (grows)                                                             |
-| `duration-collapse`        | used when an element collapses (shrinks)                                                         |
-| `duration-small`           | elements with small transition areas, such as icons and selection controls, have short durations |
-| `duration-medium-expand`   | expanding elements with larger transition areas, such as bottom sheets and expanding chips       |
-| `duration-medium-collapse` | collapsing elements with larger transition areas, such as bottom sheets and expanding chips      |
-| `duration-large-expand`    | expanding elements that traverse a large portion of the screen                                   |
-| `duration-large-collapse`  | collapsing elements that traverse a large portion of the screen                                  |
-| `easing-standard`          | elements that begin and end at rest                                                              |
-| `easing-deceleration`      | incoming elements that end at rest                                                               |
-| `easing-acceleration`      | elements that begin at rest and exit the screen                                                  |
-| `easing-sharp`             | elements that temporarily exit                                                                   |
-
-\* The `duration-scalar` token is not part of Material Design's motion system.
+[^1]: The `duration-scalar` token is not part of Material Design's motion system.
 
 ## Duration Scalar
 
