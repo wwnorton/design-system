@@ -199,7 +199,7 @@ $subdued-color: var(--nds-base-color-60) !default;
 /// The background color for the `::selection` state.
 $selection-background-color: var(--nds-primary-color) !default;
 /// The text color for the `::selection` state.
-$selection-text-color: var(--nds-background-color) !default;
+$selection-text-color: var(--nds-text-color-inverse) !default;
 /// The color used for the `:focus` state.
 $focus-color: var(--nds-blue-50) !default;
 /// The color of the inner ring for the focus halo. Used to visually offset the
