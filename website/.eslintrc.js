@@ -19,5 +19,13 @@ module.exports = {
 				'react/require-default-props': 'off',
 			},
 		},
+		{
+			files: ['*.mdx'],
+			rules: {
+				'import/no-unresolved': 'off',
+				'import/extensions': 'off',
+				'react-hooks/rules-of-hooks': 'off'
+			}
+		}
 	],
 };
