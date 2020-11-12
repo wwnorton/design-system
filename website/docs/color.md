@@ -80,7 +80,6 @@ For example, setting `$primary-family` to `"purple"` and `$primary-grade` to `70
 
 <div class="example-shade">
 
-
 | Shade                   | Value                                   |
 | ----------------------- | --------------------------------------- |
 | `primary-color-lighter` | <ColorChip>primary-color-50</ColorChip> |
@@ -101,7 +100,6 @@ For example, setting `$primary-family` to `"purple"` and `$primary-grade` to `70
 
 </div>
 
-
 In Sass, these options can be configured globally on use:
 
 ```scss
@@ -119,7 +117,6 @@ Or you can apply them with the provided Sass utilities:
 .my-purple-element {
 	// .set() applies a list or map of values as CSS custom properties
 	@include nds.set(
-		// .family() creates a full color map
 		$nds-primary-color: nds.family("primary-color", "purple", 70)
 	);
 }
