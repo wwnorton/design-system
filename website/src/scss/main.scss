@@ -209,3 +209,13 @@ a.nds-button {
 		);
 	}
 }
+
+@for $l from 1 through 6 {
+	.h#{$l} {
+		@include nds.typeset-heading(
+			$size: var(--nds-font-size-h#{$l}),
+			$height: lh('h#{$l}'),
+		);
+	}
+}
+
