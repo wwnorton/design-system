@@ -208,7 +208,7 @@ $focus-halo-inner-color: var(--nds-background-color) !default;
 /// The color of the outer ring for the focus halo.
 $focus-halo-outer-color: var(--nds-focus-color) !default;
 
-$scheme-light: (
+$-scheme-light-default: (
 	--nds-background-color: #{$background-color},
 	--nds-text-color: #{$text-color},
 	--nds-text-color-inverse: #{$text-color-inverse},
@@ -226,9 +226,11 @@ $scheme-light: (
 	--nds-error-color: color.family('error-color', color.$error-family, color.$error-grade),
 	--nds-success-color: color.family('success-color', color.$success-family, color.$success-grade),
 	--nds-warning-color: color.family('warning-color', color.$warning-family, color.$warning-grade),
-) !default;
+);
+$scheme-light: () !default;
+$scheme-light: map.merge($-scheme-light-default, $scheme-light);
 
-$scheme-dark: (
+$-scheme-dark-default: (
 	--nds-background-color: var(--nds-base-color-10),
 	--nds-primary-color: color.family('primary-color', color.$primary-family, color.$primary-grade, true),
 	--nds-base-color: color.family('base-color', color.$base-family, color.$base-grade, true),
@@ -236,7 +238,9 @@ $scheme-dark: (
 	--nds-error-color: color.family('error-color', color.$error-family, color.$error-grade, true),
 	--nds-success-color: color.family('success-color', color.$success-family, color.$success-grade, true),
 	--nds-warning-color: color.family('warning-color', color.$warning-family, color.$warning-grade, true),
-) !default;
+);
+$scheme-dark: () !default;
+$scheme-dark: map.merge($-scheme-dark-default, $scheme-dark);
 
 @mixin dark-scheme {
 	@include util.set($scheme-dark);
