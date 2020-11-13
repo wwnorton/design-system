@@ -14,6 +14,7 @@
     "typescript"
   ],
   "ignorePaths": [
+    "node_modules",
     "**/(CHANGELOG).md",
     "**/*.d.ts",
     "**/dist/**",
