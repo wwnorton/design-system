@@ -3,7 +3,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { default: ReactDocgenTypescriptPlugin } = require('react-docgen-typescript-plugin');
 
 module.exports = () => ({
-	name: 'plugin-typescript',
+	name: 'plugin-nds',
 	configureWebpack: () => ({
 		module: {
 			rules: [
@@ -31,4 +31,16 @@ module.exports = () => ({
 			plugins: [new TsconfigPathsPlugin()],
 		},
 	}),
+	injectHtmlTags() {
+		return {
+			headTags: [
+				{
+					tagName: 'script',
+					attributes: {
+						src: 'https://unpkg.com/focus-visible',
+					},
+				},
+			],
+		};
+	},
 });
