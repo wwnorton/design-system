@@ -14,6 +14,7 @@ if you would like to contribute.
 believe that focusing on accessibility at the outset improves usability for everyone.
 
 :::note Tips
+
 This is similar to the principle of mobile-first design, where designing first for
 the constraints of a smaller screen ensures that users won't lose information when
 using mobile devices.
@@ -26,7 +27,8 @@ using mobile devices.
   non-linear experience of mouse users.
 - **Developers**: [use ARIA sparingly and carefully](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria),
   but treat ARIA attributes as your source of truth for everyone whenever possible.
-  :::
+
+:::
 
 ## Don't overwhelm
 
@@ -43,4 +45,5 @@ products built with the design system.
 - Avoid extraneous cognitive load&mdash;the user should be challenged by challenging
   content, not a challenging interface.
 - **Developers**: be wary of abstractions that reduce code readability and maintainability.
-  :::
+
+:::

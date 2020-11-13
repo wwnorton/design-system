@@ -160,3 +160,20 @@ export const AllFamilies = (): JSX.Element => {
 		</>
 	);
 };
+
+export const ColorChip = ({ children }: { children: string; }): JSX.Element => {
+	const colorValue = React.useMemo(() => {
+		if (['#', 'rgb'].some((v) => children.startsWith(v))) return children;
+		const token = (children.startsWith('nds')) ? children : `nds-${children}`;
+		return `var(--${token})`;
+	}, [children]);
+
+	return (
+		<code>
+			<span className="color-chip">
+				<span style={{ backgroundColor: colorValue }} />
+			</span>
+			{ children }
+		</code>
+	);
+};

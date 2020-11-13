@@ -23,10 +23,10 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.61",
-    "@docusaurus/plugin-pwa": "^2.0.0-alpha.61",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.61",
-    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.61",
+    "@docusaurus/core": "^2.0.0-alpha.66",
+    "@docusaurus/plugin-pwa": "^2.0.0-alpha.66",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.66",
+    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.66",
     "@mdx-js/react": "^1.5.8",
     "@wwnds/core": "^1.0.0-rc.0",
     "@wwnds/react": "^1.0.0-rc.1",

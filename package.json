@@ -90,7 +90,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@docusaurus/module-type-aliases": "^2.0.0-alpha.61",
+    "@docusaurus/module-type-aliases": "^2.0.0-alpha.66",
     "@storybook/addon-a11y": "^6.0.21",
     "@storybook/addon-actions": "^6.0.21",
     "@storybook/addon-essentials": "^6.0.21",

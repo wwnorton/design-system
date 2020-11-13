@@ -36,11 +36,11 @@ Using the focus halo for most elements ensures a few things that are key to a we
 
 - Color contrast can always be assured against both the background and the element's background.
 - It is more visually apparent than a normal outline.
-   - Focus cannot be visually tracked from point to point like mouse movement can, so it needs to be more visually obvious than most visual elements on a page.
+  - Focus cannot be visually tracked from point to point like mouse movement can, so it needs to be more visually obvious than most visual elements on a page.
 - It meets [WCAG 2.2 Focus Appearance (Enhanced)](https://www.w3.org/TR/WCAG22/#focus-appearance-enhanced) under most circumstances by including the following:
-   - A focus indication area of `2px` + a `1px` offset.
-   - High contrast between the background color and the element's color under nearly every scenario.
-   - A high on-focus `z-index` to ensure that it is never obscured by other content.
+  - A focus indication area of `2px` + a `1px` offset.
+  - High contrast between the background color and the element's color under nearly every scenario.
+  - A high on-focus `z-index` to ensure that it is never obscured by other content.
 
 ### Focus ring
 
@@ -48,7 +48,7 @@ The focus ring is more akin to the typical focus outline seen on the web.
 It contains a `2px` ring with a color of `focus-color`.
 
 It is used in situations where some other focus affordance is included.
-Most notably, this is seen in `<input>` fields, which provide an additional indication of focus via the [insertion caret](https://developer.mozilla.org/en-US/docs/Web/CSS/caret-color).
+Most notably, this is seen in `<input>` fields, which provide an additional indication of focus via the [insertion caret](https://developer.mozilla.org/en-US/docs/Glossary/caret).
 
 :::note Example: focus ring
 To see the focus ring in action, tab to the following text field.

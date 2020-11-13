@@ -131,7 +131,7 @@ module.exports = {
 	],
 	themes: ['@docusaurus/theme-live-codeblock'],
 	plugins: [
-		path.resolve(__dirname, 'plugin-typescript.js'),
+		path.resolve(__dirname, 'plugin-nds.js'),
 		'docusaurus-lunr-search',
 		[
 			'docusaurus-plugin-sass',
