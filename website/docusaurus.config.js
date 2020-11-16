@@ -136,7 +136,7 @@ module.exports = {
 		[
 			'docusaurus-plugin-sass',
 			{
-				// eslint-disable-next-line global-require
+				// eslint-disable-next-line global-require, node/no-extraneous-require
 				implementation: require('sass'),
 			},
 		],
