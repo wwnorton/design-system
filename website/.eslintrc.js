@@ -20,6 +20,15 @@ module.exports = {
 			},
 		},
 		{
+			files: ['src/theme/Navbar/index.tsx', 'src/theme/Color/index.tsx', 'src/pages/index.tsx'],
+			rules: {
+				'@typescript-eslint/no-unsafe-assignment': 'off',
+				'@typescript-eslint/no-unsafe-call': 'off',
+				'@typescript-eslint/no-unsafe-member-access': 'off',
+
+			}
+		},
+		{
 			files: ['*.mdx'],
 			rules: {
 				'import/no-unresolved': 'off',
