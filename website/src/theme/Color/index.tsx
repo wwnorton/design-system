@@ -169,7 +169,7 @@ export const ColorChip = ({ children }: { children: string; }): JSX.Element => {
 	}, [children]);
 
 	return (
-		<code>
+		<code className="no-break">
 			<span className="color-chip">
 				<span style={{ backgroundColor: colorValue }} />
 			</span>
