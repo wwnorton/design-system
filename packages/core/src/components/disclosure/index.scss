@@ -66,6 +66,7 @@
 }
 
 @mixin marker-svg {
+	min-width: 1.25rem;
 	margin-right: var(--nds-disclosure-marker-margin);
 	margin-left: var(--nds-disclosure-marker-margin);
 
