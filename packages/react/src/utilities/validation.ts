@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 /** Union of HTML elements that can be validated with this API. */
 export type ValidationElement = HTMLInputElement | HTMLTextAreaElement;
 /** All ValidityState keys except `valid`. */
@@ -212,16 +210,3 @@ export const createValidator = (
 	});
 	return Array.from(err);
 };
-
-/**
- * Creates a stateful validation function from a list of optional validation
- * entries (test and message). Default validators are included unless the second
- * parameter is `false`.
- */
-export const useValidation = (
-	validators?: ValidatorEntry[],
-	useDefaults = true,
-): ReturnType<typeof createValidator> => useCallback(
-	createValidator(validators, useDefaults),
-	[validators, useDefaults],
-);

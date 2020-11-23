@@ -7,7 +7,7 @@ import {
 } from '@storybook/addon-knobs';
 import { Checkbox, CheckboxGroup as CheckboxGroupComp } from '.';
 import { Button } from '../Button';
-import { useValidation } from '../../utilities';
+import { useValidation } from '../../hooks';
 
 export default {
 	title: 'Checkbox',
