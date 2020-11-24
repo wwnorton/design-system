@@ -129,7 +129,6 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	}: TextFieldProps, ref,
 ) => {
 	const [errors, setErrors] = React.useState(errorsProp);
-	const [remaining, setRemaining] = React.useState<number>();
 
 	// ids stored as refs since they shouldn't change between renders
 	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
@@ -137,6 +136,15 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
 	const { current: errId } = React.useRef(errIdProp || `${id}-err`);
 	const { current: inputId } = React.useRef(`${id}-input`);
+
+	const getRemaining = React.useCallback((val?: typeof value) => {
+		if (maxLength) {
+			return maxLength - (val || '').toString().length;
+		}
+		return undefined;
+	}, [maxLength]);
+	const [remaining, setRemaining] = React.useState(getRemaining(value));
+	React.useEffect(() => setRemaining(getRemaining(value)), [getRemaining, value]);
 
 	// treat prop version of errors as source of truth
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
@@ -153,10 +161,8 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	};
 
 	const changeHandler: React.InputHTMLAttributes<HTMLInputElement>['onChange'] = (e) => {
-		if (maxLength) {
-			setRemaining(maxLength - (e.target.value || '').toString().length);
-		}
 		if (onChange) onChange(e);
+		else setRemaining(getRemaining(e.target.value));
 	};
 
 	const createFieldAddons = (addons: React.ReactNode): React.ReactNode[] | null | undefined => {
