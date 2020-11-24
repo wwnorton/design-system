@@ -20,8 +20,6 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Test = (): JSX.Element => <TextField>TextField</TextField>;
-
 export const Default: React.FunctionComponent = () => {
 	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
 	return (
