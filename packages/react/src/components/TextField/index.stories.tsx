@@ -206,8 +206,6 @@ export const LoginForm: React.FunctionComponent = () => {
 		}
 	};
 
-	React.useEffect(() => console.log({ password, pwErrors }), [password, pwErrors]);
-
 	return (
 		<form className="form" onSubmit={submitHandler} onChange={changeHandler}>
 			<TextField
