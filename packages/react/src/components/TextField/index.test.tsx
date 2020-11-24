@@ -7,6 +7,7 @@ import { TextField } from '.';
 
 test.afterEach(cleanup);
 
+const noop = () => {};	// eslint-disable-line @typescript-eslint/no-empty-function
 const defaultLabel = 'Text field';
 
 // maintenance note: this is duplicated in ChoiceField/Checkbox/Radio
@@ -80,18 +81,18 @@ test('invalid input is reflected in both constraint validation and in ARIA', (t)
 });
 
 test('the character counter counts down as `value` changes when `maxLength` is defined', (t) => {
-	render(<TextField maxLength={10} value='abc'>{ defaultLabel }</TextField>);
+	render(<TextField maxLength={10} value='abc' onChange={noop}>{ defaultLabel }</TextField>);
 	t.truthy(screen.getByText('7/10 characters remaining'));
 });
 
 test('the character counter doesn\'t appear until the `counterStart` threshold is met', (t) => {
 	const { rerender } = render((
-		<TextField maxLength={10} counterStart={8}>{ defaultLabel }</TextField>
+		<TextField maxLength={10} counterStart={8} value='' onChange={noop}>{ defaultLabel }</TextField>
 	));
 	t.falsy(screen.queryByText('10/10 characters remaining'));
 
 	rerender((
-		<TextField maxLength={10} counterStart={8} value='abc'>{ defaultLabel }</TextField>
+		<TextField maxLength={10} counterStart={8} value='abc' onChange={noop}>{ defaultLabel }</TextField>
 	));
 	t.truthy(screen.getByText('7/10 characters remaining'));
 });
