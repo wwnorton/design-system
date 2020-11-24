@@ -39,8 +39,7 @@
 	.nds-field--invalid & {
 		--nds-focus-color: var(--nds-error-color);
 		--nds-focus-ring: 0 0 0 1px var(--nds-focus-color);
-
-		border-color: var(--nds-error-color);
+		--nds-textfield-border-color: var(--nds-error-color);
 	}
 
 	+ .nds-field__feedback {
