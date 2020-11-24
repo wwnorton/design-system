@@ -49,8 +49,8 @@ export const ControlledEmail: React.FunctionComponent = () => {
 	const validate = useValidation();
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		const val = e.currentTarget.value;
-		const newErrors = validate(e.currentTarget);
+		const val = e.target.value;
+		const newErrors = validate(e.target);
 		let allowValue = true;
 		if (val && ['a', 'e', 'i', 'o', 'u'].some((letter) => val.toLowerCase().includes(letter))) {
 			newErrors.push('Vowels are not allowed.');
@@ -205,6 +205,8 @@ export const LoginForm: React.FunctionComponent = () => {
 			default:
 		}
 	};
+
+	React.useEffect(() => console.log({ password, pwErrors }), [password, pwErrors]);
 
 	return (
 		<form className="form" onSubmit={submitHandler} onChange={changeHandler}>
