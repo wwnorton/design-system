@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForwardedRef, useValidation } from '../../hooks';
-import { InputType, ValidatorEntry, ValidationElement } from '../../utilities';
+import { InputType, ValidatorEntry } from '../../utilities';
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	/**
@@ -79,8 +79,30 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
 
 	const validator = useValidation(validators);
-	const validate = React.useCallback((el: ValidationElement) => {
-		const errs = validator((maxLength) ? { ...el, maxLength } : el);
+	const validate = React.useCallback(({
+		max,
+		maxLength: elMaxLength,
+		min,
+		minLength,
+		pattern,
+		required,
+		step,
+		type,
+		value,
+		validity,
+	}: HTMLInputElement) => {
+		const errs = validator({
+			max,
+			maxLength: maxLength || elMaxLength,
+			min,
+			minLength,
+			pattern,
+			required,
+			step,
+			type,
+			value,
+			validity,
+		});
 		if (onValidate) onValidate(errs);
 		if (!errorsProp) setErrors(errs);
 	}, [validator, onValidate, errorsProp, maxLength]);

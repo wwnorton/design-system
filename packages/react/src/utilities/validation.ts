@@ -192,7 +192,7 @@ export const defaultValidators = ({
 export const createValidator = (
 	validators?: ValidatorEntry[],
 	useDefaultValidators = true,
-) => (el: ValidationElement): string[] => {
+) => (el: ValidationAttributes & { value: string; validity: ValidityState }): string[] => {
 	if ((!validators || !validators.length) && !useDefaultValidators) return [];
 	const { value, validity } = el;
 	const val = value.toString();
