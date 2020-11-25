@@ -18,6 +18,7 @@ export interface ValidatorEntry {
 export const validityStateTest = (
 	state: ValidityStateInvalidKeys,
 ): ValidatorEntry['test'] => (_, validity): boolean => {
+	// eslint-disable-next-line security/detect-object-injection
 	if (validity) return !validity[state];
 	return true;
 };
@@ -106,7 +107,6 @@ export const defaultMessages: Record<Exclude<ValidityStateInvalidKeys, 'customEr
 	valueMissing: () => 'This field is required.',
 };
 
-// TODO: define the remaining constraint validators
 export const defaultValidators = ({
 	max,
 	maxLength,
