@@ -1,8 +1,8 @@
 import React from 'react';
-import { Options, VirtualElement } from '@popperjs/core';
 import { useForwardedRef, usePopper } from '../../hooks';
+import { PopperOptions, VirtualElement } from '../../types/popper';
 
-export interface BasePopperProps extends React.HTMLAttributes<HTMLElement>, Partial<Options> {
+export interface BasePopperProps extends React.HTMLAttributes<HTMLElement>, Partial<PopperOptions> {
 	/** Indicates whether the popper is rendered or not. */
 	isOpen?: boolean;
 	/** The outer HTML element name. Default is `div`. */
