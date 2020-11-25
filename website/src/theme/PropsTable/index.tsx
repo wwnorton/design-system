@@ -30,7 +30,7 @@ export const PropsTable = ({ from: component }: PropsTableProps): JSX.Element | 
 	// eslint-disable-next-line no-underscore-dangle
 	const { displayName, props } = component.__docgenInfo;
 	const propMap = Object.keys(props).map((prop) => {
-		const propItem = props[prop];
+		const propItem = props[prop.toString()];
 		/* eslint-disable-next-line react/jsx-props-no-spreading */
 		return <PropRow key={propItem.name} {...propItem} />;
 	});
