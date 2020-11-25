@@ -1,6 +1,5 @@
 import React from 'react';
 import { FieldInfo } from '@wwnds/react';
-/* eslint-disable import/no-extraneous-dependencies, node/no-extraneous-import */
 import { ComponentDoc, PropItem } from 'react-docgen-typescript';
 import Markdown from 'markdown-to-jsx';
 
