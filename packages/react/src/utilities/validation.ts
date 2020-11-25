@@ -80,18 +80,18 @@ export const defaultMessages: Record<Exclude<ValidityStateInvalidKeys, 'customEr
 	 * probably okay since it only really occurs when entering letters in a
 	 * number field.
 	 */
-	badInput: ({ type }) => defaultMessages.typeMismatch({ type }),
+	badInput(el) { return this.typeMismatch(el); },
 	patternMismatch: () => '',
-	rangeOverflow: ({ max }) => `Please select a value that is no more than ${max}.`,
-	rangeUnderflow: ({ min }) => `Please select a value that is no less than ${min}.`,
+	rangeOverflow: ({ max }) => `Please select a value that is no more than ${max as string | number}.`,
+	rangeUnderflow: ({ min }) => `Please select a value that is no less than ${min as string | number}.`,
 	stepMismatch: () => '',
-	tooLong: ({ maxLength }) => `Please use ${maxLength} characters or fewer.`,
+	tooLong: ({ maxLength }) => `Please use ${maxLength as number} characters or fewer.`,
 	tooShort: ({ minLength, type }) => {
 		switch (type) {
 			case 'password':
-				return `Passwords must be at least ${minLength} characters long.`;
+				return `Passwords must be at least ${minLength as number} characters long.`;
 			default:
-				return `Please use at least ${minLength} characters.`;
+				return `Please use at least ${minLength as number} characters.`;
 		}
 	},
 	typeMismatch: ({ type }) => {
