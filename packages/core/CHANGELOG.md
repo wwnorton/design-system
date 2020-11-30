@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.1...v1.0.0) (2020-11-30)
+
+### ✨ Features
+
+- **core:** add button color role variants ([3604b0e](https://github.com/wwnorton/design-system/commit/3604b0e4b7bf8cdd65ec91d3344a04683d12a7a9))
+
+### 💄 Visual
+
+- **core:** don't let disclosure markers shrink ([8c7ad7d](https://github.com/wwnorton/design-system/commit/8c7ad7d4bc998bb2cc906bd11b1319a86bb88d8a))
+- **core:** invalid TextField border should be error-color ([137f3b8](https://github.com/wwnorton/design-system/commit/137f3b8050920087175a9a04387e9755dcf7c72b))
+
+### ♻️ Refactor
+
+- **core:** consolidate color utilities ([a689920](https://github.com/wwnorton/design-system/commit/a689920c6d8061eeda0390d881566610ae5c1af8))
+- **core:** make scheme maps customizable ([74e942a](https://github.com/wwnorton/design-system/commit/74e942a9a006fd632d9d10d48b6538f3e99db953))
+- **core:** reorganize token :root declarations ([1a501f1](https://github.com/wwnorton/design-system/commit/1a501f1592dde598aea3c1a62461a85813e0ba13))
+- **core:** use token, not property ([d62a6ec](https://github.com/wwnorton/design-system/commit/d62a6ec6ef9fb37115a36600a27ff8df2ad7b596))
+
+### 🐛 Bug Fixes
+
+- **core:** ensure that focus is visible above other z-index ([ec365b1](https://github.com/wwnorton/design-system/commit/ec365b1aba89099afbd1fed3c0d0ce68e7455851))
+- **core:** make button color grade configurable ([8c1b16e](https://github.com/wwnorton/design-system/commit/8c1b16e1d4c61532a450e1d78eb1787020facfae))
+- **core:** modal title shouldn't have a bottom margin ([c44cf94](https://github.com/wwnorton/design-system/commit/c44cf945bb3d928e5e19a253769be74102849101))
+- **core:** set modal z-index ([b4114f4](https://github.com/wwnorton/design-system/commit/b4114f40a52a2054e17f6b5bb537b77b9b0ffa77))
+- **core:** use correct selection text color ([f7615c8](https://github.com/wwnorton/design-system/commit/f7615c8a376ea0e103da003ebca44e1bc703c036))
+
 ## [1.0.0-rc.0](https://github.com/wwnorton/design-system/compare/v1.0.0-beta.3...v1.0.0-rc.0) (2020-09-25)
 
 ### ⚠ BREAKING CHANGES

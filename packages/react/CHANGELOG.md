@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.1...v1.0.0) (2020-11-30)
+
+### ✨ Features
+
+- **react:** add color prop to button ([8abd9b0](https://github.com/wwnorton/design-system/commit/8abd9b05d5b97b2228f7d54f4d3a46ff93689b16))
+- **react:** add custom email validation ([f3441ca](https://github.com/wwnorton/design-system/commit/f3441cab8b7e0b3326dd42d82911af27110f5b5f)), closes [#43](https://github.com/wwnorton/design-system/issues/43)
+- **react:** add label to checked options ([a2b106a](https://github.com/wwnorton/design-system/commit/a2b106a05e71ba2002f2fbda028901d40706f276)), closes [#14](https://github.com/wwnorton/design-system/issues/14)
+- **react:** add support for react 17 ([a9cf00f](https://github.com/wwnorton/design-system/commit/a9cf00ffbe5c1fa6650d45d0b118c9c4d1bf7e3f)), closes [#32](https://github.com/wwnorton/design-system/issues/32)
+- **react:** allow maxLength to restrict input ([bad62d3](https://github.com/wwnorton/design-system/commit/bad62d34ac588d009c4e2b2f1f2bbb297a53fb0a))
+- **react:** make it easier to disble TextField's counter ([6b48fff](https://github.com/wwnorton/design-system/commit/6b48fff22aaa46863e0cd4c8aeee564c94c9c26a))
+
+### 🐛 Bug Fixes
+
+- **react:** ensure counter works in controlled Textfield ([fd6afd1](https://github.com/wwnorton/design-system/commit/fd6afd15bf220a4fccc46ac627412a7a0248088e))
+- **react:** ensure counter works in uncontrolled TextField ([a6bcc50](https://github.com/wwnorton/design-system/commit/a6bcc50be1fbd4b6b21c9b487e03c69578d984f7))
+- **react:** remove prefix from state changes ([db68ad0](https://github.com/wwnorton/design-system/commit/db68ad07540c3319e983a53caa7f60c066c25a02))
+
+### 🛠 Maintenance
+
+- **storybook:** remove logging ([cf4304b](https://github.com/wwnorton/design-system/commit/cf4304b0393dc0dd8230fd63dd3d218eb0b7cf18))
+- **storybook:** use target, not currentTarget ([328f418](https://github.com/wwnorton/design-system/commit/328f418754f2ecb2d94ef9f6769f51266f269005))
+- remove test story ([ba0f944](https://github.com/wwnorton/design-system/commit/ba0f944e0970cc9eea7bbcbceacb5787a304d271))
+- update button stories to use new color prop ([d45280b](https://github.com/wwnorton/design-system/commit/d45280b56d76cb3fffa997915852d51d7a79b73c))
+
+### ♻️ Refactor
+
+- **react:** explicitly pass validation attributes ([84005ee](https://github.com/wwnorton/design-system/commit/84005ee964ccf9002d3e3a79adad9cf79ae17f4a))
+- **react:** improve popper types ([0e7a0fb](https://github.com/wwnorton/design-system/commit/0e7a0fbeca6195c934bef3bc77515f3d20918f31))
+- **react:** move useValidation to src/hooks ([158c110](https://github.com/wwnorton/design-system/commit/158c11067d40882b848d3a99aab43480343c8715))
+- **react:** simplify useColorScheme's return ([b300c82](https://github.com/wwnorton/design-system/commit/b300c821c508d3a7dfd5726fbcf6edaf0735bf32))
+
 ## [1.0.0-rc.1](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2020-10-02)
 
 ### 🐛 Bug Fixes

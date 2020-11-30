@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.1...v1.0.0) (2020-11-30)
+
+### 📝 Documentation
+
+- add color utilities ([e4e500c](https://github.com/wwnorton/design-system/commit/e4e500c2bc7447ef94202b83eeafc39ea6d28bac))
+- add ColorChip component ([b4e8124](https://github.com/wwnorton/design-system/commit/b4e81245717672f614170408938b818ab95e758a))
+- add default values to the motion table ([7767f9b](https://github.com/wwnorton/design-system/commit/7767f9bd95a4999e3f6e693e7ec4661b30cd5d7f))
+- add focus-visible polyfill ([9eee99e](https://github.com/wwnorton/design-system/commit/9eee99eda564eed84fa5cecdaa7e710e4b0b6a49))
+- add heading utilities ([86a15b4](https://github.com/wwnorton/design-system/commit/86a15b456ee2651304c961c8fb3107b3fe3e939f))
+- add initial color scheme details ([f702870](https://github.com/wwnorton/design-system/commit/f70287098addf06ab4170909666cf0473e48c90d))
+- add type utilities and empty spacing docs ([de47f9c](https://github.com/wwnorton/design-system/commit/de47f9cc640cac590e841d91082c53a86d53a42c))
+- don't wrap code inside tables ([eedc109](https://github.com/wwnorton/design-system/commit/eedc1095776836bf8133849f01f2c1e1b4f9707a))
+- improve color docs ([56aea6b](https://github.com/wwnorton/design-system/commit/56aea6ba1e994bbfab07bbb28afe728fc1224694))
+- initial typeset docs ([a9fa510](https://github.com/wwnorton/design-system/commit/a9fa510fdcefcdd9266e9e14bd47576a64079bcb))
+- more selectively apply non-breaking code ([63e28bf](https://github.com/wwnorton/design-system/commit/63e28bfe0b7ddc3cf1aa7ce43a42f421bd36631b))
+- outline token conventions ([dc97bef](https://github.com/wwnorton/design-system/commit/dc97bef2b1b9c8bfb592dd15ddf371e80ab4c697))
+- simplify typesets ([a2823fa](https://github.com/wwnorton/design-system/commit/a2823fa807129f0d376c94261399153ac8fbf3a7))
+- update link ([c96eede](https://github.com/wwnorton/design-system/commit/c96eededc46c5c0a8e43ce345a0efd067b41ab65))
+- update principles ([ee2ee9c](https://github.com/wwnorton/design-system/commit/ee2ee9c1159115e922db64f9ef8a33b928f120c0))
+- update to react 17 ([21916ab](https://github.com/wwnorton/design-system/commit/21916ab7f6d3beb0286e8ab952196be4f7707ed8))
+
+### ✨ Features
+
+- **core:** add button color role variants ([3604b0e](https://github.com/wwnorton/design-system/commit/3604b0e4b7bf8cdd65ec91d3344a04683d12a7a9))
+- **react:** add color prop to button ([8abd9b0](https://github.com/wwnorton/design-system/commit/8abd9b05d5b97b2228f7d54f4d3a46ff93689b16))
+- **react:** add custom email validation ([f3441ca](https://github.com/wwnorton/design-system/commit/f3441cab8b7e0b3326dd42d82911af27110f5b5f)), closes [#43](https://github.com/wwnorton/design-system/issues/43)
+- **react:** add label to checked options ([a2b106a](https://github.com/wwnorton/design-system/commit/a2b106a05e71ba2002f2fbda028901d40706f276)), closes [#14](https://github.com/wwnorton/design-system/issues/14)
+- **react:** add support for react 17 ([a9cf00f](https://github.com/wwnorton/design-system/commit/a9cf00ffbe5c1fa6650d45d0b118c9c4d1bf7e3f)), closes [#32](https://github.com/wwnorton/design-system/issues/32)
+- **react:** allow maxLength to restrict input ([bad62d3](https://github.com/wwnorton/design-system/commit/bad62d34ac588d009c4e2b2f1f2bbb297a53fb0a))
+- **react:** make it easier to disble TextField's counter ([6b48fff](https://github.com/wwnorton/design-system/commit/6b48fff22aaa46863e0cd4c8aeee564c94c9c26a))
+
+### 💄 Visual
+
+- **core:** don't let disclosure markers shrink ([8c7ad7d](https://github.com/wwnorton/design-system/commit/8c7ad7d4bc998bb2cc906bd11b1319a86bb88d8a))
+- **core:** invalid TextField border should be error-color ([137f3b8](https://github.com/wwnorton/design-system/commit/137f3b8050920087175a9a04387e9755dcf7c72b))
+
+### 🐛 Bug Fixes
+
+- **core:** ensure that focus is visible above other z-index ([ec365b1](https://github.com/wwnorton/design-system/commit/ec365b1aba89099afbd1fed3c0d0ce68e7455851))
+- **core:** make button color grade configurable ([8c1b16e](https://github.com/wwnorton/design-system/commit/8c1b16e1d4c61532a450e1d78eb1787020facfae))
+- **core:** modal title shouldn't have a bottom margin ([c44cf94](https://github.com/wwnorton/design-system/commit/c44cf945bb3d928e5e19a253769be74102849101))
+- **core:** set modal z-index ([b4114f4](https://github.com/wwnorton/design-system/commit/b4114f40a52a2054e17f6b5bb537b77b9b0ffa77))
+- **core:** use correct selection text color ([f7615c8](https://github.com/wwnorton/design-system/commit/f7615c8a376ea0e103da003ebca44e1bc703c036))
+- **react:** ensure counter works in controlled Textfield ([fd6afd1](https://github.com/wwnorton/design-system/commit/fd6afd15bf220a4fccc46ac627412a7a0248088e))
+- **react:** ensure counter works in uncontrolled TextField ([a6bcc50](https://github.com/wwnorton/design-system/commit/a6bcc50be1fbd4b6b21c9b487e03c69578d984f7))
+- **react:** remove prefix from state changes ([db68ad0](https://github.com/wwnorton/design-system/commit/db68ad07540c3319e983a53caa7f60c066c25a02))
+
+### ♻️ Refactor
+
+- **core:** consolidate color utilities ([a689920](https://github.com/wwnorton/design-system/commit/a689920c6d8061eeda0390d881566610ae5c1af8))
+- **core:** make scheme maps customizable ([74e942a](https://github.com/wwnorton/design-system/commit/74e942a9a006fd632d9d10d48b6538f3e99db953))
+- **core:** reorganize token :root declarations ([1a501f1](https://github.com/wwnorton/design-system/commit/1a501f1592dde598aea3c1a62461a85813e0ba13))
+- **core:** use token, not property ([d62a6ec](https://github.com/wwnorton/design-system/commit/d62a6ec6ef9fb37115a36600a27ff8df2ad7b596))
+- **react:** explicitly pass validation attributes ([84005ee](https://github.com/wwnorton/design-system/commit/84005ee964ccf9002d3e3a79adad9cf79ae17f4a))
+- **react:** improve popper types ([0e7a0fb](https://github.com/wwnorton/design-system/commit/0e7a0fbeca6195c934bef3bc77515f3d20918f31))
+- **react:** move useValidation to src/hooks ([158c110](https://github.com/wwnorton/design-system/commit/158c11067d40882b848d3a99aab43480343c8715))
+- **react:** simplify useColorScheme's return ([b300c82](https://github.com/wwnorton/design-system/commit/b300c821c508d3a7dfd5726fbcf6edaf0735bf32))
+
+### 🛠 Maintenance
+
+- yarn upgrade ([a7304bb](https://github.com/wwnorton/design-system/commit/a7304bb2f5aa26789a2a38078f4fe73c823fc2a2))
+- **storybook:** remove logging ([cf4304b](https://github.com/wwnorton/design-system/commit/cf4304b0393dc0dd8230fd63dd3d218eb0b7cf18))
+- **storybook:** use target, not currentTarget ([328f418](https://github.com/wwnorton/design-system/commit/328f418754f2ecb2d94ef9f6769f51266f269005))
+- don't use .mdx ([7d23ff3](https://github.com/wwnorton/design-system/commit/7d23ff36fc86308c1989a2078578a4b88f427d89))
+- fix note formatting ([7e96948](https://github.com/wwnorton/design-system/commit/7e969480aab5b23ff3236a469d8a1081c32377cd))
+- ignore spelling in node_modules ([eababce](https://github.com/wwnorton/design-system/commit/eababcec61af51a7262271fb2af648c51d3590d7))
+- remove development support for node 10 ([c04d4f3](https://github.com/wwnorton/design-system/commit/c04d4f31704381c63379f9dcd004da85c23595b3)), closes [#31](https://github.com/wwnorton/design-system/issues/31)
+- remove test story ([ba0f944](https://github.com/wwnorton/design-system/commit/ba0f944e0970cc9eea7bbcbceacb5787a304d271))
+- update button stories to use new color prop ([d45280b](https://github.com/wwnorton/design-system/commit/d45280b56d76cb3fffa997915852d51d7a79b73c))
+- update storybook deps ([0353e94](https://github.com/wwnorton/design-system/commit/0353e941999c71a7a364d43b82cff173f8776166))
+- upgrade del to v6 ([7acc57b](https://github.com/wwnorton/design-system/commit/7acc57b8a7c625bdba2fc07f735789bfe732717c))
+- yarn upgrade ([d481f0a](https://github.com/wwnorton/design-system/commit/d481f0afabe9159c18c2224b3b1eff5c20117c98))
+- yarn upgrade ([aca4688](https://github.com/wwnorton/design-system/commit/aca4688c32f8a891386fc4dccc5d408299cd20ff))
+- **docs:** update docusaurus ([f1de108](https://github.com/wwnorton/design-system/commit/f1de10879bf7f14d3af888a3e4eaf8efbb20dfe6))
+
 ## [1.0.0-rc.1](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2020-10-02)
 
 ### 🐛 Bug Fixes

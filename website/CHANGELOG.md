@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.1...v1.0.0) (2020-11-30)
+
+### 🛠 Maintenance
+
+- **docs:** update docusaurus ([f1de108](https://github.com/wwnorton/design-system/commit/f1de10879bf7f14d3af888a3e4eaf8efbb20dfe6))
+- don't use .mdx ([7d23ff3](https://github.com/wwnorton/design-system/commit/7d23ff36fc86308c1989a2078578a4b88f427d89))
+- fix note formatting ([7e96948](https://github.com/wwnorton/design-system/commit/7e969480aab5b23ff3236a469d8a1081c32377cd))
+
+### 📝 Documentation
+
+- add color utilities ([e4e500c](https://github.com/wwnorton/design-system/commit/e4e500c2bc7447ef94202b83eeafc39ea6d28bac))
+- add ColorChip component ([b4e8124](https://github.com/wwnorton/design-system/commit/b4e81245717672f614170408938b818ab95e758a))
+- add default values to the motion table ([7767f9b](https://github.com/wwnorton/design-system/commit/7767f9bd95a4999e3f6e693e7ec4661b30cd5d7f))
+- add focus-visible polyfill ([9eee99e](https://github.com/wwnorton/design-system/commit/9eee99eda564eed84fa5cecdaa7e710e4b0b6a49))
+- add heading utilities ([86a15b4](https://github.com/wwnorton/design-system/commit/86a15b456ee2651304c961c8fb3107b3fe3e939f))
+- add initial color scheme details ([f702870](https://github.com/wwnorton/design-system/commit/f70287098addf06ab4170909666cf0473e48c90d))
+- add type utilities and empty spacing docs ([de47f9c](https://github.com/wwnorton/design-system/commit/de47f9cc640cac590e841d91082c53a86d53a42c))
+- don't wrap code inside tables ([eedc109](https://github.com/wwnorton/design-system/commit/eedc1095776836bf8133849f01f2c1e1b4f9707a))
+- improve color docs ([56aea6b](https://github.com/wwnorton/design-system/commit/56aea6ba1e994bbfab07bbb28afe728fc1224694))
+- initial typeset docs ([a9fa510](https://github.com/wwnorton/design-system/commit/a9fa510fdcefcdd9266e9e14bd47576a64079bcb))
+- more selectively apply non-breaking code ([63e28bf](https://github.com/wwnorton/design-system/commit/63e28bfe0b7ddc3cf1aa7ce43a42f421bd36631b))
+- outline token conventions ([dc97bef](https://github.com/wwnorton/design-system/commit/dc97bef2b1b9c8bfb592dd15ddf371e80ab4c697))
+- simplify typesets ([a2823fa](https://github.com/wwnorton/design-system/commit/a2823fa807129f0d376c94261399153ac8fbf3a7))
+- update link ([c96eede](https://github.com/wwnorton/design-system/commit/c96eededc46c5c0a8e43ce345a0efd067b41ab65))
+- update principles ([ee2ee9c](https://github.com/wwnorton/design-system/commit/ee2ee9c1159115e922db64f9ef8a33b928f120c0))
+- update to react 17 ([21916ab](https://github.com/wwnorton/design-system/commit/21916ab7f6d3beb0286e8ab952196be4f7707ed8))
+
 ## [1.0.0-rc.1](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2020-10-02)
 
 **Note:** Version bump only for package website
