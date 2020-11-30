@@ -45,8 +45,6 @@ export const useColorScheme = (): {
 	const [colorScheme, setColorScheme] = useState<ColorScheme>(getInitialScheme());
 	const [preferred, setPreferred] = useState<ColorScheme>();
 	const prev = useRef<ColorScheme>(colorScheme);
-	const setDark = useRef(() => setColorScheme('dark'));
-	const setLight = useRef(() => setColorScheme('light'));
 
 	// get the stored and preferred color scheme to set the initial value
 	useEffect(() => {
@@ -95,8 +93,8 @@ export const useColorScheme = (): {
 	return {
 		isDark: colorScheme === 'dark',
 		isLight: colorScheme === 'light',
-		setDark: setDark.current,
-		setLight: setLight.current,
+		setDark: () => setColorScheme('dark'),
+		setLight: () => setColorScheme('light'),
 		preferred,
 	};
 };

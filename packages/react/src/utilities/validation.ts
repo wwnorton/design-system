@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 /** Union of HTML elements that can be validated with this API. */
 export type ValidationElement = HTMLInputElement | HTMLTextAreaElement;
 /** All ValidityState keys except `valid`. */
@@ -72,6 +70,14 @@ export type ValidationAttributes =
 	Pick<React.InputHTMLAttributes<HTMLInputElement>, ValidationAttributeNames>;
 
 type StateMessageFunction = (attrs: ValidationAttributes, value?: string) => string;
+
+/* eslint-disable no-control-regex */
+/**
+ * A custom regex for email.
+ * Source: [Stack Overflow](https://stackoverflow.com/a/201378).
+ */
+export const emailTypeMismatch = (value: string): boolean => /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(value);
+/* eslint-enable no-control-regex */
 
 /** Message functions that correspond to each invalid key on ValidityState. */
 export const defaultMessages: Record<Exclude<ValidityStateInvalidKeys, 'customError'>, StateMessageFunction> = {
@@ -147,7 +153,7 @@ export const defaultValidators = ({
 	if (type !== undefined) {
 		validators.push({
 			name: 'typeMismatch',
-			test: validityStateTest('typeMismatch'),
+			test: (type === 'email') ? emailTypeMismatch : validityStateTest('typeMismatch'),
 			message: defaultMessages.typeMismatch({ type }),
 		});
 		validators.push({
@@ -186,7 +192,7 @@ export const defaultValidators = ({
 export const createValidator = (
 	validators?: ValidatorEntry[],
 	useDefaultValidators = true,
-) => (el: ValidationElement): string[] => {
+) => (el: ValidationAttributes & { value: string; validity: ValidityState }): string[] => {
 	if ((!validators || !validators.length) && !useDefaultValidators) return [];
 	const { value, validity } = el;
 	const val = value.toString();
@@ -204,16 +210,3 @@ export const createValidator = (
 	});
 	return Array.from(err);
 };
-
-/**
- * Creates a stateful validation function from a list of optional validation
- * entries (test and message). Default validators are included unless the second
- * parameter is `false`.
- */
-export const useValidation = (
-	validators?: ValidatorEntry[],
-	useDefaults = true,
-): ReturnType<typeof createValidator> => useCallback(
-	createValidator(validators, useDefaults),
-	[validators, useDefaults],
-);

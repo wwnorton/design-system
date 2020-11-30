@@ -12,15 +12,13 @@ import {
 } from '.';
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
-import { useValidation } from '../../utilities';
+import { useValidation } from '../../hooks';
 
 export default {
 	title: 'Text Field',
 	component: TextField,
 	decorators: [withKnobs],
 };
-
-export const Test = (): JSX.Element => <TextField>TextField</TextField>;
 
 export const Default: React.FunctionComponent = () => {
 	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
@@ -51,8 +49,8 @@ export const ControlledEmail: React.FunctionComponent = () => {
 	const validate = useValidation();
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		const val = e.currentTarget.value;
-		const newErrors = validate(e.currentTarget);
+		const val = e.target.value;
+		const newErrors = validate(e.target);
 		let allowValue = true;
 		if (val && ['a', 'e', 'i', 'o', 'u'].some((letter) => val.toLowerCase().includes(letter))) {
 			newErrors.push('Vowels are not allowed.');

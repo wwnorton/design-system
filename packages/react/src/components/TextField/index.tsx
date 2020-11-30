@@ -119,6 +119,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		value,
 
 		// event callbacks
+		onChange,
 		onCount,
 		onDOMChange,
 		onValidate,
@@ -136,15 +137,17 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	const { current: errId } = React.useRef(errIdProp || `${id}-err`);
 	const { current: inputId } = React.useRef(`${id}-input`);
 
-	// treat prop version of errors as source of truth
-	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
-
-	const remaining = React.useMemo(() => {
+	const getRemaining = React.useCallback((val?: typeof value) => {
 		if (maxLength) {
-			return maxLength - (value || '').toString().length;
+			return maxLength - (val || '').toString().length;
 		}
 		return undefined;
-	}, [value, maxLength]);
+	}, [maxLength]);
+	const [remaining, setRemaining] = React.useState(getRemaining(value));
+	React.useEffect(() => setRemaining(getRemaining(value)), [getRemaining, value]);
+
+	// treat prop version of errors as source of truth
+	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
 
 	React.useEffect(() => {
 		if (onCount) onCount(remaining);
@@ -155,6 +158,11 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	const validateHandler = (e: string[]): void => {
 		if (onValidate) onValidate(e);
 		setErrors(e);
+	};
+
+	const changeHandler: React.InputHTMLAttributes<HTMLInputElement>['onChange'] = (e) => {
+		if (onChange) onChange(e);
+		else setRemaining(getRemaining(e.target.value));
 	};
 
 	const createFieldAddons = (addons: React.ReactNode): React.ReactNode[] | null | undefined => {
@@ -207,6 +215,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 					ref={ref}
 					value={value}
 					errors={errors}
+					onChange={changeHandler}
 					onDOMChange={onDOMChange}
 					onValidate={validateHandler}
 					id={inputId}

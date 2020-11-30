@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { prefix } from '../../config';
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	/** Whether the button is currently depressed. Polyfill for :active on keydown. */
@@ -11,7 +10,7 @@ export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 
 export const defaultProps: BaseButtonProps = {
 	active: false,
-	activeClass: prefix('active'),
+	activeClass: 'active',
 	type: 'button',
 };
 

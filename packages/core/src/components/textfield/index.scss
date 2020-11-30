@@ -39,6 +39,7 @@
 	.nds-field--invalid & {
 		--nds-focus-color: var(--nds-error-color);
 		--nds-focus-ring: 0 0 0 1px var(--nds-focus-color);
+		--nds-textfield-border-color: var(--nds-error-color);
 	}
 
 	+ .nds-field__feedback {
@@ -113,6 +114,10 @@
 		color: var(--nds-disabled-color-40);
 		background-color: var(--nds-disabled-color-20);
 		border-color: var(--nds-disabled-color-40);
+	}
+
+	&:-moz-ui-invalid {
+		box-shadow: none;
 	}
 
 	.nds-field__group > & {

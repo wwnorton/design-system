@@ -36,7 +36,7 @@ export const BaseOption = React.forwardRef<HTMLLIElement, BaseOptionProps>(({
 		ref={ref}
 		{...attributes}
 	>
-		{ isSelected && <Icon variant="check" className={markerClass} /> }
+		{ isSelected && <Icon variant="check" className={markerClass} aria-label="Check" /> }
 		<span className={contentsClass}>{ children || value }</span>
 	</li>
 ));
