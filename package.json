@@ -115,7 +115,7 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-norton": "4.0.0-beta.0",
     "eslint-import-resolver-typescript": "^2.0.0",
-    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-mdx": "^1.7.1",
