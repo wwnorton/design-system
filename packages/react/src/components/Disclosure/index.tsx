@@ -169,29 +169,33 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		}
 	}, [isOpen, state, height, shouldAnimate, onOpenCancel, onCloseStart]);
 
-	const summaryClickHandler = (e: React.MouseEvent<HTMLElement>): void => {
+	const summaryClickHandler = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
 		e.preventDefault();
-		if (isOpen) close();
-		else open();
+		if (isOpen) await close();
+		else await open();
 	};
 
-	const transitionEndHandler = (): void => {
+	const transitionEndHandler = async (): void => {
 		setState(undefined);
 		setStyle(undefined);
 
 		if (state === 'opening') {
-			if (onOpenEnd) onOpenEnd();
+			if (onOpenEnd) await onOpenEnd();
 		}
 		if (state === 'closing') {
 			setOpen(false);
-			if (onCloseEnd) onCloseEnd();
+			if (onCloseEnd) await onCloseEnd();
 		}
 	};
 
 	// control via `isOpen` prop
 	React.useEffect(() => {
-		if (propOpen) open();
-		else close();
+		const asyncToggle = async () => {
+			if (propOpen) await open();
+			else await close();
+		};
+		/* disable next line refer to: https://github.com/typescript-eslint/typescript-eslint/issues/1184 */
+		asyncToggle(); // eslint-disable-line @typescript-eslint/no-floating-promises
 	}, [propOpen]);	// eslint-disable-line react-hooks/exhaustive-deps
 
 	// open start effect: discover height, set height to 0, then trigger 'opening'
