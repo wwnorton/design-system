@@ -102,7 +102,7 @@ export const Button = React.forwardRef((
 			[`${baseName}--outline`]: variant === 'outline',
 			[`${baseName}--ghost`]: variant === 'ghost',
 			[`${baseName}--icon-only`]: icon && iconOnly,
-			[`${baseName}--${color}`]: color !== undefined,
+			[`${baseName}--${color as string}`]: color !== undefined,
 		},
 		baseName,
 		className,

@@ -90,7 +90,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	} = icon;
 
 	const classes = classNames(baseName, {
-		[`${baseName}--${variant}`]: variant,
+		[`${baseName}--${variant as string}`]: variant,
 	}, className);
 
 	return (
