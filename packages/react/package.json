@@ -36,6 +36,7 @@
     "dev:stories": "start-storybook -p 9009"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
     "@popperjs/core": "^2.4.4",
     "classnames": "^2.2.6",
     "localforage": "^1.9.0",

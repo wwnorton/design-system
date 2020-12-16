@@ -119,7 +119,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-mdx": "^1.7.1",
-    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.8",
     "fibers": "^5.0.0",
     "gulp": "^4.0.2",
@@ -152,5 +152,8 @@
   "engines": {
     "node": ">=12.13.0",
     "npm": ">=6.12.0"
+  },
+  "dependencies": {
+    "sass-loader": "^10.1.0"
   }
 }
