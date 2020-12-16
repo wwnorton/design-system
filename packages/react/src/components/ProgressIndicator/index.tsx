@@ -24,7 +24,7 @@ export interface ProgressIndicatorProps extends BaseProgressIndicatorProps {
 	label?: string
 }
 
-const withLabel = (baseElement: any, elementProps :ProgressIndicatorProps, baseName:string) => {
+const withLabel = (baseElement: JSX.Element, elementProps :ProgressIndicatorProps, baseName:string) => {
 	const labelElement = <span>{elementProps.label}</span>;
 	const progressIndicatorElement = baseElement;
 	let elementContainer = [labelElement, progressIndicatorElement];
@@ -53,7 +53,7 @@ export const ProgressIndicator = React.forwardRef((
 			{...props}
 		/>
 	);
-	if (props.label) {
+	if (progressIndicator && props.label) {
 		return withLabel(baseElement, props, baseName);
 	}
 	return baseElement;
