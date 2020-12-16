@@ -6,7 +6,7 @@ import { AllColors } from '../../utilities/color';
 
 export type ProgressIndicatorVariant = 'determinate' | 'indeterminate' | 'static';
 export type LabelPosition = 'top' | 'bottom' | 'right' | 'left';
-export interface ProgressIndicatorProps extends BaseProgressIndicatorProps {
+export interface BaseIndicatorProps extends BaseProgressIndicatorProps {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/**
@@ -43,16 +43,16 @@ const withLabel = (baseElement: JSX.Element, props :ProgressIndicatorProps) => {
 	);
 };
 
-const renderElement = (baseElement: JSX.Element, props: ProgressIndicatorProps) => {
-	if (props.label) {
-		return withLabel(baseElement, props);
+const renderElement = (refElement: JSX.Element, props: BaseIndicatorProps, ref: HTMLElement) => {
+	if (ref && props.label) {
+		return withLabel(refElement, props);
 	}
-	return baseElement;
+	return refElement;
 };
 
-export const ProgressIndicator = React.forwardRef<HTMLElement, ProgressIndicatorProps>(({
+export const ProgressIndicator = React.forwardRef<HTMLElement, BaseIndicatorProps>(({
 	...props
-}: ProgressIndicatorProps, ref) => {
+}: BaseIndicatorProps, ref) => {
 	const [progressIndicator, setProgressIndicator] = useForwardedRef(ref);
 	const baseElement = (
 		<BaseProgressIndicator
@@ -60,7 +60,7 @@ export const ProgressIndicator = React.forwardRef<HTMLElement, ProgressIndicator
 			{...props}
 		/>
 	);
-	return renderElement(baseElement, props);
+	return renderElement(baseElement, props, progressIndicator);
 });
 
 // export const ProgressIndicator = React.forwardRef((
