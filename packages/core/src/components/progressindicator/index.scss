@@ -9,20 +9,28 @@
 
 @mixin top {
 	flex-direction: column-reverse;
+
+	span {
+		margin-bottom: 10px;
+	}
 }
 
 @mixin bottom {
 	flex-direction: column-reverse;
+
+	span {
+		margin-top: 10px;
+	}
 }
 
 @mixin left {
-	label {
+	span {
 		margin-left: 10px;
 	}
 }
 
 @mixin right {
-	label {
+	span {
 		margin-right: 10px;
 	}
 }

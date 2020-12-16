@@ -58,12 +58,11 @@ export const CustomProperties: React.FunctionComponent = () => {
 
 export const WithLabel: React.FunctionComponent = () => (
 	<>
-		<ProgressIndicator label="images..." />
+		<ProgressIndicator label="images..." labelPosition="left" />
 	</>
 );
 
 export const Controlled: React.FunctionComponent = () => {
-	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
 	const [isOpen, setOpen] = React.useState(false);
 	const toggle = (): void => setOpen(!isOpen);
 	return (
@@ -71,7 +70,7 @@ export const Controlled: React.FunctionComponent = () => {
 			{isOpen ? <ProgressIndicator ariaBusy={isOpen} />
 				: null}
 			<br />
-			<Button variant="solid" ref={setRef} onClick={toggle}>
+			<Button variant="solid" onClick={toggle}>
 				{' '}
 				{isOpen ? 'Stop loading' : 'Loading'}
 			</Button>

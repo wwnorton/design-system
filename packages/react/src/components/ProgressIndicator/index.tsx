@@ -23,16 +23,19 @@ export interface ProgressIndicatorProps extends BaseProgressIndicatorProps {
 	labelPosition?: LabelPosition | 'bottom'
 	label?: string
 }
+export const defaultProps: ProgressIndicatorProps = {
+	baseName: prefix('progressindicator'),
+};
 
-const withLabel = (baseElement: JSX.Element, elementProps :ProgressIndicatorProps, baseName:string) => {
-	const labelElement = <span>{elementProps.label}</span>;
+const withLabel = (baseElement: JSX.Element, props :ProgressIndicatorProps) => {
+	const labelElement = <span>{props.label}</span>;
 	const progressIndicatorElement = baseElement;
 	let elementContainer = [labelElement, progressIndicatorElement];
-	if (elementProps.labelPosition === 'top' || elementProps.labelPosition === 'left') {
+	if (props.labelPosition === 'top' || props.labelPosition === 'left') {
 		elementContainer = [progressIndicatorElement, labelElement];
 	}
 	return (
-		<div className={`${baseName} nds-${elementProps.labelPosition ? elementProps.labelPosition : 'bottom'}`}>
+		<div className={`${prefix('progressindicator')} nds-${props.labelPosition ? props.labelPosition : 'bottom'}`}>
 			{
 				elementContainer
 			}
@@ -40,12 +43,16 @@ const withLabel = (baseElement: JSX.Element, elementProps :ProgressIndicatorProp
 	);
 };
 
-export const ProgressIndicator = React.forwardRef((
-	{
-		baseName = prefix('progressindicator'),
-		...props
-	}: ProgressIndicatorProps, ref,
-) => {
+const renderElement = (baseElement: JSX.Element, props: ProgressIndicatorProps) => {
+	if (props.label) {
+		return withLabel(baseElement, props);
+	}
+	return baseElement;
+};
+
+export const ProgressIndicator = React.forwardRef<HTMLElement, ProgressIndicatorProps>(({
+	...props
+}: ProgressIndicatorProps, ref) => {
 	const [progressIndicator, setProgressIndicator] = useForwardedRef(ref);
 	const baseElement = (
 		<BaseProgressIndicator
@@ -53,8 +60,24 @@ export const ProgressIndicator = React.forwardRef((
 			{...props}
 		/>
 	);
-	if (progressIndicator && props.label) {
-		return withLabel(baseElement, props, baseName);
-	}
-	return baseElement;
+	return renderElement(baseElement, props);
 });
+
+// export const ProgressIndicator = React.forwardRef((
+// 	{
+// 		baseName = prefix('progressindicator'),
+// 		...props
+// 	}: ProgressIndicatorProps, ref,
+// ) => {
+// 	const [progressIndicator, setProgressIndicator] = useForwardedRef(ref);
+// 	const baseElement = (
+// 		<BaseProgressIndicator
+// 			ref={setProgressIndicator}
+// 			{...props}
+// 		/>
+// 	);
+// 	if (progressIndicator && props.label !== null) {
+// 		return withLabel(baseElement, props, baseName);
+// 	}
+// 	return baseElement;
+// });
