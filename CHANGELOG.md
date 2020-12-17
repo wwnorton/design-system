@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.0.1](https://github.com/wwnorton/design-system/compare/v1.0.0...v1.0.1) (2020-12-17)
+
+
+### ✨ Features
+
+* **core:** add tokens.css to build artifacts ([d01e314](https://github.com/wwnorton/design-system/commit/d01e314efc55407e06f7fbc701fcd99e6b53d505))
+
+
+### 🐛 Bug Fixes
+
+* **react:** update build script ([1c4a1d4](https://github.com/wwnorton/design-system/commit/1c4a1d455ed659ef5cae3362fa23742f98fc710a)), closes [#55](https://github.com/wwnorton/design-system/issues/55)
+
+
+### 🛠 Maintenance
+
+* yarn upgrade & force update broken package ([636003e](https://github.com/wwnorton/design-system/commit/636003eef807ff7e96326a88bd197450ed43e6ee))
+* **core:** add tokens.css to build artifacts ([94517cb](https://github.com/wwnorton/design-system/commit/94517cb4c95cef1288ac6193a293eecf007788e6))
+* switch to lodash-es for lodash methods ([a5080c3](https://github.com/wwnorton/design-system/commit/a5080c30c29b813cd88d271cc7be30b3da6d830b))
+* use lodash, not lodash-es ([746be7c](https://github.com/wwnorton/design-system/commit/746be7cd299f31ff15feb586dda399fa54367589))
+* use relative lodash packages ([952250c](https://github.com/wwnorton/design-system/commit/952250ca593f933aa5d4e6fa6a72f6a73aece7e6))
+* **build:** split non-umd and umd builds ([497b170](https://github.com/wwnorton/design-system/commit/497b170acc9994a1b5ce8aac2b21385587d28c7c))
+* **core:** update build to use umd name ([5be3f0b](https://github.com/wwnorton/design-system/commit/5be3f0b27d943c8ff1c5a54a277c416c0a5164b0))
+* yarn upgrade & force update broken package ([6d61721](https://github.com/wwnorton/design-system/commit/6d617217d23cbe041d25050a9124b410a7c0627a))
+
+
+
 ## [1.0.0](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.1...v1.0.0) (2020-11-30)
 
 ### 📝 Documentation
