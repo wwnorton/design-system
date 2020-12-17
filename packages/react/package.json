@@ -31,7 +31,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "microbundle --jsx React.createElement --globals @popperjs/core=Popper,lodash.uniqueid=uniqueId",
+    "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment --name NDSReact --external @popperjs/core,localforage,react,react-dom --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM",
     "build:stories": "build-storybook",
     "dev:stories": "start-storybook -p 9009"
   },
