@@ -31,7 +31,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment --name NDSReact --external @popperjs/core,localforage,react,react-dom --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM",
+    "build": "npm run build:main & npm run build:umd",
+    "build:main": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format modern,es,cjs --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM",
+    "build:umd": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format umd --name NDSReact --external @popperjs/core,localforage,react,react-dom --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM",
     "build:stories": "build-storybook",
     "dev:stories": "start-storybook -p 9009"
   },

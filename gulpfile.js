@@ -65,8 +65,6 @@ const createSass = ({ src, dest }) => () => gulp.src(src, {
 		gulp.dest(dest, { sourcemaps: !production && '.' }),
 	);
 
-const createTs = (cwd) => shell.task('npm run build', { cwd });
-
 const createJsBanner = (
 	cwd, { name, version, license },
 ) => () => gulp.src('dist/**/*.js', { cwd })
@@ -82,7 +80,7 @@ const coreSass = createSass({
 	dest: './packages/core/dist',
 });
 coreSass.displayName = 'core:sass';
-const coreTs = createTs('./packages/core');
+const coreTs = shell.task('npm run build', { cwd: './packages/core' });
 coreTs.displayName = 'core:ts';
 const coreBanner = createJsBanner('./packages/core', corePackage);
 coreBanner.displayName = 'core:banner';
@@ -93,12 +91,14 @@ tsCore.displayName = 'ts:core';
 const core = gulp.parallel(coreSass, tsCore);
 
 // `@wwnds/react`
-const reactTs = createTs('./packages/react');
-reactTs.displayName = 'react:ts';
+const reactMain = shell.task('npm run build:main', { cwd: './packages/react' });
+reactMain.displayName = 'react:main';
+const reactUmd = shell.task('npm run build:umd', { cwd: './packages/react' });
+reactUmd.displayName = 'react:umd';
 const reactBanner = createJsBanner('./packages/react', reactPackage);
 reactBanner.displayName = 'react:banner';
 
-const tsReact = gulp.series(reactTs, reactBanner);
+const tsReact = gulp.series(gulp.parallel(reactMain, reactUmd), reactBanner);
 tsReact.displayName = 'ts:react';
 
 const react = gulp.parallel(tsReact);
