@@ -1,5 +1,5 @@
 /* cspell:disable */
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash-es';
 
 /**
  * Check if an element has a CSS transition. Returns true if _any_ transition on

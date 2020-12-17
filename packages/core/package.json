@@ -36,6 +36,6 @@
     "build": "microbundle --globals lodash.debounce=debounce"
   },
   "dependencies": {
-    "lodash.debounce": "^4.0.8"
+    "lodash-es": "^4.17.15"
   }
 }

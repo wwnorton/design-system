@@ -39,7 +39,7 @@
     "@popperjs/core": "^2.4.4",
     "classnames": "^2.2.6",
     "localforage": "^1.9.0",
-    "lodash.uniqueid": "^4.0.1",
+    "lodash-es": "^4.17.15",
     "react-fast-compare": "^3.2.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import uniqueId from 'lodash.uniqueid';
+import { uniqueId } from 'lodash-es';
 import {
 	FieldInfo, FieldInfoCoreProps,
 	FieldFeedback, FieldFeedbackCoreProps,
