@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash-es';
+import { uniqueId } from 'lodash';
 import { prefix } from '../../config';
 import { getFocusable } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';

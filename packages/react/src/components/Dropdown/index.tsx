@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash-es';
+import { uniqueId } from 'lodash';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';

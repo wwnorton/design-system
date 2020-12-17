@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash-es';
+import { uniqueId } from 'lodash';
 import { BaseInput, BaseInputProps } from '../BaseInput';
 import { Icon } from '../Icon';
 import {

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash-es';
+import { uniqueId } from 'lodash';
 import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';

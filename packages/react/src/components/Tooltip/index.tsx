@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash-es';
+import { uniqueId } from 'lodash';
 import { BasePopper, BasePopperProps } from '../BasePopper';
 import { prefix } from '../../config';
 import { innerText } from '../../utilities';

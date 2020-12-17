@@ -36,6 +36,6 @@
     "build": "microbundle --name NDSCore"
   },
   "dependencies": {
-    "lodash-es": "^4.17.15"
+    "lodash": "^4.17.20"
   }
 }
