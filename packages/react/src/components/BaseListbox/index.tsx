@@ -84,7 +84,7 @@ export const BaseListbox = React.forwardRef(({
 	const childrenProps = React.useMemo(() => {
 		const options = React.Children.map(children, (child) => {
 			let props: BaseOptionProps;
-			if (React.isValidElement(child)) {
+			if (React.isValidElement<BaseOptionProps>(child)) {
 				if (child.type !== BaseOption) {
 					throw new Error(BaseListbox.errors.invalidChild);
 				}
