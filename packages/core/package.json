@@ -33,9 +33,9 @@
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "microbundle --globals lodash.debounce=debounce"
+    "build": "microbundle --name NDSCore"
   },
   "dependencies": {
-    "lodash.debounce": "^4.0.8"
+    "lodash": "^4.17.20"
   }
 }

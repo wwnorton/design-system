@@ -31,7 +31,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "microbundle --jsx React.createElement --globals @popperjs/core=Popper,lodash.uniqueid=uniqueId",
+    "build": "npm run build:main & npm run build:umd",
+    "build:main": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format modern,es,cjs --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM",
+    "build:umd": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format umd --name NDSReact --external @popperjs/core,localforage,react,react-dom --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM",
     "build:stories": "build-storybook",
     "dev:stories": "start-storybook -p 9009"
   },
@@ -39,7 +41,7 @@
     "@popperjs/core": "^2.4.4",
     "classnames": "^2.2.6",
     "localforage": "^1.9.0",
-    "lodash.uniqueid": "^4.0.1",
+    "lodash": "^4.17.20",
     "react-fast-compare": "^3.2.0"
   },
   "devDependencies": {
