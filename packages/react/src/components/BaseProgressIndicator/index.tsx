@@ -29,7 +29,7 @@ export const BaseProgressIndicator = React.forwardRef<HTMLElement, BaseProgressI
 			aria-busy={props.ariaBusy ? props.ariaBusy : true}
 			value={props.progressValue}
 			ref={ref}
-			role="progressbar"
+			role="status"
 			aria-label="progressbar"
 		/>
 	);
