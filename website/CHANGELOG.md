@@ -5,12 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### [1.0.1](https://github.com/wwnorton/design-system/compare/v1.0.0...v1.0.1) (2020-12-17)
 
-
 ### 🛠 Maintenance
 
-* yarn upgrade & force update broken package ([636003e](https://github.com/wwnorton/design-system/commit/636003eef807ff7e96326a88bd197450ed43e6ee))
-
-
+- yarn upgrade & force update broken package ([636003e](https://github.com/wwnorton/design-system/commit/636003eef807ff7e96326a88bd197450ed43e6ee))
 
 ## [1.0.0](https://github.com/wwnorton/design-system/compare/v1.0.0-rc.1...v1.0.0) (2020-11-30)
 
