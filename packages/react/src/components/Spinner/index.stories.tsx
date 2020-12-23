@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
 	withKnobs,
 	text,
@@ -25,10 +25,12 @@ const variants = Object.keys(variantOptions);
 export const Default: React.FunctionComponent = () => {
 	const showVariant = select('variant', variants, variantOptions.indeterminate);
 	const showValue = showVariant !== variantOptions.indeterminate ? number('value', 50) : null;
+
 	return (
 		<Spinner
 			color={text('color', 'red')}
 			thickness={number('thickness', 3)}
+			size={number('size', 40)}
 			variant={showVariant}
 			value={showValue}
 		/>
@@ -64,3 +66,10 @@ export const Controlled: React.FunctionComponent = () => {
 		</div>
 	);
 };
+export const withButton: React.FunctionComponent = () => (
+	<div>
+		<Button variant="solid">
+			<Spinner color="base" label="loading..." labelPlacement="left" size={24} />
+		</Button>
+	</div>
+);

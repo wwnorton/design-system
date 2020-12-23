@@ -2,7 +2,7 @@ import React from 'react';
 import CircularProgress, { CircularProgressProps } from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
-type MaterialUIProps = Pick<CircularProgressProps, 'thickness' | 'value' | 'variant'>;
+type MaterialUIProps = Pick<CircularProgressProps, 'thickness' | 'value' | 'variant' | 'size'>;
 
 export type BaseProgressIndicatorProps = MaterialUIProps & React.HTMLAttributes<HTMLSpanElement>;
 
@@ -11,6 +11,7 @@ export const BaseProgressIndicator = React.forwardRef<HTMLElement, BaseProgressI
 	value,
 	variant,
 	color,
+	size,
 }: BaseProgressIndicatorProps, ref) => {
 	const circularColor = color ? `var(--nds-${color}-60)` : color;
 	const useStyles = makeStyles({
@@ -26,6 +27,7 @@ export const BaseProgressIndicator = React.forwardRef<HTMLElement, BaseProgressI
 			thickness={thickness}
 			value={value}
 			role="status"
+			size={size}
 			ref={ref}
 		/>
 	);

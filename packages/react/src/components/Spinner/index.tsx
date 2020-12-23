@@ -18,7 +18,13 @@ export interface BaseIndicatorProps extends BaseProgressIndicatorProps {
 	 * Alignments are top | bottom | right | left
 	 */
 	labelPlacement?: LabelPlacement
-	label?: string
+	label?: string,
+	/**
+	 * The size of the circle.
+	 * If using a number, the pixel unit is assumed.
+	 * If using a string, you need to provide the CSS unit, e.g '3rem'.
+	 */
+	size?: number | string;
 }
 export const defaultProps: BaseIndicatorProps = {
 	baseName: prefix('spinner'),
