@@ -17,9 +17,3 @@ test('renders progress indicator color change', (t) => {
 	render(<Spinner color="red" />);
 	t.truthy(screen.getByRole('status'));
 });
-
-test('renders progress indicator with label', (t) => {
-	const labelText = 'loading images...';
-	render(<Spinner color="primary" label={labelText} />);
-	t.truthy(screen.getByText(labelText));
-});
