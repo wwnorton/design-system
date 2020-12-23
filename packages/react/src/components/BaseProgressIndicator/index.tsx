@@ -1,36 +1,32 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress, { CircularProgressProps } from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
-export interface BaseProgressIndicatorProps extends React.DetailsHTMLAttributes<HTMLElement> {
-	/** A URL or reference to the source of this Loader. */
-	baseName?:string;
-	variant?: 'determinate' | 'indeterminate' | 'static';
-	thickness?:number,
-	ariaBusy?:boolean,
-	progressValue?:number;
-}
+type MaterialUIProps = Pick<CircularProgressProps, 'thickness' | 'value' | 'variant'>;
+
+export type BaseProgressIndicatorProps = MaterialUIProps & React.HTMLAttributes<HTMLSpanElement>;
 
 export const BaseProgressIndicator = React.forwardRef<HTMLElement, BaseProgressIndicatorProps>(({
-	...props
-
+	thickness,
+	value,
+	variant,
+	color,
 }: BaseProgressIndicatorProps, ref) => {
+	const circularColor = color ? `var(--nds-${color}-60)` : color;
 	const useStyles = makeStyles({
 		circularProgress: {
-			color: props.color,
+			color: circularColor,
 		},
 	});
 	const classes = useStyles();
 	return (
 		<CircularProgress
 			className={classes.circularProgress}
-			variant={props.variant}
-			thickness={props.thickness}
-			aria-busy={props.ariaBusy ? props.ariaBusy : true}
-			value={props.progressValue}
-			ref={ref}
+			variant={variant}
+			thickness={thickness}
+			value={value}
 			role="status"
-			aria-label="progressbar"
+			ref={ref}
 		/>
 	);
 });

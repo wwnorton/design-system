@@ -15,4 +15,4 @@ export * from './components/Radio';
 export * from './components/Switch';
 export * from './components/TextField';
 export * from './components/Tooltip';
-export * from './components/ProgressIndicator';
+export * from './components/Spinner';

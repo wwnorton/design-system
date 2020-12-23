@@ -152,8 +152,5 @@
   "engines": {
     "node": ">=12.13.0",
     "npm": ">=6.12.0"
-  },
-  "dependencies": {
-    "sass-loader": "^10.1.0"
   }
 }
