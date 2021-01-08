@@ -1,0 +1,10 @@
+@use '../../spacing';
+
+$arrow-size: 12px !default;
+$arrow-border: calc(var(--nds-popover-arrow-size) / 2) !default;
+$offset-y: 6px !default;
+$max-width: spacing.rem-px(23.5);
+$padding-x: spacing.spacer('popover-x') !default;
+$padding-y: spacing.spacer('popover-y') !default;
+$border-radius: var(--nds-radius-base) !default;
+$border-width: 1px;
