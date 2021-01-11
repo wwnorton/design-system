@@ -94,7 +94,13 @@ const defaultProps: PopoverProps = {
 	hideTitle: false,
 	hideCloseButton: false,
 };
-
+const bemElements: Record<PopoverlAnatomy, string> = {
+	header: 'header',
+	title: 'title',
+	closeButton: 'close',
+	content: 'content',
+	actionBar: 'actionbar',
+};
 export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	{
 		baseName = prefix('popover'),
@@ -121,13 +127,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [offsetY] = useToken({ name: 'popover-offset-y', el: popper });
 	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
-	const bemElements: Record<PopoverlAnatomy, string> = {
-		header: 'header',
-		title: 'title',
-		closeButton: 'close',
-		content: 'content',
-		actionBar: 'actionbar',
-	};
+
 	const open = usePopperTriggers({
 		reference, popper, trigger, isOpen, hideDelay,
 	});
@@ -157,55 +157,82 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		},
 	}), [arrowClass]);
 
-	const requestClose = (): void => {
-		if (onRequestClose) onRequestClose();
-	};
+	const Title = React.useMemo(() => {
+		if (baseName !== undefined && bemElements !== undefined) {
+			const titleClass = `${baseName}__${bemElements.title}`;
+			return (
+				<span className={titleClass}>{title}</span>
+			);
+		}
+		return null;
+	}, [baseName, title]);
 
-	function Title(): JSX.Element | null {
-		const titleClass = `${baseName}__${bemElements.title}`;
-		return (
-			<span className={titleClass}>{title}</span>
-		);
-	}
+	const CloseButton = React.useMemo(() => {
+		if (baseName !== undefined && bemElements !== undefined) {
+			const closeButtonClass = `${baseName}__${bemElements.closeButton}`;
+			return (
+				<IconButton
+					icon="close"
+					className={classNames(closeButtonClass, 'button--base')}
+					onClick={onRequestClose}
+				>
+					Close
+				</IconButton>
+			);
+		}
+		return null;
+	}, [baseName, onRequestClose]);
 
-	function CloseButton(): JSX.Element | null {
-		const closeButtonClass = `${baseName}__${bemElements.closeButton}`;
-		return (
-			<IconButton
-				icon="close"
-				className={classNames(closeButtonClass, 'button--base')}
-				onClick={requestClose}
-			>
-				Close
-			</IconButton>
-		);
-	}
+	const Header = React.useMemo(() => {
+		if (baseName !== undefined && bemElements !== undefined) {
+			const headerClass = `${baseName}__${bemElements.header}`;
+			const headerBottomBorder = (hideTitle === false)
+				? `${baseName}__header_border_bottom`
+				: '';
+			return (
+				<header
+					className={`${headerClass} ${headerBottomBorder}`}
+				>
+					{ !hideTitle ? Title : null }
+					{ !hideCloseButton ? CloseButton : null}
+				</header>
+			);
+		}
+		return null;
+	}, [baseName, Title, CloseButton, hideCloseButton, hideTitle]);
 
-	function Header(): JSX.Element | null {
-		const headerClass = `${baseName}__${bemElements.header}`;
-		const headerBottomBorder = (hideTitle === false)
-			? `${baseName}__header_border_bottom`
-			: '';
-		return (
-			<header
-				className={`${headerClass} ${headerBottomBorder}`}
-			>
-				{ !hideTitle ? Title() : null }
-				{ !hideCloseButton ? CloseButton() : null}
-			</header>
-		);
-	}
+	const ActionBar = React.useMemo(() => {
+		if (baseName !== undefined && bemElements !== undefined) {
+			const actionBarClass = `${baseName}__${bemElements.actionBar}`;
+			return (
+				<footer
+					className={actionBarClass}
+				>
+					{ actions }
+				</footer>
+			);
+		}
+		return null;
+	}, [baseName, actions]);
 
-	function ActionBar(): JSX.Element | null {
-		const actionBarClass = `${baseName}__${bemElements.actionBar}`;
-		return (
-			<footer
-				className={actionBarClass}
-			>
-				{ actions }
-			</footer>
-		);
-	}
+	const Content = React.useMemo(() => {
+		if (children !== undefined) {
+			return (
+				<>
+					{(hideCloseButton === true && hideTitle === true) ? null : Header}
+					<section
+						className={contentClass}
+					>
+						{ children }
+					</section>
+					{ actions ? ActionBar : null }
+					<div className={arrowClass} />
+				</>
+			);
+		}
+		return null;
+	}, [hideCloseButton, hideTitle, actions, ActionBar, Header, arrowClass, contentClass, children]);
+
 	/**
 		 * Attach aria labelling and describing attributes.
 		 * When rendered `asLabel`, the popover will name the reference element. To
@@ -245,14 +272,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			ref={setPopper}
 			{...props}
 		>
-			{(hideCloseButton === true && hideTitle === true) ? null : Header()}
-			<section
-				className={contentClass}
-			>
-				{ children }
-			</section>
-			{ actions ? ActionBar() : null }
-			<div className={arrowClass} />
+			{Content}
 		</BasePopper>
 	);
 });
