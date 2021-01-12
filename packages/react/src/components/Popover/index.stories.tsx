@@ -78,7 +78,7 @@ export const WithActionBar: React.FunctionComponent = () => {
 				adipisicing elit. Id cum reiciendis sed ab voluptas
 				velit quibusdam expedita sapiente nemo?
 				Modi accusamus minus distinctio error non!
-				Provident quasi officia pariatur fugit.
+				Provident quasi officia pariatur fugit
 				<br />
 				<br />
 				<TextField
