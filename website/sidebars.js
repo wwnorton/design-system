@@ -27,6 +27,7 @@ module.exports = {
 				// 'components/icon',
 				// 'components/layout-grid',
 				'components/link',
+				'components/modal',
 				'components/radio-group',
 				'components/switch',
 				'components/text-field',
