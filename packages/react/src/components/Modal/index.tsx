@@ -100,6 +100,7 @@ export interface ModalState {
 	long: boolean;
 	stuckHeader: boolean;
 	stuckFooter: boolean;
+	bodyOverflow: string;
 }
 
 export interface ModalSnapshot {
@@ -155,6 +156,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			long: false,
 			stuckHeader: false,
 			stuckFooter: false,
+			bodyOverflow: '',
 		};
 	}
 
@@ -266,10 +268,12 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			if (this.footer) this.stickyObserver.observe(this.footer);
 		}
 		document.addEventListener('keydown', this.onDocumentKeydown);
+		this.setState({ bodyOverflow: document.body.style.overflow });
+		document.body.style.overflow = 'hidden';
 	}
 
 	private onClose(): void {
-		const { trigger } = this.state;
+		const { trigger, bodyOverflow } = this.state;
 
 		if (this.stickyObserver) {
 			if (this.header) this.stickyObserver.unobserve(this.header);
@@ -279,6 +283,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 
 		// return focus on close
 		if (trigger) trigger.focus();
+		document.body.style.overflow = bodyOverflow;
 	}
 
 	private get CloseButton(): JSX.Element | null {
