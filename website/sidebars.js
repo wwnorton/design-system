@@ -22,6 +22,7 @@ module.exports = {
 				// 'components/accordion',
 				'components/button',
 				'components/checkbox',
+				'components/choice-field',
 				'components/disclosure',
 				'components/dropdown',
 				// 'components/icon',
