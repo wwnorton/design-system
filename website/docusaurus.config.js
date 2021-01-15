@@ -29,7 +29,7 @@ module.exports = {
 					label: 'Docs',
 					position: 'left',
 				},
-				{ to: 'blog', label: 'Blog', position: 'left' },
+				// { to: 'blog', label: 'Blog', position: 'left' },
 				{
 					href: 'https://github.com/wwnorton/design-system',
 					'aria-label': 'GitHub',
@@ -75,10 +75,10 @@ module.exports = {
 				{
 					title: 'More',
 					items: [
-						{
-							label: 'Blog',
-							to: 'blog',
-						},
+						// {
+						// 	label: 'Blog',
+						// 	to: 'blog',
+						// },
 						{
 							label: 'Sassdoc',
 							href: `${url}/sassdoc`,
