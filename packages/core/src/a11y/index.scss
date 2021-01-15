@@ -56,9 +56,9 @@
 }
 
 @mixin not-focus-visible {
-	&:not(:focus-visible) {
-		@content;
-	}
+	// &:not(:focus-visible) {
+	// 	@content;
+	// }
 
 	@if config.$focus-visible-polyfill {
 		&:not(.focus-visible),
