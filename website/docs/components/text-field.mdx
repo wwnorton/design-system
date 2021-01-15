@@ -1,53 +1,30 @@
 ---
 title: Text Field
-description: A text field allows a user to enter and edit text.
+description: A text field allows the user to enter and edit text.
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { TextField } from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
-> A text field allows a user to enter and edit text.
+> A text field allows the user to enter and edit text.
 
 ## Anatomy
 
-<img
+<!-- <img
 	alt="A diagram of the text field's various components."
 	src={useBaseUrl('/img/anatomy_text-field.png')}
-/>
+/> -->
 
-1. Label
-2. Container
-3. `Optional` Optional Field Indicator
-4. `Optional` Help Text
-5. `Optional` Icon - Left
-6. Text
-7. `Optional` Icon/Control - Right
-    - An icon or control can go in this space. A text field can have multiple right-side icons/controls
-8. `Optional` Error Text
-9. `Optional` Character count
-
-## Playground
-
-```jsx live
-<TextField
-	maxLength={25}
-	description="Use the description to display hints about entry."
-	required
-	requiredIndicator
->
-	Default text field
-</TextField>
-```
-
-```jsx live
-<TextField type="password" required minLength={8} maxLength={32} validateOnChange>
-    Password
-</TextField>
-```
-
-## Props
-
-<PropsTable from={TextField} />
+1. **Label** - a short name that lets the user know what to type in the field.
+1. **Field indicator** (_optional_) - a parenthetical that lets the user know whether the field is required or optional.
+	- Use this to bring attention to a field that is the odd one out of the form.
+	For instance, if there are five fields in a form and only one is optional, the field indicator should say "(optional)" for that one instead of "(required)" for the other four.
+1. **Description** (_optional_) - additional text that can be used to add clarity to the role of the text field or help the user understand the expected input format.
+1. **Input container** - a container that outlines the boundary of text field's input area and addons.
+1. **Input area** - where the user enters text.
+1. **Addon(s)** (_optional_) - field addons help the user control the state of the text field. Addons can be included before or after the input area.
+1. **Error feedback** (_optional_) - feedback that lets the user know that their current input is invalid and why.
+1. **Character count feedback** (_optional_) - an indicator that lets the user know how many characters they have remaining.
 
 ## Usage
 
@@ -154,3 +131,25 @@ Three options are provided to address this need.
 - Text longer than the input area wraps onto a new line, and scrolls vertically when the cursor reaches the bottom of the input area.
 - The large size of the input area indicates that longer responses are possible and encouraged.
 - Use text area text fields for: free response inputs with additional formatting capabilities.
+
+## React API
+
+```js
+import { TextField } from '@wwnds/react';
+```
+
+### `TextField`
+
+```jsx live
+<TextField
+	maxLength={30}
+	description="Use the description to display hints about entry."
+	required
+	requiredIndicator
+	validateOnChange
+>
+	Default text field
+</TextField>
+```
+
+<PropsTable from={TextField} />

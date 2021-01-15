@@ -10,27 +10,17 @@ import { PropsTable } from '../../src/theme/PropsTable';
 
 ## Anatomy
 
-A disclosure includes:
-
-An expandable button with
-
-1. A text label
-2. An icon
-3. Content
-
-## Playground
-
-```jsx live
-<Disclosure panel summary="Default disclosure">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-</Disclosure>
-```
-
-## Props
-
-<PropsTable from={Disclosure} />
+1. **Summary button** - a control that opens or closes the disclosure and conveys to the user what is contained in the disclosure body.
+2. **Summary marker** - an icon that indicates that the disclosure can be opened or closed.
+	- When displayed before the label, the marker should point to the right when closed and down when open.
+	- When displayed after the label, the marker should point down when closed and up when open.
+3. **Body** - the disclosed contents, as summarized by the summary button.
 
 ## Usage
+
+Use a disclosure when you want to help the user manage their attention on the page.
+Disclosures allow the user to skip over secondary content or features by not expanding the disclosure, while still giving them the option to delve deeper should they choose to expand it.
+The disclosure is named for the principle of [progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/).
 
 - A disclosure has two states: collapsed and expanded. A disclosure is collapsed by default.
 - A disclosure should include an icon that conveys that it can be activated for more information.
@@ -54,3 +44,19 @@ An expandable button with
 - If there is only one section of content, then use a disclosure.
 - If there are multiple sections of content, then use an accordion or tabs.
 :::
+
+## React API
+
+```js
+import { Disclosure } from '@wwnds/react';
+```
+
+### Disclosure
+
+```jsx live
+<Disclosure panel summary="Default disclosure">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+</Disclosure>
+```
+
+<PropsTable from={Disclosure} />
