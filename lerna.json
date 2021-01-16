@@ -23,16 +23,18 @@
         "types": [
           {
             "type": "feat",
+            "hidden": false,
             "section": "✨ Features"
           },
           {
             "type": "fix",
+            "hidden": false,
             "section": "🐛 Bug Fixes"
           },
           {
             "type": "visual",
             "hidden": false,
-            "section": "💄 Visual"
+            "section": "💄 Visual design"
           },
           {
             "type": "perf",
@@ -46,12 +48,13 @@
           },
           {
             "type": "chore",
-            "hidden": false,
+            "hidden": true,
             "section": "🛠 Maintenance"
           },
           {
             "type": "style",
-            "hidden": true
+            "hidden": true,
+            "section": "🎨 Code style"
           },
           {
             "type": "refactor",
@@ -60,7 +63,8 @@
           },
           {
             "type": "test",
-            "hidden": true
+            "hidden": true,
+            "section": "🧪 Tests"
           }
         ],
         "issuePrefixes": ["#"],
