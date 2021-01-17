@@ -1,4 +1,4 @@
-@use '../../scss/config' as nds;
+@use '../../scss/nds';
 
 .features {
 	position: relative;
@@ -16,6 +16,8 @@
 
 	padding: var(--nds-feature-padding-y) var(--nds-feature-padding-x);
 	margin: 0 !important; // only necessary to override Infima styling
+	color: var(--nds-text-color);
+	background-color: var(--nds-background-color);
 	border: 1px solid var(--nds-base-color-30);
 	border-radius: var(--nds-radius-md);
 	transition: nds.transition('box-shadow');

@@ -1,5 +1,7 @@
 @use 'sass:meta';
-@use './config' as nds;
+@use './nds';
+
+@include nds.complete;
 
 // Proxima Nova
 @import url('https://use.typekit.net/vjr7yrz.css');
@@ -102,8 +104,9 @@ code {
 
 .footer--dark {
 	--ifm-footer-background-color: var(--nds-navy-90);
-	--ifm-footer-link-color: var(--nds-teal-50);
 	--ifm-footer-color: var(--nds-white);
+	--ifm-footer-link-color: var(--nds-teal-40);
+	--ifm-footer-link-hover-color: var(--nds-teal-50);
 }
 
 .families-outer {
