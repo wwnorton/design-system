@@ -23,10 +23,25 @@ module.exports = {
 				src: 'img/seagull-dark.svg',
 			},
 			items: [
+				// {
+				// 	to: 'docs/',
+				// 	activeBasePath: 'docs',
+				// 	label: 'Docs',
+				// 	position: 'left',
+				// },
 				{
-					to: 'docs/',
-					activeBasePath: 'docs',
-					label: 'Docs',
+					to: 'docs/guides',
+					label: 'Guides',
+					position: 'left',
+				},
+				{
+					to: 'docs/foundations',
+					label: 'Foundations',
+					position: 'left',
+				},
+				{
+					to: 'docs/components',
+					label: 'Components',
 					position: 'left',
 				},
 				// { to: 'blog', label: 'Blog', position: 'left' },
