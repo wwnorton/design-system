@@ -143,7 +143,7 @@ const Navbar = (): JSX.Element => {
 					{!disableColorModeSwitch && (
 						<Switch
 							className={styles.displayOnlyInLargeViewport}
-							label="Dark mode toggle"
+							label="Dark mode"
 							checked={isDark}
 							onToggle={onToggleChange}
 							tipped
