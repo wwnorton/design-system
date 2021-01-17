@@ -1,2 +1,5 @@
-// The full design system as one stylesheet.
+// An entry point for using the design system as a single global stylesheet.
+// Ideal for prototyping or in applications that don't need modular stylesheets.
+// `@wwnds/core/full` will resolve to this file.
+
 @forward 'src/main';

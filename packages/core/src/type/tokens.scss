@@ -68,58 +68,66 @@ $line-height-4: 1.5;
 $line-height-5: 1.6;
 $line-height-6: 1.75;
 
-/* stylelint-disable no-duplicate-selectors */
-:root {
-	--nds-font-family-base: #{$font-family-base};
-	--nds-font-family-headings: #{$font-family-headings};
-	--nds-font-family-sans: #{$font-family-sans};
-	--nds-font-family-serif: #{$font-family-serif};
-	--nds-font-family-mono: #{$font-family-mono};
-	--nds-font-family-system-sans: #{$font-family-system-sans};
-	--nds-font-family-system-serif: #{$font-family-system-serif};
-	--nds-font-family-system-mono: #{$font-family-system-mono};
+/// Typography tokens set as CSS custom properties on the `:root` element.
+/// @alias type
+@mixin typography {
+	/* stylelint-disable no-duplicate-selectors */
+	:root {
+		--nds-font-family-base: #{$font-family-base};
+		--nds-font-family-headings: #{$font-family-headings};
+		--nds-font-family-sans: #{$font-family-sans};
+		--nds-font-family-serif: #{$font-family-serif};
+		--nds-font-family-mono: #{$font-family-mono};
+		--nds-font-family-system-sans: #{$font-family-system-sans};
+		--nds-font-family-system-serif: #{$font-family-system-serif};
+		--nds-font-family-system-mono: #{$font-family-system-mono};
+	}
+
+	:root {
+		--nds-font-size-base: #{$font-size-base};
+		--nds-font-size-xs: #{$font-size-xs};
+		--nds-font-size-sm: #{$font-size-sm};
+		--nds-font-size-md: #{$font-size-md};
+		--nds-font-size-lg: #{$font-size-lg};
+		--nds-font-size-h1: #{$font-size-h1};
+		--nds-font-size-h2: #{$font-size-h2};
+		--nds-font-size-h3: #{$font-size-h3};
+		--nds-font-size-h4: #{$font-size-h4};
+		--nds-font-size-h5: #{$font-size-h5};
+		--nds-font-size-h6: #{$font-size-h6};
+		--nds-font-size-root: #{$font-size-root};
+		--nds-font-size-10: #{$font-size-10};
+		--nds-font-size-12: #{$font-size-12};
+		--nds-font-size-14: #{$font-size-14};
+		--nds-font-size-16: #{$font-size-16};
+		--nds-font-size-18: #{$font-size-18};
+		--nds-font-size-20: #{$font-size-20};
+		--nds-font-size-24: #{$font-size-24};
+		--nds-font-size-32: #{$font-size-32};
+		--nds-font-size-40: #{$font-size-40};
+		--nds-font-size-48: #{$font-size-48};
+	}
+
+	:root {
+		--nds-font-weight-base: #{$font-weight-base};
+		--nds-font-weight-headings: #{$font-weight-headings};
+		--nds-font-weight-thin: #{$font-weight-thin};
+		--nds-font-weight-light: #{$font-weight-light};
+		--nds-font-weight-regular: #{$font-weight-regular};
+		--nds-font-weight-bold: #{$font-weight-bold};
+		--nds-font-weight-black: #{$font-weight-black};
+	}
+
+	:root {
+		--nds-line-height-1: #{$line-height-1};
+		--nds-line-height-2: #{$line-height-2};
+		--nds-line-height-3: #{$line-height-3};
+		--nds-line-height-4: #{$line-height-4};
+		--nds-line-height-5: #{$line-height-5};
+		--nds-line-height-6: #{$line-height-6};
+	}
 }
 
-:root {
-	--nds-font-size-base: #{$font-size-base};
-	--nds-font-size-xs: #{$font-size-xs};
-	--nds-font-size-sm: #{$font-size-sm};
-	--nds-font-size-md: #{$font-size-md};
-	--nds-font-size-lg: #{$font-size-lg};
-	--nds-font-size-h1: #{$font-size-h1};
-	--nds-font-size-h2: #{$font-size-h2};
-	--nds-font-size-h3: #{$font-size-h3};
-	--nds-font-size-h4: #{$font-size-h4};
-	--nds-font-size-h5: #{$font-size-h5};
-	--nds-font-size-h6: #{$font-size-h6};
-	--nds-font-size-root: #{$font-size-root};
-	--nds-font-size-10: #{$font-size-10};
-	--nds-font-size-12: #{$font-size-12};
-	--nds-font-size-14: #{$font-size-14};
-	--nds-font-size-16: #{$font-size-16};
-	--nds-font-size-18: #{$font-size-18};
-	--nds-font-size-20: #{$font-size-20};
-	--nds-font-size-24: #{$font-size-24};
-	--nds-font-size-32: #{$font-size-32};
-	--nds-font-size-40: #{$font-size-40};
-	--nds-font-size-48: #{$font-size-48};
-}
-
-:root {
-	--nds-font-weight-base: #{$font-weight-base};
-	--nds-font-weight-headings: #{$font-weight-headings};
-	--nds-font-weight-thin: #{$font-weight-thin};
-	--nds-font-weight-light: #{$font-weight-light};
-	--nds-font-weight-regular: #{$font-weight-regular};
-	--nds-font-weight-bold: #{$font-weight-bold};
-	--nds-font-weight-black: #{$font-weight-black};
-}
-
-:root {
-	--nds-line-height-1: #{$line-height-1};
-	--nds-line-height-2: #{$line-height-2};
-	--nds-line-height-3: #{$line-height-3};
-	--nds-line-height-4: #{$line-height-4};
-	--nds-line-height-5: #{$line-height-5};
-	--nds-line-height-6: #{$line-height-6};
+@mixin type {
+	@include typography;
 }

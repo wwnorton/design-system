@@ -29,29 +29,32 @@ $zindex-focus: 1055;
 $zindex-popover: 1060;
 $zindex-tooltip: 1070;
 
-/* stylelint-disable no-duplicate-selectors */
-:root {
-	--nds-spacing-0: #{$spacing-0};
-	--nds-spacing-1px: #{$spacing-1px};
-	--nds-spacing-2px: #{$spacing-2px};
-	--nds-spacing-1: #{$spacing-1};
-	--nds-spacing-2: #{$spacing-2};
-	--nds-spacing-3: #{$spacing-3};
-	--nds-spacing-4: #{$spacing-4};
-	--nds-spacing-5: #{$spacing-5};
-	--nds-spacing-6: #{$spacing-6};
-	--nds-spacing-8: #{$spacing-8};
-	--nds-spacing-10: #{$spacing-10};
-	--nds-spacing-12: #{$spacing-12};
-}
+/// Spacing tokens set as CSS custom properties on the `:root` element.
+@mixin spacing {
+	/* stylelint-disable no-duplicate-selectors */
+	:root {
+		--nds-spacing-0: #{$spacing-0};
+		--nds-spacing-1px: #{$spacing-1px};
+		--nds-spacing-2px: #{$spacing-2px};
+		--nds-spacing-1: #{$spacing-1};
+		--nds-spacing-2: #{$spacing-2};
+		--nds-spacing-3: #{$spacing-3};
+		--nds-spacing-4: #{$spacing-4};
+		--nds-spacing-5: #{$spacing-5};
+		--nds-spacing-6: #{$spacing-6};
+		--nds-spacing-8: #{$spacing-8};
+		--nds-spacing-10: #{$spacing-10};
+		--nds-spacing-12: #{$spacing-12};
+	}
 
-:root {
-	--nds-zindex-dropdown: #{$zindex-dropdown};
-	--nds-zindex-sticky: #{$zindex-sticky};
-	--nds-zindex-fixed: #{$zindex-fixed};
-	--nds-zindex-modal-backdrop: #{$zindex-modal-backdrop};
-	--nds-zindex-modal: #{$zindex-modal};
-	--nds-zindex-focus: #{$zindex-focus};
-	--nds-zindex-popover: #{$zindex-popover};
-	--nds-zindex-tooltip: #{$zindex-tooltip};
+	:root {
+		--nds-zindex-dropdown: #{$zindex-dropdown};
+		--nds-zindex-sticky: #{$zindex-sticky};
+		--nds-zindex-fixed: #{$zindex-fixed};
+		--nds-zindex-modal-backdrop: #{$zindex-modal-backdrop};
+		--nds-zindex-modal: #{$zindex-modal};
+		--nds-zindex-focus: #{$zindex-focus};
+		--nds-zindex-popover: #{$zindex-popover};
+		--nds-zindex-tooltip: #{$zindex-tooltip};
+	}
 }

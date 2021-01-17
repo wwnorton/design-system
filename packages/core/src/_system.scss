@@ -1,0 +1,32 @@
+// Every part of the design system forwarded for use upstream.
+// Components are namespaced to prevent collisions.
+
+// Abstracts
+@forward 'config';
+@forward 'util';
+@forward 'color';
+@forward 'device';
+@forward 'motion';
+@forward 'spacing';
+@forward 'type';
+@forward 'a11y';
+
+// All foundational design tokens
+@forward 'foundations';
+
+// Stylesheet reset
+@forward 'reset';
+
+// Components (namespaced because they all include a `style` mixin)
+@forward 'components/button' as button-*;
+@forward 'components/checkbox' as checkbox-*;
+@forward 'components/disclosure' as disclosure-*;
+@forward 'components/dropdown' as dropdown-*;
+@forward 'components/field' as field-*;
+@forward 'components/icon' as icon-*;
+@forward 'components/link' as link-*;
+@forward 'components/modal' as modal-*;
+@forward 'components/radio' as radio-*;
+@forward 'components/switch' as switch-*;
+@forward 'components/textfield' as textfield-*;
+@forward 'components/tooltip' as tooltip-*;

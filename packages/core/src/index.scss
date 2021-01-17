@@ -1,28 +1,68 @@
-// Abstracts (no declarations)
-@forward 'config';
-@forward 'util';
-@forward 'color';
-@forward 'device';
-@forward 'motion';
-@forward 'spacing';
-@forward 'type';
-@forward 'a11y';
+////
+/// The main entry point for using the design system styles contains mixins for
+/// setting declarations according to need. Does not contain any declarations
+/// and will not build to a dist CSS file.
+/// @group Main
+////
 
-// All design tokens (contains :root declarations)
-@forward 'tokens';
-// Stylesheet reset (contains declarations)
-@forward 'reset';
+@forward './system';
 
-// Components (namespaced because they all include a `style` mixin)
-@forward 'components/button' as button-*;
-@forward 'components/checkbox' as checkbox-*;
-@forward 'components/disclosure' as disclosure-*;
-@forward 'components/dropdown' as dropdown-*;
-@forward 'components/field' as field-*;
-@forward 'components/icon' as icon-*;
-@forward 'components/link' as link-*;
-@forward 'components/modal' as modal-*;
-@forward 'components/radio' as radio-*;
-@forward 'components/switch' as switch-*;
-@forward 'components/textfield' as textfield-*;
-@forward 'components/tooltip' as tooltip-*;
+@use 'sass:map';
+@use './system' as nds;
+
+/// All foundational design tokens set as CSS custom properties  on the `:root`.
+/// @see color
+/// @see motion
+/// @see spacing
+/// @see typography
+/// @see miscellaneous
+@mixin tokens {
+	@include nds.color;
+	@include nds.motion;
+	@include nds.spacing;
+	@include nds.typography;
+	@include nds.miscellaneous;
+}
+
+/// Declarations for every component.
+@mixin components {
+	@include nds.button-style;
+	@include nds.checkbox-style;
+	@include nds.disclosure-style;
+	@include nds.dropdown-style;
+	@include nds.field-style;
+	@include nds.icon-style;
+	@include nds.link-style;
+	@include nds.modal-style;
+	@include nds.radio-style;
+	@include nds.switch-style;
+	@include nds.textfield-style;
+	@include nds.tooltip-style;
+}
+
+/// Helper declarations that set a composed style uncoupled from any component.
+@mixin helpers {
+	@if nds.$enable-helpers {
+		@include nds.a11y-helpers;
+	}
+}
+
+/// Utility declarations that set one property per class.
+@mixin utilities {
+	@if map.get(nds.$utilities, 'color') {
+		@include nds.color-utilities;
+	}
+
+	@if map.get(nds.$utilities, 'spacing') {
+		@include nds.spacing-utilities;
+	}
+}
+
+/// The complete design system set in a single global stylesheet.
+@mixin complete {
+	@include tokens;
+	@include nds.reset;
+	@include components;
+	@include helpers;
+	@include utilities;
+}
