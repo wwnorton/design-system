@@ -1,9 +1,5 @@
 @use 'sass:meta';
-@use '~@wwnds/core/full' as nds with (
-	$enable-dark-scheme: true,
-	$focus-visible-polyfill: true,
-	$font-family-sans: proxima-nova,
-);
+@use './config' as nds;
 
 // Proxima Nova
 @import url('https://use.typekit.net/vjr7yrz.css');
