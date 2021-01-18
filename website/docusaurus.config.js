@@ -8,7 +8,7 @@ const url = (process.env.BASE_URL)
 
 module.exports = {
 	title: 'Norton Design System',
-	tagline: 'Create beautiful, flexible, content-focused products, born accessible.',
+	tagline: 'Create beautiful, flexible content and applications, born accessible.',
 	url,
 	baseUrl,
 	onBrokenLinks: 'warn',
@@ -17,7 +17,7 @@ module.exports = {
 	projectName: 'design-system',
 	themeConfig: {
 		navbar: {
-			title: 'Design System',
+			title: 'Norton Design System',
 			logo: {
 				alt: 'Norton open source',
 				src: 'img/seagull-dark.svg',
@@ -30,11 +30,6 @@ module.exports = {
 				// 	position: 'left',
 				// },
 				{
-					to: 'docs/guides',
-					label: 'Guides',
-					position: 'left',
-				},
-				{
 					to: 'docs/foundations',
 					label: 'Foundations',
 					position: 'left',
@@ -42,6 +37,11 @@ module.exports = {
 				{
 					to: 'docs/components',
 					label: 'Components',
+					position: 'left',
+				},
+				{
+					to: 'docs/guides',
+					label: 'Guides',
 					position: 'left',
 				},
 				// { to: 'blog', label: 'Blog', position: 'left' },
@@ -57,19 +57,6 @@ module.exports = {
 		footer: {
 			style: 'dark',
 			links: [
-				{
-					title: 'Changes',
-					items: [
-						{
-							label: 'Changelog',
-							to: 'https://github.com/wwnorton/design-system/blob/main/CHANGELOG.md',
-						},
-						{
-							label: 'Migration',
-							to: 'docs/migration',
-						},
-					],
-				},
 				{
 					title: 'W. W. Norton & Company',
 					items: [
@@ -88,7 +75,7 @@ module.exports = {
 					],
 				},
 				{
-					title: 'More',
+					title: 'External documentation',
 					items: [
 						// {
 						// 	label: 'Blog',
@@ -105,6 +92,27 @@ module.exports = {
 						{
 							label: 'GitHub',
 							href: 'https://github.com/wwnorton/design-system',
+						},
+						{
+							label: 'NPM Registry',
+							href: 'https://www.npmjs.com/org/wwnds',
+						},
+					],
+				},
+				{
+					title: 'Changes',
+					items: [
+						{
+							label: 'Changelog',
+							href: 'https://github.com/wwnorton/design-system/blob/main/CHANGELOG.md',
+						},
+						{
+							label: 'Releases',
+							href: 'https://github.com/wwnorton/design-system/releases',
+						},
+						{
+							label: 'Migration',
+							to: 'docs/migration',
 						},
 					],
 				},
