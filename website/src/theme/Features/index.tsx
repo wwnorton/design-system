@@ -65,6 +65,7 @@ export const FeatureCard = ({
 					className={styles.feature__link}
 				>
 					{ title }
+					{/* <Icon variant="arrow-right" className={styles.feature__arrow} /> */}
 				</a>
 			</div>
 			<div className={styles.feature__body}>{ children }</div>

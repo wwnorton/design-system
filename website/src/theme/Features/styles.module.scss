@@ -10,6 +10,12 @@
 	grid-auto-rows: max-content;
 }
 
+.feature__arrow {
+	margin-left: nds.spacer('0.25rem');
+	transition: nds.transition('transform');
+	transform: scale(0.6);
+}
+
 .feature {
 	--nds-feature-padding-x: #{nds.spacer('1.5rem')};
 	--nds-feature-padding-y: #{nds.spacer('1rem')};
@@ -31,6 +37,11 @@
 	&:focus-within {
 		box-shadow: rgba(9, 30, 66, 0.25) 0 8px 16px -4px, rgba(9, 30, 66, 0.31) 0 0 1px;
 		transition: nds.transition('box-shadow');
+
+		.feature__arrow {
+			transition: nds.transition('transform');
+			transform: scale(0.8);
+		}
 	}
 
 	[data-color-scheme='dark'] & {
