@@ -69,7 +69,6 @@ $line-height-5: 1.6;
 $line-height-6: 1.75;
 
 /// Typography tokens set as CSS custom properties on the `:root` element.
-/// @alias type
 @mixin typography {
 	/* stylelint-disable no-duplicate-selectors */
 	:root {
@@ -128,6 +127,7 @@ $line-height-6: 1.75;
 	}
 }
 
+/// @alias typography
 @mixin type {
 	@include typography;
 }
