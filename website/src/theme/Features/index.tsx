@@ -27,9 +27,11 @@ export const FeatureCard = ({
 }: FeatureCardProps): JSX.Element => {
 	const [feature, setFeature] = React.useState<HTMLElement | null>(null);
 	const [link, setLink] = React.useState<HTMLAnchorElement | null>(null);
-	const href = useBaseUrl(hrefProp || basePath + slug);
+	const href = useBaseUrl(hrefProp || (slug) ? basePath + slug : null);
 
 	const cardClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		if (!href) return;
+
 		// if something is selected in the feature, do nothing.
 		const selection = window.getSelection();
 		if (feature && selection && selection.toString()
