@@ -13,6 +13,7 @@ export interface FeatureCardProps extends React.HTMLAttributes<HTMLElement> {
 	href?: string;
 	tag?: 'div' | 'li';
 	columns?: number;
+	linkArrow?: boolean;
 }
 
 export const FeatureCard = ({
@@ -24,10 +25,12 @@ export const FeatureCard = ({
 	slug = '',
 	tag: Tag = 'div',
 	columns = 3,
+	linkArrow = false,
 }: FeatureCardProps): JSX.Element => {
 	const [feature, setFeature] = React.useState<HTMLElement | null>(null);
 	const [link, setLink] = React.useState<HTMLAnchorElement | null>(null);
 	const href = useBaseUrl(hrefProp || (slug) ? basePath + slug : null);
+	const LinkTag = React.useMemo(() => ((href) ? 'a' : 'span'), [href]);
 
 	const cardClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		if (!href) return;
@@ -51,7 +54,7 @@ export const FeatureCard = ({
 			jsx-a11y/no-static-element-interactions,
 		*/
 		<Tag
-			className={classNames(styles.feature, styles[`col-${columns}`])}
+			className={classNames(styles.feature, styles[`col-${columns}`], { [styles['feature--linked']]: Boolean(href) })}
 			onClick={cardClickHandler}
 			ref={setFeature}
 		>
@@ -61,14 +64,14 @@ export const FeatureCard = ({
 						<Icon variant={icon} size={32} />
 					</span>
 				) }
-				<a
+				<LinkTag
 					ref={setLink}
 					href={href}
 					className={styles.feature__link}
 				>
 					{ title }
-					{/* <Icon variant="arrow-right" className={styles.feature__arrow} /> */}
-				</a>
+					{ href && linkArrow && <Icon variant="arrow-right" className={styles.feature__arrow} /> }
+				</LinkTag>
 			</div>
 			<div className={styles.feature__body}>{ children }</div>
 		</Tag>

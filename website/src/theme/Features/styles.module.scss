@@ -29,6 +29,12 @@
 	transition: nds.transition('box-shadow');
 	grid-column: span 12;
 
+	[data-color-scheme='dark'] & {
+		background-color: var(--nds-base-color-20);
+	}
+}
+
+.feature--linked {
 	&:hover {
 		cursor: pointer;
 	}
@@ -42,10 +48,6 @@
 			transition: nds.transition('transform');
 			transform: scale(0.8);
 		}
-	}
-
-	[data-color-scheme='dark'] & {
-		background-color: var(--nds-base-color-20);
 	}
 }
 
