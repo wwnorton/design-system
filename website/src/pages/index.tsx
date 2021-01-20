@@ -88,15 +88,15 @@ const Home = (): JSX.Element => {
 			<main>
 				<section className={classNames('container', styles.section)}>
 					<Features basePath="/docs/">
-						<FeatureCard title="Foundations" slug="foundations">
+						<FeatureCard title="Foundations" slug="foundations" linkArrow>
 							Guidelines for using visual elements and interaction patterns
 							with the Norton Design System.
 						</FeatureCard>
-						<FeatureCard title="Components" slug="components">
+						<FeatureCard title="Components" slug="components" linkArrow>
 							The building blocks for composing applications and content
 							with the Norton Design System.
 						</FeatureCard>
-						<FeatureCard title="Guides" slug="guides">
+						<FeatureCard title="Guides" slug="guides" linkArrow>
 							Tutorials and examples to help designers, developers,
 							and editors learn how get the most out of the
 							Norton Design System.
