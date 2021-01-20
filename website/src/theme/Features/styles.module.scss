@@ -42,7 +42,7 @@
 
 	&:hover,
 	&:focus-within {
-		box-shadow: rgba(9, 30, 66, 0.25) 0 8px 16px -4px, rgba(9, 30, 66, 0.31) 0 0 1px;
+		box-shadow: var(--nds-shadow-2);
 		transition: nds.transition('box-shadow');
 
 		.feature__arrow {
