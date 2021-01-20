@@ -14,12 +14,12 @@ Please [open an issue on GitHub](https://github.com/wwnorton/design-system/issue
 
 <Features basePath="/docs/guides/" columns={2}>
 	<FeatureCard title='Developers' icon='star' slug='dev'>
-		How to use the Norton Design System in code.
+		How to write code with the Norton Design System.
 	</FeatureCard>
 	<FeatureCard title='Designers' icon='star'>
-		How to use the Norton Design System with design software.
+		How to create designs with the Norton Design System.
 	</FeatureCard>
 	<FeatureCard title='Editors' icon='star'>
-		How to use the Norton Design System to build content.
+		How to compose content with the Norton Design System.
 	</FeatureCard>
 </Features>
