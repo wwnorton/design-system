@@ -35,6 +35,10 @@ Sass variables, on the other hand, are hard-coded into the stylesheet when the C
 }
 ```
 
+:::note Why?
+CSS custom properties are supported directly in the browser, whereas Sass variables are not.
+:::
+
 ### Use role tokens, not system tokens
 
 Using [role tokens](/docs/foundations/design-tokens#role-tokens) will facilitate theming in your application through [customization](stylesheet-setup#customization) since role tokens can be customized and [system tokens](/docs/foundations/design-tokens#system-tokens) cannot.
@@ -43,9 +47,12 @@ Refer to the [design token types](/docs/foundations/design-tokens#types-of-desig
 ```scss
 @use '@wwnds/core';
 
-// ✨ Best: modify a known role token at this scope (not always possible)
+// ✨ Best: modify a known role token at this scope and then use it
+// (not always possible)
 .foo {
 	--nds-background-color: var(--nds-base-color-20);
+
+	background-color: var(--nds-background-color);
 }
 
 // 👍 Good: use the role token
@@ -59,10 +66,14 @@ Refer to the [design token types](/docs/foundations/design-tokens#types-of-desig
 }
 ```
 
+:::note Why?
+System token values are static and cannot be modified, which prevents you from using them to theme your component.
+:::
+
 ### Override token values instead of property values whenever possible
 
-Some tokens, like `text-color` and `background-color` are set globally, using the CSS cascade to style all elements.
-Embrace this fundamental feature of CSS, modifying token values at specific scopes to accomplish your goals instead of modifying properties directly.
+Some tokens, like `text-color` and `background-color` are set globally and are designed to use the CSS cascade to style all elements.
+We encourage you to embrace the cascade&mdash;a fundamental feature of CSS&mdash;modifying token values at specific scopes to accomplish your goals instead of modifying properties directly.
 
 ```scss
 @use '@wwnds/core';
@@ -76,7 +87,7 @@ Embrace this fundamental feature of CSS, modifying token values at specific scop
 	background-color: var(--nds-background-color);
 }
 
-// 👎 Bad: override the property value
+// Okay: override the property value
 .foo {
 	color: var(--nds-base-color-10);
 	background-color: var(--nds-primary-color-80);
@@ -88,4 +99,6 @@ This will ensure that children of this component that use the role tokens use th
 
 For instance, the [focus-halo](/docs/foundations/accessibility#focus-halo) uses `--nds-background-color` to create the illusion of an offset halo when an element is focused.
 If your element's background color is hard-coded as `--nds-primary-color-80`, that focus halo will now have an offset that does not appear to match the background color.
+
+It's considered okay to use tokens directly in scenarios where component isolation is favored.
 :::
