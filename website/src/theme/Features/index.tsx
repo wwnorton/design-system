@@ -81,10 +81,10 @@ export const FeatureCard = ({
 };
 
 export const FeatureImage = ({ src, alt }: React.HTMLAttributes<HTMLImageElement>): JSX.Element => {
-	if (src) return <img className={styles.feature__image} src={src} alt={alt} />;
+	if (src) return <img className={styles.feature__media} src={src} alt={alt} />;
 	return (
 		<div className={styles.feature__tk}>
-			<abbr title="Image to come">TK</abbr>
+			<abbr title="Media to come">TK</abbr>
 		</div>
 	);
 };
