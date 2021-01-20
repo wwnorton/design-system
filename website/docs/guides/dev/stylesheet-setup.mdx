@@ -2,7 +2,7 @@
 title: Stylesheet setup
 ---
 
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 All styling in the Norton Design System is done directly in CSS using the [Sass modules](https://sass-lang.com/blog/the-module-system-is-launched) exposed by the `@wwnds/core` library.
 This library can be used either as one [single global stylesheet](#single-stylesheet) for your entire application or as the basis for [a modular approach](#modular-usage).
@@ -107,9 +107,8 @@ While not well tested, [CSS modules](https://github.com/css-modules/css-modules)
 @use '../../styles/nds'; // the configured & forwarded src/styles/_nds.scss
 
 .btn {
-	--nds-button-border-radius: var(
-		--nds-radius-pill
-	); // override a component token
+	// override a component token
+	--nds-button-border-radius: var(--nds-radius-pill);
 
 	// set additional styles with core
 	margin-bottom: nds.spacer("1rem");
