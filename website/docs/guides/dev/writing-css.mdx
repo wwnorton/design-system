@@ -102,3 +102,43 @@ If your element's background color is hard-coded as `--nds-primary-color-80`, th
 
 It's considered okay to use tokens directly in scenarios where component isolation is favored.
 :::
+
+### Compose your own CSS custom properties out of existing tokens
+
+We deliberately provide only a small set of opinionated design tokens but recognize that you may have application-specific styles that would make sense as tokens.
+
+```scss
+@use '@wwnds/core';
+
+// 👍 Good: declare and use your own reusable custom properties out of existing tokens
+:root {
+	--brand-gradient: linear-gradient(
+		var(--nds-primary-color),
+		var(--nds-primary-color-90),
+	);
+}
+```
+
+### Use Sass modules
+
+When using the Sass directly, avoid `@import`, favoring `@forward` and `@use`.
+
+```scss
+// ✨ Best: forward a configured version of the core library
+@forward '@wwnds/core' with (
+	// configured Sass variables
+	$radius-base: var(--nds-radius-xl),
+);
+
+// 👍 Good: use the core library directly
+@use '@wwnds/core';
+
+// 👎 Bad: use the deprecated import syntax
+@import '@wwnds/core/full';
+```
+
+:::note Why?
+The `@import` at-rule is [being deprecated by Sass](https://sass-lang.com/documentation/at-rules/import) and won't work sometime in the future.
+
+See more about this in [the guide on stylesheet configuration](stylesheet-setup#configuration).
+:::
