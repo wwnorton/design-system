@@ -19,13 +19,14 @@
 .feature {
 	--nds-feature-padding-x: #{nds.spacer('1.5rem')};
 	--nds-feature-padding-y: #{nds.spacer('1rem')};
+	--nds-feature-border-radius: var(--nds-radius-md);
 
 	padding: var(--nds-feature-padding-y) var(--nds-feature-padding-x);
 	margin: 0 !important; // only necessary to override Infima styling
 	color: var(--nds-text-color);
 	background-color: var(--nds-background-color);
 	border: 1px solid var(--nds-base-color-30);
-	border-radius: var(--nds-radius-md);
+	border-radius: var(--nds-feature-border-radius);
 	transition: nds.transition('box-shadow');
 	grid-column: span 12;
 
@@ -70,14 +71,17 @@
 	}
 }
 
-@mixin feature-image {
+@mixin feature-media {
 	min-width: calc(100% + var(--nds-feature-padding-x) * 2);
+	margin-top: calc(-1 * var(--nds-feature-padding-y));
 	margin-bottom: nds.spacer('1rem');
 	margin-left: calc(-1 * var(--nds-feature-padding-x));
+	border-top-left-radius: var(--nds-feature-border-radius);
+	border-top-right-radius: var(--nds-feature-border-radius);
 }
 
-.feature__image {
-	@include feature-image;
+.feature__media {
+	@include feature-media;
 }
 
 .feature__tk {
@@ -89,7 +93,7 @@
 	justify-content: center;
 	align-items: center;
 
-	@include feature-image;
+	@include feature-media;
 }
 
 .feature__link {
@@ -99,10 +103,6 @@
 
 	&:focus {
 		text-decoration: underline;
-	}
-
-	&:first-child:last-child {
-		margin: 0 auto;
 	}
 }
 

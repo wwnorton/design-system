@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 
 export interface FeatureCardProps extends React.HTMLAttributes<HTMLElement> {
 	title: string;
-	img?: string;
+	media?: React.ReactNode;
 	icon?: IconVariant;
 	basePath?: string;
 	slug?: string;
@@ -18,6 +18,7 @@ export interface FeatureCardProps extends React.HTMLAttributes<HTMLElement> {
 
 export const FeatureCard = ({
 	title,
+	media,
 	children,
 	icon,
 	href: hrefProp,
@@ -58,6 +59,7 @@ export const FeatureCard = ({
 			onClick={cardClickHandler}
 			ref={setFeature}
 		>
+			{ media }
 			<div className={styles.feature__header}>
 				{ icon && (
 					<span className={styles.feature__icon}>
