@@ -17,18 +17,6 @@ $spacing-8: 2rem;
 $spacing-10: 2.5rem;
 $spacing-12: 3rem;
 
-// z-index values from Bootstrap
-// https://v5.getbootstrap.com/docs/5.0/layout/z-index/
-$zindex-dropdown: 1000;
-$zindex-sticky: 1020;
-$zindex-fixed: 1030;
-$zindex-modal-backdrop: 1040;
-$zindex-modal: 1050;
-// not in Bootstrap: ensure that focused elements aren't obscured
-$zindex-focus: 1055;
-$zindex-popover: 1060;
-$zindex-tooltip: 1070;
-
 /// Spacing tokens set as CSS custom properties on the `:root` element.
 @mixin spacing {
 	/* stylelint-disable no-duplicate-selectors */
@@ -45,16 +33,5 @@ $zindex-tooltip: 1070;
 		--nds-spacing-8: #{$spacing-8};
 		--nds-spacing-10: #{$spacing-10};
 		--nds-spacing-12: #{$spacing-12};
-	}
-
-	:root {
-		--nds-zindex-dropdown: #{$zindex-dropdown};
-		--nds-zindex-sticky: #{$zindex-sticky};
-		--nds-zindex-fixed: #{$zindex-fixed};
-		--nds-zindex-modal-backdrop: #{$zindex-modal-backdrop};
-		--nds-zindex-modal: #{$zindex-modal};
-		--nds-zindex-focus: #{$zindex-focus};
-		--nds-zindex-popover: #{$zindex-popover};
-		--nds-zindex-tooltip: #{$zindex-tooltip};
 	}
 }

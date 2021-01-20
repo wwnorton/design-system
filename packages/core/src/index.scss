@@ -18,6 +18,7 @@
 /// @see miscellaneous
 @mixin tokens {
 	@include nds.color;
+	@include nds.elevation;
 	@include nds.motion;
 	@include nds.spacing;
 	@include nds.typography;
