@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { prefix } from '../../config';
+import { canUseDOM, prefix } from '../../config';
 import { getFocusable } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton, ButtonProps } from '../Button';
@@ -126,7 +126,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	private baseName: string;
 	private id: string;
 	private titleId: string;
-	private portalNode: HTMLElement;
+	private portalNode: HTMLElement | null;
 	private dialog: HTMLDivElement | null = null;
 	private header: HTMLElement | null = null;
 	private content: HTMLElement | null = null;
@@ -148,7 +148,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		this.baseName = props.baseName || prefix(Modal.bemBase);
 		this.id = props.id || uniqueId(`${this.baseName}-`);
 		this.titleId = `${this.id}-${Modal.bemElements.title}`;
-		this.portalNode = this.createPortalNode();
+		this.portalNode = (canUseDOM) ? this.createPortalNode() : null;
 
 		this.state = {
 			isOpen: props.isOpen || Modal.defaultProps.isOpen,
@@ -161,6 +161,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	}
 
 	componentDidMount(): void {
+		if (!canUseDOM || !this.portalNode) return;
+
 		if ('IntersectionObserver' in window) {
 			this.stickyObserver = new IntersectionObserver(([e]) => {
 				if (e.target === this.header) {
@@ -194,6 +196,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		prevState: ModalState,
 		{ prevMount, nextMount }: ModalSnapshot,
 	): void {
+		if (!canUseDOM || !this.portalNode) return;
 		const {
 			isOpen,
 			children,
@@ -242,6 +245,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	}
 
 	componentWillUnmount(): void {
+		if (!canUseDOM || !this.portalNode) return;
 		this.portalNode.remove();
 		document.removeEventListener('keydown', this.onDocumentKeydown);
 	}
@@ -479,7 +483,9 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		return node;
 	}
 
-	render(): React.ReactPortal {
+	render(): React.ReactNode {
+		if (!canUseDOM || !this.portalNode) return null;
+
 		return ReactDOM.createPortal(
 			this.Dialog,
 			this.portalNode,
