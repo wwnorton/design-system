@@ -1,43 +1,22 @@
 ---
-title: Radio Buttons
-description: Radio buttons allow a user to select one Radio from a list.
+title: Radio Group
+description: A radio group allows the user to select one item from a list of related items.
 ---
 
 import { RadioGroup, Radio } from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
-> Radio buttons allow a user to select one Radio from a list.
+> A radio group allows the user to select one item from a list of related items.
 
 ## Anatomy
 
-A group of radio buttons includes:
-
-1. A Group Label
-2. Two or more Radio Button Controls and their Labels
-
-## Playground
-
-```jsx live
-<RadioGroup label="Select your native fruit">
-	<Radio>Apple</Radio>
-	<Radio>Cherry</Radio>
-	<Radio>Orange</Radio>
-	<Radio>Peach</Radio>
-	<Radio>Pear</Radio>
-</RadioGroup>
-```
-
-## Props - `RadioGroup`
-
-<PropsTable from={RadioGroup} />
-
-## Props - `Radio`
-
-<PropsTable from={Radio} />
+1. **Label**: a short description or prompt that conveys how the radio options are related.
+1. **Current selection**: the currently selected option.
+1. **Options**: the available options. Clicking or arrowing to an unselected option will deselect the currently selected option.
 
 ## Usage
 
-- Use radio buttons to allow a user to select exactly one Radio from a set of options, and display all available options.
+- Use radio buttons to allow a user to select exactly one item from a set of options, and display all available options.
 - Radio buttons should have between 2-5 options.
     - If you have more than 5 options, use a [dropdown](dropdown) or combo box.
 - The options in a group of radio buttons must be mutually exclusive. The user can only select 1 Radio.
@@ -59,3 +38,32 @@ A group of radio buttons includes:
     - Use a [switch](switch) if there are two opposite options (example: YES/NO, ON/OFF).
     - Otherwise, use a group of regular [buttons](button).
 :::
+
+## React API
+
+```js
+import { Radio, RadioGroup } from '@wwnds/react';
+```
+
+### `RadioGroup`
+
+```jsx live
+<RadioGroup label="Choose your favorite fruit." name="fruit">
+	<Radio>Apple</Radio>
+	<Radio>Banana</Radio>
+	<Radio>Kiwi</Radio>
+	<Radio>Orange</Radio>
+</RadioGroup>
+```
+
+<PropsTable from={RadioGroup} />
+
+### `Radio`
+
+Note: there is no scenario where you would use a single `Radio` alone.
+
+```jsx live
+<Radio>Apple</Radio>
+```
+
+<PropsTable from={Radio} />

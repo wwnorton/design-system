@@ -1,0 +1,47 @@
+---
+title: Choice Field
+description: A choice field allows the user to choose one or more options from a handful of options.
+---
+
+import { Choice, ChoiceField } from '@wwnds/react';
+import { PropsTable } from '../../src/theme/PropsTable';
+
+> A choice field allows the user to choose one or more options from a handful of options.
+
+## Anatomy
+
+1. **Label**: a short description or prompt that conveys how the options are related.
+1. **Current selection**: the currently selected option(s).
+1. **Options**: the available options.
+
+<!-- cspell:ignore checkboxgroup -->
+:::info Alternate versions
+This page is relatively sparse because the [Checkbox Group](checkbox#checkboxgroup) documents the multi-select version of the Choice Field and the [Radio Group](radio-group#radiogroup) documents the single-select version.
+:::
+
+## React API
+
+```js
+import { Choice, ChoiceField } from '@wwnds/react';
+```
+
+### ChoiceField
+
+```jsx live
+<ChoiceField label="Choose your favorite fruits." name="fruit" multiple>
+	<Choice>Apple</Choice>
+	<Choice>Banana</Choice>
+	<Choice>Kiwi</Choice>
+	<Choice>Orange</Choice>
+</ChoiceField>
+```
+
+<PropsTable from={ChoiceField} />
+
+### Choice
+
+```jsx live
+<Choice>Apple</Choice>
+```
+
+<PropsTable from={Choice} />

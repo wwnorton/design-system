@@ -1,47 +1,21 @@
 ---
 title: Checkbox
-description: A checkbox allows a user to select or deselect an option before submitting it.
+description: A checkbox allows the user to check or uncheck an option.
+tags: [field, form, input]
 ---
 
-import { Checkbox } from '@wwnds/react/src/components/Checkbox';
+import { Checkbox, CheckboxGroup } from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
-> A checkbox allows a user to select or deselect an option before submitting it.
+> A checkbox allows the user to check or uncheck an option.
 
 ## Anatomy
 
 A single checkbox includes:
 
-1. A checkbox control
-2. A label
-3. `Optional` A description
-
-## Playground
-
-```jsx live
-<Checkbox
-	description="Additional information about this checkbox."
-	required
-	requiredIndicator
->
-	Checkbox
-</Checkbox>
-```
-
-Use `indeterminate` to set a checkbox in its [indeterminate state](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Indeterminate_state_checkboxes).
-
-```jsx live
-<Checkbox
-	description="This checkbox starts out in the indeterminate/mixed state."
-	indeterminate
->
-	Indeterminate
-</Checkbox>
-```
-
-## Props
-
-<PropsTable from={Checkbox} />
+1. **Control** - the input control that conveys the current state of the checkbox to the user.
+1. **Label** - a short name that lets the user know what the checkbox is checking.
+1. **Description** (_optional_) - additional text that can be used to add clarity or context to the checkbox label.
 
 ## Usage
 
@@ -84,3 +58,40 @@ Use `indeterminate` to set a checkbox in its [indeterminate state](https://devel
     - If none of the options in the group are checked, the tri-state checkbox displays as not checked.
     - If a user checks a tri-state checkbox, then all the options in the group are checked.
     - If a user unchecks a tri-state checkbox, then all the options in the group are unchecked.
+
+## React API
+
+```js
+import { Checkbox, CheckboxGroup } from '@wwnds/react';
+```
+
+### Checkbox
+
+A single checkbox component.
+
+```jsx live
+<Checkbox
+	description="Additional information about this checkbox."
+	required
+	requiredIndicator
+>
+	Checkbox
+</Checkbox>
+```
+
+<PropsTable from={Checkbox} />
+
+### CheckboxGroup
+
+A container for a set of related `Checkbox` components and its associated prompt (`label`).
+
+```jsx live
+<CheckboxGroup label="Choose your favorite fruits." name="fruit">
+	<Checkbox>Apple</Checkbox>
+	<Checkbox>Banana</Checkbox>
+	<Checkbox>Kiwi</Checkbox>
+	<Checkbox>Orange</Checkbox>
+</CheckboxGroup>
+```
+
+<PropsTable from={CheckboxGroup} />

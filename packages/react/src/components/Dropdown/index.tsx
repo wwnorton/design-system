@@ -349,3 +349,5 @@ export const Dropdown: DropdownType = ({
 };
 
 Dropdown.Option = BaseListbox.Option;
+
+export const { Option } = BaseListbox;

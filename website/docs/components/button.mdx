@@ -1,31 +1,17 @@
 ---
 title: Button
-description: A button allows a user to perform an action
+description: A button allows the user to perform an action
 ---
 
-import { Button } from '@wwnds/react';
+import { Button, IconButton } from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
-> A button allows a user to perform an action.
+> A button allows the user to perform an action.
 
 ## Anatomy
 
-1. The label
-2. `Optional` An icon
-
-## Playground
-
-```tsx live
-<Button variant="solid">Solid</Button>
-```
-
-```tsx live
-<IconButton icon="info">More information</IconButton>
-```
-
-## Props
-
-<PropsTable from={Button} />
+1. **Label** - the text of a button lets the user know what will happen when they click it.
+1. **Icon** (_optional_) - an icon can be added either before or after a button to add meaning or character.
 
 ## Usage
 
@@ -63,3 +49,39 @@ The following should help differentiate when a link may be a better fit for your
 - If a button navigates the user to a new page or section, it might not meet the user's expectations.
 - A button will not record the navigation in the user's browser history, so they will not be able to return to the previous location using their browser's back button.
 - Consider the overall navigation of the site. Links help define the structure, architecture and hierarchy of the site&mdash;buttons don't.
+
+## React API
+
+### Button
+
+```js
+import { Button } from '@wwnds/react';
+```
+
+```tsx live
+<Button variant="solid">Solid</Button>
+```
+
+<PropsTable from={Button} />
+
+### IconButton
+
+```js
+import { IconButton } from '@wwnds/react';
+```
+
+:::note
+The IconButton is a simplified way to set an `iconOnly` button. These two are identical:
+
+```jsx
+<Button variant="ghost" iconOnly icon="info">More information</Button>
+<IconButton icon="info">More information</IconButton>
+```
+
+:::
+
+```tsx live
+<IconButton icon="info">More information</IconButton>
+```
+
+<PropsTable from={IconButton} />

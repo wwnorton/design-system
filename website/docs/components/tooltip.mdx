@@ -5,41 +5,18 @@ title: Tooltip
 import { Tooltip } from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
-> A tooltip displays a name or description in an overlay on demand.
+> A tooltip displays the name of or description for a related element on demand.
 
 ## Anatomy
 
-1. Contents - the contents of the tooltip can only be simple text.
-2. Arrow - the arrow points to the element that the tooltip references.
-
-## Playground
-
-```tsx live
-function ButtonWithTooltip() {
-	const [button, setButton] = React.useState(null);
-	return (
-		<div style={{ margin: '2rem 0' }}>
-			<Button variant="solid" ref={setButton}>I'm a reference element</Button>
-			<Tooltip
-				isOpen
-				placement="top"
-				reference={button}
-			>
-				I'm a tooltip!
-			</Tooltip>
-		</div>
-	);
-}
-```
-
-## Props
-
-<PropsTable from={Tooltip} />
+1. **Contents** - simple text that names or describes a related element.
+1. **Arrow** - a visual indicator that points to the related element.
 
 ## Usage
 
-Tooltips display _simple_ contextual information about a related element on demand.
-They are used to [name or describe](#naming-and-describing) a related element.
+Use tooltips when there is not enough physical space to display the name or description of an interactive element.
+Tooltips provide a mechanism for a simplifying the visual design of an interface.
+But in exchange, users will have a harder time understanding and discovering the role of the tooltipped element, so use them sparingly and thoughtfully.
 
 :::tip Dos
 - Do use a tooltip to label an interactive element with no visible text such as a button with no text.
@@ -65,27 +42,47 @@ This restriction ensures that the user experience of the tooltip is consistent f
 ### Naming
 
 A tooltip is said to be **naming** its related element when it is acting as a label for that element.
-For instance, an icon button's call to action could be captured as a tooltip to ensure
-that the purpose of the icon button is clear to everyone.
-If the element contains textual content and you also want to use
-a tooltip, the tooltip should be a _describing_ tooltip.
+For instance, an icon button's call to action could be captured as a tooltip to ensure that the purpose of the icon button is clear to everyone.
+If the element contains textual content and you also want to use a tooltip to add additional context, the tooltip should be a describing tooltip.
 
 :::a11y Naming tooltips & screen reader experience
-When a tooltip **names** its related element, screen readers will read the value
-of the tooltip when they encounter the related element, entirely ignoring any
-textual content inside the element. For this reason, naming tooltips should only
-be used for elements that do not already contain textual content.
+When a tooltip **names** its related element, screen readers will read the value of the tooltip when they encounter the related element, entirely ignoring any textual content inside the element.
+For this reason, naming tooltips should only be used for elements that do not already contain textual content.
 :::
 
 ### Describing
 
-A tooltip is said to be **describing** its related element when it is acting as
-additional or supplemental information about an element that already has a name.
-For instance, an `<input>` that already has an associated `<label>` could use a
-tooltip to display help text about the expected input format.
+A tooltip is said to be **describing** its related element when it is acting as additional or supplemental information about an element that already has a name.
+For instance, an `<input>` that already has an associated `<label>` could use a tooltip to display help text about the expected input format.
 
 :::a11y Describing tooltips & screen reader experience
-When a tooltip **describes** its related element, many screen readers will read the
-name of the related element, pause briefly, and then read the description contained
-in the tooltip.
+When a tooltip **describes** its related element, many screen readers will read the name of the related element, pause briefly, and then read the description contained in the tooltip.
 :::
+
+## React API
+
+```js
+import { Tooltip } from '@wwnds/react';
+```
+
+### Tooltip
+
+```tsx live
+function ButtonWithTooltip() {
+	const [button, setButton] = React.useState(null);
+	return (
+		<div style={{ margin: '2rem 0' }}>
+			<Button variant="solid" ref={setButton}>I'm a reference element</Button>
+			<Tooltip
+				isOpen
+				placement="top"
+				reference={button}
+			>
+				I'm a tooltip!
+			</Tooltip>
+		</div>
+	);
+}
+```
+
+<PropsTable from={Tooltip} />

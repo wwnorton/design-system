@@ -3,13 +3,15 @@ package:
   description: Styles, components, and utilities for building accessible, responsive products.
 
 groups:
-  accessibility: Accessibility
-  color: Color
+  main: Main API
   config: Config
-  device: Device
-  helpers: Helpers
-  motion: Motion
-  reset: Reset
-  spacing: Spacing
+  color: Color
   typography: Typography
+  spacing: Spacing
+  motion: Motion
+  device: Device
+  reset: Reset
+  accessibility: Accessibility
+  miscellaneous: Miscellaneous
+  helpers: Helpers
   utilities: Utilities

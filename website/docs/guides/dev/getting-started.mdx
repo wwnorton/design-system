@@ -1,0 +1,104 @@
+---
+title: Getting started
+slug: /guides/dev
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+The implementation of the Norton Design System for the web is composed of two main packages:
+
+- A modular [CSS library](#core-package) to help you style your application and content.
+- A [React component library](#react-package) to help you compose accessible, robust applications and content.
+
+These two libraries do not depend on each other but work best when used together.
+Each is published to the public NPM registry under [the `@wwnds` scope](https://www.npmjs.com/org/wwnds).
+
+:::note Audience
+This guide is intended for developers and a minimal understanding of web technologies such as CSS and HTML is assumed.
+Guidance on using the React library also requires a basic understanding of [React](https://reactjs.org/).
+:::
+
+## Core package
+
+The core package is a [Sass](https://sass-lang.com/) implementation of the [foundations](/docs/foundations) and styling for all [components](/docs/components).
+It includes the following features:
+
+- An implementation of the [design tokens](/docs/foundations/design-tokens) for all foundational elements (color, typography, etc.) set as [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*).
+- Modular styling for all components via [Sass mixins](https://sass-lang.com/documentation/at-rules/mixin).
+- A global reset stylesheet, forked from [the Bootstrap reboot](https://getbootstrap.com/docs/5.0/content/reboot/) to use the Norton Design System foundations.
+- A Sass API for theming and customizing every aspect of the library, built on [Sass modules](https://sass-lang.com/blog/the-module-system-is-launched).
+
+<Tabs
+	groupId="package-manager"
+	defaultValue="npm"
+	values={[
+	{ label: 'NPM', value: 'npm', },
+	{ label: 'Yarn', value: 'yarn', },
+	]}
+>
+<TabItem value="npm">
+
+```bash
+npm install @wwnds/core
+```
+
+</TabItem>
+<TabItem value="yarn">
+
+```bash
+yarn add @wwnds/core
+```
+
+</TabItem>
+</Tabs>
+
+:::note Links
+- [NPM: @wwnds/core](https://www.npmjs.com/package/@wwnds/core)
+- [GitHub: packages/core](https://github.com/wwnorton/design-system/tree/main/packages/core)
+:::
+
+## React package
+
+The React package is a [React](https://reactjs.org/) implementation of the components with no styling applied.
+It includes the following features:
+
+- A React [Typescript](https://www.typescriptlang.org/) implementation of the Norton Design System [components](/docs/components).
+- A rich developer experience powered by the comprehensive typings and descriptions for all top-level components and their props.
+- Useful [React hooks](https://reactjs.org/docs/hooks-overview.html) to help you build stateless, functional applications.
+
+<Tabs
+	groupId="package-manager"
+	defaultValue="npm"
+	values={[
+	{ label: 'NPM', value: 'npm', },
+	{ label: 'Yarn', value: 'yarn', },
+	]}
+>
+<TabItem value="npm">
+
+```bash
+npm install @wwnds/react
+```
+
+</TabItem>
+<TabItem value="yarn">
+
+```bash
+yarn add @wwnds/react
+```
+
+</TabItem>
+</Tabs>
+
+:::note Links
+- [NPM: @wwnds/react](https://www.npmjs.com/package/@wwnds/react)
+- [GitHub: packages/react](https://github.com/wwnorton/design-system/tree/main/packages/react)
+:::
+
+## Independent package usage
+
+Neither the [core package](#core) nor the [react package](#react) depend on one another and can therefore be used fully independently of each other.
+For instance, you could use `@wwnds/core` to style a [Vue.js](https://vuejs.org/) application, or you could apply your own styling to `@wwnds/react` without using anything from `@wwnds/core`.
+
+However, this guide fill focus on combined usage, as the packages work best when used together.
