@@ -146,8 +146,8 @@ Generally, these are applied to the component's anatomy with [BEM](http://getbem
 
 ## Helpers
 
-Helpers are declarations that help with common styling needs that are not connected to any component.
-Note that while these are functionally "utilities," the [utilities](#utilities) API strictly sets a single property per declaration, whereas helpers may set multiple properties per declaration.
+Helpers are composed declarations that help with common styling needs that are not connected to any component.
+Unlike [utilities](#utilities), helpers always set multiple properties per declaration or compose styles together to meet a specific need.
 
 Helpers are disabled by default and must be turned on by setting `$enable-helpers` to `true`.
 
@@ -164,8 +164,8 @@ Helpers are disabled by default and must be turned on by setting `$enable-helper
 Utilities are declarations that set a single property and are turned off by default.
 To enable them, they must be turned on with the `$enable-utilities` map.
 
-Note that the utility API is deliberately lackluster right now as we focus on the component API.
-Please get in touch if you feel strongly that we should prioritize the utility API.
+Note that the utility API is deliberately minimal and is not suited for production usage.
+If you would like to use a more utility-focused approach, we like [Tailwind CSS](https://tailwindcss.com/).
 
 ```scss title="Example: src/styles/utilities.scss"
 @use '@wwnds/core' with (
