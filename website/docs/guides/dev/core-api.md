@@ -3,6 +3,7 @@ title: Core API
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { ColorChip } from '../../../src/theme/Color';
 
 The `@wwnds/core` package exposes six top-level mixins for setting CSS declarations, as well as a set of customizable [variables for theming](#theming-variables).
 
@@ -21,56 +22,56 @@ Additional utility mixins and functions are documented in our <a href={useBaseUr
 
 These variables should be [configured in a forwarded stylesheet](stylesheet-setup#configuration) to ensure the most flexibility.
 
-| Token                         | Default value                             | Usage                                                                 |
-| ----------------------------- | ----------------------------------------- | --------------------------------------------------------------------- |
-| `$primary-family`             | `"teal"`                                  | The family used in components that have a default color               |
-| `$primary-grade`              | `60`                                      | The grade that defines the midpoint of the primary color              |
-| `$base-family`                | `"navy"`                                  | Background, border, or shadow gradients                               |
-| `$base-grade`                 | `null` (unset)                            | The grade that defines the midpoint of the base color                 |
-| `$disabled-family`            | `"base-color"`                            | Not currently usable, non-interactive                                 |
-| `$disabled-grade`             | `30`                                      | The grade that defines the midpoint of the disabled color             |
-| `$error-family`               | `"red"`                                   | Error, danger, or incorrect                                           |
-| `$error-grade`                | `60`                                      | The grade that defines the midpoint of the error color                |
-| `$success-family`             | `"green"`                                 | Success, passing, or correct                                          |
-| `$success-grade`              | `60`                                      | The grade that defines the midpoint of the success color              |
-| `$warning-family`             | `"yellow"`                                | Warning or caution                                                    |
-| `$warning-grade`              | `60`                                      | The grade that defines the midpoint of the warning color              |
-| `$background-color`           | <ColorChip>white</ColorChip>              | The main background color                                             |
-| `$text-color`                 | <ColorChip>base-color-90</ColorChip>      | The main text color                                                   |
-| `$text-color-inverse`         | <ColorChip>background-color</ColorChip>   | A contrasting text color                                              |
-| `$subdued-color`              | <ColorChip>base-color-60</ColorChip>      | De-emphasized, muted, or subdued content                              |
-| `$selection-background-color` | <ColorChip>primary-color</ColorChip>      | The background color of user-selected text (`::selection`)            |
-| `$selection-text-color`       | <ColorChip>text-color-inverse</ColorChip> | The text color of user-selected text (`::selection`)                  |
-| `$focus-color`                | <ColorChip>blue-50</ColorChip>            | The color used when an element has been focused (`:focus`)            |
-| `$focus-halo-inner-color`     | <ColorChip>background-color</ColorChip>   | The inner color of the [focus halo](accessibility#focus-halo)         |
-| `$focus-halo-outer-color`     | <ColorChip>focus-color</ColorChip>        | The outer color of the [focus halo](accessibility#focus-halo)         |
-| `$hd-dpi`                     | `200`                                     | The minimum dots per inch (dpi) of a high-resolution screen           |
-| `$hd-dppx`                    | `125`                                     | The minimum dots per pixel unit (dppx) for a high-resolution screen   |
-| `$min-xs`                     | `0`                                       | The minimum width for an extra small screen: a handset                |
-| `$min-sm`                     | `600px`                                   | The minimum width for a small screen: a large handset or small tablet |
-| `$min-md`                     | `960px`                                   | The minimum width for a medium screen: a large tablet or small laptop |
-| `$min-lg`                     | `1280px`                                  | The minimum width for a large screen: a desktop                       |
-| `$min-xl`                     | `1920px`                                  | The minimum width for an extra large screen: a high-definition device |
-| `$duration-scalar`            | `1`                                       | A multiplier used for increasing/decreasing all motion speed          |
-| `$font-family-sans`           | `var(--nds-font-family-system-sans)`      | The main sans serif font family                                       |
-| `$font-family-serif`          | `var(--nds-font-family-system-serif)`     | The main serif font family                                            |
-| `$font-family-mono`           | `var(--nds-font-family-system-mono)`      | The main monospace font family                                        |
-| `$font-family-base`           | `var(--nds-font-family-sans)`             | The main font family that will be used throughout your application    |
-| `$font-family-headings`       | `var(--nds-font-family-base)`             | The font family that will be used for all headings                    |
-| `$font-size-root`             | `1em`                                     | The font size that is used to define `1rem`                           |
-| `$font-size-xs`               | `var(--nds-font-size-12)`                 | An extra small font size                                              |
-| `$font-size-sm`               | `var(--nds-font-size-14)`                 | A small font size                                                     |
-| `$font-size-md`               | `var(--nds-font-size-16)`                 | A medium font size                                                    |
-| `$font-size-lg`               | `var(--nds-font-size-18)`                 | A large font size                                                     |
-| `$font-size-h1`               | `var(--nds-font-size-32)`                 | The font size used for the highest heading level                      |
-| `$font-size-h2`               | `var(--nds-font-size-24)`                 | The font size used for second-level headings                          |
-| `$font-size-h3`               | `var(--nds-font-size-20)`                 | The font size used for third-level headings                           |
-| `$font-size-h4`               | `var(--nds-font-size-18)`                 | The font size used for fourth-level headings                          |
-| `$font-size-h5`               | `var(--nds-font-size-16)`                 | The font size used for fifth-level headings                           |
-| `$font-size-h6`               | `var(--nds-font-size-14)`                 | The font size used for sixth-level headings                           |
-| `$font-size-base`             | `var(--nds-font-size-md)`                 | The font size used on the body and to set most text                   |
-| `$font-weight-base`           | `var(--nds-font-weight-regular)`          | The font weight used for body copy                                    |
-| `$font-weight-headings`       | `var(--nds-font-weight-bold)`             | The font weight used for headings                                     |
+| Token                         | Default value                             | Usage                                                                           |
+| ----------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------- |
+| `$primary-family`             | `"teal"`                                  | The family used in components that have a default color                         |
+| `$primary-grade`              | `60`                                      | The grade that defines the midpoint of the primary color                        |
+| `$base-family`                | `"navy"`                                  | Background, border, or shadow gradients                                         |
+| `$base-grade`                 | `null` (unset)                            | The grade that defines the midpoint of the base color                           |
+| `$disabled-family`            | `"base-color"`                            | Not currently usable, non-interactive                                           |
+| `$disabled-grade`             | `30`                                      | The grade that defines the midpoint of the disabled color                       |
+| `$error-family`               | `"red"`                                   | Error, danger, or incorrect                                                     |
+| `$error-grade`                | `60`                                      | The grade that defines the midpoint of the error color                          |
+| `$success-family`             | `"green"`                                 | Success, passing, or correct                                                    |
+| `$success-grade`              | `60`                                      | The grade that defines the midpoint of the success color                        |
+| `$warning-family`             | `"yellow"`                                | Warning or caution                                                              |
+| `$warning-grade`              | `60`                                      | The grade that defines the midpoint of the warning color                        |
+| `$background-color`           | <ColorChip>white</ColorChip>              | The main background color                                                       |
+| `$text-color`                 | <ColorChip>base-color-90</ColorChip>      | The main text color                                                             |
+| `$text-color-inverse`         | <ColorChip>background-color</ColorChip>   | A contrasting text color                                                        |
+| `$subdued-color`              | <ColorChip>base-color-60</ColorChip>      | De-emphasized, muted, or subdued content                                        |
+| `$selection-background-color` | <ColorChip>primary-color</ColorChip>      | The background color of user-selected text (`::selection`)                      |
+| `$selection-text-color`       | <ColorChip>text-color-inverse</ColorChip> | The text color of user-selected text (`::selection`)                            |
+| `$focus-color`                | <ColorChip>blue-50</ColorChip>            | The color used when an element has been focused (`:focus`)                      |
+| `$focus-halo-inner-color`     | <ColorChip>background-color</ColorChip>   | The inner color of the [focus halo](/docs/foundations/accessibility#focus-halo) |
+| `$focus-halo-outer-color`     | <ColorChip>focus-color</ColorChip>        | The outer color of the [focus halo](/docs/foundations/accessibility#focus-halo) |
+| `$hd-dpi`                     | `200`                                     | The minimum dots per inch (dpi) of a high-resolution screen                     |
+| `$hd-dppx`                    | `125`                                     | The minimum dots per pixel unit (dppx) for a high-resolution screen             |
+| `$min-xs`                     | `0`                                       | The minimum width for an extra small screen: a handset                          |
+| `$min-sm`                     | `600px`                                   | The minimum width for a small screen: a large handset or small tablet           |
+| `$min-md`                     | `960px`                                   | The minimum width for a medium screen: a large tablet or small laptop           |
+| `$min-lg`                     | `1280px`                                  | The minimum width for a large screen: a desktop                                 |
+| `$min-xl`                     | `1920px`                                  | The minimum width for an extra large screen: a high-definition device           |
+| `$duration-scalar`            | `1`                                       | A multiplier used for increasing/decreasing all motion speed                    |
+| `$font-family-sans`           | `var(--nds-font-family-system-sans)`      | The main sans serif font family                                                 |
+| `$font-family-serif`          | `var(--nds-font-family-system-serif)`     | The main serif font family                                                      |
+| `$font-family-mono`           | `var(--nds-font-family-system-mono)`      | The main monospace font family                                                  |
+| `$font-family-base`           | `var(--nds-font-family-sans)`             | The main font family that will be used throughout your application              |
+| `$font-family-headings`       | `var(--nds-font-family-base)`             | The font family that will be used for all headings                              |
+| `$font-size-root`             | `1em`                                     | The font size that is used to define `1rem`                                     |
+| `$font-size-xs`               | `var(--nds-font-size-12)`                 | An extra small font size                                                        |
+| `$font-size-sm`               | `var(--nds-font-size-14)`                 | A small font size                                                               |
+| `$font-size-md`               | `var(--nds-font-size-16)`                 | A medium font size                                                              |
+| `$font-size-lg`               | `var(--nds-font-size-18)`                 | A large font size                                                               |
+| `$font-size-h1`               | `var(--nds-font-size-32)`                 | The font size used for the highest heading level                                |
+| `$font-size-h2`               | `var(--nds-font-size-24)`                 | The font size used for second-level headings                                    |
+| `$font-size-h3`               | `var(--nds-font-size-20)`                 | The font size used for third-level headings                                     |
+| `$font-size-h4`               | `var(--nds-font-size-18)`                 | The font size used for fourth-level headings                                    |
+| `$font-size-h5`               | `var(--nds-font-size-16)`                 | The font size used for fifth-level headings                                     |
+| `$font-size-h6`               | `var(--nds-font-size-14)`                 | The font size used for sixth-level headings                                     |
+| `$font-size-base`             | `var(--nds-font-size-md)`                 | The font size used on the body and to set most text                             |
+| `$font-weight-base`           | `var(--nds-font-weight-regular)`          | The font weight used for body copy                                              |
+| `$font-weight-headings`       | `var(--nds-font-weight-bold)`             | The font weight used for headings                                               |
 
 ## Tokens
 
