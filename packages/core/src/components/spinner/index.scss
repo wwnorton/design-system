@@ -1,5 +1,8 @@
 @use '../../util';
 @use '../../spacing';
+@use '@material/circular-progress/mixins' as circular-progress;
+
+@include circular-progress.core-styles;
 
 @mixin base {
 	display: inline-flex;

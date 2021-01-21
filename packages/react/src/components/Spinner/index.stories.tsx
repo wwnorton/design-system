@@ -2,10 +2,12 @@ import React from 'react';
 import {
 	withKnobs,
 	text,
+	boolean,
 	number,
 	select,
 } from '@storybook/addon-knobs';
 import { Spinner } from '.';
+
 import { Button } from '../Button';
 
 export default {
@@ -16,23 +18,21 @@ export default {
 		layout: 'centered',
 	},
 };
-enum variantOptions{
-	determinate='determinate',
-	indeterminate='indeterminate',
-	static='static'
+enum sizeOptions{
+	small='small',
+	large='large',
+	medium='medium'
 }
-const variants = Object.keys(variantOptions);
+const sizes = Object.keys(sizeOptions);
 export const Default: React.FunctionComponent = () => {
-	const showVariant = select('variant', variants, variantOptions.indeterminate);
-	const showValue = showVariant !== variantOptions.indeterminate ? number('value', 50) : null;
-
+	const showDeterminate = boolean('determinate', false);
+	const showProgress = showDeterminate === true ? number('progress', 50) : 0;
 	return (
 		<Spinner
 			color={text('color', 'red')}
-			thickness={number('thickness', 3)}
-			size={number('size', 40)}
-			variant={showVariant}
-			value={showValue}
+			size={select('size', sizes, sizeOptions.large)}
+			determinate={showDeterminate}
+			progress={showProgress}
 		/>
 	);
 };
@@ -46,7 +46,7 @@ export const WithLabel: React.FunctionComponent = () => (
 	<>
 		<Spinner
 			label={text('label', 'loading images...')}
-			labelPlacement={select('labelPlacement', PlacementOptions, PlacementOptions.left)}
+			labelPlacement={select<PlacementOptions>('labelPlacement', PlacementOptions, PlacementOptions.left)}
 		/>
 	</>
 );
@@ -56,7 +56,7 @@ export const Controlled: React.FunctionComponent = () => {
 	const toggle = (): void => setOpen(!isOpen);
 	return (
 		<div style={{ textAlign: 'center' }}>
-			{isOpen ? <Spinner />
+			{isOpen ? <Spinner labelPlacement="bottom" />
 				: null}
 			<br />
 			<Button variant="solid" onClick={toggle}>
@@ -69,7 +69,7 @@ export const Controlled: React.FunctionComponent = () => {
 export const withButton: React.FunctionComponent = () => (
 	<div>
 		<Button variant="solid">
-			<Spinner color="base" label="loading..." labelPlacement="left" size={24} />
+			<Spinner color="base" label="loading..." labelPlacement="left" />
 		</Button>
 	</div>
 );

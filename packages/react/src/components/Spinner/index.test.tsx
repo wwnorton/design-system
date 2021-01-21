@@ -9,11 +9,11 @@ test.afterEach(cleanup);
 
 test('renders variant determinate with progress value 25 ', (t) => {
 	const progressValue = 25;
-	render(<Spinner variant="determinate" value={progressValue} />);
-	t.truthy(screen.getByRole('status'));
+	render(<Spinner determinate={false} progress={progressValue} />);
+	t.truthy(screen.getByRole('progressbar'));
 });
 
 test('renders progress indicator color change', (t) => {
-	render(<Spinner color="red" />);
-	t.truthy(screen.getByRole('status'));
+	render(<Spinner determinate={false} color="red" />);
+	t.truthy(screen.getByRole('progressbar'));
 });

@@ -4,6 +4,7 @@ import { prefix } from '../../config';
 import { AllColors } from '../../utilities/color';
 
 export type LabelPlacement = 'top' | 'bottom' | 'right' | 'left';
+export type size = 'large' | 'medium' | 'small' | undefined;
 export interface BaseIndicatorProps extends BaseProgressIndicatorProps {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
@@ -24,10 +25,11 @@ export interface BaseIndicatorProps extends BaseProgressIndicatorProps {
 	 * If using a number, the pixel unit is assumed.
 	 * If using a string, you need to provide the CSS unit, e.g '3rem'.
 	 */
-	size?: number | string;
+	size?: size
 }
 export const defaultProps: BaseIndicatorProps = {
 	baseName: prefix('spinner'),
+	determinate: false,
 };
 
 const withLabel = (baseElement: JSX.Element, props :BaseIndicatorProps) => {
@@ -59,6 +61,8 @@ export const Spinner = React.forwardRef<HTMLElement, BaseIndicatorProps>(({
 	const baseElement = (
 		<BaseProgressIndicator
 			ref={ref}
+			size="medium"
+			progress={80}
 			{...props}
 		/>
 	);
