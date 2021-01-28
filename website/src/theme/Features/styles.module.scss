@@ -72,16 +72,25 @@
 }
 
 @mixin feature-media {
+	display: flex;
 	min-width: calc(100% + var(--nds-feature-padding-x) * 2);
 	margin-top: calc(-1 * var(--nds-feature-padding-y));
 	margin-bottom: nds.spacer('1rem');
 	margin-left: calc(-1 * var(--nds-feature-padding-x));
 	border-top-left-radius: var(--nds-feature-border-radius);
 	border-top-right-radius: var(--nds-feature-border-radius);
+	justify-content: center;
+	align-items: center;
 }
 
 .feature__media {
+	background-color: var(--nds-base-color-10);
+
 	@include feature-media;
+}
+
+.feature__img {
+	display: block;
 }
 
 .feature__tk {

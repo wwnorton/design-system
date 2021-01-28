@@ -32,6 +32,11 @@ export const FeatureCard = ({
 	const [link, setLink] = React.useState<HTMLAnchorElement | null>(null);
 	const href = useBaseUrl(hrefProp || (slug) ? basePath + slug : null);
 	const LinkTag = React.useMemo(() => ((href) ? 'a' : 'span'), [href]);
+	const iconProps = React.useMemo(() => {
+		if (typeof icon === 'string') return { variant: icon };
+		if (typeof icon === 'object') return { icon };
+		return {};
+	}, [icon]);
 
 	const cardClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		if (!href) return;
@@ -63,7 +68,7 @@ export const FeatureCard = ({
 			<div className={styles.feature__header}>
 				{ icon && (
 					<span className={styles.feature__icon}>
-						<Icon variant={icon} size={32} />
+						<Icon {...iconProps} size={32} />
 					</span>
 				) }
 				<LinkTag
@@ -80,8 +85,16 @@ export const FeatureCard = ({
 	);
 };
 
-export const FeatureImage = ({ src, alt }: React.HTMLAttributes<HTMLImageElement>): JSX.Element => {
-	if (src) return <img className={styles.feature__media} src={src} alt={alt} />;
+export const FeatureImage = ({ src: srcProp, alt = '' }: React.HTMLAttributes<HTMLImageElement>): JSX.Element => {
+	const src = useBaseUrl(srcProp);
+
+	if (src) {
+		return (
+			<div className={styles.feature__media}>
+				<img className={styles.feature__img} src={src} alt={alt} />
+			</div>
+		);
+	}
 	return (
 		<div className={styles.feature__tk}>
 			<abbr title="Media to come">TK</abbr>
