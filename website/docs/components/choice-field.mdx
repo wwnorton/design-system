@@ -1,22 +1,27 @@
 ---
 title: Choice Field
-description: A choice field allows the user to choose one or more options from a handful of options.
+description: A choice field allows the user to choose one or more option from a set of related options.
 ---
 
 import { Choice, ChoiceField } from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
-> A choice field allows the user to choose one or more options from a handful of options.
+> A choice field allows the user to choose one or more option from a set of related options.
 
 ## Anatomy
 
-1. **Label**: a short description or prompt that conveys how the options are related.
-1. **Current selection**: the currently selected option(s).
-1. **Options**: the available options.
+1. **Label**: text that conveys how the choices are related and prompts the user to choose one or more choice.
+1. **Current selection**: a selected choice indicates that it will be included when the field is submitted.
+1. **Choices**: the available choices.
+	- If the Choice Field is single-choice, all choices should be [radio buttons](radio-group#radio-button).
+	- If the Choice Field is multiple-choice, all choices should be [checkboxes](checkbox#checkbox).
 
-<!-- cspell:ignore checkboxgroup -->
-:::info Alternate versions
-This page is relatively sparse because the [Checkbox Group](checkbox#checkboxgroup) documents the multi-select version of the Choice Field and the [Radio Group](radio-group#radiogroup) documents the single-select version.
+:::info Usage
+In most cases, this component should not be used directly.
+Rather, you should choose ahead of time whether your field should be single-choice or multi-choice and use the corresponding implementation.
+
+- For single-choice, use the [Radio Group](radio-group#radio-group).
+- For multi-choice, use the [Checkbox Group](checkbox#checkbox-group).
 :::
 
 ## React API
@@ -26,6 +31,8 @@ import { Choice, ChoiceField } from '@wwnds/react';
 ```
 
 ### ChoiceField
+
+To switch a `ChoiceField` between single- and multi-choice, add or remove the `multiple` prop.
 
 ```jsx live
 <ChoiceField label="Choose your favorite fruits." name="fruit" multiple>

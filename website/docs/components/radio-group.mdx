@@ -1,18 +1,34 @@
 ---
 title: Radio Group
-description: A radio group allows the user to select one item from a list of related items.
+description: A radio group allows the user to select one option from a set of related options.
 ---
 
 import { RadioGroup, Radio } from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
-> A radio group allows the user to select one item from a list of related items.
+> A radio group allows the user to select one option from a set of related options.
 
 ## Anatomy
 
-1. **Label**: a short description or prompt that conveys how the radio options are related.
-1. **Current selection**: the currently selected option.
-1. **Options**: the available options. Clicking or arrowing to an unselected option will deselect the currently selected option.
+The anatomy for both a group of related radio buttons and a single radio button are outlined here.
+
+### Radio Group
+
+1. **Label** - text that conveys how the radio buttons are related and prompts the user to select a single radio button.
+1. **Current selection**: a selected radio button indicates that it will be the option that is submitted.
+1. **Choices** - the available radio buttons. Clicking or arrowing to an unselected radio button will deselect the currently selected radio button.
+
+### Radio Button
+
+1. **Control** - the input control that conveys the current state of the radio button to the user.
+1. **Label** - a short name that lets the user know what the radio button is selecting. Clicking the label should select the radio button.
+1. **Description** (_optional_) - additional text that can be used to add clarity or context to the radio button label. Clicking the description should do nothing.
+
+:::caution Single radio button usage
+Radio buttons must always be part of a radio group.
+Using a single radio button by itself would allow the user to check the option but not uncheck it.
+If that is desired, use a [checkbox](checkbox) instead to ensure that the user can uncheck it.
+:::
 
 ## Usage
 
@@ -45,20 +61,20 @@ import { PropsTable } from '../../src/theme/PropsTable';
 import { Radio, RadioGroup } from '@wwnds/react';
 ```
 
-### `RadioGroup`
+### RadioGroup
 
 ```jsx live
-<RadioGroup label="Choose your favorite fruit." name="fruit">
-	<Radio>Apple</Radio>
-	<Radio>Banana</Radio>
-	<Radio>Kiwi</Radio>
-	<Radio>Orange</Radio>
+<RadioGroup label="Select your favorite fruit." name="fruit">
+	<Radio thumbnail="🍎" description="A classic choice">Apple</Radio>
+	<Radio thumbnail="🍌" description="A taste of the tropics">Banana</Radio>
+	<Radio thumbnail="🥝" description="A bit more exotic">Kiwi</Radio>
+	<Radio thumbnail="🍊" description="Tangy and juicy">Orange</Radio>
 </RadioGroup>
 ```
 
 <PropsTable from={RadioGroup} />
 
-### `Radio`
+### Radio
 
 Note: there is no scenario where you would use a single `Radio` alone.
 
