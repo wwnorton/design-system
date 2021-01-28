@@ -13,13 +13,13 @@ Please [open an issue on GitHub](https://github.com/wwnorton/design-system/issue
 :::
 
 <Features basePath="/docs/guides/" columns={2}>
-	<FeatureCard title='Developers' icon='star' slug='dev'>
+	<FeatureCard title='Developer' icon={{ d: 'M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z' }} slug='dev'>
 		How to write code with the Norton Design System.
 	</FeatureCard>
-	<FeatureCard title='Designers' icon='star'>
+	{/* <FeatureCard title='Designer' icon='star'>
 		How to create designs with the Norton Design System.
 	</FeatureCard>
-	<FeatureCard title='Editors' icon='star'>
+	<FeatureCard title='Editor' icon='star'>
 		How to compose content with the Norton Design System.
-	</FeatureCard>
+	</FeatureCard> */}
 </Features>
