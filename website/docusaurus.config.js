@@ -11,7 +11,6 @@ module.exports = {
 	tagline: 'Create beautiful, flexible content and applications, born accessible.',
 	url,
 	baseUrl,
-	onBrokenLinks: 'warn',
 	favicon: 'img/favicon.ico',
 	organizationName: 'wwnorton',
 	projectName: 'design-system',
