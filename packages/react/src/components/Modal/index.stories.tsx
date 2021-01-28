@@ -16,91 +16,58 @@ export default {
 
 const { defaultProps } = Modal;
 
-export const Default: React.FunctionComponent = () => (
-	<Modal
-		title={text('Title', 'Modal title')}
-		hideTitle={boolean('Hide title', defaultProps.hideTitle)}
-		hideCloseButton={boolean('Hide close button', false)}
-		closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
-		closeOnEscape={boolean('Close on Escape', defaultProps.closeOnEscape)}
-		onRequestClose={action('onRequestClose')}
-		stickyHeader={boolean('Sticky header', false)}
-		stickyActionBar={boolean('Sticky action bar', false)}
-		isOpen
-	>
-		{
-			select(
-				'Content',
-				{ Short: 'short', Long: 'long' },
-				'short',
-			) === 'short' ? shortContent : longContent
-		}
-	</Modal>
-);
+export const Default: React.FunctionComponent = () => {
+	const [isOpen, setOpen] = React.useState(true);
 
-export const WithActionBar: React.FunctionComponent = () => (
-	<Modal
-		isOpen
-		title={text('Title', 'Modal title')}
-		hideCloseButton={boolean('Hide close button', false)}
-		actions={(
-			<>
-				<Button variant="outline">Not okay</Button>
-				<Button variant="solid">Okay</Button>
-			</>
-		)}
-		stickyHeader={boolean('Sticky header', false)}
-		stickyActionBar={boolean('Sticky action bar', false)}
-	>
-		{
-			select(
-				'Content',
-				{ Short: 'short', Long: 'long' },
-				'short',
-			) === 'short' ? shortContent : longContent
-		}
-	</Modal>
-);
-
-export const Controlled: React.FunctionComponent = () => {
-	const [isOpen, setOpen] = React.useState(false);
-	const [focus, setFocus] = React.useState<HTMLButtonElement | null>(null);
-	const open = (): void => { setOpen(true); };
-	const close = (): void => {
-		setOpen(false);
-		action('onRequestClose')();
-	};
 	return (
-		<>
-			<Button variant="solid" onClick={open}>Open</Button>
-			<Modal
-				title={text('Title', 'Modal title')}
-				hideTitle={boolean('Hide title', defaultProps.hideTitle)}
-				hideCloseButton={boolean('Hide close button', false)}
-				closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
-				closeOnEscape={boolean('Close on Escape', defaultProps.closeOnEscape)}
-				isOpen={isOpen}
-				onOpen={action('onOpen')}
-				onRequestClose={close}
-				focusOnOpen={(boolean('Focus cancel on open', false)) ? focus : undefined}
-				actions={boolean('Action bar', true) ? (
-					<>
-						<Button variant="outline" ref={setFocus} onClick={close}>Cancel</Button>
-						<Button variant="solid" onClick={close}>Okay</Button>
-					</>
-				) : undefined}
-				stickyHeader={boolean('Sticky header', false)}
-				stickyActionBar={boolean('Sticky action bar', false)}
-			>
-				{
-					select(
-						'Content',
-						{ Short: 'short', Long: 'long' },
-						'short',
-					) === 'short' ? shortContent : longContent
-				}
-			</Modal>
-		</>
+		<Modal
+			title={text('Title', 'Modal title')}
+			hideTitle={boolean('Hide title', defaultProps.hideTitle)}
+			hideCloseButton={boolean('Hide close button', false)}
+			closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
+			closeOnEscape={boolean('Close on Escape', defaultProps.closeOnEscape)}
+			onRequestClose={() => setOpen(false)}
+			stickyHeader={boolean('Sticky header', false)}
+			stickyActionBar={boolean('Sticky action bar', false)}
+			isOpen={isOpen}
+		>
+			{
+				select(
+					'Content',
+					{ Short: 'short', Long: 'long' },
+					'short',
+				) === 'short' ? shortContent : longContent
+			}
+		</Modal>
+	);
+};
+
+export const WithActionBar: React.FunctionComponent = () => {
+	const [isOpen, setOpen] = React.useState(true);
+
+	return (
+		<Modal
+			isOpen={isOpen}
+			onRequestClose={() => setOpen(false)}
+			title={text('Title', 'Modal title')}
+			hideCloseButton={boolean('Hide close button', false)}
+			actions={(
+				<>
+					<Button variant="outline">Not okay</Button>
+					<Button variant="solid">Okay</Button>
+				</>
+			)}
+			stickyHeader={boolean('Sticky header', false)}
+			stickyActionBar={boolean('Sticky action bar', false)}
+		>
+			{
+				select(
+					'Content',
+					{ Short: 'short', Long: 'long' },
+					'short',
+				) === 'short' ? shortContent : longContent
+			}
+		</Modal>
 	);
 };
 
