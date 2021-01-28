@@ -3,7 +3,9 @@ title: Text Field
 description: A text field allows the user to enter and edit text.
 ---
 
-import { TextField } from '@wwnds/react';
+import {
+	TextField, FieldInfo, FieldFeedback, FieldAddon,
+} from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
 > A text field allows the user to enter and edit text.
@@ -114,14 +116,14 @@ Three options are provided to address this need.
 - As the cursor reaches the right edge of the input area, text longer than the input area automatically scrolls left.
 - Use single-line text fields for: Number, Email, Password, and Tel inputs.
 
-### Multi-line text field
+### Multi-line text field [not yet implemented]
 
 - A multi-line text field grows to accommodate multiple lines of text and show all text entry at once.
 - Text longer than the input area wraps to a new line. The input area expands vertically and shifts any screen elements below it.
 - Multi-line text fields initially appear as single-line fields, which is useful for compact layouts that need to accommodate large amounts of text.
 - Use multi-line text fields for: free response input and URL.
 
-### Text area text field
+### Text area text field [not yet implemented]
 
 - A text area text field has a fixed height.
 - Text longer than the input area wraps onto a new line, and scrolls vertically when the cursor reaches the bottom of the input area.
@@ -134,7 +136,11 @@ Three options are provided to address this need.
 import { TextField } from '@wwnds/react';
 ```
 
-### `TextField`
+### TextField
+
+<!-- cspell:ignore fieldinfo, fieldfeedback, fieldaddon -->
+TextField provides a single interface for a complete `<input>` field.
+Internally, it uses the [FieldInfo](#fieldinfo), [FieldFeedback](#fieldfeedback), and [FieldAddon](#fieldaddon) components.
 
 ```jsx live
 <TextField
@@ -149,3 +155,42 @@ import { TextField } from '@wwnds/react';
 ```
 
 <PropsTable from={TextField} />
+
+### FieldInfo
+
+The FieldInfo component is used to information about a related field.
+It will always contain a label for the field and can contain an optional description.
+Make sure to include a valid `htmlFor` prop when used with form controls such as an `<input>`.
+
+```jsx live
+<FieldInfo description="Use the description to display hints about entry.">
+	Default text field
+</FieldInfo>
+```
+
+<PropsTable from={FieldInfo} />
+
+### FieldFeedback
+
+A container for field feedback. Use to display content based on field input.
+
+```jsx live
+<FieldFeedback errors={['Something went wrong', 'Another thing isn\'t right']}>
+	Generic feedback goes here
+</FieldFeedback>
+```
+
+<PropsTable from={FieldFeedback} />
+
+### FieldAddon
+
+The FieldAddon is a simple container for input addons.
+It is used by the TextField component to render addons before or after the `<input>`.
+
+```jsx live
+<FieldAddon>
+	<IconButton icon="check">Correct</IconButton>
+</FieldAddon>
+```
+
+<PropsTable from={FieldAddon} />
