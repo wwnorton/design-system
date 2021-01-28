@@ -12,22 +12,22 @@ In order to facilitate composition, components seek to do one thing well and be 
 
 <Features basePath="/docs/components/" columns={3}>
 	<FeatureCard title="Button" slug="button"
-		media={<FeatureImage />}
+		media={<FeatureImage src="/img/button.png" />}
 	>
 		A button allows the user to perform an action.
 	</FeatureCard>
 	<FeatureCard title="Checkbox" slug="checkbox"
-		media={<FeatureImage />}
+		media={<FeatureImage src="/img/checkbox.png" />}
 	>
 		A checkbox allows the user to check or uncheck an option.
 	</FeatureCard>
 	<FeatureCard title="Choice Field" slug="choice-field"
 		media={<FeatureImage />}
 	>
-		A choice field allows the user to choose one or more options from a handful of options.
+		A choice field allows the user to choose one or more option from a set of related options.
 	</FeatureCard>
 	<FeatureCard title="Disclosure" slug="disclosure"
-		media={<FeatureImage />}
+		media={<FeatureImage src="/img/disclosure.png" />}
 	>
 		A disclosure allows the user to show and hide additional content.
 	</FeatureCard>
@@ -49,7 +49,7 @@ In order to facilitate composition, components seek to do one thing well and be 
 	<FeatureCard title="Radio Group" slug="radio-group"
 		media={<FeatureImage />}
 	>
-		A radio group allows the user to select one item from a list of related items.
+		A radio group allows the user to select one option from a set of related options.
 	</FeatureCard>
 	<FeatureCard title="Switch" slug="switch"
 		media={<FeatureImage />}
