@@ -21,6 +21,7 @@ export const CalloutWarning = ({
 		// TODO: may need to add new properties
 		// borderColor
 		// backgroundColor
+		{...props}
 	>
 		{children}
 	</Callout>
