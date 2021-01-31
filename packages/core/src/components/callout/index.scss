@@ -63,6 +63,20 @@
 		$border-color: var(--nds-callout-success-border-color),
 		$background-color: var(--nds-callout-success-background-color),
 	);
+
+	.nds-callout__close-button {
+		&:not(:disabled):not(.disabled):hover,
+		&:not(:disabled):not(.disabled).hover {
+			background-color: var(--nds-green-20);
+			border-color: var(--nds-green-20);
+		}
+
+		&:not(:disabled):not(.disabled):active,
+		&:not(:disabled):not(.disabled).active {
+			background-color: var(--nds-green-30);
+			border-color: var(--nds-green-30);
+		}
+	}
 }
 
 @mixin warning {
@@ -70,6 +84,20 @@
 		$border-color: var(--nds-callout-warning-border-color),
 		$background-color: var(--nds-callout-warning-background-color),
 	);
+
+	.nds-callout__close-button {
+		&:not(:disabled):not(.disabled):hover,
+		&:not(:disabled):not(.disabled).hover {
+			background-color: var(--nds-yellow-20);
+			border-color: var(--nds-yellow-20);
+		}
+
+		&:not(:disabled):not(.disabled):active,
+		&:not(:disabled):not(.disabled).active {
+			background-color: var(--nds-yellow-30);
+			border-color: var(--nds-yellow-30);
+		}
+	}
 }
 
 @mixin error {
@@ -77,6 +105,20 @@
 		$border-color: var(--nds-callout-error-border-color),
 		$background-color: var(--nds-callout-error-background-color),
 	);
+
+	.nds-callout__close-button {
+		&:not(:disabled):not(.disabled):hover,
+		&:not(:disabled):not(.disabled).hover {
+			background-color: var(--nds-red-20);
+			border-color: var(--nds-red-20);
+		}
+
+		&:not(:disabled):not(.disabled):active,
+		&:not(:disabled):not(.disabled).active {
+			background-color: var(--nds-red-30);
+			border-color: var(--nds-red-30);
+		}
+	}
 }
 
 @mixin header {
@@ -157,18 +199,6 @@
 			@include no-title;
 		}
 
-		.nds-callout--success {
-			@include success;
-		}
-
-		.nds-callout--warning {
-			@include warning;
-		}
-
-		.nds-callout--error {
-			@include error;
-		}
-
 		.nds-callout__header {
 			@include header;
 		}
@@ -187,6 +217,18 @@
 
 		.nds-callout__close-button {
 			@include close-btn;
+		}
+
+		.nds-callout--success {
+			@include success;
+		}
+
+		.nds-callout--warning {
+			@include warning;
+		}
+
+		.nds-callout--error {
+			@include error;
 		}
 	}
 }
