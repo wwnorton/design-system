@@ -86,11 +86,11 @@ $-spacer-roles: (
 		token: 'spacing-2',
 	),
 	(
-		keys: (3, '0.75rem', '12px', 'button-x', 'input-x', 'dropdown-x', 'tooltip-x', 'inline-x-md', 'disclosure-y', 'block-sm'),
+		keys: (3, '0.75rem', '12px', 'button-x', 'input-x', 'dropdown-x', 'tooltip-x', 'inline-x-md', 'disclosure-y', 'block-sm', 'callout-icon-margin-right', 'callout-header-no-title-margin-bottom'),
 		token: 'spacing-3',
 	),
 	(
-		keys: (4, '1rem', '16px', 'block-base', 'cell-base', 'modal-y'),
+		keys: (4, '1rem', '16px', 'block-base', 'cell-base', 'modal-y', 'callout-no-title-top-padding'),
 		token: 'spacing-4',
 	),
 	(
@@ -102,7 +102,7 @@ $-spacer-roles: (
 		token: 'spacing-6',
 	),
 	(
-		keys: (8, '2rem', '32px', 'modal-x'),
+		keys: (8, '2rem', '32px', 'modal-x', 'callout-x', 'callout-y'),
 		token: 'spacing-8',
 	),
 	(

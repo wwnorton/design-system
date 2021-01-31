@@ -1,0 +1,21 @@
+@use '../../spacing';
+
+$color: var(--nds-navy-10) !default;
+$border-width: 0.25rem !default;
+$padding-x: spacing.spacer('callout-x') !default;
+$padding-y: spacing.spacer('callout-y') !default;
+$icon-margin-right: spacing.spacer('callout-icon-margin-right') !default;
+$default-border-color: var(--nds-navy-50) !default;
+$success-border-color: var(--nds-green-50) !default;
+$warning-border-color: var(--nds-yellow-40) !default;
+$error-border-color: var(--nds-red-50) !default;
+$success-background-color: var(--nds-green-10) !default;
+$warning-background-color: var(--nds-yellow-10) !default;
+$error-background-color: var(--nds-red-10) !default;
+$header-margin-bottom: 1.625rem !default;
+$header-no-title-bottom-margin: spacing.spacer('callout-header-no-title-margin-bottom') !default;
+$no-title-padding: spacing.spacer('callout-no-title-top-padding');
+$border-left: $border-width solid transparent;
+$border-top: $border-width solid transparent;
+$close-btn-color: var(--nds-navy-90) !default;
+$icon-size: 1.5rem !default;

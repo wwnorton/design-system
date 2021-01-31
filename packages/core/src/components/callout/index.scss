@@ -1,0 +1,180 @@
+@forward 'tokens';
+@use 'tokens';
+
+@use '../../type';
+@use '../../util';
+
+@mixin base {
+	--nds-callout-background-color: #{tokens.$color};
+	--nds-callout-border-width: #{tokens.$border-width};
+	--nds-callout-padding-x: #{tokens.$padding-x};
+	--nds-callout-padding-y: #{tokens.$padding-y};
+	--nds-callout-icon-margin-right: #{tokens.$icon-margin-right};
+	--nds-callout-default-border-color: #{tokens.$default-border-color};
+	--nds-callout-success-border-color: #{tokens.$success-border-color};
+	--nds-callout-warning-border-color: #{tokens.$warning-border-color};
+	--nds-callout-error-border-color: #{tokens.$error-border-color};
+	--nds-callout-success-background-color: #{tokens.$success-background-color};
+	--nds-callout-warning-background-color: #{tokens.$warning-background-color};
+	--nds-callout-error-background-color: #{tokens.$error-background-color};
+	--nds-callout-header-bottom-margin: #{tokens.$header-margin-bottom};
+	--nds-callout-header-no-title-bottom-margin: #{tokens.$header-no-title-bottom-margin};
+	--nds-callout-no-title-padding: #{tokens.$no-title-padding};
+	--nds-callout-close-btn-color: #{tokens.$close-btn-color};
+	--nds-callout-icon-width: #{tokens.$icon-size};
+	--nds-callout-icon-height: #{tokens.$icon-size};
+
+	position: relative;
+	display: block;
+	padding: var(--nds-callout-padding-y) var(--nds-callout-padding-x);
+	background-color: var(--nds-callout-background-color);
+}
+
+@mixin no-title {
+	padding-top: var(--nds-callout-no-title-padding);
+}
+
+@mixin border-left(
+	$border-color
+) {
+	padding-left: calc(var(--nds-callout-padding-x) - var(--nds-callout-border-width));
+	border-left: var(--nds-callout-border-width) solid $border-color;
+}
+
+@mixin border-top(
+	$border-color,
+	$padding-top-value: var(--nds-callout-padding-y)
+) {
+	padding-top: calc(#{$padding-top-value} - var(--nds-callout-border-width));
+	border-top: var(--nds-callout-border-width) solid $border-color;
+}
+
+@mixin preset(
+	$border-color: null,
+	$background-color: null
+) {
+	background-color: $background-color;
+
+	@include border-left($border-color);
+}
+
+@mixin success {
+	@include preset(
+		$border-color: var(--nds-callout-success-border-color),
+		$background-color: var(--nds-callout-success-background-color),
+	);
+}
+
+@mixin warning {
+	@include preset(
+		$border-color: var(--nds-callout-warning-border-color),
+		$background-color: var(--nds-callout-warning-background-color),
+	);
+}
+
+@mixin error {
+	@include preset(
+		$border-color: var(--nds-callout-error-border-color),
+		$background-color: var(--nds-callout-error-background-color),
+	);
+}
+
+@mixin header {
+	position: relative;
+	display: flex;
+	min-height: 1.375rem;
+	align-items: flex-start;
+	justify-content: space-between;
+	margin-bottom: var(--nds-callout-header-bottom-margin);
+
+	&--no-title {
+		margin-bottom: var(--nds-callout-header-no-title-bottom-margin);
+	}
+}
+
+@mixin header-left {
+	display: flex;
+	align-items: start;
+}
+
+@mixin icon {
+	min-width: var(--nds-callout-icon-width);
+	min-height: var(--nds-callout-icon-height);
+	margin-right: var(--nds-callout-icon-margin-right);
+}
+
+@mixin title {
+	font-family: var(--nds-font-family-headings);
+	font-size: var(--nds-font-size-h4);
+	font-style: var(--nds-font-style-headings);
+	font-weight: var(--nds-font-weight-headings);
+	line-height: var(--nds-line-height-3);
+
+	&:last-child {
+		padding-right: calc(var(--nds-callout-padding-x) / 2);
+	}
+}
+
+@mixin close-btn {
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: var(--nds-callout-close-btn-color);
+	transform: translate(18%, -18%);
+}
+
+@mixin style {
+	@include util.declare('callout') {
+		.nds-callout {
+			@include base;
+		}
+
+		.nds-callout--border-left {
+			@include border-left(var(--nds-callout-default-border-color));
+		}
+
+		.nds-callout--border-top {
+			@include border-top(var(--nds-callout-default-border-color));
+
+			&.nds-callout--no-title {
+				@include border-top(var(--nds-callout-default-border-color), var(--nds-callout-no-title-padding));
+			}
+		}
+
+		.nds-callout--no-title {
+			@include no-title;
+		}
+
+		.nds-callout--success {
+			@include success;
+		}
+
+		.nds-callout--warning {
+			@include warning;
+		}
+
+		.nds-callout--error {
+			@include error;
+		}
+
+		.nds-callout__header {
+			@include header;
+		}
+
+		.nds-callout__header-left {
+			@include header-left;
+		}
+
+		.nds-callout__title {
+			@include title;
+		}
+
+		.nds-callout__icon {
+			@include icon;
+		}
+
+		.nds-callout__close-button {
+			@include close-btn;
+		}
+	}
+}

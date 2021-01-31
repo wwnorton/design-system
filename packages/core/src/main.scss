@@ -24,6 +24,7 @@
 @include nds.switch-style;
 @include nds.textfield-style;
 @include nds.tooltip-style;
+@include nds.callout-style;
 
 // Helpers - declarations that set a composed style
 @if nds.$enable-helpers {
