@@ -35,10 +35,8 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 	contentClass?: string,
 	/** Indicates whether Callout has a 'left' or 'top' border */
 	borderPosition?: BorderPositionType,
-	/** The color choice of the border */
-	borderColor?: SystemColors;
-	/** Choose background color of the Callout */
-	backgroundColor?: SystemColors;
+	/** The color choice of the Callout */
+	color?: SystemColors;
 	/** Indicates whether Callout can be dismissable. */
 	dismissable?: boolean;
 
@@ -65,8 +63,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	closeButtonClass = `${baseName}__close-button`,
 	contentClass = `${baseName}__content`,
 	borderPosition,
-	borderColor,
-	backgroundColor,
+	color = 'navy',
 
 	...props
 }: CalloutProps): JSX.Element | null => {
@@ -87,8 +84,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 		{
 			[`${baseName}--border-left`]: (borderPosition === 'left'),
 			[`${baseName}--border-top`]: (borderPosition === 'top'),
-			[`${baseName}--background-${backgroundColor}`]: backgroundColor !== undefined,
-			[`${baseName}--border-${borderColor}`]: borderColor !== undefined,
+			[`${baseName}--color-${color}`]: color !== undefined,
 		},
 		((!title && dismissable) ? `${baseName}--no-title` : null),
 		baseName,

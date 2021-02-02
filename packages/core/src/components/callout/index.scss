@@ -1,11 +1,11 @@
 @forward 'tokens';
 @use 'tokens';
 
+@use '../../color';
 @use '../../type';
 @use '../../util';
 
 @mixin base {
-	--nds-callout-background-color: #{tokens.$color};
 	--nds-callout-border-width: #{tokens.$border-width};
 	--nds-callout-padding-x: #{tokens.$padding-x};
 	--nds-callout-padding-y: #{tokens.$padding-y};
@@ -27,7 +27,13 @@
 	position: relative;
 	display: block;
 	padding: var(--nds-callout-padding-y) var(--nds-callout-padding-x);
-	background-color: var(--nds-callout-background-color);
+	background-color: var(--nds-callout-color-10);
+	border-color: var(--nds-callout-color-50);
+
+	@include util.set(
+		$nds-callout-color: color.family('callout-color', tokens.$color, tokens.$grade),
+		$nds-callout-border-color: color.family('callout-border-color', tokens.$color, tokens.$grade)
+	);
 }
 
 @mixin no-title {
@@ -184,14 +190,14 @@
 		}
 
 		.nds-callout--border-left {
-			@include border-left(var(--nds-callout-default-border-color));
+			@include border-left(var(--nds-callout-color-50));
 		}
 
 		.nds-callout--border-top {
-			@include border-top(var(--nds-callout-default-border-color));
+			@include border-top(var(--nds-callout-color-50));
 
 			&.nds-callout--no-title {
-				@include border-top(var(--nds-callout-default-border-color), var(--nds-callout-no-title-padding));
+				@include border-top(var(--nds-callout-color-50), var(--nds-callout-no-title-padding));
 			}
 		}
 
@@ -229,6 +235,14 @@
 
 		.nds-callout--error {
 			@include error;
+		}
+
+		@each $name, $val in color.$families {
+			.nds-callout--color-#{$name} {
+				@include util.set(
+					$nds-callout-color: color.family('callout-color', $name, color.$primary-grade),
+				);
+			}
 		}
 	}
 }

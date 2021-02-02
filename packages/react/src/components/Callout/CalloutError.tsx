@@ -1,7 +1,7 @@
 import React from 'react';
 import { Callout, CalloutProps } from './index';
 
-export type CalloutErrorProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'className'>;
+export type CalloutErrorProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
 
 /**
  * Display a Callout Error.
@@ -14,13 +14,10 @@ export const CalloutError = ({
 	<Callout
 		borderPosition='left'
 		title={title}
-		icon='check-circle'
+		icon='exclamation'
 		iconColor='var(--nds-red-60)'
-		className='nds-callout--error'
+		color='red'
 		dismissable
-		// TODO: may need to add new properties
-		// borderColor
-		// backgroundColor
 		{...props}
 	>
 		{children}

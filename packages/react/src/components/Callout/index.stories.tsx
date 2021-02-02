@@ -2,11 +2,13 @@ import React from 'react';
 import {
 	text, withKnobs, boolean, select,
 } from '@storybook/addon-knobs';
+
 import { Callout, BorderPositionType } from '.';
 import { CalloutWarning } from './CalloutWarning';
 import { CalloutError } from './CalloutError';
 import { CalloutSuccess } from './CalloutSuccess';
 import { IconOptions, IconProps } from '../Icon';
+import { SystemColors } from '../../utilities/color';
 
 export default {
 	title: 'Callout',
@@ -29,6 +31,17 @@ export const Default: React.FunctionComponent = () => (
 		dismissable={boolean('Dismissable', true)}
 		borderPosition={select('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
 		icon={select<IconProps['variant']>('Icon', { None: undefined, ...IconOptions }, 'heart-outline')}
+		color={select<SystemColors>('Color', {
+			blue: 'blue',
+			cyan: 'cyan',
+			gray: 'gray',
+			green: 'green',
+			navy: 'navy',
+			purple: 'purple',
+			red: 'red',
+			teal: 'teal',
+			yellow: 'yellow',
+		}, 'navy')}
 	>
 		<span>{text('Contents', defaultContents)}</span>
 	</Callout>
@@ -36,7 +49,18 @@ export const Default: React.FunctionComponent = () => (
 
 export const NoTitle: React.FunctionComponent = () => (
 	<Callout
-		borderPosition={select('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
+		borderPosition={select<BorderPositionType>('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
+		color={select<SystemColors>('Color', {
+			blue: 'blue',
+			cyan: 'cyan',
+			gray: 'gray',
+			green: 'green',
+			navy: 'navy',
+			purple: 'purple',
+			red: 'red',
+			teal: 'teal',
+			yellow: 'yellow',
+		}, 'purple')}
 		dismissable={boolean('Dismissable', true)}
 	>
 		<span>{text('Contents', defaultContents)}</span>

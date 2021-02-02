@@ -1,6 +1,7 @@
 @use '../../spacing';
 
-$color: var(--nds-navy-10) !default;
+$color: 'navy' !default;
+$grade: 10 !default;
 $border-width: 0.25rem !default;
 $padding-x: spacing.spacer('callout-x') !default;
 $padding-y: spacing.spacer('callout-y') !default;

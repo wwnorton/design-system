@@ -1,7 +1,7 @@
 import React from 'react';
 import { Callout, CalloutProps } from './index';
 
-export type CalloutSuccessProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'className'>;
+export type CalloutSuccessProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
 
 /**
  * Display a Callout Success.
@@ -14,11 +14,8 @@ export const CalloutSuccess = ({
 		borderPosition='left'
 		icon='check-circle'
 		iconColor='var(--nds-green-60)'
-		className='nds-callout--success'
+		color='green'
 		dismissable
-		// TODO: may need to add new properties
-		// borderColor
-		// backgroundColor
 		{...props}
 	>
 		{children}
