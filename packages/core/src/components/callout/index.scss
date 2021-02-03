@@ -64,6 +64,10 @@
 @mixin header-left {
 	display: flex;
 	align-items: start;
+
+	&:not(:last-child) {
+		padding-right: calc(var(--nds-callout-padding-x) / 2);
+	}
 }
 
 @mixin icon {
@@ -78,10 +82,6 @@
 	font-style: var(--nds-font-style-headings);
 	font-weight: var(--nds-font-weight-headings);
 	line-height: var(--nds-line-height-3);
-
-	&:last-child {
-		padding-right: calc(var(--nds-callout-padding-x) / 2);
-	}
 }
 
 @mixin close-btn {
