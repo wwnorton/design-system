@@ -172,14 +172,14 @@
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		background-color: var(--nds-navy-20);
-		border-color: var(--nds-navy-20);
+		background-color: var(--nds-callout-color-20);
+		border-color: var(--nds-callout-color-20);
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		background-color: var(--nds-navy-30);
-		border-color: var(--nds-navy-30);
+		background-color: var(--nds-callout-color-30);
+		border-color: var(--nds-callout-color-30);
 	}
 }
 
