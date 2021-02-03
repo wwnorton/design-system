@@ -15,7 +15,6 @@ export const CalloutSuccess = ({
 		icon='check-circle'
 		iconColor='var(--nds-green-60)'
 		color='green'
-		dismissable
 		{...props}
 	>
 		{children}
