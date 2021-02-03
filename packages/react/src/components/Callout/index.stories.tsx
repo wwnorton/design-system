@@ -43,7 +43,7 @@ export const Default: React.FunctionComponent = () => (
 			yellow: 'yellow',
 		}, 'navy')}
 	>
-		<span>{text('Contents', defaultContents)}</span>
+		<span>{text('Body', defaultContents)}</span>
 	</Callout>
 );
 
@@ -63,30 +63,33 @@ export const NoTitle: React.FunctionComponent = () => (
 		}, 'purple')}
 		dismissable={boolean('Dismissable', true)}
 	>
-		<span>{text('Contents', defaultContents)}</span>
+		<span>{text('Body', defaultContents)}</span>
 	</Callout>
 );
 
 export const Success: React.FunctionComponent = () => (
 	<CalloutSuccess
 		title={text('Title', sampleTitle)}
+		dismissable={boolean('Dismissable', false)}
 	>
-		<span>{text('Contents', defaultContents)}</span>
+		<span>{text('Body', defaultContents)}</span>
 	</CalloutSuccess>
 );
 
 export const Warning: React.FunctionComponent = () => (
 	<CalloutWarning
 		title={text('Title', sampleTitle)}
+		dismissable={boolean('Dismissable', false)}
 	>
-		<span>{text('Contents', defaultContents)}</span>
+		<span>{text('Body', defaultContents)}</span>
 	</CalloutWarning>
 );
 
 export const Error: React.FunctionComponent = () => (
 	<CalloutError
 		title={text('Title', sampleTitle)}
+		dismissable={boolean('Dismissable', false)}
 	>
-		<span>{text('Contents', defaultContents)}</span>
+		<span>{text('Body', defaultContents)}</span>
 	</CalloutError>
 );
