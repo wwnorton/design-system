@@ -10,13 +10,6 @@
 	--nds-callout-padding-x: #{tokens.$padding-x};
 	--nds-callout-padding-y: #{tokens.$padding-y};
 	--nds-callout-icon-margin-right: #{tokens.$icon-margin-right};
-	--nds-callout-default-border-color: #{tokens.$default-border-color};
-	--nds-callout-success-border-color: #{tokens.$success-border-color};
-	--nds-callout-warning-border-color: #{tokens.$warning-border-color};
-	--nds-callout-error-border-color: #{tokens.$error-border-color};
-	--nds-callout-success-background-color: #{tokens.$success-background-color};
-	--nds-callout-warning-background-color: #{tokens.$warning-background-color};
-	--nds-callout-error-background-color: #{tokens.$error-background-color};
 	--nds-callout-header-bottom-margin: #{tokens.$header-margin-bottom};
 	--nds-callout-header-no-title-bottom-margin: #{tokens.$header-no-title-bottom-margin};
 	--nds-callout-no-title-padding: #{tokens.$no-title-padding};
@@ -53,78 +46,6 @@
 ) {
 	padding-top: calc(#{$padding-top-value} - var(--nds-callout-border-width));
 	border-top: var(--nds-callout-border-width) solid $border-color;
-}
-
-@mixin preset(
-	$border-color: null,
-	$background-color: null
-) {
-	background-color: $background-color;
-
-	@include border-left($border-color);
-}
-
-@mixin success {
-	@include preset(
-		$border-color: var(--nds-callout-success-border-color),
-		$background-color: var(--nds-callout-success-background-color),
-	);
-
-	.nds-callout__close-button {
-		&:not(:disabled):not(.disabled):hover,
-		&:not(:disabled):not(.disabled).hover {
-			background-color: var(--nds-green-20);
-			border-color: var(--nds-green-20);
-		}
-
-		&:not(:disabled):not(.disabled):active,
-		&:not(:disabled):not(.disabled).active {
-			background-color: var(--nds-green-30);
-			border-color: var(--nds-green-30);
-		}
-	}
-}
-
-@mixin warning {
-	@include preset(
-		$border-color: var(--nds-callout-warning-border-color),
-		$background-color: var(--nds-callout-warning-background-color),
-	);
-
-	.nds-callout__close-button {
-		&:not(:disabled):not(.disabled):hover,
-		&:not(:disabled):not(.disabled).hover {
-			background-color: var(--nds-yellow-20);
-			border-color: var(--nds-yellow-20);
-		}
-
-		&:not(:disabled):not(.disabled):active,
-		&:not(:disabled):not(.disabled).active {
-			background-color: var(--nds-yellow-30);
-			border-color: var(--nds-yellow-30);
-		}
-	}
-}
-
-@mixin error {
-	@include preset(
-		$border-color: var(--nds-callout-error-border-color),
-		$background-color: var(--nds-callout-error-background-color),
-	);
-
-	.nds-callout__close-button {
-		&:not(:disabled):not(.disabled):hover,
-		&:not(:disabled):not(.disabled).hover {
-			background-color: var(--nds-red-20);
-			border-color: var(--nds-red-20);
-		}
-
-		&:not(:disabled):not(.disabled):active,
-		&:not(:disabled):not(.disabled).active {
-			background-color: var(--nds-red-30);
-			border-color: var(--nds-red-30);
-		}
-	}
 }
 
 @mixin header {
@@ -223,18 +144,6 @@
 
 		.nds-callout__close-button {
 			@include close-btn;
-		}
-
-		.nds-callout--success {
-			@include success;
-		}
-
-		.nds-callout--warning {
-			@include warning;
-		}
-
-		.nds-callout--error {
-			@include error;
 		}
 
 		@each $name, $val in color.$families {
