@@ -1,7 +1,5 @@
 import React from 'react';
-import { Callout, CalloutProps } from './index';
-
-export type CalloutSuccessProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
+import { Callout, CalloutPresetProps } from './index';
 
 /**
  * Display a Callout Success.
@@ -9,7 +7,7 @@ export type CalloutSuccessProps = Omit<CalloutProps, 'borderPosition' | 'icon' |
 export const CalloutSuccess = ({
 	children,
 	...props
-}: CalloutSuccessProps): React.ReactElement => (
+}: CalloutPresetProps): React.ReactElement => (
 	<Callout
 		borderPosition='left'
 		icon='check-circle'

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Callout, CalloutProps } from './index';
-
-export type CalloutErrorProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
+import { Callout, CalloutPresetProps } from './index';
 
 /**
  * Display a Callout Error.
@@ -9,7 +7,7 @@ export type CalloutErrorProps = Omit<CalloutProps, 'borderPosition' | 'icon' | '
 export const CalloutError = ({
 	children,
 	...props
-}: CalloutErrorProps): React.ReactElement => (
+}: CalloutPresetProps): React.ReactElement => (
 	<Callout
 		borderPosition='left'
 		icon='exclamation'

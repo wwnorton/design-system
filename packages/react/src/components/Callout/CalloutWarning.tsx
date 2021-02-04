@@ -1,7 +1,5 @@
 import React from 'react';
-import { Callout, CalloutProps } from './index';
-
-export type CalloutWarningProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
+import { Callout, CalloutPresetProps } from './index';
 
 /**
  * Display a Callout Warning.
@@ -9,7 +7,7 @@ export type CalloutWarningProps = Omit<CalloutProps, 'borderPosition' | 'icon' |
 export const CalloutWarning = ({
 	children,
 	...props
-}: CalloutWarningProps): React.ReactElement => (
+}: CalloutPresetProps): React.ReactElement => (
 	<Callout
 		borderPosition='left'
 		icon='warning'

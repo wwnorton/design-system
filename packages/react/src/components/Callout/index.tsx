@@ -39,6 +39,8 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 	dismissible?: boolean;
 }
 
+export type CalloutPresetProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
+
 export const Callout: React.FunctionComponent<CalloutProps> = ({
 
 	// options
