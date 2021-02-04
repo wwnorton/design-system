@@ -50,6 +50,7 @@ export const Default: React.FunctionComponent = () => (
 		borderPosition={select('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
 		icon={select<IconProps['variant']>('Icon', { None: undefined, ...IconOptions }, 'heart-outline')}
 		color={select<AllColors>('Color', colorsMap, 'base')}
+		tag={select('Tag Element', { div: 'div', aside: 'aside' }, 'aside')}
 	>
 		<span>{text('Body', defaultContents)}</span>
 	</Callout>

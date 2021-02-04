@@ -8,7 +8,7 @@ import { AllColors } from '../../utilities/color';
 export type CalloutPresets = 'success' | 'warning' | 'error';
 export type BorderPositionType = 'top' | 'left';
 
-export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	/** An optional title for your Callout. */
 	title?: string,
 	/** Whether to show icon. */
@@ -37,6 +37,8 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 	color?: AllColors;
 	/** Indicates whether Callout can be dismissible. */
 	dismissible?: boolean;
+	/** Determines the HTML element used for Callout */
+	tag?: 'div' | 'aside';
 }
 
 export type CalloutPresetProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
@@ -49,6 +51,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	dismissible = false,
 
 	// anatomy
+	tag: Tag = 'aside',
 	children,
 
 	// classes
@@ -93,7 +96,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	if (isDismissed) return null;
 
 	return (
-		<div className={classes}>
+		<Tag className={classes}>
 			{ !title && !icon && !dismissible ? null : (
 				<div className={headerClass}>
 					{ title
@@ -121,6 +124,6 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 			<div className={bodyClass}>
 				{children}
 			</div>
-		</div>
+		</Tag>
 	);
 };
