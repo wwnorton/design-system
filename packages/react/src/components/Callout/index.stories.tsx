@@ -8,7 +8,7 @@ import { CalloutWarning } from './CalloutWarning';
 import { CalloutError } from './CalloutError';
 import { CalloutSuccess } from './CalloutSuccess';
 import { IconOptions, IconProps } from '../Icon';
-import { SystemColors } from '../../utilities/color';
+import { AllColors } from '../../utilities/color';
 
 export default {
 	title: 'Callout',
@@ -25,23 +25,31 @@ const defaultContents = [
 
 const sampleTitle = 'This is a title for Callout.';
 
+const colorsMap = {
+	blue: 'blue',
+	cyan: 'cyan',
+	gray: 'gray',
+	green: 'green',
+	navy: 'navy',
+	purple: 'purple',
+	red: 'red',
+	teal: 'teal',
+	yellow: 'yellow',
+	primary: 'primary',
+	base: 'base',
+	disabled: 'disabled',
+	error: 'error',
+	success: 'success',
+	warning: 'warning',
+};
+
 export const Default: React.FunctionComponent = () => (
 	<Callout
 		title={text('Title', sampleTitle)}
 		dismissible={boolean('Dismissible', true)}
 		borderPosition={select('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
 		icon={select<IconProps['variant']>('Icon', { None: undefined, ...IconOptions }, 'heart-outline')}
-		color={select<SystemColors>('Color', {
-			blue: 'blue',
-			cyan: 'cyan',
-			gray: 'gray',
-			green: 'green',
-			navy: 'navy',
-			purple: 'purple',
-			red: 'red',
-			teal: 'teal',
-			yellow: 'yellow',
-		}, 'navy')}
+		color={select<AllColors>('Color', colorsMap, 'base')}
 	>
 		<span>{text('Body', defaultContents)}</span>
 	</Callout>
@@ -50,17 +58,7 @@ export const Default: React.FunctionComponent = () => (
 export const NoTitle: React.FunctionComponent = () => (
 	<Callout
 		borderPosition={select<BorderPositionType>('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
-		color={select<SystemColors>('Color', {
-			blue: 'blue',
-			cyan: 'cyan',
-			gray: 'gray',
-			green: 'green',
-			navy: 'navy',
-			purple: 'purple',
-			red: 'red',
-			teal: 'teal',
-			yellow: 'yellow',
-		}, 'purple')}
+		color={select<AllColors>('Color', colorsMap, 'base')}
 		dismissible={boolean('Dismissible', true)}
 	>
 		<span>{text('Body', defaultContents)}</span>

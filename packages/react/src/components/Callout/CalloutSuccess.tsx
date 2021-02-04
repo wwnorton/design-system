@@ -12,7 +12,7 @@ export const CalloutSuccess = ({
 		borderPosition='left'
 		icon='check-circle'
 		iconColor='var(--nds-green-60)'
-		color='green'
+		color='success'
 		{...props}
 	>
 		{children}

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Icon, IconVariant, SVGIcon } from '../Icon';
 import { Button } from '../Button';
 import { prefix } from '../../config';
-import { SystemColors } from '../../utilities/color';
+import { AllColors } from '../../utilities/color';
 
 export type CalloutPresets = 'success' | 'warning' | 'error';
 export type BorderPositionType = 'top' | 'left';
@@ -34,7 +34,7 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 	/** Indicates whether Callout has a 'left' or 'top' border */
 	borderPosition?: BorderPositionType,
 	/** The color choice of the Callout */
-	color?: SystemColors;
+	color?: AllColors;
 	/** Indicates whether Callout can be dismissible. */
 	dismissible?: boolean;
 }
@@ -62,7 +62,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	closeButtonClass = `${baseName}__close-button`,
 	bodyClass = `${baseName}__body`,
 	borderPosition,
-	color = 'navy',
+	color = 'base',
 
 	...props
 }: CalloutProps): JSX.Element | null => {

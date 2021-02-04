@@ -12,7 +12,7 @@ export const CalloutWarning = ({
 		borderPosition='left'
 		icon='warning'
 		iconColor='var(--nds-yellow-60)'
-		color='yellow'
+		color='warning'
 		{...props}
 	>
 		{children}

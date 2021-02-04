@@ -12,7 +12,7 @@ export const CalloutError = ({
 		borderPosition='left'
 		icon='exclamation'
 		iconColor='var(--nds-red-60)'
-		color='red'
+		color='error'
 		{...props}
 	>
 		{children}

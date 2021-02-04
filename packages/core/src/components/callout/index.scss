@@ -1,6 +1,7 @@
 @forward 'tokens';
-@use 'tokens';
 
+@use 'tokens';
+@use 'sass:map';
 @use '../../color';
 @use '../../type';
 @use '../../util';
@@ -149,6 +150,17 @@
 			.nds-callout--color-#{$name} {
 				@include util.set(
 					$nds-callout-color: color.family('callout-color', $name, color.$primary-grade),
+				);
+			}
+		}
+
+		@each $map in color.$roles {
+			$name: map.get($map, 'name');
+			$grade: map.get($map, 'grade');
+
+			.nds-callout--color-#{$name} {
+				@include util.set(
+					$nds-callout-color: color.family('callout-color', '#{$name}-color', $grade),
 				);
 			}
 		}
