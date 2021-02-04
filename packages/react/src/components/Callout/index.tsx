@@ -27,19 +27,16 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 	headerLeftClass?: string,
 	/** The className that will applied to the Callout title */
 	headerTitleClass?: string,
-	/** The className that will be applied to the Callout header Dismiss IconButton */
-	headerRightClass?: string,
 	/** The className that will be applied to the close Button. */
 	closeButtonClass?: string,
-	/** The className that will be applied to the Callout content container */
-	contentClass?: string,
+	/** The className that will be applied to the Callout's body container */
+	bodyClass?: string,
 	/** Indicates whether Callout has a 'left' or 'top' border */
 	borderPosition?: BorderPositionType,
 	/** The color choice of the Callout */
 	color?: SystemColors;
 	/** Indicates whether Callout can be dismissable. */
 	dismissable?: boolean;
-
 }
 
 export const Callout: React.FunctionComponent<CalloutProps> = ({
@@ -61,7 +58,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	headerLeftClass = `${baseName}__header-left`,
 	headerTitleClass = `${baseName}__title`,
 	closeButtonClass = `${baseName}__close-button`,
-	contentClass = `${baseName}__content`,
+	bodyClass = `${baseName}__body`,
 	borderPosition,
 	color = 'navy',
 
@@ -100,27 +97,27 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 					{ title
 						? (
 							<div className={headerLeftClass}>
-								{ icon ? BaseIcon : null }
+								{ icon ? BaseIcon : null}
 								<div className={headerTitleClass}>{title}</div>
 							</div>
 						)
-						: null }
+						: null}
 					{ dismissable
 						? (
 							<Button
-								variant="ghost"
-								icon="close"
+								variant='ghost'
+								icon='close'
 								iconOnly
 								onClick={(): void => { setDismissed(true); }}
 								className={classNames(closeButtonClass, 'button--base')}
 							>
 								Close
 							</Button>
-						) : null }
+						) : null}
 				</div>
 			)}
-			<div className={contentClass}>
-				{ children }
+			<div className={bodyClass}>
+				{children}
 			</div>
 		</div>
 	);
