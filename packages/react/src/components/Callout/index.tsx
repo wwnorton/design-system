@@ -35,8 +35,8 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 	borderPosition?: BorderPositionType,
 	/** The color choice of the Callout */
 	color?: SystemColors;
-	/** Indicates whether Callout can be dismissable. */
-	dismissable?: boolean;
+	/** Indicates whether Callout can be dismissible. */
+	dismissible?: boolean;
 }
 
 export const Callout: React.FunctionComponent<CalloutProps> = ({
@@ -44,7 +44,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	// options
 	title,
 	icon,
-	dismissable = false,
+	dismissible = false,
 
 	// anatomy
 	children,
@@ -83,7 +83,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 			[`${baseName}--border-top`]: (borderPosition === 'top'),
 			[`${baseName}--color-${color}`]: color !== undefined,
 		},
-		((!title && dismissable) ? `${baseName}--no-title` : null),
+		((!title && dismissible) ? `${baseName}--no-title` : null),
 		baseName,
 		className,
 	);
@@ -92,7 +92,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 
 	return (
 		<div className={classes}>
-			{ !title && !icon && !dismissable ? null : (
+			{ !title && !icon && !dismissible ? null : (
 				<div className={headerClass}>
 					{ title
 						? (
@@ -102,7 +102,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 							</div>
 						)
 						: null}
-					{ dismissable
+					{ dismissible
 						? (
 							<Button
 								variant='ghost'

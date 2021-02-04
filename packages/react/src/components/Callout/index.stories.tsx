@@ -28,7 +28,7 @@ const sampleTitle = 'This is a title for Callout.';
 export const Default: React.FunctionComponent = () => (
 	<Callout
 		title={text('Title', sampleTitle)}
-		dismissable={boolean('Dismissable', true)}
+		dismissible={boolean('Dismissible', true)}
 		borderPosition={select('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
 		icon={select<IconProps['variant']>('Icon', { None: undefined, ...IconOptions }, 'heart-outline')}
 		color={select<SystemColors>('Color', {
@@ -61,7 +61,7 @@ export const NoTitle: React.FunctionComponent = () => (
 			teal: 'teal',
 			yellow: 'yellow',
 		}, 'purple')}
-		dismissable={boolean('Dismissable', true)}
+		dismissible={boolean('Dismissible', true)}
 	>
 		<span>{text('Body', defaultContents)}</span>
 	</Callout>
@@ -70,7 +70,7 @@ export const NoTitle: React.FunctionComponent = () => (
 export const Success: React.FunctionComponent = () => (
 	<CalloutSuccess
 		title={text('Title', sampleTitle)}
-		dismissable={boolean('Dismissable', false)}
+		dismissible={boolean('Dismissible', false)}
 	>
 		<span>{text('Body', defaultContents)}</span>
 	</CalloutSuccess>
@@ -79,7 +79,7 @@ export const Success: React.FunctionComponent = () => (
 export const Warning: React.FunctionComponent = () => (
 	<CalloutWarning
 		title={text('Title', sampleTitle)}
-		dismissable={boolean('Dismissable', false)}
+		dismissible={boolean('Dismissible', false)}
 	>
 		<span>{text('Body', defaultContents)}</span>
 	</CalloutWarning>
@@ -88,7 +88,7 @@ export const Warning: React.FunctionComponent = () => (
 export const Error: React.FunctionComponent = () => (
 	<CalloutError
 		title={text('Title', sampleTitle)}
-		dismissable={boolean('Dismissable', false)}
+		dismissible={boolean('Dismissible', false)}
 	>
 		<span>{text('Body', defaultContents)}</span>
 	</CalloutError>
