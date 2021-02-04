@@ -5,9 +5,6 @@ import { Button } from '../Button';
 import { prefix } from '../../config';
 import { AllColors } from '../../utilities/color';
 
-export type CalloutPresets = 'success' | 'warning' | 'error';
-export type BorderPositionType = 'top' | 'left';
-
 export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	/** An optional title for your Callout. */
 	title?: string,
@@ -32,7 +29,7 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	/** The className that will be applied to the Callout's body container */
 	bodyClass?: string,
 	/** Indicates whether Callout has a 'left' or 'top' border */
-	borderPosition?: BorderPositionType,
+	borderPosition?: 'top' | 'left',
 	/** The color choice of the Callout */
 	color?: AllColors;
 	/** Indicates whether Callout can be dismissible. */
@@ -79,23 +76,28 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 		{
 			[`${baseName}--border-left`]: (borderPosition === 'left'),
 			[`${baseName}--border-top`]: (borderPosition === 'top'),
-			[`${baseName}--color-${color}`]: color !== undefined,
+			[`${baseName}--${color}`]: color !== undefined,
+			[`${baseName}--no-title`]: !title && dismissible,
 		},
-		((!title && dismissible) ? `${baseName}--no-title` : null),
 		baseName,
 		className,
+	);
+
+	const showHeader = React.useMemo(
+		() => Boolean(title || icon || dismissible),
+		[title, icon, dismissible],
 	);
 
 	if (isDismissed) return null;
 
 	return (
 		<Tag className={classes}>
-			{ !title && !icon && !dismissible ? null : (
-				<div className={headerClass}>
+			{ showHeader ? (
+				<header className={headerClass}>
 					{ title
 						? (
 							<div className={headerLeftClass}>
-								{ icon ? BaseIcon : null}
+								{BaseIcon}
 								<div className={headerTitleClass}>{title}</div>
 							</div>
 						)
@@ -106,14 +108,14 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 								variant='ghost'
 								icon='close'
 								iconOnly
-								onClick={(): void => { setDismissed(true); }}
-								className={classNames(closeButtonClass, 'button--base')}
+								onClick={() => setDismissed(true)}
+								className={closeButtonClass}
 							>
 								Close
 							</Button>
 						) : null}
-				</div>
-			)}
+				</header>
+			) : null}
 			<div className={bodyClass}>
 				{children}
 			</div>

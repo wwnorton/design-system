@@ -14,9 +14,8 @@
 	--nds-callout-header-bottom-margin: #{tokens.$header-margin-bottom};
 	--nds-callout-header-no-title-bottom-margin: #{tokens.$header-no-title-bottom-margin};
 	--nds-callout-no-title-padding: #{tokens.$no-title-padding};
-	--nds-callout-close-btn-color: #{tokens.$close-btn-color};
-	--nds-callout-icon-width: #{tokens.$icon-size};
-	--nds-callout-icon-height: #{tokens.$icon-size};
+	--nds-callout-close-button-color: #{tokens.$close-button-color};
+	--nds-callout-icon-size: #{tokens.$icon-size};
 
 	position: relative;
 	display: block;
@@ -25,7 +24,7 @@
 	border-color: var(--nds-callout-color-50);
 
 	@include util.set(
-		$nds-callout-color: color.family('callout-color', tokens.$color, tokens.$grade),
+		$nds-callout-color: color.family('callout-color', tokens.$color),
 	);
 }
 
@@ -71,8 +70,8 @@
 }
 
 @mixin icon {
-	min-width: var(--nds-callout-icon-width);
-	min-height: var(--nds-callout-icon-height);
+	min-width: var(--nds-callout-icon-size);
+	min-height: var(--nds-callout-icon-size);
 	margin-right: var(--nds-callout-icon-margin-right);
 }
 
@@ -84,23 +83,23 @@
 	line-height: var(--nds-line-height-3);
 }
 
-@mixin close-btn {
+@mixin close-button {
 	position: absolute;
 	top: 0;
 	right: 0;
-	color: var(--nds-callout-close-btn-color);
+	color: var(--nds-callout-close-button-color);
 	transform: translate(18%, -18%);
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		background-color: var(--nds-callout-color-20);
-		border-color: var(--nds-callout-color-20);
+		background-color: var(--nds-callout-color-#{tokens.$background-grade + 10});
+		border-color: var(--nds-callout-color-#{tokens.$background-grade + 10});
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		background-color: var(--nds-callout-color-30);
-		border-color: var(--nds-callout-color-30);
+		background-color: var(--nds-callout-color-#{tokens.$background-grade + 20});
+		border-color: var(--nds-callout-color-#{tokens.$background-grade + 20});
 	}
 }
 
@@ -143,11 +142,11 @@
 		}
 
 		.nds-callout__close-button {
-			@include close-btn;
+			@include close-button;
 		}
 
 		@each $name, $val in color.$families {
-			.nds-callout--color-#{$name} {
+			.nds-callout--#{$name} {
 				@include util.set(
 					$nds-callout-color: color.family('callout-color', $name, color.$primary-grade),
 				);
@@ -156,11 +155,10 @@
 
 		@each $map in color.$roles {
 			$name: map.get($map, 'name');
-			$grade: map.get($map, 'grade');
 
-			.nds-callout--color-#{$name} {
+			.nds-callout--#{$name} {
 				@include util.set(
-					$nds-callout-color: color.family('callout-color', '#{$name}-color', $grade),
+					$nds-callout-color: color.family('callout-color', '#{$name}-color'),
 				);
 			}
 		}
