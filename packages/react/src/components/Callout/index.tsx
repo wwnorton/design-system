@@ -44,17 +44,11 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 export type CalloutPresetProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
 
 export const Callout: React.FunctionComponent<CalloutProps> = ({
-
-	// options
 	title,
 	icon,
 	dismissible = false,
-
-	// anatomy
 	tag: Tag = 'aside',
 	children,
-
-	// classes
 	className,
 	baseName = prefix('callout'),
 	iconClass = `${baseName}__icon`,
@@ -66,7 +60,6 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	bodyClass = `${baseName}__body`,
 	borderPosition,
 	color = 'base',
-
 	...props
 }: CalloutProps): JSX.Element | null => {
 	const [isDismissed, setDismissed] = React.useState<boolean>(false);
