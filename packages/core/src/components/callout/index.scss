@@ -86,11 +86,7 @@
 }
 
 @mixin title {
-	font-family: var(--nds-font-family-headings);
-	font-size: var(--nds-font-size-h4);
-	font-style: var(--nds-font-style-headings);
-	font-weight: var(--nds-font-weight-headings);
-	line-height: var(--nds-line-height-3);
+	@include type.heading-4;
 }
 
 @mixin close-button {
