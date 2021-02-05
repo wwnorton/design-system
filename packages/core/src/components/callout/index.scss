@@ -16,12 +16,14 @@
 	--nds-callout-no-title-padding: #{tokens.$no-title-padding};
 	--nds-callout-close-button-color: #{tokens.$close-button-color};
 	--nds-callout-icon-size: #{tokens.$icon-size};
+	--nds-callout-background-color: var(--nds-callout-color-#{tokens.$background-grade});
+	--nds-callout-border-color: var(--nds-callout-color-#{tokens.$border-grade});
 
 	position: relative;
 	display: block;
 	padding: var(--nds-callout-padding-y) var(--nds-callout-padding-x);
-	background-color: var(--nds-callout-color-10);
-	border-color: var(--nds-callout-color-50);
+	background-color: var(--nds-callout-background-color);
+	border-color: var(--nds-callout-border-color);
 
 	@include util.set(
 		$nds-callout-color: color.family('callout-color', tokens.$color),
@@ -109,6 +111,14 @@
 	}
 }
 
+@mixin preset($color-family) {
+	@include util.set($nds-callout-color: color.family('callout-color', #{$color-family}));
+
+	.nds-callout__icon {
+		color: var(--nds-callout-color-#{tokens.$icon-grade});
+	}
+}
+
 @mixin style {
 	@include util.declare('callout') {
 		.nds-callout {
@@ -155,10 +165,22 @@
 			@include callout-body;
 		}
 
+		.nds-callout--warning {
+			@include preset('warning-color');
+		}
+
+		.nds-callout--error {
+			@include preset('error-color');
+		}
+
+		.nds-callout--success {
+			@include preset('success-color');
+		}
+
 		@each $name, $val in color.$families {
 			.nds-callout--#{$name} {
 				@include util.set(
-					$nds-callout-color: color.family('callout-color', $name, color.$primary-grade),
+					$nds-callout-color: color.family('callout-color', $name),
 				);
 			}
 		}

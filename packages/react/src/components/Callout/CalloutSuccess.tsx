@@ -11,7 +11,6 @@ export const CalloutSuccess = ({
 	<Callout
 		borderPosition='left'
 		icon='check-circle'
-		iconColor='var(--nds-green-60)'
 		color='success'
 		{...props}
 	>

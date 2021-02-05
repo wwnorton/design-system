@@ -1,6 +1,9 @@
 @use '../../spacing';
 
-$color: 'navy' !default;
+$color: 'base-color' !default;
+$background-grade: 10 !default;
+$border-grade: 50 !default;
+$icon-grade: 60 !default;
 $border-width: 0.25rem !default;
 $padding-x: spacing.spacer('callout-x') !default;
 $padding-y: spacing.spacer('callout-y') !default;
@@ -13,4 +16,3 @@ $border-top: $border-width solid transparent;
 $close-button-color: var(--nds-navy-90) !default;
 $icon-size: 1.5rem !default;
 $header-right-padding: '1.75rem' !default;
-$background-grade: 10 !default;

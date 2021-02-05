@@ -10,8 +10,6 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	title?: string,
 	/** Whether to show icon. */
 	icon?: IconVariant | SVGIcon,
-	/** Color choice for Icon */
-	iconColor?: string,
 	/** The base class name according to BEM conventions. */
 	baseName?: string,
 	/** The className for the Callout's icon, if on exists. */
@@ -30,7 +28,7 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	bodyClass?: string,
 	/** Indicates whether Callout has a 'left' or 'top' border */
 	borderPosition?: 'top' | 'left',
-	/** The color choice of the Callout */
+	/** The color choice for the Callout. Also configures border color and background color. */
 	color?: AllColors;
 	/** Indicates whether Callout can be dismissible. */
 	dismissible?: boolean;
@@ -38,7 +36,7 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	tag?: 'div' | 'aside';
 }
 
-export type CalloutPresetProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'iconColor' | 'color'>;
+export type CalloutPresetProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'color'>;
 
 export const Callout: React.FunctionComponent<CalloutProps> = ({
 	title,
@@ -49,7 +47,6 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	className,
 	baseName = prefix('callout'),
 	iconClass = `${baseName}__icon`,
-	iconColor = 'var(--nds-navy-90)',
 	headerClass = classNames(`${baseName}__header`, ((icon || title) ? null : `${baseName}__header--no-title`)),
 	headerLeftClass = `${baseName}__header-left`,
 	headerTitleClass = `${baseName}__title`,
@@ -67,10 +64,10 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 			className: iconClass,
 		};
 		const iconProps = (typeof icon === 'string')
-			? { ...baseProps, variant: icon, color: iconColor }
+			? { ...baseProps, variant: icon }
 			: { ...baseProps, icon };
 		return <Icon {...iconProps} />;
-	}, [icon, iconClass, iconColor]);
+	}, [icon, iconClass]);
 
 	const classes = classNames(
 		{

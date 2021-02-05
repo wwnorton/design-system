@@ -11,7 +11,6 @@ export const CalloutWarning = ({
 	<Callout
 		borderPosition='left'
 		icon='warning'
-		iconColor='var(--nds-yellow-60)'
 		color='warning'
 		{...props}
 	>
