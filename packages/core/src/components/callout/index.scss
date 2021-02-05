@@ -2,6 +2,7 @@
 
 @use 'tokens';
 @use 'sass:map';
+@use 'sass:list';
 @use '../../color';
 @use '../../type';
 @use '../../util';
@@ -34,19 +35,26 @@
 	padding-top: var(--nds-callout-no-title-padding);
 }
 
-@mixin border-left(
-	$border-color
+@mixin border(
+	$placement: 'left',
+	$color: var(--nds-base-color-#{tokens.$border-grade}),
+	$width: var(--nds-callout-border-width),
+	$padding: var(--nds-callout-padding-y),
 ) {
-	padding-left: calc(var(--nds-callout-padding-x) - var(--nds-callout-border-width));
-	border-left: var(--nds-callout-border-width) solid $border-color;
-}
+	@if list.index('top' 'left', #{$placement}) == null {
+		@error '$placement must be either "top" or "left"';
+	}
 
-@mixin border-top(
-	$border-color,
-	$padding-top-value: var(--nds-callout-padding-y)
-) {
-	padding-top: calc(#{$padding-top-value} - var(--nds-callout-border-width));
-	border-top: var(--nds-callout-border-width) solid $border-color;
+	$pad: $padding;
+
+	@if not $padding {
+		@if $placement == 'top' { $pad: var(--nds-callout-padding-y); }
+
+		@if $placement == 'left' { $pad: var(--nds-callout-padding-x); }
+	}
+
+	border-#{$placement}: #{$width} solid #{$color};
+	padding-#{$placement}: calc(#{$pad} - #{$width});
 }
 
 @mixin header {
@@ -126,14 +134,14 @@
 		}
 
 		.nds-callout--border-left {
-			@include border-left(var(--nds-callout-color-50));
+			@include border('left', var(--nds-callout-color-#{tokens.$border-grade}), var(--nds-callout-border-width));
 		}
 
 		.nds-callout--border-top {
-			@include border-top(var(--nds-callout-color-50));
+			@include border('top', var(--nds-callout-color-#{tokens.$border-grade}), var(--nds-callout-border-width));
 
 			&.nds-callout--no-title {
-				@include border-top(var(--nds-callout-color-50), var(--nds-callout-no-title-padding));
+				@include border('top', var(--nds-callout-color-#{tokens.$border-grade}), var(--nds-callout-border-width), var(--nds-callout-no-title-padding));
 			}
 		}
 
