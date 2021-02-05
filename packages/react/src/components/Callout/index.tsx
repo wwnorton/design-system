@@ -18,8 +18,6 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	textClass?: string,
 	/** The className that will be applied to the Callout header `<div>` */
 	headerClass?: string,
-	/** The className that will be applied to the Callout header icon and title container `<div>`  */
-	headerLeftClass?: string,
 	/** The className that will applied to the Callout title */
 	headerTitleClass?: string,
 	/** The className that will be applied to the close Button. */
@@ -48,7 +46,6 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	baseName = prefix('callout'),
 	iconClass = `${baseName}__icon`,
 	headerClass = classNames(`${baseName}__header`, ((icon || title) ? null : `${baseName}__header--no-title`)),
-	headerLeftClass = `${baseName}__header-left`,
 	headerTitleClass = `${baseName}__title`,
 	closeButtonClass = `${baseName}__close-button`,
 	bodyClass = `${baseName}__body`,
@@ -91,14 +88,8 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 		<Tag className={classes}>
 			{ showHeader ? (
 				<header className={headerClass}>
-					{ title
-						? (
-							<div className={headerLeftClass}>
-								{BaseIcon}
-								<div className={headerTitleClass}>{title}</div>
-							</div>
-						)
-						: null}
+					{BaseIcon}
+					{ title ? (<div className={headerTitleClass}>{title}</div>) : null}
 					{ dismissible
 						? (
 							<Button
