@@ -52,7 +52,7 @@ export const Default: React.FunctionComponent = () => (
 		color={select<AllColors>('Color', colorsMap, 'base')}
 		tag={select('Tag Element', { div: 'div', aside: 'aside' }, 'aside')}
 	>
-		<span>{text('Body', defaultContents)}</span>
+		<p>{text('Body', defaultContents)}</p>
 	</Callout>
 );
 

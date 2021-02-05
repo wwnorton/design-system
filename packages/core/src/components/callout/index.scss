@@ -103,6 +103,12 @@
 	}
 }
 
+@mixin callout-body {
+	> :last-child {
+		margin-bottom: 0;
+	}
+}
+
 @mixin style {
 	@include util.declare('callout') {
 		.nds-callout {
@@ -143,6 +149,10 @@
 
 		.nds-callout__close-button {
 			@include close-button;
+		}
+
+		.nds-callout__body {
+			@include callout-body;
 		}
 
 		@each $name, $val in color.$families {
