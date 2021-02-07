@@ -1,0 +1,98 @@
+// Use NDS styles over Infima styles
+
+
+// Bind NDS color schemes to the Infima colors
+:root {
+	--ifm-color-emphasis-0: var(--nds-white);
+	--ifm-color-emphasis-100: var(--nds-base-color-10);
+	--ifm-color-emphasis-200: var(--nds-base-color-20);
+	--ifm-color-emphasis-300: var(--nds-base-color-30);
+	--ifm-color-emphasis-400: var(--nds-base-color-40);
+	--ifm-color-emphasis-500: var(--nds-base-color-50);
+	--ifm-color-emphasis-600: var(--nds-base-color-60);
+	--ifm-color-emphasis-700: var(--nds-base-color-70);
+	--ifm-color-emphasis-800: var(--nds-base-color-80);
+	--ifm-color-emphasis-900: var(--nds-base-color-90);
+	--ifm-color-primary: var(--nds-primary-color);
+	--ifm-color-secondary: var(--nds-base-color-20);
+	--ifm-color-info: var(--nds-blue-60);
+	--ifm-color-success: var(--nds-success-color);
+	--ifm-color-warning: var(--nds-warning-color-lighter);
+	--ifm-color-danger: var(--nds-error-color);
+	--ifm-color-content: var(--nds-text-color);
+	--ifm-color-content-inverse: var(--nds-text-color-inverse);
+	--ifm-background-color: var(--nds-background-color);
+	--ifm-font-family-base: var(--nds-font-family-sans);
+	--ifm-menu-color-active: var(--nds-primary-color-dark);
+
+	&[data-theme='dark'] {
+		--ifm-background-color: var(--nds-background-color);
+		--ifm-color-info: var(--nds-blue-50);
+		--ifm-color-emphasis-100: var(--nds-base-color-10);
+		--ifm-color-emphasis-200: var(--nds-base-color-20);
+		--ifm-color-emphasis-300: var(--nds-base-color-30);
+		--ifm-color-emphasis-400: var(--nds-base-color-40);
+		--ifm-color-emphasis-500: var(--nds-base-color-50);
+		--ifm-color-emphasis-600: var(--nds-base-color-60);
+		--ifm-color-emphasis-700: var(--nds-base-color-70);
+		--ifm-color-emphasis-800: var(--nds-base-color-80);
+		--ifm-color-emphasis-900: var(--nds-base-color-90);
+		--ifm-navbar-background-color: var(--nds-gray-100);
+	}
+}
+
+blockquote {
+	--ifm-blockquote-color: var(--ifm-color-emphasis-600);
+
+	[data-theme='dark'] & {
+		--ifm-blockquote-color: var(--ifm-color-emphasis-500);
+	}
+}
+
+code {
+	border-radius: var(--nds-radius-sm);
+}
+
+.no-break {
+	white-space: pre;
+}
+
+.anchor[aria-hidden='true']:focus {
+	box-shadow: none;
+}
+
+.alert--secondary {
+	--ifm-alert-color: var(--ifm-font-color-base);
+	--ra-admonition-icon-color: var(--ifm-font-color-base);
+	--ifm-code-background: var(--ifm-color-emphasis-300);
+}
+
+.alert--info {
+	--ifm-alert-background-color: var(--ifm-color-info);
+	--ifm-alert-border-color: var(--ifm-color-info);
+}
+
+.alert--warning {
+	--ifm-alert-color: var(--ifm-font-color-base);
+	--ra-admonition-icon-color: --ifm-alert-color;
+
+	[data-theme='dark'] & {
+		--ifm-alert-color: var(--ifm-font-color-base-inverse);
+	}
+}
+
+.table-of-contents__link {
+	--nds-link-decoration: none;
+}
+
+.footer--dark {
+	--nds-background-color: var(--nds-navy-90);
+	--ifm-footer-background-color: var(--nds-background-color);
+	--ifm-footer-color: var(--nds-white);
+	--ifm-footer-link-color: var(--nds-teal-40);
+	--ifm-footer-link-hover-color: var(--nds-teal-50);
+}
+
+td > code:first-child:last-child {
+	white-space: nowrap;
+}
