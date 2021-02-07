@@ -83,7 +83,7 @@ export const Swatch = ({ color, textLight, textDark }: SwatchProps): JSX.Element
 			id={`color-${name}`}
 			ref={setSwatch}
 			className={styles.grade}
-			style={{ '--text-color': textColor, backgroundColor: color }}
+			style={{ '--nds-text-color': textColor, '--nds-background-color': color }}
 		>
 			<td className={styles.name}>{ name }</td>
 			<td className={styles.hex}>{ hex }</td>

@@ -4,7 +4,7 @@
 	display: table;
 
 	tr {
-		color: var(--text-color);
+		color: var(--nds-text-color);
 		border-color: var(--nds-base-color-30);
 
 		&:first-child {
@@ -76,6 +76,7 @@
 }
 
 .grade {
+	background-color: var(--nds-background-color) !important;
 	border-top: 0;
 	border-right: 1px solid var(--nds-base-color-20);
 	border-bottom: 0;
