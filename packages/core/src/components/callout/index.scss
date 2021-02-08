@@ -11,8 +11,6 @@
 	--nds-callout-padding-x: #{tokens.$padding-x};
 	--nds-callout-padding-y: #{tokens.$padding-y};
 	--nds-callout-icon-margin-right: #{tokens.$icon-margin-right};
-	--nds-callout-header-bottom-margin: #{tokens.$header-margin-bottom};
-	--nds-callout-header-no-title-bottom-margin: #{tokens.$header-no-title-bottom-margin};
 	--nds-callout-no-title-padding: #{tokens.$no-title-padding};
 	--nds-callout-close-button-color: #{tokens.$close-button-color};
 	--nds-callout-icon-size: #{tokens.$icon-size};
@@ -61,10 +59,10 @@
 	display: flex;
 	min-height: 1.375rem;
 	align-items: flex-start;
-	margin-bottom: var(--nds-callout-header-bottom-margin);
+	margin-bottom: 1.625rem;
 
 	&--no-title {
-		margin-bottom: var(--nds-callout-header-no-title-bottom-margin);
+		margin-bottom: 0.75rem;
 	}
 }
 
