@@ -89,7 +89,11 @@
 	top: 0;
 	right: 0;
 	color: var(--nds-callout-close-button-color);
-	transform: translate(18%, -18%);
+	transform:
+		translate(
+			calc((var(--nds-button-padding-y) + 1px) / 2),
+			calc(-1 * ((var(--nds-button-padding-y) + 1px) / 2))
+		);
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
