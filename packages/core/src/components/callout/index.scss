@@ -4,7 +4,6 @@
 @use 'sass:map';
 @use 'sass:list';
 @use '../../color';
-@use '../../type';
 @use '../../util';
 
 @mixin base {
@@ -76,7 +75,11 @@
 }
 
 @mixin title {
-	@include type.heading-4;
+	font-family: var(--nds-font-family-headings);
+	font-size: var(--nds-font-size-h4);
+	font-style: var(--nds-font-style-headings);
+	font-weight: var(--nds-font-weight-headings);
+	line-height: var(--nds-line-height-3);
 
 	&:not(:last-child) {
 		padding-right: calc(var(--nds-callout-padding-x) + #{tokens.$header-right-padding});

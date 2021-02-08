@@ -314,10 +314,6 @@ $-lh-roles: (
 		$family: var(--nds-font-family-headings),
 		$weight: var(--nds-font-weight-headings),
 	);
-
-	&:last-child {
-		margin-bottom: unset;
-	}
 }
 
 /// A `typeset` suitable for text that is meant to convey the top level of
