@@ -8,28 +8,42 @@ const url = (process.env.BASE_URL)
 
 module.exports = {
 	title: 'Norton Design System',
-	tagline: 'Create beautiful, flexible, content-focused products, born accessible.',
+	tagline: 'Create beautiful, flexible content and applications, born accessible.',
 	url,
 	baseUrl,
-	onBrokenLinks: 'warn',
 	favicon: 'img/favicon.ico',
 	organizationName: 'wwnorton',
 	projectName: 'design-system',
 	themeConfig: {
 		navbar: {
-			title: 'Design System',
+			title: 'Norton Design System',
 			logo: {
 				alt: 'Norton open source',
 				src: 'img/seagull-dark.svg',
 			},
 			items: [
+				// {
+				// 	to: 'docs/',
+				// 	activeBasePath: 'docs',
+				// 	label: 'Docs',
+				// 	position: 'left',
+				// },
 				{
-					to: 'docs/',
-					activeBasePath: 'docs',
-					label: 'Docs',
+					to: 'docs/foundations',
+					label: 'Foundations',
 					position: 'left',
 				},
-				{ to: 'blog', label: 'Blog', position: 'left' },
+				{
+					to: 'docs/components',
+					label: 'Components',
+					position: 'left',
+				},
+				{
+					to: 'docs/guides',
+					label: 'Guides',
+					position: 'left',
+				},
+				// { to: 'blog', label: 'Blog', position: 'left' },
 				{
 					href: 'https://github.com/wwnorton/design-system',
 					'aria-label': 'GitHub',
@@ -42,19 +56,6 @@ module.exports = {
 		footer: {
 			style: 'dark',
 			links: [
-				{
-					title: 'Changes',
-					items: [
-						{
-							label: 'Changelog',
-							to: 'https://github.com/wwnorton/design-system/blob/main/CHANGELOG.md',
-						},
-						{
-							label: 'Migration',
-							to: 'docs/migration',
-						},
-					],
-				},
 				{
 					title: 'W. W. Norton & Company',
 					items: [
@@ -73,12 +74,12 @@ module.exports = {
 					],
 				},
 				{
-					title: 'More',
+					title: 'External documentation',
 					items: [
-						{
-							label: 'Blog',
-							to: 'blog',
-						},
+						// {
+						// 	label: 'Blog',
+						// 	to: 'blog',
+						// },
 						{
 							label: 'Sassdoc',
 							href: `${url}/sassdoc`,
@@ -90,6 +91,27 @@ module.exports = {
 						{
 							label: 'GitHub',
 							href: 'https://github.com/wwnorton/design-system',
+						},
+						{
+							label: 'NPM Registry',
+							href: 'https://www.npmjs.com/org/wwnds',
+						},
+					],
+				},
+				{
+					title: 'Changes',
+					items: [
+						{
+							label: 'Changelog',
+							href: 'https://github.com/wwnorton/design-system/blob/main/CHANGELOG.md',
+						},
+						{
+							label: 'Releases',
+							href: 'https://github.com/wwnorton/design-system/releases',
+						},
+						{
+							label: 'Migration',
+							to: 'docs/migration',
 						},
 					],
 				},

@@ -1,0 +1,133 @@
+---
+title: Stylesheet setup
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+All styling in the Norton Design System is done directly in CSS using the [Sass modules](https://sass-lang.com/blog/the-module-system-is-launched) exposed by the `@wwnds/core` library.
+This library can be used either as one [single global stylesheet](#single-stylesheet) for your entire application or as the basis for [a modular approach](#modular-usage).
+Both approaches are covered here.
+
+:::note Sass compiler
+The Norton Design System's stylesheets must be compiled with the [sass](https://github.com/sass/sass) Node module and will not work with [node-sass](https://github.com/sass/node-sass).
+This is because node-sass's underlying implementation, [libsass](https://github.com/sass/libsass) does not support Sass modules and [has in fact been deprecated](https://sass-lang.com/blog/libsass-is-deprecated) in favor of [dart-sass](https://github.com/sass/dart-sass) (sass's underlying implementation).
+
+If your project is currently using node-sass, migrating should be as simple as swapping out node-sass for sass. View [the "How do I migrate?" guide](https://sass-lang.com/blog/libsass-is-deprecated#how-do-i-migrate) for more details.
+:::
+
+## Single stylesheet
+
+The simplest way to use the design system's styling is to use a single global stylesheet.
+This can be accomplished with either the pre-built CSS or the full Sass entry point.
+
+### Pre-built CSS
+
+Two CSS files are included in our release distributions of `@wwnds/core`.
+
+- `dist/main.css` - the complete stylesheet.
+- `dist/tokens.css` - only the global design tokens (excluding component tokens), set on the `:root` element.
+
+```html
+<!-- in a Node.js project -->
+<link href="node_modules/@wwnds/core/dist/main.css" rel="stylesheet" />
+
+<!-- using unpkg as a CDN (not suitable for production but ideal for prototyping) -->
+<link href="https://unpkg.com/@wwnds/core/dist/main.css" rel="stylesheet" />
+```
+
+### Custom build
+
+If you would like to customize something but still use the complete stylesheet, it is recommended that you use the full Sass entry point.
+For instance, the following will be identical to the `dist/main.css` file but with the primary color family assigned to yellow (default is teal).
+
+```scss
+@use '@wwnds/core/full' with (
+	$primary-family: 'yellow',
+);
+```
+
+Note that a similar approach can be accomplished by using [the `complete` mixin](core-api#complete) to create your own complete stylesheet.
+
+## Modular usage
+
+Using the Sass modules directly is ideal for scenarios where a single global stylesheet is not desired, such as in a React environment or when you only want to use part of the design system.
+
+### Configuration
+
+The best way to get started with modular stylesheets is to `@forward` a configured version of the design system for use in your stylesheets.
+This acts as the main place where Sass variables are configured to meet the needs of your application's look and feel and does not itself contain any declarations.
+
+```scss title="src/styles/_nds.scss"
+// note: name this file whatever makes sense to you
+
+@forward '@wwnds/core' with (
+	$font-family-base: 'My fancy font',
+	$radius-base: var(--nds-radius-xl),
+	$primary-family: 'cyan',
+);
+```
+
+:::success Customizable variables
+Any variable in `@wwnds/core` that contains the `!default` flag is customizable in this way.
+
+These variables are documented in <a href={useBaseUrl('sassdoc')} target='\_blank' rel='noopener noreferrer'>the Sassdoc documentation</a>, as well as [the Core API - Theming variables](core-api#theming-variables) table.
+:::
+
+Once your configured version of `@wwnds/core` has been forwarded, it should be `@used` anywhere you need to use the core mixins or functions.
+
+### Setting tokens
+
+At a minimum, you must create and use one global stylesheet to [set the design tokens](core-api#tokens) as CSS custom properties.
+This is because every component, utility, and helper in the design system uses our [design tokens](/docs/foundations/design-tokens).
+
+```scss title="src/styles/globals.scss"
+@use 'nds'; // the configured & forwarded src/styles/_nds.scss
+
+@include nds.tokens; // contains `:root` declarations with CSS custom properties
+
+// optionally include other globals, such as the HTML reset styles
+@include nds.reset;
+```
+
+### Other approaches
+
+Other approaches, such as using the `@import` syntax or CSS-in-JS may work but aren't well-tested.
+Use them at your own risk.
+
+#### CSS modules
+
+While not well tested, [CSS modules](https://github.com/css-modules/css-modules) can be composed with core styles in environments that support CSS modules, such as in React.
+
+```scss title="src/components/CustomButton/nds-button.scss"
+@use '../../styles/nds';
+
+// apply the default design system styles for the button component
+@include nds.button-style;
+```
+
+```scss title="src/components/CustomButton/index.module.scss"
+@use '../../styles/nds'; // the configured & forwarded src/styles/_nds.scss
+
+.btn {
+	// override a component token
+	--nds-button-border-radius: var(--nds-radius-pill);
+
+	// set additional styles with core
+	margin-bottom: nds.spacer("1rem");
+}
+```
+
+```jsx title="src/components/CustomButton/index.jsx"
+import React from "react";
+import { Button } from "@wwnds/react";
+// main design system button styles
+import "./nds-button.scss";
+// modular styles
+import styles from "./index.module.scss";
+
+export const CustomButton = ({ children, ...props }) => (
+	<Button className={styles.btn} {...props}>
+		{children}
+	</Button>
+);
+```

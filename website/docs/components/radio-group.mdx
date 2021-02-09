@@ -1,0 +1,85 @@
+---
+title: Radio Group
+description: A radio group allows the user to select one option from a set of related options.
+---
+
+import { RadioGroup, Radio } from '@wwnds/react';
+import { PropsTable } from '../../src/theme/PropsTable';
+
+> A radio group allows the user to select one option from a set of related options.
+
+## Anatomy
+
+The anatomy for both a group of related radio buttons and a single radio button are outlined here.
+
+### Radio Group
+
+1. **Label** - text that conveys how the radio buttons are related and prompts the user to select a single radio button.
+1. **Current selection**: a selected radio button indicates that it will be the option that is submitted.
+1. **Choices** - the available radio buttons. Clicking or arrowing to an unselected radio button will deselect the currently selected radio button.
+
+### Radio Button
+
+1. **Control** - the input control that conveys the current state of the radio button to the user.
+1. **Label** - a short name that lets the user know what the radio button is selecting. Clicking the label should select the radio button.
+1. **Description** (_optional_) - additional text that can be used to add clarity or context to the radio button label. Clicking the description should do nothing.
+
+:::caution Single radio button usage
+Radio buttons must always be part of a radio group.
+Using a single radio button by itself would allow the user to check the option but not uncheck it.
+If that is desired, use a [checkbox](checkbox) instead to ensure that the user can uncheck it.
+:::
+
+## Usage
+
+- Use radio buttons to allow a user to select exactly one item from a set of options, and display all available options.
+- Radio buttons should have between 2-5 options.
+    - If you have more than 5 options, use a [dropdown](dropdown) or combo box.
+- The options in a group of radio buttons must be mutually exclusive. The user can only select 1 Radio.
+- Only use radio buttons when the field is required. If all radio buttons are in an unselected state on load, a user must select one of the radio buttons before proceeding.
+- Arrow keys move focus within the group, uncheck the previously focused button, and check the newly focused button.
+- <kbd>Space</kbd> selects the focused radio button if it is not already selected.
+
+:::tip Dos
+- Do allow users to select a Radio by clicking the radio button or its text label.
+- Do position the radio button to the left of its label.
+- Do display options in a vertical layout, by default, for easier scanning.
+- Consider the most logical order to display options, such as alphabetical, chronological or by popularity.
+:::
+
+:::danger Don'ts
+- Don’t use radio buttons if a user could select multiple options. Use [checkboxes](checkbox) instead.
+- Don't use radio buttons if a user could select NO Radio. Use [checkboxes](checkbox) instead.
+- Don’t use radio buttons if an action will take immediate effect when the user selects or deselects it.
+    - Use a [switch](switch) if there are two opposite options (example: YES/NO, ON/OFF).
+    - Otherwise, use a group of regular [buttons](button).
+:::
+
+## React API
+
+```js
+import { Radio, RadioGroup } from '@wwnds/react';
+```
+
+### RadioGroup
+
+```jsx live
+<RadioGroup label="Select your favorite fruit." name="fruit">
+	<Radio thumbnail="🍎" description="A classic choice">Apple</Radio>
+	<Radio thumbnail="🍌" description="A taste of the tropics">Banana</Radio>
+	<Radio thumbnail="🥝" description="A bit more exotic">Kiwi</Radio>
+	<Radio thumbnail="🍊" description="Tangy and juicy">Orange</Radio>
+</RadioGroup>
+```
+
+<PropsTable from={RadioGroup} />
+
+### Radio
+
+Note: there is no scenario where you would use a single `Radio` alone.
+
+```jsx live
+<Radio>Apple</Radio>
+```
+
+<PropsTable from={Radio} />

@@ -1,22 +1,74 @@
 ---
 title: Checkbox
-description: A checkbox allows a user to select or deselect an option before submitting it.
+description: A checkbox allows the user to check or uncheck an option.
+tags: [field, form, input]
 ---
 
-import { Checkbox } from '@wwnds/react/src/components/Checkbox';
+import { Checkbox, CheckboxGroup } from '@wwnds/react';
 import { PropsTable } from '../../src/theme/PropsTable';
 
-> A checkbox allows a user to select or deselect an option before submitting it.
+> A checkbox allows the user to check or uncheck an option.
 
 ## Anatomy
 
-A single checkbox includes:
+The anatomy for both the standalone checkbox and a group of related checkboxes are outlined here.
 
-1. A checkbox control
-2. A label
-3. `Optional` A description
+### Checkbox
 
-## Playground
+1. **Control** - the input control that conveys the current state of the checkbox to the user.
+1. **Label** - a short name that lets the user know what the checkbox is checking. Clicking the label should toggle the checkbox.
+1. **Description** (_optional_) - additional text that can be used to add clarity or context to the checkbox label. Clicking the description should do nothing.
+
+### Checkbox Group
+
+1. **Label** - text that conveys how the checkboxes are related and prompts the user to check one or more checkbox.
+1. **Current selection**: a checked checkbox indicates that it will be included when the field is submitted.
+1. **Choices** - the available checkboxes. Clicking a checkbox will check or uncheck it.
+
+## Usage
+
+- A single checkbox has two mutually exclusive states: checked or unchecked.
+- <kbd>Space</kbd> toggles the state of the checkbox.
+- Use a group of checkboxes to allow a user to check zero, one or multiple options from a list, and display all available options.
+- Checkboxes may allow users to sub-select options from a nested list (see tri-state checkboxes).
+- Checkboxes work independently of other checkboxes, unless they are controlled by a tri-state checkbox.
+- Avoid setting default options, because pre-checking an option makes it more likely that users will not make a conscious choice and submit an option unintentionally.
+- Consider the most logical order to list options. Options may be listed alphabetically, by popularity, or some other ordered system that should be clear to the user.
+
+:::tip Dos
+- Do allow users to check an option by clicking the checkbox or its label.
+- Do position the checkbox to the left of its label.
+- Do separate groups of checkboxes with group labels.
+- Do display options in a vertical layout for easier scanning.
+- Do define a label for the checkbox, even if it is not visible (example: when checking a row in a table).
+:::
+
+:::danger Don'ts
+- Don’t use checkboxes if only one item can be checked from a list. Use radio buttons or a dropdown instead.
+- Don’t use a checkbox if an action will take immediate effect when the user checks or unchecks it. Add a Submit button to confirm, or use a toggle instead.
+- Don’t use negative statements for a checkbox, because taking action to check it is confusing and counter-intuitive. (example: “I don’t want to receive email…”)
+:::
+
+### Tri-state Checkbox
+
+A tri-state checkbox can be used to represent and control the state of a group of other checkboxes.
+This type of checkbox adds an "indeterminate" state that conveys to the user that some&mdash;but not all&mdash;of the related checkboxes are checked.
+
+- If all options in the group are checked, the tri-state checkbox displays as checked.
+- If some of the options in the group are checked, the tri-state checkbox displays as indeterminate (partially checked).
+- If none of the options in the group are checked, the tri-state checkbox displays as unchecked.
+- If a user checks a tri-state checkbox, then all the options in the group are checked.
+- If a user unchecks a tri-state checkbox, then all the options in the group are unchecked.
+
+## React API
+
+```js
+import { Checkbox, CheckboxGroup } from '@wwnds/react';
+```
+
+### Checkbox
+
+A single checkbox component.
 
 ```jsx live
 <Checkbox
@@ -28,59 +80,19 @@ A single checkbox includes:
 </Checkbox>
 ```
 
-Use `indeterminate` to set a checkbox in its [indeterminate state](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Indeterminate_state_checkboxes).
-
-```jsx live
-<Checkbox
-	description="This checkbox starts out in the indeterminate/mixed state."
-	indeterminate
->
-	Indeterminate
-</Checkbox>
-```
-
-## Props
-
 <PropsTable from={Checkbox} />
 
-## Usage
+### CheckboxGroup
 
-- A single checkbox has two mutually exclusive states: selected or not selected.
-- <kbd>Space</kbd> changes the state of the checkbox.
-- Use a group of checkboxes to allow a user to select zero, one or multiple options from a list, and display all available options.
-- Checkboxes may allow users to sub-select options from a nested list (see tri-state checkboxes).
-- Checkboxes work independently of other checkboxes, unless they are controlled by a tri-state checkbox.
+A container for a set of related `Checkbox` components and its associated prompt (`label`).
 
-:::tip Dos
-- Do allow users to select an option by clicking the checkbox or its label.
-- Do position the checkbox to the left of its label.
-- Do separate groups of checkboxes with group labels.
-- Do display options in a vertical layout for easier scanning.
-- Do define a label for the checkbox, even if it is not visible (example: when selecting a row in a table).
-:::
+```jsx live
+<CheckboxGroup label="Select your favorite fruits." name="fruit">
+	<Checkbox thumbnail="🍎" description="A classic choice">Apple</Checkbox>
+	<Checkbox thumbnail="🍌" description="A taste of the tropics">Banana</Checkbox>
+	<Checkbox thumbnail="🥝" description="A bit more exotic">Kiwi</Checkbox>
+	<Checkbox thumbnail="🍊" description="Tangy and juicy">Orange</Checkbox>
+</CheckboxGroup>
+```
 
-:::danger Don'ts
-- Don’t use checkboxes if only one item can be selected from a list. Use radio buttons or a dropdown instead.
-- Don’t use a checkbox if an action will take immediate effect when the user selects or deselects it. Add a Submit button to confirm, or use a toggle instead.
-- Don’t use negative statements for a checkbox, because taking action to select it is confusing and counter-intuitive. (example: “I don’t want to receive email…”)
-:::
-
-- Avoid setting default options, because pre-selecting an option makes it more likely that users will not make a conscious choice and submit an option unintentionally.
-- Consider the most logical order to list options. Options may be listed alphabetically, by popularity, or some other ordered system that should be clear to the user.
-
-## Types
-
-### Dual-state Checkbox
-
-- A single checkbox is a dual-state checkbox.
-- A dual-state checkbox allows a user to switch between two states: checked and not checked.
-
-### Tri-state Checkbox
-
-- A tri-state checkbox supports three states: checked, not checked, and indeterminate (partially checked).
-- A tri-state checkbox is used to represent and control the state of a group of options. Each option in the group can also be individually checked or unchecked with a dual state checkbox.
-    - If all options in the group are checked, the tri-state checkbox displays as checked.
-    - If some of the options in the group are checked, the tri-state checkbox displays as indeterminate (partially checked).
-    - If none of the options in the group are checked, the tri-state checkbox displays as not checked.
-    - If a user checks a tri-state checkbox, then all the options in the group are checked.
-    - If a user unchecks a tri-state checkbox, then all the options in the group are unchecked.
+<PropsTable from={CheckboxGroup} />
