@@ -101,6 +101,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 				viewBox={viewBox}
 				height={size}
 				width={size}
+				style={{ minWidth: size }}
 				className={classes}
 				aria-label={ariaLabel || label}
 				aria-hidden={ariaHidden}
