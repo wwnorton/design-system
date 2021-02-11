@@ -144,17 +144,22 @@ export const AllFamilies = (): JSX.Element => {
 	const [header, setHeader] = React.useState<HTMLElement | null>(null);
 	const [stuckHeader, setStuckHeader] = React.useState(false);
 
-	const stickyObserver = React.useMemo(() => new IntersectionObserver(([e]) => {
-		if (e.target === header) {
-			setStuckHeader(e.intersectionRatio < 1);
+	const stickyObserver = React.useMemo(() => {
+		if ('IntersectionObserver' in window) {
+			return new IntersectionObserver(([e]) => {
+				if (e.target === header) {
+					setStuckHeader(e.intersectionRatio < 1);
+				}
+			}, { threshold: [1], rootMargin: '60px 0px 0px 0px' });
 		}
-	}, { threshold: [1], rootMargin: '60px 0px 0px 0px' }), [header]);
+		return null;
+	}, [header]);
 
 	React.useEffect(() => {
-		if (header) stickyObserver.observe(header);
+		if (header && stickyObserver) stickyObserver.observe(header);
 
 		return () => {
-			if (header) stickyObserver.unobserve(header);
+			if (header && stickyObserver) stickyObserver.unobserve(header);
 		};
 	}, [header, stickyObserver]);
 
