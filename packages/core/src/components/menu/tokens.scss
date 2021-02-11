@@ -1,0 +1,15 @@
+@use '../../spacing';
+@use '../../type';
+
+$border-width: 1px;
+$menu-shadow: 0 2px 4px 0 rgba(35, 35, 35, 0.25);
+$menu-items-hover-color: var(--nds-base-color-20);
+$menu-items-hover-focus-color: var(--nds-base-color-30);
+$menu-items-focus-color: var(--nds-blue-20);
+$menu-items-padding-y: spacing.spacer('button-y');
+$menu-items-padding-x: spacing.spacer('1rem');
+$menu-items-font-size: 1rem;
+$menu-items-line-height: type.lh('ui');
+$menu-items-padding-left: calc(var(--nds-dropdown-option-icon-size) + var(--nds-dropdown-option-padding-x));
+$menu-items-icon-padding-x: calc(var(--nds-dropdown-option-padding-x) / 2);
+$menu-items-icon-size: 0.75em;

@@ -88,6 +88,11 @@
     "wwnds",
     "wwnorton",
     "Yamanishi",
-    "zindex"
+    "zindex",
+    "menudivider",
+    "noninteractive",
+    "childern",
+    "menubutton",
+    "menuheader"
   ]
 }

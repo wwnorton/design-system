@@ -1,0 +1,166 @@
+@forward 'tokens';
+@use 'tokens';
+@use '../../color';
+@use '../../spacing';
+@use '../../type';
+@use '../../util';
+
+@mixin base {
+	--nds-menu-border-width: #{tokens.$border-width};
+	--nds-menu-shadow: #{tokens.$menu-shadow};
+	--nds-menu-items-hover-color: #{tokens.$menu-items-hover-color};
+	--nds-menu-items-hover-focus-color: #{tokens.$menu-items-hover-focus-color};
+	--nds-menu-items-focus-color: #{tokens.$menu-items-focus-color};
+	--nds-menu-items-padding-y: #{tokens.$menu-items-padding-y};
+	--nds-menu-items-padding-x: #{tokens.$menu-items-padding-x};
+	--nds-menu-items-font-size: #{tokens.$menu-items-font-size};
+	--nds-menu-items-line-height: #{tokens.$menu-items-line-height};
+	--nds-menu-items-padding-left: #{tokens.$menu-items-padding-left};
+	--nds-menu-items-icon-padding-x: #{tokens.$menu-items-icon-padding-x};
+	--nds-menu-items-icon-size: #{tokens.$menu-items-icon-size};
+
+	display: inline-block;
+	padding: var(--nds-menu-items-padding-x) 0;
+	margin-top: spacing.spacer('0.5rem');
+	font-weight: var(--nds-font-weight-regular);
+	list-style: none;
+	background-color: var(--nds-background-color);
+	border: var(--nds-menu-border-width) solid var(--nds-base-color-40);
+	box-shadow: var(--nds-menu-shadow);
+
+	li {
+		padding: var(--nds-menu-items-padding-y) 0;
+		cursor: pointer;
+	}
+
+	[role='menuitem'] {
+		display: block;
+		padding: var(--nds-menu-items-padding-y) var(--nds-menu-items-padding-x);
+		color: var(--nds-text-color);
+	}
+
+	[role='none']:not(.nds-menuitem-disabled):focus {
+		background-color: var(--nds-menu-items-focus-color);
+		box-shadow: none;
+	}
+
+	[role='none']:not(.nds-menuitem-disabled):hover {
+		background-color: var(--nds-menu-items-hover-color);
+		box-shadow: none;
+	}
+
+	[role='menuitem']:not(.nds-menuitem-disabled):hover {
+		background-color: var(--nds-menu-items-hover-color);
+		box-shadow: none;
+	}
+
+	[role='menuitem']:not(.nds-menuitem-disabled):focus {
+		background-color: var(--nds-menu-items-focus-color);
+		box-shadow: none;
+	}
+
+	.nds-menuitem-disabled {
+		color: var(--nds-disabled-color-dark) !important;
+		cursor: none;
+		box-shadow: none;
+	}
+
+	.nds-menuitem-disabled > a {
+		color: var(--nds-disabled-color-dark) !important;
+		cursor: none;
+		box-shadow: none;
+	}
+
+	[role='separator'] {
+		padding: 0;
+		margin: spacing.spacer('cell-sm') spacing.spacer('1rem');
+		border: solid 1px var((--nds-navy-30));
+	}
+
+	.nds-menuheader {
+		padding-left: spacing.spacer('1rem');
+		font-size: var(--nds-font-size-sm);
+		font-weight: var(--nds-font-weight-bold);
+	}
+}
+
+@mixin menu-header {
+	--nds-menu-header-padding-y: #{tokens.$menu-items-padding-y};
+	--nds-menu-header-padding-x: #{tokens.$menu-items-padding-x};
+
+	padding: var(--nds-menu-header-padding-y) var(--nds-menu-header-padding-x) !important;
+	font-size: var(--nds-font-size-sm);
+	font-weight: var(--nds-font-weight-bold);
+
+	:hover {
+		background-color: var(--nds-white);
+	}
+}
+
+@mixin menuitem {
+	[href] {
+		text-decoration: none;
+	}
+
+	[role='menuitem'] {
+		display: flex;
+		padding: 0 var(--nds-menu-items-padding-x);
+		color: var(--nds-text-color);
+	}
+
+	.nds-menuitem-disabled > a:hover {
+		color: var(--nds-disabled-color-dark);
+	}
+
+	.nds-menuitem-description {
+		font-size: var(--nds-font-size-sm);
+		color: var(--nds-subdued-color);
+	}
+
+	.nds-menuitem-link-description {
+		padding: 0 var(--nds-menu-items-padding-x);
+		font-size: var(--nds-font-size-sm);
+		color: var(--nds-subdued-color);
+	}
+
+	.nds-menuitem__icon {
+		padding-right: 0.25rem;
+	}
+
+	.nds-menuitem-description.nds-menuitem__icon {
+		padding-left: 1.5rem;
+	}
+
+	.nds-menuitem-link-description.nds-menuitem__icon {
+		padding-left: 2.5rem;
+	}
+
+	.nds-menuitem-selected:not(.nds-menuitem-disabled) {
+		background-color: var(--nds-menu-items-hover-focus-color);
+	}
+}
+
+@mixin menudivider {
+	margin: spacing.spacer('cell-sm') spacing.spacer('1.25rem');
+	border: solid 1px var((--nds-navy-30));
+}
+
+@mixin style {
+	@include util.declare('menu') {
+		.nds-menu {
+			@include base;
+		}
+
+		.nds-menu-header {
+			@include menu-header;
+		}
+
+		.nds-menuitem {
+			@include menuitem;
+		}
+
+		.nds-menu-divider {
+			@include menudivider;
+		}
+	}
+}
