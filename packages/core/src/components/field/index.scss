@@ -128,6 +128,7 @@
 	top: calc(var(--nds-font-size-base) * #{type.lh('ui')} / 2);
 	display: flex;
 	width: 1em;
+	min-width: 1em;
 	height: 1em;
 	margin-right: var(--nds-field-offset-x);
 	content: '';
