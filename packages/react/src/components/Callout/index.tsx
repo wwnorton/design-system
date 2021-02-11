@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Icon, IconVariant, SVGIcon } from '../Icon';
+import { uniqueId } from 'lodash';
+import { Icon, IconProps } from '../Icon';
 import { Button } from '../Button';
 import { prefix } from '../../config';
 import { AllColors } from '../../utilities/color';
@@ -42,76 +43,80 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	bodyClass?: string,
 }
 
-export type CalloutPresetProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'color'>;
-
+/**
+ * A callout brings attention to related but non-essential information.
+ *
+ * [Callout documentation](https://wwnorton.github.io/design-system/docs/components/callout)
+ */
 export const Callout: React.FunctionComponent<CalloutProps> = ({
 	title,
 	icon,
 	dismissible = false,
-	tag: Tag = 'aside',
+	tag,
 	children,
 	className,
 	baseName = prefix('callout'),
 	iconClass = `${baseName}__icon`,
-	headerClass = classNames(`${baseName}__header`, ((icon || title) ? null : `${baseName}__header--no-title`)),
-	headerTitleClass = `${baseName}__title`,
-	closeButtonClass = `${baseName}__close-button`,
+	headerClass = `${baseName}__header`,
+	titleClass = `${baseName}__title`,
+	dismissClass = `${baseName}__dismiss`,
 	bodyClass = `${baseName}__body`,
-	borderPosition,
-	color = 'base',
+	border,
+	color,
+	onDismiss,
 	...props
-}: CalloutProps): JSX.Element | null => {
+}: CalloutProps) => {
 	const [isDismissed, setDismissed] = React.useState<boolean>(false);
 
-	const BaseIcon = React.useMemo(() => {
-		if (!icon) return null;
-		const baseProps = {
-			className: iconClass,
-		};
-		const iconProps = (typeof icon === 'string')
-			? { ...baseProps, variant: icon }
-			: { ...baseProps, icon };
-		return <Icon {...iconProps} />;
-	}, [icon, iconClass]);
+	const dismiss = () => {
+		setDismissed(true);
+		if (onDismiss) onDismiss();
+	};
+
+	const iconProps = React.useMemo(() => {
+		if (typeof icon === 'string') return { variant: icon };
+		return { icon };
+	}, [icon]);
 
 	const classes = classNames(
-		{
-			[`${baseName}--border-left`]: (borderPosition === 'left'),
-			[`${baseName}--border-top`]: (borderPosition === 'top'),
-			[`${baseName}--${color}`]: color !== undefined,
-			[`${baseName}--no-title`]: !title && dismissible,
-		},
-		baseName,
 		className,
+		baseName,
+		{
+			[`${baseName}--${color}`]: color !== undefined,
+			[`${baseName}--no-title`]: !title,
+		},
 	);
 
-	const showHeader = React.useMemo(
-		() => Boolean(title || icon || dismissible),
-		[title, icon, dismissible],
-	);
+	const titleId = React.useMemo(() => {
+		if (!title) return undefined;
+		return uniqueId('callout-');
+	}, [title]);
+
+	const Tag = React.useMemo(() => {
+		if (tag) return tag;
+		return (title) ? 'aside' : 'div';
+	}, [tag, title]);
 
 	if (isDismissed) return null;
 
 	return (
-		<Tag className={classes}>
-			{ showHeader ? (
+		<Tag className={classes} data-border={border} aria-labelledby={titleId} {...props}>
+			{ title && (
 				<header className={headerClass}>
-					{BaseIcon}
-					{ title ? (<div className={headerTitleClass}>{title}</div>) : null}
-					{ dismissible
-						? (
-							<Button
-								variant='ghost'
-								icon='close'
-								iconOnly
-								onClick={() => setDismissed(true)}
-								className={closeButtonClass}
-							>
-								Close
-							</Button>
-						) : null}
+					{ icon && <span className={iconClass}><Icon size="100%" {...iconProps} /></span> }
+					<div className={titleClass} id={titleId}>{ title }</div>
 				</header>
-			) : null}
+			) }
+			{ dismissible && (
+				<Button
+					icon='close'
+					iconOnly
+					onClick={dismiss}
+					className={dismissClass}
+				>
+					Dismiss
+				</Button>
+			) }
 			<div className={bodyClass}>
 				{children}
 			</div>
