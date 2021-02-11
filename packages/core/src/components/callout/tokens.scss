@@ -3,12 +3,13 @@
 $color: 'base-color' !default;
 $background-grade: 10 !default;
 $border-grade: 50 !default;
-$icon-grade: 60 !default;
-$border-width: 0.25rem !default;
+$icon-grade: null !default;
+$border-width: spacing.spacer('0.25rem') !default;
 $padding-x: spacing.spacer('callout-x') !default;
 $padding-y: spacing.spacer('callout-y') !default;
-$icon-margin-right: spacing.spacer('0.75rem') !default;
-$no-title-padding: spacing.spacer('1rem');
-$close-button-color: var(--nds-navy-90) !default;
 $icon-size: 1.5rem !default;
-$header-right-padding: '1.75rem' !default;
+
+// dark scheme
+$background-grade-dark: 20 !default;
+$border-grade-dark: 50 !default;
+$icon-grade-dark: null !default;
