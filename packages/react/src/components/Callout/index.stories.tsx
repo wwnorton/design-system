@@ -3,92 +3,82 @@ import {
 	text, withKnobs, boolean, select,
 } from '@storybook/addon-knobs';
 
-import { Callout, BorderPositionType } from '.';
-import { CalloutWarning } from './CalloutWarning';
-import { CalloutError } from './CalloutError';
-import { CalloutSuccess } from './CalloutSuccess';
+import {
+	Callout, CalloutError, CalloutSuccess, CalloutWarning,
+} from '.';
 import { IconOptions, IconProps } from '../Icon';
-import { AllColors } from '../../utilities/color';
+import { ColorOptions } from '../../utilities/color';
 
 export default {
 	title: 'Callout',
 	component: Callout,
 	decorators: [withKnobs],
+	layout: 'padded',
 };
 
-const defaultContents = [
-	'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae',
-	'velit, quibusdam culpa, consequuntur quos voluptate esse explicabo ipsa',
-	'perspiciatis illo molestias dolorem atque praesentium modi saepe hic',
-	'suscipit, deserunt debitis.',
-].toString();
+const MAX_WIDTH = '30rem';
 
-const sampleTitle = 'This is a title for Callout.';
+const defaultContents = `
+	Lorem ipsum is simply dummy text of the printing and typesetting industry.
+	Lorem ipsum has been the industry’s standard dummy text ever since the 1500s,
+	when an unknown printer took a galley of type.
+`.replace(/\n\t/g, ' ').replace(/\n/g, '');
 
-const colorsMap = {
-	blue: 'blue',
-	cyan: 'cyan',
-	gray: 'gray',
-	green: 'green',
-	navy: 'navy',
-	purple: 'purple',
-	red: 'red',
-	teal: 'teal',
-	yellow: 'yellow',
-	primary: 'primary',
-	base: 'base',
-	disabled: 'disabled',
-	error: 'error',
-	success: 'success',
-	warning: 'warning',
+const borderMap = {
+	None: undefined, Top: 'top', Right: 'right', Bottom: 'bottom', Left: 'left',
 };
 
 export const Default: React.FunctionComponent = () => (
 	<Callout
-		title={text('Title', sampleTitle)}
+		style={{ maxWidth: MAX_WIDTH }}
+		title={text('Title', 'Default callout')}
 		dismissible={boolean('Dismissible', true)}
-		borderPosition={select('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
-		icon={select<IconProps['variant']>('Icon', { None: undefined, ...IconOptions }, 'heart-outline')}
-		color={select<AllColors>('Color', colorsMap, 'base')}
-		tag={select('Tag Element', { div: 'div', aside: 'aside' }, 'aside')}
+		border={select('Border Position', borderMap, undefined)}
+		icon={select('Icon', { None: undefined, ...IconOptions }, 'check-circle')}
+		color={select('Color', { None: undefined, ...ColorOptions }, undefined)}
+		tag={select('Tag Element', { div: 'div', aside: 'aside' }, undefined)}
 	>
-		<p>{text('Body', defaultContents)}</p>
+		<p>{ text('Body', defaultContents) }</p>
 	</Callout>
 );
 
 export const NoTitle: React.FunctionComponent = () => (
 	<Callout
-		borderPosition={select<BorderPositionType>('Border Position', { None: undefined, left: 'left', top: 'top' }, 'top')}
-		color={select<AllColors>('Color', colorsMap, 'base')}
+		style={{ maxWidth: MAX_WIDTH }}
+		border={select('Border Position', borderMap, undefined)}
+		color={select('Color', { None: undefined, ...ColorOptions }, undefined)}
 		dismissible={boolean('Dismissible', true)}
 	>
-		<span>{text('Body', defaultContents)}</span>
+		<p>{ text('Body', defaultContents) }</p>
 	</Callout>
 );
 
 export const Success: React.FunctionComponent = () => (
 	<CalloutSuccess
-		title={text('Title', sampleTitle)}
+		style={{ maxWidth: MAX_WIDTH }}
+		title={text('Title', 'Success')}
 		dismissible={boolean('Dismissible', false)}
 	>
-		<span>{text('Body', defaultContents)}</span>
+		<p>{ text('Body', defaultContents) }</p>
 	</CalloutSuccess>
 );
 
 export const Warning: React.FunctionComponent = () => (
 	<CalloutWarning
-		title={text('Title', sampleTitle)}
+		style={{ maxWidth: MAX_WIDTH }}
+		title={text('Title', 'Warning')}
 		dismissible={boolean('Dismissible', false)}
 	>
-		<span>{text('Body', defaultContents)}</span>
+		<p>{ text('Body', defaultContents) }</p>
 	</CalloutWarning>
 );
 
 export const Error: React.FunctionComponent = () => (
 	<CalloutError
-		title={text('Title', sampleTitle)}
+		style={{ maxWidth: MAX_WIDTH }}
+		title={text('Title', 'Error')}
 		dismissible={boolean('Dismissible', false)}
 	>
-		<span>{text('Body', defaultContents)}</span>
+		<p>{ text('Body', defaultContents) }</p>
 	</CalloutError>
 );
