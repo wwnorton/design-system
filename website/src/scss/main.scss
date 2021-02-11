@@ -1,157 +1,12 @@
 @use 'sass:meta';
-@use '~@wwnds/core/full' as nds with (
-	$enable-dark-scheme: true,
-	$focus-visible-polyfill: true,
-	$font-family-sans: proxima-nova,
-);
+@use './nds';
+@use './ifm';
+@use './navbar';
+
+@include nds.complete;
 
 // Proxima Nova
 @import url('https://use.typekit.net/vjr7yrz.css');
-
-// Bind NDS color schemes to the Infima colors
-:root {
-	--ifm-color-emphasis-0: var(--nds-white);
-	--ifm-color-emphasis-100: var(--nds-base-color-10);
-	--ifm-color-emphasis-200: var(--nds-base-color-20);
-	--ifm-color-emphasis-300: var(--nds-base-color-30);
-	--ifm-color-emphasis-400: var(--nds-base-color-40);
-	--ifm-color-emphasis-500: var(--nds-base-color-50);
-	--ifm-color-emphasis-600: var(--nds-base-color-60);
-	--ifm-color-emphasis-700: var(--nds-base-color-70);
-	--ifm-color-emphasis-800: var(--nds-base-color-80);
-	--ifm-color-emphasis-900: var(--nds-base-color-90);
-	--ifm-color-primary: var(--nds-primary-color);
-	--ifm-color-secondary: var(--nds-base-color-20);
-	--ifm-color-info: var(--nds-blue-60);
-	--ifm-color-success: var(--nds-success-color);
-	--ifm-color-warning: var(--nds-warning-color-lighter);
-	--ifm-color-danger: var(--nds-error-color);
-	--ifm-color-content: var(--nds-text-color);
-	--ifm-color-content-inverse: var(--nds-text-color-inverse);
-	--ifm-background-color: var(--nds-background-color);
-	--ifm-font-family-base: var(--nds-font-family-sans);
-	--ifm-menu-color-active: var(--nds-primary-color-dark);
-
-	&[data-theme='dark'] {
-		--ifm-background-color: var(--nds-background-color);
-		--ifm-color-info: var(--nds-blue-50);
-		--ifm-color-emphasis-100: var(--nds-base-color-10);
-		--ifm-color-emphasis-200: var(--nds-base-color-20);
-		--ifm-color-emphasis-300: var(--nds-base-color-30);
-		--ifm-color-emphasis-400: var(--nds-base-color-40);
-		--ifm-color-emphasis-500: var(--nds-base-color-50);
-		--ifm-color-emphasis-600: var(--nds-base-color-60);
-		--ifm-color-emphasis-700: var(--nds-base-color-70);
-		--ifm-color-emphasis-800: var(--nds-base-color-80);
-		--ifm-color-emphasis-900: var(--nds-base-color-90);
-	}
-}
-
-blockquote {
-	--ifm-blockquote-color: var(--ifm-color-emphasis-600);
-
-	[data-theme='dark'] & {
-		--ifm-blockquote-color: var(--ifm-color-emphasis-500);
-	}
-}
-
-code {
-	border-radius: var(--nds-radius-sm);
-}
-
-.no-break {
-	white-space: pre;
-}
-
-.anchor[aria-hidden='true']:focus {
-	box-shadow: none;
-}
-
-.navbar__link--github::before {
-	display: flex;
-	width: 24px;
-	height: 24px;
-	content: '';
-	background: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
-
-	[data-theme='dark'] & {
-		background: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23fff' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
-	}
-}
-
-.alert--secondary {
-	--ifm-alert-color: var(--ifm-font-color-base);
-	--ra-admonition-icon-color: var(--ifm-font-color-base);
-	--ifm-code-background: var(--ifm-color-emphasis-300);
-}
-
-.alert--info {
-	--ifm-alert-background-color: var(--ifm-color-info);
-	--ifm-alert-border-color: var(--ifm-color-info);
-}
-
-.alert--warning {
-	--ifm-alert-color: var(--ifm-font-color-base);
-	--ra-admonition-icon-color: --ifm-alert-color;
-
-	[data-theme='dark'] & {
-		--ifm-alert-color: var(--ifm-font-color-base-inverse);
-	}
-}
-
-.table-of-contents__link {
-	--nds-link-decoration: none;
-}
-
-.footer--dark {
-	--ifm-footer-link-color: var(--nds-link-color);
-	--ifm-footer-color: var(--nds-text-color);
-}
-
-.families-outer {
-	display: flex;
-}
-
-.families {
-	display: flex;
-	margin: auto;
-	overflow-x: auto;
-}
-
-.family + .family {
-	margin-left: 1rem;
-}
-
-.swatch {
-	display: flex;
-	min-width: 11rem;
-	padding: 0.75rem 1rem;
-	justify-content: space-between;
-
-	&:hover * {
-		color: inherit !important;
-	}
-
-	.a11y {
-		text-align: right;
-	}
-}
-
-.swatch__name {
-	font-weight: var(--nds-font-weight-bold);
-}
-
-// stylelint-disable-next-line selector-no-qualifying-type
-a.nds-button {
-	text-decoration: none;
-}
-
-.nds-button.button--lg {
-	padding:
-		calc(var(--ifm-button-size-multiplier) * var(--nds-button-padding-y))
-		calc(var(--ifm-button-size-multiplier) * var(--nds-button-padding-x));
-	border-radius: var(--nds-radius-md);
-}
 
 .nds-dropdown__option {
 	margin-top: 0 !important;
@@ -220,13 +75,19 @@ a.nds-button {
 	}
 }
 
+.example-shade {
+	@include nds.set(
+		$nds-primary-color: nds.family('primary-color', 'purple', 70),
+	);
+}
+
 // GitLab's Markdown color chip CSS
 .color-chip {
 	display: inline-block;
 	width: 0.9em;
 	height: 0.9em;
-	margin: 0 4px 2px 0;
 	margin-top: 0;
+	margin-right: var(--nds-spacing-1);
 	line-height: 1;
 	vertical-align: middle;
 	background: #fff;
@@ -251,8 +112,6 @@ a.nds-button {
 	}
 }
 
-.example-shade {
-	@include nds.set(
-		$nds-primary-color: nds.family('primary-color', 'purple', 70),
-	);
+.code-wrap {
+	white-space: initial !important;
 }

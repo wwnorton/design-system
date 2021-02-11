@@ -1,41 +1,6 @@
-// The full design system as one stylesheet.
+// The full design system as one stylesheet. Builds to `dist/main.css`.
 
-@use 'sass:map';
-
-// forward the whole thing so the variables/mixins/functions can be used downstream
 @forward '.';
-
-// use here to set styles. this will result in a complete stylesheet
 @use '.' as nds;
 
-// Reset first
-@include nds.reset;
-
-// All components contain `style` mixin that contains its full set of declarations
-@include nds.button-style;
-@include nds.checkbox-style;
-@include nds.disclosure-style;
-@include nds.dropdown-style;
-@include nds.field-style;
-@include nds.icon-style;
-@include nds.link-style;
-@include nds.modal-style;
-@include nds.radio-style;
-@include nds.switch-style;
-@include nds.textfield-style;
-@include nds.tooltip-style;
-@include nds.popover-style;
-// Helpers - declarations that set a composed style
-@if nds.$enable-helpers {
-	@include nds.a11y-helpers;
-}
-
-// Utilities - declarations that only set one property
-
-@if map.get(nds.$utilities, 'color') {
-	@include nds.color-utilities;
-}
-
-@if map.get(nds.$utilities, 'spacing') {
-	@include nds.spacing-utilities;
-}
+@include nds.complete;

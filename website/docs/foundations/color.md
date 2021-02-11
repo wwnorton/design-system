@@ -2,7 +2,7 @@
 title: Color
 ---
 
-import { AllFamilies, ColorChip } from "../src/theme/Color";
+import { AllFamilies, ColorChip } from "../../src/theme/Color";
 
 The Norton color system ensures that colors can be used in a predictable way
 across your application and content.
@@ -18,20 +18,32 @@ A higher number corresponds to a darker color and a lower number corresponds to 
 By default, grades start at `10` and increase by increments of `10` up to `100`.
 :::
 
+## Accessibility
+
+The Norton color system is designed to ensure consistent color contrast across all color families.
+To accomplish this, grades are normalized across color families to have a similar level of color contrast against black or white.
+
+Grades of `60` and higher are designed to meet [the minimum color contrast ratio for WCAG AA](https://www.w3.org/TR/WCAG21/#contrast-minimum) when used with pure white (`#fff`).
+Conversely, grades of `50` and lower are designed to meet WCAG AA requirements against pure black (`#000`).
+
 ## Design Tokens
 
-The Norton color system uses two types of design tokens for color:
-
-- **System** tokens, which have static (unchangeable) values for their grades.
-  - These follow a naming pattern of `nds-{family}-{grade}`, such as `nds-cyan-30`.
-- **Role** tokens, which have customizable values for their grades.
-  - These follow a naming pattern of `nds-{role}-color-{grade}`, such as `nds-primary-color-60`.
+The Norton color system uses [role tokens](design-tokens#role-tokens) for theming and [system tokens](design-tokens#system-tokens) as a basis for all color families.
+Color system tokens use a naming pattern of `{family}-{grade}`, such as `cyan-30`.
+Color role tokens use a naming pattern of `{role}-color-{grade}`, such as `primary-color-70`.
 
 ### System Tokens
 
-The following chart contains all system family colors in the Norton color system.
-Token names (`teal-60`), values (`#1a8082`), and the maximum level of WCAG conformance against black and white are listed on the color swatch.
-The color system also includes pure `white` (`#fff`) and `black` (`#000`) and tokens, which are not documented in the family list.
+The following table lists all the system colors in the Norton Design System, as well as their contrast ratio against pure white and pure black.
+
+:::caution Avoid direct use
+Using system color tokens directly will make your application more difficult to theme.
+Rather than using system colors directly, use [role colors](#role-tokens) in your designs.
+Role colors can be mapped to system colors to modify your design more broadly and consistently.
+
+For instance, if you want a component's border color to be <ColorChip>gray-40</ColorChip>, set your `base-color` to use the gray family and then set your border color to <ColorChip color="var(--nds-gray-40)">base-color-40</ColorChip>.
+The role&mdash;or purpose&mdash;of the `base-color` is to be used for backgrounds, borders, and other neutral design features.
+:::
 
 <AllFamilies />
 
@@ -65,14 +77,14 @@ Role tokens that map to an entire family use two configuration options to determ
 - An optional `grade` that defines the midpoint of the [shade map](#shade-maps).
   - Configured with the `${role}-grade` Sass option.
 
-| Role       | Default family | Default grade | Usage                                                   |
-| ---------- | -------------- | ------------- | ------------------------------------------------------- |
-| `primary`  | `"teal"`       | `60`          | The family used in components that have a default color |
-| `base`     | `"navy"`       | undefined     | Background, border, or shadow gradients                 |
-| `disabled` | `"base"`       | `30`          | Not currently usable, non-interactive                   |
-| `error`    | `"red"`        | `60`          | Error, danger, or incorrect                             |
-| `success`  | `"green"`      | `60`          | Success, passing, or correct                            |
-| `warning`  | `"yellow"`     | `60`          | Warning or caution                                      |
+| Role                                                                    | Default family | Default grade | Usage                                                   |
+| ----------------------------------------------------------------------- | -------------- | ------------- | ------------------------------------------------------- |
+| <ColorChip color="var(--nds-primary-color)">primary-color</ColorChip>   | `"teal"`       | `60`          | The family used in components that have a default color |
+| `base-color`                                                            | `"navy"`       | undefined     | Background, border, or shadow gradients                 |
+| <ColorChip color="var(--nds-disabled-color)">disabled-color</ColorChip> | `"base"`       | `30`          | Not currently usable, non-interactive                   |
+| <ColorChip color="var(--nds-error-color)">error-color</ColorChip>       | `"red"`        | `60`          | Error, danger, or incorrect                             |
+| <ColorChip color="var(--nds-success-color)">success-color</ColorChip>   | `"green"`      | `60`          | Success, passing, or correct                            |
+| <ColorChip color="var(--nds-warning-color)">warning-color</ColorChip>   | `"yellow"`     | `60`          | Warning or caution                                      |
 
 The result will include an entire 10-grade family for the role, plus a [shade map](#shade-maps) if a midpoint grade is defined.
 
@@ -154,10 +166,3 @@ The dark color scheme is still being tested and must be turned on with the `$ena
 ```
 
 :::
-
-## Accessibility
-
-The Norton color system is built to ensure consistent color contrast across all color families.
-To accomplish this, grades are normalized across color families to have a similar level of color contrast against black or white.
-Grades of `60` and higher will always meet [the minimum color contrast ratio for WCAG AA](https://www.w3.org/TR/WCAG21/#contrast-minimum) when used with pure white (`#fff`).
-Conversely, grades of `50` and lower will always meet WCAG AA requirements against pure black (`#000`).

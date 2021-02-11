@@ -250,27 +250,30 @@ $scheme-dark: map.merge($-scheme-dark-default, $scheme-dark);
 	@include util.set($scheme-light);
 }
 
-/* stylelint-disable no-duplicate-selectors */
-:root {
-	@include util.set($system-colors);
-	@include light-scheme;
+/// Color tokens set as CSS custom properties on the `:root` element.
+@mixin color {
+	/* stylelint-disable no-duplicate-selectors */
+	:root {
+		@include util.set($system-colors);
+		@include light-scheme;
 
-	@if config.$enable-dark-scheme {
-		/* stylelint-disable max-nesting-depth */
-		&[data-color-scheme='light'] {
-			@include light-scheme;
+		@if config.$enable-dark-scheme {
+			/* stylelint-disable max-nesting-depth */
+			&[data-color-scheme='light'] {
+				@include light-scheme;
+			}
 		}
 	}
-}
 
-@if config.$enable-dark-scheme {
-	:root {
-		@media screen and (prefers-color-scheme: 'dark') {
-			@include dark-scheme;
-		}
+	@if config.$enable-dark-scheme {
+		:root {
+			@media screen and (prefers-color-scheme: 'dark') {
+				@include dark-scheme;
+			}
 
-		&[data-color-scheme='dark'] {
-			@include dark-scheme;
+			&[data-color-scheme='dark'] {
+				@include dark-scheme;
+			}
 		}
 	}
 }
