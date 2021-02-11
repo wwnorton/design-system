@@ -18,3 +18,21 @@ export type RoleColors =
 	| 'warning';
 
 export type AllColors = SystemColors | RoleColors;
+
+export const ColorOptions: Record<string, AllColors> = {
+	Blue: 'blue',
+	Cyan: 'cyan',
+	Gray: 'gray',
+	Green: 'green',
+	Navy: 'navy',
+	Purple: 'purple',
+	Red: 'red',
+	Teal: 'teal',
+	Yellow: 'yellow',
+	Primary: 'primary',
+	Base: 'base',
+	Disabled: 'disabled',
+	Error: 'error',
+	Success: 'success',
+	Warning: 'warning',
+};

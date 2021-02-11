@@ -19,6 +19,7 @@
 
 // Components (namespaced because they all include a `style` mixin)
 @forward 'components/button' as button-*;
+@forward 'components/callout' as callout-*;
 @forward 'components/checkbox' as checkbox-*;
 @forward 'components/disclosure' as disclosure-*;
 @forward 'components/dropdown' as dropdown-*;
