@@ -1,7 +1,7 @@
 import React from 'react';
 import colorable from 'colorable';
 import classNames from 'classnames';
-import { Icon } from '@wwnds/react';
+import { Icon, canUseDOM } from '@wwnds/react';
 import styles from './styles.module.scss';
 
 const RGBToHex = (rgbString: string) => {
@@ -145,7 +145,7 @@ export const AllFamilies = (): JSX.Element => {
 	const [stuckHeader, setStuckHeader] = React.useState(false);
 
 	const stickyObserver = React.useMemo(() => {
-		if ('IntersectionObserver' in window) {
+		if (canUseDOM && 'IntersectionObserver' in window) {
 			return new IntersectionObserver(([e]) => {
 				if (e.target === header) {
 					setStuckHeader(e.intersectionRatio < 1);
