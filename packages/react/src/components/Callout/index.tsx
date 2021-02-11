@@ -6,32 +6,40 @@ import { prefix } from '../../config';
 import { AllColors } from '../../utilities/color';
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
-	/** An optional title for your Callout. */
+	/** The title summarizes the callout's contents. */
 	title?: string,
-	/** Whether to show icon. */
-	icon?: IconVariant | SVGIcon,
+	/** An icon can be added for character or to emphasize the callout's title. */
+	icon?: IconProps['variant'] | IconProps['icon'],
+	/** The callout's color family. */
+	color?: Exclude<AllColors, 'disabled'>;
+	/** The position of the border. */
+	border?: 'top' | 'right' | 'bottom' | 'left',
+	/** Indicates whether callout can be dismissed. */
+	dismissible?: boolean;
+	/**
+	 * The HTML element used for the callout. This will default to
+	 * [`aside`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
+	 * when a `title` is provided, making it a
+	 * [landmark](https://www.w3.org/TR/wai-aria-practices-1.2/#aria_landmark)
+	 * with an accessible name of `title`. If no `title` is provided, this will
+	 * default to `div` to ensure that it is _not_ a landmark. This behavior can
+	 * be overridden by providing an explicit tag.
+	 */
+	tag?: 'div' | 'aside';
+	/** Callback function that is called when the callout is dismissed. */
+	onDismiss?: () => void;
 	/** The base class name according to BEM conventions. */
 	baseName?: string,
-	/** The className for the Callout's icon, if on exists. */
+	/** The `className` that will be applied to the callout icon. */
 	iconClass?: string,
-	/** The className for the Callout's text, which will be placed in a  */
-	textClass?: string,
-	/** The className that will be applied to the Callout header `<div>` */
+	/** The `className` that will be applied to the callout header element. */
 	headerClass?: string,
-	/** The className that will applied to the Callout title */
-	headerTitleClass?: string,
+	/** The className that will applied to the callout title. */
+	titleClass?: string,
 	/** The className that will be applied to the close Button. */
-	closeButtonClass?: string,
-	/** The className that will be applied to the Callout's body container */
+	dismissClass?: string,
+	/** The className that will be applied to the callout's body container */
 	bodyClass?: string,
-	/** Indicates whether Callout has a 'left' or 'top' border */
-	borderPosition?: 'top' | 'left',
-	/** The color choice for the Callout. Also configures border color and background color. */
-	color?: AllColors;
-	/** Indicates whether Callout can be dismissible. */
-	dismissible?: boolean;
-	/** Determines the HTML element used for Callout */
-	tag?: 'div' | 'aside';
 }
 
 export type CalloutPresetProps = Omit<CalloutProps, 'borderPosition' | 'icon' | 'color'>;
