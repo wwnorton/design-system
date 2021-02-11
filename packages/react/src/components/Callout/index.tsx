@@ -110,3 +110,45 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 		</Tag>
 	);
 };
+
+export const CalloutError: React.FunctionComponent<CalloutProps> = (
+	{ children, ...props }: CalloutProps,
+) => (
+	<Callout
+		border='left'
+		color='error'
+		icon='exclamation'
+		title='Error'
+		{...props}
+	>
+		{children}
+	</Callout>
+);
+
+export const CalloutSuccess: React.FunctionComponent<CalloutProps> = (
+	{ children, ...props }: CalloutProps,
+) => (
+	<Callout
+		border='left'
+		color='success'
+		icon='check-circle'
+		title='Success'
+		{...props}
+	>
+		{children}
+	</Callout>
+);
+
+export const CalloutWarning: React.FunctionComponent<CalloutProps> = (
+	{ children, ...props }: CalloutProps,
+) => (
+	<Callout
+		border='left'
+		color='warning'
+		icon='warning'
+		title='Warning'
+		{...props}
+	>
+		{children}
+	</Callout>
+);
