@@ -3,7 +3,7 @@ import { BaseSpinnerProps, BaseSpinner } from '../BaseProgressIndicator';
 import { prefix } from '../../config';
 import { AllColors } from '../../utilities/color';
 
-export type LabelPlacement = 'top' | 'bottom' | 'right' | 'left';
+export type placement = 'top' | 'bottom' | 'right' | 'left';
 export type size = 'large' | 'medium' | 'small' | undefined;
 export interface SpinnerProps extends BaseSpinnerProps {
 	/** The base class name according to BEM conventions. */
@@ -18,7 +18,7 @@ export interface SpinnerProps extends BaseSpinnerProps {
 	 * The Label placement is alignment with the spinner
 	 * Alignments are top | bottom | right | left
 	 */
-	labelPlacement?: LabelPlacement
+	placement?: placement
 	label?: string,
 	/**
 	 * The size of the circle.
@@ -36,11 +36,11 @@ const withLabel = (baseElement: JSX.Element, props :SpinnerProps) => {
 	const labelElement = <span>{props.label}</span>;
 	const SpinnerElement = baseElement;
 	let elementContainer = [labelElement, SpinnerElement];
-	if (props.labelPlacement === 'top' || props.labelPlacement === 'left') {
+	if (props.placement === 'top' || props.placement === 'left') {
 		elementContainer = [SpinnerElement, labelElement];
 	}
 	return (
-		<span className={`${prefix('spinner')} nds-spinner-placement-${props.labelPlacement ? props.labelPlacement : 'bottom'}`}>
+		<span className={`${prefix('spinner')} nds-spinner-placement-${props.placement ? props.placement : 'bottom'}`}>
 			{
 				elementContainer
 			}

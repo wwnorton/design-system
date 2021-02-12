@@ -1,45 +1,43 @@
 import React from 'react';
 import { BaseProgressBarProps, BaseProgressBar } from '../BaseProgressIndicator';
 import { prefix } from '../../config';
-import { AllColors } from '../../utilities/color';
 
-export type LabelPlacement = 'top' | 'bottom' | 'right' | 'left';
 export type size = 'large' | 'small' | 'default' | undefined;
 export interface ProgressbarProps extends BaseProgressBarProps {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/**
-	 * The spinner's color, restricted to [design system colors](https://wwnorton.github.io/design-system/docs/color),
-	 * excluding `disabled` (prefer the `disabled` prop). Note that an `undefined`
-	 * color will result in the "primary" color being used.
+	 * The Label always bottom of the progressbar
 	 */
-	color?: Exclude<AllColors, 'disabled'>;
-	/**
-	 * The Label placement is alignment with the spinner
-	 * Alignments are top | bottom | right | left
-	 */
-	labelPlacement?: LabelPlacement
 	label?: string,
 	/**
-	 * The size of the circle.
-	 * If using a number, the pixel unit is assumed.
-	 * If using a string, you need to provide the CSS unit, e.g '3rem'.
+	 * The hight of the progressbar .
+	 * Sizes are 'large' | 'small' | 'default'
+	 * large size 1rem , small size is 0.25rem and default is 0.5rem
 	 */
 	size?: size,
+	/**
+	 * buffer indicate some activity of progress bar
+	 */
 	buffer?: number;
+	/**
+	 * By default progessbar indeterminate
+	 * if select determinate true needs to set progress value
+	 */
+	determinate?:boolean;
+	/**
+	 * Progress value increase for determinate mode.
+	 */
+	progress?: number | 0;
 }
-export const defaultProps: ProgressbarProps = {
-	baseName: prefix('progressbar'),
-	determinate: false,
-};
 
 export const Progressbar = React.forwardRef<HTMLElement, ProgressbarProps>(({
-	buffer,
+	baseName = prefix('progressbar'),
 	...props
 }: ProgressbarProps, ref) => (
 	<BaseProgressBar
+		baseName={baseName}
 		ref={ref}
-		buffer={buffer}
 		{...props}
 	/>
 ));

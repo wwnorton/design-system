@@ -46,7 +46,7 @@ export const WithLabel: React.FunctionComponent = () => (
 	<>
 		<Spinner
 			label={text('label', 'loading images...')}
-			labelPlacement={select<PlacementOptions>('labelPlacement', PlacementOptions, PlacementOptions.left)}
+			placement={select<PlacementOptions>('placement', PlacementOptions, PlacementOptions.left)}
 		/>
 	</>
 );
@@ -56,7 +56,7 @@ export const Controlled: React.FunctionComponent = () => {
 	const toggle = (): void => setOpen(!isOpen);
 	return (
 		<div style={{ textAlign: 'center' }}>
-			{isOpen ? <Spinner labelPlacement="bottom" />
+			{isOpen ? <Spinner placement="bottom" />
 				: null}
 			<br />
 			<Button variant="solid" onClick={toggle}>
@@ -69,7 +69,7 @@ export const Controlled: React.FunctionComponent = () => {
 export const withButton: React.FunctionComponent = () => (
 	<div>
 		<Button variant="solid">
-			<Spinner color="base" label="loading..." labelPlacement="left" />
+			<Spinner color="base" label="loading..." placement="left" />
 		</Button>
 	</div>
 );

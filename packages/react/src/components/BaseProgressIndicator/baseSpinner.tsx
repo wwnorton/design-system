@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 export interface BaseSpinnerProps extends React.HTMLAttributes<HTMLElement> {
-	determinate: boolean
+	determinate?: boolean
 	progress?: number | 0,
 	label?: string,
 	size?: 'large' | 'medium' | 'small' | undefined;
@@ -14,8 +14,9 @@ export const BaseSpinner = React.forwardRef<HTMLElement, BaseSpinnerProps>(({
 	progress,
 	label,
 	size = 'medium',
+	...props
 }: BaseSpinnerProps) => {
-	const circularColor = color ? `var(--nds-${color}-60)` : color;
+	const circularColor = color ? `var(--nds-${color}-60)` : 'var(--nds-navy-50)';
 	const styleDimensions = {
 		large: { width: '48px', height: '48px' },
 		medium: { width: '32px', height: '32px' },
@@ -157,11 +158,12 @@ export const BaseSpinner = React.forwardRef<HTMLElement, BaseSpinnerProps>(({
 		<div
 			className={classes}
 			role="progressbar"
-			aria-label={label}
+			aria-label={label || 'Loading'}
 			aria-valuemin={0}
 			aria-valuemax={100}
 			aria-valuenow={progress}
 			style={styles}
+			{...props}
 		>
 			{determinate === false ? indeterminateElements : determinateElements}
 		</div>

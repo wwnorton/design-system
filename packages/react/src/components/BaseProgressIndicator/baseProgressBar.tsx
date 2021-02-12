@@ -5,7 +5,8 @@ import { MDCLinearProgress } from '@material/linear-progress';
 export type size = 'large' | 'small' | 'default' | undefined;
 
 export interface BaseProgressBarProps extends React.HTMLAttributes<HTMLElement> {
-	determinate?: boolean
+	determinate?: boolean,
+	baseName?:string,
 	progress?: number | 0,
 	label?: string,
 	reversed?: boolean,
@@ -18,6 +19,7 @@ export const BaseProgressBar = React.forwardRef<HTMLElement, BaseProgressBarProp
 	determinate = false,
 	progress,
 	buffer = 0,
+	baseName,
 	className,
 	reversed = false,
 	closed = false,
@@ -73,9 +75,8 @@ export const BaseProgressBar = React.forwardRef<HTMLElement, BaseProgressBarProp
 		}
 		return null;
 	}, [buffer, progressValue, size]);
-
 	return (
-		<span className="nds-progressbar">
+		<span className={baseName}>
 			<div
 				role="progressbar"
 				className={classes}
