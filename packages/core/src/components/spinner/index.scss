@@ -1,0 +1,66 @@
+@use '../../util';
+@use '../../spacing';
+@use '@material/circular-progress/mixins' as circular-progress;
+
+@include circular-progress.core-styles;
+
+@mixin base {
+	display: inline-flex;
+	max-width: 100%;
+	max-height: 100%;
+	align-items: center;
+	font-size: var(--nds-font-size-16);
+	font-style: italic;
+}
+
+@mixin spinner-placement-top {
+	flex-direction: column-reverse;
+
+	span {
+		margin-bottom: spacing.spacer('0.5rem');
+	}
+}
+
+@mixin spinner-placement-bottom {
+	flex-direction: column-reverse;
+
+	span {
+		margin-top: spacing.spacer('0.5rem');
+	}
+}
+
+@mixin spinner-placement-left {
+	span {
+		margin-left: spacing.spacer('0.5rem');
+	}
+}
+
+@mixin spinner-placement-right {
+	span {
+		margin-right: spacing.spacer('0.5rem');
+	}
+}
+
+@mixin style {
+	@include util.declare('spinner') {
+		.nds-spinner {
+			@include base;
+		}
+
+		.nds-spinner-placement-top {
+			@include spinner-placement-top;
+		}
+
+		.nds-spinner-placement-bottom {
+			@include spinner-placement-bottom;
+		}
+
+		.nds-spinner-placement-left {
+			@include spinner-placement-left;
+		}
+
+		.nds-spinner-placement-right {
+			@include spinner-placement-right;
+		}
+	}
+}

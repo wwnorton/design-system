@@ -1,0 +1,36 @@
+@use '../../util';
+@use '../../spacing';
+@use '@material/linear-progress/mixins' as linear-progress;
+
+@include linear-progress.core-styles;
+
+@mixin base {
+	color: var(--nds-teal-60);
+	border-color: var(--nds-teal-60);
+
+	.progressbar-large {
+		border-top: spacing.spacer('1rem') solid !important;
+	}
+
+	.progressbar-default {
+		border-top: spacing.spacer('0.5rem') solid !important;
+	}
+
+	.progressbar-small {
+		border-top: spacing.spacer('0.25rem') solid !important;
+	}
+
+	.nds-progressbar-label {
+		margin-top: spacing.spacer('0.5rem');
+		font-size: spacing.spacer('0.75rem');
+		color: var(--nds-navy-60);
+	}
+}
+
+@mixin style {
+	@include util.declare('progressbar') {
+		.nds-progressbar {
+			@include base;
+		}
+	}
+}
