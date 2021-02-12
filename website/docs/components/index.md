@@ -16,6 +16,11 @@ In order to facilitate composition, components seek to do one thing well and be 
 	>
 		A button allows the user to perform an action.
 	</FeatureCard>
+	<FeatureCard title="Callout" slug="callout"
+		media={<FeatureImage />}
+	>
+		A callout brings attention to related but non-essential information.
+	</FeatureCard>
 	<FeatureCard title="Checkbox" slug="checkbox"
 		media={<FeatureImage src="/img/checkbox.png" />}
 	>
