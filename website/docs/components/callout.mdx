@@ -1,0 +1,106 @@
+---
+title: Callout
+description: A callout brings attention to related but non-essential information.
+---
+
+import { Callout, CalloutError, CalloutSuccess, CalloutWarning } from '@wwnds/react';
+import { PropsTable } from '../../src/theme/PropsTable';
+
+> A callout brings attention to related but non-essential information.
+
+## Anatomy
+
+1. **Container** - the container sets the contents of the callout apart from the main content.
+1. **Icon** (_optional_) - an icon can be used to add character or emphasize the title.
+1. **Title** (_recommended_) - the title of a callout summarizes its contents.
+1. **Dismiss button** (_optional_) - a control that allows the user to dismiss the callout.
+1. **Body** - the contents of the callout.
+
+## Usage
+
+Use a callout to bring attention to related information that is complementary to the main content.
+Effective callouts provide clarity or additional information about the main content but should also be clear as standalone snippets of information.
+In other words, callouts should make sense both in context and out of context.
+
+<Callout title="Callouts vs. Alerts" border="left">
+
+Callouts are meant to be part of the main document and should exist on the page when it first loads.
+It is not recommended to use a callout to alert the user of something that just happened, as screen reader users will not be alerted to the change.
+
+</Callout>
+
+### Presets
+
+Three preset callouts are provided to emphasize "success," "warning," and "error" in a consistent way.
+
+Be careful to always provide a title for these presets, as color and icons alone will never convey meaning to everyone.
+A clear title will ensure that screen reader users and users with color blindness can still understand the role of the callout.
+
+<div>
+	<CalloutSuccess>
+		Use the success preset to call attention to positive things, such as a correct answer or a good practice.
+	</CalloutSuccess>
+	<CalloutWarning>
+		Use the warning preset to caution or warn the reader.
+	</CalloutWarning>
+	<CalloutError>
+		Use the error preset to call attention to negative things, such as incorrect answers or a bad practice.
+	</CalloutError>
+</div>
+
+
+## React API
+
+### Callout
+
+```js
+import { Callout } from '@wwnds/react';
+```
+
+```tsx live
+<Callout title="Lorem Ipsum" icon="star" border="left" dismissible>
+	<p>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+		Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+		when an unknown printer took a galley of type.
+	</p>
+</Callout>
+```
+
+<PropsTable from={Callout} />
+
+### Callout Presets
+
+Each of the three presets use the main Callout's props but sets a default `border`, `color`, `icon`, and `title` for your convenience.
+
+
+```js
+import { CalloutError, CalloutSuccess, CalloutWarning } from '@wwnds/react';
+```
+
+<CalloutSuccess title="CalloutSuccess">
+
+This preset is equivalent to:
+```jsx
+<Callout border="left" color="success" icon="check-circle" title="Success" />
+```
+
+</CalloutSuccess>
+
+<CalloutWarning title="CalloutWarning">
+
+This preset is equivalent to:
+```jsx
+<Callout border="left" color="warning" icon="warning" title="Warning" />
+```
+
+</CalloutWarning>
+
+<CalloutError title="CalloutError">
+
+This preset is equivalent to:
+```jsx
+<Callout border="left" color="error" icon="exclamation-circle" title="Error" />
+```
+
+</CalloutError>
