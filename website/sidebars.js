@@ -26,6 +26,7 @@ module.exports = {
 		'foundations/motion',
 	],
 	components: [
+		'components/index',
 		// 'components/accordion',
 		'components/button',
 		'components/callout',
@@ -34,7 +35,6 @@ module.exports = {
 		'components/disclosure',
 		'components/dropdown',
 		// 'components/icon',
-		'components/index',
 		// 'components/layout-grid',
 		'components/link',
 		'components/modal',
