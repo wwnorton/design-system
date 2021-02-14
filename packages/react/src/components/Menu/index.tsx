@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { prefix } from '../../config';
+import { BasePopper, BasePopperProps } from '../BasePopper';
 import {
 	BaseMenu,
 	BaseMenuProps,
@@ -13,25 +14,24 @@ import {
 	MenuDivider,
 } from './MenuDivider';
 
+import { useForwardedRef, usePopperTriggers } from '../../hooks';
+
+export type Triggers =
+	| 'click'
+	| 'focus'
+	| 'focusin'
+	| 'manual'
+	| 'mouseenter'
+	| 'pointerenter'
 export interface menuItemJsonStructure extends MenuItemProps{
 	menuDivider?:boolean;
 }
-
 export interface MenuJsonData {
 	menuItems:menuItemJsonStructure[]
 }
-
-export interface MenuProps extends BaseMenuProps {
+export interface MenuProps extends BasePopperProps, BaseMenuProps {
 	/** The base class name according to BEM conventions. Default is "menu". */
 	baseName?:string;
-	/** Indicates whether the menu is open. */
-	isOpen?:boolean;
-	/** Return selected menuitem properties  */
-	selectedValues?:(selIndex: number, selectedValue: Record<string, unknown>) => void;
-	/** Display menu according to element alignment */
-	anchorLeftPosition?:number;
-	/** On close on external element click */
-	onClose?:() => void;
 	/** Generate menu dynamically as per the JSON */
 	/** JSON format should be {
 		// menuItems: [{
@@ -45,8 +45,14 @@ export interface MenuProps extends BaseMenuProps {
 	JsonMenu?:MenuJsonData;
 	/** Menu only expect Menuitem, MenuDivider, MenuGroup and MenuHeader element */
 	children?: React.ReactChild[];
-	/** Indicates whether clicking outside the menu should close the menu. */
-	closeOnExternalClick?: boolean;
+	/**
+	 * A string of space-separated triggers. Options include `click`, `focus`,
+	 * `focusin`, `mouseenter`, `pointerenter`, and `manual`. When `manual` is
+	 * included anywhere in the string, the menu's visibility must be
+	 * controlled via `isOpen`. Default is `"click"`.
+	 */
+	trigger?: string;
+	id?:string;
 }
 
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>((
@@ -54,12 +60,20 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>((
 		baseName = prefix('menu'),
 		children,
 		isOpen = false,
-		selectedValues,
+		placement = 'bottom-start',
+		reference,
+		id = 'menu',
+		trigger = 'click',
 		JsonMenu,
-		anchorLeftPosition,
 		...props
-	}: MenuProps,
+	}: MenuProps, ref,
 ) => {
+	const [ariaLabel, setAriaLabel] = useState('');
+	const [popper, setPopper] = useForwardedRef(ref);
+	const open = usePopperTriggers({
+		reference, popper, trigger, isOpen,
+	});
+
 	const JsonMenuData = React.useMemo(() => {
 		if (!JsonMenu) return null;
 		return JsonMenu.menuItems.map((item) => {
@@ -74,15 +88,33 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>((
 		});
 	}, [JsonMenu]);
 
+	React.useEffect(() => {
+		if (ariaLabel && reference && reference instanceof HTMLElement) {
+			setAriaLabel(reference.innerText);
+		}
+	}, [ariaLabel, reference]);
 	return (
-		<BaseMenu
-			baseName={baseName}
-			selectedValues={selectedValues}
-			anchorLeftPosition={anchorLeftPosition}
-			isOpen={isOpen}
+		<BasePopper
+			aria-hidden={!open}
+			role="menu"
+			className={baseName}
+			tagName="ul"
+			placement={placement}
+			reference={reference}
+			isOpen={open}
+			aria-label={ariaLabel}
+			trigger='manual'
+			aria-orientation="vertical"
+			id={id}
+			ref={setPopper}
 			{...props}
 		>
-			{children || JsonMenuData}
-		</BaseMenu>
+			<BaseMenu
+				baseName={baseName}
+				{...props}
+			>
+				{children || JsonMenuData}
+			</BaseMenu>
+		</BasePopper>
 	);
 });

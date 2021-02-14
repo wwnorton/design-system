@@ -1,16 +1,11 @@
 import React from 'react';
-import { BaseMenuDivider } from './baseMenuDivider';
 
-export interface BaseMenuGroupProps extends React.LiHTMLAttributes<HTMLLIElement> {
-	ariaLabel?:string,
-}
+export type BaseMenuGroupProps = Omit<React.HTMLAttributes<HTMLUListElement>, 'role'>;
 
-export const BaseMenuGroup = React.forwardRef<HTMLLIElement, BaseMenuGroupProps>(({
-	children,
-}: BaseMenuGroupProps) => (
-	<>
-		<BaseMenuDivider />
-		{ children }
-		<BaseMenuDivider />
-	</>
+export const BaseMenuGroup = React.forwardRef<HTMLUListElement, BaseMenuGroupProps>((
+	props, ref,
+) => (
+	<li role="none">
+		<ul ref={ref} {...props} role="group" />
+	</li>
 ));

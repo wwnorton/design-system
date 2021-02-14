@@ -1,10 +1,8 @@
 import React from 'react';
 
-export const BaseMenuDivider = React.forwardRef<HTMLElement>(({
-	...props
-}) => (
+export const BaseMenuDivider = React.forwardRef<HTMLElement>((props) => (
 	<li
-		className='nds-menu-divider'
+		aria-orientation="horizontal"
 		role="separator"
 		{...props}
 	/>

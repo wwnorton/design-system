@@ -4,19 +4,32 @@ import { Icon, IconVariant, SVGIcon } from '../Icon';
 import { prefix } from '../../config';
 
 export type TargetVariant = '_self' | '_blank';
-
 export interface BaseMenuItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
+	/** The name of the menu item. Required. */
 	label?: string
+	/** An icon to include in the menu. */
 	icon?: IconVariant | SVGIcon;
 	baseName?: string;
 	iconClass?: string;
+	/** Description of menu item */
 	description?:string;
+	/**
+	 * Added property for selected menu
+	 */
 	selected?:boolean;
+	/** focus set for mouse or keyboard events */
 	focus?:boolean;
+	/** selected menu item index */
 	index?:number;
+	/** Disabled menu item can not click or select  */
 	disabled?:boolean;
+	/**
+	 * Return selected properties on onClose event
+	 */
 	selectedMenu?: (selIndex: number, selectedValue:Record<string, unknown>) => void;
+	/** URL path to redirect */
 	href?:string | undefined;
+	/** Redirect to given URL */
 	target?:TargetVariant;
 	id?:string;
 }
@@ -43,6 +56,7 @@ export const BaseMenuItem = React.forwardRef<HTMLLIElement, BaseMenuItemProps>((
 		...props
 	}: BaseMenuItemProps,
 ): React.ReactElement => {
+	if (!label) throw new Error(BaseMenuItem.errors.noLabel);
 	const ref = useRef(null);
 	const BaseIcon = React.useMemo(() => {
 		if (!icon) return null;
@@ -55,7 +69,7 @@ export const BaseMenuItem = React.forwardRef<HTMLLIElement, BaseMenuItemProps>((
 		return <Icon {...iconProps} />;
 	}, [icon, iconClass]);
 
-	const descriptionClass = `nds-menuitem-description ${icon ? 'nds-menuitem__icon' : ''}`;
+	const descriptionClass = `${baseName}-description ${icon ? `${baseName}__icon` : ''}`;
 	useEffect(() => {
 		if (ref
 		&& ref.current
@@ -84,7 +98,7 @@ export const BaseMenuItem = React.forwardRef<HTMLLIElement, BaseMenuItemProps>((
 		}
 	};
 	const ItemKeyPressHandler = (e: React.KeyboardEvent<HTMLLIElement>) => {
-		if (e.keyCode === 13) {
+		if (e.key === 'Enter') {
 			if (selectedMenu && disabled === false) {
 				const selectedProps = {
 					label,
@@ -141,9 +155,17 @@ export const BaseMenuItem = React.forwardRef<HTMLLIElement, BaseMenuItemProps>((
 			className={classes}
 			onClick={ItemClickHandler}
 			onKeyUp={ItemKeyPressHandler}
+			aria-disabled={disabled}
 			{...props}
 		>
 			{menuitemWithLink}
 		</li>
 	);
-});
+}) as React.ForwardRefExoticComponent<React.RefAttributes<HTMLLIElement>>
+& {
+	errors: Record<string, string>;
+};
+
+BaseMenuItem.errors = {
+	noLabel: 'Menu must have a Label.',
+};

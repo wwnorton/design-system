@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	BaseMenuGroup,
 	BaseMenuGroupProps,
 } from '../BaseMenu/baseMenuGroup';
 import {
@@ -18,12 +19,12 @@ export const MenuGroup = React.forwardRef<HTMLUListElement, MenuGroupProps>((
 ) => {
 	if (!children) return null;
 	return (
-		<>
-			<MenuDivider
-				{...props}
-			/>
+		<BaseMenuGroup
+			{...props}
+		>
+			<MenuDivider />
 			{children}
 			<MenuDivider />
-		</>
+		</BaseMenuGroup>
 	);
 });

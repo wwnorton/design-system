@@ -8,7 +8,7 @@ import { MenuItem } from './MenuItem';
 import { MenuDivider } from './MenuDivider';
 import { MenuGroup } from './MenuGroup';
 import { MenuHeader } from './MenuHeader';
-import { Button } from '../Button';
+import { MenuButton } from './MenuButton';
 
 export default {
 	title: 'Menu',
@@ -16,98 +16,110 @@ export default {
 	decorators: [withKnobs],
 };
 
-export const Default: React.FunctionComponent = () => (
-	<Menu isOpen>
-		<MenuItem
-			id='mnuW2C'
-			label={text('label', 'W3C Home Page')}
-			description={text('description', 'Accessible Rich Internet Application Specification')}
-		/>
-		<MenuItem
-			icon='menu'
-			label={text('label', 'W3C Home Page')}
-			description={text('description', 'Accessible Rich Internet Application Specification')}
-		/>
-		<MenuDivider />
-		<MenuItem
-			icon='launch'
-			label={text('label', 'W3C Home Page')}
-		/>
-		<MenuItem
-			label={text('label', 'W3C Home Page')}
-		/>
-		<MenuHeader
-			label="Profile"
-		/>
-		<MenuGroup>
-			<MenuItem
-				label='Account'
-				icon='account'
-			/>
-			<MenuItem
-				label='Settings'
-				icon="settings"
-			/>
-		</MenuGroup>
-		<MenuItem
-			href='http://google.com'
-			target='_self'
-			label='Redirect to Google'
-		/>
-		<MenuItem
-			disabled
-			href='http://google.com'
-			label='Redirect to Google'
-		/>
-	</Menu>
-);
+export const Default: React.FunctionComponent = () => {
+	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
+	const [isOpen, setOpen] = React.useState(false);
+	const toggle = (): void => setOpen(!isOpen);
+	return (
+		<>
+			<MenuButton
+				ref={setRef}
+				onOpen={toggle}
+			>
+				Show menu
+			</MenuButton>
+			<Menu
+				reference={ref}
+				placement="bottom-start"
+				isOpen={isOpen}
+			>
+				<MenuItem
+					id='mnuW2C'
+					label={text('label', 'W3C Home Page')}
+					description={text('description', 'Accessible Rich Internet Application Specification')}
+				/>
+				<MenuItem
+					icon='menu'
+					label={text('label', 'W3C Home Page')}
+					description={text('description', 'Accessible Rich Internet Application Specification')}
+				/>
+				<MenuDivider />
+				<MenuItem
+					icon='launch'
+					label={text('label', 'W3C Home Page')}
+				/>
+				<MenuItem
+					label={text('label', 'W3C Home Page')}
+				/>
+				<MenuHeader
+					label="Profile"
+				/>
+				<MenuGroup>
+					<MenuItem
+						label='Account'
+						icon='account'
+					/>
+					<MenuItem
+						label='Settings'
+						icon="settings"
+					/>
+				</MenuGroup>
+				<MenuItem
+					href='http://google.com'
+					target='_self'
+					label='Redirect to Google'
+				/>
+				<MenuItem
+					disabled
+					href='http://google.com'
+					label='Redirect to Google'
+				/>
+			</Menu>
+		</>
+	);
+};
 
 export const Controlled: React.FunctionComponent = () => {
+	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
+	const [refEdit, setEditRef] = React.useState<HTMLButtonElement | null>();
 	const [openFileMenu, setOpenFileMenu] = React.useState(false);
 	const [openEditMenu, setOpenEditMenu] = React.useState(false);
-	const [anchorLeftPosition, setAnchorLeftPosition] = React.useState();
 	const openFileMenuHandler = () => {
 		setOpenEditMenu(false);
 		setOpenFileMenu(!openFileMenu);
 	};
-	const openEditMenuHandler = (e) => {
+	const openEditMenuHandler = () => {
 		setOpenFileMenu(false);
-		setAnchorLeftPosition(e.currentTarget.offsetLeft);
 		setOpenEditMenu(!openEditMenu);
 	};
-	const onSelectChange = (indexVal, SelectedData) => {
+	const onMenuClose = (indexVal, SelectedData) => {
 		alert(SelectedData.label); // eslint-disable-line  no-alert
-		setOpenFileMenu(false);
-	};
-	const onMenuClose = () => {
-		setOpenFileMenu(false);
-		setOpenEditMenu(false);
+		openFileMenuHandler();
 	};
 	return (
 		<>
 			<div>
-				<Button
-					variant='outline'
-					onClick={openFileMenuHandler}
-					icon={`chevron-${!openFileMenu ? 'up' : 'down'}`}
+				<MenuButton
+					ref={setRef}
+					onOpen={openFileMenuHandler}
+					variant="ghost"
 				>
 					File
-				</Button>
-				<Button
-					style={{ marginLeft: 5 }}
-					variant='outline'
-					onClick={openEditMenuHandler}
-					icon={`chevron-${!openEditMenu ? 'up' : 'down'}`}
+				</MenuButton>
+				<MenuButton
+					ref={setEditRef}
+					onOpen={openEditMenuHandler}
+					variant="ghost"
 				>
-					Edit
-				</Button>
+					Find
+				</MenuButton>
 			</div>
 			<div>
 				<Menu
 					isOpen={openFileMenu}
-					selectedValues={onSelectChange}
-					closeOnExternalClick
 					onClose={onMenuClose}
+					reference={ref}
+					placement="bottom-start"
 				>
 					<MenuItem
 						label='New Document'
@@ -138,8 +150,8 @@ export const Controlled: React.FunctionComponent = () => {
 			</div>
 			<Menu
 				isOpen={openEditMenu}
-				anchorLeftPosition={anchorLeftPosition}
-				closeOnExternalClick
+				reference={refEdit}
+				placement="bottom-start"
 			>
 				<MenuItem
 					label='Edit'
@@ -166,7 +178,7 @@ export const Controlled: React.FunctionComponent = () => {
 
 export const JSONData: React.FunctionComponent = () => {
 	const [openProfileMenu, setOpenProfileMenu] = React.useState(false);
-
+	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
 	const openProfileMenuHandler = () => {
 		setOpenProfileMenu(!openProfileMenu);
 	};
@@ -191,23 +203,28 @@ export const JSONData: React.FunctionComponent = () => {
 		{
 			label: 'Share',
 		},
+		{
+			label: 'Account',
+			description: 'Click for account',
+		},
 		],
 	};
 
 	return (
 		<>
 			<div>
-				<Button
-					variant='outline'
-					onClick={openProfileMenuHandler}
-					icon={`chevron-${!openProfileMenu ? 'up' : 'down'}`}
+				<MenuButton
+					ref={setRef}
+					onOpen={openProfileMenuHandler}
+					variant="solid"
 				>
 					Profile
-				</Button>
+				</MenuButton>
 			</div>
 			<div>
 				<Menu
 					isOpen={openProfileMenu}
+					reference={ref}
 					JsonMenu={jData}
 				/>
 			</div>

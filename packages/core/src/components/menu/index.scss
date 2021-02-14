@@ -21,7 +21,7 @@
 
 	display: inline-block;
 	padding: var(--nds-menu-items-padding-x) 0;
-	margin-top: spacing.spacer('0.5rem');
+	margin-top: spacing.spacer('0.5rem') !important;
 	font-weight: var(--nds-font-weight-regular);
 	list-style: none;
 	background-color: var(--nds-background-color);
@@ -33,30 +33,19 @@
 		cursor: pointer;
 	}
 
+	[role='group'] {
+		padding: 0;
+		list-style: none;
+
+		&:hover {
+			background-color: var(--nds-white);
+		}
+	}
+
 	[role='menuitem'] {
 		display: block;
 		padding: var(--nds-menu-items-padding-y) var(--nds-menu-items-padding-x);
 		color: var(--nds-text-color);
-	}
-
-	[role='none']:not(.nds-menuitem-disabled):focus {
-		background-color: var(--nds-menu-items-focus-color);
-		box-shadow: none;
-	}
-
-	[role='none']:not(.nds-menuitem-disabled):hover {
-		background-color: var(--nds-menu-items-hover-color);
-		box-shadow: none;
-	}
-
-	[role='menuitem']:not(.nds-menuitem-disabled):hover {
-		background-color: var(--nds-menu-items-hover-color);
-		box-shadow: none;
-	}
-
-	[role='menuitem']:not(.nds-menuitem-disabled):focus {
-		background-color: var(--nds-menu-items-focus-color);
-		box-shadow: none;
 	}
 
 	.nds-menuitem-disabled {
@@ -78,6 +67,7 @@
 	}
 
 	.nds-menuheader {
+		padding-bottom: 0;
 		padding-left: spacing.spacer('1rem');
 		font-size: var(--nds-font-size-sm);
 		font-weight: var(--nds-font-weight-bold);
@@ -100,6 +90,16 @@
 @mixin menuitem {
 	[href] {
 		text-decoration: none;
+	}
+
+	&:not(.nds-menuitem-disabled):hover {
+		background-color: var(--nds-menu-items-hover-color);
+		box-shadow: none;
+	}
+
+	&:not(.nds-menuitem-disabled):focus {
+		background-color: var(--nds-menu-items-focus-color);
+		box-shadow: none;
 	}
 
 	[role='menuitem'] {
