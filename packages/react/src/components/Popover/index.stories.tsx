@@ -25,7 +25,6 @@ export const Default: React.FunctionComponent = () => (
 		hideTitle={boolean('Hide title', false)}
 		hideCloseButton={boolean('Hide close button', false)}
 		placement={select('Placement', placements, 'bottom-start')}
-		trigger='manual'
 		isOpen
 	>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -34,98 +33,96 @@ export const Default: React.FunctionComponent = () => (
 	</Popover>
 );
 
-export const WithActionBar: React.FunctionComponent = () => {
-	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
-	const [question, setQuestion] = React.useState('');
-	const [questionRef, setQuestionRef] = React.useState<HTMLInputElement | null>(null);
-	const [isOpen, setOpen] = React.useState(false);
-	const toggle = (): void => setOpen(!isOpen);
-	const close = (): void => {
-		setOpen(false);
-	};
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		const { target } = e;
-		if (questionRef) {
-			setQuestion(target.value);
-		}
-	};
+export const WithReference: React.FunctionComponent = () => {
+	const [ref, setRef] = React.useState<HTMLButtonElement | null>(null);
 	return (
 		<>
-			<Button
-				variant="solid"
-				ref={setRef}
-				onClick={toggle}
-			>
+			<Button variant="solid" ref={setRef}>
 				Show popover
 			</Button>
 			<Popover
-				title={text('Title', 'Title')}
+				title={text('Title', 'Popover title')}
 				hideTitle={boolean('Hide title', false)}
 				hideCloseButton={boolean('Hide close button', false)}
+				placement={select('Placement', placements, 'bottom-start')}
 				reference={ref}
-				placement={select('Placement', placements, 'top-start')}
-				trigger='manual'
-				isOpen={isOpen}
-				onRequestClose={close}
-				actions={boolean('Action bar', true) ? (
-					<>
-						<Button variant="solid" type="submit" onClick={toggle}>Close me</Button>
-					</>
-				) : undefined}
 			>
-				Lorem ipsum dolor sit amet consectetur,
-				adipisicing elit. Id cum reiciendis sed ab voluptas
-				velit quibusdam expedita sapiente nemo?
-				Modi accusamus minus distinctio error non!
-				Provident quasi officia pariatur fugit
-				<br />
-				<br />
-				<TextField
-					required
-					value={question}
-					ref={setQuestionRef}
-					onChange={handleChange}
-				>
-					Question?
-				</TextField>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco
 			</Popover>
 		</>
 	);
 };
 
+/**
+ * This example demos how to fully control the state of a Popover.
+ * The following features are related to the Popover API:
+ * - use of `isOpen` forces the popover into controlled (manual) state. this means
+ *   that the story is responsible for implementing all actions that open/close the popover.
+ * - popover is labelled by the text field's label, so it doesn't need a `title`
+ *
+ * The following features are unrelated to Popover but are good practice:
+ * - the submit button ([type=submit]) is external to the form so it uses the `form`
+ *   attribute to associate itself with the form element. this causes the button
+ *   to trigger the form's `onSubmit` action on click, which is why there is no
+ *   onClick callback.
+ * - a text field contained by a form will trigger the onSubmit action on Enter
+ */
 export const Controlled: React.FunctionComponent = () => {
 	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
+	const [buttonText, setButtonText] = React.useState('Change this button\'s text');
+	const [inputText, setInputText] = React.useState(buttonText);
+	const [input, setInput] = React.useState<HTMLInputElement | null>(null);
 	const [isOpen, setOpen] = React.useState(false);
-	const toggle = (): void => setOpen(!isOpen);
-	const close = (): void => {
-		setOpen(false);
+
+	const toggle = (): void => {
+		setInputText(buttonText);
+		setOpen(!isOpen);
+	};
+	const close = () => setOpen(false);
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		if (input) setInputText(e.target.value);
+	};
+	const submit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setButtonText(inputText);
+		close();
 	};
 	return (
 		<>
-			<Button
-				variant="solid"
-				ref={setRef}
-				onClick={toggle}
-			>
-				Show popover
+			<Button variant="solid" ref={setRef} onClick={toggle}>
+				{ buttonText }
 			</Button>
 			<Popover
-				title={text('Title', 'Confirmation?')}
-				hideTitle={boolean('Hide title', false)}
-				hideCloseButton={boolean('Hide close button', false)}
-				reference={ref}
+				aria-labelledby="change-btn"
+				hideCloseButton={boolean('Hide close button', true)}
 				placement={select('Placement', placements, 'top-start')}
-				trigger='mouseenter'
+				reference={ref}
 				isOpen={isOpen}
 				onRequestClose={close}
-				actions={boolean('Action bar', true) ? (
+				actions={boolean('Action bar', true) && (
 					<>
-						<Button variant="outline" onClick={toggle}>No</Button>
-						<Button variant="solid" onClick={toggle}>Yes</Button>
+						<Button variant="outline" onClick={close}>
+							Cancel
+						</Button>
+						<Button variant="solid" type="submit" form="demo-form">
+							Submit
+						</Button>
 					</>
-				) : undefined}
+				)}
 			>
-				Are you sure you want to close me !!
+				<form id="demo-form" onSubmit={submit}>
+					<TextField
+						labelId="change-btn"
+						required
+						value={inputText}
+						ref={setInput}
+						onChange={handleChange}
+					>
+						Button text
+					</TextField>
+				</form>
 			</Popover>
 		</>
 	);
