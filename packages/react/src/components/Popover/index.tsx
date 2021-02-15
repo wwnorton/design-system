@@ -42,14 +42,6 @@ export interface PopoverProps extends BasePopperProps {
 	/** A className for the popover's arrow. Default will be `${baseName}__arrow`. */
 	arrowClass?: string;
 	/**
-	 * Indicates that the popover is labelling the reference. If `false`, the
-	 * popover will be used as description.
-	 *
-	 * Reference:
-	 * - [ARIA Practices - Providing Accessible Names and Descriptions](https://w3c.github.io/aria-practices/#names_and_descriptions)
-	 */
-	asLabel?: boolean;
-	/**
 	 * A string of space-separated triggers. Options include `click`, `focus`,
 	 * `focusin`, `mouseenter`, `pointerenter`, and `manual`. When `manual` is
 	 * included anywhere in the string, the popover's visibility must be
@@ -110,12 +102,10 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		actionBarClass = `${baseName}__actions`,
 		modifiers,
 		placement = 'top',
-		asLabel = false,
 		trigger = 'focus pointerenter',
 		hideDelay = 200,
 		reference,
 		isOpen = false,
-		id: userId,
 		hideTitle,
 		children,
 		className,
@@ -128,16 +118,11 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [offsetY] = useToken({ name: 'popover-offset-y', el: popper });
-	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
+	const { current: titleId } = React.useRef(uniqueId(`${baseName}-title-`));
 
 	const open = usePopperTriggers({
 		reference, popper, trigger, isOpen, hideDelay,
 	});
-
-	const ariaAttribute = React.useMemo(() => {
-		if (asLabel) return 'aria-labelledby';
-		return 'aria-describedby';
-	}, [asLabel]);
 
 	const offsetMod = React.useMemo(() => {
 		let y: number;
@@ -160,8 +145,8 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	}), [arrowClass]);
 
 	const Title = React.useMemo(() => (
-		<div className={titleClass}>{title}</div>
-	), [title, titleClass]);
+		<div className={titleClass} id={titleId}>{title}</div>
+	), [title, titleClass, titleId]);
 
 	const CloseButton = React.useMemo(() => (
 		<Button
@@ -214,42 +199,18 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		return null;
 	}, [hideCloseButton, hideTitle, actions, ActionBar, Header, arrowClass, bodyClass, children]);
 
-	/**
-		 * Attach aria labelling and describing attributes.
-		 * When rendered `asLabel`, the popover will name the reference element. To
-		 * accomplish this, the reference element will have an `aria-label` when
-		 * closed and `aria-labelledby` when open.
-		 * When rendered as a description (`asLabel=false`), the popover will
-		 * describe the reference element via `aria-describedby` on open.
-	 */
-	React.useLayoutEffect(() => {
-		if (reference && reference instanceof Element) {
-			const currentRefs = reference.getAttribute(ariaAttribute);
-			if (currentRefs && !currentRefs.split(/\s+/g).includes(id)) return;
-			const currentLabel = reference.getAttribute('aria-label');
-			if (open) {
-				reference.setAttribute(ariaAttribute, id);
-				reference.removeAttribute('aria-label');
-			} else {
-				reference.removeAttribute(ariaAttribute);
-				if (asLabel && children) {
-					reference.setAttribute('aria-label', currentLabel || innerText(children));
-				}
-			}
-		}
-	}, [asLabel, children, id, open, reference, ariaAttribute]);
-
 	if (!children) return null;
 	return (
 		<BasePopper
-			aria-hidden="true"
 			className={classNames(baseName, className)}
 			role="dialog"
+			aria-modal="false"
+			aria-labelledby={(hideTitle) ? undefined : titleId}
+			aria-label={(hideTitle) ? title : undefined}
 			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
 			placement={placement}
 			reference={reference}
 			isOpen={open}
-			id={id}
 			ref={setPopper}
 			{...props}
 		>
