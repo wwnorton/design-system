@@ -35,58 +35,51 @@
 
 @mixin header {
 	position: relative;
-	padding: var(--nds-popover-padding-y) var(--nds-popover-padding-x);
+	padding: calc(var(--nds-popover-padding-y) * 0.75) var(--nds-popover-padding-x);
+	border-bottom: var(--nds-popover-border-width) solid var(--nds-base-color-30);
 
-	&:focus {
-		box-shadow: unset;
-	}
-
-	[aria-label] > & {
-		background-color: unset;
-		border-bottom: unset;
+	// when the title is not visible, it will be set as an aria-label on the dialog.
+	// use this as a heuristic to remove the border for non-visible titles
+	[role='dialog'][aria-label] & {
+		border-bottom: 0;
 	}
 }
 
 @mixin title {
 	@include type.heading-6;
 
-	margin: 0; // stylelint-disable-line order/order
+	margin-bottom: 0; // stylelint-disable-line order/order
 
 	&:not(:last-child) {
-		padding-right: calc(var(--nds-popover-padding-x) / 2);
+		padding-right: spacing.spacer('2rem');
 	}
 }
 
-@mixin header-border-bottom {
-	border-bottom: var(--nds-popover-border-width) solid var(--nds-base-color-30);
-}
-
-@mixin close-btn {
+@mixin close-button {
 	position: absolute;
-	top: 0;
-	right: 0;
-	// TODO: use a token for these rem values
-	transform:
-		translate(
-			calc(-50% + 0.125rem + var(--nds-popover-border-width)),
-			calc(50% - 0.5rem - var(--nds-popover-border-width))
-		);
+	top: calc(var(--nds-popover-padding-y) - var(--nds-button-padding-y) * 2);
+	right: calc(var(--nds-popover-padding-x) - var(--nds-button-padding-x) + var(--nds-button-border-width) * 2);
+	background-color: transparent;
 
-	@include util.set(
-		$nds-button-color: color.family('button-color', 'base-color'),
-	);
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: var(--nds-base-color-10);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		background-color: var(--nds-base-color-20);
+	}
 }
 
-@mixin content {
-	position: relative;
-	z-index: 1;
-	max-width: var(--nds-popover-max-width);
+@mixin body {
 	padding: var(--nds-popover-padding-y) var(--nds-popover-padding-x);
-	color: var(--nds-text-color);
-	background-color: var(--nds-white);
-	border-radius: var(--nds-popover-border-radius);
 
 	@include type.ui-sm;
+
+	> :last-child {
+		margin-bottom: 0;
+	}
 }
 
 @mixin arrow {
@@ -187,30 +180,13 @@
 
 @mixin actionbar {
 	display: flex;
-	padding: var(--nds-popover-padding-y) var(--nds-popover-padding-x);
+	padding: calc(var(--nds-popover-padding-y) / 2) var(--nds-popover-padding-x);
 	background-color: var(--nds-background-color);
 	border-top: var(--nds-popover-border-width) solid var(--nds-base-color-30);
 	justify-content: flex-end;
 
 	> * + * {
 		margin-left: spacing.spacer('inline-x-md');
-	}
-
-	&.nds-popover__actionbar--fixed {
-		position: absolute;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		background-color: var(--nds-background-color);
-	}
-
-	&.nds-popover__actionbar--sticky {
-		position: sticky;
-		bottom: -1px;
-	}
-
-	&.nds-stuck {
-		box-shadow: 0 0 8px 0 rgba(var(--nds-black), 0.25);
 	}
 }
 
@@ -220,16 +196,12 @@
 			@include base;
 		}
 
-		.nds-popover__content {
-			@include content;
+		.nds-popover__body {
+			@include body;
 		}
 
 		.nds-popover__header {
 			@include header;
-		}
-
-		.nds-popover__header_border_bottom {
-			@include header-border-bottom;
 		}
 
 		.nds-popover__title {
@@ -237,7 +209,7 @@
 		}
 
 		.nds-popover__close {
-			@include close-btn;
+			@include close-button;
 		}
 
 		.nds-popover__arrow {
@@ -260,7 +232,7 @@
 			@include placement-left-arrow;
 		}
 
-		.nds-popover__actionbar {
+		.nds-popover__actions {
 			@include actionbar;
 		}
 	}
