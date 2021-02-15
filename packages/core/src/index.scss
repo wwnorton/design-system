@@ -28,6 +28,7 @@
 /// Declarations for every component.
 @mixin components {
 	@include nds.button-style;
+	@include nds.callout-style;
 	@include nds.checkbox-style;
 	@include nds.disclosure-style;
 	@include nds.dropdown-style;
@@ -35,6 +36,7 @@
 	@include nds.icon-style;
 	@include nds.link-style;
 	@include nds.modal-style;
+	@include nds.popover-style;
 	@include nds.radio-style;
 	@include nds.switch-style;
 	@include nds.textfield-style;

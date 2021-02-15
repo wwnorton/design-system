@@ -19,6 +19,7 @@
 
 // Components (namespaced because they all include a `style` mixin)
 @forward 'components/button' as button-*;
+@forward 'components/callout' as callout-*;
 @forward 'components/checkbox' as checkbox-*;
 @forward 'components/disclosure' as disclosure-*;
 @forward 'components/dropdown' as dropdown-*;
@@ -26,6 +27,7 @@
 @forward 'components/icon' as icon-*;
 @forward 'components/link' as link-*;
 @forward 'components/modal' as modal-*;
+@forward 'components/popover' as popover-*;
 @forward 'components/radio' as radio-*;
 @forward 'components/switch' as switch-*;
 @forward 'components/textfield' as textfield-*;

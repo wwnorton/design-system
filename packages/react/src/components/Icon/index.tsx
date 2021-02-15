@@ -43,7 +43,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	className,
 	color = 'currentColor',
 	icon: iconProp,
-	size = '1.25em',
+	size = '1.25rem',
 	variant,
 	warnOnClick = true,
 	tooltipProps,
@@ -101,6 +101,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 				viewBox={viewBox}
 				height={size}
 				width={size}
+				style={{ minWidth: size }}
 				className={classes}
 				aria-label={ariaLabel || label}
 				aria-hidden={ariaHidden}

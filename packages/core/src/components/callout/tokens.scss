@@ -1,0 +1,15 @@
+@use '../../spacing';
+
+$color: 'base-color' !default;
+$background-grade: 10 !default;
+$border-grade: 50 !default;
+$icon-grade: null !default;
+$border-width: spacing.spacer('0.25rem') !default;
+$padding-x: spacing.spacer('callout-x') !default;
+$padding-y: spacing.spacer('callout-y') !default;
+$icon-size: 1.25rem !default;
+
+// dark scheme
+$background-grade-dark: 20 !default;
+$border-grade-dark: 50 !default;
+$icon-grade-dark: null !default;

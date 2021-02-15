@@ -29,6 +29,7 @@ module.exports = {
 		'components/index',
 		// 'components/accordion',
 		'components/button',
+		'components/callout',
 		'components/checkbox',
 		'components/choice-field',
 		'components/disclosure',
