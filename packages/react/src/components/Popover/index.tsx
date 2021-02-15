@@ -159,19 +159,14 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		</Button>
 	), [onRequestClose, closeButtonClass]);
 
-	const Header = React.useMemo(() => {
-		const headerBottomBorder = (hideTitle === false)
-			? `${baseName}__header_border_bottom`
-			: '';
-		return (
-			<header
-				className={`${headerClass} ${headerBottomBorder}`}
-			>
-				{ !hideTitle ? Title : null }
-				{ !hideCloseButton ? CloseButton : null}
-			</header>
-		);
-	}, [baseName, headerClass, Title, CloseButton, hideCloseButton, hideTitle]);
+	const Header = React.useMemo(() => (
+		<header
+			className={headerClass}
+		>
+			{ !hideTitle ? Title : null }
+			{ !hideCloseButton ? CloseButton : null}
+		</header>
+	), [headerClass, Title, CloseButton, hideCloseButton, hideTitle]);
 
 	const ActionBar = React.useMemo(() => (
 		<footer
