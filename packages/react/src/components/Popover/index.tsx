@@ -12,8 +12,7 @@ type PopoverPicks =
 	| 'modifiers'
 	| 'strategy'
 	| 'onFirstUpdate'
-	| 'hideDelay'
-	| 'trigger'
+	| 'hideDelay';
 
 export type PopoverCoreProps = Pick<PopoverProps, PopoverPicks>;
 
@@ -41,13 +40,6 @@ export interface PopoverProps extends BasePopperProps {
 	actionBarClass?: string;
 	/** A className for the popover's arrow. Default will be `${baseName}__arrow`. */
 	arrowClass?: string;
-	/**
-	 * A string of space-separated triggers. Options include `click`, `focus`,
-	 * `focusin`, `mouseenter`, `pointerenter`, and `manual`. When `manual` is
-	 * included anywhere in the string, the popover's visibility must be
-	 * controlled via `isOpen`. Default is `"focus pointerenter"`.
-	 */
-	trigger?: string;
 	/**
 	 * The time in milliseconds before the popover should disappear. Use this to
 	 * ensure that users can move their cursor from the reference to the popover
@@ -102,10 +94,9 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		actionBarClass = `${baseName}__actions`,
 		modifiers,
 		placement = 'top',
-		trigger = 'click',
 		hideDelay = 300,
 		reference,
-		isOpen = false,
+		isOpen,
 		hideTitle,
 		children,
 		className,
@@ -119,9 +110,14 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [offsetY] = useToken({ name: 'popover-offset-y', el: popper });
 	const { current: titleId } = React.useRef(uniqueId(`${baseName}-title-`));
+	const controlled = React.useMemo(() => isOpen !== undefined, [isOpen]);
 
 	const open = usePopperTriggers({
-		reference, popper, trigger, isOpen, hideDelay,
+		reference,
+		popper,
+		trigger: (controlled) ? 'manual' : 'click',
+		isOpen: isOpen || false,
+		hideDelay,
 	});
 
 	const offsetMod = React.useMemo(() => {
