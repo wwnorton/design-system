@@ -182,6 +182,17 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		}
 	}, [isOpen, popper, reference]);
 
+	const accessibleName = React.useMemo(() => {
+		// 1. use the explicit aria-labelledby prop
+		if (ariaLabelledby) return { 'aria-labelledby': ariaLabelledby };
+		// 2. use the explicit aria-label prop
+		if (ariaLabel) return { 'aria-label': ariaLabel };
+		// 3. if `hideTitle`, set aria-label equal to the title
+		if (hideTitle) return { 'aria-label': title };
+		// 4. label the dialog with the visible title
+		return { 'aria-labelledby': titleId };
+	}, [ariaLabelledby, ariaLabel, hideTitle, title, titleId]);
+
 	if (!children) return null;
 	return (
 		<BasePopper
@@ -189,8 +200,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			data-no-title={(hideTitle || !title) ? '' : undefined}
 			role="dialog"
 			aria-modal="false"
-			aria-labelledby={ariaLabelledby || (hideTitle) ? undefined : titleId}
-			aria-label={ariaLabel || (hideTitle) ? title : undefined}
+			{...accessibleName}
 			tabIndex={-1}
 			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
 			placement={placement}
