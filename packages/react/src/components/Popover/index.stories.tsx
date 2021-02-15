@@ -15,17 +15,16 @@ export default {
 	component: Popover,
 	decorators: [withKnobs],
 	parameters: {
-		layout: 'centered',
+		layout: 'padded',
 	},
 };
 
-const { defaultProps } = Popover;
 export const Default: React.FunctionComponent = () => (
 	<Popover
 		title={text('Title', 'Popover title')}
-		hideTitle={boolean('Hide title', defaultProps.hideTitle)}
-		hideCloseButton={boolean('Hide close button', defaultProps.hideCloseButton)}
-		placement={select('Placement', placements, 'bottom')}
+		hideTitle={boolean('Hide title', false)}
+		hideCloseButton={boolean('Hide close button', false)}
+		placement={select('Placement', placements, 'bottom-start')}
 		trigger='manual'
 		isOpen
 	>
@@ -61,10 +60,10 @@ export const WithActionBar: React.FunctionComponent = () => {
 			</Button>
 			<Popover
 				title={text('Title', 'Title')}
-				hideTitle={boolean('Hide title', defaultProps.hideTitle)}
-				hideCloseButton={boolean('Hide close button', defaultProps.hideCloseButton)}
+				hideTitle={boolean('Hide title', false)}
+				hideCloseButton={boolean('Hide close button', false)}
 				reference={ref}
-				placement={select('Placement', placements, 'top')}
+				placement={select('Placement', placements, 'top-start')}
 				trigger='manual'
 				isOpen={isOpen}
 				onRequestClose={close}
@@ -112,10 +111,10 @@ export const Controlled: React.FunctionComponent = () => {
 			</Button>
 			<Popover
 				title={text('Title', 'Confirmation?')}
-				hideTitle={boolean('Hide title', defaultProps.hideTitle)}
-				hideCloseButton={boolean('Hide close button', defaultProps.hideCloseButton)}
+				hideTitle={boolean('Hide title', false)}
+				hideCloseButton={boolean('Hide close button', false)}
 				reference={ref}
-				placement={select('Placement', placements, 'top')}
+				placement={select('Placement', placements, 'top-start')}
 				trigger='mouseenter'
 				isOpen={isOpen}
 				onRequestClose={close}
