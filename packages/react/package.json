@@ -20,7 +20,8 @@
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
     "Gabriel Rumbaut <grumbaut@wwnorton.com>",
-    "HonChih Chen <hchen@wwnorton.com>"
+    "HonChih Chen <hchen@wwnorton.com>",
+    "Anand Patil <apatil@wwnorton.com>"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",

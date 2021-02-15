@@ -49,3 +49,7 @@
 	padding-right: nds.spacer(3);
 	padding-left: nds.spacer(3);
 }
+
+form > :last-child {
+	margin-bottom: 0;
+}

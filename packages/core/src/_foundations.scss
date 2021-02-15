@@ -12,18 +12,17 @@
 @forward 'spacing/tokens';
 @forward 'type/tokens';
 
+@use './a11y';
+
 /// The default focus shadow has a 2px outer ring and an inner ring that matches
 /// the body's background color by default, giving the illusion of transparency.
 /// @group Accessibility
-$focus-halo: (
-	0 0 0 1px var(--nds-focus-halo-inner-color),
-	0 0 0 3px var(--nds-focus-halo-outer-color),
-) !default;
+$focus-halo: a11y.focus-halo() !default;
 
 /// A collapsed focus shadow that is meant to be used when the focused element
 /// conveys focus through some other mechanism, such as an `<input>`'s caret.
 /// @group Accessibility
-$focus-ring: 0 0 0 1px var(--nds-focus-color) !default;
+$focus-ring: a11y.focus-ring() !default;
 
 // Border radius
 $radius-sm: 0.125rem;

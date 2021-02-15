@@ -6,6 +6,24 @@
 @use '../motion';
 @use '../util';
 
+// FUNCTIONS
+
+/// Create a focus halo from an inner and outer ring color.
+@function focus-halo(
+	$inner-color: var(--nds-background-color),
+	$outer-color: var(--nds-focus-color),
+) {
+	@return (
+		0 0 0 1px #{$inner-color},
+		0 0 0 3px #{$outer-color},
+	);
+}
+
+// Create a focus ring with the specified color.
+@function focus-ring($color: var(--nds-focus-color)) {
+	@return 0 0 0 1px #{$color};
+}
+
 // MIXINS
 
 /// Disable animations and transitions when either children of `.reduced-motion`
@@ -42,7 +60,7 @@
 /// @param {box-shadow[]} $current-shadows... - Zero or more additional shadows
 /// to be applied in addition to the focus indicator.
 @mixin focus-halo($current-shadows...) {
-	@include -focus(var(--nds-focus-halo), $current-shadows...);
+	@include -focus(focus-halo(), $current-shadows...);
 }
 
 /// A box shadow focus indicator that is directly attached to the focused element.
@@ -52,7 +70,7 @@
 @mixin focus-ring($current-shadows...) {
 	border-color: var(--nds-focus-color);
 
-	@include -focus(var(--nds-focus-ring), $current-shadows...);
+	@include -focus(focus-ring(), $current-shadows...);
 }
 
 @mixin not-focus-visible {

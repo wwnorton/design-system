@@ -14,7 +14,7 @@ const PropRow = ({
 	<tr>
 		<td><FieldInfo indicator={(required) ? 'required' : undefined} label={name} /></td>
 		<td><Markdown>{ description }</Markdown></td>
-		<td><code>{ type.name.replace(' | undefined', '') }</code></td>
+		<td><code className="code-wrap">{ type.name.replace(' | undefined', '') }</code></td>
 		{/* <td>
 			{ (defaultValue && <code>{ defaultValue.value }</code>) || '-' }
 		</td> */}

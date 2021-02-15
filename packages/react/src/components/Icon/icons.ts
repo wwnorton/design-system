@@ -51,6 +51,7 @@ export type IconVariant =
 	| 'star-outline'
 	| 'subdirectory-left'
 	| 'subdirectory-right'
+	| 'warning'
 
 export const viewBox = '0 0 24 24';
 
@@ -326,6 +327,12 @@ export const icons: Record<IconVariant, SVGIcon> = {
 		originalName: 'subdirectory_arrow_right',
 		d: 'M19 15l-6 6-1.42-1.42L15.17 16H4V4h2v10h9.17l-3.59-3.58L13 9l6 6z',
 		source: 'https://material.io/resources/icons/?icon=subdirectory_arrow_right&style=baseline',
+		viewBox,
+	},
+	warning: {
+		fullName: 'Warning',
+		d: 'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z',
+		source: 'https://material.io/resources/icons/?icon=warning&style=baseline',
 		viewBox,
 	},
 };
