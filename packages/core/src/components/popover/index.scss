@@ -31,6 +31,15 @@
 		border-bottom-right-radius: var(--nds-popover-border-radius);
 		border-bottom-left-radius: var(--nds-popover-border-radius);
 	}
+
+	&:focus {
+		box-shadow: var(--nds-shadow-2);
+	}
+
+	&:focus-visible {
+		border-color: var(--nds-focus-color);
+		box-shadow: var(--nds-focus-ring), var(--nds-shadow-2);
+	}
 }
 
 @mixin header {
@@ -86,7 +95,7 @@
 	position: absolute;
 	width: var(--nds-popover-arrow-size);
 	height: var(--nds-popover-arrow-size);
-	border-color: var(--nds-base-color-40);
+	border-color: inherit;
 
 	&::before {
 		position: absolute;
