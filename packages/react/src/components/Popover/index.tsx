@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { BasePopper, BasePopperProps } from '../BasePopper';
 import { prefix } from '../../config';
-import { innerText } from '../../utilities';
 import { useForwardedRef, usePopperTriggers, useToken } from '../../hooks';
 import { Button, ButtonProps } from '../Button';
 
@@ -142,55 +141,37 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		},
 	}), [arrowClass]);
 
-	const Title = React.useMemo(() => (
-		<div className={titleClass} id={titleId}>{title}</div>
-	), [title, titleClass, titleId]);
-
-	const CloseButton = React.useMemo(() => (
-		<Button
-			icon="close"
-			iconOnly
-			className={closeButtonClass}
-			onClick={onRequestClose}
-		>
-			Close
-		</Button>
-	), [onRequestClose, closeButtonClass]);
-
-	const Header = React.useMemo(() => (
-		<header
-			className={headerClass}
-		>
-			{ !hideTitle ? Title : null }
-			{ !hideCloseButton ? CloseButton : null}
-		</header>
-	), [headerClass, Title, CloseButton, hideCloseButton, hideTitle]);
-
-	const ActionBar = React.useMemo(() => (
-		<footer
-			className={actionBarClass}
-		>
-			{ actions }
-		</footer>
-	), [actions, actionBarClass]);
-
-	const Body = React.useMemo(() => {
-		if (children !== undefined) {
-			return (
-				<>
-					{(hideCloseButton === true && hideTitle === true) ? null : Header}
-					<section
-						className={bodyClass}
+	const Header = React.useMemo(() => {
+		if ((hideTitle || !title) && hideCloseButton) return null;
+		return (
+			<header className={headerClass}>
+				{ !hideTitle && title && <div className={titleClass} id={titleId}>{title}</div> }
+				{ !hideCloseButton && (
+					<Button
+						icon="close"
+						iconOnly
+						className={closeButtonClass}
+						onClick={onRequestClose}
 					>
-						{ children }
-					</section>
-					{ actions ? ActionBar : null }
-					<div className={arrowClass} />
-				</>
-			);
-		}
-		return null;
-	}, [hideCloseButton, hideTitle, actions, ActionBar, Header, arrowClass, bodyClass, children]);
+						Close
+					</Button>
+				) }
+			</header>
+		);
+	}, [
+		headerClass,
+		title, titleClass, titleId, hideTitle,
+		onRequestClose, closeButtonClass, hideCloseButton,
+	]);
+
+	const ActionBar = React.useMemo(() => {
+		if (!actions) return null;
+		return (
+			<footer className={actionBarClass}>
+				{ actions }
+			</footer>
+		);
+	}, [actions, actionBarClass]);
 
 	// manage focus on open/close
 	React.useLayoutEffect(() => {
@@ -218,7 +199,10 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			ref={setPopper}
 			{...props}
 		>
-			{ Body }
+			{ Header }
+			<section className={bodyClass}>{ children }</section>
+			{ ActionBar }
+			<div className={arrowClass} />
 		</BasePopper>
 	);
 });
