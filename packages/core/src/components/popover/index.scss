@@ -1,0 +1,246 @@
+@forward 'tokens';
+@use 'tokens';
+@use '../../spacing';
+@use '../../type';
+@use '../../util';
+@use '../../color';
+
+@mixin base {
+	--nds-popover-border-width: #{tokens.$border-width};
+	--nds-popover-arrow-size: #{tokens.$arrow-size};
+	--nds-popover-arrow-border: #{tokens.$arrow-border};
+	--nds-popover-offset-y: #{tokens.$offset-y};
+	--nds-popover-max-width: #{tokens.$max-width};
+	--nds-popover-padding-x: #{tokens.$padding-x};
+	--nds-popover-padding-y: #{tokens.$padding-y};
+	--nds-popover-border-radius: #{tokens.$border-radius};
+
+	position: absolute;
+	z-index: var(--nds-zindex-popover);
+	max-width: var(--nds-popover-max-width);
+	border: solid var(--nds-popover-border-width) var(--nds-base-color-40);
+	border-radius: var(--nds-popover-border-radius);
+	box-shadow: var(--nds-shadow-2);
+
+	> :first-child {
+		border-top-left-radius: var(--nds-popover-border-radius);
+		border-top-right-radius: var(--nds-popover-border-radius);
+	}
+
+	> :nth-last-child(2) {
+		border-bottom-right-radius: var(--nds-popover-border-radius);
+		border-bottom-left-radius: var(--nds-popover-border-radius);
+	}
+
+	&:focus {
+		box-shadow: var(--nds-shadow-2);
+	}
+
+	&:focus-visible {
+		border-color: var(--nds-focus-color);
+		box-shadow: var(--nds-focus-ring), var(--nds-shadow-2);
+	}
+}
+
+@mixin header {
+	position: relative;
+	padding: calc(var(--nds-popover-padding-y) * 0.75) var(--nds-popover-padding-x);
+	border-bottom: var(--nds-popover-border-width) solid var(--nds-base-color-30);
+
+	[data-no-title] & {
+		border-bottom: 0;
+	}
+}
+
+@mixin title {
+	@include type.heading-6;
+
+	margin-bottom: 0; // stylelint-disable-line order/order
+
+	&:not(:last-child) {
+		padding-right: spacing.spacer('2rem');
+	}
+}
+
+@mixin close-button {
+	position: absolute;
+	top: calc(var(--nds-popover-padding-y) - var(--nds-button-padding-y) * 2);
+	right: calc(var(--nds-popover-padding-x) - var(--nds-button-padding-x) + var(--nds-button-border-width) * 2);
+	background-color: transparent;
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: var(--nds-base-color-10);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		background-color: var(--nds-base-color-20);
+	}
+}
+
+@mixin body {
+	padding: var(--nds-popover-padding-y) var(--nds-popover-padding-x);
+
+	@include type.ui-sm;
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+}
+
+@mixin arrow {
+	position: absolute;
+	width: var(--nds-popover-arrow-size);
+	height: var(--nds-popover-arrow-size);
+	border-color: inherit;
+
+	&::before {
+		position: absolute;
+		content: '';
+		border-color: transparent;
+		border-style: solid;
+	}
+
+	&::after {
+		position: absolute;
+		z-index: -1;
+		content: '';
+		border-color: transparent;
+		border-style: solid;
+	}
+}
+
+@mixin placement-top-arrow {
+	bottom: 0;
+
+	&::before {
+		bottom: calc(-1 * var(--nds-popover-arrow-border) + var(--nds-popover-border-width));
+		left: 0;
+		border-width: var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) 0;
+		border-top-color: var(--nds-white);
+		transform-origin: center top;
+	}
+
+	&::after {
+		bottom: calc(-1 * var(--nds-popover-arrow-border));
+		left: 0;
+		border-width: var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) 0;
+		border-top-color: inherit;
+	}
+}
+
+@mixin placement-right-arrow {
+	left: 0;
+
+	&::before {
+		left: calc(-1 * var(--nds-popover-arrow-border) + var(--nds-popover-border-width));
+		border-width: var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) 0;
+		border-right-color: var(--nds-white);
+		transform-origin: center right;
+	}
+
+	&::after {
+		top: 0;
+		left: calc(-1 * var(--nds-popover-arrow-border));
+		border-width: var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) 0;
+		border-right-color: inherit;
+	}
+}
+
+@mixin placement-bottom-arrow {
+	top: 0;
+
+	&::before {
+		top: calc(-1 * var(--nds-popover-arrow-border) + var(--nds-popover-border-width));
+		left: 0;
+		border-width: 0 var(--nds-popover-arrow-border) var(--nds-popover-arrow-border);
+		border-bottom-color: var(--nds-white);
+		transform-origin: center bottom;
+	}
+
+	&::after {
+		top: calc(-1 * var(--nds-popover-arrow-border));
+		left: 0;
+		border-width: 0 var(--nds-popover-arrow-border) var(--nds-popover-arrow-border);
+		border-bottom-color: inherit;
+	}
+}
+
+@mixin placement-left-arrow {
+	right: 0;
+
+	&::before {
+		right: calc(-1 * var(--nds-popover-arrow-border) + var(--nds-popover-border-width));
+		border-width: var(--nds-popover-arrow-border) 0 var(--nds-popover-arrow-border) var(--nds-popover-arrow-border);
+		border-left-color: var(--nds-white);
+		transform-origin: center left;
+	}
+
+	&::after {
+		top: 0;
+		right: calc(-1 * var(--nds-popover-arrow-border));
+		border-width: var(--nds-popover-arrow-border) 0 var(--nds-popover-arrow-border) var(--nds-popover-arrow-border);
+		border-left-color: inherit;
+	}
+}
+
+@mixin actionbar {
+	display: flex;
+	padding: calc(var(--nds-popover-padding-y) / 2) var(--nds-popover-padding-x);
+	background-color: var(--nds-background-color);
+	border-top: var(--nds-popover-border-width) solid var(--nds-base-color-30);
+	justify-content: flex-end;
+
+	> * + * {
+		margin-left: spacing.spacer('inline-x-md');
+	}
+}
+
+@mixin style {
+	@include util.declare('popover') {
+		.nds-popover {
+			@include base;
+		}
+
+		.nds-popover__body {
+			@include body;
+		}
+
+		.nds-popover__header {
+			@include header;
+		}
+
+		.nds-popover__title {
+			@include title;
+		}
+
+		.nds-popover__close {
+			@include close-button;
+		}
+
+		.nds-popover__arrow {
+			@include arrow;
+		}
+
+		.nds-popover[data-popper-placement^='top'] > .nds-popover__arrow {
+			@include placement-top-arrow;
+		}
+
+		.nds-popover[data-popper-placement^='right'] > .nds-popover__arrow {
+			@include placement-right-arrow;
+		}
+
+		.nds-popover[data-popper-placement^='bottom'] > .nds-popover__arrow {
+			@include placement-bottom-arrow;
+		}
+
+		.nds-popover[data-popper-placement^='left'] > .nds-popover__arrow {
+			@include placement-left-arrow;
+		}
+
+		.nds-popover__actions {
+			@include actionbar;
+		}
+	}
+}
