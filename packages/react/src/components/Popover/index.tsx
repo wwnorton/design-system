@@ -194,6 +194,15 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		return null;
 	}, [hideCloseButton, hideTitle, actions, ActionBar, Header, arrowClass, bodyClass, children]);
 
+	// manage focus on open/close
+	React.useLayoutEffect(() => {
+		if (isOpen) {
+			if (popper) popper.focus();
+		} else if (reference && reference instanceof HTMLElement) {
+			reference.focus();
+		}
+	}, [isOpen, popper, reference]);
+
 	if (!children) return null;
 	return (
 		<BasePopper
@@ -202,6 +211,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			aria-modal="false"
 			aria-labelledby={(hideTitle) ? undefined : titleId}
 			aria-label={(hideTitle) ? title : undefined}
+			tabIndex={-1}
 			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
 			placement={placement}
 			reference={reference}
