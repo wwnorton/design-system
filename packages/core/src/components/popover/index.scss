@@ -47,9 +47,7 @@
 	padding: calc(var(--nds-popover-padding-y) * 0.75) var(--nds-popover-padding-x);
 	border-bottom: var(--nds-popover-border-width) solid var(--nds-base-color-30);
 
-	// when the title is not visible, it will be set as an aria-label on the dialog.
-	// use this as a heuristic to remove the border for non-visible titles
-	[role='dialog'][aria-label] & {
+	[data-no-title] & {
 		border-bottom: 0;
 	}
 }

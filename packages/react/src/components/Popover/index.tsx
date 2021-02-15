@@ -104,6 +104,8 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		actions,
 		hideCloseButton,
 		onRequestClose,
+		'aria-labelledby': ariaLabelledby,
+		'aria-label': ariaLabel,
 		...props
 	}: PopoverProps, ref,
 ) => {
@@ -203,10 +205,11 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	return (
 		<BasePopper
 			className={classNames(baseName, className)}
+			data-no-title={(hideTitle || !title) ? '' : undefined}
 			role="dialog"
 			aria-modal="false"
-			aria-labelledby={(hideTitle) ? undefined : titleId}
-			aria-label={(hideTitle) ? title : undefined}
+			aria-labelledby={ariaLabelledby || (hideTitle) ? undefined : titleId}
+			aria-label={ariaLabel || (hideTitle) ? title : undefined}
 			tabIndex={-1}
 			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
 			placement={placement}
