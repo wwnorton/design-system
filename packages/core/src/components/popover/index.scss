@@ -15,19 +15,27 @@
 	--nds-popover-padding-y: #{tokens.$padding-y};
 	--nds-popover-border-radius: #{tokens.$border-radius};
 
-
 	position: absolute;
 	z-index: var(--nds-zindex-popover);
 	max-width: var(--nds-popover-max-width);
-	border: solid var(--nds-popover-border-width) var(--navy-default-40);
-	box-shadow: 0 2px 8px 0 rgba(35, 35, 35, 0.4);
+	border: solid var(--nds-popover-border-width) var(--nds-base-color-40);
+	border-radius: var(--nds-popover-border-radius);
+	box-shadow: var(--nds-shadow-2);
+
+	> :first-child {
+		border-top-left-radius: var(--nds-popover-border-radius);
+		border-top-right-radius: var(--nds-popover-border-radius);
+	}
+
+	> :nth-last-child(2) {
+		border-bottom-right-radius: var(--nds-popover-border-radius);
+		border-bottom-left-radius: var(--nds-popover-border-radius);
+	}
 }
 
 @mixin header {
 	position: relative;
 	padding: var(--nds-popover-padding-y) var(--nds-popover-padding-x);
-	border-top-left-radius: var(--nds-popover-border-radius);
-	border-top-right-radius: var(--nds-popover-border-radius);
 
 	&:focus {
 		box-shadow: unset;
@@ -145,8 +153,6 @@
 	padding: var(--nds-popover-padding-y) var(--nds-popover-padding-x);
 	background-color: var(--nds-background-color);
 	border-top: var(--nds-popover-border-width) solid var(--nds-base-color-30);
-	border-bottom-right-radius: var(--nds-popover-border-radius);
-	border-bottom-left-radius: var(--nds-popover-border-radius);
 	justify-content: flex-end;
 
 	> * + * {
