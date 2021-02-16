@@ -142,6 +142,18 @@
 		transform: translateX(calc(-100% + var(--nds-button-padding-x) - 2px));
 	}
 
+	.nds-callout[data-border~=top]:not(.nds-callout--no-title) & {
+		transform:
+			translateY(calc(var(--nds-callout-padding-y) - var(--nds-button-padding-y) - var(--nds-callout-border-width)))
+			translateX(calc(-1 * (var(--nds-callout-padding-x) - var(--nds-button-padding-x) + 2px)));
+	}
+
+	.nds-callout[data-border~=right]:not(.nds-callout--no-title) & {
+		transform:
+			translateY(calc(var(--nds-callout-padding-y) - var(--nds-button-padding-y)))
+			translateX(calc(-1 * (var(--nds-callout-padding-x) - var(--nds-button-padding-x) - var(--nds-callout-border-width) + 2px)));
+	}
+
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
 		background-color: var(--nds-callout-color-dark);
