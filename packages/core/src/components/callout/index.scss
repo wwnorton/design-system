@@ -108,6 +108,10 @@
 	margin-right: spacing.spacer('0.75rem');
 	color: var(--nds-callout-icon-color);
 	flex-grow: 0;
+
+	svg {
+		vertical-align: text-bottom;
+	}
 }
 
 @mixin title {
