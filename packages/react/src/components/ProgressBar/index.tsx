@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import { uniqueId } from 'lodash';
-import { CoreProgressProps, BaseProgressBar } from '../BaseProgress';
+import { CoreProgressProps, BaseProgressBar, BaseProgressBarProps } from '../BaseProgress';
 import { prefix } from '../../config';
 
-export interface ProgressBarProps extends CoreProgressProps {
+export interface ProgressBarProps extends CoreProgressProps<BaseProgressBarProps> {
 	/**
 	 * The hight of the progress bar. This sets a className of `nds-progressbar--${size}`,
 	 * which can be used to change the size. `@wwnds/core`'s default stylings

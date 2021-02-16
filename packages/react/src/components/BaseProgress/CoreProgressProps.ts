@@ -1,7 +1,7 @@
 import { BaseProgressProps } from './BaseProgress';
 
 /** Props shared by ProgressBar & ProgressSpinner. */
-export interface CoreProgressProps extends BaseProgressProps {
+export type CoreProgressProps<P extends BaseProgressProps = BaseProgressProps> = P & {
 	/**
 	 * The progress bar's label describes what is progressing. It is required
 	 * and recommended to be visible.
@@ -16,4 +16,4 @@ export interface CoreProgressProps extends BaseProgressProps {
 	baseName?: string;
 	/** The className for the progress indicator's label. Default is `${baseName}__label`. */
 	labelClass?: string;
-}
+};

@@ -1,11 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import { uniqueId } from 'lodash';
-import { CoreProgressProps, BaseProgressSpinner } from '../BaseProgress';
+import { CoreProgressProps, BaseProgressSpinner, BaseProgressSpinnerProps } from '../BaseProgress';
 import { prefix } from '../../config';
 import { SystemColors } from '../../utilities/color';
 
-export interface SpinnerProps extends CoreProgressProps {
+export interface SpinnerProps extends CoreProgressProps<BaseProgressSpinnerProps> {
 	/** Where the label should be positioned relative to the spinner. */
 	labelPosition?: 'right' | 'bottom';
 	/**
