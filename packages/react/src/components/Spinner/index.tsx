@@ -1,69 +1,52 @@
 import React from 'react';
-import { BaseSpinnerProps, BaseSpinner } from '../BaseProgressIndicator';
+import classNames from 'classnames';
+import { uniqueId } from 'lodash';
+import { CoreProgressProps, BaseProgressSpinner } from '../BaseProgress';
 import { prefix } from '../../config';
-import { AllColors } from '../../utilities/color';
+import { SystemColors } from '../../utilities/color';
 
-export type placement = 'top' | 'bottom' | 'right' | 'left';
-export type size = 'large' | 'medium' | 'small' | undefined;
-export interface SpinnerProps extends BaseSpinnerProps {
-	/** The base class name according to BEM conventions. */
-	baseName?: string;
+export interface SpinnerProps extends CoreProgressProps {
+	/** Where the label should be positioned relative to the spinner. */
+	labelPosition?: 'right' | 'bottom';
 	/**
-	 * The spinner's color, restricted to [design system colors](https://wwnorton.github.io/design-system/docs/color),
-	 * excluding `disabled` (prefer the `disabled` prop). Note that an `undefined`
-	 * color will result in the "primary" color being used.
+	 * The spinner's color, restricted to
+	 * [system colors](https://wwnorton.github.io/design-system/docs/foundations/color#system-tokens).
 	 */
-	color?: Exclude<AllColors, 'disabled'>;
+	color?: SystemColors;
 	/**
-	 * The Label placement is alignment with the spinner
-	 * Alignments are top | bottom | right | left
+	 * The width and height of the spinner. A number value will be interpreted
+	 * as pixels. A string value should include its unit (e.g., `2rem`).
 	 */
-	placement?: placement
-	label?: string,
-	/**
-	 * The size of the circle.
-	 * If using a number, the pixel unit is assumed.
-	 * If using a string, you need to provide the CSS unit, e.g '3rem'.
-	 */
-	size?: size
+	size?: number | string;
 }
-export const defaultProps: SpinnerProps = {
-	baseName: prefix('spinner'),
-	determinate: false,
-};
 
-const withLabel = (baseElement: JSX.Element, props :SpinnerProps) => {
-	const labelElement = <span>{props.label}</span>;
-	const SpinnerElement = baseElement;
-	let elementContainer = [labelElement, SpinnerElement];
-	if (props.placement === 'top' || props.placement === 'left') {
-		elementContainer = [SpinnerElement, labelElement];
-	}
-	return (
-		<span className={`${prefix('spinner')} nds-spinner-placement-${props.placement ? props.placement : 'bottom'}`}>
-			{
-				elementContainer
-			}
-		</span>
-	);
-};
-
-const renderElement = (refElement: JSX.Element, props: SpinnerProps) => {
-	if (props.label) {
-		return withLabel(refElement, props);
-	}
-	return refElement;
-};
-
-export const Spinner = React.forwardRef<HTMLElement, SpinnerProps>(({
+export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({
+	label = 'Loading...',
+	color,
+	baseName = prefix('spinner'),
+	labelClass = `${baseName}__label`,
+	labelPosition: position = 'right',
+	hideLabel,
+	size = '3rem',
+	className,
 	...props
 }: SpinnerProps, ref) => {
-	const baseElement = (
-		<BaseSpinner
-			ref={ref}
-			size="medium"
-			{...props}
-		/>
+	const labelPosition = (hideLabel) ? undefined : position;
+	const { current: labelId } = React.useRef(uniqueId(`${baseName}-label-`));
+	const classes = classNames(className, baseName, {
+		[`${baseName}--${color}`]: color !== undefined,
+	});
+
+	return (
+		<div className={classes} data-label={(hideLabel) ? undefined : labelPosition}>
+			<BaseProgressSpinner
+				ref={ref}
+				aria-labelledby={(hideLabel) ? undefined : labelId}
+				aria-label={(hideLabel) ? label : undefined}
+				size={size}
+				{...props}
+			/>
+			{ !hideLabel && <div className={labelClass} id={labelId} aria-hidden="true">{ label }</div> }
+		</div>
 	);
-	return renderElement(baseElement, props);
 });
