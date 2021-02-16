@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForwardedRef, usePopper } from '../../hooks';
-import { PopperOptions, VirtualElement } from '../../types/popper';
+import { PopperOptions, Instance, VirtualElement } from '../../types/popper';
 
 export interface BasePopperProps extends React.HTMLAttributes<HTMLElement>, Partial<PopperOptions> {
 	/** Indicates whether the popper is rendered or not. */
@@ -10,10 +10,15 @@ export interface BasePopperProps extends React.HTMLAttributes<HTMLElement>, Part
 	/**
 	 * The reference element that the popper will be attached to.
 	 *
-	 * Reference:
-	 * - [Popper - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
+	 * Reference: [Popper - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
 	 */
 	reference?: Element | VirtualElement | null;
+	/**
+	 * A callback that provides access to the Popper instance.
+	 *
+	 * Reference: [Popper - `instance`](https://popper.js.org/docs/v2/constructors/#instance)
+	 */
+	onCreate?: (instance: Instance) => void;
 }
 
 /**
@@ -30,11 +35,12 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 		modifiers,
 		strategy = 'absolute',
 		onFirstUpdate,
+		onCreate,
 		...attributes
 	}: BasePopperProps, ref,
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
-	usePopper({
+	const instance = usePopper({
 		popper,
 		reference,
 		children,
@@ -43,6 +49,10 @@ export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
 		strategy,
 		onFirstUpdate,
 	});
+
+	React.useEffect(() => {
+		if (instance && onCreate) onCreate(instance);
+	}, [instance, onCreate]);
 
 	if (!isOpen) return null;
 	return <Tag ref={setPopper} {...attributes}>{ children }</Tag>;
