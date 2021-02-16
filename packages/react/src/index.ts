@@ -13,6 +13,8 @@ export * from './components/Icon';
 export * from './components/LiveRegion';
 export * from './components/Modal';
 export * from './components/Radio';
+export * from './components/ProgressBar';
+export * from './components/Spinner';
 export * from './components/Switch';
 export * from './components/TextField';
 export * from './components/Tooltip';
