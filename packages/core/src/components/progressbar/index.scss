@@ -1,36 +1,80 @@
-@use '../../util';
-@use '../../spacing';
 @use '@material/linear-progress/mixins' as linear-progress;
 
-@include linear-progress.core-styles;
+@use './tokens';
+@use '../../config';
+@use '../../util';
+@use '../../spacing';
 
 @mixin base {
-	color: var(--nds-teal-60);
-	border-color: var(--nds-teal-60);
+	--nds-progressbar-color: #{tokens.$color};
+	--nds-progressbar-track-color: #{tokens.$track-color};
+	--nds-progressbar-label-color: #{tokens.$label-color};
 
-	.progressbar-large {
-		border-top: spacing.spacer('1rem') solid !important;
+	@include resize(8px);
+
+	.mdc-linear-progress__bar-inner {
+		border-color: var(--nds-progressbar-color);
 	}
 
-	.progressbar-default {
-		border-top: spacing.spacer('0.5rem') solid !important;
+	.mdc-linear-progress__buffer-bar {
+		background-color: var(--nds-progressbar-track-color);
 	}
 
-	.progressbar-small {
-		border-top: spacing.spacer('0.25rem') solid !important;
+	@if config.$enable-dark-scheme {
+		@media screen and (prefers-color-scheme: 'dark') {
+			--nds-progressbar-color: #{tokens.$color};
+			--nds-progressbar-track-color: #{tokens.$track-color-dark};
+		}
+
+		[data-color-scheme='dark'] & {
+			--nds-progressbar-color: #{tokens.$color};
+			--nds-progressbar-track-color: #{tokens.$track-color-dark};
+		}
+
+		[data-color-scheme='light'] & {
+			--nds-progressbar-color: #{tokens.$color};
+			--nds-progressbar-track-color: #{tokens.$track-color};
+		}
+	}
+}
+
+@mixin label {
+	margin-top: spacing.spacer('0.5rem');
+	color: var(--nds-progressbar-label-color);
+}
+
+@mixin resize($size) {
+	.mdc-linear-progress {
+		height: $size;
 	}
 
-	.nds-progressbar-label {
-		margin-top: spacing.spacer('0.5rem');
-		font-size: spacing.spacer('0.75rem');
-		color: var(--nds-navy-60);
+	.mdc-linear-progress__bar-inner {
+		border-top-width: $size;
+	}
+
+	.mdc-linear-progress__buffer-dots {
+		background-size: $size * 2.5 $size;
 	}
 }
 
 @mixin style {
 	@include util.declare('progressbar') {
+		@include linear-progress.core-styles;
+
 		.nds-progressbar {
 			@include base;
+		}
+
+		.nds-progressbar__label {
+			@include label;
+		}
+
+		.nds-progressbar--small {
+			@include resize(4px);
+		}
+
+		.nds-progressbar--large {
+			@include resize(16px);
 		}
 	}
 }
