@@ -1,7 +1,7 @@
 import React from 'react';
 import {
 	BaseMenuDivider,
-} from '../BaseMenu/baseMenuDivider';
+} from '../BaseMenu/MenuDivider';
 
 export const MenuDivider = React.forwardRef<HTMLUListElement>((
 ) => (

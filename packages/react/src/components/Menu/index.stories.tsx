@@ -1,14 +1,18 @@
 import React from 'react';
 import {
 	withKnobs,
+	number,
 	text,
 } from '@storybook/addon-knobs';
-import { Menu } from '.';
-import { MenuItem } from './MenuItem';
-import { MenuDivider } from './MenuDivider';
-import { MenuGroup } from './MenuGroup';
-import { MenuHeader } from './MenuHeader';
-import { MenuButton } from './MenuButton';
+
+import {
+	Menu,
+	MenuItem,
+	MenuDivider,
+	MenuGroup,
+	MenuHeader,
+	MenuButton,
+} from '.';
 
 export default {
 	title: 'Menu',
@@ -25,151 +29,190 @@ export const Default: React.FunctionComponent = () => {
 			<MenuButton
 				ref={setRef}
 				onOpen={toggle}
+				icon="menu"
 			>
 				Show menu
 			</MenuButton>
 			<Menu
 				reference={ref}
 				placement="bottom-start"
-				isOpen={isOpen}
 			>
 				<MenuItem
-					id='mnuW2C'
-					label={text('label', 'W3C Home Page')}
-					description={text('description', 'Accessible Rich Internet Application Specification')}
+					id='mnuHome'
+					label={text('label', 'Home')}
+					description={text('description', 'Website home page')}
+					href={text('href', 'https://wwnorton.com')}
+					target="_blank"
 				/>
 				<MenuItem
-					icon='menu'
-					label={text('label', 'W3C Home Page')}
-					description={text('description', 'Accessible Rich Internet Application Specification')}
-				/>
-				<MenuDivider />
-				<MenuItem
-					icon='launch'
-					label={text('label', 'W3C Home Page')}
-				/>
-				<MenuItem
-					label={text('label', 'W3C Home Page')}
+					id='menuCatalog'
+					label='Catalog'
+					description='Books catalog'
+					href="https://wwnorton.com/catalog"
+					target="_blank"
 				/>
 				<MenuHeader
-					label="Profile"
+					label="Landing Pages"
 				/>
 				<MenuGroup>
 					<MenuItem
-						label='Account'
-						icon='account'
+						icon="edit"
+						label='Reader'
+						href="https://wwnorton.com/reader"
+						target="_blank"
 					/>
 					<MenuItem
-						label='Settings'
-						icon="settings"
+						icon="account"
+						label='Student'
+						href="https://wwnorton.com/student"
+						target="_blank"
 					/>
 				</MenuGroup>
 				<MenuItem
-					href='http://google.com'
-					target='_self'
-					label='Redirect to Google'
-				/>
-				<MenuItem
-					disabled
-					href='http://google.com'
-					label='Redirect to Google'
+					label='Educator'
+					href="https://wwnorton.com/educator"
+					target="_blank"
 				/>
 			</Menu>
 		</>
 	);
 };
 
-export const Controlled: React.FunctionComponent = () => {
+export const Menubar: React.FunctionComponent = () => {
 	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
-	const [refEdit, setEditRef] = React.useState<HTMLButtonElement | null>();
+	const [refAbout, setAboutRef] = React.useState<HTMLButtonElement | null>();
+	const [refServices, setServicesRef] = React.useState<HTMLButtonElement | null>();
 	const [openFileMenu, setOpenFileMenu] = React.useState(false);
 	const [openEditMenu, setOpenEditMenu] = React.useState(false);
+	const [openServiceMenu, setOpenServiceMenu] = React.useState(false);
 	const openFileMenuHandler = () => {
 		setOpenEditMenu(false);
+		setOpenServiceMenu(false);
 		setOpenFileMenu(!openFileMenu);
 	};
-	const openEditMenuHandler = () => {
+	const openAboutMenuHandler = () => {
 		setOpenFileMenu(false);
+		setOpenServiceMenu(false);
 		setOpenEditMenu(!openEditMenu);
+	};
+	const openServicesMenuHandler = () => {
+		setOpenEditMenu(false);
+		setOpenFileMenu(false);
+		setOpenServiceMenu(!openServiceMenu);
 	};
 	const onMenuClose = (indexVal, SelectedData) => {
 		alert(SelectedData.label); // eslint-disable-line  no-alert
-		openFileMenuHandler();
 	};
 	return (
 		<>
-			<div>
-				<MenuButton
-					ref={setRef}
-					onOpen={openFileMenuHandler}
-					variant="ghost"
-				>
-					File
-				</MenuButton>
-				<MenuButton
-					ref={setEditRef}
-					onOpen={openEditMenuHandler}
-					variant="ghost"
-				>
-					Find
-				</MenuButton>
-			</div>
-			<div>
-				<Menu
-					isOpen={openFileMenu}
-					onClose={onMenuClose}
-					reference={ref}
-					placement="bottom-start"
-				>
-					<MenuItem
-						label='New Document'
-						description='Open new document'
-					/>
-					<MenuItem
-						label='Open'
-						icon='plus'
-					/>
-					<MenuItem
-						label='Close'
-						icon='close'
-					/>
-					<MenuItem
-						label='Save'
-						icon='save'
-					/>
-					<MenuGroup>
-						<MenuItem
-							label='Share'
-						/>
-						<MenuItem
-							label='Print'
-							icon='print'
-						/>
-					</MenuGroup>
-				</Menu>
-			</div>
+			<MenuButton
+				ref={setRef}
+				onOpen={openFileMenuHandler}
+				variant="ghost"
+				icon={`chevron-${openFileMenu ? 'down' : 'up'}`}
+			>
+				About us
+			</MenuButton>
+			<MenuButton
+				ref={setAboutRef}
+				onOpen={openAboutMenuHandler}
+				variant="ghost"
+				style={{ marginLeft: '0.1rem' }}
+				icon={`chevron-${openEditMenu ? 'down' : 'up'}`}
+			>
+				Products
+			</MenuButton>
+			<MenuButton
+				ref={setServicesRef}
+				onOpen={openServicesMenuHandler}
+				variant="ghost"
+				style={{ marginLeft: '0.1rem' }}
+				icon={`chevron-${openServiceMenu ? 'down' : 'up'}`}
+			>
+				Services
+			</MenuButton>
+			<hr style={{ margin: 0 }} />
 			<Menu
-				isOpen={openEditMenu}
-				reference={refEdit}
+				onClose={onMenuClose}
+				reference={ref}
 				placement="bottom-start"
 			>
 				<MenuItem
-					label='Edit'
-					icon='edit'
+					label='Company'
+					description='About company'
 				/>
 				<MenuItem
-					label='Redo'
-					icon='subdirectory-left'
+					label='Management'
+				/>
+				<MenuDivider />
+				<MenuItem
+					label='Team'
 				/>
 				<MenuItem
-					label='Clear'
-					icon='close'
+					label='Career'
+				/>
+			</Menu>
+			<Menu
+				reference={refAbout}
+				onClose={onMenuClose}
+				placement="bottom-start"
+			>
+				<MenuItem
+					label='Smartwork 5'
+				/>
+				<MenuItem
+					label='NCIA'
+				/>
+				<MenuItem
+					label='Norton Website'
+				/>
+			</Menu>
+			<Menu
+				reference={refServices}
+				onClose={onMenuClose}
+				placement="bottom-start"
+			>
+				<MenuItem
+					label='Test Service 1'
+				/>
+				<MenuItem
+					label='Test Service 2'
+				/>
+				<MenuItem
+					label='Test Service 3'
 					disabled
 				/>
+			</Menu>
+		</>
+	);
+};
+
+export const FixedWidthMenu: React.FunctionComponent = () => {
+	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
+	const [isOpen, setOpen] = React.useState(false);
+	const toggle = (): void => setOpen(!isOpen);
+	return (
+		<>
+			<MenuButton
+				ref={setRef}
+				onOpen={toggle}
+				icon="menu"
+			>
+				Show menu
+			</MenuButton>
+			<Menu
+				reference={ref}
+				placement="bottom-start"
+				maxWidth={number('maxWidth', 200)}
+			>
 				<MenuItem
-					label='Search'
-					description='Can search anything'
-					icon='search'
+					label={text('label', 'Large width menu')}
+					description={text('description', 'Large width menu description with maximum characters')}
+					href="https://google.com"
+				/>
+				<MenuItem
+					label='Large width menu 2'
+					description={text('description', 'Large width menu description with maximum characters')}
 				/>
 			</Menu>
 		</>
@@ -190,22 +233,24 @@ export const JSONData: React.FunctionComponent = () => {
 		},
 		{
 			label: 'About',
+			icon: 'edit',
 			id: 'mnuAbout',
 		},
 		{
 			menuDivider: true,
 		},
 		{
-			label: 'Redirect to wwnorton',
-			href: 'https://wwnorton.com',
+			label: 'Jobs',
 			disabled: true,
-		},
-		{
-			label: 'Share',
 		},
 		{
 			label: 'Account',
 			description: 'Click for account',
+			icon: 'account',
+		},
+		{
+			label: 'Profile Settings',
+			icon: 'settings',
 		},
 		],
 	};

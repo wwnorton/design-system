@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	BaseMenuHeader,
 	BaseMenuHeaderProps,
-} from '../BaseMenu/baseMenuHeader';
+} from '../BaseMenu/MenuHeader';
 
 export type TargetVariant = '_self' | '_blank';
 

@@ -20,6 +20,7 @@
 	--nds-menu-items-icon-size: #{tokens.$menu-items-icon-size};
 
 	display: inline-block;
+	min-width: spacing.rem(7);
 	padding: var(--nds-menu-items-padding-x) 0;
 	margin-top: spacing.spacer('0.5rem') !important;
 	font-weight: var(--nds-font-weight-regular);
@@ -27,11 +28,6 @@
 	background-color: var(--nds-background-color);
 	border: var(--nds-menu-border-width) solid var(--nds-base-color-40);
 	box-shadow: var(--nds-menu-shadow);
-
-	li {
-		padding: var(--nds-menu-items-padding-y) 0;
-		cursor: pointer;
-	}
 
 	[role='group'] {
 		padding: 0;
@@ -50,6 +46,7 @@
 
 	.nds-menuitem-disabled {
 		color: var(--nds-disabled-color-dark) !important;
+		pointer-events: none;
 		cursor: none;
 		box-shadow: none;
 	}
@@ -67,10 +64,14 @@
 	}
 
 	.nds-menuheader {
-		padding-bottom: 0;
+		padding: var(--nds-menu-items-padding-y) 0;
 		padding-left: spacing.spacer('1rem');
 		font-size: var(--nds-font-size-sm);
 		font-weight: var(--nds-font-weight-bold);
+	}
+
+	[href] {
+		text-decoration: none;
 	}
 }
 
@@ -88,11 +89,17 @@
 }
 
 @mixin menuitem {
-	[href] {
-		text-decoration: none;
+	&:not(.nds-menuitem-disabled):hover {
+		background-color: var(--nds-menu-items-hover-color);
+		box-shadow: none;
 	}
 
-	&:not(.nds-menuitem-disabled):hover {
+	a:focus {
+		background-color: var(--nds-menu-items-focus-color);
+		box-shadow: none;
+	}
+
+	a:hover {
 		background-color: var(--nds-menu-items-hover-color);
 		box-shadow: none;
 	}
@@ -103,7 +110,6 @@
 	}
 
 	[role='menuitem'] {
-		display: flex;
 		padding: 0 var(--nds-menu-items-padding-x);
 		color: var(--nds-text-color);
 	}
@@ -114,6 +120,13 @@
 
 	.nds-menuitem-description {
 		font-size: var(--nds-font-size-sm);
+	}
+
+	.nds-menuitem-disabled > .nds-menuitem-description {
+		color: var(--nds-disabled-color-dark) !important;
+	}
+
+	&:not(.nds-menuitem-disabled) .nds-menuitem-description {
 		color: var(--nds-subdued-color);
 	}
 
@@ -124,15 +137,16 @@
 	}
 
 	.nds-menuitem__icon {
-		padding-right: 0.25rem;
+		padding-right: spacing.spacer('0.25rem');
+		margin-bottom: spacing.spacer('0.25rem');
 	}
 
 	.nds-menuitem-description.nds-menuitem__icon {
-		padding-left: 1.5rem;
+		padding-left: spacing.spacer('1.5rem');
 	}
 
 	.nds-menuitem-link-description.nds-menuitem__icon {
-		padding-left: 2.5rem;
+		padding-left: spacing.spacer('0.25rem');
 	}
 
 	.nds-menuitem-selected:not(.nds-menuitem-disabled) {

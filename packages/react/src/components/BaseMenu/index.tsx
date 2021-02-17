@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { IconVariant, SVGIcon } from '../Icon';
-import { BaseMenuItem, BaseMenuItemProps } from './baseMenuItem';
-import { BaseMenuDivider } from './baseMenuDivider';
-import { BaseMenuGroup } from './baseMenuGroup';
+import { BaseMenuItem, BaseMenuItemProps } from './MenuItem';
+import { BaseMenuDivider } from './MenuDivider';
+import { BaseMenuGroup } from './MenuGroup';
 
 export interface BaseMenuProps extends React.HTMLAttributes<HTMLElement> {
 	Label?: string
@@ -10,10 +10,10 @@ export interface BaseMenuProps extends React.HTMLAttributes<HTMLElement> {
 	baseName?: string;
 	iconClass?: string;
 	/**
-	 * The menuITem for the Menu, which can be either an array of strings,
+	 * The menuItem for the Menu, which can be either an array of strings,
 	 * numbers, or `<BaseMenuItem>` elements.
 	 */
-	children?: React.ReactChild[];
+	children?: React.ReactChild | React.ReactChild[];
 	/** Callback function that is called when focus changes within the listbox. */
 	selected?: boolean;
 	/** The initially focused index. Default is `0`. */
@@ -87,42 +87,37 @@ export const BaseMenu = React.forwardRef<HTMLUListElement, BaseMenuProps>((
 		setFocused(0);
 	}, [setFocused]);
 
-	/** The map of `BaseOption` components that will be rendered. */
-	const MenuItems: JSX.Element[] = childrenProps.map((props) => {
-		const childProps = props.children;
-
-		if (!['MenuItem', 'MenuGroup', 'MenuDivider', 'MenuHeader'].includes(childProps.type.displayName)) {
+	/** Define function once calling conditional  */
+	const renderMenuItems = (menuItemProps:Record<string, unknown>, elementName: string) => {
+		if (!['MenuItem', 'MenuGroup', 'MenuDivider', 'MenuHeader'].includes(elementName)) {
 			throw new Error(BaseMenu.errors.invalidChild);
 		}
+		return (
+			<BaseMenuItem
+				key={`Menu${menuItemIndex}`}
+				index={menuItemIndex}
+				focus={focused === menuItemIndex}
+				selectedMenu={selectedMenu}
+				selected={menuItemIndex === selectedIndex}
+				{...menuItemProps}
+			/>
+		);
+	};
+
+	/** The map of `MenuItem` components that will be rendered. */
+	const MenuItems: JSX.Element[] = childrenProps.map((props) => {
+		const childProps = props.children;
 		if (childProps.type.displayName === 'MenuItem') {
 			menuItemIndex += 1;
-			return (
-				<BaseMenuItem
-					index={menuItemIndex}
-					focus={focused === menuItemIndex}
-					selectedIndex={selectedIndex}
-					selectedMenu={selectedMenu}
-					selected={menuItemIndex === selectedIndex}
-					{...props.value}
-				/>
-			);
+			return renderMenuItems(props.value, childProps.type.displayName);
 		} else if (childProps.type.displayName === 'MenuGroup') { // eslint-disable-line  no-else-return
 			return (
-				<BaseMenuGroup>
+				<BaseMenuGroup key={`MenuGrp${menuItemIndex}`}>
 					<BaseMenuDivider />
 					{
 						React.Children.map(childProps.props.children, (childOfChild) => {
 							menuItemIndex += 1;
-							return (
-								<BaseMenuItem
-									index={menuItemIndex}
-									focus={focused === menuItemIndex}
-									selectedIndex={selectedIndex}
-									selectedMenu={selectedMenu}
-									selected={menuItemIndex === selectedIndex}
-									{...childOfChild.props}
-								/>
-							);
+							return renderMenuItems(childOfChild.props, childOfChild.type.displayName);
 						})
 					}
 					<BaseMenuDivider />

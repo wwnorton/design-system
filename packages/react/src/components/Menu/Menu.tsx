@@ -23,28 +23,22 @@ export type Triggers =
 	| 'manual'
 	| 'mouseenter'
 	| 'pointerenter'
-export interface menuItemJsonStructure extends MenuItemProps{
-	menuDivider?:boolean;
-}
-export interface MenuJsonData {
-	menuItems:menuItemJsonStructure[]
-}
 export interface MenuProps extends BasePopperProps, BaseMenuProps {
 	/** The base class name according to BEM conventions. Default is "menu". */
 	baseName?:string;
 	/** Generate menu dynamically as per the JSON */
 	/** JSON format should be {
-		// menuItems: [{
-		// 	label: 'Overview',
-		// 	description: 'Overview menu',
-		// },
-		// {
-		//  ...
-		// }
-	// } */
-	JsonMenu?:MenuJsonData;
+		menuItems: [{
+			label: 'Overview',
+			description: 'Overview menu',
+		},
+		{
+		 ...
+		}
+	} */
+	JsonMenu?:Record<string, unknown>;
 	/** Menu only expect Menuitem, MenuDivider, MenuGroup and MenuHeader element */
-	children?: React.ReactChild[];
+	children?: React.ReactChild | React.ReactChild[] ;
 	/**
 	 * A string of space-separated triggers. Options include `click`, `focus`,
 	 * `focusin`, `mouseenter`, `pointerenter`, and `manual`. When `manual` is
@@ -52,7 +46,10 @@ export interface MenuProps extends BasePopperProps, BaseMenuProps {
 	 * controlled via `isOpen`. Default is `"click"`.
 	 */
 	trigger?: string;
+	/** Menu id */
 	id?:string;
+	/** By default menu width is auto this property set max width of the menu */
+	maxWidth?:number;
 }
 
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>((
@@ -62,6 +59,7 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>((
 		isOpen = false,
 		placement = 'bottom-start',
 		reference,
+		maxWidth,
 		id = 'menu',
 		trigger = 'click',
 		JsonMenu,
@@ -93,6 +91,9 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>((
 			setAriaLabel(reference.innerText);
 		}
 	}, [ariaLabel, reference]);
+
+	if (!children && !JsonMenu) return null;
+
 	return (
 		<BasePopper
 			aria-hidden={!open}
@@ -105,6 +106,7 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>((
 			aria-label={ariaLabel}
 			trigger='manual'
 			aria-orientation="vertical"
+			style={{ maxWidth }}
 			id={id}
 			ref={setPopper}
 			{...props}
