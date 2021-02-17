@@ -2,13 +2,11 @@ import React from 'react';
 import {
 	withKnobs,
 	text,
-	boolean,
 	number,
 	select,
 } from '@storybook/addon-knobs';
 import { Spinner } from '.';
-
-import { Button } from '../Button';
+import { SystemColorOptions } from '../../utilities/color';
 
 export default {
 	title: 'Spinner',
@@ -18,58 +16,42 @@ export default {
 		layout: 'centered',
 	},
 };
-enum sizeOptions{
-	small='small',
-	large='large',
-	medium='medium'
-}
-const sizes = Object.keys(sizeOptions);
-export const Default: React.FunctionComponent = () => {
-	const showDeterminate = boolean('determinate', false);
-	const showProgress = showDeterminate === true ? number('progress', 50) : 0;
-	return (
-		<Spinner
-			color={text('color', 'red')}
-			size={select('size', sizes, sizeOptions.large)}
-			determinate={showDeterminate}
-			progress={showProgress}
-		/>
-	);
+
+const baseProps = (determinate = false) => ({
+	size: number('Size', 48, {
+		range: true, min: 24, max: 256, step: 4,
+	}),
+	strokeWidth: number('Stroke width', 4, {
+		range: true, min: 0.5, max: 16, step: 0.5,
+	}),
+	progress: determinate ? number('Progress', 0.6, {
+		range: true, min: 0, max: 1, step: 0.01,
+	}) : undefined,
+});
+
+const PlacementOptions = {
+	Unset: undefined,
+	// Top: 'top',
+	Right: 'right',
+	Bottom: 'bottom',
+	// Left: 'left',
+	Hidden: 'hidden',
 };
-enum PlacementOptions{
-	left='left',
-	right='right',
-	top='top',
-	bottom='bottom'
-}
-export const WithLabel: React.FunctionComponent = () => (
-	<>
-		<Spinner
-			label={text('label', 'loading images...')}
-			placement={select<PlacementOptions>('placement', PlacementOptions, PlacementOptions.left)}
-		/>
-	</>
+
+export const Indeterminate: React.FunctionComponent = () => (
+	<Spinner
+		label={text('Label', 'Loading images...')}
+		labelPosition={select('Label position', PlacementOptions, undefined)}
+		color={select('Color', { Unset: undefined, ...SystemColorOptions }, undefined)}
+		{...baseProps()}
+	/>
 );
 
-export const Controlled: React.FunctionComponent = () => {
-	const [isOpen, setOpen] = React.useState(false);
-	const toggle = (): void => setOpen(!isOpen);
-	return (
-		<div style={{ textAlign: 'center' }}>
-			{isOpen ? <Spinner placement="bottom" />
-				: null}
-			<br />
-			<Button variant="solid" onClick={toggle}>
-				{' '}
-				{isOpen ? 'Stop loading' : 'Loading'}
-			</Button>
-		</div>
-	);
-};
-export const withButton: React.FunctionComponent = () => (
-	<div>
-		<Button variant="solid">
-			<Spinner color="base" label="loading..." placement="left" />
-		</Button>
-	</div>
+export const Determinate: React.FunctionComponent = () => (
+	<Spinner
+		label={text('Label', 'Loading images...')}
+		labelPosition={select('Label position', PlacementOptions, undefined)}
+		color={select('Color', { Unset: undefined, ...SystemColorOptions }, undefined)}
+		{...baseProps(true)}
+	/>
 );

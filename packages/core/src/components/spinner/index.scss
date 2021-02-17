@@ -1,66 +1,77 @@
-@use '../../util';
-@use '../../spacing';
 @use '@material/circular-progress/mixins' as circular-progress;
 
-@include circular-progress.core-styles;
+@use 'sass:map';
+@use './tokens';
+@use '../../color';
+@use '../../config';
+@use '../../util';
+@use '../../spacing';
 
 @mixin base {
-	display: inline-flex;
-	max-width: 100%;
-	max-height: 100%;
+	--nds-spinner-color: #{tokens.$color};
+	--nds-spinner-label-color: #{tokens.$label-color};
+
+	display: flex;
 	align-items: center;
-	font-size: var(--nds-font-size-16);
-	font-style: italic;
-}
+	color: var(--nds-spinner-color);
 
-@mixin spinner-placement-top {
-	flex-direction: column-reverse;
+	.mdc-circular-progress__determinate-circle,
+	.mdc-circular-progress__indeterminate-circle-graphic {
+		stroke: currentColor !important;
+	}
 
-	span {
-		margin-bottom: spacing.spacer('0.5rem');
+	&[data-label='bottom'] {
+		flex-direction: column;
+	}
+
+	@if config.$enable-dark-scheme {
+		@media screen and (prefers-color-scheme: 'dark') {
+			--nds-spinner-color: #{tokens.$color-dark};
+		}
+
+		[data-color-scheme='dark'] & {
+			--nds-spinner-color: #{tokens.$color-dark};
+		}
+
+		[data-color-scheme='light'] & {
+			--nds-spinner-color: #{tokens.$color};
+		}
 	}
 }
 
-@mixin spinner-placement-bottom {
-	flex-direction: column-reverse;
+@mixin label {
+	color: var(--nds-spinner-label-color);
 
-	span {
+	[data-label=''] &,
+	[data-label='right'] & {
+		margin-left: spacing.spacer('0.5rem');
+	}
+
+	[data-label='bottom'] & {
 		margin-top: spacing.spacer('0.5rem');
 	}
 }
 
-@mixin spinner-placement-left {
-	span {
-		margin-left: spacing.spacer('0.5rem');
-	}
-}
-
-@mixin spinner-placement-right {
-	span {
-		margin-right: spacing.spacer('0.5rem');
-	}
+@mixin color($family, $grade) {
+	--nds-spinner-color: var(--nds-#{$family}-#{$grade});
 }
 
 @mixin style {
 	@include util.declare('spinner') {
+		@include circular-progress.core-styles;
+
 		.nds-spinner {
 			@include base;
 		}
 
-		.nds-spinner-placement-top {
-			@include spinner-placement-top;
+		.nds-spinner__label {
+			@include label;
 		}
 
-		.nds-spinner-placement-bottom {
-			@include spinner-placement-bottom;
-		}
-
-		.nds-spinner-placement-left {
-			@include spinner-placement-left;
-		}
-
-		.nds-spinner-placement-right {
-			@include spinner-placement-right;
+		@each $name in color.$families {
+			.nds-spinner--#{$name} {
+				@include color($name, 60);
+			}
 		}
 	}
 }
