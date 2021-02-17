@@ -25,7 +25,8 @@
   "contributors": [
     "HonChih Chen <hchen@wwnorton.com>",
     "Darian Trama <dtrama@wwnorton.com>",
-    "Kellie Porter <kporter@wwnorton.com>"
+    "Kellie Porter <kporter@wwnorton.com>",
+    "Anand Patil <apatil@wwnorton.com>"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",

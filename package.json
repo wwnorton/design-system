@@ -109,7 +109,7 @@
     "@typescript-eslint/parser": "^3.6.1",
     "ava": "^3.10.1",
     "conventional-changelog-conventionalcommits": "^4.4.0",
-    "cspell": "^4.1.0",
+    "cspell": "^5.2.4",
     "del": "^6.0.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb": "^18.2.0",
