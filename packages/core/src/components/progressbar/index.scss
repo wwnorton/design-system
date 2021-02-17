@@ -1,0 +1,80 @@
+@use '@material/linear-progress/mixins' as linear-progress;
+
+@use './tokens';
+@use '../../config';
+@use '../../util';
+@use '../../spacing';
+
+@mixin base {
+	--nds-progressbar-color: #{tokens.$color};
+	--nds-progressbar-track-color: #{tokens.$track-color};
+	--nds-progressbar-label-color: #{tokens.$label-color};
+
+	@include resize(8px);
+
+	.mdc-linear-progress__bar-inner {
+		border-color: var(--nds-progressbar-color);
+	}
+
+	.mdc-linear-progress__buffer-bar {
+		background-color: var(--nds-progressbar-track-color);
+	}
+
+	@if config.$enable-dark-scheme {
+		@media screen and (prefers-color-scheme: 'dark') {
+			--nds-progressbar-color: #{tokens.$color};
+			--nds-progressbar-track-color: #{tokens.$track-color-dark};
+		}
+
+		[data-color-scheme='dark'] & {
+			--nds-progressbar-color: #{tokens.$color};
+			--nds-progressbar-track-color: #{tokens.$track-color-dark};
+		}
+
+		[data-color-scheme='light'] & {
+			--nds-progressbar-color: #{tokens.$color};
+			--nds-progressbar-track-color: #{tokens.$track-color};
+		}
+	}
+}
+
+@mixin label {
+	margin-top: spacing.spacer('0.5rem');
+	color: var(--nds-progressbar-label-color);
+}
+
+@mixin resize($size) {
+	.mdc-linear-progress {
+		height: $size;
+	}
+
+	.mdc-linear-progress__bar-inner {
+		border-top-width: $size;
+	}
+
+	.mdc-linear-progress__buffer-dots {
+		background-size: $size * 2.5 $size;
+	}
+}
+
+@mixin style {
+	@include util.declare('progressbar') {
+		@include linear-progress.core-styles;
+
+		.nds-progressbar {
+			@include base;
+		}
+
+		.nds-progressbar__label {
+			@include label;
+		}
+
+		.nds-progressbar--small {
+			@include resize(4px);
+		}
+
+		.nds-progressbar--large {
+			@include resize(16px);
+		}
+	}
+}

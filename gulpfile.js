@@ -51,6 +51,7 @@ const createSass = ({ src, dest }) => () => gulp.src(src, {
 		sass({
 			fiber,
 			outputStyle: (production) ? 'compressed' : 'expanded',
+			includePaths: ['node_modules'],
 		}).on('error', sass.logError),
 	)
 	.pipe(

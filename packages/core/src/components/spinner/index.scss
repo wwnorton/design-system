@@ -1,0 +1,77 @@
+@use '@material/circular-progress/mixins' as circular-progress;
+
+@use 'sass:map';
+@use './tokens';
+@use '../../color';
+@use '../../config';
+@use '../../util';
+@use '../../spacing';
+
+@mixin base {
+	--nds-spinner-color: #{tokens.$color};
+	--nds-spinner-label-color: #{tokens.$label-color};
+
+	display: flex;
+	align-items: center;
+	color: var(--nds-spinner-color);
+
+	.mdc-circular-progress__determinate-circle,
+	.mdc-circular-progress__indeterminate-circle-graphic {
+		stroke: currentColor !important;
+	}
+
+	&[data-label='bottom'] {
+		flex-direction: column;
+	}
+
+	@if config.$enable-dark-scheme {
+		@media screen and (prefers-color-scheme: 'dark') {
+			--nds-spinner-color: #{tokens.$color-dark};
+		}
+
+		[data-color-scheme='dark'] & {
+			--nds-spinner-color: #{tokens.$color-dark};
+		}
+
+		[data-color-scheme='light'] & {
+			--nds-spinner-color: #{tokens.$color};
+		}
+	}
+}
+
+@mixin label {
+	color: var(--nds-spinner-label-color);
+
+	[data-label=''] &,
+	[data-label='right'] & {
+		margin-left: spacing.spacer('0.5rem');
+	}
+
+	[data-label='bottom'] & {
+		margin-top: spacing.spacer('0.5rem');
+	}
+}
+
+@mixin color($family, $grade) {
+	--nds-spinner-color: var(--nds-#{$family}-#{$grade});
+}
+
+@mixin style {
+	@include util.declare('spinner') {
+		@include circular-progress.core-styles;
+
+		.nds-spinner {
+			@include base;
+		}
+
+		.nds-spinner__label {
+			@include label;
+		}
+
+		@each $name in color.$families {
+			.nds-spinner--#{$name} {
+				@include color($name, 60);
+			}
+		}
+	}
+}
