@@ -18,76 +18,76 @@ const TooltipFixture: React.FunctionComponent<TooltipProps> = ({
 }: TooltipProps) => {
 	const [ref, setRef] = React.useState<HTMLSpanElement | null>();
 	return (
-		<>
+		<div data-testid="test">
 			<p>
 				<span role="button" tabIndex={0} ref={setRef}>Lorem ipsum</span>
 				{' '}
 				dolor sit amet consectetur adipisicing elit.
 			</p>
 			<Tooltip reference={ref} trigger={trigger} asLabel={asLabel}>{ children }</Tooltip>
-		</>
+		</div>
 	);
 };
 
 test('a tooltip is rendered when `isOpen`', (t) => {
 	render(<Tooltip isOpen>{ defaultContents }</Tooltip>);
-	t.is(screen.getByRole('tooltip', { hidden: true }).textContent, defaultContents);
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+	t.is(screen.queryByRole('tooltip', { hidden: true }).textContent, defaultContents);
 });
 
-test('the click trigger toggles the tooltip\'s visibility on click', (t) => {
+test('the click trigger toggles the tooltip\'s visibility on click', async (t) => {
 	render(<TooltipFixture trigger="click" />);
-	t.falsy(screen.queryByText(defaultContents));
-	const ref = screen.getByRole('button');
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+	const ref = screen.queryByRole('button');
 
 	fireEvent.focus(ref);
-	t.falsy(screen.queryByText(defaultContents));
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
 	fireEvent.pointerEnter(ref);
-	t.falsy(screen.queryByText(defaultContents));
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
 	fireEvent.click(ref);
-	t.truthy(screen.queryByText(defaultContents));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
 test('the focus trigger toggles the tooltip\'s visibility on focus', (t) => {
 	render(<TooltipFixture trigger="focus" />);
-	t.falsy(screen.queryByText(defaultContents));
-	const ref = screen.getByRole('button');
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+	const ref = screen.queryByRole('button');
 
 	fireEvent.pointerEnter(ref);
-	t.falsy(screen.queryByText(defaultContents));
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
 	// in the real world, clicking also triggers focus but it doesn't here
 	fireEvent.click(ref);
-	t.falsy(screen.queryByText(defaultContents));
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
 	fireEvent.focus(ref);
-	t.truthy(screen.queryByText(defaultContents));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
 test('the mouseenter trigger toggles the tooltip\'s visibility on pointer enter', (t) => {
 	render(<TooltipFixture trigger="mouseenter" />);
-	t.falsy(screen.queryByText(defaultContents));
-	const ref = screen.getByRole('button');
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+	const ref = screen.queryByRole('button');
 
 	fireEvent.focus(ref);
-	t.falsy(screen.queryByText(defaultContents));
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
 	fireEvent.click(ref);
-	t.falsy(screen.queryByText(defaultContents));
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
 	fireEvent.pointerEnter(ref);
-	t.truthy(screen.queryByText(defaultContents));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
 test('tooltip contents label the reference even when the tooltip isn\'t visible', (t) => {
 	render(<TooltipFixture trigger="focus pointerenter" asLabel />);
 	t.truthy(screen.queryByRole('button', { name: defaultContents }));
-	t.is(screen.getByRole('button').getAttribute('aria-label'), defaultContents);
 });
 
 test('complex tooltip contents are flattened and used as the reference\'s label even when the tooltip isn\'t visible', (t) => {
-	const FLATTENED = 'lorem ipsum dolor sit amet consectetur adipisicing elit!1';
+	const FLATTENED = 'lorem ipsum dolor sit amet consectetur adipisicing elit !1';
 	render((
 		<TooltipFixture trigger="focus pointerenter" asLabel>
 			<p>
@@ -110,5 +110,4 @@ test('complex tooltip contents are flattened and used as the reference\'s label 
 		</TooltipFixture>
 	));
 	t.truthy(screen.queryByRole('button', { name: FLATTENED }));
-	t.is(screen.getByRole('button').getAttribute('aria-label'), FLATTENED);
 });

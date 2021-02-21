@@ -3,7 +3,7 @@ import React from 'react';
 import {
 	cleanup, render, fireEvent, screen,
 } from '@testing-library/react';
-import { Popover } from '.';
+import { Popover, PopoverProps } from '.';
 
 test.afterEach(cleanup);
 
@@ -12,32 +12,27 @@ const defaultBody = 'Test content';
 const triggerName = 'Open popover';
 
 // fixture for controlled popover
-// eslint-disable-next-line react/require-default-props
-const Controlled = ({ isOpen: openProp = false }: { isOpen?: boolean }) => {
-	const [isOpen, setOpen] = React.useState(openProp);
-	const toggle = () => setOpen(!isOpen);
-	return (
-		<>
-			<button type="button" onClick={toggle}>
-				{ triggerName }
-			</button>
-			<Popover isOpen={isOpen} onRequestClose={toggle} title={defaultTitle}>
-				{ defaultBody }
-			</Popover>
-		</>
-	);
-};
-
-// fixture for uncontrolled popover
-const Uncontrolled = () => {
+const Fixture = ({
+	isOpen: openProp,
+	...props
+}: Partial<PopoverProps>) => {
+	const [isOpen, setOpen] = React.useState(openProp || false);
 	const [ref, setRef] = React.useState<HTMLButtonElement | null>(null);
+	React.useEffect(() => setOpen(openProp), [openProp]);
 	return (
 		<>
 			<button type="button" ref={setRef}>
 				{ triggerName }
 			</button>
-			<Popover title={defaultTitle} reference={ref}>
-				Test content
+			<Popover
+				reference={ref}
+				isOpen={isOpen}
+				onRequestClose={() => setOpen(false)}
+				onRequestOpen={() => setOpen(true)}
+				title={defaultTitle}
+				{...props}
+			>
+				{ defaultBody }
 			</Popover>
 		</>
 	);
@@ -46,7 +41,6 @@ const Uncontrolled = () => {
 test('a popover is rendered when isOpen', (t) => {
 	render(<Popover isOpen>{ defaultBody }</Popover>);
 	t.truthy(screen.queryByRole('dialog'));
-	t.is(screen.getByRole('dialog').textContent, defaultBody);
 });
 
 test('the popover uses its title as its accessible name by default', (t) => {
@@ -78,44 +72,8 @@ test('the popover uses a custom aria-labelledby when specified', (t) => {
 	t.is(screen.queryByRole('dialog'), screen.queryByLabelText(customName));
 });
 
-// skip since this test is probably too brittle
-test.skip('the popover renders actions after the body', (t) => {
-	const actionText = 'Confirm';
-	render((
-		<Popover
-			isOpen
-			title={defaultTitle}
-			actions={<button type="button">{ actionText }</button>}
-		>
-			{ defaultBody }
-		</Popover>
-	));
-	const action = screen.queryByRole('button', { name: actionText });
-	t.truthy(action);
-	t.true(screen.queryByText(defaultBody).nextElementSibling.contains(action));
-});
-
-// skip since this test is probably too brittle
-test.skip('the popover does not render a header when the title and close button are hidden', (t) => {
-	render((
-		<Popover
-			isOpen
-			title={defaultTitle}
-			hideTitle
-			hideCloseButton
-		>
-			{ defaultBody }
-		</Popover>
-	));
-	t.is(
-		screen.queryByRole('dialog').firstElementChild,
-		screen.queryByText(defaultBody),
-	);
-});
-
-// needs investigation. this passes in a real browser
-test.failing('the popover is focused on open by default', (t) => {
-	render(<Uncontrolled />);
+test('the popover is focused on open by default', (t) => {
+	render(<Fixture />);
 	const trigger = screen.queryByRole('button', { name: triggerName });
 	fireEvent.click(trigger);
 
@@ -123,61 +81,54 @@ test.failing('the popover is focused on open by default', (t) => {
 });
 
 test('focus returns to the element that opened the popover on close', (t) => {
-	render(<Uncontrolled />);
+	render(<Fixture isOpen />);
 	const trigger = screen.queryByRole('button', { name: triggerName });
-	// open
-	fireEvent.click(trigger);
 	// close
 	fireEvent.keyDown(document, { key: 'Escape' });
 
 	t.is(document.activeElement, trigger);
 });
 
-// controlled tests
-
-test('a controlled popover can be closed by clicking the internal close button', (t) => {
-	render(<Controlled isOpen />);
-	screen.queryByRole('button', { name: 'Close' }).focus();
-	fireEvent.click(document.activeElement);
-	t.falsy(screen.queryByRole('dialog'));
-});
-
-test('a controlled popover does nothing when Escape is pressed', (t) => {
-	render(<Controlled isOpen />);
-	fireEvent.keyDown(document, { key: 'Escape' });
-	t.truthy(screen.queryByRole('dialog'));
-});
-
-// uncontrolled tests
-
-test('an uncontrolled popover opens and closes on reference click', (t) => {
-	render(<Uncontrolled />);
-	t.falsy(screen.queryByRole('dialog'));
-
+test('clicking the reference button opens and closes the popover', (t) => {
+	render(<Fixture />);
 	const trigger = screen.queryByRole('button', { name: triggerName });
+
+	// open
 	fireEvent.click(trigger);
 	t.truthy(screen.queryByRole('dialog'));
 
+	// close
 	fireEvent.click(trigger);
 	t.falsy(screen.queryByRole('dialog'));
 });
 
-test('an uncontrolled popover closes on Escape', (t) => {
-	render(<Uncontrolled />);
+test('clicking the close button closes the popover and focuses the reference', (t) => {
+	render(<Fixture isOpen />);
 	const trigger = screen.queryByRole('button', { name: triggerName });
-	fireEvent.click(trigger);
-	t.truthy(screen.queryByRole('dialog'));
+	const closeButton = screen.queryByRole('button', { name: 'Close' });
+	fireEvent.click(closeButton);
+	t.falsy(screen.queryByRole('dialog'));
+	t.is(document.activeElement, trigger);
+});
 
+test('Escape closes the popover and focuses the reference', (t) => {
+	render(<Fixture isOpen />);
+	const trigger = screen.queryByRole('button', { name: triggerName });
 	fireEvent.keyDown(document, { key: 'Escape' });
 	t.falsy(screen.queryByRole('dialog'));
+	t.is(document.activeElement, trigger);
 });
 
-test('an uncontrolled popover closes on external click', (t) => {
-	render(<Uncontrolled />);
+test('clicking outside the popover closes the popover but doesn\'t focus the reference', (t) => {
+	render(<Fixture isOpen />);
 	const trigger = screen.queryByRole('button', { name: triggerName });
-	fireEvent.click(trigger);
-	t.truthy(screen.queryByRole('dialog'));
-
 	fireEvent.click(document.body);
 	t.falsy(screen.queryByRole('dialog'));
+	t.not(document.activeElement, trigger);
+});
+
+test('clicking inside the popover does not close the popover', (t) => {
+	render(<Fixture isOpen />);
+	fireEvent.click(screen.queryByRole('dialog'));
+	t.truthy(screen.queryByRole('dialog'));
 });

@@ -33,9 +33,9 @@ test('clicking a switch\'s label toggles its checked state', (t) => {
 
 test('a tooltipped switch has an accessible name before and after the tooltip is rendered', (t) => {
 	render(<Switch label={defaultLabel} tipped />);
-	const control = screen.getByRole('switch', { name: defaultLabel });
-	t.truthy(control);
-	t.falsy(screen.queryByText(defaultLabel));
+	const control = screen.getByRole('switch');
+	t.is(screen.getByLabelText(defaultLabel), screen.getByRole('switch'));
+	t.truthy(screen.getByRole('switch', { name: defaultLabel }));
 	fireEvent.pointerEnter(control);
 	t.is(
 		screen.getByRole('tooltip', { hidden: true }).textContent,
