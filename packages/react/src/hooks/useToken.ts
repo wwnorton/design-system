@@ -38,9 +38,9 @@ export const useToken = ({
 	name,
 	value,
 	el = document.documentElement,
-}: UseTokenProps): [UseTokenProps['value'], Dispatch<SetStateAction<UseTokenProps['value']>>] => {
+}: UseTokenProps): [string | number | null, Dispatch<SetStateAction<string | number | null>>] => {
 	const prefixedName = useMemo(() => prefix(name), [name]);
-	const [token, setToken] = useState(value);
+	const [token, setToken] = useState(value || null);
 
 	// read the value from the element
 	useEffect(() => {
