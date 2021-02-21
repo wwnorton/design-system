@@ -6,7 +6,7 @@ import {
 import {
 	Callout, CalloutError, CalloutSuccess, CalloutWarning,
 } from '.';
-import { IconOptions, IconProps } from '../Icon';
+import { IconOptions } from '../Icon';
 import { ColorOptions } from '../../utilities/color';
 
 export default {
