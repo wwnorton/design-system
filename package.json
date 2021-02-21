@@ -76,7 +76,8 @@
     "require": [
       "ts-node/register/transpile-only",
       "jsdom-global/register"
-    ]
+    ],
+    "timeout": "1m"
   },
   "nyc": {
     "all": true,
