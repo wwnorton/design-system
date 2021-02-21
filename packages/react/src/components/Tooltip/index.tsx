@@ -103,14 +103,10 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	 */
 	React.useEffect(() => {
 		if (reference && reference instanceof Element) {
-			if (asLabel) {
-				reference.setAttribute('aria-labelledby', ariaId);
-			} else {
-				// aria-describedby can point to more than one id
-				const idArray = (reference.getAttribute('aria-describedby') || ariaId).split(/\s+/g);
-				if (!idArray.includes(ariaId)) idArray.push(ariaId);
-				reference.setAttribute('aria-describedby', idArray.join(' '));
-			}
+			reference.setAttribute(
+				(asLabel) ? 'aria-labelledby' : 'aria-describedby',
+				ariaId,
+			);
 		}
 	}, [asLabel, reference, ariaId]);
 
