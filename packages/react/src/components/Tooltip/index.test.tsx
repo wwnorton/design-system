@@ -14,6 +14,7 @@ const defaultContents = 'Lorem ipsum is a placeholder text commonly used to'
 const TooltipFixture: React.FunctionComponent<TooltipProps> = ({
 	trigger,
 	asLabel,
+	isOpen,
 	children = defaultContents,
 }: TooltipProps) => {
 	const [ref, setRef] = React.useState<HTMLSpanElement | null>();
@@ -24,7 +25,15 @@ const TooltipFixture: React.FunctionComponent<TooltipProps> = ({
 				{' '}
 				dolor sit amet consectetur adipisicing elit.
 			</p>
-			<Tooltip reference={ref} trigger={trigger} asLabel={asLabel}>{ children }</Tooltip>
+			<Tooltip
+				isOpen={isOpen}
+				reference={ref}
+				trigger={trigger}
+				asLabel={asLabel}
+			>
+				{ children }
+
+			</Tooltip>
 		</div>
 	);
 };
@@ -35,50 +44,75 @@ test('a tooltip is rendered when `isOpen`', (t) => {
 	t.is(screen.queryByRole('tooltip', { hidden: true }).textContent, defaultContents);
 });
 
-test('the click trigger toggles the tooltip\'s visibility on click', async (t) => {
+test('the click trigger toggles the tooltip\'s visibility on click', (t) => {
+	render(<TooltipFixture trigger="click" />);
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+
+	fireEvent.click(screen.queryByRole('button'));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+});
+
+test('the click trigger toggles the tooltip\'s visibility on keyup.space', (t) => {
+	render(<TooltipFixture trigger="click" />);
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+	const ref = screen.queryByRole('button');
+	ref.focus();
+
+	// nothing should happen on keyup.space alone
+	fireEvent.keyUp(ref, { key: ' ' });
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+
+	// keydown.space and then keyup.space should trigger the click callback
+	fireEvent.keyDown(ref, { key: ' ' });
+	fireEvent.keyUp(ref, { key: ' ' });
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+});
+
+test('the click trigger toggles the tooltip\'s visibility on keydown.enter', (t) => {
 	render(<TooltipFixture trigger="click" />);
 	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 	const ref = screen.queryByRole('button');
 
-	fireEvent.focus(ref);
-	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
-
-	fireEvent.pointerEnter(ref);
-	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
-
-	fireEvent.click(ref);
+	ref.focus();
+	fireEvent.keyDown(ref, { key: 'Enter' });
 	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
 test('the focus trigger toggles the tooltip\'s visibility on focus', (t) => {
 	render(<TooltipFixture trigger="focus" />);
 	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
-	const ref = screen.queryByRole('button');
 
-	fireEvent.pointerEnter(ref);
+	fireEvent.focus(screen.queryByRole('button'));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+});
+
+test('the focusin trigger toggles the tooltip\'s visibility on focusin', (t) => {
+	render(<TooltipFixture trigger="focusin" />);
 	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
-	// in the real world, clicking also triggers focus but it doesn't here
-	fireEvent.click(ref);
-	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
-
-	fireEvent.focus(ref);
+	fireEvent.focusIn(screen.queryByRole('button'));
 	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
 test('the mouseenter trigger toggles the tooltip\'s visibility on pointer enter', (t) => {
 	render(<TooltipFixture trigger="mouseenter" />);
 	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
-	const ref = screen.queryByRole('button');
 
-	fireEvent.focus(ref);
-	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
-
-	fireEvent.click(ref);
-	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
-
-	fireEvent.pointerEnter(ref);
+	fireEvent.pointerEnter(screen.queryByRole('button'));
 	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+});
+
+test('the pointerenter trigger hides the tooltip after a delay on pointerleave', (t) => {
+	const hideDelay = 200;
+	render(<TooltipFixture isOpen trigger="pointerenter" hideDelay={hideDelay} />);
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+
+	fireEvent.pointerLeave(screen.queryByRole('button'));
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+
+	setTimeout(() => {
+		t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+	}, hideDelay);
 });
 
 test('tooltip contents label the reference even when the tooltip isn\'t visible', (t) => {
