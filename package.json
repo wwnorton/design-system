@@ -16,7 +16,7 @@
     "build:stories": "lerna exec --scope=@wwnds/react -- npm run build:stories",
     "cspell": "cspell '**/**'",
     "clean": "gulp clean",
-    "coverage": "nyc --reporter=html --reporter=json --reporter=text npm run test",
+    "coverage": "nyc --reporter=html --reporter=json --reporter=text npm run test -- --verbose",
     "dev:docs": "lerna exec --scope=website -- npm start",
     "dev:react": "npm run storybook",
     "lint": "npm run lint:es && npm run lint:prettier && npm run lint:style",
