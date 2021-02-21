@@ -1,6 +1,6 @@
-import { Options } from '@popperjs/core';
+import { Options, VirtualElement } from '@popperjs/core';
 
-export { Placement, Modifier, VirtualElement } from '@popperjs/core';
+export * from '@popperjs/core';
 
 export interface PopperOptions {
 	/** The [Popper.js placement option](https://popper.js.org/docs/v2/constructors/#placement). */
@@ -11,4 +11,19 @@ export interface PopperOptions {
 	strategy: Options['strategy'];
 	/** The [Popper.js onFirstUpdate option](https://popper.js.org/docs/v2/constructors/#onFirstUpdate). */
 	onFirstUpdate?: Options['onFirstUpdate'];
+}
+
+export interface PopperCoreProps {
+	/**
+	 * The reference element that the popper will be attached to.
+	 *
+	 * [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
+	 */
+	reference?: Element | VirtualElement | null;
+	/**
+	 * The popper element, which will be attached to the reference element.
+	 *
+	 * [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
+	 */
+	popper?: HTMLElement | null;
 }

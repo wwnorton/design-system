@@ -1,5 +1,6 @@
 export * from './useColorScheme';
 export * from './useConfig';
+export * from './useExternalClick';
 export * from './useForwardRef';
 export * from './usePopper';
 export * from './usePopperTriggers';

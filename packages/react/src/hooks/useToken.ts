@@ -1,5 +1,6 @@
 import {
-	useEffect, useMemo, useState,
+	useEffect, useLayoutEffect, useMemo, useState,
+	Dispatch, SetStateAction,
 } from 'react';
 import { prefix, canUseDOM } from '../config';
 
@@ -20,12 +21,7 @@ const setVar = (
 	el.style.setProperty(`--${varName}`, value.toString());
 };
 
-/** Use a design token. Gets and sets the token as a CSS custom property. */
-export const useToken = ({
-	name,
-	value,
-	el = document.documentElement,
-}: {
+export interface UseTokenProps {
 	/** The token's name. Note that this shouldn't begin with `--`. */
 	name: string;
 	/**
@@ -34,24 +30,28 @@ export const useToken = ({
 	 */
 	value?: string | number | null;
 	/** The element where the CSS custom property should be stored/retrieved. */
-	el: HTMLElement | null;
-}): [string | number | null, React.Dispatch<React.SetStateAction<string | number | null>>] => {
+	el?: HTMLElement | null;
+}
+
+/** Use a design token. Gets or sets the token as a CSS custom property. */
+export const useToken = ({
+	name,
+	value,
+	el = document.documentElement,
+}: UseTokenProps): [string | number | null, Dispatch<SetStateAction<string | number | null>>] => {
 	const prefixedName = useMemo(() => prefix(name), [name]);
-	const [token, setToken] = useState(value || getVar(prefixedName, el));
+	const [token, setToken] = useState(value || null);
 
+	// read the value from the element
 	useEffect(() => {
-		if (el) {
-			setToken(
-				(typeof value === 'undefined') ? getVar(prefixedName, el) : value,
-			);
-		}
-	}, [el, value]);
+		const val = getVar(prefixedName, el);
+		if (val) setToken(val);
+	}, [prefixedName, el]);
 
-	useEffect(() => {
-		if (el && token) {
-			setVar(prefixedName, token, el);
-		}
-	}, [el, token, prefixedName]);
+	// set the value on the element
+	useLayoutEffect(() => {
+		if (value) setVar(prefixedName, value, el);
+	}, [value, prefixedName, el]);
 
 	return [token, setToken];
 };

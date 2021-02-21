@@ -1,12 +1,22 @@
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import {
+	useEffect,
+	useLayoutEffect,
+	useRef, useState,
+} from 'react';
 import isEqual from 'react-fast-compare';
 import {
 	createPopper,
-	Instance as PopperInstance,
-	Options as PopperOptions,
-	VirtualElement,
-} from '@popperjs/core';
+	Instance,
+	Options,
+	PopperCoreProps,
+} from '../types/popper';
 
+export interface UsePopperProps extends Partial<Options>, PopperCoreProps {
+	/** The contents of the popper. */
+	children?: React.ReactNode;
+}
+
+/** A hook to create a [Popper.js](https://popper.js.org) instance. */
 export const usePopper = ({
 	reference,
 	popper,
@@ -15,71 +25,49 @@ export const usePopper = ({
 	modifiers,
 	strategy = 'absolute',
 	onFirstUpdate,
-}: Partial<PopperOptions> & {
-	/**
-	 * The reference element that the popper will be attached to.
-	 *
-	 * Reference:
-	 * - [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
-	 */
-	reference?: Element | VirtualElement | null;
-	/**
-	 * The popper element, which will be attached to the reference element.
-	 *
-	 * Reference:
-	 * - [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
-	 */
-	popper?: HTMLElement | null;
-	/** The contents of the popper. */
-	children?: React.ReactNode;
-}): React.MutableRefObject<PopperInstance | null> => {
-	const instance = useRef<PopperInstance | null>(null);
-	const prevOptions = useRef<PopperOptions>({
-		placement, modifiers: modifiers || [], strategy, onFirstUpdate,
+}: UsePopperProps): Instance | null => {
+	const [instance, setInstance] = useState<Instance | null>(null);
+	const options = useRef<Options>({
+		placement,
+		modifiers: modifiers || [],
+		strategy,
+		onFirstUpdate,
 	});
-
-	// memoize the options, only updating when Popper.js options props change
-	const options = useMemo(() => {
-		const newOptions = {
-			placement, modifiers: modifiers || [], strategy, onFirstUpdate,
-		};
-		if (isEqual(prevOptions.current, newOptions)) {
-			return prevOptions.current || newOptions;
-		}
-		prevOptions.current = newOptions;
-		return newOptions;
-	}, [placement, modifiers, strategy, onFirstUpdate]);
 
 	// create the popper instance
 	useLayoutEffect(() => {
-		let popperInstance: PopperInstance;
+		let popperInstance: Instance;
 
 		if (reference && popper) {
-			popperInstance = createPopper(reference, popper, options);
-			instance.current = popperInstance;
+			popperInstance = createPopper(reference, popper, options.current);
+			setInstance(popperInstance);
 		}
 
 		return (): void => {
 			if (popperInstance) {
 				popperInstance.destroy();
-				instance.current = null;
+				setInstance(null);
 			}
 		};
-	// only update when reference or popper change.
-	// options changes should trigger setOptions() in the options layout effect
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reference, popper]);
 
 	// update options when they change
-	useLayoutEffect(() => {
-		if (instance.current) {
-			instance.current.setOptions(options);
+	useEffect(() => {
+		const newOptions = {
+			placement,
+			modifiers: modifiers || [],
+			strategy,
+			onFirstUpdate,
+		};
+		if (!isEqual(newOptions, options.current)) {
+			options.current = newOptions;
 		}
-	}, [options]);
+		if (instance) instance.setOptions(options.current);
+	}, [placement, modifiers, strategy, onFirstUpdate, instance]);
 
 	// update the instance when children change to ensure the popper resizes
-	useLayoutEffect(() => {
-		if (instance.current) instance.current.update();
+	useEffect(() => {
+		if (instance) instance.update();
 	}, [instance, children]);
 
 	return instance;

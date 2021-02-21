@@ -3,28 +3,14 @@ import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { BasePopper, BasePopperProps } from '../BasePopper';
 import { prefix } from '../../config';
-import { innerText } from '../../utilities';
-import { useForwardedRef, usePopperTriggers, useToken } from '../../hooks';
+import {
+	useForwardedRef, usePopperTriggers, UsePopperTriggersProps, useToken,
+} from '../../hooks';
+import { PopperOptions } from '../../types/popper';
 
-export type Triggers =
-	| 'click'
-	| 'focus'
-	| 'focusin'
-	| 'manual'
-	| 'mouseenter'
-	| 'pointerenter'
-
-type TooltipPicks =
-	| 'placement'
-	| 'modifiers'
-	| 'strategy'
-	| 'onFirstUpdate'
-	| 'hideDelay'
-	| 'trigger'
-
-export type TooltipCoreProps = Pick<TooltipProps, TooltipPicks>;
-
-export interface TooltipProps extends BasePopperProps {
+export interface TooltipProps extends
+	BasePopperProps,
+	Partial<Pick<UsePopperTriggersProps, 'hideDelay'>> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** A className to apply to the content. Default will be `${baseName}__content`. */
@@ -40,19 +26,19 @@ export interface TooltipProps extends BasePopperProps {
 	 */
 	asLabel?: boolean;
 	/**
-	 * A string of space-separated triggers. Options include `click`, `focus`,
-	 * `focusin`, `mouseenter`, `pointerenter`, and `manual`. When `manual` is
-	 * included anywhere in the string, the tooltip's visibility must be
-	 * controlled via `isOpen`. Default is `"focus pointerenter"`.
+	 * A space-separated string of events. Triggers can be any combination of the
+	 * following:
+	 * - `click`
+	 * - `focus`
+	 * - `focusin`
+	 * - `mouseenter`
+	 * - `pointerenter`
+	 * - `manual`
 	 */
 	trigger?: string;
-	/**
-	 * The time in milliseconds before the tooltip should disappear. Use this to
-	 * ensure that users can move their cursor from the reference to the tooltip
-	 * without it disappearing.
-	 */
-	hideDelay?: number;
 }
+
+export type TooltipCoreProps = PopperOptions & Pick<UsePopperTriggersProps, 'hideDelay' | 'trigger'>;
 
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	{
@@ -65,8 +51,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		trigger = 'focus pointerenter',
 		hideDelay = 200,
 		reference,
-		isOpen = false,
-		id: userId,
+		isOpen: propOpen,
 		children,
 		className,
 		...props
@@ -74,15 +59,22 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [offsetY] = useToken({ name: 'tooltip-offset-y', el: popper });
-	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
-	const open = usePopperTriggers({
-		reference, popper, trigger, isOpen, hideDelay,
-	});
+	const { current: ariaId } = React.useRef(uniqueId(`${baseName}-`));
+	const [isOpen, setIsOpen] = React.useState(propOpen || false);
 
-	const ariaAttribute = React.useMemo(() => {
-		if (asLabel) return 'aria-labelledby';
-		return 'aria-describedby';
-	}, [asLabel]);
+	React.useEffect(() => {
+		if (propOpen !== undefined) setIsOpen(propOpen);
+	}, [propOpen]);
+
+	usePopperTriggers({
+		reference,
+		popper,
+		trigger,
+		isOpen,
+		hideDelay,
+		onRequestClose: () => !trigger.includes('manual') && setIsOpen(false),
+		onRequestOpen: () => !trigger.includes('manual') && setIsOpen(true),
+	});
 
 	const offsetMod = React.useMemo(() => {
 		let y: number;
@@ -105,47 +97,40 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	}), [arrowClass]);
 
 	/**
-	 * Attach aria labelling and describing attributes.
-	 * When rendered `asLabel`, the tooltip will name the reference element. To
-	 * accomplish this, the reference element will have an `aria-label` when
-	 * closed and `aria-labelledby` when open.
-	 * When rendered as a description (`asLabel=false`), the tooltip will
-	 * describe the reference element via `aria-describedby` on open.
+	 * Attach aria labelling/describing attributes to the reference.
+	 * When rendered `asLabel`, it will use `aria-labelledby`. Otherwise, it will
+	 * use `aria-describedby`.
 	 */
-	React.useLayoutEffect(() => {
+	React.useEffect(() => {
 		if (reference && reference instanceof Element) {
-			const currentRefs = reference.getAttribute(ariaAttribute);
-			if (currentRefs && !currentRefs.split(/\s+/g).includes(id)) return;
-			const currentLabel = reference.getAttribute('aria-label');
-			if (open) {
-				reference.setAttribute(ariaAttribute, id);
-				reference.removeAttribute('aria-label');
-			} else {
-				reference.removeAttribute(ariaAttribute);
-				if (asLabel && children) {
-					reference.setAttribute('aria-label', currentLabel || innerText(children));
-				}
-			}
+			reference.setAttribute(
+				(asLabel) ? 'aria-labelledby' : 'aria-describedby',
+				ariaId,
+			);
 		}
-	}, [asLabel, children, id, open, reference, ariaAttribute]);
+	}, [asLabel, reference, ariaId]);
 
 	if (!children) return null;
 
 	return (
-		<BasePopper
-			aria-hidden="true"
-			className={classNames(baseName, className)}
-			role="tooltip"
-			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
-			placement={placement}
-			reference={reference}
-			isOpen={open}
-			id={id}
-			ref={setPopper}
-			{...props}
-		>
-			<div className={contentClass}>{ children }</div>
-			<div className={arrowClass} />
-		</BasePopper>
+		<>
+			{/* the tooltip is an affordance for sighted users only */}
+			<BasePopper
+				role="tooltip"
+				aria-hidden="true"
+				className={classNames(baseName, className)}
+				modifiers={[...(modifiers || []), offsetMod, arrowMod]}
+				placement={placement}
+				reference={reference}
+				isOpen={isOpen}
+				ref={setPopper}
+				{...props}
+			>
+				<div className={contentClass}>{ children }</div>
+				<div className={arrowClass} />
+			</BasePopper>
+			{/* a persistent, hidden div that is used for the accessible name or description */}
+			<div hidden aria-hidden="true" id={ariaId}>{ children }</div>
+		</>
 	);
 });
