@@ -152,7 +152,10 @@ export const usePopperTriggers = ({
 		// focus
 		const focusHandler = () => show('focus');
 		const focusinHandler = () => show('focusin');
-		const blurHandler = () => hide('blur');
+		const blurHandler = () => {
+			spaceClick.current = false;
+			hide('blur');
+		};
 
 		// hover
 		const pointerenterHandler = () => show('pointerenter');
