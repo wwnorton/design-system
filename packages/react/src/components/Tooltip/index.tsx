@@ -79,11 +79,6 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		reference, popper, trigger, isOpen, hideDelay,
 	});
 
-	const ariaAttribute = React.useMemo(() => {
-		if (asLabel) return 'aria-labelledby';
-		return 'aria-describedby';
-	}, [asLabel]);
-
 	const offsetMod = React.useMemo(() => {
 		let y: number;
 		if (typeof offsetY === 'string') y = parseInt(offsetY, 10);
@@ -105,47 +100,44 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	}), [arrowClass]);
 
 	/**
-	 * Attach aria labelling and describing attributes.
-	 * When rendered `asLabel`, the tooltip will name the reference element. To
-	 * accomplish this, the reference element will have an `aria-label` when
-	 * closed and `aria-labelledby` when open.
-	 * When rendered as a description (`asLabel=false`), the tooltip will
-	 * describe the reference element via `aria-describedby` on open.
+	 * Attach aria labelling/describing attributes to the reference.
+	 * When rendered `asLabel`, it will use `aria-labelledby`. Otherwise, it will
+	 * use `aria-describedby`.
 	 */
-	React.useLayoutEffect(() => {
+	React.useEffect(() => {
 		if (reference && reference instanceof Element) {
-			const currentRefs = reference.getAttribute(ariaAttribute);
-			if (currentRefs && !currentRefs.split(/\s+/g).includes(id)) return;
-			const currentLabel = reference.getAttribute('aria-label');
-			if (open) {
-				reference.setAttribute(ariaAttribute, id);
-				reference.removeAttribute('aria-label');
+			if (asLabel) {
+				reference.setAttribute('aria-labelledby', ariaId);
 			} else {
-				reference.removeAttribute(ariaAttribute);
-				if (asLabel && children) {
-					reference.setAttribute('aria-label', currentLabel || innerText(children));
-				}
+				// aria-describedby can point to more than one id
+				const idArray = (reference.getAttribute('aria-describedby') || ariaId).split(/\s+/g);
+				if (!idArray.includes(ariaId)) idArray.push(ariaId);
+				reference.setAttribute('aria-describedby', idArray.join(' '));
 			}
 		}
-	}, [asLabel, children, id, open, reference, ariaAttribute]);
+	}, [asLabel, reference, ariaId]);
 
 	if (!children) return null;
 
 	return (
-		<BasePopper
-			aria-hidden="true"
-			className={classNames(baseName, className)}
-			role="tooltip"
-			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
-			placement={placement}
-			reference={reference}
-			isOpen={open}
-			id={id}
-			ref={setPopper}
-			{...props}
-		>
-			<div className={contentClass}>{ children }</div>
-			<div className={arrowClass} />
-		</BasePopper>
+		<>
+			{/* the tooltip is an affordance for sighted users only */}
+			<BasePopper
+				role="tooltip"
+				aria-hidden="true"
+				className={classNames(baseName, className)}
+				modifiers={[...(modifiers || []), offsetMod, arrowMod]}
+				placement={placement}
+				reference={reference}
+				isOpen={isOpen}
+				ref={setPopper}
+				{...props}
+			>
+				<div className={contentClass}>{ children }</div>
+				<div className={arrowClass} />
+			</BasePopper>
+			{/* a persistent, hidden div that is used for the accessible name or description */}
+			<div hidden aria-hidden="true" id={ariaId}>{ children }</div>
+		</>
 	);
 });
