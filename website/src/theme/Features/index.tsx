@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Icon, IconVariant } from '@wwnds/react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.scss';
 
 export interface FeatureCardProps extends React.HTMLAttributes<HTMLElement> {
@@ -30,15 +31,14 @@ export const FeatureCard = ({
 }: FeatureCardProps): JSX.Element => {
 	const [feature, setFeature] = React.useState<HTMLElement | null>(null);
 	const [link, setLink] = React.useState<HTMLAnchorElement | null>(null);
-	const href = useBaseUrl(hrefProp || (slug) ? basePath + slug : null);
-	const LinkTag = React.useMemo(() => ((href) ? 'a' : 'span'), [href]);
+	const href = useBaseUrl(hrefProp || (slug) ? basePath + slug : undefined);
 	const iconProps = React.useMemo(() => {
 		if (typeof icon === 'string') return { variant: icon };
 		if (typeof icon === 'object') return { icon };
 		return {};
 	}, [icon]);
 
-	const cardClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+	const cardClickHandler = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		if (!href) return;
 
 		// if something is selected in the feature, do nothing.
@@ -52,6 +52,24 @@ export const FeatureCard = ({
 		// otherwise, navigate to the href
 		window.location.href = href;
 	};
+
+	const Title = React.useCallback<React.FunctionComponent<React.HTMLProps<HTMLElement>>>(
+		({ children: content }) => {
+			if (href) {
+				return (
+					<Link
+						ref={setLink}
+						to={href}
+						className={styles.feature__link}
+					>
+						{ content }
+					</Link>
+				);
+			}
+			return <span className={styles.feature__link}>{ content }</span>;
+		},
+		[href],
+	);
 
 	return (
 		/*
@@ -71,21 +89,17 @@ export const FeatureCard = ({
 						<Icon {...iconProps} size={32} />
 					</span>
 				) }
-				<LinkTag
-					ref={setLink}
-					href={href}
-					className={styles.feature__link}
-				>
+				<Title>
 					{ title }
 					{ href && linkArrow && <Icon variant="arrow-right" className={styles.feature__arrow} /> }
-				</LinkTag>
+				</Title>
 			</div>
 			<div className={styles.feature__body}>{ children }</div>
 		</Tag>
 	);
 };
 
-export const FeatureImage = ({ src: srcProp, alt = '' }: React.HTMLAttributes<HTMLImageElement>): JSX.Element => {
+export const FeatureImage = ({ src: srcProp, alt = '' }: React.ImgHTMLAttributes<HTMLImageElement>): JSX.Element => {
 	const src = useBaseUrl(srcProp);
 
 	if (src) {
