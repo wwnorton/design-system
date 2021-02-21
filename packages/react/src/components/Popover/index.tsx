@@ -2,20 +2,56 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { BasePopper, BasePopperProps } from '../BasePopper';
-import { prefix } from '../../config';
-import { useForwardedRef, usePopperTriggers, useToken } from '../../hooks';
 import { Button, ButtonProps } from '../Button';
+import { prefix } from '../../config';
+import {
+	useForwardedRef, usePopperTriggers, useToken, UsePopperTriggersProps,
+} from '../../hooks';
 
-type PopoverPicks =
-	| 'placement'
-	| 'modifiers'
-	| 'strategy'
-	| 'onFirstUpdate'
-	| 'hideDelay';
+export interface PopoverProps extends
+	BasePopperProps,
+	Pick<UsePopperTriggersProps, 'hideDelay' | 'onRequestOpen' | 'onRequestClose'> {
+	/**
+	 * The name of the Modal dialog. Required for accessibility but can be
+	 * visually hidden with the `hideTitle` prop.
+	 */
+	title?: string;
+	/**
+	 * Indicates that the title should be visually hidden. It will still be
+	 * accessible to screen reader users.
+	 */
+	hideTitle?: boolean;
+	/**
+	 * Indicates that the built-in close button in the top right should not be
+	 * rendered.
+	 */
+	hideCloseButton?: boolean;
+	/**
+	 * A list of actions or React Fragment that will be set inside an action bar
+	 * at the bottom of the Modal dialog.
+	 */
+	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
+	/**
+	 * Callback function that is called after the popover opens. The default
+	 * function will focus the popover. Use this callback to focus something
+	 * else inside the popover.
+	 */
+	onOpen?: (
+		/** The popover HTML instance (the `[role="dialog"]` element). */
+		popoverElement: HTMLElement,
+	) => void;
+	/**
+	 * Callback function that is called after the popover closes. The default
+	 * function will focus the reference element that opened the popover.
+	 */
+	onClose?: (
+		/**
+		 * Whether the reference element should be focused on close. This will
+		 * be `true` unless the popover was closed as the result of an external click.
+		 */
+		shouldFocusReference: boolean,
+	) => void;
 
-export type PopoverCoreProps = Pick<PopoverProps, PopoverPicks>;
-
-export interface PopoverProps extends BasePopperProps {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** A className for the popover's header. Default will be `${baseName}__header`. */
@@ -39,49 +75,9 @@ export interface PopoverProps extends BasePopperProps {
 	actionBarClass?: string;
 	/** A className for the popover's arrow. Default will be `${baseName}__arrow`. */
 	arrowClass?: string;
-	/**
-	 * The time in milliseconds before the popover should disappear. Use this to
-	 * ensure that users can move their cursor from the reference to the popover
-	 * without it disappearing.
-	 */
-	hideDelay?: number;
-
-	/**
-	 * The name of the Modal dialog. Required for accessibility but can be
-	 * visually hidden with the `hideTitle` prop.
-	 */
-	title?: string;
-
-	/**
-	 * Indicates that the title should be visually hidden. It will still be
-	 * accessible to screen reader users.
-	 */
-	hideTitle?: boolean;
-
-	/**
-	 * Indicates that the built-in close button in the top right should not be
-	 * rendered.
-	 */
-	hideCloseButton?: boolean;
-
-	/**
-	 * A list of actions or React Fragment that will be set inside an action bar
-	 * at the bottom of the Modal dialog.
-	 */
-	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
-	/**
-	 * Callback function that is called when the Modal would like to close. This
-	 * will happen under the following conditions:
-	 * * if `closeOnBackdropClick` is `true` and the user clicks the backdrop.
-	 * * if `closeOnEscape` is `true` and the user presses `Escape`.
-	 * * if `hideCloseButton` is not `true` and the user clicks the close button.
-	 *
-	 * To close the Modal when `onRequestClose` triggers, simply update the
-	 * `isOpen` prop to `false`.
-	 */
-	onRequestClose?: () => void;
 }
 
+/** A popover is a non-modal dialog that points to a reference element. */
 export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	{
 		baseName = prefix('popover'),
@@ -103,6 +99,15 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		actions,
 		hideCloseButton,
 		onRequestClose,
+		onRequestOpen,
+		onClose = (shouldFocusReference) => {
+			if (shouldFocusReference && reference instanceof HTMLElement) {
+				reference.focus();
+			}
+		},
+		onOpen = (popper) => {
+			if (popper) popper.focus();
+		},
 		'aria-labelledby': ariaLabelledby,
 		'aria-label': ariaLabel,
 		...props
@@ -111,14 +116,26 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [offsetY] = useToken({ name: 'popover-offset-y', el: popper });
 	const { current: titleId } = React.useRef(uniqueId(`${baseName}-title-`));
-	const controlled = React.useMemo(() => isOpen !== undefined, [isOpen]);
+	const focusReferenceOnClose = React.useRef(true);
+	const prevOpen = React.useRef(isOpen);
 
-	const open = usePopperTriggers({
+	const close: PopoverProps['onRequestClose'] = React.useCallback((trigger) => {
+		focusReferenceOnClose.current = trigger !== 'click.external';
+		if (onRequestClose) onRequestClose(trigger);
+	}, [onRequestClose]);
+
+	const open: PopoverProps['onRequestOpen'] = (trigger) => {
+		if (onRequestOpen) onRequestOpen(trigger);
+	};
+
+	usePopperTriggers({
 		reference,
 		popper,
-		trigger: (controlled) ? 'manual' : 'click',
-		isOpen: isOpen || false,
+		trigger: 'click',
+		isOpen,
 		hideDelay,
+		onRequestClose: close,
+		onRequestOpen: open,
 	});
 
 	const offsetMod = React.useMemo(() => {
@@ -151,7 +168,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 						icon="close"
 						iconOnly
 						className={closeButtonClass}
-						onClick={onRequestClose}
+						onClick={() => close('click.internal')}
 					>
 						Close
 					</Button>
@@ -161,7 +178,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	}, [
 		headerClass,
 		title, titleClass, titleId, hideTitle,
-		onRequestClose, closeButtonClass, hideCloseButton,
+		close, closeButtonClass, hideCloseButton,
 	]);
 
 	const ActionBar = React.useMemo(() => {
@@ -173,14 +190,18 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		);
 	}, [actions, actionBarClass]);
 
-	// manage focus on open/close
-	React.useLayoutEffect(() => {
-		if (isOpen) {
-			if (popper) popper.focus();
-		} else if (reference && reference instanceof HTMLElement) {
-			reference.focus();
+	// call the onOpen/onClose callbacks
+	React.useEffect(() => {
+		if (!prevOpen.current && isOpen && popper) {
+			onOpen(popper);
+			prevOpen.current = true;
 		}
-	}, [isOpen, popper, reference]);
+
+		if (prevOpen.current && !isOpen) {
+			onClose(focusReferenceOnClose.current);
+			prevOpen.current = false;
+		}
+	}, [isOpen, popper, reference, onOpen, onClose]);
 
 	const accessibleName = React.useMemo(() => {
 		// 1. use the explicit aria-labelledby prop
@@ -205,7 +226,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
 			placement={placement}
 			reference={reference}
-			isOpen={open}
+			isOpen={isOpen}
 			ref={setPopper}
 			{...props}
 		>
