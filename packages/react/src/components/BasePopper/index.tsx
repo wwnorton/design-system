@@ -1,18 +1,13 @@
 import React from 'react';
 import { useForwardedRef, usePopper } from '../../hooks';
-import { PopperOptions, Instance, VirtualElement } from '../../types/popper';
+import { PopperOptions, Instance, PopperCoreProps } from '../../types/popper';
 
-export interface BasePopperProps extends React.HTMLAttributes<HTMLElement>, Partial<PopperOptions> {
+export interface BasePopperProps extends
+	React.HTMLAttributes<HTMLElement>, Pick<PopperCoreProps, 'reference'>, Partial<PopperOptions> {
 	/** Indicates whether the popper is rendered or not. */
 	isOpen?: boolean;
 	/** The outer HTML element name. Default is `div`. */
 	tagName?: 'div' | 'section' | 'ul' | 'ol' | 'dl';
-	/**
-	 * The reference element that the popper will be attached to.
-	 *
-	 * Reference: [Popper - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
-	 */
-	reference?: Element | VirtualElement | null;
 	/**
 	 * A callback that provides access to the Popper instance.
 	 *
