@@ -3,28 +3,14 @@ import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { BasePopper, BasePopperProps } from '../BasePopper';
 import { prefix } from '../../config';
-import { innerText } from '../../utilities';
-import { useForwardedRef, usePopperTriggers, useToken } from '../../hooks';
+import {
+	useForwardedRef, usePopperTriggers, UsePopperTriggersProps, useToken,
+} from '../../hooks';
+import { PopperOptions } from '../../types/popper';
 
-export type Triggers =
-	| 'click'
-	| 'focus'
-	| 'focusin'
-	| 'manual'
-	| 'mouseenter'
-	| 'pointerenter'
-
-type TooltipPicks =
-	| 'placement'
-	| 'modifiers'
-	| 'strategy'
-	| 'onFirstUpdate'
-	| 'hideDelay'
-	| 'trigger'
-
-export type TooltipCoreProps = Pick<TooltipProps, TooltipPicks>;
-
-export interface TooltipProps extends BasePopperProps {
+export interface TooltipProps extends
+	BasePopperProps,
+	Partial<Pick<UsePopperTriggersProps, 'hideDelay'>> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** A className to apply to the content. Default will be `${baseName}__content`. */
@@ -40,19 +26,19 @@ export interface TooltipProps extends BasePopperProps {
 	 */
 	asLabel?: boolean;
 	/**
-	 * A string of space-separated triggers. Options include `click`, `focus`,
-	 * `focusin`, `mouseenter`, `pointerenter`, and `manual`. When `manual` is
-	 * included anywhere in the string, the tooltip's visibility must be
-	 * controlled via `isOpen`. Default is `"focus pointerenter"`.
+	 * A space-separated string of events. Triggers can be any combination of the
+	 * following:
+	 * - `click`
+	 * - `focus`
+	 * - `focusin`
+	 * - `mouseenter`
+	 * - `pointerenter`
+	 * - `manual`
 	 */
 	trigger?: string;
-	/**
-	 * The time in milliseconds before the tooltip should disappear. Use this to
-	 * ensure that users can move their cursor from the reference to the tooltip
-	 * without it disappearing.
-	 */
-	hideDelay?: number;
 }
+
+export type TooltipCoreProps = PopperOptions & Pick<UsePopperTriggersProps, 'hideDelay' | 'trigger'>;
 
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	{
@@ -65,8 +51,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		trigger = 'focus pointerenter',
 		hideDelay = 200,
 		reference,
-		isOpen = false,
-		id: userId,
+		isOpen: propOpen,
 		children,
 		className,
 		...props
@@ -74,9 +59,21 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [offsetY] = useToken({ name: 'tooltip-offset-y', el: popper });
-	const { current: id } = React.useRef(userId || uniqueId(`${baseName}-`));
-	const open = usePopperTriggers({
-		reference, popper, trigger, isOpen, hideDelay,
+	const { current: ariaId } = React.useRef(uniqueId(`${baseName}-`));
+	const [isOpen, setIsOpen] = React.useState(propOpen || false);
+
+	React.useEffect(() => {
+		if (propOpen !== undefined) setIsOpen(propOpen);
+	}, [propOpen]);
+
+	usePopperTriggers({
+		reference,
+		popper,
+		trigger,
+		isOpen,
+		hideDelay,
+		onRequestClose: () => !trigger.includes('manual') && setIsOpen(false),
+		onRequestOpen: () => !trigger.includes('manual') && setIsOpen(true),
 	});
 
 	const offsetMod = React.useMemo(() => {
