@@ -5,7 +5,7 @@ export interface BaseDialogProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const BaseDialog = React.forwardRef<HTMLDivElement, BaseDialogProps>(({
-	modal = true,
+	modal,
 	children,
 	...attributes
 }: BaseDialogProps, ref) => (
