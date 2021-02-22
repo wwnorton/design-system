@@ -51,10 +51,25 @@ In order to facilitate composition, components seek to do one thing well and be 
 	>
 		A modal presents important information or simple tasks to the user in an overlay.
 	</FeatureCard>
+	<FeatureCard title="Popover" slug="popover"
+		media={<FeatureImage />}
+	>
+		A popover allows the user to reveal more information or non-critical tasks in an overlay.
+	</FeatureCard>
+	<FeatureCard title="Progress Bar" slug="progress-bar"
+		media={<FeatureImage />}
+	>
+		A progress bar lets the user know that something is processing or progressing.
+	</FeatureCard>
 	<FeatureCard title="Radio Group" slug="radio-group"
 		media={<FeatureImage />}
 	>
 		A radio group allows the user to select one option from a set of related options.
+	</FeatureCard>
+	<FeatureCard title="Spinner" slug="spinner"
+		media={<FeatureImage />}
+	>
+		A spinner lets the user know that something is processing or progressing.
 	</FeatureCard>
 	<FeatureCard title="Switch" slug="switch"
 		media={<FeatureImage />}
