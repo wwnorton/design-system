@@ -169,6 +169,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 						iconOnly
 						className={closeButtonClass}
 						onClick={() => close('click.internal')}
+						tooltipProps={{ placement: 'left' }}
 					>
 						Close
 					</Button>
