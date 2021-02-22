@@ -257,7 +257,7 @@ export const Dropdown: DropdownType = ({
 	// focus the button when focus should return to it
 	React.useEffect(() => {
 		if (!open && shouldReturnFocus && button !== null) {
-			button.focus();
+			window.requestAnimationFrame(() => button.focus());
 			setShouldReturnFocus(false);
 		}
 	}, [button, open, shouldReturnFocus]);
@@ -338,6 +338,8 @@ export const Dropdown: DropdownType = ({
 					className={listboxClass}
 					aria-labelledby={labelId}
 					optionClass={optionClass}
+					markerClass={`${optionClass}-marker`}
+					contentsClass={`${optionClass}-label`}
 					onChange={changeHandler}
 					ref={setListbox}
 				>
