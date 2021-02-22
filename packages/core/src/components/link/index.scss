@@ -16,6 +16,23 @@
 	--nds-link-visited-color: #{tokens.$visited-color};
 	--nds-link-visited-hover-color: #{tokens.$visited-hover-color};
 	--nds-link-visited-active-color: #{tokens.$visited-active-color};
+
+	@if config.$enable-dark-scheme {
+		@media screen and (prefers-color-scheme: 'dark') {
+			--nds-link-hover-color: #{tokens.$hover-color-dark};
+			--nds-link-active-color: #{tokens.$active-color-dark};
+		}
+
+		[data-color-scheme='dark'] & {
+			--nds-link-hover-color: #{tokens.$hover-color-dark};
+			--nds-link-active-color: #{tokens.$active-color-dark};
+		}
+
+		[data-color-scheme='light'] & {
+			--nds-link-hover-color: #{tokens.$hover-color};
+			--nds-link-active-color: #{tokens.$active-color};
+		}
+	}
 }
 
 @mixin base {
