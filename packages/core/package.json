@@ -26,7 +26,8 @@
     "HonChih Chen <hchen@wwnorton.com>",
     "Darian Trama <dtrama@wwnorton.com>",
     "Kellie Porter <kporter@wwnorton.com>",
-    "Anand Patil <apatil@wwnorton.com>"
+    "Anand Patil <apatil@wwnorton.com>",
+    "Jonathan Chan <jchan@wwnorton.com>"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",

@@ -21,7 +21,8 @@
   "contributors": [
     "Gabriel Rumbaut <grumbaut@wwnorton.com>",
     "HonChih Chen <hchen@wwnorton.com>",
-    "Anand Patil <apatil@wwnorton.com>"
+    "Anand Patil <apatil@wwnorton.com>",
+    "Jonathan Chan <jchan@wwnorton.com>"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",
