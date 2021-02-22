@@ -84,16 +84,15 @@
 	&:hover:focus {
 		background-color: var(--nds-dropdown-option-hover-focus-color);
 	}
-}
 
-&:not(:disabled):not([aria-disabled='true']):hover {
-	background-color: var(--nds-dropdown-option-hover-color);
-}
+	&:not(:disabled):not([aria-disabled='true']):hover {
+		background-color: var(--nds-dropdown-option-hover-color);
+	}
 
-&[aria-disabled='true'] {
-	color: var(--nds-subdued-color);
-	// pointer-events: none;
-	cursor: not-allowed;
+	&[aria-disabled='true'] {
+		color: var(--nds-subdued-color);
+		cursor: not-allowed;
+	}
 }
 
 @mixin listbox-option-marker {
