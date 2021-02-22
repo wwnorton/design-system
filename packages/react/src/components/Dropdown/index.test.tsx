@@ -194,3 +194,25 @@ test('descending sort renders options from Z to A', (t) => {
 		t.is(option.textContent, sorted[i]);
 	});
 });
+
+test('a disabled option cannot be selected', (t) => {
+	const OPTION_INDEX = 1;
+	render((
+		<Dropdown label={label} isOpen>
+			<Dropdown.Option value="1">First</Dropdown.Option>
+			<Dropdown.Option value="2" disabled>Second</Dropdown.Option>
+			<Dropdown.Option value="3">Third</Dropdown.Option>
+		</Dropdown>
+	));
+	const target = screen.queryAllByRole('option')[OPTION_INDEX];
+
+	fireEvent.click(target);
+	t.not(screen.getByRole('button').textContent, target.textContent);
+	t.truthy(screen.queryByRole('listbox'));
+});
+
+test('a dropdown is closed when it is disabled', (t) => {
+	const { rerender } = render(<Dropdown {...defaultProps} isOpen />);
+	rerender(<Dropdown {...defaultProps} isOpen disabled />);
+	t.falsy(screen.queryByRole('listbox'));
+});
