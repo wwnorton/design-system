@@ -11,6 +11,10 @@
 @use '../../util';
 
 @mixin base {
+	@include util.set(
+		$nds-button-color: color.family('button-color', tokens.$color, tokens.$grade),
+	);
+
 	--nds-button-border-width: #{tokens.$border-width};
 	--nds-button-padding-x: #{tokens.$padding-x};
 	--nds-button-padding-y: #{tokens.$padding-y};
@@ -26,9 +30,6 @@
 	justify-content: center;
 	align-items: center;
 
-	@include util.set(
-		$nds-button-color: color.family('button-color', tokens.$color, tokens.$grade),
-	);
 	@include type.ui-base;
 
 	&:disabled,

@@ -93,7 +93,7 @@
 @mixin title {
 	@include type.heading-4;
 
-	margin: 0;	// stylelint-disable-line order/order
+	margin: 0;
 
 	&:not(:last-child) {
 		padding-right: calc(var(--nds-modal-padding-x) / 2);
