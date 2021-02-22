@@ -122,3 +122,11 @@
 	background-color: var(--nds-background-color);
 	border-radius: var(--nds-radius-base);
 }
+
+.navbar__brand:focus {
+	box-shadow: none;
+}
+
+.navbar__brand:focus-visible {
+	color: var(--nds-focus-color);
+}

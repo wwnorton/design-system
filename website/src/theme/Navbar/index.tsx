@@ -18,7 +18,7 @@ import useThemeContext from '@theme/hooks/useThemeContext';
 import useHideableNavbar from '@theme/hooks/useHideableNavbar';
 import useLockBodyScroll from '@theme/hooks/useLockBodyScroll';
 import useWindowSize, { windowSizes } from '@theme/hooks/useWindowSize';
-import useLogo from '@theme/hooks/useLogo';
+import Logo from '@theme/Logo';
 import NavbarItem from '@theme/NavbarItem'; // retrocompatible with v1
 import { Seagull } from '../Seagull';
 import styles from './styles.module.css';
@@ -53,7 +53,7 @@ const Navbar = (): JSX.Element => {
 	const { setLightTheme, setDarkTheme } = useThemeContext();
 	const { isDark, setLight, setDark } = useColorScheme();
 	const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
-	const { logoLink, logoLinkProps } = useLogo();
+	// const { logoLink, logoLinkProps } = useLogo();
 	useLockBodyScroll(sidebarShown);
 	const showSidebar = useCallback(() => {
 		setSidebarShown(true);
@@ -118,18 +118,11 @@ const Navbar = (): JSX.Element => {
 							</svg>
 						</div>
 					)}
-					<Link className="navbar__brand" to={logoLink} {...logoLinkProps}>
-						<Seagull className="navbar__logo" />
-						{title != null && (
-							<strong
-								className={clsx('navbar__title', {
-									[styles.hideLogoText]: isSearchBarExpanded,
-								})}
-							>
-								{title}
-							</strong>
-						)}
-					</Link>
+					<Logo
+						className="navbar__brand"
+						imageClassName="navbar__logo"
+						titleClassName={clsx('navbar__title')}
+					/>
 					{leftItems.map((item, i) => (
 						<NavbarItem {...item} key={i} />
 					))}
@@ -171,17 +164,12 @@ const Navbar = (): JSX.Element => {
 			/>
 			<div className="navbar-sidebar">
 				<div className="navbar-sidebar__brand">
-					<Link
+					<Logo
 						className="navbar__brand"
+						imageClassName="navbar__logo"
+						titleClassName="navbar__title"
 						onClick={hideSidebar}
-						to={logoLink}
-						{...logoLinkProps}
-					>
-						<Seagull className="navbar__logo" />
-						{title != null && (
-							<strong className="navbar__title">{title}</strong>
-						)}
-					</Link>
+					/>
 					{!disableColorModeSwitch && sidebarShown && (
 						<Switch
 							label="Dark mode toggle in sidebar"
