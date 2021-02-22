@@ -38,6 +38,8 @@ export interface DisclosureProps extends Omit<BaseDetailsProps, 'open'> {
 	marker?: IconVariant | SVGIcon | null | ((panel?: boolean) => IconVariant | SVGIcon | null);
 	/** The position of the marker. `right` when `panel={true}` and `left` otherwise. */
 	markerPosition?: 'left' | 'right' | null | ((panel?: boolean) => 'left' | 'right' | null);
+	/** How the marker should move when it opens. Default is `"rotate-90"`. */
+	markerTransform?: 'rotate-90' | 'flip-3d' | 'none';
 	/** Used to set the initial open state or fully control it. */
 	isOpen?: boolean;
 	/**
@@ -46,6 +48,7 @@ export interface DisclosureProps extends Omit<BaseDetailsProps, 'open'> {
 	 *
 	 * - The default `marker` will be `chevron-down`
 	 * - The default `markerPosition` will be `right`
+	 * - The default `markerTransform` will be `flip-3d`
 	 * - The disclosure will be given the `nds-disclosure--panel` modifier class
 	 */
 	panel?: boolean;
@@ -110,6 +113,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 			if (p) return 'right';
 			return 'left';
 		},
+		markerTransform,
 		panel,
 
 		className,
@@ -133,6 +137,10 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 	const [state, setState] = React.useState<'opening' | 'closing'>();
 	const [style, setStyle] = React.useState<React.CSSProperties>();
 	const [contents, setContents] = React.useState<HTMLDivElement | null>(null);
+	const transform = React.useMemo<typeof markerTransform>(() => {
+		if (markerTransform) return markerTransform;
+		return (panel) ? 'flip-3d' : 'rotate-90';
+	}, [markerTransform, panel]);
 
 	const shouldAnimate = React.useMemo(() => {
 		if (reducedMotion) return false;
@@ -222,20 +230,27 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		}
 	}, [state, height, shouldAnimate]);
 
-	const getMarker = React.useCallback((
+	const getMarkerIcon = React.useCallback((
 		m: typeof marker,
 	): Pick<IconProps, 'variant' | 'icon'> | undefined => {
 		if (!m) return undefined;
 		if (typeof m === 'string') return { variant: m };
-		if (typeof m === 'function') return getMarker(m(panel));
+		if (typeof m === 'function') return getMarkerIcon(m(panel));
 		return { icon: m };
 	}, [panel]);
 
 	const Marker = React.useMemo(() => {
 		if (!marker) return undefined;
-		const markerProps = getMarker(marker);
-		return <Icon {...markerProps} className={markerClass} />;
-	}, [marker, markerClass, getMarker]);
+		const iconProps = getMarkerIcon(marker);
+		return (
+			<span className={markerClass}>
+				<Icon
+					{...iconProps}
+					data-transform={transform}
+				/>
+			</span>
+		);
+	}, [marker, markerClass, transform, getMarkerIcon]);
 
 	const markerPos = React.useMemo(() => {
 		if (!markerPosition) return undefined;
@@ -263,7 +278,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 				onClick={summaryClickHandler}
 				markerPosition={markerPos}
 			>
-				<span>{ summary }</span>
+				<div className={`${baseName}__title`}>{ summary }</div>
 			</BaseSummary>
 			{ isOpen && (
 				<div
