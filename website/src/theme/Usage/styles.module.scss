@@ -1,0 +1,20 @@
+@use '../../scss/nds';
+
+.usage {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: var(--nds-spacing-3);
+	grid-auto-rows: max-content;
+	grid-area: content;
+	margin-bottom: var(--nds-spacing-6);
+}
+
+.usage__good,
+.usage__bad {
+	grid-column: span 6;
+	margin-bottom: 0;
+}
+
+.usage__why {
+	grid-column: span 12;
+}
