@@ -11,11 +11,22 @@ import { prefix } from '../../config';
 
 export interface ChoiceFieldProps
 	extends FieldInfoCoreProps, FieldFeedbackCoreProps, React.HTMLAttributes<HTMLFieldSetElement> {
+	/**
+	 * Text that conveys how the choices are related and prompts the user to choose
+	 * one or more choice.
+	 */
 	label: React.ReactNode;
+	/** Whether the field is multi-select or single-select. */
 	multiple?: boolean;
+	/** The name that will be assigned to all child `<input>` elements. */
 	name?: string;
+	/** The name that will be assigned to the parent `<fieldset>`. */
+	fieldName?: string;
+	/** The base class name according to BEM conventions. */
 	baseName?: string;
+	/** The class name that will be used on all Choice elements.  */
 	choiceClass?: string;
+	/** Indicates whether a selection must be made or not. */
 	required?: boolean;
 	/** Indicates that the indicator should be "required" when `required=true`. */
 	requiredIndicator?: boolean;
@@ -36,6 +47,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 	optionalIndicator,
 	requiredIndicator,
 	name,
+	fieldName,
 
 	// anatomy
 	label,
@@ -113,7 +125,13 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 	const ChoiceElements = React.useMemo(() => childMap(childrenProp), [childrenProp, childMap]);
 
 	return (
-		<fieldset ref={ref} className={className} onChange={onChange} {...fieldsetProps}>
+		<fieldset
+			ref={ref}
+			className={className}
+			name={fieldName}
+			onChange={onChange}
+			{...fieldsetProps}
+		>
 			<FieldInfo
 				label={label}
 				labelClass={labelClass}
