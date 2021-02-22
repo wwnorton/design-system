@@ -45,11 +45,16 @@ import { PropsTable } from '../../src/theme/PropsTable';
 
 ## React API
 
+We expose two components for the dropdown API: the [Dropdown](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Dropdown)
+and the Option, which uses the [BaseOption](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/BaseOption).
+
 ```js
 import { Dropdown, Option } from '@wwnds/react';
 ```
 
 ### Dropdown
+
+The `Dropdown` component does not expose a `ref` or extend a full DOM interface.
 
 ```jsx live
 <Dropdown label="Choose a sitcom" sort="ascending">
@@ -59,7 +64,7 @@ import { Dropdown, Option } from '@wwnds/react';
 	<Dropdown.Option>Parks and Recreation</Dropdown.Option>
 	<Dropdown.Option>How I Met Your Mother</Dropdown.Option>
 	<Dropdown.Option>Modern Family</Dropdown.Option>
-	<Dropdown.Option>The Big Bang Theory</Dropdown.Option>
+	<Dropdown.Option disabled>The Big Bang Theory</Dropdown.Option>
 	<Dropdown.Option>Arrested Development</Dropdown.Option>
 </Dropdown>
 ```
@@ -67,6 +72,8 @@ import { Dropdown, Option } from '@wwnds/react';
 <PropsTable from={Dropdown} />
 
 ### Option
+
+The `Option` component extends the `React.LiHTMLAttributes<HTMLLIElement>` interface, and uses the [ARIA option role](https://www.w3.org/TR/wai-aria/#option).
 
 Note that the `Dropdown` also exposes the `Option` as a static member (`Dropdown.Option`) for your convenience.
 
