@@ -115,3 +115,10 @@
 .code-wrap {
 	white-space: initial !important;
 }
+
+.callout__example {
+	padding: var(--nds-spacing-3);
+	margin-bottom: var(--nds-spacing-3);
+	background-color: var(--nds-background-color);
+	border-radius: var(--nds-radius-base);
+}

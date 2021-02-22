@@ -141,7 +141,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	const offsetMod = React.useMemo(() => {
 		let y: number;
 		if (typeof offsetY === 'string') y = parseInt(offsetY, 10);
-		else if (offsetY === null) y = 6;
+		else if (offsetY === null) y = 8;
 		else y = offsetY;
 		return {
 			name: 'offset',
@@ -169,6 +169,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 						iconOnly
 						className={closeButtonClass}
 						onClick={() => close('click.internal')}
+						tooltipProps={{ placement: 'left' }}
 					>
 						Close
 					</Button>

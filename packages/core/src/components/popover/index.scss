@@ -1,5 +1,6 @@
 @forward 'tokens';
 @use 'tokens';
+@use '../../config';
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
@@ -64,19 +65,40 @@
 }
 
 @mixin close-button {
+	--nds-button-hover-bg: var(--nds-base-color-10);
+	--nds-button-active-bg: var(--nds-base-color-20);
+
 	position: absolute;
 	top: calc(var(--nds-popover-padding-y) - var(--nds-button-padding-y) * 2);
 	right: calc(var(--nds-popover-padding-x) - var(--nds-button-padding-x) + var(--nds-button-border-width) * 2);
+	color: var(--nds-text-color);
 	background-color: transparent;
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled).hover {
-		background-color: var(--nds-base-color-10);
+		background-color: var(--nds-button-hover-bg);
 	}
 
 	&:not(:disabled):not(.disabled):active,
 	&:not(:disabled):not(.disabled).active {
-		background-color: var(--nds-base-color-20);
+		background-color: var(--nds-button-active-bg);
+	}
+
+	@if config.$enable-dark-scheme {
+		@media screen and (prefers-color-scheme: 'dark') {
+			--nds-button-hover-bg: var(--nds-base-color-20);
+			--nds-button-active-bg: var(--nds-base-color-30);
+		}
+
+		[data-color-scheme='dark'] & {
+			--nds-button-hover-bg: var(--nds-base-color-20);
+			--nds-button-active-bg: var(--nds-base-color-30);
+		}
+
+		[data-color-scheme='light'] & {
+			--nds-button-hover-bg: var(--nds-base-color-10);
+			--nds-button-active-bg: var(--nds-base-color-20);
+		}
 	}
 }
 
@@ -119,7 +141,7 @@
 		bottom: calc(-1 * var(--nds-popover-arrow-border) + var(--nds-popover-border-width));
 		left: 0;
 		border-width: var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) 0;
-		border-top-color: var(--nds-white);
+		border-top-color: var(--nds-background-color);
 		transform-origin: center top;
 	}
 
@@ -137,7 +159,7 @@
 	&::before {
 		left: calc(-1 * var(--nds-popover-arrow-border) + var(--nds-popover-border-width));
 		border-width: var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) var(--nds-popover-arrow-border) 0;
-		border-right-color: var(--nds-white);
+		border-right-color: var(--nds-background-color);
 		transform-origin: center right;
 	}
 
@@ -156,7 +178,7 @@
 		top: calc(-1 * var(--nds-popover-arrow-border) + var(--nds-popover-border-width));
 		left: 0;
 		border-width: 0 var(--nds-popover-arrow-border) var(--nds-popover-arrow-border);
-		border-bottom-color: var(--nds-white);
+		border-bottom-color: var(--nds-background-color);
 		transform-origin: center bottom;
 	}
 
@@ -174,7 +196,7 @@
 	&::before {
 		right: calc(-1 * var(--nds-popover-arrow-border) + var(--nds-popover-border-width));
 		border-width: var(--nds-popover-arrow-border) 0 var(--nds-popover-arrow-border) var(--nds-popover-arrow-border);
-		border-left-color: var(--nds-white);
+		border-left-color: var(--nds-background-color);
 		transform-origin: center left;
 	}
 

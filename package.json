@@ -18,6 +18,7 @@
     "clean": "gulp clean",
     "coverage": "nyc --reporter=html --reporter=json --reporter=text npm run test -- --verbose",
     "dev:docs": "lerna exec --scope=website -- npm start",
+    "dev:docs-full": "npm run build:sassdoc -- --dest website/static/sassdoc & npm run build:stories -- -- --output-dir ../../website/static/storybook && npm run dev:docs",
     "dev:react": "npm run storybook",
     "lint": "npm run lint:es && npm run lint:prettier && npm run lint:style",
     "lint:es": "eslint '**/*.{js,jsx,ts,tsx}' --ignore-path .gitignore",
