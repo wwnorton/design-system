@@ -32,7 +32,7 @@ export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'chil
 	 * Tooltip props that should be included when the switch's label is rendered
 	 * as a tooltip.
 	 */
-	tooltipProps?: TooltipCoreProps;
+	tooltipProps?: Partial<TooltipCoreProps>;
 }
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((

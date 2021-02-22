@@ -51,7 +51,7 @@ export interface ButtonProps extends BaseButtonProps {
 	 * Tooltip props that should be included when the button's children are
 	 * rendered as a tooltip.
 	 */
-	tooltipProps?: TooltipCoreProps;
+	tooltipProps?: Partial<TooltipCoreProps>;
 }
 
 /** A button allows a user to perform an action. */

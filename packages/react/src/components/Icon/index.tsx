@@ -31,7 +31,7 @@ export interface IconProps extends BaseSVGProps {
 	 * Tooltip props that should be included when the icon's children are
 	 * rendered as a tooltip.
 	 */
-	tooltipProps?: TooltipCoreProps;
+	tooltipProps?: Partial<TooltipCoreProps>;
 }
 
 /**
