@@ -50,7 +50,7 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ],
-    "*": [
+    "!(yarn.lock)": [
       "cspell"
     ]
   },
