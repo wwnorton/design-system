@@ -102,15 +102,12 @@
 }
 
 @mixin icon {
+	display: inline-flex;
 	width: var(--nds-callout-icon-size);
 	height: var(--nds-callout-icon-size);
 	margin-right: spacing.spacer('0.75rem');
 	color: var(--nds-callout-icon-color);
 	flex-grow: 0;
-
-	svg {
-		vertical-align: text-bottom;
-	}
 }
 
 @mixin title {
