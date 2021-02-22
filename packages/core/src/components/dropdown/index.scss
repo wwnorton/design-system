@@ -16,7 +16,6 @@
 	--nds-dropdown-option-padding-x: #{tokens.$option-padding-x};
 	--nds-dropdown-option-font-size: #{tokens.$option-font-size};
 	--nds-dropdown-option-line-height: #{tokens.$option-line-height};
-	--nds-dropdown-option-padding-left: #{tokens.$option-padding-left};
 	--nds-dropdown-option-icon-padding-x: #{tokens.$option-icon-padding-x};
 	--nds-dropdown-option-icon-size: #{tokens.$option-icon-size};
 
@@ -24,13 +23,13 @@
 }
 
 @mixin button {
-	font-weight: var(--nds-font-weight-base);
-	color: var(--nds-text-color);
-	justify-content: space-between;
-
 	@include util.set((
 		--nds-button-color: color.family('button-color', 'base-color'),
 	));
+
+	font-weight: var(--nds-font-weight-base);
+	color: var(--nds-text-color);
+	justify-content: space-between;
 
 	.nds-icon > path {
 		transition: transform var(--nds-duration-expand) var(--nds-easing-standard);
@@ -70,17 +69,12 @@
 	padding-top: var(--nds-dropdown-option-padding-y);
 	padding-right: var(--nds-dropdown-option-padding-x);
 	padding-bottom: var(--nds-dropdown-option-padding-y);
-	padding-left: var(--nds-dropdown-option-padding-left);
 	font-size: var(--nds-dropdown-option-font-size);
 	line-height: var(--nds-dropdown-option-line-height);
 	cursor: default;
 	outline: none;
 	user-select: none;
 	align-items: center;
-
-	&:hover {
-		background-color: var(--nds-dropdown-option-hover-color);
-	}
 
 	&:focus {
 		background-color: var(--nds-dropdown-option-focus-color);
@@ -90,12 +84,26 @@
 	&:hover:focus {
 		background-color: var(--nds-dropdown-option-hover-focus-color);
 	}
+}
 
-	> .nds-icon {
-		min-width: var(--nds-dropdown-option-icon-size);
-		max-width: var(--nds-dropdown-option-icon-size);
-		padding: 0 var(--nds-dropdown-option-icon-padding-x);
-		margin-left: calc(-1 * var(--nds-dropdown-option-padding-left));
+&:not(:disabled):not([aria-disabled='true']):hover {
+	background-color: var(--nds-dropdown-option-hover-color);
+}
+
+&[aria-disabled='true'] {
+	color: var(--nds-subdued-color);
+	// pointer-events: none;
+	cursor: not-allowed;
+}
+
+@mixin listbox-option-marker {
+	display: inline-flex;
+	padding: 0 0.25rem;
+	color: transparent;
+
+	[aria-selected='true'] &,
+	[aria-disabled='true'] & {
+		color: inherit;
 	}
 }
 
@@ -115,6 +123,10 @@
 
 		.nds-dropdown__option {
 			@include listbox-option;
+		}
+
+		.nds-dropdown__option-marker {
+			@include listbox-option-marker;
 		}
 	}
 }

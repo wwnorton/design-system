@@ -9,6 +9,8 @@ export interface BaseOptionProps extends React.LiHTMLAttributes<HTMLLIElement> {
 	value?: React.ReactText;
 	/** Indicates whether the option is currently selected. */
 	isSelected?: boolean;
+	/** Indicates that the option should be disabled. */
+	disabled?: boolean;
 	/** The class name for the selection marker. */
 	markerClass?: string;
 	/** The class name for the contents of the option. */
@@ -24,6 +26,7 @@ export interface BaseOptionProps extends React.LiHTMLAttributes<HTMLLIElement> {
  */
 export const BaseOption = React.forwardRef<HTMLLIElement, BaseOptionProps>(({
 	isSelected = false,
+	disabled,
 	children,
 	markerClass,
 	contentsClass,
@@ -33,10 +36,18 @@ export const BaseOption = React.forwardRef<HTMLLIElement, BaseOptionProps>(({
 	<li
 		role="option"
 		aria-selected={(isSelected) ? 'true' : undefined}
+		aria-disabled={disabled}
 		ref={ref}
 		{...attributes}
 	>
-		{ isSelected && <Icon variant="check" className={markerClass} aria-label="Check" /> }
+		<span className={markerClass} aria-hidden={!isSelected}>
+			<Icon
+				variant={(disabled) ? 'close' : 'check'}
+				className={markerClass}
+				aria-label={(disabled) ? 'Disabled' : 'Check'}
+				size="0.875em"
+			/>
+		</span>
 		<span className={contentsClass}>{ children || value }</span>
 	</li>
 ));

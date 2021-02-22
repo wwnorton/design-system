@@ -11,6 +11,5 @@ $option-padding-y: spacing.spacer('button-y');
 $option-padding-x: spacing.spacer('dropdown-x');
 $option-font-size: 1rem;
 $option-line-height: type.lh('ui');
-$option-padding-left: calc(var(--nds-dropdown-option-icon-size) + var(--nds-dropdown-option-padding-x));
 $option-icon-padding-x: calc(var(--nds-dropdown-option-padding-x) / 2);
 $option-icon-size: 0.75em;

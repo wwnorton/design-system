@@ -127,8 +127,8 @@ export const BaseListbox = React.forwardRef(({
 	const optionRefs = React.useRef<(HTMLLIElement | null)[]>([]);
 
 	/** Request select and focus the requested option on click. */
-	const onClick = ({ value, contents }: OnChangeData) => (): void => {
-		if (onChange) {
+	const onClick = ({ value, contents }: OnChangeData, disabled?: boolean) => (): void => {
+		if (onChange && !disabled) {
 			onChange({ value, contents });
 		}
 
@@ -157,7 +157,7 @@ export const BaseListbox = React.forwardRef(({
 		}
 
 		// Request selection on Enter
-		if (e.key === 'Enter' && onChange) {
+		if (e.key === 'Enter' && e.currentTarget.getAttribute('aria-disabled') !== 'true' && onChange) {
 			onChange(payload);
 		}
 	};
@@ -166,14 +166,14 @@ export const BaseListbox = React.forwardRef(({
 	const onKeyUp = (payload: OnChangeData) => (
 		e: React.KeyboardEvent<HTMLLIElement>,
 	): void => {
-		if (e.key === ' ' && onChange) {
+		if (e.key === ' ' && e.currentTarget.getAttribute('aria-disabled') !== 'true' && onChange) {
 			onChange(payload);
 		}
 	};
 
 	/** The map of `BaseOption` components that will be rendered. */
 	const Options: JSX.Element[] = childrenProps.map((props, i) => {
-		const { children: contents } = props;
+		const { children: contents, disabled } = props;
 		const value = props.value as React.ReactText;
 		return (
 			<BaseListbox.Option
@@ -181,9 +181,10 @@ export const BaseListbox = React.forwardRef(({
 				className={optionClass}
 				markerClass={markerClass}
 				contentsClass={contentsClass}
+				disabled={disabled}
 				isSelected={selected.includes(value as React.ReactText)}
 				tabIndex={(i === focused) ? 0 : -1}
-				onClick={onClick({ value, contents })}
+				onClick={onClick({ value, contents }, disabled)}
 				onKeyDown={onKeyDown({ value, contents })}
 				onKeyUp={onKeyUp({ value, contents })}
 				ref={(item): void => {
