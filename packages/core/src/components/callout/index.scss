@@ -35,6 +35,8 @@
 }
 
 @mixin base {
+	@include util.set($nds-callout-color: color.family('callout-color', tokens.$color));
+
 	--nds-callout-border-width: #{tokens.$border-width};
 	--nds-callout-padding-x: #{tokens.$padding-x};
 	--nds-callout-padding-y: #{tokens.$padding-y};
@@ -44,9 +46,6 @@
 	--nds-callout-icon-color: var(--nds-callout-color-#{tokens.$icon-grade});
 	--nds-callout-color-dark: var(--nds-callout-color-#{tokens.$background-grade + 10});
 	--nds-callout-color-darker: var(--nds-callout-color-#{tokens.$background-grade + 20});
-
-	// stylelint-disable order/order
-	@include util.set($nds-callout-color: color.family('callout-color', tokens.$color));
 
 	position: relative;
 	padding: var(--nds-callout-padding-y) var(--nds-callout-padding-x);
@@ -103,15 +102,12 @@
 }
 
 @mixin icon {
+	display: inline-flex;
 	width: var(--nds-callout-icon-size);
 	height: var(--nds-callout-icon-size);
 	margin-right: spacing.spacer('0.75rem');
 	color: var(--nds-callout-icon-color);
 	flex-grow: 0;
-
-	svg {
-		vertical-align: text-bottom;
-	}
 }
 
 @mixin title {

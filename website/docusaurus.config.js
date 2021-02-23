@@ -20,6 +20,7 @@ module.exports = {
 			logo: {
 				alt: 'Norton open source',
 				src: 'img/seagull-dark.svg',
+				srcDark: 'img/seagull-light.svg',
 			},
 			items: [
 				// {

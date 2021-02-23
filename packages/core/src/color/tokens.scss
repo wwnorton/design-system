@@ -202,6 +202,9 @@ $selection-background-color: var(--nds-primary-color) !default;
 $selection-text-color: var(--nds-text-color-inverse) !default;
 /// The color used for the `:focus` state.
 $focus-color: var(--nds-blue-50) !default;
+/// The background color used for the `:focus` state in focusable lists, such as
+/// listboxes and menus.
+$focus-color-background: var(--nds-blue-20) !default;
 /// The color of the inner ring for the focus halo. Used to visually offset the
 /// default focus halo from the focused element.
 $focus-halo-inner-color: var(--nds-background-color) !default;
@@ -216,6 +219,7 @@ $-scheme-light-default: (
 	--nds-selection-background-color: #{$selection-background-color},
 	--nds-selection-text-color: #{$selection-text-color},
 	--nds-focus-color: #{$focus-color},
+	--nds-focus-color-background: #{$focus-color-background},
 	--nds-focus-halo-inner-color: #{$focus-halo-inner-color},
 	--nds-focus-halo-outer-color: #{$focus-halo-outer-color},
 	--nds-black: #{$black},
@@ -232,6 +236,7 @@ $scheme-light: map.merge($-scheme-light-default, $scheme-light);
 
 $-scheme-dark-default: (
 	--nds-background-color: var(--nds-base-color-10),
+	--nds-focus-color-background: var(--nds-blue-90),
 	--nds-primary-color: color.family('primary-color', color.$primary-family, color.$primary-grade, true),
 	--nds-base-color: color.family('base-color', color.$base-family, color.$base-grade, true),
 	--nds-disabled-color: color.family('disabled-color', color.$disabled-family, color.$disabled-grade, true),

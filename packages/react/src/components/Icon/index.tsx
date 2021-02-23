@@ -19,7 +19,7 @@ export interface IconProps extends BaseSVGProps {
 	icon?: SVGIcon;
 	/** The icon's color. Default is `currentColor`. */
 	color?: string;
-	/** The width and height of the icon. Default is `1.25rem`. */
+	/** The width and height of the icon. Default is `1.25em`. */
 	size?: string | number;
 	/**
 	 * Indicates whether a console warning should be emitted when an `onClick`
@@ -43,13 +43,14 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	className,
 	color = 'currentColor',
 	icon: iconProp,
-	size = '1.25rem',
+	size = '1.25em',
 	variant,
 	warnOnClick = true,
 	tooltipProps,
 	onClick,
 	'aria-label': ariaLabel,
 	children,
+	...props
 }: IconProps, ref) => {
 	if (onClick && warnOnClick) {
 		// eslint-disable-next-line no-console
@@ -109,6 +110,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 				tabIndex={(children) ? 0 : undefined}
 				role="img"
 				fill={color}
+				{...props}
 			>
 				{ d && <path d={d} aria-hidden="true" /> }
 				{ svgChildren }

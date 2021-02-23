@@ -75,14 +75,14 @@
 		transform-origin: center;
 	}
 
-	&.nds-icon--caret-right {
+	> [data-transform='rotate-90'] {
 		@include marker-transform(
 			rotate(90deg),
 			rotate(0),
 		);
 	}
 
-	&.nds-icon--chevron-down {
+	> [data-transform='flip-3d'] {
 		@include marker-transform(
 			rotate3d(1, 0, 0, 180deg),
 			rotate3d(1, 0, 0, 0),

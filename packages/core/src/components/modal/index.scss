@@ -86,14 +86,14 @@
 	}
 
 	&.nds-stuck {
-		box-shadow: 0 0 8px 0 rgba(var(--nds-black), 0.25);
+		box-shadow: var(--nds-shadow-1);
 	}
 }
 
 @mixin title {
 	@include type.heading-4;
 
-	margin: 0;	// stylelint-disable-line order/order
+	margin: 0;
 
 	&:not(:last-child) {
 		padding-right: calc(var(--nds-modal-padding-x) / 2);
@@ -168,7 +168,8 @@
 	}
 
 	&.nds-stuck {
-		box-shadow: 0 0 8px 0 rgba(var(--nds-black), 0.25);
+		// todo: figure out how to invert shadow tokens or provide -top ones
+		box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.25);
 	}
 }
 

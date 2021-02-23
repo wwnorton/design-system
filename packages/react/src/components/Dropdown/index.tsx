@@ -4,7 +4,7 @@ import uniqueId from 'lodash/uniqueId';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';
-import { prefix } from '../../config';
+import { canUseDOM, prefix } from '../../config';
 import { usePopper } from '../../hooks';
 import { PopperOptions, Modifier } from '../../types/popper';
 
@@ -257,7 +257,9 @@ export const Dropdown: DropdownType = ({
 	// focus the button when focus should return to it
 	React.useEffect(() => {
 		if (!open && shouldReturnFocus && button !== null) {
-			button.focus();
+			if (canUseDOM && 'requestAnimationFrame' in window) {
+				window.requestAnimationFrame(() => button.focus());
+			}
 			setShouldReturnFocus(false);
 		}
 	}, [button, open, shouldReturnFocus]);
@@ -338,6 +340,8 @@ export const Dropdown: DropdownType = ({
 					className={listboxClass}
 					aria-labelledby={labelId}
 					optionClass={optionClass}
+					markerClass={`${optionClass}-marker`}
+					contentsClass={`${optionClass}-label`}
 					onChange={changeHandler}
 					ref={setListbox}
 				>

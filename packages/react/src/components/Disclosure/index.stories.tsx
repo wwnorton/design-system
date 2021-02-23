@@ -7,7 +7,7 @@ import {
 } from '@storybook/addon-knobs';
 import { Story } from '@storybook/react/types-6-0';
 import { Disclosure } from '.';
-import { IconOptions, IconVariant } from '../Icon';
+import { IconOptions, IconVariant } from '../..';
 
 export default {
 	title: 'Disclosure',
@@ -32,7 +32,6 @@ const defaultContents = [
 
 export const Default: React.FunctionComponent = () => (
 	<Disclosure
-		panel={boolean('Panel', false)}
 		summary={text('Summary', 'More information')}
 		isOpen={boolean('Open', false)}
 		reducedMotion={boolean('Reduced motion', false)}
@@ -41,15 +40,16 @@ export const Default: React.FunctionComponent = () => (
 	</Disclosure>
 );
 
-export const CustomMarker: React.FunctionComponent = () => (
+export const Panel: React.FunctionComponent = () => (
 	<Disclosure
-		panel={boolean('Panel', false)}
+		panel
 		summary={text('Summary', 'More information')}
 		isOpen={boolean('Open', false)}
-		marker={select<IconVariant>('Marker', IconOptions, 'plus')}
+		marker={select<IconVariant>('Marker', IconOptions, 'chevron-down')}
 		markerPosition={
-			select<'left' | 'right'>('Marker position', { Left: 'left', Right: 'right' }, 'left')
+			select<'left' | 'right'>('Marker position', { Left: 'left', Right: 'right' }, 'right')
 		}
+		markerTransform={select('Marker transform', { None: 'none', 'Flip 3D': 'flip-3d', 'Rotate 90': 'rotate-90' }, 'flip-3d')}
 	>
 		<p>{text('Contents', defaultContents)}</p>
 	</Disclosure>

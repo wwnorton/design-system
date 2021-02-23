@@ -30,7 +30,6 @@ export const FeatureCard = ({
 	linkArrow = false,
 }: FeatureCardProps): JSX.Element => {
 	const [feature, setFeature] = React.useState<HTMLElement | null>(null);
-	const [link, setLink] = React.useState<HTMLAnchorElement | null>(null);
 	const href = useBaseUrl(hrefProp || (slug) ? basePath + slug : undefined);
 	const iconProps = React.useMemo(() => {
 		if (typeof icon === 'string') return { variant: icon };
@@ -47,7 +46,9 @@ export const FeatureCard = ({
 			&& selection.containsNode(feature, true)) return;
 
 		// if the link is clicked, do nothing.
-		if (link && e.nativeEvent.composedPath().includes(link)) return;
+		if (e.nativeEvent.composedPath().some(
+			(el) => (el instanceof HTMLElement && el.tagName.toLowerCase() === 'a'),
+		)) return;
 
 		// otherwise, navigate to the href
 		window.location.href = href;
@@ -58,7 +59,6 @@ export const FeatureCard = ({
 			if (href) {
 				return (
 					<Link
-						ref={setLink}
 						to={href}
 						className={styles.feature__link}
 					>
