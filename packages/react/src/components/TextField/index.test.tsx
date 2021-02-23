@@ -3,7 +3,7 @@ import React from 'react';
 import {
 	cleanup, render, fireEvent, screen, queryAllByRole,
 } from '@testing-library/react';
-import { TextField } from '.';
+import { TextField, TextFieldUncontrolled } from '.';
 
 test.afterEach(cleanup);
 
@@ -136,4 +136,38 @@ test('a programmatically-set value overwrites the user\'s input', (t) => {
 	// change value
 	fireEvent.click(button);
 	t.is(screen.getByTestId(CURRENT_PAGE_ID).textContent, '76');
+});
+
+test('single addon elements rendered as-is', (t) => {
+	render(<TextField addonAfter={<button type="button">Show</button>}>{ defaultLabel }</TextField>);
+	t.truthy(screen.getByRole('button', { name: 'Show' }));
+});
+
+test('multiple addon elements rendered as-is', (t) => {
+	render((
+		<TextField
+			addonAfter={(
+				<>
+					<button type="button">Show</button>
+					<button type="button">Hide</button>
+				</>
+			)}
+		>
+			{ defaultLabel }
+		</TextField>
+	));
+	t.truthy(screen.getByRole('button', { name: 'Show' }));
+	t.truthy(screen.getByRole('button', { name: 'Hide' }));
+});
+
+test('addon strings are rendered as-is', (t) => {
+	render(<TextField addonAfter={<button type="button">Show</button>}>{ defaultLabel }</TextField>);
+	t.truthy(screen.getByText('Show'));
+});
+
+test('an uncontrolled text field manages its own state', (t) => {
+	render(<TextFieldUncontrolled>{ defaultLabel }</TextFieldUncontrolled>);
+	const input = screen.getByRole('textbox') as HTMLInputElement;
+	fireEvent.change(input, { target: { value: 'abc' } });
+	t.is(input.value, 'abc');
 });
