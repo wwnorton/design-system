@@ -27,18 +27,13 @@
     "lint:prettier-fix": "npm run prettier -- --write",
     "lint:style": "stylelint **/*.{css,sass,scss} --ignore-path .gitignore",
     "lint:style-fix": "npm run lint:style -- --fix",
+    "postinstall": "husky install",
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/!(package-lock)*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "publish": "lerna publish",
     "serve:docs": "lerna exec --scope=website npm run serve",
     "storybook": "lerna exec --scope=@wwnds/react -- npm run dev:stories",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ava --serial"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "lint-staged": {
     "!(package-lock)*.{html,xhtml,md,json,yaml,yml}": [
@@ -129,7 +124,7 @@
     "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-shell": "^0.8.0",
-    "husky": "^4.2.5",
+    "husky": "^5.1.1",
     "jsdom": "^16.3.0",
     "jsdom-global": "^3.0.2",
     "lerna": "^3.22.1",
