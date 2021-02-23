@@ -221,11 +221,11 @@ export const useFieldIds = ({
 	descriptionId: descriptionIdProp,
 	errorsId: errorsIdProp,
 	ctrlId: ctrlIdProp,
-}: FieldIdProps): FieldIds => {
-	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
-	const { current: descriptionId } = React.useRef(descriptionIdProp || `${id}-desc`);
-	const { current: errorsId } = React.useRef(errorsIdProp || `${id}-err`);
-	const { current: ctrlId } = React.useRef(ctrlIdProp || `${id}-input`);
+}: FieldIdProps): Record<keyof FieldIds, React.RefObject<string>> => {
+	const labelId = React.useRef(labelIdProp || `${id}-label`);
+	const descriptionId = React.useRef(descriptionIdProp || `${id}-desc`);
+	const errorsId = React.useRef(errorsIdProp || `${id}-err`);
+	const ctrlId = React.useRef(ctrlIdProp || `${id}-input`);
 
 	return {
 		labelId,

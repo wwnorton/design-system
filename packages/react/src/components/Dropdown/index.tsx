@@ -159,12 +159,12 @@ export const Dropdown: DropdownType = ({
 	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
 	const getListboxWidth = React.useRef(false);
 
-	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
-	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
-	const { current: buttonId } = React.useRef(buttonIdProp || `${id}-btn`);
-	const { current: listboxId } = React.useRef(listboxIdProp || `${id}-listbox`);
-	const { current: currentId } = React.useRef(`${id}-curr`);
+	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const labelId = React.useRef(labelIdProp || `${id}-label`);
+	const descId = React.useRef(descIdProp || `${id}-desc`);
+	const buttonId = React.useRef(buttonIdProp || `${id}-btn`);
+	const listboxId = React.useRef(listboxIdProp || `${id}-listbox`);
+	const currentId = React.useRef(`${id}-curr`);
 
 	usePopper({
 		reference: button,
@@ -305,17 +305,17 @@ export const Dropdown: DropdownType = ({
 	}, []);	// eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<div className={classNames(baseName, className)} id={id}>
+		<div className={classNames(baseName, className)} id={id.current}>
 			<FieldInfo
 				label={label}
 				labelClass={labelClass}
-				labelId={labelId}
+				labelId={labelId.current}
 				description={description}
 				descriptionClass={descriptionClass}
-				descriptionId={descId}
+				descriptionId={descId.current}
 			/>
 			<Button
-				id={buttonId}
+				id={buttonId.current}
 				className={buttonClass}
 				disabled={disabled}
 				variant="outline"
@@ -323,22 +323,22 @@ export const Dropdown: DropdownType = ({
 				aria-expanded={(open) ? 'true' : undefined}
 				aria-labelledby={`${labelId} ${currentId}`}
 				aria-haspopup="listbox"
-				aria-controls={(open) ? listboxId : undefined}
+				aria-controls={(open) ? listboxId.current : undefined}
 				onClick={buttonClickHandler}
 				onKeyDown={buttonKeydownHandler}
 				ref={setButton}
 				icon={(getListboxWidth.current) ? undefined : 'chevron-down'}
 				iconRight
 			>
-				<span id={currentId}>{ buttonContents }</span>
+				<span id={currentId.current}>{ buttonContents }</span>
 			</Button>
 			{ open && (
 				<BaseListbox
-					id={listboxId}
+					id={listboxId.current}
 					sort={sort}
 					selected={selected}
 					className={listboxClass}
-					aria-labelledby={labelId}
+					aria-labelledby={labelId.current}
 					optionClass={optionClass}
 					markerClass={`${optionClass}-marker`}
 					contentsClass={`${optionClass}-label`}

@@ -59,7 +59,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [offsetY] = useToken({ name: 'tooltip-offset-y', el: popper });
-	const { current: ariaId } = React.useRef(uniqueId(`${baseName}-`));
+	const ariaId = React.useRef(uniqueId(`${baseName}-`));
 	const [isOpen, setIsOpen] = React.useState(propOpen || false);
 
 	React.useEffect(() => {
@@ -105,10 +105,10 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		if (reference && reference instanceof Element) {
 			reference.setAttribute(
 				(asLabel) ? 'aria-labelledby' : 'aria-describedby',
-				ariaId,
+				ariaId.current,
 			);
 		}
-	}, [asLabel, reference, ariaId]);
+	}, [asLabel, reference]);
 
 	if (!children) return null;
 
@@ -130,7 +130,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 				<div className={arrowClass} />
 			</BasePopper>
 			{/* a persistent, hidden div that is used for the accessible name or description */}
-			<div hidden aria-hidden="true" id={ariaId}>{ children }</div>
+			<div hidden aria-hidden="true" id={ariaId.current}>{ children }</div>
 		</>
 	);
 });

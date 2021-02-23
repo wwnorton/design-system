@@ -25,17 +25,25 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(({
 	className,
 	...props
 }: ProgressBarProps, ref) => {
-	const { current: labelId } = React.useRef(uniqueId(`${baseName}-label-`));
+	const labelId = React.useRef(uniqueId(`${baseName}-label-`));
 	const classes = classNames(className, baseName, (size) && `${baseName}--${size}`);
 	return (
 		<div className={classes}>
 			<BaseProgressBar
 				ref={ref}
-				aria-labelledby={(hideLabel) ? undefined : labelId}
+				aria-labelledby={(hideLabel) ? undefined : labelId.current}
 				aria-label={(hideLabel) ? label : undefined}
 				{...props}
 			/>
-			{ !hideLabel && <div className={labelClass} id={labelId} aria-hidden="true">{ label }</div> }
+			{ !hideLabel && (
+				<div
+					className={labelClass}
+					id={labelId.current}
+					aria-hidden="true"
+				>
+					{ label }
+				</div>
+			) }
 		</div>
 	);
 });

@@ -101,11 +101,11 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 	const [errors, setErrors] = React.useState(errorsProp);
 
 	// ids stored as refs since they shouldn't change between renders
-	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
-	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
-	const { current: errorsId } = React.useRef(errorsIdProp || `${id}-err`);
-	const { current: inputId } = React.useRef(`${id}-input`);
+	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const labelId = React.useRef(labelIdProp || `${id}-label`);
+	const descId = React.useRef(descIdProp || `${id}-desc`);
+	const errorsId = React.useRef(errorsIdProp || `${id}-err`);
+	const inputId = React.useRef(`${id}-input`);
 
 	// treat prop versions of internal state as source of truth
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
@@ -121,7 +121,7 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 	const Control = React.useMemo(() => (
 		// This control is purely a visual affordance. A11y is managed by the `input` element.
 		// eslint-disable-next-line jsx-a11y/label-has-associated-control
-		<label className={controlClass} htmlFor={inputId} aria-hidden="true">
+		<label className={controlClass} htmlFor={inputId.current} aria-hidden="true">
 			{ type === 'checkbox' && (
 				<Icon
 					variant={(indeterminate) ? 'minus' : 'check'}
@@ -129,16 +129,16 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 				/>
 			)}
 		</label>
-	), [controlClass, inputId, indeterminate, type]);
+	), [controlClass, indeterminate, type]);
 
 	const Thumbnail = React.useMemo(() => {
 		if (!thumbnail) return null;
 		return (
-			<label className={thumbnailClass} htmlFor={inputId} role="none">
+			<label className={thumbnailClass} htmlFor={inputId.current} role="none">
 				{ thumbnail }
 			</label>
 		);
-	}, [thumbnail, thumbnailClass, inputId]);
+	}, [thumbnail, thumbnailClass]);
 
 	const Feedback = React.useMemo(() => {
 		if (type !== 'checkbox' || !errors || errors.length === 0) return null;
@@ -146,10 +146,10 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 			<FieldFeedback
 				errors={errors}
 				errorsClass={errorsClass}
-				errorsId={errorsId}
+				errorsId={errorsId.current}
 			/>
 		);
-	}, [type, errors, errorsClass, errorsId]);
+	}, [type, errors, errorsClass]);
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		if (onChange) onChange(e);
@@ -178,14 +178,14 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 				type={type}
 				checked={checked}
 				ref={setInput}
-				id={inputId}
+				id={inputId.current}
 				className={inputClass}
 				errors={errors}
 				validators={validators}
-				aria-labelledby={labelId}
-				aria-describedby={(description) ? descId : undefined}
+				aria-labelledby={labelId.current}
+				aria-describedby={(description) ? descId.current : undefined}
 				aria-invalid={!isValid}
-				aria-errormessage={(!isValid) ? errorsId : undefined}
+				aria-errormessage={(!isValid) ? errorsId.current : undefined}
 				onChange={changeHandler}
 				onDOMChange={onDOMChange}
 				onValidate={validateHandler}
@@ -197,13 +197,13 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 			{ Thumbnail }
 			<FieldInfo
 				indicator={indicator}
-				htmlFor={inputId}
+				htmlFor={inputId.current}
 				label={children || value}
 				labelClass={labelClass}
-				labelId={labelId}
+				labelId={labelId.current}
 				description={description}
 				descriptionClass={descriptionClass}
-				descriptionId={descId}
+				descriptionId={descId.current}
 			>
 				{ Feedback }
 			</FieldInfo>

@@ -32,7 +32,7 @@ export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({
 	...props
 }: SpinnerProps, ref) => {
 	const labelPosition = (hideLabel) ? undefined : position;
-	const { current: labelId } = React.useRef(uniqueId(`${baseName}-label-`));
+	const labelId = React.useRef(uniqueId(`${baseName}-label-`));
 	const classes = classNames(className, baseName, {
 		[`${baseName}--${color}`]: color !== undefined,
 	});
@@ -41,12 +41,20 @@ export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({
 		<div className={classes} data-label={(hideLabel) ? undefined : labelPosition}>
 			<BaseProgressSpinner
 				ref={ref}
-				aria-labelledby={(hideLabel) ? undefined : labelId}
+				aria-labelledby={(hideLabel) ? undefined : labelId.current}
 				aria-label={(hideLabel) ? label : undefined}
 				size={size}
 				{...props}
 			/>
-			{ !hideLabel && <div className={labelClass} id={labelId} aria-hidden="true">{ label }</div> }
+			{ !hideLabel && (
+				<div
+					className={labelClass}
+					id={labelId.current}
+					aria-hidden="true"
+				>
+					{ label }
+				</div>
+			) }
 		</div>
 	);
 });

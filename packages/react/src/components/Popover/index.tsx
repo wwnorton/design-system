@@ -115,7 +115,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [offsetY] = useToken({ name: 'popover-offset-y', el: popper });
-	const { current: titleId } = React.useRef(uniqueId(`${baseName}-title-`));
+	const titleId = React.useRef(uniqueId(`${baseName}-title-`));
 	const focusReferenceOnClose = React.useRef(true);
 	const prevOpen = React.useRef(isOpen);
 
@@ -162,7 +162,14 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		if ((hideTitle || !title) && hideCloseButton) return null;
 		return (
 			<header className={headerClass}>
-				{ !hideTitle && title && <div className={titleClass} id={titleId}>{title}</div> }
+				{ !hideTitle && title && (
+					<div
+						className={titleClass}
+						id={titleId.current}
+					>
+						{title}
+					</div>
+				) }
 				{ !hideCloseButton && (
 					<Button
 						icon="close"
@@ -178,7 +185,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		);
 	}, [
 		headerClass,
-		title, titleClass, titleId, hideTitle,
+		title, titleClass, hideTitle,
 		close, closeButtonClass, hideCloseButton,
 	]);
 
@@ -212,7 +219,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		// 3. if `hideTitle`, set aria-label equal to the title
 		if (hideTitle) return { 'aria-label': title };
 		// 4. label the dialog with the visible title
-		return { 'aria-labelledby': titleId };
+		return { 'aria-labelledby': titleId.current };
 	}, [ariaLabelledby, ariaLabel, hideTitle, title, titleId]);
 
 	if (!children) return null;
