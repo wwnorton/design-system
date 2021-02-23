@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/wwnorton/design-system/compare/v1.0.1...v1.1.0) (2021-02-23)
+
+### 📝 Documentation
+
+- **modal:** make all modal stories closable ([c4b93a4](https://github.com/wwnorton/design-system/commit/c4b93a4d319e8f1b48bab91477365b31bfe9835b))
+
+### 🐛 Bug Fixes
+
+- **dropdown:** expose Option as an export ([a0cfc5f](https://github.com/wwnorton/design-system/commit/a0cfc5ff362dfa5df86ec04b742cd95ae88d1d69))
+- **icon:** default size should be in rem, not em ([e353910](https://github.com/wwnorton/design-system/commit/e353910b3a2a8a83eb0c839b44e5408b63fb7746))
+- **icon:** set min-width to prevent shrinking ([b87c7cc](https://github.com/wwnorton/design-system/commit/b87c7cc87380c3987bc2f80ed42484a50350f01c))
+- **modal:** disable body scroll when modal is open ([f42018f](https://github.com/wwnorton/design-system/commit/f42018f710d4667c49a76e56cb47bf8b275c6aad))
+- **modal:** enable server-side rendering ([2d9b6f0](https://github.com/wwnorton/design-system/commit/2d9b6f05e9fbcd93ccfa1ec651d10ce2715aca11))
+
+### ✨ Features
+
+- **callout:** initial callout implementation ([bcba538](https://github.com/wwnorton/design-system/commit/bcba538b08967df71ccac8c28dedb78dc601f103))
+- **popover:** initial popover implementation ([7c71ee5](https://github.com/wwnorton/design-system/commit/7c71ee58285d29c0b5723885fa2d23e67b628eb0))
+- **progress:** initial spinner & progressbar implementations ([3127cc4](https://github.com/wwnorton/design-system/commit/3127cc46c43b98567eeb72fe0e3ff88d4fc88134))
+
 ### [1.0.1](https://github.com/wwnorton/design-system/compare/v1.0.0...v1.0.1) (2020-12-17)
 
 ### 🐛 Bug Fixes

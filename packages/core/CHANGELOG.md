@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/wwnorton/design-system/compare/v1.0.1...v1.1.0) (2021-02-23)
+
+### 📝 Documentation
+
+- **sassdoc:** reset is part of the main api ([f9c5235](https://github.com/wwnorton/design-system/commit/f9c52350e4deb0fc7e6ee5e97c2bae13862cc8b6))
+
+### 🐛 Bug Fixes
+
+- **choice-field:** prevent control from shrinking ([4078dfb](https://github.com/wwnorton/design-system/commit/4078dfb1ca787b159d6184430dbcb8e4d5196d44))
+- **core:** prevent accidental root declarations ([463152b](https://github.com/wwnorton/design-system/commit/463152bdcb7a0844ab6413c0d553614cb15d5b5d))
+- **typography:** thin weight should be 100 ([ec25444](https://github.com/wwnorton/design-system/commit/ec25444e668b65f84b962b65454fb7e477098b39))
+- disable the not-focus-visible for now ([ef33289](https://github.com/wwnorton/design-system/commit/ef33289336749fbddf0172bae64008e07bbbf077))
+
+### ♻️ Refactor
+
+- **callout:** adjust dismiss button position for border top or right when title exists ([5d2f652](https://github.com/wwnorton/design-system/commit/5d2f652b74f8534657cf2d1a9cd12c077ea3cfe9))
+- **callout:** change callout padding from spacing-8 to spacing-6 ([3d9b274](https://github.com/wwnorton/design-system/commit/3d9b27406e8d51d902a56c3601132b623570d152))
+- **callout:** vertically align svg in icon to text-bottom ([308bea9](https://github.com/wwnorton/design-system/commit/308bea997ba87b17508ef09f3fed3b62c0c90a59))
+- **reset:** clean up :not(:focus-visible) ([131ff90](https://github.com/wwnorton/design-system/commit/131ff90ea91bd00905bd05d287655c6c9e30e14c))
+- **sassdoc:** move the type alias ([c4932c9](https://github.com/wwnorton/design-system/commit/c4932c9a7b0901f2478041c2b731a6f5b59d3588))
+
+### ✨ Features
+
+- **callout:** initial callout implementation ([bcba538](https://github.com/wwnorton/design-system/commit/bcba538b08967df71ccac8c28dedb78dc601f103))
+- **core:** add and use focus functions ([a1ad140](https://github.com/wwnorton/design-system/commit/a1ad140b923826e269e7060a29312269eb10183f))
+- **core:** add initial shadow tokens ([e110e7b](https://github.com/wwnorton/design-system/commit/e110e7bb5b3f1a970ba431024f514e3ccabc2aa9))
+- **popover:** initial popover implementation ([7c71ee5](https://github.com/wwnorton/design-system/commit/7c71ee58285d29c0b5723885fa2d23e67b628eb0))
+- **progress:** initial spinner & progressbar implementations ([3127cc4](https://github.com/wwnorton/design-system/commit/3127cc46c43b98567eeb72fe0e3ff88d4fc88134))
+
 ### [1.0.1](https://github.com/wwnorton/design-system/compare/v1.0.0...v1.0.1) (2020-12-17)
 
 ### 🛠 Maintenance
