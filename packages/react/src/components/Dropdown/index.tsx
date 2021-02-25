@@ -160,11 +160,11 @@ export const Dropdown: DropdownType = ({
 	const getListboxWidth = React.useRef(false);
 
 	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const labelId = React.useRef(labelIdProp || `${id}-label`);
-	const descId = React.useRef(descIdProp || `${id}-desc`);
-	const buttonId = React.useRef(buttonIdProp || `${id}-btn`);
-	const listboxId = React.useRef(listboxIdProp || `${id}-listbox`);
-	const currentId = React.useRef(`${id}-curr`);
+	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
+	const descId = React.useRef(descIdProp || `${id.current}-desc`);
+	const buttonId = React.useRef(buttonIdProp || `${id.current}-btn`);
+	const listboxId = React.useRef(listboxIdProp || `${id.current}-listbox`);
+	const currentId = React.useRef(`${id.current}-curr`);
 
 	usePopper({
 		reference: button,

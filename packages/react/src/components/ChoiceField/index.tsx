@@ -85,9 +85,9 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 
 	// ids stored as refs since they shouldn't change between renders
 	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const labelId = React.useRef(labelIdProp || `${id}-label`);
-	const descId = React.useRef(descIdProp || `${id}-desc`);
-	const errId = React.useRef(errIdProp || `${id}-err`);
+	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
+	const descId = React.useRef(descIdProp || `${id.current}-desc`);
+	const errId = React.useRef(errIdProp || `${id.current}-err`);
 
 	const indicator = React.useMemo(() => {
 		if (requiredIndicator && required) return 'required';

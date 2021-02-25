@@ -64,8 +64,8 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 
 	// ids stored as refs since they shouldn't change between renders
 	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const labelId = React.useRef(labelIdProp || `${id}-label`);
-	const descId = React.useRef(descIdProp || `${id}-desc`);
+	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
+	const descId = React.useRef(descIdProp || `${id.current}-desc`);
 
 	React.useEffect(() => setChecked(isChecked), [isChecked]);
 
@@ -99,7 +99,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 		? attributes
 		: {
 			id: id.current,
-			'aria-labelledby': `${id}-label`,
+			'aria-labelledby': `${id.current}-label`,
 			...attributes,
 		};
 

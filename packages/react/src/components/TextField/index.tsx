@@ -132,10 +132,10 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 
 	// ids stored as refs since they shouldn't change between renders
 	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const labelId = React.useRef(labelIdProp || `${id}-label`);
-	const descId = React.useRef(descIdProp || `${id}-desc`);
-	const errId = React.useRef(errIdProp || `${id}-err`);
-	const inputId = React.useRef(`${id}-input`);
+	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
+	const descId = React.useRef(descIdProp || `${id.current}-desc`);
+	const errId = React.useRef(errIdProp || `${id.current}-err`);
+	const inputId = React.useRef(`${id.current}-input`);
 
 	const getRemaining = React.useCallback((val?: typeof value) => {
 		if (maxLength) {
