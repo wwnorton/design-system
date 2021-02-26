@@ -9,7 +9,7 @@ test.afterEach(cleanup);
 
 const defaultLabel = 'Checkbox';
 
-test.only('the checkbox `<input>` is labelled by its `<label>`', (t) => {
+test('the checkbox `<input>` is labelled by its `<label>`', (t) => {
 	render(<Checkbox>{ defaultLabel }</Checkbox>);
 	const input = screen.getByLabelText(defaultLabel) as HTMLInputElement;
 	t.is(input.tagName.toLowerCase(), 'input');
