@@ -1,9 +1,7 @@
 # Contributing
 
-Anyone who would like to contribute is welcome and encouraged to help in any way shape or form.
-To contribute code, copy edits, or any other type of modification, make changes in a branch and create a pull request to allow maintainers to review your changes.
-
-[[_TOC_]]
+All contributions are welcome and encouraged.
+To contribute code, copy, or any other type of modification, make changes in a branch and create a pull request to allow maintainers to review your changes.
 
 ## How to get started
 
@@ -18,12 +16,12 @@ The easiest way to know what needs to be done is to look through [unassigned ope
 ## Pull Requests
 
 A pull request is a request to change the design system's source of truth in some way.
-This could be a new feature, documentation updates, a bug fix, a copy change, or any other type of change.
+This could be a new feature, documentation updates, a bug fix, a copy change, a new implementation, or any other type of change.
 
 - **Every pull request is a proposal**. While issues are helpful for definition and open questions, pull requests are the place to propose changes, fixes, and solutions. It's where the design system gets built.
 - **Expect discussion**. Let others know when your pull request is ready for review directly in the pull request thread and then wait for feedback. Maintainers and other contributors will review it and comment on the proposal, possibly requesting changes.
-- **Start small**. Small changes are _always_ better than big ones. Opening a pull request that includes changes to many files and big API changes will take much longer to review and there's a good chance that some portions will be rejected.
-- **Define the problem** in the pull request description. Merge requests often introduce solutions to problems, so don't forget to state the problem you're solving.
+- **Start small**. Small changes are _always_ easier than big ones. Opening a pull request that includes changes to many files and big API changes will take much longer to review and there's a good chance that some portions will be rejected.
+- **Define the problem** in the pull request description. Merge requests often introduce solutions to problems, so don't forget to state the problem you're solving, preferably by linking to a related issue.
 - When in doubt, refer to [GitLab's best practices for merge requests](https://about.gitlab.com/handbook/communication/#everything-starts-with-a-merge-request) (GitLab calls a pull request a "merge request").
 
 ## Code and Commit Standards
