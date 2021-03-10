@@ -2,26 +2,24 @@
 
 [![Build Status](https://github.com/wwnorton/design-system/workflows/Integration/badge.svg)](https://github.com/wwnorton/design-system/actions?query=workflow%3AIntegration)
 [![codecov](https://codecov.io/gh/wwnorton/design-system/branch/main/graph/badge.svg)](https://codecov.io/gh/wwnorton/design-system)
+[![Core version](https://img.shields.io/npm/v/@wwnds/core?label=%40wwnds%2Fcore)](https://www.npmjs.com/package/@wwnds/core)
+[![React version](https://img.shields.io/npm/v/@wwnds/react?label=%40wwnds%2Freact)](https://www.npmjs.com/package/@wwnds/react)
 
-Styles, components, and utilities for building accessible, responsive products.
+A design system built by W. W. Norton & Company.
 
-## Documentation
-
-General documentation can be found at https://wwnorton.github.io/design-system.
-Additionally, [Sassdoc](http://sassdoc.com/) documentation for `@wwnds/core` and
-[Storybook](https://storybook.js.org/) documentation for `@wwnds/react` can be
-found as sub-sites of the main documentation:
-
-- https://wwnorton.github.io/design-system/sassdoc
-- https://wwnorton.github.io/design-system/storybook
+View all documentation at https://wwnorton.github.io/design-system.
 
 ## Repository Structure
 
-This repository uses [lerna](https://lerna.js.org/) to manage design system packages as a [monorepo](https://en.wikipedia.org/wiki/Monorepo).
+This repository uses [workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) to manage design system packages as a [monorepo](https://en.wikipedia.org/wiki/Monorepo).
 
-- [@wwnds/core](packages/core) is the foundation of the design system. It contains modular [Sass](https://sass-lang.com/) declarations, mixins, functions, and design tokens (variables). It is the source of truth for the theming system and default styles. It has no dependencies.
-- [@wwnds/react](packages/react) is a [React](https://reactjs.org/) component library implementation of the design system. It depends on `@wwnds/core`.
-- [website](website) (https://wwnorton.github.io/design-system) contains documentation usage guides and examples. It depends on both `@wwnds/core` and `@wwnds/react` and uses [Docusaurus](https://v2.docusaurus.io/) as its static site generator.
+- [@wwnds/core](packages/core) is an implementation of the design system's styles and [foundations](https://wwnorton.github.io/design-system/docs/foundations).
+  It contains modular [Sass](https://sass-lang.com/) declarations, mixins, functions, and design tokens (variables).
+  It is the source of truth for the theming system and default styles.
+- [@wwnds/react](packages/react) is a [React](https://reactjs.org/) component library implementation of the design system.
+  It has no styling and is designed to work well with `@wwnds/core`.
+- [website](website) (https://wwnorton.github.io/design-system) contains the actual design system.
+  It depends on both `@wwnds/core` and `@wwnds/react` and uses [Docusaurus](https://v2.docusaurus.io/) as its static site generator.
 
 ## Contributing
 
@@ -47,7 +45,10 @@ yarn
 
 All development commands should be run from the root of the repository.
 
+- `npm run storybook`: the [Storybook](https://storybook.js.org/) server for `@wwnds/react`.
+  Useful for component development.
+- `npm run dev:docs`: start the [Docusaurus server](https://v2.docusaurus.io/docs/cli) for the website.
+  Useful for writing documentation or full design system development.
 - `npm run build`: run a production build for each library package, outputting to `packages/{package_name}/dist`.
-- `npm run dev`: run a development build with watch mode on.
-- `npm run storybook`: run `@wwnds/react`'s [Storybook](https://storybook.js.org/) server.
-- `npm run dev:docs`: run [`docusaurus start`](https://v2.docusaurus.io/docs/cli#docusaurus-start) for the website.
+  Useful for testing production builds.
+- `npm run test`: run unit tests.

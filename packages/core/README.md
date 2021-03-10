@@ -2,130 +2,44 @@
 
 [![Core version](https://img.shields.io/npm/v/@wwnds/core?label=%40wwnds%2Fcore)](https://www.npmjs.com/package/@wwnds/core)
 
-> Vanilla CSS, HTML, and JavaScript implementations of the Norton Design System.
-
-Note: because `@wwnds/core` uses Sass modules, [dart-sass](https://github.com/sass/dart-sass)
-must be used to compile your project's Sass. [node-sass](https://github.com/sass/node-sass) will not work.
+> A [Sass](https://sass-lang.com/) implementation of [the design system's foundations](https://wwnorton.github.io/design-system/docs/foundations) and styling for all [components](https://wwnorton.github.io/design-system/docs/components).
 
 ## Usage
 
-To get started, install `@wwnds/core` as a dependency in your project.
+All usage guidance is provided in [the developer guide](https://wwnorton.github.io/design-system/docs/guides/dev).
 
-```sh
-npm i @wwnds/core
-```
+## Developing
 
-And then use components and foundations in Sass or just use the full CSS stylesheet in your project.
+The core library makes considerable use of [Sass modules](https://sass-lang.com/documentation/modules) to structure its stylesheets and enable theming through the `@forward...with` syntax.
 
-### Entry points
+### Conventions
 
-We expose three Sass entry points:
+We follow a handful of conventions to make our stylesheets more manageable and readable.
+All contributors should strive to follow these conventions.
 
-- `@wwnds/core` - the default entry point includes all abstracts, tokens, and `:root` declarations, but no other declarations.
-  - Use this if you want to use the design system in a modular fashion.
-  - Note that [this entry point may be different for sass-loader](#usage-with-sass-loader) environments.
-- `@wwnds/core/full` - the full entry point includes everything, including all component declarations.
-  - Use this if you want everything in one stylesheet and don't need it to be modular.
-- `@wwnds/core/tokens` - the design tokens and their corresponding `:root` declarations, but nothing else.
-  - Use this if you just want to use the design tokens as the building blocks for your own styles.
-
-### Modular usage
-
-To import modular stylesheets, start by forwarding [a configured version](#configuration), which will be the basis of all modules.
-Note that the following examples may require some modification if you are using
-Webpack to bundle your Sass. See more about this in the [Usage with sass-loader](#usage-with-sass-loader) section.
-
-```scss
-// my-app/src/nds.scss
-@forward '@wwnds/core' with (
-  // ...custom config...
-);
-```
-
-Set the reset styles to use our reset. It's recommended to isolate this in its own stylesheet.
-
-```scss
-// my-app/src/reset.scss
-@use './nds';
-
-// use the reset, which includes the `:root` properties plus HTML styles based on Bootstrap
-@include nds.reset;
-```
-
-Use your configured version of the design system inside your modules or components.
-
-```scss
-// my-app/src/components/button.scss
-@use '../nds' as *; // note: using as "*" imports all members to the global scope
-
-// override properties before using them
-$primary: var(--nds-cyan-60);
-
-@include button-style;
-
-.my-custom-button {
-	// use @wwnds/core functions
-	font-family: sans("Proxima Nova");
-	// use custom properties directly
-	border-radius: var(--nds-radius-xl);
-
-	// use @wwnds/core mixins
-	@include sr-only;
-}
-```
-
-### Full CSS usage
-
-Using the full CSS is one of the easiest ways to use the design system out of the box, but it is not [configurable](#configuration).
-
-This can be done in JavaScript if you are using a build tool that is capable of resolving `@wwnds/core`, such as Webpack's style-loader.
-
-```javascript
-import "@wwnds/core/dist/main.css";
-```
-
-Or, if you just want to embed it in HTML, you can copy the `node_modules/@wwnds/core/dist/main.css` file to your project and just use it.
-This will eventually be posted to a CDN for easier usage.
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>Awesome NDS project</title>
-		<link rel="stylesheet" href="path/to/main.css" />
-	</head>
-	<body>
-		<!-- awesome HTML -->
-	</body>
-</html>
-```
-
-### Configuration
-
-Any Sass variable with the `!default` flag can be configured through the following Sass techniques.
-
-- [`@forward` configuration](https://sass-lang.com/documentation/at-rules/forward#configuring-modules) (preferred)
-- [`@use` configuration](https://sass-lang.com/documentation/at-rules/use#configuration) (okay)
-- [`@import` configuration](https://sass-lang.com/documentation/at-rules/import#configuring-modules-through-imports) (discouraged)
-
-The `@forward` technique is preferred as it gives you a single, opinionated version of the design system that you can use across your application.
-Note that [Sass intends to deprecate and eventually remove `@import`](https://sass-lang.com/documentation/at-rules/import) entirely, so use it at your own risk.
-
-## Usage with sass-loader
-
-Because [sass-loader](https://github.com/webpack-contrib/sass-loader) uses Webpack's
-module resolution, using `@wwnds/core` requires some additional steps.
-
-First, make sure that `sass-loader` is using the `sass` implementation, not the
-`node-sass` implementation: [sass-loader `implementation`](https://github.com/webpack-contrib/sass-loader#implementation).
-
-Second, make sure that imports begin with `~` and any references to the root
-`index.scss` are explicit:
-
-```scss
-// with sass-loader
-@use '~@wwnds/core/index' as nds;
-
-// with normal sass compilation
-@use '@wwnds/core' as nds;
-```
+1. Declarations **must** be wrapped in a mixin.
+   This ensures that declarations never leak on `@forward` or `@use`.
+1. Design token defaults **should** be expressed as abstract [Sass variables](https://sass-lang.com/documentation/variables). These aren't compiled and won't result in any CSS output.
+   - For example: `$duration-simple: 100ms;`
+1. Sass variable tokens **should** be used to set the token as a [CSS custom property](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) prefixed with `--nds-`.
+   - For example: `--nds-duration-simple: #{$duration-simple};`.
+1. [System tokens](https://wwnorton.github.io/design-system/docs/foundations/design-tokens#system-tokens) (static properties associated with a foundation):
+   - **should** be declared on the `:root` element. System tokens are foundational, and should be used globally.
+   - **should not** be customizable. In other words, they **should not** include [the `!default` flag](https://sass-lang.com/documentation/variables#default-values).
+1. [Role tokens](https://wwnorton.github.io/design-system/docs/foundations/design-tokens#role-tokens) (themeable properties associated with a foundation):
+   - **must** be customizable with [the `!default` flag](https://sass-lang.com/documentation/variables#default-values). This makes it possible to override the value on `@forward` or `@use`.
+   - **should** be named for their property or their role. If a token sets a single property, name it for its property. If it's used in a more abstract way, name it for what it is trying to accomplish (its role).
+     - Property example: `$background-color` if it's used to set the `background-color` property.
+     - Role example: `$padding-y` if it's used for both `padding-top` and `padding-bottom`.
+1. [Component tokens](https://wwnorton.github.io/design-system/docs/foundations/design-tokens#role-tokens) (properties associated with a component):
+   - **should** be set in a standalone `tokens.scss` file adjacent to the component's styles.
+   - **should** be customizable with [the `!default` flag](https://sass-lang.com/documentation/variables#default-values).
+   - **should** default to existing role tokens whenever possible.
+     - Good 👍: `$background-color: var(--nds-background-color) !default;` (role token)
+     - Okay 👍: `$border-color: var(--nds-base-color-40) !default;` (system token when no role token exists)
+     - Bad 👎: `$background-color: var(--nds-white) !default;` (system token when a role token exists)
+     - Worse 👎: `$background-color: #fff !default;` (raw value)
+   - **should** be named for their property or their role. If a token sets a single property, name it for its property. If it's used in a more abstract way, name it for what it is trying to accomplish (its role).
+     - Property example: `$background-color` if it's used to set the `background-color` property.
+     - Role example: `$padding-y` if it's used for both `padding-top` and `padding-bottom`.
+   - **should not** be prefixed. Component tokens are prefixed with the component's name when [forwarded by the main entry point](https://sass-lang.com/documentation/at-rules/forward#adding-a-prefix) so including the prefix would result in a doubly-prefixed name (e.g., `$tooltip-tooltip-border-radius`).
