@@ -84,10 +84,10 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
 
 	// ids stored as refs since they shouldn't change between renders
-	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
-	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
-	const { current: errId } = React.useRef(errIdProp || `${id}-err`);
+	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
+	const descId = React.useRef(descIdProp || `${id.current}-desc`);
+	const errId = React.useRef(errIdProp || `${id.current}-err`);
 
 	const indicator = React.useMemo(() => {
 		if (requiredIndicator && required) return 'required';
@@ -106,7 +106,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 		// coerce into a list of `<Choice>` elements
 		return React.Children.map(children, (child) => {
 			if (Array.isArray(child)) return childMap(child);
-			const baseProps: ChoiceProps = { name: name || id, type };
+			const baseProps: ChoiceProps = { name: name || id.current, type };
 			let value: React.ReactText;
 			let props: ChoiceProps;
 			if (typeof child === 'string' || typeof child === 'number') {
@@ -120,7 +120,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 			}
 			return <Choice {...props} value={value} />;
 		});
-	}, [name, type, id, multiple]);
+	}, [name, type, multiple]);
 
 	const ChoiceElements = React.useMemo(() => childMap(childrenProp), [childrenProp, childMap]);
 
@@ -135,15 +135,19 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 			<FieldInfo
 				label={label}
 				labelClass={labelClass}
-				labelId={labelId}
+				labelId={labelId.current}
 				labelTag="legend"
 				description={description}
 				descriptionClass={descriptionClass}
-				descriptionId={descId}
+				descriptionId={descId.current}
 				indicator={indicator}
 			/>
 			{ ChoiceElements }
-			<FieldFeedback errors={errors} errorsId={errId} errorsClass={errorsClass} />
+			<FieldFeedback
+				errors={errors}
+				errorsId={errId.current}
+				errorsClass={errorsClass}
+			/>
 		</fieldset>
 	);
 }) as ChoiceFieldInterface;

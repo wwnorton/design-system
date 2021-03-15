@@ -56,9 +56,9 @@ export const Panel: React.FunctionComponent = () => (
 );
 
 export const Controlled: React.FunctionComponent = () => {
-	const { current: summaryText } = React.useRef('Random poem');
+	const summaryText = React.useRef('Random poem');
 	const [contents, setContents] = React.useState<React.ReactNode>();
-	const [summary, setSummary] = React.useState<string>(summaryText);
+	const [summary, setSummary] = React.useState<string>(summaryText.current);
 
 	// load a random poem
 	const getContents = async (): Promise<void> => {
@@ -76,7 +76,7 @@ export const Controlled: React.FunctionComponent = () => {
 				</div>
 			</>
 		));
-		setSummary(summaryText);
+		setSummary(summaryText.current);
 	};
 
 	return (
