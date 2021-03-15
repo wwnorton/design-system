@@ -63,9 +63,9 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 	const [button, setButton] = useForwardedRef(ref);
 
 	// ids stored as refs since they shouldn't change between renders
-	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
-	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
+	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
+	const descId = React.useRef(descIdProp || `${id.current}-desc`);
 
 	React.useEffect(() => setChecked(isChecked), [isChecked]);
 
@@ -85,21 +85,21 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 		? <Tooltip asLabel reference={button} {...tooltipProps}>{ label }</Tooltip>
 		: (
 			<FieldInfo
-				htmlFor={id}
+				htmlFor={id.current}
 				label={label}
 				labelClass={labelClass}
-				labelId={labelId}
+				labelId={labelId.current}
 				description={description}
 				descriptionClass={descriptionClass}
-				descriptionId={descId}
+				descriptionId={descId.current}
 			/>
 		);
 
 	const buttonProps = (tipped)
 		? attributes
 		: {
-			id,
-			'aria-labelledby': `${id}-label`,
+			id: id.current,
+			'aria-labelledby': `${id.current}-label`,
 			...attributes,
 		};
 

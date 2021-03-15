@@ -131,11 +131,11 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	const [errors, setErrors] = React.useState(errorsProp);
 
 	// ids stored as refs since they shouldn't change between renders
-	const { current: id } = React.useRef(idProp || uniqueId(`${baseName}-`));
-	const { current: labelId } = React.useRef(labelIdProp || `${id}-label`);
-	const { current: descId } = React.useRef(descIdProp || `${id}-desc`);
-	const { current: errId } = React.useRef(errIdProp || `${id}-err`);
-	const { current: inputId } = React.useRef(`${id}-input`);
+	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
+	const descId = React.useRef(descIdProp || `${id.current}-desc`);
+	const errId = React.useRef(errIdProp || `${id.current}-err`);
+	const inputId = React.useRef(`${id.current}-input`);
 
 	const getRemaining = React.useCallback((val?: typeof value) => {
 		if (maxLength) {
@@ -198,15 +198,18 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 	}, [requiredIndicator, optionalIndicator, required]);
 
 	return (
-		<div className={classNames(className, { [invalidClass]: !isValid })} id={id}>
+		<div
+			className={classNames(className, { [invalidClass]: !isValid })}
+			id={id.current}
+		>
 			<FieldInfo
-				htmlFor={inputId}
+				htmlFor={inputId.current}
 				label={children}
 				indicator={indicator}
-				labelId={labelId}
+				labelId={labelId.current}
 				labelClass={labelClass}
 				descriptionClass={descriptionClass}
-				descriptionId={descId}
+				descriptionId={descId.current}
 				description={description}
 			/>
 			<div className={groupClass}>
@@ -218,11 +221,11 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 					onChange={changeHandler}
 					onDOMChange={onDOMChange}
 					onValidate={validateHandler}
-					id={inputId}
+					id={inputId.current}
 					className={inputClass}
-					aria-describedby={(description) ? descId : undefined}
+					aria-describedby={(description) ? descId.current : undefined}
 					aria-invalid={!isValid}
-					aria-errormessage={(!isValid) ? errId : undefined}
+					aria-errormessage={(!isValid) ? errId.current : undefined}
 					// validation props
 					maxLength={maxLength}
 					required={required}
@@ -237,7 +240,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 			</div>
 			<FieldFeedback
 				className={feedbackClass}
-				errorsId={errId}
+				errorsId={errId.current}
 				errors={errors}
 				errorsClass={errorsClass}
 			>
