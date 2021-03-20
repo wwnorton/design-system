@@ -24,8 +24,6 @@ export const useExternalClick = ({ externalTo, onExternalClick }: ExternalClickP
 		return [externalTo];
 	}, [externalTo]);
 
-	if (!externalTo) return;
-
 	useEffect(() => {
 		const documentClickHandler = (e: MouseEvent): void => {
 			const clickPath = e.composedPath();
