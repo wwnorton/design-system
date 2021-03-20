@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { canUseDOM, prefix } from '../../config';
+import { canUseDOM } from '../../utilities/environment';
 import { getFocusable } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton, ButtonProps } from '../Button';
@@ -112,7 +112,7 @@ export interface ModalSnapshot {
  * Modal dialog.
  */
 export class Modal extends React.PureComponent<ModalProps, ModalState> {
-	public static bemBase = 'modal';
+	public static bemBase = 'nds-modal';
 	public static bemElements: Record<ModalAnatomy, string> = {
 		portal: 'portal',
 		backdrop: 'backdrop',
@@ -145,7 +145,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	constructor(props: ModalProps) {
 		super(props);
 
-		this.baseName = props.baseName || prefix(Modal.bemBase);
+		this.baseName = props.baseName || Modal.bemBase;
 		this.id = props.id || uniqueId(`${this.baseName}-`);
 		this.titleId = `${this.id}-${Modal.bemElements.title}`;
 		this.portalNode = (canUseDOM) ? this.createPortalNode() : null;
@@ -328,7 +328,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			headerClass,
 			{
 				[`${headerClass}--sticky`]: stickyHeader && long,
-				[prefix('stuck')]: stickyHeader && stuckHeader,
+				'nds-stuck': stickyHeader && stuckHeader,
 			},
 		);
 		return (
@@ -354,7 +354,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			actionBarClass,
 			{
 				[`${actionBarClass}--sticky`]: stickyActionBar && long,
-				[prefix('stuck')]: stickyActionBar && stuckFooter,
+				'nds-stuck': stickyActionBar && stuckFooter,
 			},
 		);
 		return (

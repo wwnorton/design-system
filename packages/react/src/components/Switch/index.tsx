@@ -5,7 +5,6 @@ import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
 import { useForwardedRef } from '../../hooks';
-import { prefix } from '../../config';
 
 export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
 	/** The name of the Switch. Required. */
@@ -37,7 +36,7 @@ export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'chil
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
 	{
-		baseName = prefix('switch'),
+		baseName = 'nds-switch',
 		labelClass,
 		descriptionClass,
 		checked: isChecked = false,

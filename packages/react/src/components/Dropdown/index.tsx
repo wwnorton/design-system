@@ -4,7 +4,7 @@ import uniqueId from 'lodash/uniqueId';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';
-import { canUseDOM, prefix } from '../../config';
+import { canUseDOM } from '../../utilities/environment';
 import { usePopper } from '../../hooks';
 import { PopperOptions, Modifier } from '../../types/popper';
 
@@ -123,7 +123,7 @@ export const Dropdown: DropdownType = ({
 	matchWidth,
 	buttonWidth,
 	sort,
-	baseName = prefix('dropdown'),
+	baseName = 'nds-dropdown',
 	buttonClass = `${baseName}__button`,
 	listboxClass = `${baseName}__listbox`,
 	optionClass = `${baseName}__option`,

@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 import { CoreProgressProps, BaseProgressSpinner, BaseProgressSpinnerProps } from '../BaseProgress';
-import { prefix } from '../../config';
 import { SystemColors } from '../../utilities/color';
 
 export interface SpinnerProps extends CoreProgressProps<BaseProgressSpinnerProps> {
@@ -23,7 +22,7 @@ export interface SpinnerProps extends CoreProgressProps<BaseProgressSpinnerProps
 export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({
 	label = 'Loading...',
 	color,
-	baseName = prefix('spinner'),
+	baseName = 'nds-spinner',
 	labelClass = `${baseName}__label`,
 	labelPosition: position = 'right',
 	hideLabel,

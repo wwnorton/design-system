@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { BasePopper, BasePopperProps } from '../BasePopper';
-import { prefix } from '../../config';
 import {
 	useForwardedRef, usePopperTriggers, UsePopperTriggersProps, useToken,
 } from '../../hooks';
@@ -42,7 +41,7 @@ export type TooltipCoreProps = PopperOptions & Pick<UsePopperTriggersProps, 'hid
 
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	{
-		baseName = prefix('tooltip'),
+		baseName = 'nds-tooltip',
 		contentClass = `${baseName}__content`,
 		arrowClass = `${baseName}__arrow`,
 		modifiers,

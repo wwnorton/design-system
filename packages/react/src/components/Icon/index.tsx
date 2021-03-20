@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import {
 	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox,
 } from './icons';
-import { prefix } from '../../config';
 import { useForwardedRef } from '../../hooks';
 import { BaseSVG, BaseSVGProps } from '../BaseSVG';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
@@ -39,7 +38,7 @@ export interface IconProps extends BaseSVGProps {
  * rendered in an accessible tooltip.
  */
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
-	baseName = prefix('icon'),
+	baseName = 'nds-icon',
 	className,
 	color = 'currentColor',
 	icon: iconProp,

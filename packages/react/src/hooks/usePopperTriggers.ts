@@ -5,7 +5,7 @@ import {
 } from 'react';
 import { useExternalClick } from './useExternalClick';
 import { PopperCoreProps } from '../types/popper';
-import { canUseDOM } from '../config';
+import { canUseDOM } from '../utilities/environment';
 
 type PopperTriggersOpen = 'click.reference' | 'focus' | 'focusin' | 'pointerenter';
 type PopperTriggersClose = 'click.reference' | 'click.internal' | 'click.external' | 'escape' | 'blur' | 'pointerleave';

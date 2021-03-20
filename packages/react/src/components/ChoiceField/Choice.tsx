@@ -8,7 +8,6 @@ import {
 	FieldFeedback, FieldFeedbackCoreProps,
 } from '../Field';
 import { useForwardedRef } from '../../hooks';
-import { prefix } from '../../config';
 
 export interface ChoiceProps extends
 	Omit<FieldInfoCoreProps, 'label'>,
@@ -66,7 +65,7 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
 		children,
 
 		// classes
-		baseName = prefix('field'),
+		baseName = 'nds-field',
 		className = classNames(`${baseName}__group`, `${baseName}__group--choice`),
 		controlClass = classNames(`${baseName}__control`, `${baseName}__control--${type}`),
 		descriptionClass,

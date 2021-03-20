@@ -2,7 +2,7 @@ import {
 	useEffect, useLayoutEffect, useMemo, useState,
 	Dispatch, SetStateAction,
 } from 'react';
-import { prefix, canUseDOM } from '../config';
+import { canUseDOM } from '../utilities/environment';
 
 const getVar = (
 	varName: string,
@@ -39,7 +39,7 @@ export const useToken = ({
 	value,
 	el = document.documentElement,
 }: UseTokenProps): [string | number | null, Dispatch<SetStateAction<string | number | null>>] => {
-	const prefixedName = useMemo(() => prefix(name), [name]);
+	const prefixedName = useMemo(() => `nds-${name}`, [name]);
 	const [token, setToken] = useState(value || null);
 
 	// read the value from the element

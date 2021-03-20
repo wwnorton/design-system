@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { hasTransition } from '../../utilities';
-import { prefix, canUseDOM } from '../../config';
+import { canUseDOM } from '../../utilities/environment';
 import { BaseDetails, BaseDetailsProps } from '../BaseDetails';
 import { BaseSummary } from '../BaseSummary';
 import {
@@ -117,7 +117,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		panel,
 
 		className,
-		baseName = prefix('disclosure'),
+		baseName = 'nds-disclosure',
 		summaryClass = `${baseName}__summary`,
 		markerClass = `${baseName}__marker`,
 		contentsOuterClass = `${baseName}__contents-outer`,
@@ -263,10 +263,10 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 	const classes = classNames(
 		className,
 		baseName,
-		state && prefix(state),
+		state && `nds-${state}`,
 		{
 			[`${baseName}--panel`]: panel,
-			[prefix('reduced-motion')]: !shouldAnimate,
+			'nds-reduced-motion': !shouldAnimate,
 		},
 	);
 

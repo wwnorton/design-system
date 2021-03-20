@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { prefix } from '../../config';
 import { useForwardedRef } from '../../hooks';
 import { NDSForwardRef } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
@@ -57,7 +56,7 @@ export interface ButtonProps extends BaseButtonProps {
 /** A button allows a user to perform an action. */
 export const Button = React.forwardRef((
 	{
-		baseName = prefix('button'),
+		baseName = 'nds-button',
 		variant,
 		icon,
 		iconRight,

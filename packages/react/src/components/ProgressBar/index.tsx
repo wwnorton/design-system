@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 import { CoreProgressProps, BaseProgressBar, BaseProgressBarProps } from '../BaseProgress';
-import { prefix } from '../../config';
 
 export interface ProgressBarProps extends CoreProgressProps<BaseProgressBarProps> {
 	/**
@@ -20,7 +19,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(({
 	label,
 	hideLabel,
 	size,
-	baseName = prefix('progressbar'),
+	baseName = 'nds-progressbar',
 	labelClass = `${baseName}__label`,
 	className,
 	...props

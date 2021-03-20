@@ -5,7 +5,7 @@ import {
 	boolean,
 	select,
 } from '@storybook/addon-knobs';
-import { Story } from '@storybook/react/types-6-0';
+import { Story } from '@storybook/react';
 import { Disclosure } from '.';
 import { IconOptions, IconVariant } from '../..';
 

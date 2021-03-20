@@ -1,5 +1,5 @@
-export * from './config';
 export * from './hooks';
+export * from './utilities/colorScheme';
 
 // Public components
 export * from './components/Button';

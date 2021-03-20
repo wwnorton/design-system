@@ -7,7 +7,6 @@ import {
 	FieldAddon,
 } from '../Field';
 import { BaseInput, BaseInputProps } from '../BaseInput';
-import { prefix } from '../../config';
 
 export type TextFieldType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
@@ -94,7 +93,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		counter = defaultProps.counter,
 
 		// classes
-		baseName = prefix('field'),
+		baseName = 'nds-field',
 		className = classNames(baseName, `${baseName}--text`),
 		labelClass,
 		descriptionClass,

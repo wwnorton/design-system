@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { prefix } from '../../config';
 
 /**
  * Field components - "partials" that are not meant to be used alone. These
@@ -59,7 +58,7 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 	labelTag,
 	indicator,
 	description,
-	baseName = prefix('field'),
+	baseName = 'nds-field',
 	labelClass = `${baseName}__label`,
 	indicatorClass = `${baseName}__indicator`,
 	descriptionClass = `${baseName}__desc`,
@@ -156,7 +155,7 @@ export interface FieldFeedbackProps
 export const FieldFeedback: React.FunctionComponent<FieldFeedbackProps> = ({
 	errors,
 	liveErrors = true,
-	baseName = prefix('field'),
+	baseName = 'nds-field',
 	errorsClass = `${baseName}__errors`,
 	errorsId,
 	children,
@@ -194,6 +193,6 @@ export interface FieldAddonProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 export const FieldAddon: React.FunctionComponent<FieldAddonProps> = ({
 	children,
-	baseName = prefix('field'),
+	baseName = 'nds-field',
 	className = `${baseName}__addon`,
 }: FieldAddonProps) => <span className={className}>{ children }</span>;
