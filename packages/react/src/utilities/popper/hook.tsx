@@ -8,13 +8,8 @@ import {
 	createPopper,
 	Instance,
 	Options,
-	PopperCoreProps,
-} from '../types/popper';
-
-export interface UsePopperProps extends Partial<Options>, PopperCoreProps {
-	/** The contents of the popper. */
-	children?: React.ReactNode;
-}
+	UsePopperProps,
+} from './types';
 
 /** A hook to create a [Popper.js](https://popper.js.org) instance. */
 export const usePopper = ({

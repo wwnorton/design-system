@@ -1,24 +1,22 @@
 import { useEffect, useMemo } from 'react';
 
-interface ExternalClickProps {
+/**
+ * A hook that triggers a callback function when something other than the specified
+ * target(s) are clicked.
+ */
+export const useExternalClick = (
 	/**
 	 * The event target or targets that should not trigger the callback when clicked.
 	 * Only valid [EventTargets](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)
 	 * will be used.
 	 */
-	externalTo?: EventTarget | EventTarget[];
+	externalTo?: EventTarget | EventTarget[],
 	/**
 	 * A callback function that triggers when something other than the first
 	 * parameter is clicked.
 	 */
-	onExternalClick?: () => void;
-}
-
-/**
- * A hook that triggers a callback function when something other than the specified
- * target(s) are clicked.
- */
-export const useExternalClick = ({ externalTo, onExternalClick }: ExternalClickProps): void => {
+	onExternalClick?: () => void,
+): void => {
 	const excluded = useMemo(() => {
 		if (Array.isArray(externalTo)) return externalTo;
 		return [externalTo];

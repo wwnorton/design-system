@@ -1,5 +1,4 @@
-export * from './hooks';
-export * from './utilities/colorScheme';
+export * from './utilities';
 
 // Public components
 export * from './components/Button';

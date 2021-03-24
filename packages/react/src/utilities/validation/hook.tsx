@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { ValidatorEntry, createValidator } from '../utilities';
+import { createValidator } from './constants';
+import { ValidatorEntry } from './types';
 
 /**
  * Creates a stateful validation function from a list of optional validation

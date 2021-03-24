@@ -1,17 +1,17 @@
-/** Union of HTML elements that can be validated with this API. */
-export type ValidationElement = HTMLInputElement | HTMLTextAreaElement;
-/** All ValidityState keys except `valid`. */
-export type ValidityStateInvalidKeys = Exclude<keyof ValidityState, 'valid'>;
+import {
+	StateMessageFunction,
+	ValidationAttributes,
+	ValidatorEntry,
+	ValidityStateInvalidKeys,
+} from './types';
 
-/** A validator test and message to use when the validator returns `false`. */
-export interface ValidatorEntry {
-	/** An optional name for the validator. */
-	name?: string;
-	/** `true` if the supplied value is valid, `false` if it is invalid. */
-	test: (value: string, validity?: ValidityState) => boolean;
-	/** An error message for when a form element's value is invalid. */
-	message: string | ((value: string) => string);
-}
+/* eslint-disable no-control-regex */
+/**
+ * A custom regex test for email.
+ * Source: [Stack Overflow](https://stackoverflow.com/a/201378).
+ */
+export const emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+/* eslint-enable no-control-regex */
 
 export const validityStateTest = (
 	state: ValidityStateInvalidKeys,
@@ -19,65 +19,6 @@ export const validityStateTest = (
 	if (validity) return !validity[state];
 	return true;
 };
-
-/**
- * All `<input>` types since the standard DOM library isn't specific.
- *
- * Reference:
- * - [DOM - `input[type]`](https://html.spec.whatwg.org/multipage/input.html#attr-input-type)
- */
-export type InputType =
-	| 'button'
-	| 'checkbox'
-	| 'color'
-	| 'date'
-	| 'datetime-local'
-	| 'email'
-	| 'file'
-	| 'hidden'
-	| 'image'
-	| 'month'
-	| 'number'
-	| 'password'
-	| 'radio'
-	| 'range'
-	| 'reset'
-	| 'search'
-	| 'submit'
-	| 'tel'
-	| 'text'
-	| 'time'
-	| 'url'
-	| 'week';
-
-type ValidationAttributeNames =
-	| 'max'
-	| 'maxLength'
-	| 'min'
-	| 'minLength'
-	| 'pattern'
-	| 'required'
-	| 'step'
-	| 'type';
-
-/**
- * Attributes that are used in constraint validation.
- *
- * Reference:
- * - [MDN - Validation-related attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes)
- */
-export type ValidationAttributes =
-	Pick<React.InputHTMLAttributes<HTMLInputElement>, ValidationAttributeNames>;
-
-type StateMessageFunction = (attrs: ValidationAttributes, value?: string) => string;
-
-/* eslint-disable no-control-regex */
-/**
- * A custom regex for email.
- * Source: [Stack Overflow](https://stackoverflow.com/a/201378).
- */
-export const emailTypeMismatch = (value: string): boolean => /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(value);
-/* eslint-enable no-control-regex */
 
 /** Message functions that correspond to each invalid key on ValidityState. */
 export const defaultMessages: Record<Exclude<ValidityStateInvalidKeys, 'customError'>, StateMessageFunction> = {
@@ -153,8 +94,8 @@ export const defaultValidators = ({
 	if (type !== undefined) {
 		validators.push({
 			name: 'typeMismatch',
-			test: (type === 'email') ? emailTypeMismatch : validityStateTest('typeMismatch'),
-			message: defaultMessages.typeMismatch({ type }),
+			test: (type === 'email') ? ((value) => emailRegex.test(value)) : validityStateTest('typeMismatch'),
+			message: 'Please enter an email address.',
 		});
 		validators.push({
 			test: validityStateTest('badInput'),

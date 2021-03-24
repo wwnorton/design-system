@@ -27,3 +27,8 @@ export interface PopperCoreProps {
 	 */
 	popper?: HTMLElement | null;
 }
+
+export interface UsePopperProps extends Partial<Options>, PopperCoreProps {
+	/** The contents of the popper. */
+	children?: React.ReactNode;
+}
