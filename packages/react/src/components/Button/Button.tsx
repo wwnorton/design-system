@@ -1,12 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useForwardedRef } from '../../hooks';
-import { NDSForwardRef } from '../../utilities';
+import { useForwardedRef } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon, IconVariant, SVGIcon } from '../Icon';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
 import { AllColors } from '../../utilities/color';
+import { BUTTON_NO_NAME } from './errors';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
@@ -54,7 +54,7 @@ export interface ButtonProps extends BaseButtonProps {
 }
 
 /** A button allows a user to perform an action. */
-export const Button = React.forwardRef((
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 	{
 		baseName = 'nds-button',
 		variant,
@@ -72,7 +72,7 @@ export const Button = React.forwardRef((
 ) => {
 	const { 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy } = props;
 	if (!React.Children.count(children) && !ariaLabel && !ariaLabelledBy) {
-		throw new Error(Button.errors.noName);
+		throw new Error(BUTTON_NO_NAME);
 	}
 	const [button, setButton] = useForwardedRef(ref);
 	const liveText = useContentMonitor(button, children);
@@ -126,10 +126,4 @@ export const Button = React.forwardRef((
 			<LiveRegion>{ liveText }</LiveRegion>
 		</>
 	);
-}) as NDSForwardRef<HTMLButtonElement, ButtonProps>;
-
-Button.errors = {
-	noName: 'Button components must always have a valid accessible name.'
-		+ ' This means that your button is missing `children` or an ARIA name.'
-		+ ' See https://w3c.github.io/aria-practices/#names_and_descriptions.',
-};
+});

@@ -4,7 +4,7 @@ import uniqueId from 'lodash/uniqueId';
 import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
-import { useForwardedRef } from '../../hooks';
+import { useForwardedRef } from '../../utilities';
 
 export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
 	/** The name of the Switch. Required. */

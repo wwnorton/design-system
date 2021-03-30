@@ -5,8 +5,8 @@ import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';
 import { canUseDOM } from '../../utilities/environment';
-import { usePopper } from '../../hooks';
-import { PopperOptions, Modifier } from '../../types/popper';
+import { usePopper } from '../../utilities';
+import { PopperOptions, Modifier } from '../../utilities/popper/types';
 
 type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 

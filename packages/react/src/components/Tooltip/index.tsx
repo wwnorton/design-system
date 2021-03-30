@@ -4,8 +4,8 @@ import uniqueId from 'lodash/uniqueId';
 import { BasePopper, BasePopperProps } from '../BasePopper';
 import {
 	useForwardedRef, usePopperTriggers, UsePopperTriggersProps, useToken,
-} from '../../hooks';
-import { PopperOptions } from '../../types/popper';
+} from '../../utilities';
+import { PopperOptions } from '../../utilities/popper/types';
 
 export interface TooltipProps extends
 	BasePopperProps,

@@ -6,6 +6,7 @@ import {
 import { Button, IconButton } from '.';
 import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 import { ChangingContent } from './index.stories';
+import { BUTTON_NO_NAME } from './errors';
 
 test.afterEach(cleanup);
 
@@ -18,7 +19,7 @@ test('throws when an accessible name is not provided', (t) => {
 	// @ts-ignore
 	render(<ErrorBoundary><Button /></ErrorBoundary>);
 
-	t.truthy(screen.queryByText(Button.errors.noName));
+	t.truthy(screen.queryByText(BUTTON_NO_NAME));
 	t.falsy(screen.queryByRole('button'));
 	window.onerror = null;
 });

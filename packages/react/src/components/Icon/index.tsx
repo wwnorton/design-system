@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {
 	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox,
 } from './icons';
-import { useForwardedRef } from '../../hooks';
+import { useForwardedRef } from '../../utilities';
 import { BaseSVG, BaseSVGProps } from '../BaseSVG';
 import { Tooltip, TooltipCoreProps } from '../Tooltip';
 

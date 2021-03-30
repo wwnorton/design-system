@@ -5,7 +5,7 @@ import { BasePopper, BasePopperProps } from '../BasePopper';
 import { Button, ButtonProps } from '../Button';
 import {
 	useForwardedRef, usePopperTriggers, useToken, UsePopperTriggersProps,
-} from '../../hooks';
+} from '../../utilities';
 
 export interface PopoverProps extends
 	BasePopperProps,

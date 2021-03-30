@@ -1,6 +1,18 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { srOnly } from '../../utilities';
+import isEqual from 'react-fast-compare';
+
+const srOnly: React.CSSProperties = {
+	position: 'absolute',
+	width: '1px',
+	height: '1px',
+	padding: '0',
+	margin: '-1px',
+	overflow: 'hidden',
+	clip: 'rect(0, 0, 0, 0)',
+	whiteSpace: 'nowrap',
+	border: '0',
+};
 
 type BaseProps = 'children' | 'id' | 'className' | 'role' | 'aria-atomic' | 'aria-live' | 'aria-relevant';
 export interface LiveRegionProps extends Pick<React.HTMLAttributes<HTMLDivElement>, BaseProps> {
@@ -131,7 +143,7 @@ export const useContentMonitor = (
 
 	React.useEffect(() => {
 		if (el && document.activeElement === el) {
-			if (prevChildren.current !== children) {
+			if (!isEqual(prevChildren.current, children)) {
 				prevChildren.current = children;
 				setLiveText(children);
 			}

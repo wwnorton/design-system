@@ -7,7 +7,7 @@ import {
 	FieldInfo, FieldInfoCoreProps,
 	FieldFeedback, FieldFeedbackCoreProps,
 } from '../Field';
-import { useForwardedRef } from '../../hooks';
+import { useForwardedRef } from '../../utilities';
 
 export interface ChoiceProps extends
 	Omit<FieldInfoCoreProps, 'label'>,
