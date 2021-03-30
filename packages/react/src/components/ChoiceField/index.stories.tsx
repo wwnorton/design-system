@@ -6,8 +6,7 @@ import { action } from '@storybook/addon-actions';
 import {
 	ChoiceField, Choice, Choices,
 } from '.';
-import { Button } from '../Button';
-import { useSelect } from '../../hooks';
+import { useSelect } from '../../utilities';
 
 export default {
 	title: 'ChoiceField',
@@ -42,36 +41,56 @@ export const WithChoices: React.FunctionComponent = () => (
 	</ChoiceField>
 );
 
-export const ControlledWithUseChoices: React.FunctionComponent = () => {
-	const multiple = boolean('Multiselect', true);
-	const { selected, onChange } = useSelect({
-		selected: 'Tomato',
-		multiple,
-	});
+export const ControlledRadio: React.FunctionComponent = () => {
+	const { changeHandler, selected } = useSelect();
 
-	React.useEffect(() => action('selectionChange')(selected), [selected]);
-
-	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		// do something in addition to the onChange callback
-		onChange(e);
-	};
-
-	const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
-		action('onSubmit')(selected);
-		e.preventDefault();
-	};
+	React.useEffect(() => action('selection change')(selected), [selected]);
 
 	return (
-		<form className="form" onSubmit={submitHandler}>
-			<ChoiceField
-				label={text('Prompt', prompt)}
-				description={text('Description', 'Descriptive text about this item.')}
-				multiple={multiple}
-			>
-				<Choices choices={defaultChoices} selected={selected} onChange={changeHandler} />
-			</ChoiceField>
-			<Button type="submit" variant="solid">Submit</Button>
-		</form>
+		<ChoiceField
+			label={text('Prompt', prompt)}
+			description={text('Description', 'Descriptive text about this item.')}
+			onChange={changeHandler}
+		>
+			{/* manually map a list to Choice elements */}
+			{
+				[
+					{ value: 'apple', children: 'Apple' },
+					{ value: 'banana', children: 'Banana' },
+					{ value: 'green-bean', children: 'Green Bean' },
+					{ value: 'tomato', children: 'Tomato' },
+				].map(({ value, ...props }) => (
+					<Choice
+						checked={selected.includes(value)}
+						value={value}
+						name="fruit"
+						key={value}
+						{...props}
+					/>
+				))
+			}
+		</ChoiceField>
+	);
+};
+
+export const ControlledCheckbox: React.FunctionComponent = () => {
+	const { changeHandler, selected } = useSelect({ multiple: true });
+
+	React.useEffect(() => action('selection change')(selected), [selected]);
+
+	return (
+		<ChoiceField
+			label={text('Prompt', prompt)}
+			description={text('Description', 'Descriptive text about this item.')}
+			multiple
+		>
+			{/* use the Choices utility component to map a list of choices */}
+			<Choices
+				choices={defaultChoices}
+				selected={selected}
+				onChange={changeHandler}
+			/>
+		</ChoiceField>
 	);
 };
 
@@ -80,5 +99,6 @@ export const ChoiceList: React.FunctionComponent = () => (
 		choices={defaultChoices}
 		selected={text('Initially selected', 'Tomato')}
 		multiple={boolean('Multiselect', true)}
+		name="choices"
 	/>
 );

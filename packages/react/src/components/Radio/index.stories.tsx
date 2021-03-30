@@ -5,9 +5,8 @@ import {
 	boolean,
 	text,
 } from '@storybook/addon-knobs';
-import { Radio, RadioGroup as RadioGroupComp } from '.';
-import { Choices } from '../ChoiceField';
-import { useSelect } from '../../hooks';
+import { Radio, RadioGroup } from '.';
+import { useSelect } from '../../utilities';
 
 export default {
 	title: 'Radio',
@@ -46,27 +45,48 @@ export const WithThumbnail: React.FunctionComponent = () => (
 	</Radio>
 );
 
-export const RadioGroup: React.FunctionComponent = () => (
-	<RadioGroupComp label="Choose your favorite fruit" name="fruit">
+const fruits = [
+	{ value: 'apple', children: 'Apple' },
+	{ value: 'banana', children: 'Banana' },
+	{ value: 'kiwi', children: 'Kiwi' },
+	{ value: 'orange', children: 'Orange' },
+];
+
+export const Group: React.FunctionComponent = () => (
+	<RadioGroup label="Choose your favorite fruit" name="fruit">
 		<Radio>Apple</Radio>
 		<Radio>Banana</Radio>
 		<Radio>Kiwi</Radio>
 		<Radio>Orange</Radio>
-	</RadioGroupComp>
+	</RadioGroup>
 );
 
-export const ControlledRadioGroup: React.FunctionComponent = () => {
-	const choices = ['Apple', 'Banana', 'Kiwi', 'Orange'];
-	const { selected, onChange } = useSelect({ selected: 'Kiwi', multiple: false });
+export const ControlledGroup: React.FunctionComponent = () => {
+	const { selected, changeHandler } = useSelect();
 
 	React.useEffect(() => action('selection change')(selected), [selected]);
 
 	return (
-		<RadioGroupComp
-			label="Choose your favorite fruit"
-			name="fruit"
-		>
-			<Choices choices={choices} selected={selected} onChange={onChange} />
-		</RadioGroupComp>
+		<RadioGroup label="Choose your favorite fruit">
+			{/* Choices can be mapped manually or with the <Choices> component */}
+			{
+				fruits.map(({ value, ...props }) => (
+					<Radio
+						checked={selected.includes(value)}
+						onChange={changeHandler}
+						value={value}
+						name="fruit"
+						key={value}
+						{...props}
+					/>
+				))
+			}
+			{/* <Choices
+				choices={fruits}
+				selected={selected}
+				onChange={changeHandler}
+				name="fruit"
+			/> */}
+		</RadioGroup>
 	);
 };
