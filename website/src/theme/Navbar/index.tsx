@@ -9,9 +9,8 @@ import React, {
 	useCallback, useState, useEffect, useLayoutEffect,
 } from 'react';
 import clsx from 'clsx';
-import { Switch, Icon, useColorScheme } from '@wwnds/react';
+import { Switch, Icon, useTheme } from '@wwnds/react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import SearchBar from '@theme/SearchBar';
 import useThemeContext from '@theme/hooks/useThemeContext';
@@ -20,7 +19,6 @@ import useLockBodyScroll from '@theme/hooks/useLockBodyScroll';
 import useWindowSize, { windowSizes } from '@theme/hooks/useWindowSize';
 import Logo from '@theme/Logo';
 import NavbarItem from '@theme/NavbarItem'; // retrocompatible with v1
-import { Seagull } from '../Seagull';
 import styles from './styles.module.css';
 
 const DefaultNavItemPosition = 'right'; // If split links by left/right
@@ -51,7 +49,8 @@ const Navbar = (): JSX.Element => {
 	const [sidebarShown, setSidebarShown] = useState(false);
 	const [isSearchBarExpanded, setIsSearchBarExpanded] = useState(false);
 	const { setLightTheme, setDarkTheme } = useThemeContext();
-	const { isDark, setLight, setDark } = useColorScheme();
+	const { colorScheme, setColorScheme } = useTheme();
+	const isDark = colorScheme === 'dark';
 	const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
 	// const { logoLink, logoLinkProps } = useLogo();
 	useLockBodyScroll(sidebarShown);
@@ -62,14 +61,24 @@ const Navbar = (): JSX.Element => {
 		setSidebarShown(false);
 	}, [setSidebarShown]);
 
-	const onToggleChange = useCallback((checked) => {
-		if (checked) setDark();
-		else setLight();
-	}, [setLight, setDark]);
+	const onToggleChange = (checked: boolean) => {
+		setColorScheme((checked) ? 'dark' : 'light');
+	};
+
+	useEffect(() => {
+		try {
+			if (colorScheme) window.localStorage.setItem('nds-color-scheme', colorScheme);
+		} catch (err) {
+			console.error(err);
+		}
+	}, [colorScheme]);
 
 	useLayoutEffect(() => {
-		if (isDark) setDarkTheme();
-		else setLightTheme();
+		if (isDark) {
+			setDarkTheme();
+		} else {
+			setLightTheme();
+		}
 	}, [isDark, setDarkTheme, setLightTheme]);
 
 	const windowSize = useWindowSize();
