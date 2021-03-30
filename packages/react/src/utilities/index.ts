@@ -1,11 +1,12 @@
-export * from './helpers';
+// Public utilities
+export * from './environment';
+export * from './externalClick';
+export * from './focusable';
+export * from './forwardedRef';
+export * from './mediaQuery';
+export * from './popper';
+export * from './popperTriggers';
+export * from './select';
+export * from './theme';
+export * from './token';
 export * from './validation';
-
-type ComponentErrors = {
-	errors: Record<string, string>;
-};
-
-export type NDSForwardRef<T, P> =
-React.ForwardRefExoticComponent<P & React.RefAttributes<T>> & ComponentErrors;
-
-export type NDSFunctionComponent<P> = React.FunctionComponent<P> & ComponentErrors;
