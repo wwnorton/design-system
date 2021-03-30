@@ -43,7 +43,6 @@
     "@material/linear-progress": "^10.0.0",
     "@popperjs/core": "^2.4.4",
     "classnames": "^2.2.6",
-    "localforage": "^1.9.0",
     "lodash": "^4.17.20",
     "react-fast-compare": "^3.2.0"
   },
