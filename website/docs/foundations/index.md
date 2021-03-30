@@ -3,7 +3,7 @@ title: Foundations
 slug: /foundations
 ---
 
-import { Features, FeatureCard } from '../../src/theme/Features';
+import { Features, FeatureCard } from '../../src/components/Features';
 
 > Foundations are guidelines for using elements of visual design and interaction.
 

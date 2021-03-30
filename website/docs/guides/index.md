@@ -3,7 +3,7 @@ title: Guides
 slug: /guides
 ---
 
-import { Features, FeatureCard } from '../../src/theme/Features';
+import { Features, FeatureCard } from '../../src/components/Features';
 
 Guides provide a more narrative approach to using the Norton Design System and are targeted to the needs of specific audiences.
 

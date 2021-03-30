@@ -3,7 +3,7 @@ title: Components
 slug: /components
 ---
 
-import { Features, FeatureCard, FeatureImage } from '../../src/theme/Features';
+import { Features, FeatureCard, FeatureImage } from '../../src/components/Features';
 
 > Components are the building blocks of the design system.
 
