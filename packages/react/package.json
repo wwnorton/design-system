@@ -47,9 +47,7 @@
     "react-fast-compare": "^3.2.0"
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "^5.1.1",
-    "@wwnds/core": "^1.1.0",
-    "mq-polyfill": "^1.1.8"
+    "@wwnds/core": "^1.1.0"
   },
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0",
