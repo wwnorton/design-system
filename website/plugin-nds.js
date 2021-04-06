@@ -31,16 +31,4 @@ module.exports = () => ({
 			plugins: [new TsconfigPathsPlugin()],
 		},
 	}),
-	injectHtmlTags() {
-		return {
-			headTags: [
-				{
-					tagName: 'script',
-					attributes: {
-						src: 'https://unpkg.com/focus-visible',
-					},
-				},
-			],
-		};
-	},
 });
