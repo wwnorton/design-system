@@ -7,11 +7,11 @@ import { useExternalClick } from './hook';
 
 test.afterEach(cleanup);
 
-const Component = () => {
+const Fixture = () => {
 	const [ref, setRef] = React.useState<HTMLButtonElement | null>(null);
 	const [externalClicks, setExternalClicks] = React.useState(0);
 
-	useExternalClick(ref, () => setExternalClicks(externalClicks + 1));
+	useExternalClick(ref || undefined, () => setExternalClicks(externalClicks + 1));
 
 	return (
 		<button type="button" ref={setRef}>
@@ -22,8 +22,8 @@ const Component = () => {
 };
 
 test('should trigger when external elements are clicked', (t) => {
-	render(<Component />);
-	const button = screen.queryByRole('button');
+	render(<Fixture />);
+	const button = screen.getByRole('button');
 
 	t.is(button.textContent, '0');
 
@@ -35,8 +35,8 @@ test('should trigger when external elements are clicked', (t) => {
 });
 
 test('should not trigger when the referenced element is clicked', (t) => {
-	render(<Component />);
-	const button = screen.queryByRole('button');
+	render(<Fixture />);
+	const button = screen.getByRole('button');
 
 	t.is(button.textContent, '0');
 
@@ -46,9 +46,9 @@ test('should not trigger when the referenced element is clicked', (t) => {
 });
 
 test('should not trigger when an internal element is clicked', (t) => {
-	render(<Component />);
-	const button = screen.queryByRole('button');
-	const image = screen.queryByRole('img');
+	render(<Fixture />);
+	const button = screen.getByRole('button');
+	const image = screen.getByRole('img');
 
 	t.is(button.textContent, '0');
 
