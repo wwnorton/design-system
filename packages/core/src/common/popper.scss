@@ -1,0 +1,102 @@
+/// A triangle arrow that connects with a Popper.js element
+@mixin arrow (
+	$size: 12px,
+	$border-width: 1px,
+	$background-color: var(--nds-background-color),
+) {
+	$arrow-border-width: calc(#{$size} / 2);
+
+	position: absolute;
+	width: $size;
+	height: $size;
+	border-color: inherit;
+
+	&::before {
+		position: absolute;
+		content: '';
+		border-color: transparent;
+		border-style: solid;
+	}
+
+	&::after {
+		position: absolute;
+		z-index: -1;
+		content: '';
+		border-color: transparent;
+		border-style: solid;
+	}
+
+	[data-popper-placement^='top'] > & {
+		bottom: 0;
+
+		&::before {
+			bottom: calc(-1 * #{$arrow-border-width} + #{$border-width});
+			left: 0;
+			border-width: $arrow-border-width $arrow-border-width 0;
+			border-top-color: $background-color;
+			transform-origin: center top;
+		}
+
+		&::after {
+			bottom: calc(-1 * #{$arrow-border-width});
+			left: 0;
+			border-width: $arrow-border-width $arrow-border-width 0;
+			border-top-color: inherit;
+		}
+	}
+
+	[data-popper-placement^='right'] > & {
+		left: 0;
+
+		&::before {
+			left: calc(-1 * #{$arrow-border-width} + #{$border-width});
+			border-width: $arrow-border-width $arrow-border-width $arrow-border-width 0;
+			border-right-color: $background-color;
+			transform-origin: center right;
+		}
+
+		&::after {
+			top: 0;
+			left: calc(-1 * #{$arrow-border-width});
+			border-width: $arrow-border-width $arrow-border-width $arrow-border-width 0;
+			border-right-color: inherit;
+		}
+	}
+
+	[data-popper-placement^='bottom'] > & {
+		top: 0;
+
+		&::before {
+			top: calc(-1 * #{$arrow-border-width} + #{$border-width});
+			left: 0;
+			border-width: 0 $arrow-border-width $arrow-border-width;
+			border-bottom-color: $background-color;
+			transform-origin: center bottom;
+		}
+
+		&::after {
+			top: calc(-1 * #{$arrow-border-width});
+			left: 0;
+			border-width: 0 $arrow-border-width $arrow-border-width;
+			border-bottom-color: inherit;
+		}
+	}
+
+	[data-popper-placement^='left'] > & {
+		right: 0;
+
+		&::before {
+			right: calc(-1 * #{$arrow-border-width} + #{$border-width});
+			border-width: $arrow-border-width 0 $arrow-border-width $arrow-border-width;
+			border-left-color: $background-color;
+			transform-origin: center left;
+		}
+
+		&::after {
+			top: 0;
+			right: calc(-1 * #{$arrow-border-width});
+			border-width: $arrow-border-width 0 $arrow-border-width $arrow-border-width;
+			border-left-color: inherit;
+		}
+	}
+}
