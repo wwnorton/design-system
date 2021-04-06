@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.1](https://github.com/wwnorton/design-system/compare/v1.1.0...v1.1.1) (2021-04-06)
+
+### 🐛 Bug Fixes
+
+- **react:** don't destructure refs ([#92](https://github.com/wwnorton/design-system/issues/92)) ([e08a6c8](https://github.com/wwnorton/design-system/commit/e08a6c85374f81fc163fe9e4ef8897d84e28bf33))
+
+### ♻️ Refactor
+
+- **tooltip:** prefer "body" over "content" ([b007cb9](https://github.com/wwnorton/design-system/commit/b007cb9862e132718f9c7cb476b8e5ba6afb0057))
+
+### 📝 Documentation
+
+- **tooltip:** add knob for tooltip color scheme ([f3fc63f](https://github.com/wwnorton/design-system/commit/f3fc63fc7597f27c47f8080f61aeffe67fde1960))
+- update all readmes ([630f0db](https://github.com/wwnorton/design-system/commit/630f0db45ab0d54c0f77ec4682715416d564b32a))
+
 ## [1.1.0](https://github.com/wwnorton/design-system/compare/v1.0.1...v1.1.0) (2021-02-23)
 
 ### 📝 Documentation

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.1](https://github.com/wwnorton/design-system/compare/v1.1.0...v1.1.1) (2021-04-06)
+
+### 📝 Documentation
+
+- update all readmes ([630f0db](https://github.com/wwnorton/design-system/commit/630f0db45ab0d54c0f77ec4682715416d564b32a))
+
+### ♻️ Refactor
+
+- **tooltip:** simplify styling; enable light scheme ([4051646](https://github.com/wwnorton/design-system/commit/4051646b12bf9eff3fe85b849f99ae47892e0c68))
+
 ## [1.1.0](https://github.com/wwnorton/design-system/compare/v1.0.1...v1.1.0) (2021-02-23)
 
 ### 📝 Documentation
