@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { canUseDOM } from '../../utilities/environment';
-import { getFocusable } from '../../utilities';
+import { getFocusable } from './focusable';
+import { canUseDOM } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton, ButtonProps } from '../Button';
 
@@ -254,8 +254,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		const { focusOnOpen } = this.props;
 		let el = focusOnOpen || null;
 		if (!el) {
-			const tabbable = getFocusable(this.dialog);
-			el = (tabbable && tabbable.length > 0) ? tabbable[0] : null;
+			const tabbable = (this.dialog) ? getFocusable(this.dialog) : [];
+			el = (tabbable.length) ? tabbable[0] : null;
 		}
 		if (!el) {
 			el = this.header || this.content;
@@ -447,8 +447,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		if (!isOpen) return;
 		if (e.key === 'Escape' && closeOnEscape) this.requestClose();
 		if (e.key === 'Tab') {
-			const tabbable = getFocusable(this.dialog);
-			if (tabbable && tabbable.length) {
+			const tabbable = (this.dialog) ? getFocusable(this.dialog) : [];
+			if (tabbable.length) {
 				let element: HTMLElement | undefined;
 				const tabIndex = Array.from(tabbable).indexOf(document.activeElement as HTMLElement);
 				const wrapForward = tabIndex === tabbable.length - 1 && !e.shiftKey;

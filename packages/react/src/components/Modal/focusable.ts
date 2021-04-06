@@ -1,4 +1,4 @@
-export const focusableSelectors = [
+const focusableSelectors = [
 	'[contentEditable=true]:not([tabindex="-1"])',
 	'[tabindex]:not([tabindex="-1"])',
 	'a[href]:not([tabindex="-1"])',
@@ -14,9 +14,7 @@ export const focusableSelectors = [
 	'textarea:not([disabled]):not([tabindex="-1"])',
 ];
 
+/** Get a list of focusable elements inside an element. */
 export const getFocusable = (
-	from: HTMLElement | Document | ShadowRoot | null = document,
-): NodeListOf<HTMLElement> | null => {
-	if (from) return from.querySelectorAll(focusableSelectors.join(','));
-	return null;
-};
+	from: Element | Document | ShadowRoot,
+): NodeListOf<HTMLElement> => from.querySelectorAll(focusableSelectors.join(','));

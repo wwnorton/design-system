@@ -1,7 +1,6 @@
 // Public utilities
 export * from './environment';
 export * from './externalClick';
-export * from './focusable';
 export * from './forwardedRef';
 export * from './mediaQuery';
 export * from './popper';
