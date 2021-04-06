@@ -1,6 +1,7 @@
 import React from 'react';
 import { canUseDOM, ColorScheme, AppProvider } from '@wwnds/react';
 import Head from '@docusaurus/Head';
+import Link from '@docusaurus/Link';
 
 const Root: React.FunctionComponent = ({ children }: { children?: React.ReactNode }) => {
 	const colorScheme = React.useMemo(() => {
@@ -22,7 +23,7 @@ const Root: React.FunctionComponent = ({ children }: { children?: React.ReactNod
 			<Head>
 				<link rel="stylesheet" href="https://use.typekit.net/aoc6aci.css" />
 			</Head>
-			<AppProvider colorScheme={colorScheme}>
+			<AppProvider linkComponent={Link} colorScheme={colorScheme}>
 				{ children }
 			</AppProvider>
 		</>
