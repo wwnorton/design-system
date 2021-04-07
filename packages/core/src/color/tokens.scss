@@ -190,10 +190,12 @@ $system-colors: (
 
 /// The main background color.
 $background-color: var(--nds-white) !default;
+/// The inverse background color.
+$background-color-inverse: var(--nds-base-color-90) !default;
 /// The main text color.
 $text-color: var(--nds-base-color-90) !default;
 /// The inverse text color.
-$text-color-inverse: var(--nds-background-color) !default;
+$text-color-inverse: var(--nds-white) !default;
 /// A subdued or "muted" text color, used for less emphasized text.
 $subdued-color: var(--nds-base-color-60) !default;
 /// The background color for the `::selection` state.
@@ -213,6 +215,7 @@ $focus-halo-outer-color: var(--nds-focus-color) !default;
 
 $-scheme-light-default: (
 	--nds-background-color: #{$background-color},
+	--nds-background-color-inverse: #{$background-color-inverse},
 	--nds-text-color: #{$text-color},
 	--nds-text-color-inverse: #{$text-color-inverse},
 	--nds-subdued-color: #{$subdued-color},
@@ -236,6 +239,9 @@ $scheme-light: map.merge($-scheme-light-default, $scheme-light);
 
 $-scheme-dark-default: (
 	--nds-background-color: var(--nds-base-color-10),
+	--nds-background-color-inverse: #{$background-color},
+	--nds-text-color: #{$background-color},
+	--nds-text-color-inverse: var(--nds-base-color-10),
 	--nds-focus-color-background: var(--nds-blue-90),
 	--nds-primary-color: color.family('primary-color', color.$primary-family, color.$primary-grade, true),
 	--nds-base-color: color.family('base-color', color.$base-family, color.$base-grade, true),

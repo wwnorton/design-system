@@ -13,7 +13,12 @@ export interface TooltipProps extends
 	Partial<Pick<UsePopperTriggersProps, 'hideDelay'>> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
-	/** A className to apply to the content. Default will be `${baseName}__content`. */
+	/** A className to apply to the body of the tooltip. */
+	bodyClass?: string;
+	/**
+	 * A className to apply to the content. Default will be `${baseName}__content`.
+	 * @deprecated Use the `bodyClass`.
+	 */
 	contentClass?: string;
 	/** A className to apply to the arrow. Default will be `${baseName}__arrow`. */
 	arrowClass?: string;
@@ -43,7 +48,8 @@ export type TooltipCoreProps = PopperOptions & Pick<UsePopperTriggersProps, 'hid
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	{
 		baseName = prefix('tooltip'),
-		contentClass = `${baseName}__content`,
+		bodyClass = `${baseName}__body`,
+		contentClass,
 		arrowClass = `${baseName}__arrow`,
 		modifiers,
 		placement = 'top',
@@ -126,7 +132,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 				ref={setPopper}
 				{...props}
 			>
-				<div className={contentClass}>{ children }</div>
+				<div className={contentClass || bodyClass}>{ children }</div>
 				<div className={arrowClass} />
 			</BasePopper>
 			{/* a persistent, hidden div that is used for the accessible name or description */}

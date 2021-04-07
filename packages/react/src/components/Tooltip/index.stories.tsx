@@ -19,7 +19,7 @@ const defaultDelay = 200;
 const CALLOUT_WIDTH = 450;
 
 export const Default = (): JSX.Element => (
-	<Tooltip isOpen>
+	<Tooltip isOpen className={select('Color Scheme', { Default: undefined, Dark: 'nds-tooltip--dark', Light: 'nds-tooltip--light' }, undefined)}>
 		Tooltips require a reference element in order to render their arrow.
 	</Tooltip>
 );
