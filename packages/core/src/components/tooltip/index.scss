@@ -1,12 +1,13 @@
 @forward 'tokens';
 @use 'tokens';
+@use '../../common/popper';
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
 
 @mixin base {
+	--nds-tooltip-border-width: #{tokens.$border-width};
 	--nds-tooltip-arrow-size: #{tokens.$arrow-size};
-	--nds-tooltip-arrow-border: #{tokens.$arrow-border};
 	--nds-tooltip-offset-y: #{tokens.$offset-y};
 	--nds-tooltip-max-width: #{tokens.$max-width};
 	--nds-tooltip-padding-x: #{tokens.$padding-x};
@@ -15,116 +16,57 @@
 
 	position: absolute;
 	z-index: var(--nds-zindex-tooltip);
-	box-shadow: var(--nds-shadow-tooltip);
-}
-
-@mixin content {
-	position: relative;
-	z-index: 1;
 	max-width: var(--nds-tooltip-max-width);
-	padding: var(--nds-tooltip-padding-y) var(--nds-tooltip-padding-x);
-	color: var(--nds-text-color-inverse);
-	background-color: var(--nds-text-color);
+	color: var(--nds-text-color);
+	background-color: var(--nds-background-color);
+	border: solid var(--nds-tooltip-border-width) transparent;
 	border-radius: var(--nds-tooltip-border-radius);
+}
 
+@mixin body {
 	@include type.ui-sm;
+
+	padding: var(--nds-tooltip-padding-y) var(--nds-tooltip-padding-x);
 }
 
-@mixin arrow {
-	position: absolute;
-	width: var(--nds-tooltip-arrow-size);
-	height: var(--nds-tooltip-arrow-size);
-
-	&::before {
-		position: absolute;
-		content: '';
-		border-color: transparent;
-		border-style: solid;
-	}
+@mixin scheme-dark {
+	--nds-background-color: var(--nds-background-color-inverse);
+	--nds-text-color: var(--nds-text-color-inverse);
 }
 
-@mixin placement-arrow {
-	background-color: var(--nds-text-color);
-}
+@mixin scheme-light {
+	--nds-background-color: unset;
+	--nds-text-color: unset;
 
-@mixin placement-top-arrow {
-	bottom: 0;
-
-	&::before {
-		bottom: calc(-1 * var(--nds-tooltip-arrow-border));
-		left: 0;
-		border-width: var(--nds-tooltip-arrow-border) var(--nds-tooltip-arrow-border) 0;
-		border-top-color: initial;
-		transform-origin: center top;
-	}
-}
-
-@mixin placement-right-arrow {
-	left: 0;
-
-	&::before {
-		left: calc(-1 * var(--nds-tooltip-arrow-border));
-		border-width: var(--nds-tooltip-arrow-border) var(--nds-tooltip-arrow-border) var(--nds-tooltip-arrow-border) 0;
-		border-right-color: initial;
-		transform-origin: center right;
-	}
-}
-
-@mixin placement-bottom-arrow {
-	top: 0;
-
-	&::before {
-		top: calc(-1 * var(--nds-tooltip-arrow-border));
-		left: 0;
-		border-width: 0 var(--nds-tooltip-arrow-border) var(--nds-tooltip-arrow-border);
-		border-bottom-color: initial;
-		transform-origin: center bottom;
-	}
-}
-
-@mixin placement-left-arrow {
-	right: 0;
-
-	&::before {
-		right: calc(-1 * var(--nds-tooltip-arrow-border));
-		border-width: var(--nds-tooltip-arrow-border) 0 var(--nds-tooltip-arrow-border) var(--nds-tooltip-arrow-border);
-		border-left-color: initial;
-		transform-origin: center left;
-	}
+	border-color: var(--nds-base-color-40);
+	box-shadow: var(--nds-shadow-1);
 }
 
 @mixin style {
 	@include util.declare('tooltip') {
 		.nds-tooltip {
 			@include base;
+			@include scheme-dark;
 		}
 
-		.nds-tooltip__content {
-			@include content;
+		.nds-tooltip--light {
+			@include scheme-light;
+		}
+
+		.nds-tooltip--dark {
+			@include scheme-dark;
+		}
+
+		.nds-tooltip__content,	/* deprecated. remove in v2 */
+		.nds-tooltip__body {
+			@include body;
 		}
 
 		.nds-tooltip__arrow {
-			@include arrow;
-		}
-
-		.nds-tooltip[data-popper-placement] > .nds-tooltip__arrow {
-			@include placement-arrow;
-		}
-
-		.nds-tooltip[data-popper-placement^='top'] > .nds-tooltip__arrow {
-			@include placement-top-arrow;
-		}
-
-		.nds-tooltip[data-popper-placement^='right'] > .nds-tooltip__arrow {
-			@include placement-right-arrow;
-		}
-
-		.nds-tooltip[data-popper-placement^='bottom'] > .nds-tooltip__arrow {
-			@include placement-bottom-arrow;
-		}
-
-		.nds-tooltip[data-popper-placement^='left'] > .nds-tooltip__arrow {
-			@include placement-left-arrow;
+			@include popper.arrow(
+				$size: var(--nds-tooltip-arrow-size),
+				$border-width: var(--nds-tooltip-border-width),
+			);
 		}
 	}
 }
