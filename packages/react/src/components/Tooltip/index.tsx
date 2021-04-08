@@ -95,12 +95,12 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		};
 	}, [offsetY]);
 
-	const arrowMod = React.useMemo(() => ({
+	const arrowMod = {
 		name: 'arrow',
 		options: {
 			element: `.${arrowClass}`,
 		},
-	}), [arrowClass]);
+	};
 
 	/**
 	 * Attach aria labelling/describing attributes to the reference.

@@ -321,7 +321,7 @@ export const Dropdown: DropdownType = ({
 				variant="outline"
 				style={{ width: (matchWidth === 'listbox') ? listboxWidth : buttonWidth }}
 				aria-expanded={(open) ? 'true' : undefined}
-				aria-labelledby={`${labelId} ${currentId}`}
+				aria-labelledby={`${labelId.current} ${currentId.current}`}
 				aria-haspopup="listbox"
 				aria-controls={(open) ? listboxId.current : undefined}
 				onClick={buttonClickHandler}

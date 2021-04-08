@@ -151,12 +151,12 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		};
 	}, [offsetY]);
 
-	const arrowMod = React.useMemo(() => ({
+	const arrowMod = {
 		name: 'arrow',
 		options: {
 			element: `.${arrowClass}`,
 		},
-	}), [arrowClass]);
+	};
 
 	const Header = React.useMemo(() => {
 		if ((hideTitle || !title) && hideCloseButton) return null;
@@ -184,9 +184,8 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			</header>
 		);
 	}, [
-		headerClass,
-		title, titleClass, hideTitle,
-		close, closeButtonClass, hideCloseButton,
+		close, closeButtonClass, headerClass,
+		hideCloseButton, hideTitle, title, titleClass,
 	]);
 
 	const ActionBar = React.useMemo(() => {
@@ -196,7 +195,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 				{ actions }
 			</footer>
 		);
-	}, [actions, actionBarClass]);
+	}, [actionBarClass, actions]);
 
 	// call the onOpen/onClose callbacks
 	React.useEffect(() => {
@@ -209,7 +208,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			onClose(focusReferenceOnClose.current);
 			prevOpen.current = false;
 		}
-	}, [isOpen, popper, reference, onOpen, onClose]);
+	}, [isOpen, onClose, onOpen, popper]);
 
 	const accessibleName = React.useMemo(() => {
 		// 1. use the explicit aria-labelledby prop
@@ -220,7 +219,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		if (hideTitle) return { 'aria-label': title };
 		// 4. label the dialog with the visible title
 		return { 'aria-labelledby': titleId.current };
-	}, [ariaLabelledby, ariaLabel, hideTitle, title, titleId]);
+	}, [ariaLabel, ariaLabelledby, hideTitle, title]);
 
 	if (!children) return null;
 	return (

@@ -67,6 +67,8 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	...props
 }: CalloutProps) => {
 	const [isDismissed, setDismissed] = React.useState<boolean>(false);
+	const titleIdRef = React.useRef(uniqueId('callout-title-'));
+	const titleId = (title) ? titleIdRef.current : undefined;
 
 	const dismiss = () => {
 		setDismissed(true);
@@ -86,11 +88,6 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 			[`${baseName}--no-title`]: !title,
 		},
 	);
-
-	const titleId = React.useMemo(() => {
-		if (!title) return undefined;
-		return uniqueId('callout-');
-	}, [title]);
 
 	const Tag = React.useMemo(() => {
 		if (tag) return tag;
