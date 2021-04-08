@@ -4,9 +4,9 @@ import uniqueId from 'lodash/uniqueId';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';
-import { canUseDOM, prefix } from '../../config';
-import { usePopper } from '../../hooks';
-import { PopperOptions, Modifier } from '../../types/popper';
+import { canUseDOM } from '../../utilities/environment';
+import { usePopper } from '../../utilities';
+import { PopperOptions, Modifier } from '../../utilities/popper/types';
 
 type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 
@@ -123,7 +123,7 @@ export const Dropdown: DropdownType = ({
 	matchWidth,
 	buttonWidth,
 	sort,
-	baseName = prefix('dropdown'),
+	baseName = 'nds-dropdown',
 	buttonClass = `${baseName}__button`,
 	listboxClass = `${baseName}__listbox`,
 	optionClass = `${baseName}__option`,

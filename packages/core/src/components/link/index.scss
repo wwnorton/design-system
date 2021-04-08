@@ -36,8 +36,14 @@
 }
 
 @mixin base {
+	display: inline-flex;
 	color: var(--nds-link-color);
 	text-decoration: var(--nds-link-decoration);
+}
+
+@mixin launch {
+	margin-left: 1px;
+	font-size: 0.875em;
 }
 
 @mixin hover {
@@ -77,6 +83,10 @@
 	@include util.declare('link') {
 		.nds-link {
 			@include link;
+		}
+
+		.nds-link__launch {
+			@include launch;
 		}
 
 		.nds-link--visited {

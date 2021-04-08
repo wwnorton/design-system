@@ -12,7 +12,7 @@ import {
 } from '.';
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
-import { useValidation } from '../../hooks';
+import { useValidation } from '../../utilities';
 
 export default {
 	title: 'Text Field',

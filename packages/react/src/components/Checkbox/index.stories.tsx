@@ -5,9 +5,10 @@ import {
 	boolean,
 	text,
 } from '@storybook/addon-knobs';
-import { Checkbox, CheckboxGroup as CheckboxGroupComp } from '.';
+import { Checkbox, CheckboxGroup } from '.';
 import { Button } from '../Button';
-import { useValidation } from '../../hooks';
+import { useSelect, useValidation } from '../../utilities';
+import { Choices } from '../ChoiceField';
 
 export default {
 	title: 'Checkbox',
@@ -109,11 +110,48 @@ export const SingleCheckboxRequiredForm: React.FunctionComponent = () => {
 	);
 };
 
-export const CheckboxGroup: React.FunctionComponent = () => (
-	<CheckboxGroupComp label="Choose your favorite fruit" name="fruit">
+const fruits = [
+	{ value: 'apple', children: 'Apple' },
+	{ value: 'banana', children: 'Banana' },
+	{ value: 'kiwi', children: 'Kiwi' },
+	{ value: 'orange', children: 'Orange' },
+];
+
+export const Group: React.FunctionComponent = () => (
+	<CheckboxGroup label="Choose your favorite fruits" name="fruit">
 		<Checkbox>Apple</Checkbox>
 		<Checkbox>Banana</Checkbox>
 		<Checkbox>Kiwi</Checkbox>
 		<Checkbox>Orange</Checkbox>
-	</CheckboxGroupComp>
+	</CheckboxGroup>
 );
+
+export const ControlledGroup: React.FunctionComponent = () => {
+	const { selected, changeHandler } = useSelect({ multiple: true });
+
+	React.useEffect(() => action('selection change')(selected), [selected]);
+
+	return (
+		<CheckboxGroup label="Choose your favorite fruits">
+			{/* Choices can be mapped manually or with the <Choices> component */}
+			{/* {
+				fruits.map(({ value, ...props }) => (
+					<Checkbox
+						checked={selected.includes(value)}
+						onChange={changeHandler}
+						value={value}
+						name="fruit"
+						key={value}
+						{...props}
+					/>
+				))
+			} */}
+			<Choices
+				choices={fruits}
+				selected={selected}
+				onChange={changeHandler}
+				name="fruit"
+			/>
+		</CheckboxGroup>
+	);
+};

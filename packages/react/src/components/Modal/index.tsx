@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { canUseDOM, prefix } from '../../config';
-import { getFocusable } from '../../utilities';
+import { getFocusable } from './focusable';
+import { canUseDOM } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
 import { IconButton, ButtonProps } from '../Button';
 
@@ -112,7 +112,7 @@ export interface ModalSnapshot {
  * Modal dialog.
  */
 export class Modal extends React.PureComponent<ModalProps, ModalState> {
-	public static bemBase = 'modal';
+	public static bemBase = 'nds-modal';
 	public static bemElements: Record<ModalAnatomy, string> = {
 		portal: 'portal',
 		backdrop: 'backdrop',
@@ -145,7 +145,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	constructor(props: ModalProps) {
 		super(props);
 
-		this.baseName = props.baseName || prefix(Modal.bemBase);
+		this.baseName = props.baseName || Modal.bemBase;
 		this.id = props.id || uniqueId(`${this.baseName}-`);
 		this.titleId = `${this.id}-${Modal.bemElements.title}`;
 		this.portalNode = (canUseDOM) ? this.createPortalNode() : null;
@@ -254,8 +254,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		const { focusOnOpen } = this.props;
 		let el = focusOnOpen || null;
 		if (!el) {
-			const tabbable = getFocusable(this.dialog);
-			el = (tabbable && tabbable.length > 0) ? tabbable[0] : null;
+			const tabbable = (this.dialog) ? getFocusable(this.dialog) : [];
+			el = (tabbable.length) ? tabbable[0] : null;
 		}
 		if (!el) {
 			el = this.header || this.content;
@@ -328,7 +328,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			headerClass,
 			{
 				[`${headerClass}--sticky`]: stickyHeader && long,
-				[prefix('stuck')]: stickyHeader && stuckHeader,
+				'nds-stuck': stickyHeader && stuckHeader,
 			},
 		);
 		return (
@@ -354,7 +354,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			actionBarClass,
 			{
 				[`${actionBarClass}--sticky`]: stickyActionBar && long,
-				[prefix('stuck')]: stickyActionBar && stuckFooter,
+				'nds-stuck': stickyActionBar && stuckFooter,
 			},
 		);
 		return (
@@ -447,8 +447,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		if (!isOpen) return;
 		if (e.key === 'Escape' && closeOnEscape) this.requestClose();
 		if (e.key === 'Tab') {
-			const tabbable = getFocusable(this.dialog);
-			if (tabbable && tabbable.length) {
+			const tabbable = (this.dialog) ? getFocusable(this.dialog) : [];
+			if (tabbable.length) {
 				let element: HTMLElement | undefined;
 				const tabIndex = Array.from(tabbable).indexOf(document.activeElement as HTMLElement);
 				const wrapForward = tabIndex === tabbable.length - 1 && !e.shiftKey;

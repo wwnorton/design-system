@@ -1,6 +1,5 @@
 // A configured version of the design system. Used by other stylesheets to set declarations.
 @forward '~@wwnds/core' with (
 	$enable-dark-scheme: true,
-	$focus-visible-polyfill: true,
 	$font-family-sans: proxima-nova,
 );

@@ -7,7 +7,6 @@ import {
 } from '../Field';
 import { Choice, ChoiceProps } from './Choice';
 import { Choices, ChoicesProps } from './Choices';
-import { prefix } from '../../config';
 
 export interface ChoiceFieldProps
 	extends FieldInfoCoreProps, FieldFeedbackCoreProps, React.HTMLAttributes<HTMLFieldSetElement> {
@@ -56,7 +55,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 	errors: errorsProp,
 
 	// classes
-	baseName = prefix('field'),
+	baseName = 'nds-field',
 	className = classNames(baseName, `${baseName}--choice`),
 	labelClass,
 	descriptionClass,

@@ -1,7 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { hasTransition } from '../../utilities';
-import { prefix, canUseDOM } from '../../config';
 import { BaseDetails, BaseDetailsProps } from '../BaseDetails';
 import { BaseSummary } from '../BaseSummary';
 import {
@@ -15,15 +13,6 @@ const proceed = async (cb?: LifecycleCallback): Promise<boolean> => {
 		return (await cb()) !== false;
 	}
 	return true;
-};
-
-const getDimension = (
-	dim: 'height' | 'width',
-	el: HTMLElement | null,
-): number | undefined => {
-	if (!el || !canUseDOM) return undefined;
-	const prop = (dim === 'width') ? 'offsetWidth' : 'offsetHeight';
-	return el[prop];
 };
 
 export interface DisclosureProps extends Omit<BaseDetailsProps, 'open'> {
@@ -117,7 +106,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		panel,
 
 		className,
-		baseName = prefix('disclosure'),
+		baseName = 'nds-disclosure',
 		summaryClass = `${baseName}__summary`,
 		markerClass = `${baseName}__marker`,
 		contentsOuterClass = `${baseName}__contents-outer`,
@@ -145,7 +134,10 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 	const shouldAnimate = React.useMemo(() => {
 		if (reducedMotion) return false;
 		if (!contents) return true;
-		return hasTransition(contents);
+		const styles = window.getComputedStyle(contents);
+		return styles.getPropertyValue('transition-duration')
+			.split(/,\s*/)
+			.some((value) => parseFloat(value) > 0);
 	}, [reducedMotion, contents]);
 
 	const open = React.useCallback(async () => {
@@ -206,7 +198,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 	React.useLayoutEffect(() => {
 		if (!isOpen) setState(undefined);
 		if (isOpen && contents) {
-			setHeight(getDimension('height', contents));
+			setHeight(contents.offsetHeight);
 			if (shouldAnimate) {
 				setStyle({ height: 0 });
 				window.requestAnimationFrame(() => {
@@ -263,10 +255,10 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 	const classes = classNames(
 		className,
 		baseName,
-		state && prefix(state),
+		state && `nds-${state}`,
 		{
 			[`${baseName}--panel`]: panel,
-			[prefix('reduced-motion')]: !shouldAnimate,
+			'nds-reduced-motion': !shouldAnimate,
 		},
 	);
 

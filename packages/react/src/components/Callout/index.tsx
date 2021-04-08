@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 import { Icon, IconProps } from '../Icon';
 import { Button } from '../Button';
-import { prefix } from '../../config';
 import { AllColors } from '../../utilities/color';
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
@@ -55,7 +54,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	tag,
 	children,
 	className,
-	baseName = prefix('callout'),
+	baseName = 'nds-callout',
 	iconClass = `${baseName}__icon`,
 	headerClass = `${baseName}__header`,
 	titleClass = `${baseName}__title`,

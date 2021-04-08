@@ -1,6 +1,10 @@
 import React from 'react';
-import { useForwardedRef, useValidation } from '../../hooks';
-import { InputType, ValidatorEntry } from '../../utilities';
+import {
+	InputType,
+	useForwardedRef,
+	useValidation,
+	ValidatorEntry,
+} from '../../utilities';
 
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	/**

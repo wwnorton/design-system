@@ -3,10 +3,9 @@ import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { BasePopper, BasePopperProps } from '../BasePopper';
 import { Button, ButtonProps } from '../Button';
-import { prefix } from '../../config';
 import {
 	useForwardedRef, usePopperTriggers, useToken, UsePopperTriggersProps,
-} from '../../hooks';
+} from '../../utilities';
 
 export interface PopoverProps extends
 	BasePopperProps,
@@ -80,7 +79,7 @@ export interface PopoverProps extends
 /** A popover is a non-modal dialog that points to a reference element. */
 export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	{
-		baseName = prefix('popover'),
+		baseName = 'nds-popover',
 		bodyClass = `${baseName}__body`,
 		arrowClass = `${baseName}__arrow`,
 		headerClass = `${baseName}__header`,
