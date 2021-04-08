@@ -151,12 +151,12 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		};
 	}, [offsetY]);
 
-	const arrowMod = React.useMemo(() => ({
+	const arrowMod = {
 		name: 'arrow',
 		options: {
 			element: `.${arrowClass}`,
 		},
-	}), [arrowClass]);
+	};
 
 	const Header = React.useMemo(() => {
 		if ((hideTitle || !title) && hideCloseButton) return null;
