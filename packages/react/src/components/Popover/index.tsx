@@ -209,7 +209,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			onClose(focusReferenceOnClose.current);
 			prevOpen.current = false;
 		}
-	}, [isOpen, popper, reference, onOpen, onClose]);
+	}, [isOpen, onClose, onOpen, popper]);
 
 	const accessibleName = React.useMemo(() => {
 		// 1. use the explicit aria-labelledby prop
@@ -220,7 +220,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		if (hideTitle) return { 'aria-label': title };
 		// 4. label the dialog with the visible title
 		return { 'aria-labelledby': titleId.current };
-	}, [ariaLabelledby, ariaLabel, hideTitle, title, titleId]);
+	}, [ariaLabel, ariaLabelledby, hideTitle, title]);
 
 	if (!children) return null;
 	return (
