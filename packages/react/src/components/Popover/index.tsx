@@ -184,9 +184,8 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 			</header>
 		);
 	}, [
-		headerClass,
-		title, titleClass, hideTitle,
-		close, closeButtonClass, hideCloseButton,
+		close, closeButtonClass, headerClass,
+		hideCloseButton, hideTitle, title, titleClass,
 	]);
 
 	const ActionBar = React.useMemo(() => {
@@ -196,7 +195,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 				{ actions }
 			</footer>
 		);
-	}, [actions, actionBarClass]);
+	}, [actionBarClass, actions]);
 
 	// call the onOpen/onClose callbacks
 	React.useEffect(() => {
