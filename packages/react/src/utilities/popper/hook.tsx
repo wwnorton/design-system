@@ -4,12 +4,8 @@ import {
 	useRef, useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {
-	createPopper,
-	Instance,
-	Options,
-	UsePopperProps,
-} from './types';
+import { createPopper, Instance, Options } from '@popperjs/core';
+import { UsePopperProps } from './types';
 
 /** A hook to create a [Popper.js](https://popper.js.org) instance. */
 export const usePopper = ({
