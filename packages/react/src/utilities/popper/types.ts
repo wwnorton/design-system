@@ -1,7 +1,5 @@
 import { Options, VirtualElement } from '@popperjs/core';
 
-export * from '@popperjs/core';
-
 export interface PopperOptions {
 	/** The [Popper.js placement option](https://popper.js.org/docs/v2/constructors/#placement). */
 	placement: Options['placement'];

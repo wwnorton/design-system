@@ -4,12 +4,8 @@ import {
 	useRef, useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
-import {
-	createPopper,
-	Instance,
-	Options,
-	UsePopperProps,
-} from './types';
+import { createPopper, Instance } from '@popperjs/core';
+import { UsePopperProps, PopperOptions } from './types';
 
 /** A hook to create a [Popper.js](https://popper.js.org) instance. */
 export const usePopper = ({
@@ -22,7 +18,7 @@ export const usePopper = ({
 	onFirstUpdate,
 }: UsePopperProps): Instance | null => {
 	const [instance, setInstance] = useState<Instance | null>(null);
-	const options = useRef<Options>({
+	const options = useRef<PopperOptions>({
 		placement,
 		modifiers: modifiers || [],
 		strategy,

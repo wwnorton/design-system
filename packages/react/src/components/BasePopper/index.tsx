@@ -1,6 +1,7 @@
 import React from 'react';
+import { Instance } from '@popperjs/core';
 import { useForwardedRef, usePopper } from '../../utilities';
-import { PopperOptions, Instance, PopperCoreProps } from '../../utilities/popper/types';
+import { PopperOptions, PopperCoreProps } from '../../utilities/popper/types';
 
 export interface BasePopperProps extends
 	React.HTMLAttributes<HTMLElement>, Pick<PopperCoreProps, 'reference'>, Partial<PopperOptions> {

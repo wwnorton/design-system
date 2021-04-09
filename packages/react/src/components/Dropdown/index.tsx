@@ -1,12 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import { Modifier } from '@popperjs/core';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';
 import { canUseDOM } from '../../utilities/environment';
 import { usePopper } from '../../utilities';
-import { PopperOptions, Modifier } from '../../utilities/popper/types';
+import { PopperOptions } from '../../utilities/popper/types';
 
 type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 
