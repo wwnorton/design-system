@@ -10,10 +10,15 @@ export const AppProvider: React.FunctionComponent<AppProviderProps> = ({
 	linkComponent,
 	colorScheme,
 	ignoreOSColorScheme,
+	onColorSchemeChange,
 	children,
 }: AppProviderProps) => (
 	<LinkContext.Provider value={linkComponent}>
-		<ThemeProvider colorScheme={colorScheme} ignoreOSColorScheme={ignoreOSColorScheme}>
+		<ThemeProvider
+			colorScheme={colorScheme}
+			ignoreOSColorScheme={ignoreOSColorScheme}
+			onColorSchemeChange={onColorSchemeChange}
+		>
 			{ children }
 		</ThemeProvider>
 	</LinkContext.Provider>
