@@ -5,7 +5,6 @@ const sass = require('gulp-sass');
 const shell = require('gulp-shell');
 const header = require('gulp-header');
 const postcss = require('gulp-postcss');
-const postcssPresetEnv = require('postcss-preset-env');
 const corePackage = require('./packages/core/package.json');
 const reactPackage = require('./packages/react/package.json');
 
@@ -55,9 +54,7 @@ const createSass = ({ src, dest }) => () => gulp.src(src, {
 		}).on('error', sass.logError),
 	)
 	.pipe(
-		postcss([
-			postcssPresetEnv(),
-		]),
+		postcss(),
 	)
 	.pipe(
 		header(createBanner(corePackage)),
