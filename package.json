@@ -124,7 +124,7 @@
     "gulp-postcss": "^9.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-shell": "^0.8.0",
-    "husky": "^5.1.1",
+    "husky": "^6.0.0",
     "jsdom": "^16.3.0",
     "jsdom-global": "^3.0.2",
     "lerna": "^3.22.1",
