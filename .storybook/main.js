@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-	stories: [path.resolve(__dirname, '../src/**/*.stories.{ts,tsx,mdx}')],
+	stories: [path.resolve(__dirname, '../packages/react/src/**/*.stories.{ts,tsx,mdx}')],
 	addons: [
 		'@storybook/addon-knobs',
 		'@storybook/addon-essentials',

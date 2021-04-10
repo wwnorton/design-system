@@ -12,12 +12,12 @@
     "build:docs": "yarn workspace website build",
     "build:react": "gulp react",
     "build:sassdoc": "sassdoc packages/core/src --config .sassdocrc.yaml",
-    "build:stories": "yarn workspace @wwnds/react build:stories",
+    "build:stories": "build-storybook",
     "cspell": "cspell '**/**'",
     "clean": "gulp clean",
     "coverage": "nyc --reporter=html --reporter=json --reporter=text npm run test -- --verbose",
     "dev:docs": "yarn workspace website start",
-    "dev:docs-full": "npm run build:sassdoc -- --dest website/static/sassdoc & npm run build:stories -- -- --output-dir ../../website/static/storybook && npm run dev:docs",
+    "dev:docs-full": "npm run build:sassdoc -- --dest website/static/sassdoc & npm run build:stories -- --output-dir website/static/storybook && npm run dev:docs",
     "dev:react": "npm run storybook",
     "lint": "npm run lint:es && npm run lint:prettier && npm run lint:style",
     "lint:es": "eslint '**/*.{js,jsx,ts,tsx}' --ignore-path .gitignore",
@@ -30,7 +30,7 @@
     "prepublishOnly": "NODE_ENV=production gulp build",
     "prettier": "prettier '**/!(package-lock)*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "serve:docs": "yarn workspace website serve",
-    "storybook": "yarn workspace @wwnds/react dev:stories",
+    "storybook": "start-storybook -p 9009",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ava --serial"
   },
   "lint-staged": {
