@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "build": "docusaurus build --out-dir ../public",
+    "clear": "docusaurus clear",
     "deploy": "docusaurus deploy",
     "docusaurus": "docusaurus",
     "serve": "docusaurus serve --dir ../public",
     "start": "docusaurus start",
-    "swizzle": "docusaurus swizzle"
+    "swizzle": "docusaurus swizzle",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "write-translations": "docusaurus write-translations"
   },
   "browserslist": {
     "production": [
