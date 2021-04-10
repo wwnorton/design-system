@@ -14,7 +14,7 @@
     "build:sassdoc": "sassdoc packages/core/src --config .sassdocrc.yaml",
     "build:stories": "build-storybook",
     "cspell": "cspell '**/**'",
-    "clean": "gulp clean",
+    "clean": "gulp clean & yarn workspace website clear",
     "coverage": "nyc --reporter=html --reporter=json --reporter=text npm run test -- --verbose",
     "dev:docs": "yarn workspace website start",
     "dev:docs-full": "npm run build:sassdoc -- --dest website/static/sassdoc & npm run build:stories -- --output-dir website/static/storybook && npm run dev:docs",
