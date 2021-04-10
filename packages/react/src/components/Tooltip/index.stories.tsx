@@ -275,7 +275,7 @@ export const CustomReference: React.FunctionComponent = () => {
 			</p>
 			<Tooltip
 				reference={ref}
-				trigger='click pointerenter'
+				trigger="click pointerenter"
 				placement={select('Placement', placements, 'bottom-start')}
 				hideDelay={number('Hide delay', defaultDelay)}
 			>

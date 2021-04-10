@@ -98,7 +98,7 @@ export const SingleCheckboxRequiredForm: React.FunctionComponent = () => {
 		<form className="form" onSubmit={(e): void => { e.preventDefault(); }} onInvalid={invalidHandler}>
 			<div className="field">
 				<Checkbox
-					description='I have read the terms and conditions.'
+					description="I have read the terms and conditions."
 					errors={errors}
 					required
 				>
