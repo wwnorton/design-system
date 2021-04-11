@@ -31,7 +31,9 @@ export const usePopper = ({
 
 		if (reference && popper) {
 			popperInstance = createPopper(reference, popper, options.current);
-			setInstance(popperInstance);
+			setTimeout(() => {
+				setInstance(popperInstance);
+			}, 10);
 		}
 
 		return (): void => {
