@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: "12"
       - name: Get yarn cache directory
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: "12"
       - name: Get yarn cache directory
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: "12"
       - name: Get yarn cache directory
@@ -95,7 +95,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: "12"
       - name: Get yarn cache directory
@@ -121,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: "12"
       - name: Get yarn cache directory
@@ -147,7 +147,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: "12"
       - name: Get yarn cache directory
@@ -173,7 +173,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: "12"
       - name: Get yarn cache directory
