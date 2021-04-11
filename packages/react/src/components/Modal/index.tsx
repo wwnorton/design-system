@@ -248,6 +248,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		if (!canUseDOM || !this.portalNode) return;
 		this.portalNode.remove();
 		document.removeEventListener('keydown', this.onDocumentKeydown);
+		const { bodyOverflow } = this.state;
+		document.body.style.overflow = bodyOverflow;
 	}
 
 	private onOpen(): void {
