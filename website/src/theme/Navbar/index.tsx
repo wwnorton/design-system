@@ -8,7 +8,7 @@
 import React, {
 	useCallback, useState, useEffect, useLayoutEffect,
 } from 'react';
-import clsx from 'clsx';
+import clsx from 'clsx';	// eslint-disable-line import/no-extraneous-dependencies
 import { Switch, Icon, useTheme } from '@wwnds/react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -64,14 +64,6 @@ const Navbar = (): JSX.Element => {
 	const onToggleChange = (checked: boolean) => {
 		setColorScheme((checked) ? 'dark' : 'light');
 	};
-
-	useEffect(() => {
-		try {
-			if (colorScheme) window.localStorage.setItem('nds-color-scheme', colorScheme);
-		} catch (err) {
-			console.error(err);
-		}
-	}, [colorScheme]);
 
 	useLayoutEffect(() => {
 		if (isDark) {

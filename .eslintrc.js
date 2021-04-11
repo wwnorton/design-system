@@ -2,19 +2,51 @@ module.exports = {
 	root: true,
 	extends: [
 		'airbnb',
-		'norton',
+		'airbnb/hooks',
 	],
+	parserOptions: {
+		project: './tsconfig.json',
+	},
 	settings: {
+		'import/extensions': [
+			'.js',
+			'.jsx',
+			'.mjs',
+			'.ts',
+			'.tsx',
+		],
 		'import/resolver': {
-			webpack: {
-				extensions: ['.js', '.jsx', '.ts', '.tsx'],
-			},
 			node: {
-				extensions: ['.js', '.jsx', '.ts', '.tsx'],
+				extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
 			},
+			webpack: {
+				extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+			},
+		},
+		'import/parsers': {
+			'@typescript-eslint/parser': ['.ts', '.tsx'],
 		},
 	},
 	rules: {
+		indent: ['error', 'tab'],
+		'no-tabs': 'off',
+		'lines-between-class-members': [
+			'error',
+			'always',
+			{
+				exceptAfterSingleLine: true,
+			},
+		],
+		'react/jsx-indent': ['error', 'tab'],
+		'react/jsx-indent-props': ['error', 'tab'],
+		'react/jsx-props-no-spreading': 'off',
+		/**
+		 * Avoid export default to improve TypeScript experience. Applicable in
+		 * JavaScript as well, though less impactful.
+		 * For rationale, see https://basarat.gitbook.io/typescript/main-1/defaultisbad
+		 */
+		'import/prefer-default-export': 'off',
+		'import/no-default-export': 'error',
 		'import/no-extraneous-dependencies': [
 			'error',
 			{
@@ -39,6 +71,33 @@ module.exports = {
 		],
 	},
 	overrides: [
+		// TypeScript
+		{
+			files: ['*.ts', '*.tsx'],
+			extends: [
+				'plugin:import/typescript',
+				'plugin:@typescript-eslint/recommended',
+				// 'plugin:@typescript-eslint/recommended-requiring-type-checking',
+			],
+			rules: {
+				indent: 'off',
+				'no-tabs': 'off',
+				'no-use-before-define': 'off',
+				'@typescript-eslint/indent': ['error', 'tab'],
+				'@typescript-eslint/no-empty-interface': 'off',
+				'@typescript-eslint/no-use-before-define': ['error'],
+				'react/jsx-filename-extension': [
+					'error',
+					{
+						extensions: ['.jsx', '.tsx'],
+					},
+				],
+				'react/static-property-placement': [
+					'error',
+					'static public field',
+				],
+			},
+		},
 		// Storybook
 		{
 			files: ['*.stories.tsx'],
@@ -58,6 +117,13 @@ module.exports = {
 					'error',
 					{ extensions: ['.jsx', '.mdx', '.tsx'] },
 				],
+			},
+		},
+		// Tests
+		{
+			files: ['*.test.ts', '*.test.tsx'],
+			rules: {
+				'@typescript-eslint/explicit-function-return-type': 'off',
 			},
 		},
 	],

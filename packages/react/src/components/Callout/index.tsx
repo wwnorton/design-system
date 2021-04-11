@@ -105,7 +105,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 			) }
 			{ dismissible && (
 				<Button
-					icon='close'
+					icon="close"
 					iconOnly
 					onClick={dismiss}
 					className={dismissClass}
@@ -124,10 +124,10 @@ export const CalloutError: React.FunctionComponent<CalloutProps> = (
 	{ children, ...props }: CalloutProps,
 ) => (
 	<Callout
-		border='left'
-		color='error'
-		icon='exclamation'
-		title='Error'
+		border="left"
+		color="error"
+		icon="exclamation"
+		title="Error"
 		{...props}
 	>
 		{children}
@@ -138,10 +138,10 @@ export const CalloutSuccess: React.FunctionComponent<CalloutProps> = (
 	{ children, ...props }: CalloutProps,
 ) => (
 	<Callout
-		border='left'
-		color='success'
-		icon='check-circle'
-		title='Success'
+		border="left"
+		color="success"
+		icon="check-circle"
+		title="Success"
 		{...props}
 	>
 		{children}
@@ -152,10 +152,10 @@ export const CalloutWarning: React.FunctionComponent<CalloutProps> = (
 	{ children, ...props }: CalloutProps,
 ) => (
 	<Callout
-		border='left'
-		color='warning'
-		icon='warning'
-		title='Warning'
+		border="left"
+		color="warning"
+		icon="warning"
+		title="Warning"
 		{...props}
 	>
 		{children}

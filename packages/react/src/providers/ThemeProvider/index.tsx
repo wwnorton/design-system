@@ -30,14 +30,20 @@ export type ThemeProviderProps = React.PropsWithChildren<{
 	 * Reference: [prefers-color-scheme media query](https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme).
 	 */
 	colorScheme?: ColorScheme | 'inverse';
-	/** Ignore the operating system's color scheme setting. */
+	/** If set, the user's operating system color scheme setting will be ignored. */
 	ignoreOSColorScheme?: boolean;
+	/**
+	 * A callback function that will trigger any time the `colorScheme` changes.
+	 * Use to update the color scheme store when it's changed by the user.
+	 */
+	onColorSchemeChange?: (scheme: ColorScheme) => void;
 }>;
 
 /** A context provider for theming the Norton Design System. */
 export const ThemeProvider: React.FunctionComponent<ThemeProviderProps> = ({
 	colorScheme: schemeProp,
 	ignoreOSColorScheme,
+	onColorSchemeChange,
 	children,
 }: ThemeProviderProps) => {
 	const parentContext = React.useContext(ThemeContext);
@@ -81,6 +87,10 @@ export const ThemeProvider: React.FunctionComponent<ThemeProviderProps> = ({
 			setColorScheme((parentColorScheme === 'dark') ? 'light' : 'dark');
 		}
 	}, [parentColorScheme, schemeProp]);
+
+	React.useEffect(() => {
+		if (onColorSchemeChange) onColorSchemeChange(colorScheme);
+	}, [colorScheme, onColorSchemeChange]);
 
 	const theme = {
 		colorScheme,

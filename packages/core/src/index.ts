@@ -1,1 +1,1 @@
-export * from './components/disclosure';
+export {};

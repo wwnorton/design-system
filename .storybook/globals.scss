@@ -1,4 +1,4 @@
-@use '~@wwnds/core/full' as nds with (
+@use '../packages/core/full' as nds with (
 	$enable-dark-scheme: false,
 );
 

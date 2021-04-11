@@ -193,8 +193,8 @@ export const AllFamilies = (): JSX.Element => {
 					<ColorFamily
 						key={color}
 						name={color}
-						textLight='#fff'
-						textDark='#000'
+						textLight="#fff"
+						textDark="#000"
 					/>
 				)) }
 			</tbody>
@@ -213,8 +213,8 @@ export const ColorChip = (
 	}, [children, color]);
 
 	return (
-		<code className='no-break'>
-			<span className='color-chip'>
+		<code className="no-break">
+			<span className="color-chip">
 				<span style={{ backgroundColor: colorValue }} />
 			</span>
 			{ children }

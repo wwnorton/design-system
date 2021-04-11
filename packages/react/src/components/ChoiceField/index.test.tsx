@@ -83,9 +83,9 @@ test('when the value is not explicitly provided, the label is used for choice va
 test('when the label is not explicitly provided, the value is used for choice labels', (t) => {
 	render((
 		<ChoiceField label={defaultLabel}>
-			<Choice value='A' />
-			<Choice value='B' />
-			<Choice value='C' />
+			<Choice value="A" />
+			<Choice value="B" />
+			<Choice value="C" />
 		</ChoiceField>
 	));
 	t.truthy(screen.getByLabelText('A'));

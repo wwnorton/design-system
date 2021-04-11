@@ -233,7 +233,7 @@ export const LoginForm: React.FunctionComponent = () => {
 				addonAfter={(
 					<Button
 						iconOnly
-						variant='ghost'
+						variant="ghost"
 						onClick={toggle}
 						{...buttonProps}
 					/>

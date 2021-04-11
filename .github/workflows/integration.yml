@@ -59,7 +59,7 @@ jobs:
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc -- --dest website/static/sassdoc
       - name: Build Storybook 📚
-        run: npm run build:stories -- -- --output-dir ../../website/static/storybook
+        run: npm run build:stories -- --output-dir website/static/storybook
       - name: Build docs 📄
         run: npm run build:docs
         env:
