@@ -86,7 +86,7 @@ coreBanner.displayName = 'core:banner';
 const tsCore = gulp.series(coreTs, coreBanner);
 tsCore.displayName = 'ts:core';
 
-const core = gulp.parallel(coreSass, tsCore);
+const core = gulp.parallel(coreSass/* , tsCore */);
 
 // `@wwnds/react`
 const reactMain = shell.task('npm run build:main', { cwd: './packages/react' });
