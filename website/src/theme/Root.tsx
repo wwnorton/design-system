@@ -38,4 +38,4 @@ const Root: React.FunctionComponent = ({ children }: { children?: React.ReactNod
 	);
 };
 
-export default Root;	// eslint-disable-line import/no-default-export
+export default Root;
