@@ -7,7 +7,6 @@
 
 import React from 'react';
 import * as NDS from '@wwnds/react';
-// import { PropsTable } from '../../components';
 
 // Add react-live imports you need here
 const ReactLiveScope = {
@@ -16,5 +15,4 @@ const ReactLiveScope = {
 	...React,
 };
 
-// eslint-disable-next-line import/no-default-export
 export default ReactLiveScope;
