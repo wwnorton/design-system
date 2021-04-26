@@ -98,6 +98,14 @@
 	&:not(:last-child) {
 		padding-right: calc(var(--nds-modal-padding-x) / 2);
 	}
+
+	@include device.media-up('sm') {
+		font-size: var(--nds-font-size-h4);
+	}
+
+	@include device.media-up('xs') {
+		font-size: var(--nds-font-size-h5);
+	}
 }
 
 @mixin close-btn {
@@ -118,9 +126,9 @@
 
 @mixin content {
 	padding:
-		calc(var(--nds-modal-padding-y) * 2)
+		var(--nds-modal-padding-y)
 		var(--nds-modal-padding-x)
-		calc(var(--nds-modal-padding-y) * 2.5);
+		var(--nds-modal-padding-y);
 	background-color: var(--nds-background-color);
 
 	> :last-child {
