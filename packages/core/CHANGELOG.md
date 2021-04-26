@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/wwnorton/design-system/compare/v1.1.1...v1.2.0) (2021-04-26)
+
+### ✨ Features
+
+- **link:** initial component, context, and hook ([1a924db](https://github.com/wwnorton/design-system/commit/1a924db8dfc9b7614d400b090f6230b345b7207d))
+
+### 💄 Visual design
+
+- **typography:** update system stack ([8becdb0](https://github.com/wwnorton/design-system/commit/8becdb0bca93669a3d26efc54f46a0661051554d)), closes [/github.com/twbs/bootstrap/blob/2d2f5b3dfd901bca22133ae25fdcce7afb4042c7/scss/\_variables.scss#L419](https://github.com/wwnorton//github.com/twbs/bootstrap/blob/2d2f5b3dfd901bca22133ae25fdcce7afb4042c7/scss/_variables.scss/issues/L419)
+
+### 🐛 Bug Fixes
+
+- **core:** correction Purple-70 ([#131](https://github.com/wwnorton/design-system/issues/131)) ([c4ba15d](https://github.com/wwnorton/design-system/commit/c4ba15d775423083dfb8eeae9ddbc694866f1d1a))
+- **modal:** vqa ([#104](https://github.com/wwnorton/design-system/issues/104)) ([dadf0af](https://github.com/wwnorton/design-system/commit/dadf0af31b5327ab09f17a107785cbbd582c1578))
+
 ### [1.1.1](https://github.com/wwnorton/design-system/compare/v1.1.0...v1.1.1) (2021-04-06)
 
 ### 📝 Documentation

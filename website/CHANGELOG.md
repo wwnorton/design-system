@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/wwnorton/design-system/compare/v1.1.1...v1.2.0) (2021-04-26)
+
+### ♻️ Refactor
+
+- **docs:** move custom components out of theme ([62f462a](https://github.com/wwnorton/design-system/commit/62f462aa18ba050104ad7c4540ae4e43adcefd7f))
+
+### 📝 Documentation
+
+- **refactor:** use AppProvider for all color scheme needs ([596cc45](https://github.com/wwnorton/design-system/commit/596cc455eebd2f39404148d01f9314f63de974c9))
+
+### 🐛 Bug Fixes
+
+- **core:** correction Purple-70 ([#131](https://github.com/wwnorton/design-system/issues/131)) ([c4ba15d](https://github.com/wwnorton/design-system/commit/c4ba15d775423083dfb8eeae9ddbc694866f1d1a))
+
 ### [1.1.1](https://github.com/wwnorton/design-system/compare/v1.1.0...v1.1.1) (2021-04-06)
 
 **Note:** Version bump only for package website
