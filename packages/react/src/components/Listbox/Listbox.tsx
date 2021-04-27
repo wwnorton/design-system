@@ -34,9 +34,6 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 	const [keyboardClick, setKeyboardClick] = React.useState(false);
 	const disabledOptions = React.useRef(new Set<number>());
 
-	const { selected: selectedUC, toggle } = useSelect(multiselectable);
-	const selected = (selectedProp !== undefined) ? selectedProp : selectedUC;
-
 	/**
 	 * Coerce the `options` or `children` into `ReactChild[]` so that we can map
 	 * them to `Option` components. If it exists, use the `options` prop. If not,
@@ -56,6 +53,20 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 		}
 		return toElements<OptionProps>(opts);
 	}, [optionsProp, childrenProp]);
+
+	const selectedOptions = React.useMemo(
+		() => options.filter(({ props }) => props.selected).map(({ props }) => props.value),
+		[options],
+	);
+
+	const { selected: selectedUC, toggle } = useSelect(multiselectable, selectedOptions);
+	const selected = (selectedProp !== undefined) ? selectedProp : selectedUC;
+
+	React.useEffect(() => {
+		if (!multiselectable && selected.length > 1) {
+			throw new Error(useSelect.SELECT_OVERLOAD);
+		}
+	}, [multiselectable, selected]);
 
 	const keys = React.useMemo(() => {
 		switch (orientation) {
@@ -101,6 +112,8 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 						disabled,
 						value,
 						label = children || value,
+						// eslint-disable-next-line @typescript-eslint/no-unused-vars
+						selected: optionSelected,
 						...optProps
 					}: OptionProps = {
 						...mappedProps,
