@@ -22,24 +22,25 @@ const Fixture = (
 		useDefaults?: boolean;
 	},
 ): JSX.Element => {
+	const parameters: Parameters<typeof useSelect> = (useDefaults) ? [] : [multiple, initialValue];
 	const {
 		selected,
-		setSelected,
-		changeHandler,
-	} = useSelect((useDefaults) ? undefined : { multiple, initialValue });
+		select,
+		formChangeHandler,
+	} = useSelect(...parameters);
 
 	React.useEffect(() => {
-		if (callSetSelected) setSelected(callSetSelected);
+		if (callSetSelected) select(callSetSelected);
 	}, [callSetSelected]);	// eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<fieldset onChange={(handlerOnInput) ? undefined : changeHandler}>
+		<fieldset onChange={(handlerOnInput) ? undefined : formChangeHandler}>
 			{ ['one', 'two', 'three'].map((value) => (
 				<input
 					name="choice"
 					type={(multiple) ? 'checkbox' : 'radio'}
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
-					onChange={(handlerOnInput) ? changeHandler : () => {}}
+					onChange={(handlerOnInput) ? formChangeHandler : () => {}}
 					value={value}
 					checked={selected.includes(value)}
 					aria-label={value}
