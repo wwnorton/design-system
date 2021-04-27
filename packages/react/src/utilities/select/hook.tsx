@@ -1,34 +1,58 @@
-import { useState } from 'react';
-import { UseSelectProps, UseSelectReturn } from './types';
+import { useEffect, useState } from 'react';
+import { SelectValue, UseSelectReturn } from './types';
 
 /**
- * Create a stateful `selected` array, a function to update it, and a handler to
- * update it from DOM events on either an `<input>` of `type="checkbox|radio" or
- * a `<fieldset>` containing checkboxes or radios.
+ * Create a stateful `selected` array, functions to update it, and a handler to
+ * update it from DOM events on either an `<input>` of `type="checkbox|radio"`
+ * or a `<fieldset>` containing checkboxes or radios.
  */
-export const useSelect = ({
-	initialValue = [],
+export const useSelect = (
+	/** When `true`, selecting a new option will add it to the list. */
 	multiple = false,
-}: UseSelectProps = {}): UseSelectReturn => {
-	const [selected, setSelected] = useState<string[]>(initialValue);
+	/** The initial value of the selected array. */
+	defaultSelected: SelectValue[] = [],
+): UseSelectReturn => {
+	const [selected, setSelected] = useState(defaultSelected);
+
+	useEffect(() => {
+		if (!multiple && selected.length > 1) {
+			throw new Error(useSelect.SELECT_OVERLOAD);
+		}
+	}, [multiple, selected]);
+
+	const select = (value: string | number): void => {
+		setSelected(
+			(multiple) ? [...selected, value] : [value],
+		);
+	};
+
+	const deselect = (value: string | number): void => {
+		setSelected(selected.filter((v) => v !== value));
+	};
 
 	return {
-		changeHandler: (e) => {
-			const { checked, value } = e.target as HTMLInputElement;
-			if (!value) {
-				throw new Error('The value prop is required.');
-			}
-			if (checked) {
-				setSelected(
-					(multiple) ? [...selected, value] : [value],
-				);
-			} else {
-				setSelected(selected.filter((v) => v !== value));
-			}
-		},
 		selected,
-		setSelected: (s) => {
-			setSelected((Array.isArray(s)) ? s : [s]);
+		deselect,
+		select,
+		toggle: (value) => {
+			if (!selected.includes(value)) select(value);
+			else if (multiple) deselect(value);
+		},
+		formChangeHandler: ({ target }) => {
+			if (!('value' in target) || !('checked' in target)) {
+				throw new Error(
+					'formChangeHandler is being attached to an invalid element. '
+					+ 'Attach it to an <input type="checkbox|radio"> or a <fieldset>.',
+				);
+			}
+			const { checked, value } = target;
+			if (checked) {
+				select(value);
+			} else {
+				deselect(value);
+			}
 		},
 	};
 };
+
+useSelect.SELECT_OVERLOAD = 'The number of selected values cannot exceed 1 when not multi-selectable.';
