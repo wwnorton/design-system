@@ -127,3 +127,11 @@
 .navbar__brand:focus-visible {
 	color: var(--nds-focus-color);
 }
+
+// ThemeProvider example
+
+.themed {
+	padding: var(--nds-spacing-4);
+	color: var(--nds-text-color);
+	background-color: var(--nds-background-color);
+}
