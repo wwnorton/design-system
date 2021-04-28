@@ -176,6 +176,8 @@ $-yellow-default: (
 $yellow: () !default;
 
 $system-colors: (
+	--nds-black: #{$black},
+	--nds-white: #{$white},
 	--nds-blue: -get-color('blue', map.merge($-blue-default, $blue)),
 	--nds-cyan: -get-color('cyan', map.merge($-cyan-default, $cyan)),
 	--nds-gray: -get-color('gray', map.merge($-gray-default, $gray)),
@@ -225,8 +227,6 @@ $-scheme-light-default: (
 	--nds-focus-color-background: #{$focus-color-background},
 	--nds-focus-halo-inner-color: #{$focus-halo-inner-color},
 	--nds-focus-halo-outer-color: #{$focus-halo-outer-color},
-	--nds-black: #{$black},
-	--nds-white: #{$white},
 	--nds-primary-color: color.family('primary-color', color.$primary-family, color.$primary-grade),
 	--nds-base-color: color.family('base-color', color.$base-family, color.$base-grade),
 	--nds-disabled-color: color.family('disabled-color', color.$disabled-family, color.$disabled-grade),
