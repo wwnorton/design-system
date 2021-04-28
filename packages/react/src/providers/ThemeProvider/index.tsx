@@ -20,11 +20,11 @@ export type ThemeProviderProps = React.PropsWithChildren<{
 	/**
 	 * The desired color scheme.
 	 *
-	 * - `"light"` - dark text on light background.
-	 * - `"dark"` - light text on dark background.
-	 * - `"inverse"` - the opposite color scheme from the parent `<ThemeProvider>`.
+	 * - `"light"` – dark text on light background.
+	 * - `"dark"` – light text on dark background.
+	 * - `"inverse"` – the opposite color scheme from the parent `<ThemeProvider>`.
 	 * Cannot be used on the root `<ThemeProvider>`.
-	 * - `undefined` - use the user's preferred color scheme. If `ignoreOSColorScheme`
+	 * - `undefined` – use the user's preferred color scheme. If `ignoreOSColorScheme`
 	 * is `true`, `"light"` will be used as a fallback.
 	 *
 	 * Reference: [prefers-color-scheme media query](https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme).
