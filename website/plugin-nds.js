@@ -28,7 +28,7 @@ module.exports = () => ({
 		],
 		resolve: {
 			alias: {
-				'@website': path.resolve(__dirname, 'src/'),
+				'@website': path.resolve(__dirname, 'src'),
 			},
 			extensions: ['.mdx', '.ts', '.tsx'],
 			plugins: [new TsconfigPathsPlugin()],
