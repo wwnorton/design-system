@@ -1,0 +1,90 @@
+---
+title: React Providers
+---
+
+import { AppProvider, ThemeProvider, useTheme } from '@wwnds/react';
+import { PropsTable } from '@website/components';
+
+The React implementation of the design system uses [React context](https://reactjs.org/docs/context.html) to make certain aspects configurable through [context providers](https://reactjs.org/docs/context.html#contextprovider).
+
+## App Provider
+
+The `<AppProvider>` is used to configure the design system at the application level and should wrap your whole application if used.
+Because it extends the `<ThemeProvider>`, it will be treated as the [root theme configuration](#root-theme).
+
+For instance, to use your own router link and force a light color scheme:
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
+import { AppProvider } from '@wwnds/react';
+import App from './App';
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(
+	<React.StrictMode>
+		<AppProvider
+			linkComponent={Link}
+			colorScheme="light"
+			ignoreOSColorScheme
+		>
+			<App />
+		</AppProvider>
+	</React.StrictMode>,
+	rootElement,
+);
+```
+
+<PropsTable from={AppProvider} />
+
+## Theme Provider
+
+The `<ThemeProvider>` sets a color scheme context, setting a `data-color-scheme` attribute (`"light"` or `"dark"`) that can be used to theme children.
+`@wwnds/core` uses this to color role token assignments, but you can use it however you like with a `[data-color-scheme='light|dark']` selector.
+
+The `<ThemeProvider>` can be nested, and the highest-level provider will be used as the root provider.
+When `undefined`, the root provider will use [the color scheme that the user prefers](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
+And by default, the root color scheme will update whenever the user changes their preferred color scheme in their operating system settings.
+This can be disabled by setting `ignoreOSColorScheme`.
+
+When nested inside a parent `<ThemeProvider>`, the `"inverse"` value will use the inverse of the parent color scheme context.
+
+```jsx live
+<ThemeProvider colorScheme="dark">
+	<p className="themed">Dark</p>
+	<ThemeProvider colorScheme="inverse">
+		<p className="themed">Inverted</p>
+		<ThemeProvider colorScheme="inverse">
+			<p className="themed">Double inverted</p>
+		</ThemeProvider>
+	</ThemeProvider>
+</ThemeProvider>
+```
+
+<PropsTable from={ThemeProvider} />
+
+### useTheme hook
+
+In addition to the theme provider, the `useTheme` hook can be used by components to update the current context's color scheme.
+
+```jsx title="Example: toggle dark mode with a switch"
+import { Switch, useTheme } from '@wwnds/react';
+
+export const SchemeToggle = () => {
+	const { colorScheme, setColorScheme } = useTheme();
+	const isDark = colorScheme === 'dark';
+
+	const onToggleChange = (checked: boolean) => {
+		setColorScheme((checked) ? 'dark' : 'light');
+	};
+
+	return (
+		<Switch
+			label="Dark mode"
+			checked={isDark}
+			onToggle={onToggleChange}
+		/>
+	);
+}
+```
