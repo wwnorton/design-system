@@ -28,8 +28,8 @@ export const Default = (): JSX.Element => (
 		multiselectable={boolean('Multiselectable', false)}
 		focusWrap={boolean('Focus wrap', false)}
 	>
-		<Option value="dog" selected>🐶 Dog</Option>
-		<Option value="cat" selected>🐱 Cat</Option>
+		<Option value="dog">🐶 Dog</Option>
+		<Option value="cat">🐱 Cat</Option>
 		<Option value="hamster">🐹 Hamster</Option>
 		{/* label is rendered when children aren't provided. */}
 		<Option value="parrot" label="🦜 Parrot" />
@@ -46,30 +46,17 @@ export const DisabledOptions = (): JSX.Element => {
 	const { selected, toggle } = useSelect(multiselectable);
 
 	return (
-		<>
-			<button type="button">Focus me</button>
-			<Listbox
-				aria-label="Pets (Disabled options story)"
-				orientation={options('Orientation', { Unset: undefined, Vertical: 'vertical', Horizontal: 'horizontal' }, undefined, { display: 'inline-radio' })}
-				multiselectable={multiselectable}
-				focusWrap={boolean('Focus wrap', false)}
-				selected={selected}
-				onChange={({ value }) => toggle(value)}
-				options={defaultOptions}
-				optionProps={(i) => ({
-					disabled: disabled.includes(Object.values(defaultOptions)[i]),
-				})}
-			/>
-		</>
+		<Listbox
+			aria-label="Pets (Disabled options story)"
+			orientation={options('Orientation', { Unset: undefined, Vertical: 'vertical', Horizontal: 'horizontal' }, undefined, { display: 'inline-radio' })}
+			multiselectable={multiselectable}
+			focusWrap={boolean('Focus wrap', false)}
+			selected={selected}
+			onChange={({ value }) => toggle(value)}
+			options={defaultOptions}
+			optionProps={(i) => ({
+				disabled: disabled.includes(Object.values(defaultOptions)[i]),
+			})}
+		/>
 	);
 };
-
-export const OptionsList = (): JSX.Element => (
-	<Listbox
-		aria-label="Pets (Default story)"
-		orientation={options('Orientation', { Unset: undefined, Vertical: 'vertical', Horizontal: 'horizontal' }, undefined, { display: 'inline-radio' })}
-		multiselectable={boolean('Multiselectable', false)}
-		focusWrap={boolean('Focus wrap', false)}
-		options={['Dog', 'Cat', 'Hamster', 'Parrot', 'Spider', 'Fish']}
-	/>
-);
