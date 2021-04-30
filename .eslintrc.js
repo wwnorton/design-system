@@ -123,6 +123,7 @@ module.exports = {
 		{
 			files: ['*.test.ts', '*.test.tsx'],
 			rules: {
+				'@typescript-eslint/ban-ts-comment': 'off',
 				'@typescript-eslint/explicit-function-return-type': 'off',
 			},
 		},
