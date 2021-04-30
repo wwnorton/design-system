@@ -35,21 +35,35 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 	const disabledOptions = React.useRef(new Set<number>());
 
 	/**
-	 * Coerce the `options` or `children` into `ReactChild[]` so that we can map
+	 * Coerce the `options` or `children` into `ReactElement[]` so that we can map
 	 * them to `Option` components. If it exists, use the `options` prop. If not,
 	 * use the `children` prop.
 	 */
 	const options = React.useMemo(() => {
 		let opts = childrenProp;
 		if (optionsProp) {
-			opts = (Array.isArray(optionsProp))
-				// ['value1', 'value2']
-				? optionsProp.map((value) => ({ label: value.toString(), value }))
-				// { label1: 'value1', label2: 'value2' }
-				: Object.keys(optionsProp).map((label) => ({
+			if (Array.isArray(optionsProp)) {
+				opts = optionsProp.map((opt) => {
+					if (typeof opt === 'object') {
+						const missingProps: string[] = [];
+						if (!('value' in opt)) missingProps.push('value');
+						if (!('label' in opt)) missingProps.push('label');
+						if (missingProps.length) {
+							throw new Error(
+								'The <Listbox> options prop must contain a value and label when an array of objects. '
+								+ `Missing props: ${missingProps.join(',')}.`,
+							);
+						}
+						return opt;
+					}
+					return { label: opt.toString(), value: opt };
+				});
+			} else {
+				opts = Object.keys(optionsProp).map((label) => ({
 					label,
 					value: optionsProp[label],
 				}));
+			}
 		}
 		return toElements<OptionProps>(opts);
 	}, [optionsProp, childrenProp]);

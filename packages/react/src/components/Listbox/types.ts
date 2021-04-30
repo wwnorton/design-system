@@ -23,15 +23,23 @@ export type ListboxBase = Omit<React.HTMLAttributes<HTMLUListElement>, 'role' | 
 
 export interface ListboxProps extends ListboxBase {
 	/**
-	 * A list of options as either an array of `value` props, or an object with
-	 * `label: value` entries. Array values will be used as both the `label` and
-	 * the `value`.
+	 * A list of options as either an array of `value` props, an array of `OptionProp`
+	 * objects, or an object with `label: value` entries. Array values will be
+	 * used as both the `label` and the `value`.
 	 *
 	 * ```jsx
      * options={['Cat', 'Dog']}
 	 * 	// <Listbox>
 	 * 	// 	<Option value="Cat">Cat</Option>
 	 * 	// 	<Option value="Dog">Dog</Option>
+	 * 	// </Listbox>
+     * ```
+	 *
+	 * ```jsx
+     * options={[{ label: 'Cat', value: '🐱' }, { label: 'Dog', value: '🐶' }]}
+	 * 	// <Listbox>
+	 * 	// 	<Option value="🐱">Cat</Option>
+	 * 	// 	<Option value="🐶">Dog</Option>
 	 * 	// </Listbox>
      * ```
 	 *
@@ -43,7 +51,7 @@ export interface ListboxProps extends ListboxBase {
 	 * 	// </Listbox>
 	 * ```
 	 */
-	options?: Record<string, string | number> | (string | number)[];
+	options?: Record<string, string | number> | (string | number | OptionProps)[];
 	/** Option props that should be mapped to all child options. */
 	optionProps?: Partial<OptionProps> | ((index: number) => Partial<OptionProps>);
 	/**
