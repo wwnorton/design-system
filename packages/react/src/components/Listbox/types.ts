@@ -14,9 +14,9 @@ export interface OptionProps extends OptionBase {
 	value: string | number;
 	/**
 	 * An element that comes before the label/children, similar to CSS `::marker`.
-	 * Default is `<Icon variant="check" />`.
+	 * Default is `<Icon variant="check" />`. Disable it entirely with `null`.
 	 */
-	marker?: React.ReactNode;
+	marker?: React.ReactNode | null;
 }
 
 export type ListboxBase = Omit<React.HTMLAttributes<HTMLUListElement>, 'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'>;

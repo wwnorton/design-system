@@ -46,7 +46,7 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(({
 			aria-disabled={(disabled) ? 'true' : undefined}
 			role="option"
 		>
-			{ marker || defaultMarker }
+			{ (marker === undefined) ? defaultMarker : marker }
 			{ label || children }
 		</li>
 	);

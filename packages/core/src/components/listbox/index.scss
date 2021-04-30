@@ -38,9 +38,7 @@
 
 @mixin option {
 	display: flex;
-	padding-top: var(--nds-option-padding-y);
-	padding-right: var(--nds-option-padding-x);
-	padding-bottom: var(--nds-option-padding-y);
+	padding: var(--nds-option-padding-y) var(--nds-option-padding-x);
 	cursor: default;
 	align-items: center;
 	user-select: none;
@@ -75,6 +73,7 @@
 @mixin option-marker {
 	display: inline-flex;
 	padding: 0 var(--nds-option-marker-padding-x);
+	margin-left: calc(-1 * var(--nds-option-padding-x));
 }
 
 @mixin style {
