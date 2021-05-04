@@ -26,18 +26,18 @@ export const toElements = <P = any>(
 		nodes = [node];
 	}
 
-	const hasRequiredProps = (props: any): props is P => {
-		const missingProps = required.filter((prop) => !(prop in props));
-		if (missingProps.length) {
-			throw new Error(`Missing required props: ${missingProps.join(', ')}.`);
-		}
-		return true;
-	};
+	const hasRequiredProps = (
+		props: Record<string, any>,
+	): props is P => required.every((prop) => prop in props);
+
+	const missingProps = (props: Record<string, any>) => required.filter((prop) => !(prop in props));
 
 	nodes.forEach((child) => {
 		if (typeof child === 'undefined') return 0;
 		if (typeof child === 'string' || typeof child === 'number') {
-			if (required.length) throw new Error('Missing required props.');
+			if (required.length) {
+				throw new Error(toElements.MISSING_PROPS(required));
+			}
 			return childMap.push(React.createElement('span', {} as P, child));
 		}
 		if (typeof child === 'object') {
@@ -49,7 +49,7 @@ export const toElements = <P = any>(
 				if (hasRequiredProps(child.props)) {
 					return childMap.push(child);
 				}
-				return 0;
+				throw new Error(toElements.MISSING_PROPS(missingProps(child.props)));
 			}
 			// React.ReactNodeArray (React.ReactNode[])
 			if (Array.isArray(child)) {
@@ -59,10 +59,13 @@ export const toElements = <P = any>(
 			if (hasRequiredProps(child)) {
 				return childMap.push(React.createElement('span', child));
 			}
-			return 0;
+			throw new Error(toElements.MISSING_PROPS(missingProps(child)));
 		}
 		throw new Error('Child nodes can be strings, numbers, or React Elements.');
 	});
 
 	return childMap;
 };
+
+toElements.INVALID_NODES = 'Child nodes can be strings, numbers, or React Elements.';
+toElements.MISSING_PROPS = (props: string[]) => `Missing required props: ${props.join(', ')}.`;
