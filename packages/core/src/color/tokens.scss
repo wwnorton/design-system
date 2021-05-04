@@ -176,6 +176,8 @@ $-yellow-default: (
 $yellow: () !default;
 
 $system-colors: (
+	--nds-black: #{$black},
+	--nds-white: #{$white},
 	--nds-blue: -get-color('blue', map.merge($-blue-default, $blue)),
 	--nds-cyan: -get-color('cyan', map.merge($-cyan-default, $cyan)),
 	--nds-gray: -get-color('gray', map.merge($-gray-default, $gray)),
@@ -225,8 +227,6 @@ $-scheme-light-default: (
 	--nds-focus-color-background: #{$focus-color-background},
 	--nds-focus-halo-inner-color: #{$focus-halo-inner-color},
 	--nds-focus-halo-outer-color: #{$focus-halo-outer-color},
-	--nds-black: #{$black},
-	--nds-white: #{$white},
 	--nds-primary-color: color.family('primary-color', color.$primary-family, color.$primary-grade),
 	--nds-base-color: color.family('base-color', color.$base-family, color.$base-grade),
 	--nds-disabled-color: color.family('disabled-color', color.$disabled-family, color.$disabled-grade),
@@ -261,29 +261,28 @@ $scheme-dark: map.merge($-scheme-dark-default, $scheme-dark);
 	@include util.set($scheme-light);
 }
 
-/// Color tokens set as CSS custom properties on the `:root` element.
+/// Color tokens set as CSS custom properties on the `:root` element and color
+/// schemes set anywhere with the `data-color-scheme` attribute.
 @mixin color {
-	/* stylelint-disable no-duplicate-selectors */
-	:root {
-		@include util.set($system-colors);
-		@include light-scheme;
-
-		@if config.$enable-dark-scheme {
-			/* stylelint-disable max-nesting-depth */
-			&[data-color-scheme='light'] {
-				@include light-scheme;
-			}
-		}
-	}
-
-	@if config.$enable-dark-scheme {
+	@include util.declare('color') {
 		:root {
-			@media screen and (prefers-color-scheme: 'dark') {
+			@include util.set($system-colors);
+		}
+
+		:root:not([data-color-scheme]) {
+			@include light-scheme;
+		}
+
+		[data-color-scheme='light'] {
+			@include light-scheme;
+		}
+
+		[data-color-scheme='dark'] {
+			@if config.$enable-dark-scheme {
 				@include dark-scheme;
 			}
-
-			&[data-color-scheme='dark'] {
-				@include dark-scheme;
+			@else {
+				@include light-scheme;
 			}
 		}
 	}

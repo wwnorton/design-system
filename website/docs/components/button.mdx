@@ -53,6 +53,10 @@ The following should help differentiate when a link may be a better fit for your
 
 ## React API
 
+We expose two components for the button API, the [Button](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Button/Button.tsx) and the [IconButton](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Button/IconButton.tsx).
+
+Both extend the `React.ButtonHTMLAttributes<HTMLButtonElement>` interface, meaning any prop that is valid on a `<button>` is a valid prop on our `<Button>` or `<IconButton>`.
+
 ### Button
 
 ```js
@@ -67,11 +71,6 @@ import { Button } from '@wwnds/react';
 
 ### IconButton
 
-```js
-import { IconButton } from '@wwnds/react';
-```
-
-:::note
 The IconButton is a simplified way to set an `iconOnly` button. These two are identical:
 
 ```jsx
@@ -79,7 +78,9 @@ The IconButton is a simplified way to set an `iconOnly` button. These two are id
 <IconButton icon="info">More information</IconButton>
 ```
 
-:::
+```js
+import { IconButton } from '@wwnds/react';
+```
 
 ```tsx live
 <IconButton icon="info">More information</IconButton>
