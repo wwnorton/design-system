@@ -14,7 +14,7 @@ Because it extends the `<ThemeProvider>`, it will be treated as the [root theme 
 
 For instance, to use your own router link and force a light color scheme:
 
-```jsx
+```jsx title="Example: light scheme and custom router link"
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
@@ -41,7 +41,7 @@ ReactDOM.render(
 ## Theme Provider
 
 The `<ThemeProvider>` sets a color scheme context, setting a `data-color-scheme` attribute (`"light"` or `"dark"`) that can be used to theme children.
-`@wwnds/core` uses this to color role token assignments, but you can use it however you like with a `[data-color-scheme='light|dark']` selector.
+`@wwnds/core` uses this to set color role token assignments, but you can use it however you like with a `[data-color-scheme='light|dark']` selector.
 
 The `<ThemeProvider>` can be nested, and the highest-level provider will be used as the root provider.
 When `undefined`, the root provider will use [the color scheme that the user prefers](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
