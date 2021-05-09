@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: "12"
       - name: Get yarn cache directory
@@ -18,7 +20,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: |
             **/node_modules

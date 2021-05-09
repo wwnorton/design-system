@@ -46,6 +46,16 @@ module.exports = {
 				},
 				// { to: 'blog', label: 'Blog', position: 'left' },
 				{
+					href: `${url}/sassdoc`,
+					label: 'Sassdoc',
+					position: 'right',
+				},
+				{
+					href: `${url}/storybook`,
+					label: 'Storybook',
+					position: 'right',
+				},
+				{
 					href: 'https://github.com/wwnorton/design-system',
 					'aria-label': 'GitHub',
 					title: 'GitHub',
@@ -94,7 +104,7 @@ module.exports = {
 							href: 'https://github.com/wwnorton/design-system',
 						},
 						{
-							label: 'NPM Registry',
+							label: 'NPM',
 							href: 'https://www.npmjs.com/org/wwnds',
 						},
 					],

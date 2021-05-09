@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/wwnorton/design-system/compare/v1.1.1...v1.2.0) (2021-04-26)
+
+### 📝 Documentation
+
+- **link:** add link stories ([554960a](https://github.com/wwnorton/design-system/commit/554960a451679bf90098b08c07f378cf651e53f7))
+
+### ✨ Features
+
+- **link:** initial component, context, and hook ([1a924db](https://github.com/wwnorton/design-system/commit/1a924db8dfc9b7614d400b090f6230b345b7207d))
+- **react:** add initial ThemeProvider ([617830f](https://github.com/wwnorton/design-system/commit/617830f20a035dc1cbea1f12286007f4dd85c4b7))
+- **react:** add initial theming context and hook ([8bf22a6](https://github.com/wwnorton/design-system/commit/8bf22a65a073b4b0422b68c550576bf2822ed204))
+- **react:** add isomorphic useLayoutEffect hook ([880b094](https://github.com/wwnorton/design-system/commit/880b094769b2ca9b09894a5edb4426677d761f75))
+- **react:** add main AppProvider for app-level configuration ([2c6c42a](https://github.com/wwnorton/design-system/commit/2c6c42accd44bc2976e0c7af9aca873f82b858d8))
+- **react:** add useMediaQuery hook ([5233cfb](https://github.com/wwnorton/design-system/commit/5233cfbc3519837e897c946ec11be50427f50659))
+- **react:** add useSelect hook for multi & single selection ([85eea6e](https://github.com/wwnorton/design-system/commit/85eea6e5338aebdf3b785d5ead05e1a0cc2d597c))
+
+### ♻️ Refactor
+
+- **callout:** simplify title id ([176eff3](https://github.com/wwnorton/design-system/commit/176eff3c1f6606b14db9b3e3eb6904e021ff3448))
+- **popover:** update dependency lists ([f5704f6](https://github.com/wwnorton/design-system/commit/f5704f6c8d11696eeded3f0d0187b57b53c214da))
+- **react:** remove popper.js exports ([80161ad](https://github.com/wwnorton/design-system/commit/80161ad9490e43935064980c179afe82d03e8170))
+- consolidate utilities ([8ca6df6](https://github.com/wwnorton/design-system/commit/8ca6df69834a09297f6c81148bf07f89fc98e629))
+- de-memo simple objects ([f192152](https://github.com/wwnorton/design-system/commit/f192152827693beca60daa8a123648664fafbe97))
+- **react:** simplify main exports ([93f9f16](https://github.com/wwnorton/design-system/commit/93f9f167cea0413acf5af7ca3072c9bcb920bbb7))
+- **theme:** all fields should be required ([ba90d91](https://github.com/wwnorton/design-system/commit/ba90d91da5ff4831f534288898670420dae864bc))
+- remove config & prefixing ([06314ca](https://github.com/wwnorton/design-system/commit/06314ca2051754e8fa8175b4d609ad8a22342bf4))
+- remove unnecessary conditional hook call ([84050e5](https://github.com/wwnorton/design-system/commit/84050e56f7b9c798e588b83c31c588e5aff31a74))
+- update components to use new utilities ([74f764a](https://github.com/wwnorton/design-system/commit/74f764a0870838aadd22600c4c825fe2a493fa1c))
+
+### 🐛 Bug Fixes
+
+- **dropdown:** use current ids for aria-labelledby ([efec188](https://github.com/wwnorton/design-system/commit/efec188389623f7847ba386c8ff989769177668d))
+- **modal:** modal does not remove scroll: none; when unmounted([#108](https://github.com/wwnorton/design-system/issues/108)) ([ec8d197](https://github.com/wwnorton/design-system/commit/ec8d19779f184688f76895e816d1244955faae9f))
+- **popover:** auto scrolling issue ([df06117](https://github.com/wwnorton/design-system/commit/df0611709aa12f368cd18f0dee3e398ae9aa1913))
+
 ### [1.1.1](https://github.com/wwnorton/design-system/compare/v1.1.0...v1.1.1) (2021-04-06)
 
 ### 🐛 Bug Fixes

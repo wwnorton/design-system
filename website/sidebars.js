@@ -45,5 +45,6 @@ module.exports = {
 		'components/switch',
 		'components/text-field',
 		'components/tooltip',
+		'components/react-providers',
 	],
 };
