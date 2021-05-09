@@ -54,7 +54,7 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
 	if (onClick && warnOnClick) {
 		// eslint-disable-next-line no-console
 		console.warn(
-			'You\'ve attached a click listener to an icon, which will be inaccessible to many users.'
+			'You\'ve attached a click listener to an icon, which will be inaccessible to many users. '
 			+ 'Use the Button or IconButton component instead.',
 		);
 	}
