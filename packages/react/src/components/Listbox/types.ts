@@ -23,7 +23,7 @@ export type ListboxBase = Omit<React.HTMLAttributes<HTMLUListElement>, 'role' | 
 
 export interface ListboxProps extends ListboxBase {
 	/**
-	 * A list of options as either an array of `value` props, an array of `OptionProp`
+	 * A list of options as either an array of `value` props, an array of `OptionProps`
 	 * objects, or an object with `label: value` entries. Array values will be
 	 * used as both the `label` and the `value`.
 	 *
