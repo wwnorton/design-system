@@ -1,0 +1,102 @@
+@forward 'tokens';
+@use 'tokens';
+@use '../../a11y';
+@use '../../color';
+@use '../../spacing';
+@use '../../type';
+@use '../../util';
+
+@mixin base {
+	--nds-listbox-border: #{tokens.$border};
+	--nds-listbox-border-radius: #{tokens.$border-radius};
+	--nds-option-hover-color: #{tokens.$option-hover-color};
+	--nds-option-hover-focus-color: #{tokens.$option-hover-focus-color};
+	--nds-option-focus-color: #{tokens.$option-focus-color};
+	--nds-option-padding-y: #{tokens.$option-padding-y};
+	--nds-option-padding-x: #{tokens.$option-padding-x};
+	--nds-option-marker-padding-x: #{tokens.$option-marker-padding-x};
+	--nds-option-marker-size: #{tokens.$option-marker-size};
+
+	border: var(--nds-listbox-border);
+	border-radius: var(--nds-listbox-border-radius);
+
+	&:focus-within {
+		border-color: var(--nds-focus-color);
+	}
+
+	&[aria-orientation='horizontal'] {
+		display: inline-flex;
+		flex-direction: row;
+	}
+}
+
+@mixin group {
+	padding: 0;
+	margin-bottom: 0;
+	list-style-type: none;
+}
+
+@mixin option {
+	display: flex;
+	padding: var(--nds-option-padding-y) var(--nds-option-padding-x);
+	cursor: default;
+	align-items: center;
+	user-select: none;
+
+	&:focus {
+		background-color: var(--nds-option-focus-color);
+		box-shadow: none;
+	}
+
+	&:hover {
+		background-color: var(--nds-option-hover-color);
+	}
+
+	&:hover:focus {
+		background-color: var(--nds-option-hover-focus-color);
+	}
+}
+
+@mixin option-disabled {
+	color: var(--nds-base-color-40);
+	cursor: not-allowed;
+
+	&:focus {
+		background-color: initial;
+	}
+
+	&:hover {
+		background-color: initial;
+	}
+}
+
+@mixin option-marker {
+	display: inline-flex;
+	padding: 0 var(--nds-option-marker-padding-x);
+	margin-left: calc(-1 * var(--nds-option-padding-x));
+}
+
+@mixin style {
+	@include util.declare('listbox') {
+		.nds-listbox {
+			@include base;
+			@include group;
+		}
+
+		.nds-listbox__group {
+			@include group;
+		}
+
+		.nds-option {
+			@include option;
+		}
+
+		.nds-option[aria-disabled='true'] {
+			@include option-disabled;
+		}
+
+		.nds-option__marker {
+			@include option-marker;
+		}
+	}
+}

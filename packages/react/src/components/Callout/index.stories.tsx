@@ -12,11 +12,16 @@ import { ColorOptions } from '../../utilities/color';
 export default {
 	title: 'Callout',
 	component: Callout,
-	decorators: [withKnobs],
+	decorators: [
+		withKnobs,
+		(Story: React.ComponentType): JSX.Element => (
+			<div style={{ maxWidth: '30rem' }}>
+				<Story />
+			</div>
+		),
+	],
 	layout: 'padded',
 };
-
-const MAX_WIDTH = '30rem';
 
 const defaultContents = `
 	Lorem ipsum is simply dummy text of the printing and typesetting industry.
@@ -30,7 +35,6 @@ const borderMap = {
 
 export const Default: React.FunctionComponent = () => (
 	<Callout
-		style={{ maxWidth: MAX_WIDTH }}
 		title={text('Title', 'Default callout')}
 		dismissible={boolean('Dismissible', true)}
 		border={select('Border Position', borderMap, undefined)}
@@ -44,7 +48,6 @@ export const Default: React.FunctionComponent = () => (
 
 export const NoTitle: React.FunctionComponent = () => (
 	<Callout
-		style={{ maxWidth: MAX_WIDTH }}
 		border={select('Border Position', borderMap, undefined)}
 		color={select('Color', { None: undefined, ...ColorOptions }, undefined)}
 		dismissible={boolean('Dismissible', true)}
@@ -55,7 +58,6 @@ export const NoTitle: React.FunctionComponent = () => (
 
 export const Success: React.FunctionComponent = () => (
 	<CalloutSuccess
-		style={{ maxWidth: MAX_WIDTH }}
 		title={text('Title', 'Success')}
 		dismissible={boolean('Dismissible', false)}
 	>
@@ -65,7 +67,6 @@ export const Success: React.FunctionComponent = () => (
 
 export const Warning: React.FunctionComponent = () => (
 	<CalloutWarning
-		style={{ maxWidth: MAX_WIDTH }}
 		title={text('Title', 'Warning')}
 		dismissible={boolean('Dismissible', false)}
 	>
@@ -75,7 +76,6 @@ export const Warning: React.FunctionComponent = () => (
 
 export const Error: React.FunctionComponent = () => (
 	<CalloutError
-		style={{ maxWidth: MAX_WIDTH }}
 		title={text('Title', 'Error')}
 		dismissible={boolean('Dismissible', false)}
 	>
