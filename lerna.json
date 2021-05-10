@@ -13,7 +13,7 @@
       "signGitTag": true
     },
     "version": {
-      "allowBranch": "main",
+      "allowBranch": ["main", "release/*"],
       "conventionalCommits": true,
       "createRelease": "github",
       "signGitCommit": true,
