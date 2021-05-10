@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.1](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.2.1) (2021-05-10)
+
+### ♻️ Refactor
+
+- **core:** black and white are system tokens ([92afac1](https://github.com/wwnorton/design-system/commit/92afac1befb40f8ac24d840626918b3458e05889))
+- **core:** use data-color-scheme for theming ([5220a9d](https://github.com/wwnorton/design-system/commit/5220a9dede085bf3b1835f17ac86307fec29044e))
+
 ## [1.2.0](https://github.com/wwnorton/design-system/compare/v1.1.1...v1.2.0) (2021-04-26)
 
 ### ✨ Features
