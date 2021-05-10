@@ -21,6 +21,7 @@
     "**/package-lock.json",
     "**/static/**",
     "**/yarn.lock",
+    "package.json",
     "public/**",
     "website/src/theme/(Navbar|SearchBar)/**"
   ],
