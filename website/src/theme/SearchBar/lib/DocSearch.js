@@ -249,56 +249,58 @@ class DocSearch {
         /* eslint-disable */
         console.warn("no anchor nor url for : ", JSON.stringify(hit));
         /* eslint-enable */
-		return null;
-	}
+        return null;
+    }
 
-	static getEmptyTemplate() {
-		return (args) => Hogan.compile(templates.empty).render(args);
-	}
+    static getEmptyTemplate() {
+        return args => Hogan.compile(templates.empty).render(args);
+    }
 
-	static getSuggestionTemplate(isSimpleLayout) {
-		const stringTemplate = isSimpleLayout
-			? templates.suggestionSimple
-			: templates.suggestion;
-		const template = Hogan.compile(stringTemplate);
-		return (suggestion) => template.render(suggestion);
-	}
+    static getSuggestionTemplate(isSimpleLayout) {
+        const stringTemplate = isSimpleLayout
+            ? templates.suggestionSimple
+            : templates.suggestion;
+        const template = Hogan.compile(stringTemplate);
+        return suggestion => template.render(suggestion);
+    }
 
-	handleSelected(input, event, suggestion, datasetNumber, context = {}) {
-		// Do nothing if click on the suggestion, as it's already a <a href>, the
-		// browser will take care of it. This allow Ctrl-Clicking on results and not
-		// having the main window being redirected as well
-		if (context.selectionMethod === 'click') {
-			return;
-		}
+    handleSelected(input, event, suggestion, datasetNumber, context = {}) {
+        // Do nothing if click on the suggestion, as it's already a <a href>, the
+        // browser will take care of it. This allow Ctrl-Clicking on results and not
+        // having the main window being redirected as well
+        if (context.selectionMethod === "click") {
+            return;
+        }
 
-		input.setVal('');
-		window.location.assign(suggestion.url);
-	}
+        input.setVal("");
+        window.location.assign(suggestion.url);
+    }
 
-	handleShown(input) {
-		const middleOfInput = input.offset().left + input.width() / 2;
-		let middleOfWindow = $(document).width() / 2;
+    handleShown(input) {
+        const middleOfInput = input.offset().left + input.width() / 2;
+        let middleOfWindow = $(document).width() / 2;
 
-		if (isNaN(middleOfWindow)) {
-			middleOfWindow = 900;
-		}
+        if (isNaN(middleOfWindow)) {
+            middleOfWindow = 900;
+        }
 
-		const alignClass = middleOfInput - middleOfWindow >= 0
-            	? 'algolia-autocomplete-right'
-            	: 'algolia-autocomplete-left';
-		const otherAlignClass = middleOfInput - middleOfWindow < 0
-            	? 'algolia-autocomplete-right'
-            	: 'algolia-autocomplete-left';
-		const autocompleteWrapper = $('.algolia-autocomplete');
-		if (!autocompleteWrapper.hasClass(alignClass)) {
-			autocompleteWrapper.addClass(alignClass);
-		}
+        const alignClass =
+            middleOfInput - middleOfWindow >= 0
+                ? "algolia-autocomplete-right"
+                : "algolia-autocomplete-left";
+        const otherAlignClass =
+            middleOfInput - middleOfWindow < 0
+                ? "algolia-autocomplete-right"
+                : "algolia-autocomplete-left";
+        const autocompleteWrapper = $(".algolia-autocomplete");
+        if (!autocompleteWrapper.hasClass(alignClass)) {
+            autocompleteWrapper.addClass(alignClass);
+        }
 
-		if (autocompleteWrapper.hasClass(otherAlignClass)) {
-			autocompleteWrapper.removeClass(otherAlignClass);
-		}
-	}
+        if (autocompleteWrapper.hasClass(otherAlignClass)) {
+            autocompleteWrapper.removeClass(otherAlignClass);
+        }
+    }
 }
 
 export default DocSearch;
