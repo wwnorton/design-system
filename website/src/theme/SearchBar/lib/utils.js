@@ -1,4 +1,3 @@
-/* eslint-disable */
 import $ from "autocomplete.js/zepto";
 
 const utils = {
@@ -211,7 +210,7 @@ const utils = {
     }
     if (
       object._highlightResult &&
-      object._highlightResult &&
+      // object._highlightResult &&
       object._highlightResult[property] &&
       object._highlightResult[property].value
     ) {

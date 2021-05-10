@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  *
@@ -10,6 +9,7 @@ import React, { useRef, useCallback } from "react";
 import classnames from "classnames";
 import { useHistory } from "@docusaurus/router";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { usePluginData } from '@docusaurus/useGlobalData';
 const Search = props => {
   const initialized = useRef(false);
   const searchBarRef = useRef(null);
@@ -37,14 +37,15 @@ const Search = props => {
       });
   };
 
+  const pluginData = usePluginData('docusaurus-lunr-search');
   const getSearchDoc = () =>
     process.env.NODE_ENV === "production"
-      ? fetch(`${baseUrl}search-doc.json`).then((content) => content.json())
+      ? fetch(`${baseUrl}${pluginData.fileNames.searchDoc}`).then((content) => content.json())
       : Promise.resolve([]);
 
   const getLunrIndex = () =>
     process.env.NODE_ENV === "production"
-      ? fetch(`${baseUrl}lunr-index.json`).then((content) => content.json())
+      ? fetch(`${baseUrl}${pluginData.fileNames.lunrIndex}`).then((content) => content.json())
       : Promise.resolve([]);
 
   const loadAlgolia = () => {
@@ -55,6 +56,9 @@ const Search = props => {
         import("./lib/DocSearch"),
         import("./algolia.css")
       ]).then(([searchDocs, searchIndex, { default: DocSearch }]) => {
+        if( searchDocs.length === 0) {
+          return;
+        }
         initAlgolia(searchDocs, searchIndex, DocSearch);
       });
       initialized.current = true;
@@ -63,11 +67,10 @@ const Search = props => {
 
   const toggleSearchIconClick = useCallback(
     e => {
-      /* if (!searchBarRef.current.contains(e.target)) {
-        searchBarRef.current.focus();
-      } */
-
-      props.handleSearchBarToggle(!props.isSearchBarExpanded);
+      // if (!searchBarRef.current.contains(e.target)) {
+      //   searchBarRef.current.focus();
+      // }
+      props.handleSearchBarToggle && props.handleSearchBarToggle(!props.isSearchBarExpanded);
     },
     [props.isSearchBarExpanded]
   );
@@ -87,6 +90,7 @@ const Search = props => {
       <input
         id="search_input_react"
         type="search"
+        // placeholder="Search"
         aria-label="Search"
         className={classnames(
           "navbar__search-input",
