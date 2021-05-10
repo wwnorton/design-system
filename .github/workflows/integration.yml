@@ -34,14 +34,12 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-node-${{ matrix.node }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
-      - name: Rebuild Sass
-        run: npm rebuild node-sass
       - name: Build 🔧
         run: npm run build
 
@@ -63,7 +61,7 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-node-${{ env.NODE_VERSION }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
@@ -96,7 +94,7 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-node-${{ env.NODE_VERSION }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
@@ -123,7 +121,7 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-node-${{ env.NODE_VERSION }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
@@ -150,7 +148,7 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-node-${{ env.NODE_VERSION }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
@@ -177,7 +175,7 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-node-${{ env.NODE_VERSION }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
@@ -204,7 +202,7 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-node-${{ env.NODE_VERSION }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install 📦
