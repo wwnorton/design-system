@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "scripts": {
     "build": "docusaurus build --out-dir ../public",
@@ -30,8 +30,8 @@
     "@docusaurus/plugin-pwa": "^2.0.0-alpha.72",
     "@docusaurus/preset-classic": "^2.0.0-alpha.72",
     "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.72",
-    "@wwnds/core": "^1.2.0",
-    "@wwnds/react": "^1.2.0",
+    "@wwnds/core": "^1.2.1",
+    "@wwnds/react": "^1.2.1",
     "colorable": "^1.0.5",
     "docusaurus-lunr-search": "^2.1.11",
     "docusaurus-plugin-sass": "^0.1.12",
