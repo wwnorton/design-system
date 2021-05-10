@@ -1,4 +1,7 @@
 module.exports = {
+	ignorePatterns: [
+		'SearchBar/**',
+	],
 	rules: {
 		'import/prefer-default-export': 'error',
 		'import/no-default-export': 'off',

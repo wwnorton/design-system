@@ -1,4 +1,3 @@
-/* eslint-disable */
 import lunr from "@generated/lunr.client";
 lunr.tokenizer.separator = /[\s\-/]+/;
 

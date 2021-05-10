@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  *
@@ -63,9 +62,9 @@ const Search = props => {
 
   const toggleSearchIconClick = useCallback(
     e => {
-      /* if (!searchBarRef.current.contains(e.target)) {
-        searchBarRef.current.focus();
-      } */
+      // if (!searchBarRef.current.contains(e.target)) {
+      //   searchBarRef.current.focus();
+      // }
 
       props.handleSearchBarToggle(!props.isSearchBarExpanded);
     },
@@ -87,6 +86,7 @@ const Search = props => {
       <input
         id="search_input_react"
         type="search"
+        // placeholder="Search"
         aria-label="Search"
         className={classnames(
           "navbar__search-input",

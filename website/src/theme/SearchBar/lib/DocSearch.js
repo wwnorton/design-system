@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Hogan from "hogan.js";
 import LunrSearchAdapter from "./lunar-search";
 import autocomplete from "autocomplete.js";
@@ -247,7 +246,9 @@ class DocSearch {
             else if (anchor) return `${hit.url}#${hit.anchor}`;
             return url;
         } else if (anchor) return `#${hit.anchor}`;
+        /* eslint-disable */
         console.warn("no anchor nor url for : ", JSON.stringify(hit));
+        /* eslint-enable */
 		return null;
 	}
 
