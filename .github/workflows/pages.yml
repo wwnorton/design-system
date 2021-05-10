@@ -29,9 +29,9 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
