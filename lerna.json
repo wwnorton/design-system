@@ -5,12 +5,7 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "access": "public",
-      "allowBranch": "main",
-      "conventionalCommits": true,
-      "createRelease": "github",
-      "signGitCommit": true,
-      "signGitTag": true
+      "access": "public"
     },
     "version": {
       "allowBranch": "main",

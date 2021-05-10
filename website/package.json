@@ -33,7 +33,7 @@
     "@wwnds/core": "^1.2.0",
     "@wwnds/react": "^1.2.0",
     "colorable": "^1.0.5",
-    "docusaurus-lunr-search": "^2.1.11",
+    "docusaurus-lunr-search": "^2.1.14",
     "docusaurus-plugin-sass": "^0.1.12",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

@@ -97,3 +97,7 @@ code {
 td > code:first-child:last-child {
 	white-space: nowrap;
 }
+
+.navbar__search {
+	padding-left: var(--ifm-navbar-padding-horizontal);
+}

@@ -1,3 +1,4 @@
+# cSpell:ignore coverallsapp
 name: Integration
 
 on:
@@ -6,27 +7,36 @@ on:
       - main
   pull_request:
 
+env:
+  FORCE_COLOR: 2
+  NODE_VERSION: 14
+
 jobs:
   build:
+    name: Build library | Node ${{ matrix.node }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [12, 14]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: ${{ matrix.node }}
       - name: Get yarn cache directory
         id: yarn-cache-dir
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ matrix.node }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -34,25 +44,26 @@ jobs:
         run: npm run build
 
   docs:
+    name: Build docs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: ${{ env.NODE_VERSION }}
       - name: Get yarn cache directory
         id: yarn-cache-dir
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -66,25 +77,26 @@ jobs:
           BASE_URL: /design-system/
 
   cspell:
+    name: Spell check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: ${{ env.NODE_VERSION }}
       - name: Get yarn cache directory
         id: yarn-cache-dir
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -92,25 +104,26 @@ jobs:
         run: npm run cspell
 
   eslint:
+    name: ESLint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: ${{ env.NODE_VERSION }}
       - name: Get yarn cache directory
         id: yarn-cache-dir
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -118,25 +131,26 @@ jobs:
         run: npm run lint:es
 
   stylelint:
+    name: Stylelint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: ${{ env.NODE_VERSION }}
       - name: Get yarn cache directory
         id: yarn-cache-dir
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -144,25 +158,26 @@ jobs:
         run: npm run lint:style
 
   prettier:
+    name: Prettier
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: ${{ env.NODE_VERSION }}
       - name: Get yarn cache directory
         id: yarn-cache-dir
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -170,25 +185,30 @@ jobs:
         run: npm run lint:prettier
 
   test:
+    name: Test | Node ${{ matrix.node }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [12, 14]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2
         with:
-          node-version: "12"
+          node-version: ${{ matrix.node }}
       - name: Get yarn cache directory
         id: yarn-cache-dir
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
             ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-${{ matrix.node }}-yarn-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -196,5 +216,6 @@ jobs:
         run: npm run coverage
       - name: Codecov ☂
         uses: codecov/codecov-action@v1
+        if: ${{ matrix.node == env.NODE_VERSION }}
         with:
           directory: coverage
