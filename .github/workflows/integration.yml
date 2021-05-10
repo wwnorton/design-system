@@ -40,6 +40,8 @@ jobs:
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
+      - name: Rebuild Sass
+        run: npm rebuild node-sass
       - name: Build 🔧
         run: npm run build
 
