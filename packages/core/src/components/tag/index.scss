@@ -1,0 +1,63 @@
+@use 'tokens';
+@use '../../util';
+@use '../../color';
+@use 'sass:map';
+
+@mixin base {
+	@include util.set($nds-tag-color: color.family('tag-color', tokens.$color));
+
+	--nds-tag-padding-y: #{tokens.$padding-y};
+	--nds-tag-margin: #{tokens.$margin};
+	--nds-tag-background-color: var(--nds-tag-color-#{tokens.$background-grade});
+
+	display: inline-flex;
+	padding: 0 var(--nds-tag-padding-y);
+	margin: var(--nds-tag-margin);
+	align-items: center;
+	justify-content: center;
+	font-size: var(--nds-font-size-xs);
+	color: var(--nds-tag-color-#{tokens.$background-font-grade});
+	vertical-align: middle;
+	background-color: var(--nds-tag-background-color);
+	border-radius: 0.375rem;
+}
+
+@mixin tag-close-icon {
+	cursor: pointer;
+}
+
+@mixin tag-icon {
+	margin-right: 1px;
+}
+
+@mixin style {
+	@include util.declare('tag') {
+		.nds-tag {
+			@include base;
+		}
+
+		.nds-tag__close {
+			@include tag-close-icon;
+		}
+
+		.nds-tag__icon {
+			@include tag-icon;
+		}
+
+		@each $name in color.$families {
+			.nds-tag--#{$name} {
+				@include util.set(
+					$nds-tag-color: color.family('tag-color', $name),
+				);
+			}
+		}
+
+		@each $map in color.$roles {
+			$name: map.get($map, 'name');
+
+			.nds-tag--#{$name} {
+				@include util.set($nds-tag-color: color.family('tag-color', '#{$name}-color'));
+			}
+		}
+	}
+}
