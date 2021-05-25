@@ -11,9 +11,10 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 	color,
 	className,
 	icon,
+	...props
 }: BadgeProps) => {
 	const BaseIcon = React.useMemo(() => {
-		if (!icon) return null;
+		if (!icon || variant === 'dot') return null;
 		const baseProps = {
 			className: iconClass,
 		};
@@ -21,9 +22,9 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 			? { ...baseProps, variant: icon, size: 12 }
 			: { ...baseProps, icon };
 		return <Icon {...iconProps} />;
-	}, [icon, iconClass]);
+	}, [icon, iconClass, variant]);
 
-	const variantProps = React.useMemo(() => {
+	const VariantProps = React.useMemo(() => {
 		if (variant === 'pill') {
 			return children !== null && children !== undefined ? children : null;
 		}
@@ -40,9 +41,9 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 	);
 
 	return (
-		<span className={classes}>
+		<span className={classes} {...props}>
 			{BaseIcon}
-			{variantProps}
+			{VariantProps}
 		</span>
 	);
 });
