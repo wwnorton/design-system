@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { TagProps } from './types';
 import { Icon } from '../Icon';
 
-export const Tag = React.forwardRef<HTMLElement, TagProps>(({
+export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(({
 	dismissible,
 	baseName = 'nds-tag',
 	closeIconClass = `${baseName}__close`,
@@ -13,6 +13,7 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	onDismiss,
 	className,
 	icon,
+	...props
 }: TagProps) => {
 	const BaseIcon = React.useMemo(() => {
 		if (!icon) return null;
@@ -34,11 +35,9 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	);
 
 	return (
-		<div className={classes}>
+		<span className={classes} {...props}>
 			{BaseIcon}
-			<span>
-				{children !== null && children !== undefined ? children : null}
-			</span>
+			{children}
 			{ dismissible && (
 				<Icon
 					variant="close"
@@ -50,6 +49,6 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 					Close
 				</Icon>
 			) }
-		</div>
+		</span>
 	);
 });
