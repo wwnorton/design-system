@@ -1,0 +1,9 @@
+@use '../../spacing';
+
+$padding-pill: spacing.spacer('cell-sm') !default;
+$padding-dot: spacing.spacer('ui-inner') !default;
+$color: 'base-color' !default;
+$background-grade: 60 !default;
+$background-font-grade: 10 !default;
+$margin: spacing.spacer('ui-inner') !default;
+$border-radius: var(--nds-radius-pill) !default;
