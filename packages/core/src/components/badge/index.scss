@@ -4,19 +4,17 @@
 @use 'sass:map';
 
 @mixin base {
-	@include util.set($nds-badge-color: color.family('badge-color', tokens.$color));
-
 	--nds-pill-padding: #{tokens.$padding-pill};
 	--nds-dot-padding: #{tokens.$padding-dot};
 	--nds-badge-margin: #{tokens.$margin};
-	--nds-badge-background-color: var(--nds-badge-color-#{tokens.$background-grade});
+	--nds-badge-background-color: var(--nds-base-color-#{tokens.$background-grade});
 	--nds-badge-border-radius: #{tokens.$border-radius};
 
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	font-size: var(--nds-font-size-xs);
-	color: var(--nds-badge-color-#{tokens.$background-font-grade});
+	color: var(--nds-background-color);
 	vertical-align: middle;
 }
 
@@ -39,7 +37,7 @@
 	padding: 5px;
 	margin: var(--nds-badge-margin);
 	text-align: center;
-	background-color: var(--nds-badge-background-color);
+	background-color: #{tokens.$background-color-dot};
 	border-radius: 50%;
 }
 
@@ -68,17 +66,7 @@
 
 		@each $name in color.$families {
 			.nds-badge--#{$name} {
-				@include util.set(
-					$nds-badge-color: color.family('badge-color', $name),
-				);
-			}
-		}
-
-		@each $map in color.$roles {
-			$name: map.get($map, 'name');
-
-			.nds-badge--#{$name} {
-				@include util.set($nds-badge-color: color.family('badge-color', '#{$name}-color'));
+				--nds-badge-background-color: var(--nds-#{$name}-#{tokens.$background-grade});
 			}
 		}
 	}

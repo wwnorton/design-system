@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { BadgeProps } from './types';
 import { Icon } from '../Icon';
 
-export const Badge = React.forwardRef<HTMLElement, BadgeProps>(({
+export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 	variant,
 	baseName = 'nds-badge',
 	iconClass = `${baseName}__icon`,
@@ -40,9 +40,9 @@ export const Badge = React.forwardRef<HTMLElement, BadgeProps>(({
 	);
 
 	return (
-		<div className={classes}>
+		<span className={classes}>
 			{BaseIcon}
 			{variantProps}
-		</div>
+		</span>
 	);
 });

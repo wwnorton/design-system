@@ -6,7 +6,7 @@ import {
 } from '@storybook/addon-knobs';
 import { Badge } from '.';
 import { IconOptions } from '../Icon';
-import { ColorOptions } from '../../utilities/color';
+import { SystemColorOptions } from '../../utilities/color';
 import { BasePopper } from '../BasePopper';
 import { Button } from '../..';
 
@@ -32,7 +32,7 @@ export const WithIcon: React.FunctionComponent = () => (
 		<Badge
 			variant="pill"
 			icon={select('Icon', { None: undefined, ...IconOptions }, 'account')}
-			color={select('Color', { None: undefined, ...ColorOptions }, 'blue')}
+			color={select('Color', { None: undefined, ...SystemColorOptions }, 'blue')}
 		>
 			{text('Title', '11')}
 		</Badge>
@@ -40,7 +40,7 @@ export const WithIcon: React.FunctionComponent = () => (
 		<Badge
 			variant="dot"
 			icon={select('Icon', { None: undefined, ...IconOptions }, null)}
-			color={select('Color', { None: undefined, ...ColorOptions }, undefined)}
+			color={select('Color', { None: undefined, ...SystemColorOptions }, undefined)}
 		/>
 	</>
 );
@@ -77,7 +77,7 @@ export const WithPopper: React.FunctionComponent = () => {
 				<Badge
 					variant={badgeVariant}
 					icon={select('Icon', { None: undefined, ...IconOptions }, null)}
-					color={select('Color', { None: undefined, ...ColorOptions }, 'red')}
+					color={select('Color', { None: undefined, ...SystemColorOptions }, 'red')}
 				>
 					{text('Title', '1')}
 				</Badge>

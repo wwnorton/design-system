@@ -1,11 +1,11 @@
 import { IconProps } from '../Icon';
-import { AllColors } from '../../utilities/color';
+import { SystemColors } from '../../utilities/color';
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLElement> {
+export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 	variant?: 'pill' | 'dot',
 	icon?: IconProps['variant'],
 	/** The callout's color family. */
-	color?: Exclude<AllColors, 'disabled'>;
+	color?: SystemColors;
 	/** The base class name according to BEM conventions. */
 	baseName?: string,
 	/** The `className` that will be applied to the callout icon. */
