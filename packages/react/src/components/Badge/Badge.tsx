@@ -4,44 +4,44 @@ import { BadgeProps } from './types';
 import { Icon } from '../Icon';
 
 export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
-	variant,
 	baseName = 'nds-badge',
 	iconClass = `${baseName}__icon`,
 	children,
 	color,
 	className,
 	icon,
+	dot = false,
 	...props
-}: BadgeProps) => {
+}: BadgeProps, ref) => {
 	const BaseIcon = React.useMemo(() => {
-		if (!icon || variant === 'dot') return null;
+		if (!icon || dot === true) return null;
 		const baseProps = {
 			className: iconClass,
 		};
 		const iconProps = (typeof icon === 'string')
-			? { ...baseProps, variant: icon, size: 12 }
+			? { ...baseProps, variant: icon }
 			: { ...baseProps, icon };
 		return <Icon {...iconProps} />;
-	}, [icon, iconClass, variant]);
+	}, [icon, iconClass, dot]);
 
 	const VariantProps = React.useMemo(() => {
-		if (variant === 'pill') {
+		if (dot === false) {
 			return children !== null && children !== undefined ? children : null;
 		}
 		return null;
-	}, [variant, children]);
+	}, [dot, children]);
 
 	const classes = classNames(
 		className,
 		baseName,
 		{
 			[`${baseName}--${color}`]: color !== undefined,
-			[`${baseName}--${variant}`]: variant !== undefined,
+			[`${baseName}--dot`]: dot === true,
 		},
 	);
 
 	return (
-		<span className={classes} {...props}>
+		<span className={classes} {...props} ref={ref}>
 			{BaseIcon}
 			{VariantProps}
 		</span>

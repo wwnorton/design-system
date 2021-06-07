@@ -27,6 +27,7 @@
 
 /// Declarations for every component.
 @mixin components {
+	@include nds.badge-style;
 	@include nds.button-style;
 	@include nds.callout-style;
 	@include nds.checkbox-style;
@@ -44,7 +45,6 @@
 	@include nds.tooltip-style;
 	@include nds.spinner-style;
 	@include nds.progressbar-style;
-	@include nds.badge-style;
 }
 
 /// Helper declarations that set a composed style uncoupled from any component.

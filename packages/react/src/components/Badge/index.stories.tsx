@@ -3,6 +3,7 @@ import {
 	withKnobs,
 	select,
 	text,
+	boolean,
 } from '@storybook/addon-knobs';
 import { Badge } from '.';
 import { IconOptions } from '../Icon';
@@ -18,19 +19,16 @@ export default {
 
 export const Default: React.FunctionComponent = () => (
 	<>
-		<Badge
-			variant="pill"
-		>
+		<Badge>
 			11
 		</Badge>
-		<Badge color="red" variant="dot" />
+		<Badge style={{ marginLeft: 5 }} color="red" dot />
 	</>
 );
 
 export const WithIcon: React.FunctionComponent = () => (
 	<>
 		<Badge
-			variant="pill"
 			icon={select('Icon', { None: undefined, ...IconOptions }, 'account')}
 			color={select('Color', { None: undefined, ...SystemColorOptions }, 'blue')}
 		>
@@ -38,26 +36,27 @@ export const WithIcon: React.FunctionComponent = () => (
 		</Badge>
 
 		<Badge
-			variant="dot"
+			style={{ marginLeft: 5 }}
 			icon={select('Icon', { None: undefined, ...IconOptions }, null)}
 			color={select('Color', { None: undefined, ...SystemColorOptions }, undefined)}
+			dot
 		/>
 	</>
 );
 
 export const WithPopper: React.FunctionComponent = () => {
-	const badgeVariant = select('Show variant', { None: undefined, Pill: 'pill', Dot: 'dot' }, 'pill');
+	const dot = boolean('dot', false);
 	const [ref, setRef] = React.useState<HTMLElement | null>();
 	const modifiers = undefined;
 	const offsetMod = React.useMemo(() => {
-		const offsets = badgeVariant === 'pill' ? [19, -10] : [10, -10];
+		const offsets = dot === false ? [19, -10] : [10, -10];
 		return {
 			name: 'offset',
 			options: {
 				offset: offsets,
 			},
 		};
-	}, [badgeVariant]);
+	}, [dot]);
 
 	return (
 		<>
@@ -75,9 +74,9 @@ export const WithPopper: React.FunctionComponent = () => {
 				reference={ref}
 			>
 				<Badge
-					variant={badgeVariant}
 					icon={select('Icon', { None: undefined, ...IconOptions }, null)}
 					color={select('Color', { None: undefined, ...SystemColorOptions }, 'red')}
+					dot={dot}
 				>
 					{text('Title', '1')}
 				</Badge>

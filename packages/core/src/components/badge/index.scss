@@ -1,28 +1,26 @@
 @use 'tokens';
 @use '../../util';
 @use '../../color';
+@use '../../type';
 @use 'sass:map';
 
 @mixin base {
-	--nds-pill-padding: #{tokens.$padding-pill};
+	--nds-badge-padding-x: #{tokens.$padding-x};
+	--nds-badge-padding-y: #{tokens.$padding-y};
 	--nds-dot-padding: #{tokens.$padding-dot};
-	--nds-badge-margin: #{tokens.$margin};
-	--nds-badge-background-color: var(--nds-base-color-#{tokens.$background-grade});
-	--nds-badge-border-radius: #{tokens.$border-radius};
+	--nds-badge-background-color: var(--nds-#{tokens.$background-family}-#{tokens.$background-grade});
+	--nds-badge-border-radius: 1rem;
+	--nds-badge-dot-size: #{tokens.$dot-size};
 
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	font-size: var(--nds-font-size-xs);
+	min-width: 1.5rem;
+	padding: var(--nds-badge-padding-x) var(--nds-badge-padding-y);
+	font-size: var(--nds-font-size-sm);
+	line-height: type.lh(1);
 	color: var(--nds-background-color);
 	vertical-align: middle;
-}
-
-@mixin badge-pill {
-	min-width: 1.5rem;
-	height: 1.25rem;
-	padding: var(--nds-pill-padding);
-	margin: var(--nds-badge-margin);
 	background-color: var(--nds-badge-background-color);
 	border-radius: var(--nds-badge-border-radius);
 
@@ -33,27 +31,21 @@
 }
 
 @mixin badge-dot {
-	position: relative;
-	padding: 5px;
-	margin: var(--nds-badge-margin);
+	min-width: auto;
+	height: auto;
+	padding: calc(var(--nds-badge-dot-size) / 2);
 	text-align: center;
-	background-color: #{tokens.$background-color-dot};
-	border-radius: 50%;
+	background-color: #{tokens.$dot-color};
 }
 
 @mixin badge-icon {
-	min-height: 12px;
-	margin-right: 1px;
+	margin-left: 1px;
 }
 
 @mixin style {
 	@include util.declare('badge') {
 		.nds-badge {
 			@include base;
-		}
-
-		.nds-badge--pill {
-			@include badge-pill;
 		}
 
 		.nds-badge--dot {

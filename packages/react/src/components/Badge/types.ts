@@ -2,7 +2,7 @@ import { IconProps } from '../Icon';
 import { SystemColors } from '../../utilities/color';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-	variant?: 'pill' | 'dot',
+	dot?: boolean,
 	icon?: IconProps['variant'],
 	/** The badge's color family. */
 	color?: SystemColors;
@@ -10,9 +10,4 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 	baseName?: string,
 	/** The `className` that will be applied to the badge icon. */
 	iconClass?: string,
-	/**
-	 * A className for the badge's close button, which goes inside the header.
-	 * Default will be `${baseName}__close`.
-	*/
-	closeIconClass?: string;
 }
