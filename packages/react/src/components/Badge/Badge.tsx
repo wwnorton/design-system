@@ -15,21 +15,9 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 }: BadgeProps, ref) => {
 	const BaseIcon = React.useMemo(() => {
 		if (!icon || dot === true) return null;
-		const baseProps = {
-			className: iconClass,
-		};
-		const iconProps = (typeof icon === 'string')
-			? { ...baseProps, variant: icon }
-			: { ...baseProps, icon };
-		return <Icon {...iconProps} />;
+		const iconProps = (typeof icon === 'string') ? { variant: icon } : { icon };
+		return <Icon className={iconClass} {...iconProps} />;
 	}, [icon, iconClass, dot]);
-
-	const VariantProps = React.useMemo(() => {
-		if (dot === false) {
-			return children !== null && children !== undefined ? children : null;
-		}
-		return null;
-	}, [dot, children]);
 
 	const classes = classNames(
 		className,
@@ -43,7 +31,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 	return (
 		<span className={classes} {...props} ref={ref}>
 			{BaseIcon}
-			{VariantProps}
+			{dot ? null : children}
 		</span>
 	);
 });

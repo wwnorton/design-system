@@ -7,18 +7,17 @@
 @mixin base {
 	--nds-badge-padding-x: #{tokens.$padding-x};
 	--nds-badge-padding-y: #{tokens.$padding-y};
-	--nds-dot-padding: #{tokens.$padding-dot};
 	--nds-badge-background-color: var(--nds-#{tokens.$background-family}-#{tokens.$background-grade});
-	--nds-badge-border-radius: 1rem;
+	--nds-badge-border-radius: #{tokens.$border-radius};
 	--nds-badge-dot-size: #{tokens.$dot-size};
 
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	min-width: 1.5rem;
-	padding: var(--nds-badge-padding-x) var(--nds-badge-padding-y);
+	padding: var(--nds-badge-padding-x) var(--nds-badge-padding-y) 0.063rem;
 	font-size: var(--nds-font-size-sm);
-	line-height: type.lh(1);
+	line-height: type.lh('ui');
 	color: var(--nds-background-color);
 	vertical-align: middle;
 	background-color: var(--nds-badge-background-color);
@@ -31,7 +30,7 @@
 }
 
 @mixin badge-dot {
-	min-width: auto;
+	min-width: unset;
 	height: auto;
 	padding: calc(var(--nds-badge-dot-size) / 2);
 	text-align: center;
@@ -39,7 +38,7 @@
 }
 
 @mixin badge-icon {
-	margin-left: 1px;
+	margin-right: 1px;
 }
 
 @mixin style {

@@ -26,37 +26,18 @@ export const Default: React.FunctionComponent = () => (
 	</>
 );
 
-export const WithIcon: React.FunctionComponent = () => (
-	<>
-		<Badge
-			icon={select('Icon', { None: undefined, ...IconOptions }, 'account')}
-			color={select('Color', { None: undefined, ...SystemColorOptions }, 'blue')}
-		>
-			{text('Title', '11')}
-		</Badge>
-
-		<Badge
-			style={{ marginLeft: 5 }}
-			icon={select('Icon', { None: undefined, ...IconOptions }, null)}
-			color={select('Color', { None: undefined, ...SystemColorOptions }, undefined)}
-			dot
-		/>
-	</>
-);
-
 export const WithPopper: React.FunctionComponent = () => {
-	const dot = boolean('dot', false);
 	const [ref, setRef] = React.useState<HTMLElement | null>();
 	const modifiers = undefined;
 	const offsetMod = React.useMemo(() => {
-		const offsets = dot === false ? [19, -10] : [10, -10];
+		const offsets = [10, -10];
 		return {
 			name: 'offset',
 			options: {
 				offset: offsets,
 			},
 		};
-	}, [dot]);
+	}, []);
 
 	return (
 		<>
@@ -76,7 +57,7 @@ export const WithPopper: React.FunctionComponent = () => {
 				<Badge
 					icon={select('Icon', { None: undefined, ...IconOptions }, null)}
 					color={select('Color', { None: undefined, ...SystemColorOptions }, 'red')}
-					dot={dot}
+					dot={boolean('Dot', false)}
 				>
 					{text('Title', '1')}
 				</Badge>

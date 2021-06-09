@@ -1,9 +1,9 @@
-import { IconProps } from '../Icon';
+import { IconVariant } from '../Icon';
 import { SystemColors } from '../../utilities/color';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 	dot?: boolean,
-	icon?: IconProps['variant'],
+	icon?: IconVariant,
 	/** The badge's color family. */
 	color?: SystemColors;
 	/** The base class name according to BEM conventions. */
