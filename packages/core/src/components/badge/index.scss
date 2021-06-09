@@ -22,11 +22,6 @@
 	vertical-align: middle;
 	background-color: var(--nds-badge-background-color);
 	border-radius: var(--nds-badge-border-radius);
-
-	span {
-		padding-left: 1px;
-		margin-bottom: 1px;
-	}
 }
 
 @mixin badge-dot {
