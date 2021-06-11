@@ -6,7 +6,7 @@ import {
 	boolean,
 } from '@storybook/addon-knobs';
 import { Badge } from '.';
-import { IconOptions } from '../Icon';
+import { Icon } from '../Icon';
 import { SystemColorOptions } from '../../utilities/color';
 import { BasePopper } from '../BasePopper';
 import { Button } from '../..';
@@ -19,10 +19,12 @@ export default {
 
 export const Default: React.FunctionComponent = () => (
 	<>
-		<Badge>
-			11
+		<Badge
+			dot={boolean('Dot', false)}
+			color={select('Color', { None: undefined, ...SystemColorOptions }, undefined)}
+		>
+			{text('Label', '0')}
 		</Badge>
-		<Badge style={{ marginLeft: 5 }} color="red" dot />
 	</>
 );
 
@@ -30,7 +32,7 @@ export const WithPopper: React.FunctionComponent = () => {
 	const [ref, setRef] = React.useState<HTMLElement | null>();
 	const modifiers = undefined;
 	const offsetMod = React.useMemo(() => {
-		const offsets = [10, -10];
+		const offsets = [-10, -17];
 		return {
 			name: 'offset',
 			options: {
@@ -43,8 +45,12 @@ export const WithPopper: React.FunctionComponent = () => {
 		<>
 			<br />
 			<br />
-			<Button variant="outline" ref={setRef}>
-				Cart
+			<Button ref={setRef} variant="ghost">
+				<Icon
+					variant="calendar"
+					size="45"
+					color="gray"
+				/>
 			</Button>
 			<BasePopper
 				role="dialog"
@@ -55,11 +61,10 @@ export const WithPopper: React.FunctionComponent = () => {
 				reference={ref}
 			>
 				<Badge
-					icon={select('Icon', { None: undefined, ...IconOptions }, null)}
 					color={select('Color', { None: undefined, ...SystemColorOptions }, 'red')}
 					dot={boolean('Dot', false)}
 				>
-					{text('Title', '1')}
+					{text('Label', '1')}
 				</Badge>
 			</BasePopper>
 		</>

@@ -14,8 +14,3 @@ test('a Badge variant dot is rendered', (t) => {
 	render(<Badge dot>99</Badge>);
 	t.truthy(screen.getByText('99'));
 });
-
-test('Badge with icon is rendered', (t) => {
-	render(<Badge icon="download">99</Badge>);
-	t.truthy(screen.queryByRole('img', { hidden: true }));
-});
