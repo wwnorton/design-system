@@ -17,24 +17,28 @@ export const usePopperTriggers = ({
 	trigger,
 	isOpen,
 	hideDelay,
+	showDelay,
 	onRequestOpen,
 	onRequestClose,
 }: UsePopperTriggersProps): void => {
 	const openTrigger = useRef<PopperTriggersOpen>();
 	const keyboardClick = useRef(false);
 	const spaceClick = useRef(false);
-	const timer = useRef<number>();
+	const showTimer = useRef<number>();
+	const hideTimer = useRef<number>();
 
-	const clearTimer = (): void => window.clearTimeout(timer.current);
+	const clearShowTimer = (): void => window.clearTimeout(showTimer.current);
+	const clearHideTimer = (): void => window.clearTimeout(hideTimer.current);
 
 	const show = useCallback((triggeredBy: PopperTriggersOpen) => {
 		openTrigger.current = triggeredBy;
 		if (onRequestOpen) onRequestOpen(triggeredBy);
-		clearTimer();
+		clearHideTimer();
 	}, [onRequestOpen]);
 
 	const hide = useCallback((triggeredBy: PopperTriggersClose) => {
 		if (onRequestClose) onRequestClose(triggeredBy);
+		clearShowTimer();
 	}, [onRequestClose]);
 
 	const externalTo = useMemo(() => {
@@ -102,9 +106,19 @@ export const usePopperTriggers = ({
 		};
 
 		// hover
-		const pointerenterHandler = () => show('pointerenter');
+		const pointerenterHandler = ({ target }: PointerEvent) => {
+			let composedPath: EventTarget[] = [];
+			const updateComposedPath = (e: PointerEvent) => {
+				composedPath = e.composedPath();
+			};
+			document.addEventListener('pointermove', updateComposedPath);
+			showTimer.current = window.setTimeout((): void => {
+				document.removeEventListener('pointermove', updateComposedPath);
+				if (target && composedPath.includes(target)) show('pointerenter');
+			}, showDelay);
+		};
 		const pointerleaveHandler = () => {
-			timer.current = window.setTimeout((): void => {
+			hideTimer.current = window.setTimeout((): void => {
 				if (openTrigger.current === 'pointerenter') hide('pointerleave');
 			}, hideDelay);
 		};
@@ -126,7 +140,7 @@ export const usePopperTriggers = ({
 			reference.addEventListener('keyup', keyupHandler);
 		}
 
-		if (isElement(reference)) {
+		if (isHTMLElement(reference)) {
 			// focus & focusin
 			if (trigger.includes('focus')) {
 				reference.addEventListener('focus', focusHandler);
@@ -149,11 +163,11 @@ export const usePopperTriggers = ({
 		}
 
 		if (popper) {
-			popper.addEventListener('pointerenter', clearTimer);
+			popper.addEventListener('pointerenter', clearHideTimer);
 		}
 
 		return (): void => {
-			clearTimer();
+			clearHideTimer();
 			document.removeEventListener('keydown', docKeydownHandler);
 
 			if (isHTMLElement(reference)) {
@@ -175,9 +189,9 @@ export const usePopperTriggers = ({
 			}
 
 			if (popper) {
-				popper.removeEventListener('pointerenter', clearTimer);
+				popper.removeEventListener('pointerenter', clearHideTimer);
 				popper.removeEventListener('pointerleave', pointerleaveHandler);
 			}
 		};
-	}, [reference, popper, trigger, show, hide, hideDelay, isOpen]);
+	}, [hide, hideDelay, isOpen, popper, reference, show, showDelay, trigger]);
 };
