@@ -67,10 +67,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 		textClass = `${baseName}__text`,
 		className,
 		children,
+		'aria-label': ariaLabel,
+		'aria-labelledby': ariaLabelledBy,
 		...props
 	}: ButtonProps, ref,
 ) => {
-	const { 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy } = props;
 	if (!React.Children.count(children) && !ariaLabel && !ariaLabelledBy) {
 		throw new Error(BUTTON_NO_NAME);
 	}
