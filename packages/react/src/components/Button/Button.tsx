@@ -1,9 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
+import isEqual from 'react-fast-compare';
 import { useForwardedRef } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon, IconVariant, SVGIcon } from '../Icon';
-import { Tooltip, TooltipCoreProps } from '../Tooltip';
+import { Tooltip } from '../Tooltip/Tooltip';
+import { TooltipCoreProps } from '../Tooltip/types';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
 import { AllColors } from '../../utilities/color';
 import { BUTTON_NO_NAME } from './errors';
@@ -62,7 +64,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 		iconRight,
 		iconOnly,
 		color,
-		tooltipProps,
+		tooltipProps: tooltip = { transition: 'fade' },
 		iconClass = `${baseName}__icon`,
 		textClass = `${baseName}__text`,
 		className,
@@ -77,6 +79,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 	}
 	const [button, setButton] = useForwardedRef(ref);
 	const liveText = useContentMonitor(button, children);
+	const prevTooltipProps = React.useRef(tooltip);
 
 	const BaseIcon = React.useMemo(() => {
 		if (!icon) return null;
@@ -107,6 +110,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 		baseName,
 		className,
 	);
+
+	const tooltipProps = React.useMemo(() => {
+		const baseProps = (iconOnly) ? { showDelay: 500, hideDelay: 0 } : {};
+		if (!isEqual(tooltip, prevTooltipProps.current)) {
+			prevTooltipProps.current = tooltip;
+			return { ...tooltip, ...baseProps };
+		}
+		return { ...prevTooltipProps.current, ...baseProps };
+	}, [iconOnly, tooltip]);
 
 	return (
 		<>
