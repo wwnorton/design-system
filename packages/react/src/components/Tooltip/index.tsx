@@ -1,75 +1,53 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { BasePopper, BasePopperProps } from '../BasePopper';
 import {
-	useForwardedRef, usePopperTriggers, UsePopperTriggersProps, useToken,
+	useForwardedRef, usePopperTriggers,
 } from '../../utilities';
-import { PopperOptions } from '../../utilities/popper/types';
+import { Popper } from '../Popper';
+import { TooltipProps } from './types';
 
-export interface TooltipProps extends
-	BasePopperProps,
-	Partial<Pick<UsePopperTriggersProps, 'hideDelay'>> {
-	/** The base class name according to BEM conventions. */
-	baseName?: string;
-	/** A className to apply to the body of the tooltip. */
-	bodyClass?: string;
-	/**
-	 * A className to apply to the content. Default will be `${baseName}__content`.
-	 * @deprecated Use the `bodyClass`.
-	 */
-	contentClass?: string;
-	/** A className to apply to the arrow. Default will be `${baseName}__arrow`. */
-	arrowClass?: string;
-	/**
-	 * Indicates that the tooltip is labelling the reference. If `false`, the
-	 * tooltip will be used as description.
-	 *
-	 * Reference:
-	 * - [ARIA Practices - Providing Accessible Names and Descriptions](https://w3c.github.io/aria-practices/#names_and_descriptions)
-	 */
-	asLabel?: boolean;
-	/**
-	 * A space-separated string of events. Triggers can be any combination of the
-	 * following:
-	 * - `click`
-	 * - `focus`
-	 * - `focusin`
-	 * - `mouseenter`
-	 * - `pointerenter`
-	 * - `manual`
-	 */
-	trigger?: string;
-}
-
-export type TooltipCoreProps = PopperOptions & Pick<UsePopperTriggersProps, 'hideDelay' | 'trigger'>;
+export { TooltipProps } from './types';
 
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	{
+		// inherited from Popper
+		isOpen: isOpenProp,
+		transition = 'fade',
+		reference,
+		arrowElement,
+		distance,
+		boundary,
+		placement = 'top',
+		modifiers,
+		strategy,
+		onFirstUpdate,
+
+		// inherited from usePopperTriggers
+		hideDelay = 200,
+		showDelay = 0,
+
+		// unique to Tooltip
 		baseName = 'nds-tooltip',
 		bodyClass = `${baseName}__body`,
 		contentClass,
-		arrowClass = `${baseName}__arrow`,
-		modifiers,
-		placement = 'top',
+		arrowClass,
 		asLabel = false,
 		trigger = 'focus pointerenter',
-		hideDelay = 200,
-		reference,
-		isOpen: propOpen,
+
+		// inherited from React.HTMLAttributes<HTMLDivElement>
 		children,
 		className,
 		...props
 	}: TooltipProps, ref,
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
-	const [offsetY] = useToken({ name: 'tooltip-offset-y', el: popper });
 	const ariaId = React.useRef(uniqueId(`${baseName}-`));
-	const [isOpen, setIsOpen] = React.useState(propOpen || false);
+	const [isOpen, setIsOpen] = React.useState(isOpenProp || false);
 
 	React.useEffect(() => {
-		if (propOpen !== undefined) setIsOpen(propOpen);
-	}, [propOpen]);
+		if (isOpenProp !== undefined) setIsOpen(isOpenProp);
+	}, [isOpenProp]);
 
 	usePopperTriggers({
 		reference,
@@ -77,29 +55,10 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 		trigger,
 		isOpen,
 		hideDelay,
+		showDelay,
 		onRequestClose: () => !trigger.includes('manual') && setIsOpen(false),
 		onRequestOpen: () => !trigger.includes('manual') && setIsOpen(true),
 	});
-
-	const offsetMod = React.useMemo(() => {
-		let y: number;
-		if (typeof offsetY === 'string') y = parseInt(offsetY, 10);
-		else if (offsetY === null) y = 6;
-		else y = offsetY;
-		return {
-			name: 'offset',
-			options: {
-				offset: [0, y],
-			},
-		};
-	}, [offsetY]);
-
-	const arrowMod = {
-		name: 'arrow',
-		options: {
-			element: `.${arrowClass}`,
-		},
-	};
 
 	/**
 	 * Attach aria labelling/describing attributes to the reference.
@@ -120,20 +79,26 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 	return (
 		<>
 			{/* the tooltip is an affordance for sighted users only */}
-			<BasePopper
+			<Popper
 				role="tooltip"
 				aria-hidden="true"
 				className={classNames(baseName, className)}
-				modifiers={[...(modifiers || []), offsetMod, arrowMod]}
-				placement={placement}
-				reference={reference}
 				isOpen={isOpen}
+				transition={transition}
+				reference={reference}
+				arrowElement={arrowElement || arrowClass}
+				distance={distance}
+				boundary={boundary}
+				placement={placement}
+				modifiers={modifiers}
+				strategy={strategy}
+				onFirstUpdate={onFirstUpdate}
+				enableArrow
 				ref={setPopper}
 				{...props}
 			>
 				<div className={contentClass || bodyClass}>{ children }</div>
-				<div className={arrowClass} />
-			</BasePopper>
+			</Popper>
 			{/* a persistent, hidden div that is used for the accessible name or description */}
 			<div hidden aria-hidden="true" id={ariaId.current}>{ children }</div>
 		</>
