@@ -12,9 +12,6 @@ export default {
 	title: 'Popper',
 	component: Popper,
 	decorators: [withKnobs],
-	parameters: {
-		// layout: 'centered',
-	},
 };
 
 export const Default: React.FunctionComponent = () => {
@@ -74,7 +71,7 @@ export const Minimal: React.FunctionComponent = () => {
 	);
 };
 
-export const Dropdown: React.FunctionComponent = () => {
+export const BasicDropdown: React.FunctionComponent = () => {
 	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
 	const [autofocus, setAutofocus] = React.useState(true);
 	const [isOpen, setIsOpen] = React.useState(false);
@@ -91,14 +88,14 @@ export const Dropdown: React.FunctionComponent = () => {
 		setButtonText(label);
 	};
 
-	useExternalClick([button, listbox], () => {
-		close();
-	});
+	useExternalClick([button, listbox], close);
 
 	return (
 		<>
 			<Button
 				variant="outline"
+				aria-haspopup="listbox"
+				aria-expanded={isOpen}
 				ref={setButton}
 				onClick={() => setIsOpen(!isOpen)}
 				icon="chevron-down"
@@ -108,13 +105,8 @@ export const Dropdown: React.FunctionComponent = () => {
 				{buttonText}
 			</Button>
 			<Popper
-				transition={optionsKnob(
-					'Transition',
-					{ Fade: 'fade', Grow: 'grow', None: undefined },
-					undefined,
-					{ display: 'inline-radio' },
-				)}
-				placement={select('Placement', placements, 'bottom-start')}
+				transition="fade"
+				placement="bottom-start"
 				reference={button}
 				isOpen={isOpen}
 				distance={4}
@@ -135,12 +127,14 @@ export const Dropdown: React.FunctionComponent = () => {
 				matchWidth
 			>
 				<Listbox
+					aria-label="Choose an animal"
 					selected={selected}
 					onChange={changeHandler}
 					focusableIndex={optionFocusIndex}
 					autofocus={autofocus}
 					ref={setListbox}
 					onOptionFocus={(_, i) => setOptionFocusIndex(i)}
+					style={{ backgroundColor: 'var(--nds-background-color)' }}
 				>
 					<Option value="dog">🐶 Dog</Option>
 					<Option value="cat">🐱 Cat</Option>
