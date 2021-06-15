@@ -8,13 +8,12 @@
 @mixin base {
 	--nds-tooltip-border-width: #{tokens.$border-width};
 	--nds-tooltip-arrow-size: #{tokens.$arrow-size};
-	--nds-tooltip-offset-y: #{tokens.$offset-y};
 	--nds-tooltip-max-width: #{tokens.$max-width};
 	--nds-tooltip-padding-x: #{tokens.$padding-x};
 	--nds-tooltip-padding-y: #{tokens.$padding-y};
 	--nds-tooltip-border-radius: #{tokens.$border-radius};
 	--nds-popper-border-width: var(--nds-tooltip-border-width);
-	--nds-popper-distance: #{tokens.$offset-y};
+	--nds-popper-distance: #{tokens.$offset-distance};
 
 	position: absolute;
 	z-index: var(--nds-zindex-tooltip);
