@@ -51,6 +51,7 @@
 @mixin helpers {
 	@if nds.$enable-helpers {
 		@include nds.a11y-helpers;
+		@include nds.motion-helpers;
 	}
 }
 
