@@ -1,6 +1,6 @@
 @forward 'tokens';
 @use 'tokens';
-@use '../../common/popper';
+@use '../popper';
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
@@ -13,6 +13,8 @@
 	--nds-tooltip-padding-x: #{tokens.$padding-x};
 	--nds-tooltip-padding-y: #{tokens.$padding-y};
 	--nds-tooltip-border-radius: #{tokens.$border-radius};
+	--nds-popper-border-width: var(--nds-tooltip-border-width);
+	--nds-popper-distance: #{tokens.$offset-y};
 
 	position: absolute;
 	z-index: var(--nds-zindex-tooltip);
