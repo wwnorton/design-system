@@ -18,14 +18,13 @@ export default {
 };
 
 export const Default: React.FunctionComponent = () => (
-	<>
-		<Badge
-			dot={boolean('Dot', false)}
-			color={select('Color', { None: undefined, ...SystemColorOptions }, undefined)}
-		>
-			{text('Label', '0')}
-		</Badge>
-	</>
+	<Badge
+		dot={boolean('Dot', false)}
+		color={select('Color', { None: undefined, ...SystemColorOptions }, undefined)}
+
+	>
+		{text('Label', '0')}
+	</Badge>
 );
 
 export const WithPopper: React.FunctionComponent = () => {
@@ -43,8 +42,6 @@ export const WithPopper: React.FunctionComponent = () => {
 
 	return (
 		<>
-			<br />
-			<br />
 			<Button ref={setRef} variant="ghost">
 				<Icon
 					variant="calendar"

@@ -8,6 +8,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 	color,
 	className,
 	dot = false,
+	'aria-label': ariaLabel,
 	...props
 }: BadgeProps, ref) => {
 	const classes = classNames(
@@ -18,18 +19,15 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 			[`${baseName}--dot`]: dot === true,
 		},
 	);
+	if (!children && !dot) return null;
 	return (
-		<>
-			{(children || dot)
-			&& (
-				<span
-					className={classes}
-					{...props}
-					ref={ref}
-				>
-					{dot ? null : children}
-				</span>
-			)}
-		</>
+		<span
+			className={classes}
+			{...props}
+			ref={ref}
+			aria-label={(dot && !ariaLabel) ? 'has notification' : ariaLabel}
+		>
+			{dot ? null : children}
+		</span>
 	);
 });
