@@ -1,10 +1,10 @@
 import {
 	useCallback,
-	useLayoutEffect,
 	useMemo, useRef,
 } from 'react';
 import { canUseDOM } from '../environment';
 import { useExternalClick } from '../externalClick';
+import { useLayoutEffect } from '../isomorphicLayoutEffect';
 import { UsePopperTriggersProps, PopperTriggersOpen, PopperTriggersClose } from './types';
 
 /**

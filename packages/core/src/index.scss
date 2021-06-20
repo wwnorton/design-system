@@ -27,7 +27,6 @@
 
 /// Declarations for every component.
 @mixin components {
-	@include nds.badge-style;
 	@include nds.button-style;
 	@include nds.callout-style;
 	@include nds.checkbox-style;

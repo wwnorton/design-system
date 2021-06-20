@@ -1,6 +1,7 @@
 import React, {
-	useEffect, useLayoutEffect, useMemo, useState,
+	useEffect, useMemo, useState,
 } from 'react';
+import { useLayoutEffect } from '../isomorphicLayoutEffect';
 import { UseTokenProps } from './types';
 
 /** Use a design token. Gets or sets the token as a CSS custom property. */
