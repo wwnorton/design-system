@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLayoutEffect } from '../../utilities';
 import { BaseOption, BaseOptionProps } from '../BaseOption';
 
 export interface OnChangeData { value: React.ReactText; contents: React.ReactNode }
@@ -197,7 +198,7 @@ export const BaseListbox = React.forwardRef(({
 	});
 
 	// call DOM focus() on the appropriate element when `focused` changes.
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		const option = optionRefs.current[focused];
 		if (option) {
 			option.focus();

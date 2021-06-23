@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMediaQuery } from '../../utilities/mediaQuery';
 import { ThemeContext, ColorScheme } from '../../utilities/theme';
-import { useLayoutEffect } from '../../utilities/isomorphicLayoutEffect';
+import { useLayoutEffect } from '../../utilities';
 
 const getColorScheme = (
 	scheme?: ColorScheme | 'inverse',
