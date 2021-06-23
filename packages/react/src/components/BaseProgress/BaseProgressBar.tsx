@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MDCLinearProgress } from '@material/linear-progress';
 import { BaseProgress, BaseProgressProps } from './BaseProgress';
-import { useForwardedRef } from '../../utilities';
+import { useForwardedRef, useLayoutEffect } from '../../utilities';
 
 export interface BaseProgressBarProps extends BaseProgressProps {
 	/** A buffered value between `0` and `1`. */
