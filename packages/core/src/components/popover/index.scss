@@ -1,6 +1,6 @@
 @forward 'tokens';
 @use 'tokens';
-@use '../../common/popper';
+@use '../popper';
 @use '../../config';
 @use '../../spacing';
 @use '../../type';
@@ -10,11 +10,12 @@
 @mixin base {
 	--nds-popover-border-width: #{tokens.$border-width};
 	--nds-popover-arrow-size: #{tokens.$arrow-size};
-	--nds-popover-offset-y: #{tokens.$offset-y};
 	--nds-popover-max-width: #{tokens.$max-width};
 	--nds-popover-padding-x: #{tokens.$padding-x};
 	--nds-popover-padding-y: #{tokens.$padding-y};
 	--nds-popover-border-radius: #{tokens.$border-radius};
+	--nds-popper-border-width: var(--nds-popover-border-width);
+	--nds-popper-distance: #{tokens.$offset-distance};
 
 	position: absolute;
 	z-index: var(--nds-zindex-popover);

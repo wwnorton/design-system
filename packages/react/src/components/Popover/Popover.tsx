@@ -1,104 +1,46 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { BasePopper, BasePopperProps } from '../BasePopper';
-import { Button, ButtonProps } from '../Button';
-import {
-	useForwardedRef, usePopperTriggers, useToken, UsePopperTriggersProps,
-} from '../../utilities';
+import { Button } from '../Button';
+import { Popper } from '../Popper';
+import { useForwardedRef, usePopperTriggers } from '../../utilities';
+import { PopoverProps } from './types';
 
-export interface PopoverProps extends
-	BasePopperProps,
-	Pick<UsePopperTriggersProps, 'hideDelay' | 'onRequestOpen' | 'onRequestClose'> {
-	/**
-	 * The name of the Modal dialog. Required for accessibility but can be
-	 * visually hidden with the `hideTitle` prop.
-	 */
-	title?: string;
-	/**
-	 * Indicates that the title should be visually hidden. It will still be
-	 * accessible to screen reader users.
-	 */
-	hideTitle?: boolean;
-	/**
-	 * Indicates that the built-in close button in the top right should not be
-	 * rendered.
-	 */
-	hideCloseButton?: boolean;
-	/**
-	 * A list of actions or React Fragment that will be set inside an action bar
-	 * at the bottom of the Modal dialog.
-	 */
-	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
-	/**
-	 * Callback function that is called after the popover opens. The default
-	 * function will focus the popover. Use this callback to focus something
-	 * else inside the popover.
-	 */
-	onOpen?: (
-		/** The popover HTML instance (the `[role="dialog"]` element). */
-		popoverElement: HTMLElement,
-	) => void;
-	/**
-	 * Callback function that is called after the popover closes. The default
-	 * function will focus the reference element that opened the popover.
-	 */
-	onClose?: (
-		/**
-		 * Whether the reference element should be focused on close. This will
-		 * be `true` unless the popover was closed as the result of an external click.
-		 */
-		shouldFocusReference: boolean,
-	) => void;
-
-	/** The base class name according to BEM conventions. */
-	baseName?: string;
-	/** A className for the popover's header. Default will be `${baseName}__header`. */
-	headerClass?: string;
-	/**
-	 * A className for the popover's title, which goes inside the header.
-	 * Default will be `${baseName}__title`.
-	 */
-	titleClass?: string;
-	/**
-	 * A className for the popover's close button, which goes inside the header.
-	 * Default will be `${baseName}__close`.
-	 */
-	closeButtonClass?: string;
-	/**
-	 * A className for the body of the popover, where the `children` go.
-	 * Default will be `${baseName}__content`.
-	 */
-	bodyClass?: string;
-	/** A className for the popover's action bar footer. Default will be `${baseName}__actionbar`. */
-	actionBarClass?: string;
-	/** A className for the popover's arrow. Default will be `${baseName}__arrow`. */
-	arrowClass?: string;
-}
+export { PopoverProps } from './types';
 
 /** A popover is a non-modal dialog that points to a reference element. */
 export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 	{
+		// inherited from Popper
+		isOpen,
+		transition = 'fade',
+		reference,
+		arrowElement,
+		distance,
+		boundary,
+		placement = 'top',
+		modifiers,
+		strategy,
+		onFirstUpdate,
+
+		// inherited from usePopperTriggers
+		hideDelay = 300,
+		showDelay,
+		onRequestOpen,
+		onRequestClose,
+
+		// unique to Popover
+		title,
+		hideTitle,
+		hideCloseButton,
+		actions,
 		baseName = 'nds-popover',
-		bodyClass = `${baseName}__body`,
-		arrowClass = `${baseName}__arrow`,
 		headerClass = `${baseName}__header`,
 		titleClass = `${baseName}__title`,
 		closeButtonClass = `${baseName}__close`,
+		bodyClass = `${baseName}__body`,
 		actionBarClass = `${baseName}__actions`,
-		modifiers,
-		placement = 'top',
-		hideDelay = 300,
-		reference,
-		isOpen,
-		hideTitle,
-		children,
-		className,
-		title,
-		actions,
-		hideCloseButton,
-		onRequestClose,
-		onRequestOpen,
+		arrowClass,
 		onClose = (shouldFocusReference) => {
 			if (shouldFocusReference && reference instanceof HTMLElement) {
 				reference.focus();
@@ -107,13 +49,16 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		onOpen = (popper) => {
 			if (popper) popper.focus();
 		},
+
+		// inherited from React.HTMLAttributes<HTMLDivElement>
+		children,
+		className,
 		'aria-labelledby': ariaLabelledby,
 		'aria-label': ariaLabel,
 		...props
 	}: PopoverProps, ref,
 ) => {
 	const [popper, setPopper] = useForwardedRef(ref);
-	const [offsetY] = useToken({ name: 'popover-offset-y', el: popper });
 	const titleId = React.useRef(uniqueId(`${baseName}-title-`));
 	const focusReferenceOnClose = React.useRef(true);
 	const prevOpen = React.useRef(isOpen);
@@ -133,29 +78,10 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 		trigger: 'click',
 		isOpen,
 		hideDelay,
+		showDelay,
 		onRequestClose: close,
 		onRequestOpen: open,
 	});
-
-	const offsetMod = React.useMemo(() => {
-		let y: number;
-		if (typeof offsetY === 'string') y = parseInt(offsetY, 10);
-		else if (offsetY === null) y = 8;
-		else y = offsetY;
-		return {
-			name: 'offset',
-			options: {
-				offset: [0, y],
-			},
-		};
-	}, [offsetY]);
-
-	const arrowMod = {
-		name: 'arrow',
-		options: {
-			element: `.${arrowClass}`,
-		},
-	};
 
 	const Header = React.useMemo(() => {
 		if ((hideTitle || !title) && hideCloseButton) return null;
@@ -222,24 +148,30 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
 
 	if (!children) return null;
 	return (
-		<BasePopper
+		<Popper
 			className={classNames(baseName, className)}
 			data-no-title={(hideTitle || !title) ? '' : undefined}
 			role="dialog"
 			aria-modal="false"
 			{...accessibleName}
 			tabIndex={-1}
-			modifiers={[...(modifiers || []), offsetMod, arrowMod]}
-			placement={placement}
-			reference={reference}
 			isOpen={isOpen}
+			transition={transition}
+			reference={reference}
+			arrowElement={arrowElement || arrowClass}
+			distance={distance}
+			boundary={boundary}
+			placement={placement}
+			modifiers={modifiers}
+			strategy={strategy}
+			onFirstUpdate={onFirstUpdate}
+			enableArrow
 			ref={setPopper}
 			{...props}
 		>
 			{ Header }
 			<section className={bodyClass}>{ children }</section>
 			{ ActionBar }
-			<div className={arrowClass} />
-		</BasePopper>
+		</Popper>
 	);
 });

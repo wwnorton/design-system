@@ -5,7 +5,8 @@ import {
 } from './icons';
 import { useForwardedRef } from '../../utilities';
 import { BaseSVG, BaseSVGProps } from '../BaseSVG';
-import { Tooltip, TooltipCoreProps } from '../Tooltip';
+import { Tooltip } from '../Tooltip/Tooltip';
+import { TooltipCoreProps } from '../Tooltip/types';
 
 export * from './icons';
 

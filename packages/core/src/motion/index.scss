@@ -10,6 +10,7 @@
 @use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
+@use '../util';
 
 // FUNCTIONS
 
@@ -35,4 +36,30 @@
 
 @function -scale($duration) {
 	@return calc(#{$duration} * var(--nds-duration-scalar));
+}
+
+@mixin transition-fade($name: 'fade') {
+	.#{$name}-enter {
+		opacity: 0;
+	}
+
+	.#{$name}-enter-active {
+		opacity: 1;
+		transition: transition('opacity', var(--nds-duration-simple-enter));
+	}
+
+	.#{$name}-exit {
+		opacity: 1;
+	}
+
+	.#{$name}-exit-active {
+		opacity: 0;
+		transition: transition('opacity', var(--nds-duration-simple-exit));
+	}
+}
+
+@mixin motion-helpers {
+	@include util.declare('helpers-motion') {
+		@include transition-fade;
+	}
 }

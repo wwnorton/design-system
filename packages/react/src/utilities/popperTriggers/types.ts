@@ -24,6 +24,11 @@ export interface UsePopperTriggersProps extends PopperCoreProps {
 	 */
 	hideDelay?: number;
 	/**
+	 * The duration in milliseconds that should elapse before opening, beginning
+	 * after `isOpen` is set to `true`.
+	 */
+	showDelay?: number;
+	/**
 	 * A callback that occurs when the popper wants to open. The reason it is
 	 * making this request is given by the first parameter.
 	 * - `"click.reference"` - the reference element was clicked.

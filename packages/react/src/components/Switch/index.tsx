@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
-import { Tooltip, TooltipCoreProps } from '../Tooltip';
+import { Tooltip } from '../Tooltip/Tooltip';
+import { TooltipCoreProps } from '../Tooltip/types';
 import { useForwardedRef } from '../../utilities';
 
 export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {

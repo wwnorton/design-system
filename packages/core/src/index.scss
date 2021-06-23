@@ -38,6 +38,7 @@
 	@include nds.listbox-style;
 	@include nds.modal-style;
 	@include nds.popover-style;
+	@include nds.popper-style;
 	@include nds.radio-style;
 	@include nds.switch-style;
 	@include nds.textfield-style;
@@ -50,6 +51,7 @@
 @mixin helpers {
 	@if nds.$enable-helpers {
 		@include nds.a11y-helpers;
+		@include nds.motion-helpers;
 	}
 }
 

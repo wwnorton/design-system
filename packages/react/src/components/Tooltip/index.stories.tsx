@@ -2,7 +2,8 @@
 import React from 'react';
 import { withKnobs, select, number } from '@storybook/addon-knobs';
 import { placements } from '@popperjs/core/lib/enums';
-import { Tooltip, Button, Callout } from '../..';
+import { Tooltip } from './Tooltip';
+import { Button, Callout } from '../..';
 
 export default {
 	title: 'Tooltip',
@@ -93,6 +94,7 @@ export const DefaultTrigger = (): JSX.Element => {
 				reference={reference}
 				placement={select('Placement', placements, defaultPlacement)}
 				hideDelay={number('Hide delay', defaultDelay)}
+				showDelay={number('Show delay', 0)}
 			>
 				Tooltip
 			</Tooltip>
@@ -145,6 +147,7 @@ export const PointerEnterTrigger = (): JSX.Element => {
 				trigger="pointerenter"
 				placement={select('Placement', placements, defaultPlacement)}
 				hideDelay={number('Hide delay', defaultDelay)}
+				showDelay={number('Show delay', 0)}
 			>
 				Tooltip
 			</Tooltip>
@@ -278,6 +281,7 @@ export const CustomReference: React.FunctionComponent = () => {
 				trigger="click pointerenter"
 				placement={select('Placement', placements, 'bottom-start')}
 				hideDelay={number('Hide delay', defaultDelay)}
+				showDelay={number('Show delay', 0)}
 			>
 				Lorem ipsum is a placeholder text commonly used to demonstrate
 				the visual form of a document or a typeface without relying on meaningful content.

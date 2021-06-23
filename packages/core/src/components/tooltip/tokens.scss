@@ -2,7 +2,7 @@
 @use '../../util';
 
 $arrow-size: 12px !default;
-$offset-y: 6px !default;
+$offset-distance: 6px !default;
 $max-width: #{util.px2rem(256)}rem;
 $padding-x: spacing.spacer('tooltip-x') !default;
 $padding-y: spacing.spacer('tooltip-y') !default;

@@ -10,7 +10,7 @@ export const useExternalClick = (
 	 * Only valid [EventTargets](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)
 	 * will be used.
 	 */
-	externalTo?: EventTarget | EventTarget[],
+	externalTo?: EventTarget | null | (EventTarget | null)[],
 	/**
 	 * A callback function that triggers when something other than the first
 	 * parameter is clicked.
