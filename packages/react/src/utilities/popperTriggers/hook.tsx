@@ -123,9 +123,6 @@ export const usePopperTriggers = ({
 			}, hideDelay);
 		};
 
-		const isElement = (el: typeof reference): el is Element => (
-			(el) ? el instanceof Element : false
-		);
 		const isHTMLElement = (el: typeof reference): el is HTMLElement => (
 			(el) ? el instanceof HTMLElement : false
 		);
@@ -175,9 +172,7 @@ export const usePopperTriggers = ({
 				reference.removeEventListener('click', clickHandler);
 				reference.removeEventListener('keydown', keydownHandler);
 				reference.removeEventListener('keyup', keyupHandler);
-			}
 
-			if (isElement(reference)) {
 				// focus & focusin
 				reference.removeEventListener('focus', focusHandler);
 				reference.removeEventListener('focusin', focusinHandler);
