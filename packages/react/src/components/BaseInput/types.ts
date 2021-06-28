@@ -51,9 +51,9 @@ export interface BaseInputProps
 	 */
 	multiline?: boolean;
 	/**
-   * If `true` increase the height of textarea automatically
+	 * If `true` increase the height of textarea automatically
 	 * only works when multiline prop it's `true`
-   * @default false
-   */
+	 * @default false
+	 */
 	autoSize?: boolean;
 }

@@ -67,4 +67,22 @@ export interface TextFieldProps
    * @default false
    */
 	autoSize?: boolean;
+	/**
+   * Number of rows for textarea
+	 * only works when multiline prop it's `true`
+   * @default 1
+   */
+	rows?: number;
+	/**
+   * Number of minRows for textarea
+	 * only works when multiline prop it's `true`
+   * @default 1
+   */
+	minRows?: number;
+	/**
+   * Number of maxRows for textarea
+	 * only works when multiline prop it's `true`
+   * @default Infinity
+   */
+	maxRows?: number;
 }

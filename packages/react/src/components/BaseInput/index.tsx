@@ -73,6 +73,18 @@ BaseInputProps
 			[validator, onValidate, errorsProp, maxLength],
 		);
 
+		// Handles auto sizing with multiline component
+		React.useEffect(() => {
+			if (multiline && autoSize && input) input.style.height = 'auto';
+		}, [autoSize, input, multiline]);
+
+		const onResize = () => {
+			if (input) {
+				input.style.height = 'auto';
+				input.style.height = `${input.scrollHeight}px`;
+			}
+		};
+
 		/**
 		 * Unlike `onChange`, `onInput` will trigger even when the user enters a bad
 		 * value, such as entering a letter in a `type="number"` field, so run
@@ -83,6 +95,7 @@ BaseInputProps
 			React.FormEvent<HTMLTextAreaElement>,
 		): void => {
 			if (onInput) onInput(e);
+			if (multiline && autoSize) onResize();
 			if (validateOnChange) validate(e.currentTarget);
 		};
 

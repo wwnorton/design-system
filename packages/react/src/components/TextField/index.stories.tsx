@@ -13,7 +13,6 @@ import {
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
 import { useValidation } from '../../utilities';
-import { TextArea } from '../TextArea';
 import { TextFieldProps, TextFieldType } from './types';
 
 export default {
@@ -287,53 +286,15 @@ export const CustomValidation: React.FunctionComponent = () => {
 	);
 };
 
-export const TextAreaAutoSize: React.FunctionComponent = () => {
-	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
-	return (
-		<TextArea
-			autoSize={boolean('autoSize', false)}
-			description="This example won't allow you to enter vowels (don't do this in the real world)"
-			disabled={boolean('Disabled', false)}
-			onDOMChange={action('onDOMChange')}
-			required={boolean('Required', false)}
-			rows={number('rows', 2)}
-			minRows={number('minRows', 3)}
-			maxRows={number('maxRows', 5)}
-			validateOnChange={boolean('Validate on React change', true)}
-			validateOnDOMChange={boolean('Validate on DOM change', true)}
-			requiredIndicator={indicator === 'required'}
-			optionalIndicator={indicator === 'optional'}
-		>
-			{ text('Label', 'Default Text Field') }
-		</TextArea>
-	);
-};
-
-export const TextAreaMultiline: React.FunctionComponent = () => {
-	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
-	return (
-		<TextArea
-			autoSize={boolean('autoSize', false)}
-			description="This example won't allow you to enter vowels (don't do this in the real world)"
-			disabled={boolean('Disabled', false)}
-			onDOMChange={action('onDOMChange')}
-			required={boolean('Required', false)}
-			validateOnChange={boolean('Validate on React change', true)}
-			validateOnDOMChange={boolean('Validate on DOM change', true)}
-			requiredIndicator={indicator === 'required'}
-			optionalIndicator={indicator === 'optional'}
-		>
-			{ text('Label', 'Default Text Field') }
-		</TextArea>
-	);
-};
-
 export const TextFieldMultiline: React.FunctionComponent = () => {
 	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
 	return (
 		<TextField
 			multiline={boolean('multiline', true)}
 			autoSize={boolean('autosize', true)}
+			rows={number('rows', 1)}
+			minRows={number('minRows', 1)}
+			maxRows={number('maxRows', 5)}
 			description='The default Text Field has a type of "text"'
 			disabled={boolean('Disabled', false)}
 			onDOMChange={action('onDOMChange')}
@@ -347,6 +308,22 @@ export const TextFieldMultiline: React.FunctionComponent = () => {
 		</TextField>
 	);
 };
+
+export const MultilineWithMaxLength: React.FunctionComponent = () => (
+	<TextFieldUncontrolled
+		multiline={boolean('multiline', true)}
+		autoSize={boolean('autosize', true)}
+		rows={number('rows', 2)}
+		minRows={number('minRows', 1)}
+		maxRows={number('maxRows', 5)}
+		maxLength={number('Maximum length', 10)}
+		counterStart={number('Start counter at', 8)}
+		onCount={action('onCount')}
+		validateOnChange
+	>
+		Text Field with max length
+	</TextFieldUncontrolled>
+);
 
 export const CustomValidationMultiline: React.FunctionComponent = () => {
 	const firstName = text('First name', 'Jane');
