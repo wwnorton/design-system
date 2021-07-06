@@ -2,6 +2,7 @@
 @use '../../util';
 @use '../../color';
 @use 'sass:map';
+@use '../../spacing';
 
 @mixin base {
 	@include util.set($nds-tag-color: color.family('tag-color', tokens.$color));
@@ -9,25 +10,54 @@
 	--nds-tag-padding-y: #{tokens.$padding-y};
 	--nds-tag-margin: #{tokens.$margin};
 	--nds-tag-background-color: var(--nds-tag-color-#{tokens.$background-grade});
+	--nds-tag-hover-background-color: var(--nds-tag-color-#{tokens.$background-hover-grade});
+	--nds-tag-active-background-color: var(--nds-tag-color-#{tokens.$background-active-grade});
+	--nds-tag-border-radius: var(--nds-radius-base);
 
 	display: inline-flex;
 	padding: 0 var(--nds-tag-padding-y);
-	margin: var(--nds-tag-margin);
-	align-items: center;
-	justify-content: center;
 	font-size: var(--nds-font-size-xs);
 	color: var(--nds-tag-color-#{tokens.$background-font-grade});
 	vertical-align: middle;
+	cursor: pointer;
+	align-items: center;
 	background-color: var(--nds-tag-background-color);
-	border-radius: 0.375rem;
+	border-radius: var(--nds-tag-border-radius);
+
+	&:hover {
+		background-color: var(--nds-tag-hover-background-color);
+	}
+
+	&:active {
+		background-color: var(--nds-tag-active-background-color);
+	}
 }
 
 @mixin tag-close-icon {
+	padding: 0;
+	margin-left: 0.5rem;
+	font-size: var(--nds-font-size-10);
 	cursor: pointer;
+	background-color: unset;
+
+	&:focus {
+		outline: none !important;
+		box-shadow: none;
+	}
+
+	&:hover {
+		background-color: var(--nds-tag-hover-background-color);
+		outline: none !important;
+	}
+
+	&:active {
+		background-color: var(--nds-tag-active-background-color);
+		outline: none !important;
+	}
 }
 
 @mixin tag-icon {
-	margin-right: 1px;
+	margin: 0 spacing.spacer('0.25rem');
 }
 
 @mixin style {

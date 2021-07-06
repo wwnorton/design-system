@@ -22,19 +22,19 @@ export const Default: React.FunctionComponent = () => (
 		icon={select('Icon', { None: undefined, ...IconOptions }, null)}
 		color={select('Color', { None: undefined, ...ColorOptions }, undefined)}
 	>
-		{text('Title', 'Sample tag')}
+		{text('Label', 'Tag Label')}
 	</Tag>
 );
 
 export const MultipleTags: React.FunctionComponent = () => (
 	<>
-		<Tag color="blue">
+		<Tag color="blue" style={{ marginRight: 4 }}>
 			Default Tag
 		</Tag>
-		<Tag color="green" icon="save">
+		<Tag color="green" icon="save" style={{ marginRight: 4 }}>
 			With Icon
 		</Tag>
-		<Tag dismissible color="red">
+		<Tag dismissible color="red" style={{ marginRight: 4 }}>
 			Dismissible
 		</Tag>
 	</>
