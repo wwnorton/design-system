@@ -7,7 +7,7 @@ import { Button } from '../Button';
 export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	dismissible,
 	baseName = 'nds-tag',
-	closeIconClass = `${baseName}__close`,
+	closeIconClass = `${baseName}__dismissible`,
 	iconClass = `${baseName}__icon`,
 	children,
 	color,

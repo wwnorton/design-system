@@ -33,7 +33,7 @@
 	}
 }
 
-@mixin tag-close-icon {
+@mixin tag-dismissible-icon {
 	padding: 0;
 	margin-left: 0.5rem;
 	font-size: var(--nds-font-size-10);
@@ -66,8 +66,8 @@
 			@include base;
 		}
 
-		.nds-tag__close {
-			@include tag-close-icon;
+		.nds-tag__dismissible {
+			@include tag-dismissible-icon;
 		}
 
 		.nds-tag__icon {
