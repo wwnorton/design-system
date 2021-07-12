@@ -20,4 +20,6 @@ export interface TagProps extends React.HTMLAttributes<HTMLElement> {
 	 * Default will be `${baseName}__close`.
 	*/
 	closeIconClass?: string;
+
+	link?: boolean;
 }

@@ -15,49 +15,83 @@
 	--nds-tag-border-radius: var(--nds-radius-base);
 
 	display: inline-flex;
-	padding: 0 var(--nds-tag-padding-y);
+	padding: 0;
 	font-size: var(--nds-font-size-xs);
+	font-weight: normal;
 	color: var(--nds-tag-color-#{tokens.$background-font-grade});
 	vertical-align: middle;
 	cursor: pointer;
 	align-items: center;
 	background-color: var(--nds-tag-background-color);
+	border-color: transparent;
 	border-radius: var(--nds-tag-border-radius);
 
-	&:hover {
-		background-color: var(--nds-tag-hover-background-color);
+	.nds-button__text {
+		padding-right: 0;
+		padding-left: spacing.spacer('0.25rem');
 	}
 
-	&:active {
-		background-color: var(--nds-tag-active-background-color);
+	.nds-link {
+		padding: 0 spacing.spacer('0.25rem') !important;
+	}
+
+	&:not(.nds-tag__dismissible) {
+		.nds-button__text {
+			padding: 0 spacing.spacer('0.25rem') !important;
+		}
+
+		:hover {
+			background-color: var(--nds-tag-hover-background-color) !important;
+			border-color: transparent !important;
+		}
+
+		:active {
+			background-color: var(--nds-tag-active-background-color) !important;
+		}
+	}
+
+	&.nds-tag__dismissible {
+		:hover {
+			background-color: var(--nds-tag-background-color);
+		}
+
+		:active {
+			background-color: var(--nds-tag-background-color);
+		}
 	}
 }
 
 @mixin tag-dismissible-icon {
-	padding: 0;
-	margin-left: 0.5rem;
+	height: spacing.spacer('1rem');
+	padding: 0 2px !important;
+	margin-left: spacing.spacer('0.25rem');
 	font-size: var(--nds-font-size-10);
+	color: var(--nds-tag-color-#{tokens.$background-font-grade});
+	vertical-align: middle;
 	cursor: pointer;
 	background-color: unset;
 
-	&:focus {
-		outline: none !important;
-		box-shadow: none;
-	}
-
 	&:hover {
-		background-color: var(--nds-tag-hover-background-color);
-		outline: none !important;
+		background-color: var(--nds-tag-hover-background-color) !important;
 	}
 
 	&:active {
-		background-color: var(--nds-tag-active-background-color);
-		outline: none !important;
+		background-color: var(--nds-tag-active-background-color) !important;
+	}
+
+	> .nds-icon--close {
+		&:hover {
+			background-color: var(--nds-tag-hover-background-color) !important;
+		}
+
+		&:active {
+			background-color: var(--nds-tag-active-background-color) !important;
+		}
 	}
 }
 
 @mixin tag-icon {
-	margin: 0 spacing.spacer('0.25rem');
+	margin-right: spacing.spacer('0.25rem');
 }
 
 @mixin style {
@@ -66,7 +100,7 @@
 			@include base;
 		}
 
-		.nds-tag__dismissible {
+		.nds-tag__dismissible__icon {
 			@include tag-dismissible-icon;
 		}
 

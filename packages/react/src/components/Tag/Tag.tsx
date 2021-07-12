@@ -7,7 +7,7 @@ import { Button } from '../Button';
 export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	dismissible,
 	baseName = 'nds-tag',
-	closeIconClass = `${baseName}__dismissible`,
+	closeIconClass = `${baseName}__dismissible__icon`,
 	iconClass = `${baseName}__icon`,
 	children,
 	color,
@@ -18,13 +18,18 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 }: TagProps, ref) => {
 	const [isDismissed, setDismissed] = React.useState<boolean>(false);
 
+	let isLink = false;
+	if (children && React.isValidElement(children)) {
+		isLink = true;
+	}
+
 	const BaseIcon = React.useMemo(() => {
 		if (!icon) return null;
 		const baseProps = {
 			className: iconClass,
 		};
 		const iconProps = (typeof icon === 'string')
-			? { ...baseProps, variant: icon, size: 12 }
+			? { ...baseProps, variant: icon }
 			: { ...baseProps, icon };
 		return <Icon {...iconProps} />;
 	}, [icon, iconClass]);
@@ -34,74 +39,61 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 		baseName,
 		{
 			[`${baseName}--${color}`]: color !== undefined,
+			[`${baseName}__dismissible`]: dismissible === true,
 		},
 	);
 
-	const WithIcon = React.useMemo(() => {
+	const LinkTag = React.useMemo(() => {
+		if (!children) return null;
+		return (
+			<span
+				className={classes}
+				ref={ref}
+			>
+				{children}
+			</span>
+		);
+	}, [classes, ref, children]);
+
+	const DefaultTag = React.useMemo(() => {
 		const dismiss = () => {
 			setDismissed(true);
 			if (onDismiss) onDismiss();
 		};
 
-		if (!children) return null;
-		let tagProps = { ...props, tabIndex: 0 };
+		let tagProps = { ...props };
 		if (dismissible) {
-			tagProps = {
-				...tagProps,
-				onClick: dismiss,
-				role: 'button',
-				'aria-pressed': isDismissed,
-			};
+			tagProps = { ...props, onClick: dismiss };
 		}
 		return (
-			<span
+			<Button
+				role="button"
 				className={classes}
+				variant="ghost"
 				{...tagProps}
-				ref={ref}
 			>
 				{BaseIcon}
-				<span>
-					{children !== null && children !== undefined ? children : null}
-				</span>
+				{children}
 				{dismissible && (
 					<Button
-						icon="close"
-						tabIndex={-1}
 						iconOnly
-						onClick={dismiss}
-						role="button"
+						icon="close"
 						className={closeIconClass}
+						tabIndex={-1}
+						onClick={dismiss}
 					>
 						Dismiss
 					</Button>
 				)}
-			</span>
-		);
-	}, [
-		BaseIcon,
-		children,
-		dismissible,
-		onDismiss,
-		closeIconClass,
-		classes,
-		props,
-		isDismissed,
-		ref,
-	]);
-
-	const Default = React.useMemo(() => {
-		if (!children) return null;
-		return (
-			<Button className={classes} {...props} role="button">
-				{children }
 			</Button>
 		);
-	}, [children, classes, props]);
+	}, [classes, props, children, dismissible, closeIconClass, onDismiss, BaseIcon]);
 
 	if (isDismissed) return null;
+
 	return (
 		<>
-			{ (dismissible || icon) ? WithIcon : Default}
+			{ isLink ? LinkTag : DefaultTag }
 		</>
 	);
 });
