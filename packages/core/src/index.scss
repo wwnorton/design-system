@@ -44,6 +44,7 @@
 	@include nds.tooltip-style;
 	@include nds.spinner-style;
 	@include nds.progressbar-style;
+	@include nds.tag-style;
 }
 
 /// Helper declarations that set a composed style uncoupled from any component.
