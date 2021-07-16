@@ -28,6 +28,7 @@ module.exports = {
 	components: [
 		'components/index',
 		// 'components/accordion',
+		'components/badge',
 		'components/button',
 		'components/callout',
 		'components/checkbox',
@@ -44,6 +45,7 @@ module.exports = {
 		'components/spinner',
 		'components/switch',
 		'components/text-field',
+		'components/tag',
 		'components/tooltip',
 		'components/react-providers',
 	],
