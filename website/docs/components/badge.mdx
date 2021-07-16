@@ -3,6 +3,8 @@ title: Badge
 description: A badge allows the user to know a state, update or count for the component or item it is describing. It cannot be dismissed or interacted with.
 ---
 
+import { CalloutError, CalloutSuccess } from '@wwnds/react';
+
 > A badge allows the user to know a state, update or count for the component or item it is describing.
 It cannot be dismissed or interacted with.
 
@@ -23,13 +25,17 @@ Badges are occasionally used to describe an entire screen or product (i.e. the B
 - A dot badge (a small dot with no visible label) can be used on an interactive component to communicate something has been updated or needs attention.
 When the user interacts with the component, it should be clear what update is being communicated by the dot badge.
 
-:::tip Dos
+<CalloutSuccess title="Dos">
+
 - Do use approximate numbers larger than 999 (ie. 1K).
 - Do use for static, non-dismissible information.
-:::
 
-:::danger Don'ts
+</CalloutSuccess>
+
+<CalloutError title="Don'ts">
+
 - Don’t use a badge for specific numbers longer than 3 places.
 - Don’t use a badge if users need to interact with or dismiss this information.
 Instead, use a tag for that.
-:::
+
+</CalloutError>
