@@ -69,6 +69,13 @@ import { PropsTable } from '@website/components';
 - Use caution if displaying error validation on Save or Submit, especially if the text field will not be visible on screen when Save or Submit is activated.
 :::
 
+:::caution Autosize Multi-line Text Fields
+- Autosize multi-line text fields should be used sparingly only when necessary.
+- The content on the screen below an autosize multi-line text field must be able to adjust accordingly and the screen must increase in size as necessary.
+- Never use an autosize multi-line text field in a modal or overlay. 
+- Always set a maximum height.
+:::
+
 ## Types
 
 Text field types are based on the [HTML input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) that do not require a separate interface for entry, such as a date picker.
@@ -116,19 +123,20 @@ Three options are provided to address this need.
 - As the cursor reaches the right edge of the input area, text longer than the input area automatically scrolls left.
 - Use single-line text fields for: Number, Email, Password, and Tel inputs.
 
-### Multi-line text field [not yet implemented]
+### Multi-line text field: Fixed height (default)
 
-- A multi-line text field grows to accommodate multiple lines of text and show all text entry at once.
-- Text longer than the input area wraps to a new line. The input area expands vertically and shifts any screen elements below it.
-- Multi-line text fields initially appear as single-line fields, which is useful for compact layouts that need to accommodate large amounts of text.
-- Use multi-line text fields for: free response input and URL.
-
-### Text area text field [not yet implemented]
-
-- A text area text field has a fixed height.
-- Text longer than the input area wraps onto a new line, and scrolls vertically when the cursor reaches the bottom of the input area.
+- Multi-line text fields have a fixed height by default
+- Text longer than the input area wraps onto a new line, and scrolls vertically when the cursor reaches the bottom of the input area.  
 - The large size of the input area indicates that longer responses are possible and encouraged.
-- Use text area text fields for: free response inputs with additional formatting capabilities.
+- Use fixed height multi-line text fields for: free response inputs with additional formatting capabilities.
+
+### Multi-line text field: Autosize (optional alternative)
+
+- Autosize multi-line text fields grow to accommodate multiple lines of text and show all text entry at once. 
+- Autosize multi-line text fields initially appear as single-line fields, which is useful for compact layouts that need to accommodate large amounts of text.
+- Text longer than the input area wraps to a new line. The input area expands vertically and shifts any screen elements below it.
+- Use autosize multi-line text fields for: free response input and URLs.
+
 
 ## React API
 
