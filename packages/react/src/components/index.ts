@@ -1,4 +1,5 @@
 // All public UI components
+export * from './Badge';
 export * from './Button';
 export * from './Callout';
 export * from './Checkbox';
