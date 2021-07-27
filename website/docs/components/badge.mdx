@@ -3,7 +3,8 @@ title: Badge
 description: A badge brings attention to information about a related component.
 ---
 
-import { CalloutError, CalloutSuccess } from '@wwnds/react';
+import { Badge, CalloutError, CalloutSuccess } from '@wwnds/react';
+import { PropsTable } from '@website/components';
 
 > A badge brings attention to information about a related component.
 
@@ -37,3 +38,21 @@ When the user interacts with the component, it should be clear what update is be
 Instead, use a tag for that.
 
 </CalloutError>
+
+## React API
+
+We expose one component for the badge API, the [Badge](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Badge).
+
+### Badge
+
+The `Badge` component extends the `React.HTMLAttributes<HTMLSpanElement>` interface.
+
+```js
+import { Badge } from '@wwnds/react';
+```
+
+```tsx live
+<Badge>Beta</Badge>
+```
+
+<PropsTable from={Badge} />
