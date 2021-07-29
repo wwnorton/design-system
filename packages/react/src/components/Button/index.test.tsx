@@ -3,6 +3,7 @@ import React from 'react';
 import {
 	cleanup, render, fireEvent, screen, waitFor,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Button, IconButton } from '.';
 import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 import { ChangingContent } from './index.stories';
@@ -78,17 +79,15 @@ test('icon-only buttons are labelled by their tooltip when it exists', async (t)
 	t.truthy(screen.getByRole('button', { name: defaultChildren }));
 });
 
-// TODO: figure out how to check for live contents before it's removed
-test.skip('changing content is added to a live region', async (t) => {
+test('changing content is added to a live region', async (t) => {
 	render(<ChangingContent />);
 	const button = screen.getByRole('button');
 
-	button.focus();
-	fireEvent.click(button);
+	userEvent.tab();
+	userEvent.click(button);
 
 	await waitFor(() => {
-		const liveRegion = document.querySelector('[aria-live]') as Element;
-		t.is(liveRegion.textContent, button.textContent);
+		t.truthy(screen.getByText(button.textContent, { selector: '[aria-live]' }));
 	});
 });
 
