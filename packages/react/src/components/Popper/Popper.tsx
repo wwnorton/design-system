@@ -68,10 +68,10 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(({
 	const distance = React.useMemo(() => {
 		if (offset) {
 			if (typeof offset === 'function') {
-				if (popper && reference) {
+				if (popper && reference instanceof Element) {
 					return offset({
 						popper: popper.getBoundingClientRect(),
-						reference: (reference as Element).getBoundingClientRect(),
+						reference: reference.getBoundingClientRect(),
 						placement,
 					})[1];
 				}
