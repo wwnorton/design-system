@@ -56,33 +56,11 @@ export interface TextFieldProps
 	optionalIndicator?: boolean;
 	/** Triggered any time the number of characters remaining is updated. */
 	onCount?: (remaining?: number) => void;
-	/**
-	 * attribute to render TextArea always
-	 * @default false
-	 */
-	multiline?: boolean;
+	/** Allow for multiple lines of input */
+	multiline?: boolean | number;
 	/**
    * If `true` increase the height of textarea automatically
-	 * only works when multiline prop it's `true`
-   * @default false
+	 * only works when multiline prop it's `enable`
    */
 	autoSize?: boolean;
-	/**
-   * Number of rows for textarea
-	 * only works when multiline prop it's `true`
-   * @default 1
-   */
-	rows?: number;
-	/**
-   * Number of minRows for textarea
-	 * only works when multiline prop it's `true`
-   * @default 1
-   */
-	minRows?: number;
-	/**
-   * Number of maxRows for textarea
-	 * only works when multiline prop it's `true`
-   * @default Infinity
-   */
-	maxRows?: number;
 }

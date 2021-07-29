@@ -3,19 +3,21 @@ import {
 	useForwardedRef,
 	useValidation,
 } from '../../utilities';
-import { BaseInputProps } from './types';
+import { BaseTextAreaProps } from './types';
 
-const defaultProps: BaseInputProps = {
+const defaultProps: BaseTextAreaProps = {
 	validateOnDOMChange: true,
 };
 
 /**
- * A base `<input>` component. Adds a callback for the DOM's `change` event
+ * A base `<textarea>` component. Adds a callback for the DOM's `change` event
  * (`onDOMChange`), which does not exist in React.
  */
-export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
+export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaProps>(
 	(
 		{
+			multiline = false,
+			autoSize = false,
 			errors: errorsProp,
 			validateOnChange,
 			validateOnDOMChange = defaultProps.validateOnDOMChange,
@@ -28,36 +30,29 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
 			onDOMChange,
 			onValidate,
 			...attributes
-		}: BaseInputProps,
+		}: BaseTextAreaProps,
 		ref,
 	): React.ReactElement => {
 		const [input, setInput] = useForwardedRef(ref);
 		const [errors, setErrors] = React.useState(errorsProp);
+		const lines = Number(multiline) > 0 ? Number(multiline) : 1;
 
 		// treat the prop version of `errors` as the source of truth
 		React.useEffect(() => setErrors(errorsProp), [errorsProp]);
 		const validator = useValidation(validators);
 		const validate = React.useCallback(
 			({
-				max,
 				maxLength: elMaxLength,
-				min,
 				minLength,
-				pattern,
 				required,
-				step,
 				type,
 				value,
 				validity,
-			}: HTMLInputElement) => {
+			}: HTMLTextAreaElement) => {
 				const errs = validator({
-					max,
 					maxLength: maxLength || elMaxLength,
-					min,
 					minLength,
-					pattern,
 					required,
-					step,
 					type,
 					value,
 					validity,
@@ -68,22 +63,35 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
 			[validator, onValidate, errorsProp, maxLength],
 		);
 
+		// Handles auto sizing with multiline component
+		React.useEffect(() => {
+			if (autoSize && input) input.style.height = 'auto';
+		}, [autoSize, input]);
+
+		const onResize = () => {
+			if (input) {
+				input.style.height = 'auto';
+				input.style.height = `${input.scrollHeight}px`;
+			}
+		};
+
 		/**
 		 * Unlike `onChange`, `onInput` will trigger even when the user enters a bad
 		 * value, such as entering a letter in a `type="number"` field, so run
 		 * validation here to catch the `ValidityState.badInput` errors.
 		 */
 		const inputHandler = (
-			e: React.FormEvent<HTMLInputElement>,
+			e: React.FormEvent<HTMLTextAreaElement>,
 		): void => {
 			if (onInput) onInput(e);
+			if (autoSize) onResize();
 			if (validateOnChange) validate(e.currentTarget);
 		};
 
 		const domChangeHandler = React.useCallback(
 			(e: Event): void => {
 				if (onDOMChange) onDOMChange(e);
-				if (validateOnDOMChange) validate(e.target as HTMLInputElement);
+				if (validateOnDOMChange) validate(e.target as HTMLTextAreaElement);
 			}, [onDOMChange, validateOnDOMChange, validate],
 		);
 
@@ -109,14 +117,15 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
 		}, [input, domChangeHandler]);
 
 		return (
-			<input
+			<textarea
 				ref={setInput}
+				rows={lines}
 				onInput={inputHandler}
-				maxLength={(maxLengthRestrictsInput) ? maxLength : undefined}
+				maxLength={maxLengthRestrictsInput ? maxLength : undefined}
 				{...attributes}
 			/>
 		);
 	},
 );
 
-BaseInput.defaultProps = defaultProps;
+BaseTextArea.defaultProps = defaultProps;

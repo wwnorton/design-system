@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { FieldInfo, FieldFeedback, FieldAddon } from '../Field';
 import { BaseInput } from '../BaseInput';
+import { BaseTextArea } from '../BaseTextArea';
 import { TextFieldProps } from './types';
 
 const defaultProps: Partial<TextFieldProps> = {
@@ -14,10 +15,7 @@ const defaultProps: Partial<TextFieldProps> = {
 	type: 'text',
 };
 
-export const TextField = React.forwardRef<
-HTMLInputElement & HTMLTextAreaElement,
-TextFieldProps
->(
+export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TextFieldProps>(
 	(
 		{
 			// options
@@ -27,8 +25,8 @@ TextFieldProps
 			validateOnDOMChange,
 			requiredIndicator,
 			optionalIndicator,
-			multiline,
-			autoSize,
+			multiline = false,
+			autoSize = false,
 
 			// anatomy
 			children,
@@ -76,7 +74,6 @@ TextFieldProps
 		ref,
 	) => {
 		const [errors, setErrors] = React.useState(errorsProp);
-
 		// ids stored as refs since they shouldn't change between renders
 		const id = React.useRef(idProp || uniqueId(`${baseName}-`));
 		const labelId = React.useRef(labelIdProp || `${id.current}-label`);
@@ -117,9 +114,8 @@ TextFieldProps
 		};
 
 		const changeHandler = (
-			e:
-			| React.ChangeEvent<HTMLInputElement>
-			| React.ChangeEvent<HTMLTextAreaElement>,
+			e: React.ChangeEvent<HTMLInputElement>
+			& React.ChangeEvent<HTMLTextAreaElement>,
 		) => {
 			if (onChange) onChange(e);
 			else setRemaining(getRemaining(e.target.value));
@@ -163,6 +159,8 @@ TextFieldProps
 			return null;
 		}, [requiredIndicator, optionalIndicator, required]);
 
+		const InputComponent = multiline ? BaseTextArea : BaseInput;
+
 		return (
 			<div
 				className={classNames(className, { [invalidClass]: !isValid })}
@@ -180,12 +178,12 @@ TextFieldProps
 				/>
 				<div className={groupClass}>
 					{!multiline && createFieldAddons(addonBefore)}
-					<BaseInput
+					<InputComponent
 						ref={ref}
 						value={value}
-						errors={errors}
 						multiline={multiline}
 						autoSize={autoSize}
+						errors={errors}
 						onChange={changeHandler}
 						onDOMChange={onDOMChange}
 						onValidate={validateHandler}

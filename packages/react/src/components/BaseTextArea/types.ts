@@ -1,14 +1,12 @@
-import { InputType, ValidatorEntry } from '../../utilities';
+import { ValidatorEntry } from '../../utilities';
 
-export interface BaseInputProps
-	extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface BaseTextAreaProps
+	extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
 	/**
 	 * A list of validation errors. When the input is submitted in a form, the
 	 * list will be concatenated into a single string with a new line separator.
 	 */
 	errors?: string[];
-	/** [DOM - `type`](https://html.spec.whatwg.org/multipage/input.html#attr-input-type) */
-	type?: InputType;
 	/**
 	 * A list of validators. A validator contains a function that tests the value
 	 * for validity and a corresponding message that conveys why the test failed.
@@ -45,4 +43,12 @@ export interface BaseInputProps
 	 * related `validators`, `validateOnChange`, and `validateOnChange`.
 	 */
 	onValidate?: (errors: string[]) => void;
+	/** Allow for multiple lines of input */
+	multiline?: boolean | number;
+	/**
+	 * If `true` increase the height of textarea automatically
+	 * only works when multiline prop it's `true`
+	 * @default false
+	 */
+	autoSize?: boolean;
 }

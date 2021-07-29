@@ -292,9 +292,26 @@ export const TextFieldMultiline: React.FunctionComponent = () => {
 		<TextField
 			multiline={boolean('multiline', true)}
 			autoSize={boolean('autosize', true)}
-			rows={number('rows', 1)}
-			minRows={number('minRows', 1)}
-			maxRows={number('maxRows', 5)}
+			description='The default Text Field has a type of "text"'
+			disabled={boolean('Disabled', false)}
+			onDOMChange={action('onDOMChange')}
+			required={boolean('Required', false)}
+			validateOnChange={boolean('Validate on React change', true)}
+			validateOnDOMChange={boolean('Validate on DOM change', true)}
+			requiredIndicator={indicator === 'required'}
+			optionalIndicator={indicator === 'optional'}
+		>
+			{ text('Label', 'Default Text Field') }
+		</TextField>
+	);
+};
+
+export const TextFieldMultilineRows: React.FunctionComponent = () => {
+	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
+	return (
+		<TextField
+			multiline={number('multiline', 5)}
+			autoSize={boolean('autosize', true)}
 			description='The default Text Field has a type of "text"'
 			disabled={boolean('Disabled', false)}
 			onDOMChange={action('onDOMChange')}
@@ -313,9 +330,6 @@ export const MultilineWithMaxLength: React.FunctionComponent = () => (
 	<TextFieldUncontrolled
 		multiline={boolean('multiline', true)}
 		autoSize={boolean('autosize', true)}
-		rows={number('rows', 2)}
-		minRows={number('minRows', 1)}
-		maxRows={number('maxRows', 5)}
 		maxLength={number('Maximum length', 10)}
 		counterStart={number('Start counter at', 8)}
 		onCount={action('onCount')}
