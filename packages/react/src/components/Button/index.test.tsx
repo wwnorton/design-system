@@ -54,26 +54,27 @@ test('icon-only buttons still have an accessible label', (t) => {
 	t.is(screen.getByLabelText(defaultChildren), screen.getByRole('button'));
 });
 
-test('icon-only buttons display a tooltip when hovered', (t) => {
+test('icon-only buttons display a tooltip when hovered', async (t) => {
 	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.pointerEnter(screen.getByRole('button'));
-	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+	userEvent.hover(screen.getByRole('button'));
+	t.truthy(await screen.findByRole('tooltip', { hidden: true }));
 });
 
 test('icon-only buttons display a tooltip when focused', (t) => {
 	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.focus(screen.getByRole('button'));
+	userEvent.tab();
 	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
-test('icon-only buttons are labelled by their tooltip when it exists', (t) => {
+test('icon-only buttons are labelled by their tooltip when it exists', async (t) => {
 	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.pointerEnter(screen.getByRole('button'));
+	userEvent.hover(screen.getByRole('button'));
+	const tooltip = await screen.findByRole('tooltip', { hidden: true });
 
-	t.is(screen.getByRole('tooltip', { hidden: true }).textContent, defaultChildren);
+	t.is(tooltip.textContent, defaultChildren);
 	t.truthy(screen.getByRole('button', { name: defaultChildren }));
 });
 
@@ -91,10 +92,10 @@ test.skip('changing content is added to a live region', async (t) => {
 	});
 });
 
-test('icon buttons render with tooltips by default', (t) => {
+test('icon buttons render with tooltips by default', async (t) => {
 	render(<IconButton icon="close">{ defaultChildren }</IconButton>);
 	const button = screen.getByRole('button');
 
-	fireEvent.pointerEnter(button);
-	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+	userEvent.hover(button);
+	t.truthy(await screen.findByRole('tooltip', { hidden: true }));
 });
