@@ -123,21 +123,21 @@ export const usePopperTriggers = ({
 			}, hideDelay);
 		};
 
-		const isHTMLElement = (el: typeof reference): el is HTMLElement => (
-			(el) ? el instanceof HTMLElement : false
+		const isHTMLorSVGElement = (el: typeof reference): el is HTMLElement | SVGElement => (
+			(el) ? el instanceof window.HTMLElement || el instanceof window.SVGElement : false
 		);
 
 		// hide on Escape for all triggers
 		document.addEventListener('keydown', docKeydownHandler);
 
 		// click
-		if (trigger.includes('click') && isHTMLElement(reference)) {
+		if (trigger.includes('click') && isHTMLorSVGElement(reference)) {
 			reference.addEventListener('click', clickHandler);
-			reference.addEventListener('keydown', keydownHandler);
-			reference.addEventListener('keyup', keyupHandler);
+			reference.addEventListener('keydown', keydownHandler as EventListener);
+			reference.addEventListener('keyup', keyupHandler as EventListener);
 		}
 
-		if (isHTMLElement(reference)) {
+		if (isHTMLorSVGElement(reference)) {
 			// focus & focusin
 			if (trigger.includes('focus')) {
 				reference.addEventListener('focus', focusHandler);
@@ -151,7 +151,7 @@ export const usePopperTriggers = ({
 
 			// mouseenter & pointerenter
 			if (trigger.includes('mouseenter') || trigger.includes('pointerenter')) {
-				reference.addEventListener('pointerenter', pointerenterHandler);
+				reference.addEventListener('pointerenter', pointerenterHandler as EventListener);
 				reference.addEventListener('pointerleave', pointerleaveHandler);
 				if (popper) {
 					popper.addEventListener('pointerleave', pointerleaveHandler);
@@ -167,11 +167,11 @@ export const usePopperTriggers = ({
 			clearHideTimer();
 			document.removeEventListener('keydown', docKeydownHandler);
 
-			if (isHTMLElement(reference)) {
+			if (isHTMLorSVGElement(reference)) {
 				// click
 				reference.removeEventListener('click', clickHandler);
-				reference.removeEventListener('keydown', keydownHandler);
-				reference.removeEventListener('keyup', keyupHandler);
+				reference.removeEventListener('keydown', keydownHandler as EventListener);
+				reference.removeEventListener('keyup', keyupHandler as EventListener);
 
 				// focus & focusin
 				reference.removeEventListener('focus', focusHandler);
@@ -179,7 +179,7 @@ export const usePopperTriggers = ({
 				reference.removeEventListener('blur', blurHandler);
 
 				// mouseenter & pointerenter
-				reference.removeEventListener('pointerenter', pointerenterHandler);
+				reference.removeEventListener('pointerenter', pointerenterHandler as EventListener);
 				reference.removeEventListener('pointerleave', pointerleaveHandler);
 			}
 
