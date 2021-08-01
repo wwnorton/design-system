@@ -41,7 +41,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^2.0.0-alpha.72",
     "react-docgen-typescript-plugin": "^0.7.0",
-    "ts-loader": "^8.1.0",
+    "ts-loader": "^9.2.4",
     "tsconfig-paths-webpack-plugin": "^3.5.1"
   },
   "bundledDependencies": [
