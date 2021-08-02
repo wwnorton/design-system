@@ -49,7 +49,8 @@ export const ControlledEmail: React.FunctionComponent = () => {
 	// whatever reason
 	const validate = useValidation();
 
-	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+	const changeHandler = (e: React.ChangeEvent<HTMLInputElement> &
+	React.ChangeEvent<HTMLTextAreaElement>): void => {
 		const val = e.target.value;
 		const newErrors = validate(e.target);
 		let allowValue = true;

@@ -1,10 +1,11 @@
 import React from 'react';
 import { BaseInputProps } from '../BaseInput/types';
+import { BaseTextAreaProps } from '../BaseTextArea/types';
 import { FieldFeedbackCoreProps, FieldInfoCoreProps } from '../Field';
 
 export type TextFieldType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
-export interface TextFieldProps
+export interface TextFieldBaseProps
 	extends FieldInfoCoreProps, FieldFeedbackCoreProps, BaseInputProps {
 	/** Text fields can be a limited subset of `<input>` types. */
 	type?: TextFieldType;
@@ -64,3 +65,5 @@ export interface TextFieldProps
    */
 	autoSize?: boolean;
 }
+
+export type TextFieldProps = TextFieldBaseProps & BaseTextAreaProps;

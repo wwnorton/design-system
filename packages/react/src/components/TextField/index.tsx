@@ -232,7 +232,8 @@ export const TextFieldUncontrolled = (
 	return (
 		<TextField
 			value={value}
-			onChange={(e) => {
+			onChange={(e: React.ChangeEvent<HTMLInputElement> &
+			React.ChangeEvent<HTMLTextAreaElement>) => {
 				setValue(e.target.value);
 				const { onChange } = props;
 				if (onChange) onChange(e);

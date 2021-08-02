@@ -97,8 +97,8 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
 			}
 		}, [input, errors]);
 
-	  // Polyfill the DOM `change` listener
-	  useLayoutEffect(() => {
+		// Polyfill the DOM `change` listener
+		useLayoutEffect(() => {
 			if (input && domChangeHandler) {
 				input.addEventListener('change', domChangeHandler);
 			}
