@@ -16,9 +16,11 @@ export const BaseSummary = React.forwardRef<HTMLElement, BaseSummaryProps>(({
 	children,
 	...attributes
 }: BaseSummaryProps, ref) => (
-	<summary ref={ref} {...attributes}>
-		{ markerPosition === 'left' && marker }
-		{ children }
-		{ markerPosition === 'right' && marker }
+	<summary ref={ref}>
+		<div {...attributes}>
+			{ markerPosition === 'left' && marker }
+			{ children }
+			{ markerPosition === 'right' && marker }
+		</div>
 	</summary>
 ));
