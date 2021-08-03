@@ -1,38 +1,39 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TagProps } from './types';
-import { Icon } from '../Icon';
 import { Button } from '../Button';
 
 export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	dismissible,
 	baseName = 'nds-tag',
 	closeIconClass = `${baseName}__dismissible__icon`,
-	iconClass = `${baseName}__icon`,
 	children,
 	color,
 	onDismiss,
 	className,
-	icon,
 	...props
 }: TagProps, ref) => {
 	const [isDismissed, setDismissed] = React.useState<boolean>(false);
 
-	let isLink = false;
-	if (children && React.isValidElement(children)) {
-		isLink = true;
-	}
+	/*	Please confirm is this workable or not
+	* 	Otherwise I will update condition as per the href props
+	*  	Not removing href props, once confirm I will remove this code or href.
+	*/
 
-	const BaseIcon = React.useMemo(() => {
-		if (!icon) return null;
-		const baseProps = {
-			className: iconClass,
-		};
-		const iconProps = (typeof icon === 'string')
-			? { ...baseProps, variant: icon }
-			: { ...baseProps, icon };
-		return <Icon {...iconProps} />;
-	}, [icon, iconClass]);
+	const isLinkElement = React.useMemo(() => {
+		let isLink = false;
+		if (children && React.isValidElement(children)) {
+			if (children.type === 'a') {
+				isLink = true;
+			} else if (children.props && children.props.href) {
+				isLink = true;
+			}
+			return isLink;
+		}
+		return isLink;
+	}, [children]);
+
+	const isLink = isLinkElement;
 
 	const classes = classNames(
 		className,
@@ -49,11 +50,12 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 			<span
 				className={classes}
 				ref={ref}
+				{...props}
 			>
 				{children}
 			</span>
 		);
-	}, [classes, ref, children]);
+	}, [classes, ref, children, props]);
 
 	const DefaultTag = React.useMemo(() => {
 		const dismiss = () => {
@@ -72,7 +74,6 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 				variant="ghost"
 				{...tagProps}
 			>
-				{BaseIcon}
 				{children}
 				{dismissible && (
 					<Button
@@ -87,7 +88,7 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 				)}
 			</Button>
 		);
-	}, [classes, props, children, dismissible, closeIconClass, onDismiss, BaseIcon]);
+	}, [classes, props, children, dismissible, closeIconClass, onDismiss]);
 
 	if (isDismissed) return null;
 

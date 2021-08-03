@@ -1,7 +1,7 @@
 import test from 'ava';
 import React from 'react';
 import {
-	cleanup, render, screen, fireEvent,
+	cleanup, render, screen,
 } from '@testing-library/react';
 import { Tag } from '.';
 
@@ -15,8 +15,8 @@ test('rendered tag button by default', (t) => {
 	t.truthy(screen.getByText(defaultLabel));
 });
 
-test('a tag is rendered with icon', (t) => {
-	render(<Tag icon="calendar">{ defaultLabel }</Tag>);
+test('a tag is rendered with dismissible', (t) => {
+	render(<Tag dismissible>{ defaultLabel }</Tag>);
 	t.truthy(screen.queryByRole('img', { hidden: true }));
-	t.truthy(screen.queryByRole('button'));
+	t.truthy(screen.queryByLabelText('Dismiss'));
 });

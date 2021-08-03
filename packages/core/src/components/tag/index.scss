@@ -31,8 +31,15 @@
 		padding-left: spacing.spacer('0.25rem');
 	}
 
-	.nds-link {
-		padding: 0 spacing.spacer('0.25rem') !important;
+
+	.nds-link,
+	a,
+	.nds-button {
+		padding: 0 spacing.spacer('0.25rem');
+	}
+
+	:first-child:not(.nds-tag__icon) {
+		font-size: var(--nds-font-size-xs);
 	}
 
 	&:not(.nds-tag__dismissible) {
