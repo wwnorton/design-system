@@ -177,7 +177,14 @@ test('text field renders as <textarea> element', (t) => {
 	t.truthy(screen.getByRole('textbox') as HTMLTextAreaElement);
 });
 
-test('text field renders as <textarea> element within autoSize', (t) => {
+test('text field renders as <textarea> element within oninput autoSize', (t) => {
+	render(<TextField multiline autoSize>{ defaultLabel }</TextField>);
+	const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+	fireEvent.input(textarea, { key: 'Enter', code: 'Enter' });
+	t.notDeepEqual(textarea.rows, 2);
+});
+
+test('text field renders as <textarea> element within onchange autoSize', (t) => {
 	render(<TextField multiline autoSize>{ defaultLabel }</TextField>);
 	const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
 	fireEvent.change(textarea, { key: 'Enter', code: 'Enter' });

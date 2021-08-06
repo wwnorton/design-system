@@ -47,8 +47,7 @@ export interface BaseTextAreaProps
 	multiline?: boolean | number;
 	/**
 	 * If `true` increase the height of textarea automatically
-	 * only works when multiline prop it's `true`
-	 * @default false
+	 * only works when multiline prop it's `enable`
 	 */
 	autoSize?: boolean;
 }
