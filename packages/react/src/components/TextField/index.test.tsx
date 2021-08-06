@@ -171,3 +171,15 @@ test('an uncontrolled text field manages its own state', (t) => {
 	fireEvent.change(input, { target: { value: 'abc' } });
 	t.is(input.value, 'abc');
 });
+
+test('text field renders as <textarea> element', (t) => {
+	render(<TextField multiline>{ defaultLabel }</TextField>);
+	t.truthy(screen.getByRole('textbox') as HTMLTextAreaElement);
+});
+
+test('text field renders as <textarea> element within autoSize', (t) => {
+	render(<TextField multiline autoSize>{ defaultLabel }</TextField>);
+	const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+	fireEvent.change(textarea, { key: 'Enter', code: 'Enter' });
+	t.notDeepEqual(textarea.rows, 2);
+});

@@ -5,7 +5,7 @@ import { FieldFeedbackCoreProps, FieldInfoCoreProps } from '../Field';
 
 export type TextFieldType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
-export interface TextFieldBaseProps
+export interface BaseTextFieldProps
 	extends FieldInfoCoreProps, FieldFeedbackCoreProps, BaseInputProps {
 	/** Text fields can be a limited subset of `<input>` types. */
 	type?: TextFieldType;
@@ -60,10 +60,10 @@ export interface TextFieldBaseProps
 	/** Allow for multiple lines of input */
 	multiline?: boolean | number;
 	/**
-   * If `true` increase the height of textarea automatically
+	 * If `true` increase the height of textarea automatically
 	 * only works when multiline prop it's `enable`
-   */
+	 */
 	autoSize?: boolean;
 }
 
-export type TextFieldProps = TextFieldBaseProps & BaseTextAreaProps;
+export type TextFieldProps = BaseTextFieldProps & BaseTextAreaProps;
