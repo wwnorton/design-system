@@ -19,7 +19,7 @@ export const BaseSummary = React.forwardRef<HTMLElement, BaseSummaryProps>(({
 	<summary ref={ref} {...attributes}>
 		{/*
 			This div is a temporary fix for safari 14
-			https://bugs.webkit.org/show_bug.cgi?id=190065 - sumamry can't be flexbox
+			https://bugs.webkit.org/show_bug.cgi?id=190065 - summary can't be flex box
 		*/}
 		<div style={{ display: 'flex', width: '100%' }}>
 			{ markerPosition === 'left' && marker }
