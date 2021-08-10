@@ -18,7 +18,6 @@
 @forward 'reset';
 
 // Components (namespaced because they all include a `style` mixin)
-@forward 'components/badge' as badge-*;
 @forward 'components/button' as button-*;
 @forward 'components/callout' as callout-*;
 @forward 'components/checkbox' as checkbox-*;
@@ -36,3 +35,4 @@
 @forward 'components/tooltip' as tooltip-*;
 @forward 'components/spinner' as spinner-*;
 @forward 'components/progressbar' as progressbar-*;
+@forward 'components/tag' as tag-*;

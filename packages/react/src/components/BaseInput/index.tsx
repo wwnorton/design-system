@@ -2,7 +2,6 @@ import React from 'react';
 import {
 	InputType,
 	useForwardedRef,
-	useLayoutEffect,
 	useValidation,
 	ValidatorEntry,
 } from '../../utilities';
@@ -138,7 +137,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
 	}, [input, errors]);
 
 	// Polyfill the DOM `change` listener
-	useLayoutEffect(() => {
+	React.useLayoutEffect(() => {
 		if (input && domChangeHandler) {
 			input.addEventListener('change', domChangeHandler);
 		}

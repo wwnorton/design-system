@@ -6,7 +6,7 @@ import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';
 import { canUseDOM } from '../../utilities/environment';
-import { useLayoutEffect, usePopper } from '../../utilities';
+import { usePopper } from '../../utilities';
 import { PopperOptions } from '../../utilities/popper/types';
 
 type BaseProps = 'children' | 'className' | 'disabled' | 'id';
@@ -266,7 +266,7 @@ export const Dropdown: DropdownType = ({
 	}, [button, open, shouldReturnFocus]);
 
 	// attach and detach document listeners
-	useLayoutEffect(() => {
+	React.useLayoutEffect(() => {
 		document.addEventListener('keydown', documentKeydownHandler);
 		document.addEventListener('click', documentClickHandler);
 
@@ -277,7 +277,7 @@ export const Dropdown: DropdownType = ({
 	}, [documentKeydownHandler, documentClickHandler]);
 
 	// get the width of the listbox any time it changes
-	useLayoutEffect(() => {
+	React.useLayoutEffect(() => {
 		if (listbox) setListboxWidth(listbox.offsetWidth);
 	}, [listbox]);
 
@@ -286,7 +286,7 @@ export const Dropdown: DropdownType = ({
 	 * initial state. If `isOpen` is `false` (default), this will close the
 	 * listbox. Triggered by the on load effect.
 	 */
-	useLayoutEffect(() => {
+	React.useLayoutEffect(() => {
 		if (typeof listboxWidth === 'number' && getListboxWidth.current) {
 			setOpen(isOpen);
 			getListboxWidth.current = false;

@@ -1,11 +1,11 @@
 import {
 	useEffect,
+	useLayoutEffect,
 	useRef, useState,
 } from 'react';
 import isEqual from 'react-fast-compare';
 import { createPopper, Instance } from '@popperjs/core';
 import { UsePopperProps, PopperOptions } from './types';
-import { useLayoutEffect } from '../isomorphicLayoutEffect';
 
 /** A hook to create a [Popper.js](https://popper.js.org) instance. */
 export const usePopper = ({

@@ -3,7 +3,7 @@ export * from './children';
 export * from './environment';
 export * from './externalClick';
 export * from './forwardedRef';
-export * from './isomorphicLayoutEffect';
+export * from './functions';
 export * from './mediaQuery';
 export * from './popper';
 export * from './popperTriggers';

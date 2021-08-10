@@ -1,0 +1,134 @@
+@use 'tokens';
+@use '../../util';
+@use '../../color';
+@use 'sass:map';
+@use '../../spacing';
+
+@mixin base {
+	@include util.set($nds-tag-color: color.family('tag-color', tokens.$color));
+
+	--nds-tag-padding-y: #{tokens.$padding-y};
+	--nds-tag-margin: #{tokens.$margin};
+	--nds-tag-background-color: var(--nds-tag-color-#{tokens.$background-grade});
+	--nds-tag-hover-background-color: var(--nds-tag-color-#{tokens.$background-hover-grade});
+	--nds-tag-active-background-color: var(--nds-tag-color-#{tokens.$background-active-grade});
+	--nds-tag-border-radius: var(--nds-radius-base);
+
+	display: inline-flex;
+	padding: 0;
+	font-size: var(--nds-font-size-xs);
+	font-weight: normal;
+	color: var(--nds-tag-color-#{tokens.$background-font-grade});
+	vertical-align: middle;
+	cursor: pointer;
+	align-items: center;
+	background-color: var(--nds-tag-background-color);
+	border-color: transparent;
+	border-radius: var(--nds-tag-border-radius);
+
+	.nds-button__text {
+		padding-right: 0;
+		padding-left: spacing.spacer('0.25rem');
+	}
+
+
+	.nds-link,
+	a,
+	.nds-button {
+		padding: 0 spacing.spacer('0.25rem');
+	}
+
+	:first-child:not(.nds-tag__icon) {
+		font-size: var(--nds-font-size-xs);
+	}
+
+	&:not(.nds-tag__dismissible) {
+		.nds-button__text {
+			padding: 0 spacing.spacer('0.25rem') !important;
+		}
+
+		:hover {
+			background-color: var(--nds-tag-hover-background-color) !important;
+			border-color: transparent !important;
+		}
+
+		:active {
+			background-color: var(--nds-tag-active-background-color) !important;
+		}
+	}
+
+	&.nds-tag__dismissible {
+		:hover {
+			background-color: var(--nds-tag-background-color);
+		}
+
+		:active {
+			background-color: var(--nds-tag-background-color);
+		}
+	}
+}
+
+@mixin tag-dismissible-icon {
+	height: spacing.spacer('1rem');
+	padding: 0 2px !important;
+	margin-left: spacing.spacer('0.25rem');
+	font-size: var(--nds-font-size-10);
+	color: var(--nds-tag-color-#{tokens.$background-font-grade});
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: unset;
+
+	&:hover {
+		background-color: var(--nds-tag-hover-background-color) !important;
+	}
+
+	&:active {
+		background-color: var(--nds-tag-active-background-color) !important;
+	}
+
+	> .nds-icon--close {
+		&:hover {
+			background-color: var(--nds-tag-hover-background-color) !important;
+		}
+
+		&:active {
+			background-color: var(--nds-tag-active-background-color) !important;
+		}
+	}
+}
+
+@mixin tag-icon {
+	margin-right: spacing.spacer('0.25rem');
+}
+
+@mixin style {
+	@include util.declare('tag') {
+		.nds-tag {
+			@include base;
+		}
+
+		.nds-tag__dismissible__icon {
+			@include tag-dismissible-icon;
+		}
+
+		.nds-tag__icon {
+			@include tag-icon;
+		}
+
+		@each $name in color.$families {
+			.nds-tag--#{$name} {
+				@include util.set(
+					$nds-tag-color: color.family('tag-color', $name),
+				);
+			}
+		}
+
+		@each $map in color.$roles {
+			$name: map.get($map, 'name');
+
+			.nds-tag--#{$name} {
+				@include util.set($nds-tag-color: color.family('tag-color', '#{$name}-color'));
+			}
+		}
+	}
+}

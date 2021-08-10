@@ -5,7 +5,6 @@ import { BaseSummary } from '../BaseSummary';
 import {
 	Icon, IconVariant, SVGIcon, IconProps,
 } from '../Icon';
-import { useLayoutEffect } from '../../utilities';
 
 type LifecycleCallback = () => boolean | void | Promise<boolean | void>;
 
@@ -196,7 +195,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 	}, [propOpen]);	// eslint-disable-line react-hooks/exhaustive-deps
 
 	// open start effect: discover height, set height to 0, then trigger 'opening'
-	useLayoutEffect(() => {
+	React.useLayoutEffect(() => {
 		if (!isOpen) setState(undefined);
 		if (isOpen && contents) {
 			setHeight(contents.offsetHeight);
