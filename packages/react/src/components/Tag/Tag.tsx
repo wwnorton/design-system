@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { TagProps } from './types';
 import { Button } from '../Button';
+import { isLinkElement } from '../../utilities';
 
 export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	dismissible,
@@ -14,26 +15,6 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	...props
 }: TagProps, ref) => {
 	const [isDismissed, setDismissed] = React.useState<boolean>(false);
-
-	/*	Please confirm is this workable or not
-	* 	Otherwise I will update condition as per the href props
-	*  	Not removing href props, once confirm I will remove this code or href.
-	*/
-
-	const isLinkElement = React.useMemo(() => {
-		let isLink = false;
-		if (children && React.isValidElement(children)) {
-			if (children.type === 'a') {
-				isLink = true;
-			} else if (children.props && children.props.href) {
-				isLink = true;
-			}
-			return isLink;
-		}
-		return isLink;
-	}, [children]);
-
-	const isLink = isLinkElement;
 
 	const classes = classNames(
 		className,
@@ -94,7 +75,7 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 
 	return (
 		<>
-			{ isLink ? LinkTag : DefaultTag }
+			{ isLinkElement(children) ? LinkTag : DefaultTag }
 		</>
 	);
 });
