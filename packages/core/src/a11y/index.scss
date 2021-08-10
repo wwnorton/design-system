@@ -50,7 +50,6 @@
 }
 
 @mixin -focus($shadow, $current-shadows...) {
-	z-index: var(--nds-zindex-focus);
 	outline: none;
 	box-shadow: $current-shadows, $shadow;
 	transition: motion.transition(box-shadow border-radius);
