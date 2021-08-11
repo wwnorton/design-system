@@ -25,7 +25,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
 
 		// inherited from usePopperTriggers
 		hideDelay = 200,
-		showDelay = 0,
+		showDelay = 400,
 
 		// unique to Tooltip
 		baseName = 'nds-tooltip',
