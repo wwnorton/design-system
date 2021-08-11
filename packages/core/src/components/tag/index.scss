@@ -31,18 +31,16 @@
 		padding-left: spacing.spacer('0.25rem');
 	}
 
-
-	.nds-link,
 	a,
 	.nds-button {
 		padding: 0 spacing.spacer('0.25rem');
 	}
 
-	:first-child:not(.nds-tag__icon) {
+	:first-child:not(.nds-tag--icon) {
 		font-size: var(--nds-font-size-xs);
 	}
 
-	&:not(.nds-tag__dismissible) {
+	&:not(.nds-tag--dismissible) {
 		.nds-button__text {
 			padding: 0 spacing.spacer('0.25rem') !important;
 		}
@@ -57,7 +55,7 @@
 		}
 	}
 
-	&.nds-tag__dismissible {
+	&.nds-tag--dismissible {
 		:hover {
 			background-color: var(--nds-tag-background-color);
 		}
@@ -68,7 +66,7 @@
 	}
 }
 
-@mixin tag-dismissible-icon {
+@mixin tag-dismiss-icon {
 	height: spacing.spacer('1rem');
 	padding: 0 2px !important;
 	margin-left: spacing.spacer('0.25rem');
@@ -101,17 +99,26 @@
 	margin-right: spacing.spacer('0.25rem');
 }
 
+
+@mixin tag-link {
+	padding: 0 spacing.spacer('0.25rem');
+}
+
 @mixin style {
 	@include util.declare('tag') {
 		.nds-tag {
 			@include base;
 		}
 
-		.nds-tag__dismissible__icon {
-			@include tag-dismissible-icon;
+		.nds-tag--dismiss {
+			@include tag-dismiss-icon;
 		}
 
-		.nds-tag__icon {
+		.nds-tag--link {
+			@include tag-link;
+		}
+
+		.nds-tag--icon {
 			@include tag-icon;
 		}
 

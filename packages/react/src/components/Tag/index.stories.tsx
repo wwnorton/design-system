@@ -25,27 +25,35 @@ export const Default: React.FunctionComponent = () => (
 	</Tag>
 );
 
-export const MultipleTags: React.FunctionComponent = () => (
-	<>
-		<Tag color="blue" style={{ marginRight: 4 }}>
-			Default Tag
-		</Tag>
-		<Tag color="green" style={{ marginRight: 4 }}>
-			<Icon variant="download" />
-			With Icon
-		</Tag>
-		<Tag dismissible color="red" style={{ marginRight: 4 }}>
-			Dismissible
-		</Tag>
-	</>
-);
+export const MultipleTags: React.FunctionComponent = () => {
+	const [isRenderedTag, setIsRenderedTag] = React.useState(true);
+
+	const dismiss = () => {
+		setIsRenderedTag(false);
+	};
+
+	return (
+		<div style={{ display: 'flex', gap: 4 }}>
+			<Tag color="blue">
+				Default Tag
+			</Tag>
+			<Tag color="green">
+				<Icon variant="download" />
+				With Icon
+			</Tag>
+			{ 	isRenderedTag
+				? (<Tag dismissible color="red" onDismiss={dismiss}>Dismissible</Tag>)
+				: null }
+		</div>
+	);
+};
 export const WithLink: React.FunctionComponent = () => (
-	<>
+	<div style={{ display: 'flex', gap: 4 }}>
 		<Tag>
 			<Link href="https://github.com/wwnorton/design-system" external>Norton Design System GitHub</Link>
 		</Tag>
-		<Tag style={{ marginRight: 4 }}>
+		<Tag>
 			<a href="https://github.com/wwnorton/design-system">An anchor</a>
 		</Tag>
-	</>
+	</div>
 );

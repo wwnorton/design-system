@@ -14,8 +14,6 @@ export interface TagProps extends React.HTMLAttributes<HTMLElement> {
 	onDismiss?: () => void;
 	/** The base class name according to BEM conventions. */
 	baseName?: string,
-	/** The className that will be applied to the close Button. */
-	dismissClass?: string,
 	/**
 	 * A className for the tag close button.
 	 * Default will be `${baseName}__close`.
