@@ -38,18 +38,21 @@ export const useSelect = (
 			if (!selected.includes(value)) select(value);
 			else if (multiple) deselect(value);
 		},
-		formChangeHandler: ({ target }) => {
-			if (!('value' in target) || !('checked' in target)) {
+		formChangeHandler: ({ currentTarget, target }) => {
+			const { checked, value } = (('value' in currentTarget) && ('checked' in currentTarget))
+				? currentTarget as HTMLInputElement
+				: target as HTMLInputElement;
+			if (checked !== undefined || !value) {
+				if (checked) {
+					select(value);
+				} else {
+					deselect(value);
+				}
+			} else {
 				throw new Error(
 					'formChangeHandler is being attached to an invalid element. '
 					+ 'Attach it to an <input type="checkbox|radio"> or a <fieldset>.',
 				);
-			}
-			const { checked, value } = target;
-			if (checked) {
-				select(value);
-			} else {
-				deselect(value);
 			}
 		},
 	};
