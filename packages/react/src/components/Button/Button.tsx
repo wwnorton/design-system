@@ -110,7 +110,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 
 	return (
 		<>
-			<BaseButton className={classes} ref={setButton} {...props}>
+			<BaseButton
+				className={classes}
+				ref={setButton}
+				aria-label={ariaLabel}
+				aria-labelledby={ariaLabelledBy}
+				{...props}
+			>
 				{ (iconRight) ? null : BaseIcon }
 				{ Children }
 				{ (iconRight) ? BaseIcon : null }
