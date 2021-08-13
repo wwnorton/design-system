@@ -10,5 +10,4 @@ export * from './popperTriggers';
 export * from './rovingTabindex';
 export * from './select';
 export * from './theme';
-export * from './token';
 export * from './validation';
