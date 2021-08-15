@@ -25,7 +25,7 @@ type OffsetsFunction = (options: {
 	popper: Rect;
 	reference: Rect;
 	placement: Placement;
-}) => [skidding: number, distance: number];
+}) => [skidding?: number, distance?: number];
 
 export interface PopperOptions {
 	/** The [Popper.js placement option](https://popper.js.org/docs/v2/constructors/#placement). */
