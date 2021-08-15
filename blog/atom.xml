@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://wwnorton.github.io/design-system/blog</id>
+    <id>https://wwnorton.github.io/design-system/design-system/blog</id>
     <title>Norton Design System Blog</title>
     <updated>2020-08-06T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://wwnorton.github.io/design-system/blog"/>
+    <link rel="alternate" href="https://wwnorton.github.io/design-system/design-system/blog"/>
     <subtitle>Norton Design System Blog</subtitle>
-    <icon>https://wwnorton.github.io/design-system/img/favicon.ico</icon>
+    <icon>https://wwnorton.github.io/design-system/design-system/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
         <id>welcome</id>

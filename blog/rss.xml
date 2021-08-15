@@ -2,7 +2,7 @@
 <rss version="2.0">
     <channel>
         <title>Norton Design System Blog</title>
-        <link>https://wwnorton.github.io/design-system/blog</link>
+        <link>https://wwnorton.github.io/design-system/design-system/blog</link>
         <description>Norton Design System Blog</description>
         <lastBuildDate>Thu, 06 Aug 2020 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
