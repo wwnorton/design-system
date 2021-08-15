@@ -1,8 +1,9 @@
 import test from 'ava';
 import React from 'react';
 import {
-	cleanup, render, fireEvent, screen,
+	cleanup, render, screen,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Icon } from '.';
 
 test.afterEach(cleanup);
@@ -13,12 +14,12 @@ test('contents are used for the icon\'s accessible name', (t) => {
 	t.is(screen.getByLabelText(contents), screen.getByRole('img'));
 });
 
-test('contents are included in a tooltip when hovered', (t) => {
+test('contents are included in a tooltip when hovered', async (t) => {
 	const contents = 'foo bar';
 	render(<Icon variant="account">{ contents }</Icon>);
 	const icon = screen.getByRole('img');
-	fireEvent.pointerEnter(icon);
-	const tooltip = screen.getByRole('tooltip', { hidden: true });
+	userEvent.hover(icon);
+	const tooltip = await screen.findByRole('tooltip', { hidden: true });
 	t.truthy(tooltip);
 });
 
@@ -36,7 +37,7 @@ test('click listeners cannot be attached to icons', (t) => {
 	let clicked = false;
 	render(<Icon variant="account" onClick={() => { clicked = true; }} />);
 	const icon = screen.getByRole('img', { hidden: true });
-	fireEvent.click(icon);
+	userEvent.click(icon);
 	t.false(clicked);
 	console.warn = warn;
 	/* eslint-enable no-console */

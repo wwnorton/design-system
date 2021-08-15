@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import { useForwardedRef } from '../../utilities';
 import { BaseButton, BaseButtonProps } from '../BaseButton';
 import { Icon, IconVariant, SVGIcon } from '../Icon';
-import { Tooltip, TooltipCoreProps } from '../Tooltip';
+import { Tooltip } from '../Tooltip';
+import { TooltipCoreProps } from '../Tooltip/types';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
 import { AllColors } from '../../utilities/color';
 import { BUTTON_NO_NAME } from './errors';
@@ -67,10 +68,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 		textClass = `${baseName}__text`,
 		className,
 		children,
+		'aria-label': ariaLabel,
+		'aria-labelledby': ariaLabelledBy,
 		...props
 	}: ButtonProps, ref,
 ) => {
-	const { 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy } = props;
 	if (!React.Children.count(children) && !ariaLabel && !ariaLabelledBy) {
 		throw new Error(BUTTON_NO_NAME);
 	}
@@ -109,7 +111,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 
 	return (
 		<>
-			<BaseButton className={classes} ref={setButton} {...props}>
+			<BaseButton
+				className={classes}
+				ref={setButton}
+				aria-label={ariaLabel}
+				aria-labelledby={ariaLabelledBy}
+				{...props}
+			>
 				{ (iconRight) ? null : BaseIcon }
 				{ Children }
 				{ (iconRight) ? BaseIcon : null }

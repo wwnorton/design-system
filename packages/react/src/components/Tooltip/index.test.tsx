@@ -1,8 +1,9 @@
 import test from 'ava';
 import React from 'react';
 import {
-	cleanup, render, fireEvent, screen,
+	cleanup, render, fireEvent, screen, waitForElementToBeRemoved,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Tooltip, TooltipProps } from '.';
 
 test.afterEach(cleanup);
@@ -94,25 +95,28 @@ test('the focusin trigger toggles the tooltip\'s visibility on focusin', (t) => 
 	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
-test('the mouseenter trigger toggles the tooltip\'s visibility on pointer enter', (t) => {
+test('hovering the reference shows the tooltip when the trigger includes mouseenter', async (t) => {
 	render(<TooltipFixture trigger="mouseenter" />);
 	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
-	fireEvent.pointerEnter(screen.queryByRole('button'));
-	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+	userEvent.hover(screen.queryByRole('button'));
+	const tooltip = await screen.findByRole('tooltip', { hidden: true });
+	t.truthy(tooltip);
 });
 
-test('the pointerenter trigger hides the tooltip after a delay on pointerleave', (t) => {
+test('unhovering the reference hides the tooltip after a delay when the trigger includes pointerenter', async (t) => {
 	const hideDelay = 200;
-	render(<TooltipFixture isOpen trigger="pointerenter" hideDelay={hideDelay} />);
-	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+	render(<TooltipFixture trigger="pointerenter" hideDelay={hideDelay} />);
+	const button = screen.queryByRole('button');
 
-	fireEvent.pointerLeave(screen.queryByRole('button'));
-	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 
-	setTimeout(() => {
-		t.falsy(screen.queryByRole('tooltip', { hidden: true }));
-	}, hideDelay);
+	userEvent.hover(button);
+	t.truthy(await screen.findByRole('tooltip', { hidden: true }));
+
+	userEvent.unhover(screen.queryByRole('button'));
+	await waitForElementToBeRemoved(screen.queryByRole('tooltip', { hidden: true }));
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
 test('tooltip contents label the reference even when the tooltip isn\'t visible', (t) => {
