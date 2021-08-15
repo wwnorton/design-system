@@ -5,11 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+ import { Switch, Icon, useTheme } from '@wwnds/react';
 import React, {useCallback, useState, useEffect} from 'react';
 import clsx from 'clsx';
 import Translate from '@docusaurus/Translate';
 import SearchBar from '@theme/SearchBar';
-import Toggle from '@theme/Toggle';
+// import Toggle from '@theme/Toggle';
 import useThemeContext from '@theme/hooks/useThemeContext';
 import {
   useThemeConfig,
@@ -27,6 +28,29 @@ import styles from './styles.module.css';
 
 // retrocompatible with v1
 const DefaultNavItemPosition = 'right';
+
+type ToggleProps = {
+	checked: boolean;
+	onChange: (eventChecked: boolean) => void;
+	className?: string;
+}
+const Toggle: React.FC<ToggleProps> = ({ checked, onChange }: ToggleProps) => (
+	<Switch
+		label="Dark mode"
+		checked={checked}
+		onToggle={onChange}
+		tipped
+	>
+		<Icon
+			icon={{
+				d: (checked)
+					? 'M9 2c-1.05 0-2.05.16-3 .46 4.06 1.27 7 5.06 7 9.54 0 4.48-2.94 8.27-7 9.54.95.3 1.95.46 3 .46 5.52 0 10-4.48 10-10S14.52 2 9 2z'
+					: 'M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z',
+			}}
+			color={(!checked) ? 'var(--nds-yellow-50)' : undefined}
+		/>
+	</Switch>
+)
 
 function useNavbarItems() {
   // TODO temporary casting until ThemeConfig type is improved
@@ -74,11 +98,30 @@ function useColorModeToggle() {
     colorMode: {disableSwitch},
   } = useThemeConfig();
   const {isDarkTheme, setLightTheme, setDarkTheme} = useThemeContext();
-  const toggle = useCallback(
-    (e) => (e.target.checked ? setDarkTheme() : setLightTheme()),
-    [setLightTheme, setDarkTheme],
-  );
-  return {isDarkTheme, toggle, disabled: disableSwitch};
+  // const toggle = useCallback(
+  //   (e) => (e.target.checked ? setDarkTheme() : setLightTheme()),
+  //   [setLightTheme, setDarkTheme],
+  // );
+
+	/** START NDS color scheme */
+	const { colorScheme, setColorScheme } = useTheme();
+
+	// use NDS colorScheme as source of truth, not Docusaurus
+	const toggle = (checked: boolean) => {
+		setColorScheme((checked) ? 'dark' : 'light');
+	};
+
+	// update Docusaurus theme when NDS colorScheme changes
+	useEffect(() => {
+		if (colorScheme === 'dark') {
+			setDarkTheme();
+		} else {
+			setLightTheme();
+		}
+	}, [colorScheme]);
+	/** END NDS color scheme */
+
+  return {isDarkTheme: colorScheme === 'dark', toggle, disabled: disableSwitch};
 }
 
 function useSecondaryMenu({
