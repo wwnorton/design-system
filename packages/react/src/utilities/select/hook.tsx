@@ -40,19 +40,20 @@ export const useSelect = (
 		},
 		formChangeHandler: ({ currentTarget, target }) => {
 			const { checked, value } = (('value' in currentTarget) && ('checked' in currentTarget))
-				? currentTarget as HTMLInputElement
-				: target as HTMLInputElement;
-			if (checked !== undefined || !value) {
-				if (checked) {
-					select(value);
-				} else {
-					deselect(value);
-				}
-			} else {
+				? currentTarget
+				: target as EventTarget & HTMLInputElement;
+
+			if (checked === undefined) {
 				throw new Error(
 					'formChangeHandler is being attached to an invalid element. '
 					+ 'Attach it to an <input type="checkbox|radio"> or a <fieldset>.',
 				);
+			}
+
+			if (checked) {
+				select(value);
+			} else {
+				deselect(value);
 			}
 		},
 	};
