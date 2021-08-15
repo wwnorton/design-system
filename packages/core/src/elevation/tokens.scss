@@ -15,7 +15,7 @@ $zindex-fixed: 1030;
 $zindex-modal-backdrop: 1040;
 $zindex-modal: 1050;
 // not in Bootstrap: ensure that focused elements aren't obscured
-$zindex-focus: null !default;
+$zindex-focus: 'null' !default;
 $zindex-popover: 1060;
 $zindex-tooltip: 1070;
 
