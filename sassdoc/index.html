@@ -238,6 +238,7 @@
 	@include nds.listbox-style;
 	@include nds.modal-style;
 	@include nds.popover-style;
+	@include nds.popper-style;
 	@include nds.radio-style;
 	@include nds.switch-style;
 	@include nds.textfield-style;
@@ -247,6 +248,7 @@
  }" data-collapsed="@mixin components() { ... }"><code>@mixin components() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Declarations for every component.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#main-mixin-complete"><code>complete</code></a></li></ul></section><section class="main__item container item" id="main-mixin-helpers"><h3 class="item__heading"><a class="item__name" href="#mixin-helpers">helpers</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin helpers() { 
 	@if nds.$enable-helpers {
 		@include nds.a11y-helpers;
+		@include nds.motion-helpers;
 	}
  }" data-collapsed="@mixin helpers() { ... }"><code>@mixin helpers() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Helper declarations that set a composed style uncoupled from any component.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#config-variable-enable-helpers"><code>enable-helpers</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#main-mixin-complete"><code>complete</code></a></li></ul></section><section class="main__item container item" id="main-mixin-utilities"><h3 class="item__heading"><a class="item__name" href="#mixin-utilities">utilities</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin utilities() { 
 	@if map.get(nds.$utilities, &#39;color&#39;) {
@@ -1159,9 +1161,10 @@
 		--nds-line-height-6: #{$line-height-6};
 	}
  }" data-collapsed="@mixin typography() { ... }"><code>@mixin typography() { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Typography tokens set as CSS custom properties on the <code>:root</code> element.</p></div><h3 class="item__sub-heading">Parameters</h3><p>None.</p><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#typography-variable-font-family-base"><code>font-family-base</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#typography-variable-font-family-headings"><code>font-family-headings</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#typography-variable-font-family-sans"><code>font-family-sans</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#typography-variable-font-family-serif"><code>font-family-serif</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#typography-variable-font-family-mono"><code>font-family-mono</code></a></li></ul></section></section><section class="main__sub-section" id="typography-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="typography-variable-font-family-sans"><h3 class="item__heading"><a class="item__name" href="#variable-font-family-sans">font-family-sans</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$font-family-sans: () !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The main sans serif font family. Overrides will have <code>$font-family-system-sans</code> appended as a fallback.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typography"><code>typography</code></a></li></ul></section><section class="main__item container item" id="typography-variable-font-family-serif"><h3 class="item__heading"><a class="item__name" href="#variable-font-family-serif">font-family-serif</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$font-family-serif: () !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The main serif font family. Overrides will have <code>$font-family-system-serif</code> appended as a fallback.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typography"><code>typography</code></a></li></ul></section><section class="main__item container item" id="typography-variable-font-family-mono"><h3 class="item__heading"><a class="item__name" href="#variable-font-family-mono">font-family-mono</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$font-family-mono: () !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The main monospace font family. Overrides will have <code>$font-family-system-mono</code> appended as a fallback.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typography"><code>typography</code></a></li></ul></section><section class="main__item container item" id="typography-variable-font-family-base"><h3 class="item__heading"><a class="item__name" href="#variable-font-family-base">font-family-base</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$font-family-base: var(--nds-font-family-sans) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The main font family that will be used throughout your application.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typography"><code>typography</code></a></li></ul></section><section class="main__item container item" id="typography-variable-font-family-headings"><h3 class="item__heading"><a class="item__name" href="#variable-font-family-headings">font-family-headings</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$font-family-headings: var(--nds-font-family-base) !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>The font family that will be used for all headings.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#typography-mixin-typography"><code>typography</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="undefined"><div class="container">General</div></h1><section class="main__sub-section" id="undefined-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="undefined-mixin-arrow"><h3 class="item__heading"><a class="item__name" href="#mixin-arrow">arrow</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin arrow() { 
-	$arrow-border-width: calc(#{$size} / 2);
+	$-arrow-border-width: calc(#{$size} / 2);
 
 	position: absolute;
+	z-index: -1;
 	width: $size;
 	height: $size;
 	border-color: inherit;
@@ -1185,17 +1188,17 @@
 		bottom: 0;
 
 		&amp;::before {
-			bottom: calc(-1 * #{$arrow-border-width} + #{$border-width});
+			bottom: calc(-1 * #{$-arrow-border-width} + #{$border-width});
 			left: 0;
-			border-width: $arrow-border-width $arrow-border-width 0;
+			border-width: $-arrow-border-width $-arrow-border-width 0;
 			border-top-color: $background-color;
 			transform-origin: center top;
 		}
 
 		&amp;::after {
-			bottom: calc(-1 * #{$arrow-border-width});
+			bottom: calc(-1 * #{$-arrow-border-width});
 			left: 0;
-			border-width: $arrow-border-width $arrow-border-width 0;
+			border-width: $-arrow-border-width $-arrow-border-width 0;
 			border-top-color: inherit;
 		}
 	}
@@ -1204,16 +1207,16 @@
 		left: 0;
 
 		&amp;::before {
-			left: calc(-1 * #{$arrow-border-width} + #{$border-width});
-			border-width: $arrow-border-width $arrow-border-width $arrow-border-width 0;
+			left: calc(-1 * #{$-arrow-border-width} + #{$border-width});
+			border-width: $-arrow-border-width $-arrow-border-width $-arrow-border-width 0;
 			border-right-color: $background-color;
 			transform-origin: center right;
 		}
 
 		&amp;::after {
 			top: 0;
-			left: calc(-1 * #{$arrow-border-width});
-			border-width: $arrow-border-width $arrow-border-width $arrow-border-width 0;
+			left: calc(-1 * #{$-arrow-border-width});
+			border-width: $-arrow-border-width $-arrow-border-width $-arrow-border-width 0;
 			border-right-color: inherit;
 		}
 	}
@@ -1222,17 +1225,17 @@
 		top: 0;
 
 		&amp;::before {
-			top: calc(-1 * #{$arrow-border-width} + #{$border-width});
+			top: calc(-1 * #{$-arrow-border-width} + #{$border-width});
 			left: 0;
-			border-width: 0 $arrow-border-width $arrow-border-width;
+			border-width: 0 $-arrow-border-width $-arrow-border-width;
 			border-bottom-color: $background-color;
 			transform-origin: center bottom;
 		}
 
 		&amp;::after {
-			top: calc(-1 * #{$arrow-border-width});
+			top: calc(-1 * #{$-arrow-border-width});
 			left: 0;
-			border-width: 0 $arrow-border-width $arrow-border-width;
+			border-width: 0 $-arrow-border-width $-arrow-border-width;
 			border-bottom-color: inherit;
 		}
 	}
@@ -1241,16 +1244,16 @@
 		right: 0;
 
 		&amp;::before {
-			right: calc(-1 * #{$arrow-border-width} + #{$border-width});
-			border-width: $arrow-border-width 0 $arrow-border-width $arrow-border-width;
+			right: calc(-1 * #{$-arrow-border-width} + #{$border-width});
+			border-width: $-arrow-border-width 0 $-arrow-border-width $-arrow-border-width;
 			border-left-color: $background-color;
 			transform-origin: center left;
 		}
 
 		&amp;::after {
 			top: 0;
-			right: calc(-1 * #{$arrow-border-width});
-			border-width: $arrow-border-width 0 $arrow-border-width $arrow-border-width;
+			right: calc(-1 * #{$-arrow-border-width});
+			border-width: $-arrow-border-width 0 $-arrow-border-width $-arrow-border-width;
 			border-left-color: inherit;
 		}
 	}
