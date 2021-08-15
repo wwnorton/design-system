@@ -97,7 +97,7 @@ function useColorModeToggle() {
   const {
     colorMode: {disableSwitch},
   } = useThemeConfig();
-  const {isDarkTheme, setLightTheme, setDarkTheme} = useThemeContext();
+  const {setLightTheme, setDarkTheme} = useThemeContext();
   // const toggle = useCallback(
   //   (e) => (e.target.checked ? setDarkTheme() : setLightTheme()),
   //   [setLightTheme, setDarkTheme],
