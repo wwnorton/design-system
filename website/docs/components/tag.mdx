@@ -3,7 +3,10 @@ title: Tag
 description: A tag is an interactive label that contains text or numbers to communicate status or classification. It may or may not be dismissible.
 ---
 
-import { CalloutError, CalloutSuccess, CalloutWarning } from '@wwnds/react';
+import {
+	CalloutError, CalloutSuccess, CalloutWarning, Tag,
+} from '@wwnds/react';
+import { PropsTable } from '@website/components';
 
 > A tag is an interactive label that contains text or numbers to communicate status or classification.
 It may or may not be dismissible.
@@ -42,3 +45,25 @@ Use tags sparingly (1–3 tags) wherever possible.
 - A tag should be styled with minimal padding around the text inside the container to distinguish it from a button.
 
 </CalloutWarning>
+
+## React API
+
+We expose one component for the tag API, the [Tag](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Tag).
+
+### Tag
+
+The `Tag` component extends the `React.HTMLAttributes<HTMLElement>` interface and renders either as a `<span>` or `<button>`, depending on its configuration.
+
+- When `dismissible`, the tag will render as a `<span>` with a dismiss `<button>` inside of it.
+- When the tag contains a link (`Link` or `a[href]`), it will render as a `<span>` to ensure that the link is clickable.
+- The rest of the time, the tag will render as a `<button>` and can be reacted to by attaching an `onClick` callback.
+
+```js
+import { Tag } from '@wwnds/react';
+```
+
+```tsx live
+<Tag>Norton Design System</Tag>
+```
+
+<PropsTable from={Tag} />
