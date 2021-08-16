@@ -1,6 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import {
 	useForwardedRef,
+	useLayoutEffect,
 	useValidation,
 } from '../../utilities';
 import { BaseTextAreaProps } from './types';
