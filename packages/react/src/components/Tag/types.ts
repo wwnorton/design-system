@@ -1,11 +1,6 @@
 import { SystemColors } from '../../utilities/color';
 
 export interface TagProps extends React.HTMLAttributes<HTMLElement> {
-	/**
-	 * When defined, the tag will render as a `Link`. Otherwise, the tag will
-	 * render as a `Button`.
-	*/
-	href?: string;
 	/** The tag color family. */
 	color?: SystemColors;
 	/** Indicates whether tag can be dismissed. */
