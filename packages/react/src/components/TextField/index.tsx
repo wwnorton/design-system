@@ -184,7 +184,7 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 						<BaseTextArea
 							{...sharedProps}
 							multiline={multiline}
-							autoSize={(multiline) ? autoSize : undefined}
+							autoSize={autoSize}
 						/>
 					)
 					: (
