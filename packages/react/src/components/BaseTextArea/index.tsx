@@ -21,7 +21,7 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaPr
 		validateOnChange,
 		validateOnDOMChange = defaultProps.validateOnDOMChange,
 		validators,
-		// pull out maxLength because it prevents user input past the given
+		// pull out maxLength because it prevents user textarea past the given
 		// length, which is an anti-pattern according to our usage guidelines.
 		maxLength,
 		maxLengthRestrictsInput = false,
@@ -31,7 +31,7 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaPr
 		...attributes
 	}: BaseTextAreaProps, ref,
 ): React.ReactElement => {
-	const [input, setInput] = useForwardedRef(ref);
+	const [textarea, setTextarea] = useForwardedRef(ref);
 	const [errors, setErrors] = React.useState(errorsProp);
 	const lines = Number(multiline) > 0 ? Number(multiline) : 1;
 
@@ -61,13 +61,13 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaPr
 
 	// Handles auto sizing with multiline component
 	React.useEffect(() => {
-		if (autoSize && input) input.style.height = 'auto';
-	}, [autoSize, input]);
+		if (autoSize && textarea) textarea.style.height = 'auto';
+	}, [autoSize, textarea]);
 
 	const onResize = () => {
-		if (input) {
-			input.style.height = 'auto';
-			input.style.height = `${input.scrollHeight}px`;
+		if (textarea) {
+			textarea.style.height = 'auto';
+			textarea.style.height = `${textarea.scrollHeight}px`;
 		}
 	};
 
@@ -90,27 +90,27 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaPr
 	// Reflect errors on the DOM's constraint validation API. This ensures that
 	// browser tooltip text always matches the custom errors.
 	React.useEffect(() => {
-		if (input && input.willValidate) {
+		if (textarea && textarea.willValidate) {
 			const errString = (!errors || !errors.length) ? '' : errors.join('\n');
-			input.setCustomValidity(errString);
+			textarea.setCustomValidity(errString);
 		}
-	}, [input, errors]);
+	}, [textarea, errors]);
 
 	// Polyfill the DOM `change` listener
 	useLayoutEffect(() => {
-		if (input && domChangeHandler) {
-			input.addEventListener('change', domChangeHandler);
+		if (textarea && domChangeHandler) {
+			textarea.addEventListener('change', domChangeHandler);
 		}
 		return (): void => {
-			if (input && domChangeHandler) {
-				input.removeEventListener('change', domChangeHandler);
+			if (textarea && domChangeHandler) {
+				textarea.removeEventListener('change', domChangeHandler);
 			}
 		};
-	}, [input, domChangeHandler]);
+	}, [textarea, domChangeHandler]);
 
 	return (
 		<textarea
-			ref={setInput}
+			ref={setTextarea}
 			rows={lines}
 			onInput={inputHandler}
 			maxLength={(maxLengthRestrictsInput) ? maxLength : undefined}
