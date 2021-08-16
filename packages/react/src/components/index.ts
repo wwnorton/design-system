@@ -1,4 +1,5 @@
 // All public UI components
+export * from './Badge';
 export * from './Button';
 export * from './Callout';
 export * from './Checkbox';
@@ -16,5 +17,6 @@ export * from './ProgressBar';
 export * from './Radio';
 export * from './Spinner';
 export * from './Switch';
+export * from './Tag';
 export * from './TextField';
 export * from './Tooltip';

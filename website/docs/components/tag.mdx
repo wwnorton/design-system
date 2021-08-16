@@ -1,0 +1,67 @@
+---
+title: Tag
+description: A tag allows the user to interact with or dismiss a status or classification.
+---
+
+import {
+	CalloutError, CalloutSuccess, CalloutWarning, Tag,
+} from '@wwnds/react';
+import { PropsTable } from '@website/components';
+
+> A tag allows the user to interact with or dismiss a status or classification.
+
+## Anatomy
+
+1. **A container** - an outline or background sets the tag apart from adjacent text.
+1. **A label** - the tag's label conveys a status or classification.
+1. **A dismiss indicator** - an icon that appears when the tag is dismissible.
+
+## Usage
+
+Use a tag to communicate status, denote active filter selection(s), or as a content tag.
+
+- A tag may or may not be associated with another component.
+When it is, it should be placed as close as possible to the component it is referencing.
+
+<CalloutSuccess title="Dos">
+
+- Do use a tag if this component should be dismissible or if users need to select or interact with it for any reason.
+
+</CalloutSuccess>
+
+<CalloutError title="Don'ts">
+
+- Don’t use a tag to communicate a temporary or permanent state if users cannot interact with or dismiss it.
+Instead, use a badge.
+
+</CalloutError>
+
+<CalloutWarning title="Caution">
+
+- In most contexts, a series of several tags can be overwhelming and create visual clutter.
+Use tags sparingly (1–3 tags) wherever possible.
+- A tag should be styled with minimal padding around the text inside the container to distinguish it from a button.
+
+</CalloutWarning>
+
+## React API
+
+We expose one component for the tag API, the [Tag](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Tag).
+
+### Tag
+
+The `Tag` component extends the `React.HTMLAttributes<HTMLElement>` interface and renders either as a `<span>` or `<button>`, depending on its configuration.
+
+- When `dismissible`, the tag will render as a `<span>` with a dismiss `<button>` inside of it.
+- When the tag contains a link (`Link` or `a[href]`), it will render as a `<span>` to ensure that the link is clickable.
+- The rest of the time, the tag will render as a `<button>` and can be reacted to by attaching an `onClick` callback.
+
+```js
+import { Tag } from '@wwnds/react';
+```
+
+```tsx live
+<Tag>Norton Design System</Tag>
+```
+
+<PropsTable from={Tag} />
