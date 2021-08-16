@@ -3,6 +3,7 @@ import React from 'react';
 import {
 	cleanup, render, fireEvent, screen,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Switch } from '.';
 
 test.afterEach(cleanup);
@@ -31,14 +32,13 @@ test('clicking a switch\'s label toggles its checked state', (t) => {
 	t.is(control.getAttribute('aria-checked'), 'true');
 });
 
-test('a tooltipped switch has an accessible name before and after the tooltip is rendered', (t) => {
+test('a tooltipped switch has an accessible name before and after the tooltip is rendered', async (t) => {
 	render(<Switch label={defaultLabel} tipped />);
-	const control = screen.getByRole('switch');
-	t.is(screen.getByLabelText(defaultLabel), screen.getByRole('switch'));
+	const control = screen.getByRole('switch', { name: defaultLabel });
+	t.truthy(control);
+
+	userEvent.hover(control);
+
 	t.truthy(screen.getByRole('switch', { name: defaultLabel }));
-	fireEvent.pointerEnter(control);
-	t.is(
-		screen.getByRole('tooltip', { hidden: true }).textContent,
-		defaultLabel,
-	);
+	t.truthy(await screen.findByRole('tooltip', { hidden: true }));
 });

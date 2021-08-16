@@ -244,7 +244,7 @@ $-declared: ();
 }
 
 @function px2rem($px, $browser-font-size: config.$browser-font-size) {
-	@return $px / $browser-font-size;
+	@return math.div($px, $browser-font-size);
 }
 
 @function rem2px($rem, $browser-font-size: config.$browser-font-size) {

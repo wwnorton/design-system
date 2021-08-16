@@ -39,18 +39,21 @@
 	@include nds.listbox-style;
 	@include nds.modal-style;
 	@include nds.popover-style;
+	@include nds.popper-style;
 	@include nds.radio-style;
 	@include nds.switch-style;
 	@include nds.textfield-style;
 	@include nds.tooltip-style;
 	@include nds.spinner-style;
 	@include nds.progressbar-style;
+	@include nds.tag-style;
 }
 
 /// Helper declarations that set a composed style uncoupled from any component.
 @mixin helpers {
 	@if nds.$enable-helpers {
 		@include nds.a11y-helpers;
+		@include nds.motion-helpers;
 	}
 }
 

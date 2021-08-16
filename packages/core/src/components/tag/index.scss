@@ -1,0 +1,114 @@
+
+@use 'sass:map';
+@use 'tokens';
+@use '../../a11y';
+@use '../../color';
+@use '../../spacing';
+@use '../../util';
+
+@mixin base {
+	--nds-tag-background-color: var(--nds-#{tokens.$color}-#{tokens.$background-grade});
+	--nds-tag-background-color-hover: var(--nds-#{tokens.$color}-#{tokens.$background-grade-hover});
+	--nds-tag-background-color-active: var(--nds-#{tokens.$color}-#{tokens.$background-grade-active});
+	--nds-tag-border-radius: var(--nds-radius-base);
+
+	position: relative;
+	display: inline-flex;
+	padding: 0;
+	font-size: var(--nds-font-size-xs);
+	line-height: var(--nds-line-height-3);
+	color: var(--nds-text-color);
+	cursor: default;
+	background-color: var(--nds-tag-background-color);
+	border: 0;
+	border-radius: var(--nds-tag-border-radius);
+	align-items: stretch;
+
+	> * {
+		padding: 0.15625rem 0.25rem;
+	}
+
+	> :first-child {
+		border-top-left-radius: var(--nds-tag-border-radius);
+		border-bottom-left-radius: var(--nds-tag-border-radius);
+	}
+
+	> :last-child {
+		border-top-right-radius: var(--nds-tag-border-radius);
+		border-bottom-right-radius: var(--nds-tag-border-radius);
+	}
+
+	> :only-child {
+		border-radius: inherit;
+	}
+
+	> :only-child :focus {
+		box-shadow: none;
+	}
+
+	&:focus-within {
+		@include a11y.focus-halo;
+	}
+
+	&:not(.nds-tag--dismissible) {
+		&:hover {
+			--nds-tag-background-color: var(--nds-tag-background-color-hover);
+		}
+
+		&.active,
+		&:active {
+			--nds-tag-background-color: var(--nds-tag-background-color-active);
+		}
+	}
+}
+
+@mixin dismiss {
+	display: inline-flex;
+	background-color: transparent;
+	border: 0;
+	align-items: center;
+
+	&:focus {
+		box-shadow: none;
+	}
+
+	&:hover,
+	&:focus {
+		background-color: var(--nds-tag-background-color-hover);
+	}
+
+	&.active,
+	&:active {
+		background-color: var(--nds-tag-background-color-active);
+	}
+}
+
+@mixin style {
+	@include util.declare('tag') {
+		.nds-tag {
+			@include base;
+		}
+
+		.nds-tag__dismiss {
+			@include dismiss;
+		}
+
+		@each $name in color.$families {
+			.nds-tag--#{$name} {
+				--nds-tag-background-color: var(--nds-#{$name}-#{tokens.$background-grade});
+				--nds-tag-background-color-hover: var(--nds-#{$name}-#{tokens.$background-grade-hover});
+				--nds-tag-background-color-active: var(--nds-#{$name}-#{tokens.$background-grade-active});
+			}
+		}
+
+		@each $map in color.$roles {
+			$name: map.get($map, 'name');
+
+			.nds-tag--#{$name} {
+				--nds-tag-background-color: var(--nds-#{$name}-color-#{tokens.$background-grade});
+				--nds-tag-background-color-hover: var(--nds-#{$name}-color-#{tokens.$background-grade-hover});
+				--nds-tag-background-color-active: var(--nds-#{$name}-color-#{tokens.$background-grade-active});
+			}
+		}
+	}
+}

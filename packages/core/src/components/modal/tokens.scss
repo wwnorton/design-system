@@ -5,7 +5,7 @@ $backdrop-opacity: 0.6 !default;
 $border-width: 1px !default;
 $padding-x: spacing.spacer('modal-x') !default;
 $padding-y: spacing.spacer('modal-y') !default;
-$width: null !default;
+$width: 'null' !default;
 
 $border-radius-mobile: 0 !default;
 $border-radius-desktop: var(--nds-radius-md) !default;

@@ -17,8 +17,14 @@ export const BaseSummary = React.forwardRef<HTMLElement, BaseSummaryProps>(({
 	...attributes
 }: BaseSummaryProps, ref) => (
 	<summary ref={ref} {...attributes}>
-		{ markerPosition === 'left' && marker }
-		{ children }
-		{ markerPosition === 'right' && marker }
+		{/*
+			This div is a temporary fix for safari 14
+			https://bugs.webkit.org/show_bug.cgi?id=190065 - summary can't be flex box
+		*/}
+		<div style={{ display: 'flex', width: '100%' }}>
+			{ markerPosition === 'left' && marker }
+			{ children }
+			{ markerPosition === 'right' && marker }
+		</div>
 	</summary>
 ));
