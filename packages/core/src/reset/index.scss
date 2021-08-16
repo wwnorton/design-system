@@ -28,13 +28,6 @@
 			box-sizing: border-box;
 		}
 
-		// NDS: add selection styling
-
-		::selection {
-			color: var(--nds-selection-text-color);
-			background-color: var(--nds-selection-background-color);
-		}
-
 		// Body
 		// 1. Apply progressive font smoothing.
 		// 2. Remove the margin in all browsers.

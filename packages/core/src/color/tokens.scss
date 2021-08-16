@@ -200,9 +200,9 @@ $text-color: var(--nds-base-color-90) !default;
 $text-color-inverse: var(--nds-white) !default;
 /// A subdued or "muted" text color, used for less emphasized text.
 $subdued-color: var(--nds-base-color-60) !default;
-/// The background color for the `::selection` state.
-$selection-background-color: var(--nds-primary-color) !default;
-/// The text color for the `::selection` state.
+/// The background color.
+$selection-background-color: 'null' !default;
+/// The text color.
 $selection-text-color: var(--nds-text-color-inverse) !default;
 /// The color used for the `:focus` state.
 $focus-color: var(--nds-blue-50) !default;
