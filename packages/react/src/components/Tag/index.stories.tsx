@@ -47,13 +47,24 @@ export const MultipleTags: React.FunctionComponent = () => {
 		</div>
 	);
 };
-export const WithLink: React.FunctionComponent = () => (
-	<div style={{ display: 'flex', gap: 4 }}>
-		<Tag>
-			<Link href="https://github.com/wwnorton/design-system" external>Norton Design System GitHub</Link>
+
+export const WithLink: React.FunctionComponent = () => {
+	const isAnchor = boolean('Use HTML link', false);
+	return (
+		<Tag dismissible={boolean('dismissible', false)}>
+			{
+				(isAnchor)
+					? (
+						<a href="https://github.com/wwnorton/design-system">
+							Norton Design System GitHub
+						</a>
+					)
+					: (
+						<Link href="https://github.com/wwnorton/design-system" external>
+							Norton Design System GitHub
+						</Link>
+					)
+			}
 		</Tag>
-		<Tag>
-			<a href="https://github.com/wwnorton/design-system">An anchor</a>
-		</Tag>
-	</div>
-);
+	);
+};
