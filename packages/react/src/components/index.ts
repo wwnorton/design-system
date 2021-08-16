@@ -17,5 +17,6 @@ export * from './ProgressBar';
 export * from './Radio';
 export * from './Spinner';
 export * from './Switch';
+export * from './Tag';
 export * from './TextField';
 export * from './Tooltip';
