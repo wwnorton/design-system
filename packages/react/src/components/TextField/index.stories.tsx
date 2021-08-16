@@ -26,6 +26,8 @@ export const Default: React.FunctionComponent = () => {
 	return (
 		<TextFieldUncontrolled
 			description='The default Text Field has a type of "text"'
+			multiline={boolean('Multiline', false)}
+			autoSize={boolean('Auto resize', false)}
 			disabled={boolean('Disabled', false)}
 			onDOMChange={action('onDOMChange')}
 			required={boolean('Required', false)}
