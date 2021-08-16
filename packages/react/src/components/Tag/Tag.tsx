@@ -28,13 +28,14 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	);
 
 	if (dismissible) {
+		const contents = (isLinkElement(children)) ? children.props.children : children;
 		return (
 			<span
 				className={classes}
 				ref={ref}
 				{...props}
 			>
-				<span className={contentsClass}>{ children }</span>
+				<span className={contentsClass}>{ contents }</span>
 				<BaseButton
 					className={dismissClass}
 					onClick={(e) => {
