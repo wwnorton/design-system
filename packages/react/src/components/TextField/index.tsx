@@ -1,68 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import {
-	FieldInfo, FieldInfoCoreProps,
-	FieldFeedback, FieldFeedbackCoreProps,
-	FieldAddon,
-} from '../Field';
-import { BaseInput, BaseInputProps } from '../BaseInput';
-
-export type TextFieldType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
-
-export interface TextFieldProps
-	extends FieldInfoCoreProps, FieldFeedbackCoreProps, BaseInputProps {
-	/** Text fields can be a limited subset of `<input>` types. */
-	type?: TextFieldType;
-	/** One or more addon that should be included before the `<input>`. */
-	addonBefore?: React.ReactNode;
-	/** One or more addon that should be included after the `<input>`. */
-	addonAfter?: React.ReactNode;
-	/**
-	 * Feedback about the user's current input value. By default, this will
-	 * contain validation errors and the counter, if `maxLength` is specified.
-	 */
-	feedback?: string | React.ReactElement;
-	/** When the character counter should begin showing. */
-	counterStart?: number;
-	/**
-	 * A function that takes the remaining number of characters and the maximum
-	 * number of characters and returns the string or element that will be
-	 * rendered in the character counter slot.
-	 */
-	counter?: false | (({ remaining, max }: {
-		remaining: number;
-		max: number;
-	}) => React.ReactNode);
-	/** The base class name according to BEM conventions. */
-	baseName?: string;
-	/** The className for the TextField's `<input>` element. */
-	inputClass?: string;
-	/** The className for all of the addons (before and after). */
-	addonClass?: string;
-	/** The className for the wrapper that contains the `<input>` & addons. */
-	groupClass?: string;
-	/**
-	 * The className for the TextField's feedback section, which contains the
-	 * error text and character count.
-	 */
-	feedbackClass?: string;
-	/** The className for the TextField's character counter element. */
-	counterClass?: string;
-	/**
-	 * A className that will be applied to the base element when the `<input>`
-	 * is invalid.
-	 */
-	invalidClass?: string;
-	/** A reference to the internal `<input>` element. */
-	inputRef?: React.Ref<HTMLInputElement>;
-	/** Indicates that the indicator should be "required" when `required=true`. */
-	requiredIndicator?: boolean;
-	/** Indicates that the indicator should be "optional" when `required=false`. */
-	optionalIndicator?: boolean;
-	/** Triggered any time the number of characters remaining is updated. */
-	onCount?: (remaining?: number) => void;
-}
+import { FieldInfo, FieldFeedback, FieldAddon } from '../Field';
+import { BaseInput } from '../BaseInput';
+import { BaseTextArea } from '../BaseTextArea';
+import { TextFieldProps } from './types';
 
 const defaultProps: Partial<TextFieldProps> = {
 	counterStart: 25,
@@ -73,7 +15,7 @@ const defaultProps: Partial<TextFieldProps> = {
 	type: 'text',
 };
 
-export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
+export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TextFieldProps>((
 	{
 		// options
 		counterStart = defaultProps.counterStart,
@@ -82,6 +24,8 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		validateOnDOMChange,
 		requiredIndicator,
 		optionalIndicator,
+		multiline = false,
+		autoSize = false,
 
 		// anatomy
 		children,
@@ -159,7 +103,8 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		setErrors(e);
 	};
 
-	const changeHandler: React.InputHTMLAttributes<HTMLInputElement>['onChange'] = (e) => {
+	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>
+	& React.ChangeEvent<HTMLTextAreaElement>) => {
 		if (onChange) onChange(e);
 		else setRemaining(getRemaining(e.target.value));
 	};
@@ -196,6 +141,28 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 		return null;
 	}, [requiredIndicator, optionalIndicator, required]);
 
+	const sharedProps = {
+		ref,
+		value,
+		errors,
+		onChange: changeHandler,
+		onDOMChange,
+		onValidate: validateHandler,
+		id: inputId.current,
+		className: inputClass,
+		'aria-describedby': (description) ? descId.current : undefined,
+		'aria-invalid': !isValid,
+		'aria-errormessage': (!isValid) ? errId.current : undefined,
+		// validation props
+		maxLength,
+		required,
+		// BaseInput custom validation props
+		validators,
+		validateOnChange,
+		validateOnDOMChange,
+		...inputProps,
+	};
+
 	return (
 		<div
 			className={classNames(className, { [invalidClass]: !isValid })}
@@ -212,30 +179,21 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>((
 				description={description}
 			/>
 			<div className={groupClass}>
-				{ createFieldAddons(addonBefore) }
-				<BaseInput
-					ref={ref}
-					value={value}
-					errors={errors}
-					onChange={changeHandler}
-					onDOMChange={onDOMChange}
-					onValidate={validateHandler}
-					id={inputId.current}
-					className={inputClass}
-					aria-describedby={(description) ? descId.current : undefined}
-					aria-invalid={!isValid}
-					aria-errormessage={(!isValid) ? errId.current : undefined}
-					// validation props
-					maxLength={maxLength}
-					required={required}
-					type={type}
-					// BaseInput custom validation props
-					validators={validators}
-					validateOnChange={validateOnChange}
-					validateOnDOMChange={validateOnDOMChange}
-					{...inputProps}
-				/>
-				{ createFieldAddons(addonAfter) }
+				{ (multiline)
+					? (
+						<BaseTextArea
+							{...sharedProps}
+							multiline={multiline}
+							autoSize={autoSize}
+						/>
+					)
+					: (
+						<>
+							{ createFieldAddons(addonBefore) }
+							<BaseInput {...sharedProps} type={type} />
+							{ createFieldAddons(addonAfter) }
+						</>
+					) }
 			</div>
 			<FieldFeedback
 				className={feedbackClass}
@@ -262,7 +220,8 @@ export const TextFieldUncontrolled = (props: Omit<TextFieldProps, 'value'>): JSX
 	return (
 		<TextField
 			value={value}
-			onChange={(e) => {
+			onChange={(e: React.ChangeEvent<HTMLInputElement> &
+			React.ChangeEvent<HTMLTextAreaElement>) => {
 				setValue(e.target.value);
 				const { onChange } = props;
 				if (onChange) onChange(e);
