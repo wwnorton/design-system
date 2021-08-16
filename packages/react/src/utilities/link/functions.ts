@@ -2,14 +2,10 @@ import React from 'react';
 import ReactIs from 'react-is';
 import { LinkLikeProps } from './types';
 
-/**
- * Create function for identifying child component is link
- * function is recursive for identifying fragment component
- * has a child and child component is link or not.
- */
+/** Check if a node such as `children` is a link-like React element. */
 export const isLinkElement = (
-	node: React.ReactNode | React.ReactElement<LinkLikeProps>,
-): boolean => {
+	node: React.ReactNode,
+): node is React.ReactElement<LinkLikeProps> => {
 	if (ReactIs.isElement(node) && (node.type === 'a' || typeof node.props.href === 'string')) {
 		return true;
 	}
