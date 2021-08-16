@@ -1,14 +1,12 @@
 const del = require('del');
 const gulp = require('gulp');
 const fiber = require('fibers');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const shell = require('gulp-shell');
 const header = require('gulp-header');
 const postcss = require('gulp-postcss');
 const corePackage = require('./packages/core/package.json');
 const reactPackage = require('./packages/react/package.json');
-
-sass.compiler = require('sass');
 
 const production = ['ci', 'production'].includes(process.env.NODE_ENV);
 const copyrightYear = `2019-${(new Date()).getFullYear()}`;

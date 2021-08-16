@@ -1,13 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { BaseInput, BaseInputProps } from '../BaseInput';
+import { BaseInput } from '../BaseInput';
 import { Icon } from '../Icon';
 import {
 	FieldInfo, FieldInfoCoreProps,
 	FieldFeedback, FieldFeedbackCoreProps,
 } from '../Field';
 import { useForwardedRef } from '../../utilities';
+import { BaseInputProps } from '../BaseInput/types';
 
 export interface ChoiceProps extends
 	Omit<FieldInfoCoreProps, 'label'>,

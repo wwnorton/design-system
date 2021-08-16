@@ -1,5 +1,6 @@
 module.exports = {
 	ignorePatterns: [
+		'NavBar/**',
 		'SearchBar/**',
 	],
 	rules: {

@@ -190,7 +190,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [12, 14]
+        node: [14]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -215,7 +215,7 @@ jobs:
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2.0.2
         if: ${{ matrix.node == env.NODE_VERSION }}
         with:
           directory: coverage

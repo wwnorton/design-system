@@ -3,6 +3,7 @@ import React from 'react';
 import {
 	cleanup, render, fireEvent, screen, waitFor,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Button, IconButton } from '.';
 import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 import { ChangingContent } from './index.stories';
@@ -54,47 +55,46 @@ test('icon-only buttons still have an accessible label', (t) => {
 	t.is(screen.getByLabelText(defaultChildren), screen.getByRole('button'));
 });
 
-test('icon-only buttons display a tooltip when hovered', (t) => {
+test('icon-only buttons display a tooltip when hovered', async (t) => {
 	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.pointerEnter(screen.getByRole('button'));
-	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+	userEvent.hover(screen.getByRole('button'));
+	t.truthy(await screen.findByRole('tooltip', { hidden: true }));
 });
 
 test('icon-only buttons display a tooltip when focused', (t) => {
 	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.focus(screen.getByRole('button'));
+	userEvent.tab();
 	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
-test('icon-only buttons are labelled by their tooltip when it exists', (t) => {
+test('icon-only buttons are labelled by their tooltip when it exists', async (t) => {
 	render(<Button icon="close" iconOnly>{ defaultChildren }</Button>);
 
-	fireEvent.pointerEnter(screen.getByRole('button'));
+	userEvent.hover(screen.getByRole('button'));
+	const tooltip = await screen.findByRole('tooltip', { hidden: true });
 
-	t.is(screen.getByRole('tooltip', { hidden: true }).textContent, defaultChildren);
+	t.is(tooltip.textContent, defaultChildren);
 	t.truthy(screen.getByRole('button', { name: defaultChildren }));
 });
 
-// TODO: figure out how to check for live contents before it's removed
-test.skip('changing content is added to a live region', async (t) => {
+test('changing content is added to a live region', async (t) => {
 	render(<ChangingContent />);
 	const button = screen.getByRole('button');
 
-	button.focus();
-	fireEvent.click(button);
+	userEvent.tab();
+	userEvent.click(button);
 
 	await waitFor(() => {
-		const liveRegion = document.querySelector('[aria-live]') as Element;
-		t.is(liveRegion.textContent, button.textContent);
+		t.truthy(screen.getByText(button.textContent, { selector: '[aria-live]' }));
 	});
 });
 
-test('icon buttons render with tooltips by default', (t) => {
+test('icon buttons render with tooltips by default', async (t) => {
 	render(<IconButton icon="close">{ defaultChildren }</IconButton>);
 	const button = screen.getByRole('button');
 
-	fireEvent.pointerEnter(button);
-	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+	userEvent.hover(button);
+	t.truthy(await screen.findByRole('tooltip', { hidden: true }));
 });

@@ -3,6 +3,7 @@ import React from 'react';
 import {
 	cleanup, render, fireEvent, screen,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Disclosure } from '.';
 
 test.afterEach(cleanup);
@@ -10,25 +11,43 @@ test.afterEach(cleanup);
 const defaultSummary = 'More information';
 const shortContent = 'lorem ipsum';
 
-// TODO: investigate why summary clicks don't work in this testing context. They
-// do work in Storybook/real browsers.
-// TODO: investigate testing tools with rendering engines since most disclosure
-// features are visual/physical.
+// TODO: investigate why a timeout is necessary to test for the `open` attribute
 
-test.failing('clicking the summary opens a closed disclosure', (t) => {
+// a potential reason:
+// https://github.com/facebook/react/issues/15486#issuecomment-873516817
+
+test('clicking the summary opens a closed disclosure', async (t) => {
 	render(<Disclosure summary={defaultSummary}>{ shortContent }</Disclosure>);
 	const details = screen.getByRole('group') as HTMLDetailsElement;
-	const summary = screen.getByText(defaultSummary);
-	fireEvent.click(summary);
-	t.is(details.open, true);
+	t.false(details.hasAttribute('open'));
+
+	// summary should have an implicit role of "button" but this isn't found, so
+	// we hack it with a .querySelector
+	// https://www.w3.org/TR/html-aria/#el-summary
+	// const summary = screen.getByRole('button', { name: defaultSummary });
+	const summary = details.querySelector('summary');
+	userEvent.click(summary);
+
+	await new Promise((resolve) => {
+		window.setTimeout(() => {
+			resolve(t.true(details.hasAttribute('open')));
+		}, 5);
+	});
 });
 
-test.failing('clicking the summary closes an open disclosure', (t) => {
+test('clicking the summary closes an open disclosure', async (t) => {
 	render(<Disclosure summary={defaultSummary} isOpen>{ shortContent }</Disclosure>);
 	const details = screen.getByRole('group') as HTMLDetailsElement;
-	const summary = screen.getByText(defaultSummary);
-	fireEvent.click(summary);
-	t.is(details.open, false);
+	t.true(details.hasAttribute('open'));
+
+	const summary = details.querySelector('summary');
+	userEvent.click(summary);
+
+	await new Promise((resolve) => {
+		window.setTimeout(() => {
+			resolve(t.false(details.hasAttribute('open')));
+		}, 5);
+	});
 });
 
 test('returning false on a callback cancels the callback', (t) => {

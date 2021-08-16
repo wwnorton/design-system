@@ -8,11 +8,12 @@ import {
 	select,
 } from '@storybook/addon-knobs';
 import {
-	TextField, TextFieldUncontrolled, TextFieldType, TextFieldProps,
+	TextField, TextFieldUncontrolled,
 } from '.';
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
 import { useValidation } from '../../utilities';
+import { TextFieldProps, TextFieldType } from './types';
 
 export default {
 	title: 'Text Field',
@@ -25,6 +26,8 @@ export const Default: React.FunctionComponent = () => {
 	return (
 		<TextFieldUncontrolled
 			description='The default Text Field has a type of "text"'
+			multiline={boolean('Multiline', false)}
+			autoSize={boolean('Auto resize', false)}
 			disabled={boolean('Disabled', false)}
 			onDOMChange={action('onDOMChange')}
 			required={boolean('Required', false)}
@@ -48,7 +51,8 @@ export const ControlledEmail: React.FunctionComponent = () => {
 	// whatever reason
 	const validate = useValidation();
 
-	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+	const changeHandler = (e: React.ChangeEvent<HTMLInputElement> &
+	React.ChangeEvent<HTMLTextAreaElement>): void => {
 		const val = e.target.value;
 		const newErrors = validate(e.target);
 		let allowValue = true;
@@ -273,6 +277,99 @@ export const CustomValidation: React.FunctionComponent = () => {
 
 	return (
 		<TextField
+			value={value}
+			errors={errors}
+			onChange={changeHandler}
+			description="Change the required name in the Storybook knobs below."
+			feedback={feedback}
+			required
+		>
+			Full name
+		</TextField>
+	);
+};
+
+export const Multiline: React.FunctionComponent = () => {
+	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
+	return (
+		<TextField
+			multiline={boolean('Multiline', true)}
+			autoSize={boolean('Auto resize', true)}
+			description='The default Text Field has a type of "text"'
+			disabled={boolean('Disabled', false)}
+			onDOMChange={action('onDOMChange')}
+			required={boolean('Required', false)}
+			validateOnChange={boolean('Validate on React change', true)}
+			validateOnDOMChange={boolean('Validate on DOM change', true)}
+			requiredIndicator={indicator === 'required'}
+			optionalIndicator={indicator === 'optional'}
+		>
+			{ text('Label', 'Default Text Field') }
+		</TextField>
+	);
+};
+
+export const MultilineRows: React.FunctionComponent = () => {
+	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
+	return (
+		<TextField
+			multiline={number('Multiline', 5)}
+			autoSize={boolean('Auto resize', true)}
+			description='The default Text Field has a type of "text"'
+			disabled={boolean('Disabled', false)}
+			onDOMChange={action('onDOMChange')}
+			required={boolean('Required', false)}
+			validateOnChange={boolean('Validate on React change', true)}
+			validateOnDOMChange={boolean('Validate on DOM change', true)}
+			requiredIndicator={indicator === 'required'}
+			optionalIndicator={indicator === 'optional'}
+		>
+			{ text('Label', 'Default Text Field') }
+		</TextField>
+	);
+};
+
+export const MultilineWithMaxLength: React.FunctionComponent = () => (
+	<TextFieldUncontrolled
+		multiline={boolean('Multiline', true)}
+		autoSize={boolean('Auto resize', true)}
+		maxLength={number('Maximum length', 10)}
+		counterStart={number('Start counter at', 8)}
+		onCount={action('onCount')}
+		validateOnChange
+	>
+		Text Field with max length
+	</TextFieldUncontrolled>
+);
+
+export const CustomValidationMultiline: React.FunctionComponent = () => {
+	const firstName = text('First name', 'Jane');
+	const lastName = text('Last name', 'Doe');
+	const [value, setValue] = React.useState('');
+	const [errors, setErrors] = React.useState<string[]>();
+
+	const changeHandler = (e): void => setValue(e.target.value);
+
+	const feedback = React.useMemo(() => {
+		if (errors && !errors.length) {
+			return `Well done, ${value}!`;
+		}
+		return undefined;
+	}, [errors, value]);
+
+	React.useEffect(() => {
+		if (value) {
+			const newErrors: string[] = [];
+			if (!value.startsWith(firstName)) newErrors.push(`Must begin with "${firstName}".`);
+			if (!value.endsWith(lastName)) newErrors.push(`Must end with "${lastName}".`);
+			setErrors(newErrors);
+		}
+	}, [value, firstName, lastName]);
+
+	return (
+		<TextField
+			multiline={boolean('Multiline', true)}
+			autoSize={boolean('Auto resize', true)}
 			value={value}
 			errors={errors}
 			onChange={changeHandler}
