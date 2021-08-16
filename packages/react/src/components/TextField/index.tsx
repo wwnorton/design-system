@@ -141,7 +141,27 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 		return null;
 	}, [requiredIndicator, optionalIndicator, required]);
 
-	const InputComponent = multiline ? BaseTextArea : BaseInput;
+	const sharedProps = {
+		ref,
+		value,
+		errors,
+		onChange: changeHandler,
+		onDOMChange,
+		onValidate: validateHandler,
+		id: inputId.current,
+		className: inputClass,
+		'aria-describedby': (description) ? descId.current : undefined,
+		'aria-invalid': !isValid,
+		'aria-errormessage': (!isValid) ? errId.current : undefined,
+		// validation props
+		maxLength,
+		required,
+		// BaseInput custom validation props
+		validators,
+		validateOnChange,
+		validateOnDOMChange,
+		...inputProps,
+	};
 
 	return (
 		<div
@@ -159,32 +179,21 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 				description={description}
 			/>
 			<div className={groupClass}>
-				{ !multiline && createFieldAddons(addonBefore) }
-				<InputComponent
-					ref={ref}
-					value={value}
-					multiline={multiline}
-					autoSize={autoSize}
-					errors={errors}
-					onChange={changeHandler}
-					onDOMChange={onDOMChange}
-					onValidate={validateHandler}
-					id={inputId.current}
-					className={inputClass}
-					aria-describedby={(description) ? descId.current : undefined}
-					aria-invalid={!isValid}
-					aria-errormessage={(!isValid) ? errId.current : undefined}
-					// validation props
-					maxLength={maxLength}
-					required={required}
-					type={type}
-					// BaseInput custom validation props
-					validators={validators}
-					validateOnChange={validateOnChange}
-					validateOnDOMChange={validateOnDOMChange}
-					{...inputProps}
-				/>
-				{ !multiline && createFieldAddons(addonAfter) }
+				{ (multiline)
+					? (
+						<BaseTextArea
+							{...sharedProps}
+							multiline={multiline}
+							autoSize={(multiline) ? autoSize : undefined}
+						/>
+					)
+					: (
+						<>
+							{ createFieldAddons(addonBefore) }
+							<BaseInput {...sharedProps} type={type} />
+							{ createFieldAddons(addonAfter) }
+						</>
+					) }
 			</div>
 			<FieldFeedback
 				className={feedbackClass}
