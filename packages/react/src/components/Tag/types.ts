@@ -5,13 +5,12 @@ export interface TagProps extends React.HTMLAttributes<HTMLElement> {
 	color?: SystemColors;
 	/** Indicates whether tag can be dismissed. */
 	dismissible?: boolean;
-	/** Callback function that is called when the tag is dismissed. */
-	onDismiss?: () => void;
 	/** The base class name according to BEM conventions. */
 	baseName?: string,
-	/**
-	 * A className for the tag close button.
-	 * Default will be `${baseName}__close`.
-	*/
-	closeIconClass?: string;
+	/** The className for the span that wraps `children`. */
+	contentsClass?: string;
+	/** The className for the dismiss button. */
+	dismissClass?: string;
+	/** Callback function that is called when the dismiss button is clicked. */
+	onDismiss?: () => void;
 }

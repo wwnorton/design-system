@@ -1,20 +1,23 @@
 import React from 'react';
 import classNames from 'classnames';
 import { TagProps } from './types';
-import { Button } from '../Button';
+import { BaseButton } from '../BaseButton';
 import { Icon } from '../Icon';
 import { isLinkElement } from '../../utilities';
 
 export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	dismissible,
 	baseName = 'nds-tag',
-	closeIconClass = `${baseName}--dismiss`,
+	contentsClass = `${baseName}__contents`,
+	dismissClass = `${baseName}__dismiss`,
 	children,
 	color,
 	onDismiss,
+	onClick,
 	className,
 	...props
 }: TagProps, ref) => {
+	const isLink = React.useMemo(() => isLinkElement(children), [children]);
 	const classes = classNames(
 		className,
 		baseName,
@@ -24,49 +27,42 @@ export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 		},
 	);
 
-	const isLink = React.useMemo(() => isLinkElement(children), [children]);
-
-	const LinkTag = React.useMemo(() => {
-		if (!children) return null;
+	if (dismissible) {
 		return (
 			<span
 				className={classes}
 				ref={ref}
 				{...props}
 			>
-				{children}
+				<span className={contentsClass}>{ children }</span>
+				<BaseButton
+					className={dismissClass}
+					onClick={(e) => {
+						if (onDismiss) onDismiss();
+						else if (onClick) onClick(e);
+					}}
+				>
+					<Icon variant="close" size="0.85em" aria-label="Dismiss" />
+				</BaseButton>
 			</span>
 		);
-	}, [classes, ref, children, props]);
+	}
 
-	const DefaultTag = React.useMemo(() => {
-		if (!children) return null;
+	if (isLink) {
 		return (
-			<Button
-				role="button"
+			<span
 				className={classes}
-				variant="ghost"
-				onClick={onDismiss}
+				ref={ref}
 				{...props}
 			>
-				{children}
-				{dismissible && (
-					<Icon
-						variant="close"
-						className={closeIconClass}
-						tabIndex={-1}
-						onClick={onDismiss}
-					>
-						Dismiss
-					</Icon>
-				)}
-			</Button>
+				<span className={contentsClass}>{ children }</span>
+			</span>
 		);
-	}, [classes, props, children, dismissible, closeIconClass, onDismiss]);
+	}
 
 	return (
-		<>
-			{ isLink ? LinkTag : DefaultTag }
-		</>
+		<BaseButton className={classes} onClick={onClick} {...props}>
+			<span className={contentsClass}>{ children }</span>
+		</BaseButton>
 	);
 });
