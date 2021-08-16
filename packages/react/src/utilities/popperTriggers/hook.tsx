@@ -1,10 +1,10 @@
 import {
 	useCallback,
-	useLayoutEffect,
 	useMemo, useRef,
 } from 'react';
 import { canUseDOM } from '../environment';
 import { useExternalClick } from '../externalClick';
+import { useLayoutEffect } from '../isomorphicLayoutEffect';
 import { UsePopperTriggersProps, PopperTriggersOpen, PopperTriggersClose } from './types';
 
 /**
@@ -17,24 +17,28 @@ export const usePopperTriggers = ({
 	trigger,
 	isOpen,
 	hideDelay,
+	showDelay,
 	onRequestOpen,
 	onRequestClose,
 }: UsePopperTriggersProps): void => {
 	const openTrigger = useRef<PopperTriggersOpen>();
 	const keyboardClick = useRef(false);
 	const spaceClick = useRef(false);
-	const timer = useRef<number>();
+	const showTimer = useRef<number>();
+	const hideTimer = useRef<number>();
 
-	const clearTimer = (): void => window.clearTimeout(timer.current);
+	const clearShowTimer = (): void => window.clearTimeout(showTimer.current);
+	const clearHideTimer = (): void => window.clearTimeout(hideTimer.current);
 
 	const show = useCallback((triggeredBy: PopperTriggersOpen) => {
 		openTrigger.current = triggeredBy;
 		if (onRequestOpen) onRequestOpen(triggeredBy);
-		clearTimer();
+		clearHideTimer();
 	}, [onRequestOpen]);
 
 	const hide = useCallback((triggeredBy: PopperTriggersClose) => {
 		if (onRequestClose) onRequestClose(triggeredBy);
+		clearShowTimer();
 	}, [onRequestClose]);
 
 	const externalTo = useMemo(() => {
@@ -102,31 +106,38 @@ export const usePopperTriggers = ({
 		};
 
 		// hover
-		const pointerenterHandler = () => show('pointerenter');
+		const pointerenterHandler = ({ target }: PointerEvent) => {
+			let composedPath: EventTarget[] = [];
+			const updateComposedPath = (e: PointerEvent) => {
+				composedPath = e.composedPath();
+			};
+			document.addEventListener('pointermove', updateComposedPath);
+			showTimer.current = window.setTimeout((): void => {
+				document.removeEventListener('pointermove', updateComposedPath);
+				if (target && composedPath.includes(target)) show('pointerenter');
+			}, showDelay);
+		};
 		const pointerleaveHandler = () => {
-			timer.current = window.setTimeout((): void => {
+			hideTimer.current = window.setTimeout((): void => {
 				if (openTrigger.current === 'pointerenter') hide('pointerleave');
 			}, hideDelay);
 		};
 
-		const isElement = (el: typeof reference): el is Element => (
-			(el) ? el instanceof Element : false
-		);
-		const isHTMLElement = (el: typeof reference): el is HTMLElement => (
-			(el) ? el instanceof HTMLElement : false
+		const isHTMLorSVGElement = (el: typeof reference): el is HTMLElement | SVGElement => (
+			(el) ? el instanceof window.HTMLElement || el instanceof window.SVGElement : false
 		);
 
 		// hide on Escape for all triggers
 		document.addEventListener('keydown', docKeydownHandler);
 
 		// click
-		if (trigger.includes('click') && isHTMLElement(reference)) {
+		if (trigger.includes('click') && isHTMLorSVGElement(reference)) {
 			reference.addEventListener('click', clickHandler);
-			reference.addEventListener('keydown', keydownHandler);
-			reference.addEventListener('keyup', keyupHandler);
+			reference.addEventListener('keydown', keydownHandler as EventListener);
+			reference.addEventListener('keyup', keyupHandler as EventListener);
 		}
 
-		if (isElement(reference)) {
+		if (isHTMLorSVGElement(reference)) {
 			// focus & focusin
 			if (trigger.includes('focus')) {
 				reference.addEventListener('focus', focusHandler);
@@ -140,7 +151,7 @@ export const usePopperTriggers = ({
 
 			// mouseenter & pointerenter
 			if (trigger.includes('mouseenter') || trigger.includes('pointerenter')) {
-				reference.addEventListener('pointerenter', pointerenterHandler);
+				reference.addEventListener('pointerenter', pointerenterHandler as EventListener);
 				reference.addEventListener('pointerleave', pointerleaveHandler);
 				if (popper) {
 					popper.addEventListener('pointerleave', pointerleaveHandler);
@@ -149,35 +160,33 @@ export const usePopperTriggers = ({
 		}
 
 		if (popper) {
-			popper.addEventListener('pointerenter', clearTimer);
+			popper.addEventListener('pointerenter', clearHideTimer);
 		}
 
 		return (): void => {
-			clearTimer();
+			clearHideTimer();
 			document.removeEventListener('keydown', docKeydownHandler);
 
-			if (isHTMLElement(reference)) {
+			if (isHTMLorSVGElement(reference)) {
 				// click
 				reference.removeEventListener('click', clickHandler);
-				reference.removeEventListener('keydown', keydownHandler);
-				reference.removeEventListener('keyup', keyupHandler);
-			}
+				reference.removeEventListener('keydown', keydownHandler as EventListener);
+				reference.removeEventListener('keyup', keyupHandler as EventListener);
 
-			if (isElement(reference)) {
 				// focus & focusin
 				reference.removeEventListener('focus', focusHandler);
 				reference.removeEventListener('focusin', focusinHandler);
 				reference.removeEventListener('blur', blurHandler);
 
 				// mouseenter & pointerenter
-				reference.removeEventListener('pointerenter', pointerenterHandler);
+				reference.removeEventListener('pointerenter', pointerenterHandler as EventListener);
 				reference.removeEventListener('pointerleave', pointerleaveHandler);
 			}
 
 			if (popper) {
-				popper.removeEventListener('pointerenter', clearTimer);
+				popper.removeEventListener('pointerenter', clearHideTimer);
 				popper.removeEventListener('pointerleave', pointerleaveHandler);
 			}
 		};
-	}, [reference, popper, trigger, show, hide, hideDelay, isOpen]);
+	}, [hide, hideDelay, isOpen, popper, reference, show, showDelay, trigger]);
 };

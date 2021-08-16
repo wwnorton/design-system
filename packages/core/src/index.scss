@@ -27,6 +27,7 @@
 
 /// Declarations for every component.
 @mixin components {
+	@include nds.badge-style;
 	@include nds.button-style;
 	@include nds.callout-style;
 	@include nds.checkbox-style;
@@ -38,6 +39,7 @@
 	@include nds.listbox-style;
 	@include nds.modal-style;
 	@include nds.popover-style;
+	@include nds.popper-style;
 	@include nds.radio-style;
 	@include nds.switch-style;
 	@include nds.textfield-style;
@@ -51,6 +53,7 @@
 @mixin helpers {
 	@if nds.$enable-helpers {
 		@include nds.a11y-helpers;
+		@include nds.motion-helpers;
 	}
 }
 

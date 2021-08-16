@@ -4,6 +4,7 @@ import {
 	select,
 	boolean,
 	text,
+	number,
 } from '@storybook/addon-knobs';
 import { placements } from '@popperjs/core/lib/enums';
 import { Popover, Button, TextField } from '../..';
@@ -59,6 +60,7 @@ export const Minimal: React.FunctionComponent = () => {
 				isOpen={isOpen}
 				onRequestClose={() => setIsOpen(false)}
 				onRequestOpen={() => setIsOpen(true)}
+				distance={number('Distance', 8)}
 			>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

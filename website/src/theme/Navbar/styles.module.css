@@ -1,5 +1,3 @@
-/* stylelint-disable selector-class-pattern */
-
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -7,16 +5,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+/*
+Hide toggle in small viewports
+ */
 @media screen and (max-width: 997px) {
-	.displayOnlyInLargeViewport {
-		display: none !important;
-	}
+  .toggle {
+    display: none;
+  }
 }
 
 .navbarHideable {
-	transition: transform var(--ifm-transition-fast) ease;
+  transition: transform var(--ifm-transition-fast) ease;
 }
 
 .navbarHidden {
-	transform: translate3d(0, calc(var(--ifm-navbar-height) * -1), 0);
+  transform: translate3d(0, calc(-100% - 2px), 0);
 }
