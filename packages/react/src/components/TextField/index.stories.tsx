@@ -287,12 +287,12 @@ export const CustomValidation: React.FunctionComponent = () => {
 	);
 };
 
-export const TextFieldMultiline: React.FunctionComponent = () => {
+export const Multiline: React.FunctionComponent = () => {
 	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
 	return (
 		<TextField
-			multiline={boolean('multiline', true)}
-			autoSize={boolean('autosize', true)}
+			multiline={boolean('Multiline', true)}
+			autoSize={boolean('Auto resize', true)}
 			description='The default Text Field has a type of "text"'
 			disabled={boolean('Disabled', false)}
 			onDOMChange={action('onDOMChange')}
@@ -307,12 +307,12 @@ export const TextFieldMultiline: React.FunctionComponent = () => {
 	);
 };
 
-export const TextFieldMultilineRows: React.FunctionComponent = () => {
+export const MultilineRows: React.FunctionComponent = () => {
 	const indicator = select('Show indicator', { None: undefined, Required: 'required', Optional: 'optional' }, undefined);
 	return (
 		<TextField
-			multiline={number('multiline', 5)}
-			autoSize={boolean('autosize', true)}
+			multiline={number('Multiline', 5)}
+			autoSize={boolean('Auto resize', true)}
 			description='The default Text Field has a type of "text"'
 			disabled={boolean('Disabled', false)}
 			onDOMChange={action('onDOMChange')}
@@ -329,8 +329,8 @@ export const TextFieldMultilineRows: React.FunctionComponent = () => {
 
 export const MultilineWithMaxLength: React.FunctionComponent = () => (
 	<TextFieldUncontrolled
-		multiline={boolean('multiline', true)}
-		autoSize={boolean('autosize', true)}
+		multiline={boolean('Multiline', true)}
+		autoSize={boolean('Auto resize', true)}
 		maxLength={number('Maximum length', 10)}
 		counterStart={number('Start counter at', 8)}
 		onCount={action('onCount')}
@@ -366,8 +366,8 @@ export const CustomValidationMultiline: React.FunctionComponent = () => {
 
 	return (
 		<TextField
-			multiline={boolean('multiline', true)}
-			autoSize={boolean('autoSize', true)}
+			multiline={boolean('Multiline', true)}
+			autoSize={boolean('Auto resize', true)}
 			value={value}
 			errors={errors}
 			onChange={changeHandler}
