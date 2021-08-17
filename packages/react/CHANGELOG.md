@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.3.0) (2021-08-17)
+
+### ⚡️ Performance
+
+- **listbox:** memoize the options map ([d0655e2](https://github.com/wwnorton/design-system/commit/d0655e2066986dd0e33ac91843961d738d5b6148))
+
+### 🐛 Bug Fixes
+
+- **button:** pass ARIA labelling attributes to button ([af7b12c](https://github.com/wwnorton/design-system/commit/af7b12c25fb56851cc6930c00c68c77da12fd852))
+- **disclosure:** properly render flex summary on Safari [NDS-93] ([#187](https://github.com/wwnorton/design-system/issues/187)) ([1fd081a](https://github.com/wwnorton/design-system/commit/1fd081a4e23abbe18c86cc38bb59aef5f490d898))
+- replace React.useLayoutEffect with isomorphic useLayoutEffect ([12256a8](https://github.com/wwnorton/design-system/commit/12256a8a8b292d52c7a364737b0d51d43c1bf8fe))
+- **select-hook:** use the correct form target ([a2b432b](https://github.com/wwnorton/design-system/commit/a2b432bb54bfa60c28c67d3e0660f9622a5439ac)), closes [/github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682](https://github.com/wwnorton//github.com/DefinitelyTyped/DefinitelyTyped/issues/11508/issues/issuecomment-256045682)
+
+### ♻️ Refactor
+
+- **button:** destructure props in one place ([e237e72](https://github.com/wwnorton/design-system/commit/e237e72e033eafa22f547c62f381eda3b17b2452))
+- error if onChange triggers without a checked attribute ([d18e030](https://github.com/wwnorton/design-system/commit/d18e030704aeabb63e77e4fb0db7b8e7985cf9bf))
+- **hooks:** rewrite the useSelect hook ([6b87075](https://github.com/wwnorton/design-system/commit/6b870751005622403886b6b5c4d8481c96e8a7bb))
+- import TooltipCoreProps from the new types file ([aa287f8](https://github.com/wwnorton/design-system/commit/aa287f8a7947cc4cc8443cf65b8be5a5eba2b394))
+- **popover:** use new Popper component ([6077554](https://github.com/wwnorton/design-system/commit/6077554b604b8b8f4882918f80b9a99687b62f02))
+- **popper:** add new Popper implementation ([ebdece0](https://github.com/wwnorton/design-system/commit/ebdece0d6212aea705767b4a1b648fc490f8c944))
+- reference can be an SVGElement ([3d0a6b7](https://github.com/wwnorton/design-system/commit/3d0a6b7664a212a895a98c99b2f3942d4798025b))
+- remove Element check ([0e10fc0](https://github.com/wwnorton/design-system/commit/0e10fc027f598a72f9ec447f754847149bda423c))
+- **text-field:** update email regex ([431ce8d](https://github.com/wwnorton/design-system/commit/431ce8dc82e509e06117fdd196790cf8714c8849)), closes [#152](https://github.com/wwnorton/design-system/issues/152)
+- **tooltip:** use new Popper component ([4aa08f6](https://github.com/wwnorton/design-system/commit/4aa08f6f41abcb488282df3ede02003c5fe36bb7))
+- use type checking instead of assertion ([f4a7dde](https://github.com/wwnorton/design-system/commit/f4a7dded96d993798ba17bc5f688f13832c77ad7))
+
+### ✨ Features
+
+- **button:** set a default tooltip show delay when iconOnly ([877f07d](https://github.com/wwnorton/design-system/commit/877f07dbc817e2e56d56a212f9a8a79819a76410))
+- **hooks:** add initial stepper hook ([90bdbed](https://github.com/wwnorton/design-system/commit/90bdbed282c99bb3c584a09ae516cedbf7d7d870))
+- **hooks:** add roving tabindex hook ([a5a44e8](https://github.com/wwnorton/design-system/commit/a5a44e8782107e28a6787298bee93f003997c673))
+- initial badge implementation ([97a5e23](https://github.com/wwnorton/design-system/commit/97a5e237bcf52c98de455c8732a79489aec0f8d2))
+- **listbox:** initial standalone listbox ([f4450b4](https://github.com/wwnorton/design-system/commit/f4450b44702d0624303b9094faac7c8d5f1274c1))
+- **popper:** add show delay ([ead1e5d](https://github.com/wwnorton/design-system/commit/ead1e5d4e7d66024e3b1d17d3d67f1658c0b98a0))
+- **react:** add children utilities ([ea148c6](https://github.com/wwnorton/design-system/commit/ea148c6a5cc63dd89cef7ffb22979bf61aa835a9))
+- **tag:** initial tag implementation ([2590936](https://github.com/wwnorton/design-system/commit/2590936ec4a27e518305e566dba35100a15a1f35))
+- **text-field:** add multiline and auto resizing ([38b1c53](https://github.com/wwnorton/design-system/commit/38b1c53ca6a45f6b4f984951daa8182af9ae4efe))
+- **tooltip:** set a default show delay of 400ms ([7365cff](https://github.com/wwnorton/design-system/commit/7365cff6ce6b4ffeca4acd7de9bfd45219db317f))
+
+### 📝 Documentation
+
+- initial badge and tag documentation ([0aa70ef](https://github.com/wwnorton/design-system/commit/0aa70ef430672d92a6dc264024409c65a9bb7db6))
+- **listbox:** add custom marker story ([a835c4d](https://github.com/wwnorton/design-system/commit/a835c4d3c93782d6e1ae61e508f3ad51fb049196))
+- **popover:** add distance knob to minimal story ([2b3aeb1](https://github.com/wwnorton/design-system/commit/2b3aeb15bc71fc95c13cce745bb5f775fc47568e))
+- **storybook:** add initial listbox stories ([ff00e6e](https://github.com/wwnorton/design-system/commit/ff00e6e1de2eba207ea2d58a511d6d0826b75c08))
+- **tooltip:** add showDelay knob to applicable stories ([d6b9848](https://github.com/wwnorton/design-system/commit/d6b98480a8cb396c0382b31be2c67b308b882515))
+
 ### [1.2.1](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.2.1) (2021-05-10)
 
 **Note:** Version bump only for package @wwnds/react

@@ -3,6 +3,75 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.3.0) (2021-08-17)
+
+### ⚡️ Performance
+
+- **listbox:** memoize the options map ([d0655e2](https://github.com/wwnorton/design-system/commit/d0655e2066986dd0e33ac91843961d738d5b6148))
+
+### 🐛 Bug Fixes
+
+- **button:** pass ARIA labelling attributes to button ([af7b12c](https://github.com/wwnorton/design-system/commit/af7b12c25fb56851cc6930c00c68c77da12fd852))
+- **core:** remove default focus z-index ([2ccae23](https://github.com/wwnorton/design-system/commit/2ccae234d3bbeaff8fe2a8bfdcccd102267723e9))
+- **disclosure:** properly render flex summary on Safari [NDS-93] ([#187](https://github.com/wwnorton/design-system/issues/187)) ([1fd081a](https://github.com/wwnorton/design-system/commit/1fd081a4e23abbe18c86cc38bb59aef5f490d898))
+- replace React.useLayoutEffect with isomorphic useLayoutEffect ([12256a8](https://github.com/wwnorton/design-system/commit/12256a8a8b292d52c7a364737b0d51d43c1bf8fe))
+- **select-hook:** use the correct form target ([a2b432b](https://github.com/wwnorton/design-system/commit/a2b432bb54bfa60c28c67d3e0660f9622a5439ac)), closes [/github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682](https://github.com/wwnorton//github.com/DefinitelyTyped/DefinitelyTyped/issues/11508/issues/issuecomment-256045682)
+
+### ✨ Features
+
+- **button:** set a default tooltip show delay when iconOnly ([877f07d](https://github.com/wwnorton/design-system/commit/877f07dbc817e2e56d56a212f9a8a79819a76410))
+- **hooks:** add initial stepper hook ([90bdbed](https://github.com/wwnorton/design-system/commit/90bdbed282c99bb3c584a09ae516cedbf7d7d870))
+- **hooks:** add roving tabindex hook ([a5a44e8](https://github.com/wwnorton/design-system/commit/a5a44e8782107e28a6787298bee93f003997c673))
+- initial badge implementation ([97a5e23](https://github.com/wwnorton/design-system/commit/97a5e237bcf52c98de455c8732a79489aec0f8d2))
+- **listbox:** add default listbox and option styling ([aae5942](https://github.com/wwnorton/design-system/commit/aae594249366820fcfb4e0074d0a43c726ca832a))
+- **listbox:** initial standalone listbox ([f4450b4](https://github.com/wwnorton/design-system/commit/f4450b44702d0624303b9094faac7c8d5f1274c1))
+- **motion:** add fade transition ([71124e5](https://github.com/wwnorton/design-system/commit/71124e514b3a41e0c8fbc07727eb653614fdd809))
+- **popper:** add show delay ([ead1e5d](https://github.com/wwnorton/design-system/commit/ead1e5d4e7d66024e3b1d17d3d67f1658c0b98a0))
+- **react:** add children utilities ([ea148c6](https://github.com/wwnorton/design-system/commit/ea148c6a5cc63dd89cef7ffb22979bf61aa835a9))
+- **tag:** initial tag implementation ([2590936](https://github.com/wwnorton/design-system/commit/2590936ec4a27e518305e566dba35100a15a1f35))
+- **text-field:** add multiline and auto resizing ([38b1c53](https://github.com/wwnorton/design-system/commit/38b1c53ca6a45f6b4f984951daa8182af9ae4efe))
+- **tooltip:** set a default show delay of 400ms ([7365cff](https://github.com/wwnorton/design-system/commit/7365cff6ce6b4ffeca4acd7de9bfd45219db317f))
+
+### 📝 Documentation
+
+- **button:** add intro to react api ([00905d4](https://github.com/wwnorton/design-system/commit/00905d4c12f7d16c635d08d9f7fd3b0980b2b623))
+- initial badge and tag documentation ([0aa70ef](https://github.com/wwnorton/design-system/commit/0aa70ef430672d92a6dc264024409c65a9bb7db6))
+- **link:** update component docs with new react API ([b4b6e26](https://github.com/wwnorton/design-system/commit/b4b6e26c68ef4815dcc01305e9c036b1606df7ff))
+- **listbox:** add custom marker story ([a835c4d](https://github.com/wwnorton/design-system/commit/a835c4d3c93782d6e1ae61e508f3ad51fb049196))
+- **popover:** add distance knob to minimal story ([2b3aeb1](https://github.com/wwnorton/design-system/commit/2b3aeb15bc71fc95c13cce745bb5f775fc47568e))
+- **react-providers:** add initial docs on context providers ([1b70c3d](https://github.com/wwnorton/design-system/commit/1b70c3dd96cbc7c9d52ef64eb1a43eb3ceb5dbc2))
+- **storybook:** add initial listbox stories ([ff00e6e](https://github.com/wwnorton/design-system/commit/ff00e6e1de2eba207ea2d58a511d6d0826b75c08))
+- **text-field:** update section on multiline ([bde00ac](https://github.com/wwnorton/design-system/commit/bde00ace4c1b8ac4a53e3dee92208ec6a3f08309))
+- **tooltip:** add showDelay knob to applicable stories ([d6b9848](https://github.com/wwnorton/design-system/commit/d6b98480a8cb396c0382b31be2c67b308b882515))
+- **website:** initial content guidelines ([acb0f42](https://github.com/wwnorton/design-system/commit/acb0f42c4e5b056afd910570c433655ce97a23df))
+
+### ♻️ Refactor
+
+- **button:** destructure props in one place ([e237e72](https://github.com/wwnorton/design-system/commit/e237e72e033eafa22f547c62f381eda3b17b2452))
+- **core:** black and white are system tokens ([0ceb830](https://github.com/wwnorton/design-system/commit/0ceb830f2b8a5b1a2a0b644f4f4ef80a579133b7))
+- **core:** remove default selection styling ([5af2a09](https://github.com/wwnorton/design-system/commit/5af2a092f1e6e37434f3f266cf9e233a0cee041c))
+- **core:** undeclared properties cannot be null ([ed0426d](https://github.com/wwnorton/design-system/commit/ed0426d8118639cda6bbf7fd50823991a7eafb67))
+- **core:** use data-color-scheme for theming ([0bda516](https://github.com/wwnorton/design-system/commit/0bda516718407420ddfd8a3d674e75257a32d772))
+- **core:** use new sass div syntax ([219ee4d](https://github.com/wwnorton/design-system/commit/219ee4d306ec4fcd1b5079a27145f67ccd7dff31))
+- error if onChange triggers without a checked attribute ([d18e030](https://github.com/wwnorton/design-system/commit/d18e030704aeabb63e77e4fb0db7b8e7985cf9bf))
+- **hooks:** rewrite the useSelect hook ([6b87075](https://github.com/wwnorton/design-system/commit/6b870751005622403886b6b5c4d8481c96e8a7bb))
+- import TooltipCoreProps from the new types file ([aa287f8](https://github.com/wwnorton/design-system/commit/aa287f8a7947cc4cc8443cf65b8be5a5eba2b394))
+- **popover:** use "distance" for offset token ([a221bf4](https://github.com/wwnorton/design-system/commit/a221bf4ad326072442232f1cf69d024582478de3))
+- **popover:** use new Popper component ([6077554](https://github.com/wwnorton/design-system/commit/6077554b604b8b8f4882918f80b9a99687b62f02))
+- **popover:** use updated popper tokens ([f444f48](https://github.com/wwnorton/design-system/commit/f444f48dbea6b19d268a68b4c6d0a5fdd38c4662))
+- **popper:** add new Popper implementation ([ebdece0](https://github.com/wwnorton/design-system/commit/ebdece0d6212aea705767b4a1b648fc490f8c944))
+- **popper:** promote popper sass to real component ([74d2f46](https://github.com/wwnorton/design-system/commit/74d2f4689fc5ff2ed4d52c7fa260b0b7044e7374))
+- reference can be an SVGElement ([3d0a6b7](https://github.com/wwnorton/design-system/commit/3d0a6b7664a212a895a98c99b2f3942d4798025b))
+- remove Element check ([0e10fc0](https://github.com/wwnorton/design-system/commit/0e10fc027f598a72f9ec447f754847149bda423c))
+- **text-field:** update email regex ([431ce8d](https://github.com/wwnorton/design-system/commit/431ce8dc82e509e06117fdd196790cf8714c8849)), closes [#152](https://github.com/wwnorton/design-system/issues/152)
+- **tooltip:** use "distance" for offset token ([f3ccc6a](https://github.com/wwnorton/design-system/commit/f3ccc6a2fb57461d3ed6f4fb4011924f5043563d))
+- **tooltip:** use new Popper component ([4aa08f6](https://github.com/wwnorton/design-system/commit/4aa08f6f41abcb488282df3ede02003c5fe36bb7))
+- **tooltip:** use updated popper tokens ([b21f868](https://github.com/wwnorton/design-system/commit/b21f86832ae678e7e53903339835fbe1b3a94109))
+- use type checking instead of assertion ([f4a7dde](https://github.com/wwnorton/design-system/commit/f4a7dded96d993798ba17bc5f688f13832c77ad7))
+- **website:** re-swizzle NavBar ([4df05d5](https://github.com/wwnorton/design-system/commit/4df05d58b51a487e2eaa8bbb13bc144939a39dab))
+- **website:** remove unused var ([a8c3e6d](https://github.com/wwnorton/design-system/commit/a8c3e6d6f52a6a88df3d4e7cdeb6d20da0863c19))
+- **website:** use nds color scheme switch in navbar ([c439a1f](https://github.com/wwnorton/design-system/commit/c439a1f19c0bc125b28ac4c34862b975e6afb26d))
+
 ### [1.2.1](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.2.1) (2021-05-10)
 
 ### ♻️ Refactor

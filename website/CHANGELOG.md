@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.3.0) (2021-08-17)
+
+### 📝 Documentation
+
+- **button:** add intro to react api ([00905d4](https://github.com/wwnorton/design-system/commit/00905d4c12f7d16c635d08d9f7fd3b0980b2b623))
+- initial badge and tag documentation ([0aa70ef](https://github.com/wwnorton/design-system/commit/0aa70ef430672d92a6dc264024409c65a9bb7db6))
+- **link:** update component docs with new react API ([b4b6e26](https://github.com/wwnorton/design-system/commit/b4b6e26c68ef4815dcc01305e9c036b1606df7ff))
+- **react-providers:** add initial docs on context providers ([1b70c3d](https://github.com/wwnorton/design-system/commit/1b70c3dd96cbc7c9d52ef64eb1a43eb3ceb5dbc2))
+- **text-field:** update section on multiline ([bde00ac](https://github.com/wwnorton/design-system/commit/bde00ace4c1b8ac4a53e3dee92208ec6a3f08309))
+- **website:** initial content guidelines ([acb0f42](https://github.com/wwnorton/design-system/commit/acb0f42c4e5b056afd910570c433655ce97a23df))
+
+### ♻️ Refactor
+
+- **core:** remove default selection styling ([5af2a09](https://github.com/wwnorton/design-system/commit/5af2a092f1e6e37434f3f266cf9e233a0cee041c))
+- **website:** re-swizzle NavBar ([4df05d5](https://github.com/wwnorton/design-system/commit/4df05d58b51a487e2eaa8bbb13bc144939a39dab))
+- **website:** remove unused var ([a8c3e6d](https://github.com/wwnorton/design-system/commit/a8c3e6d6f52a6a88df3d4e7cdeb6d20da0863c19))
+- **website:** use nds color scheme switch in navbar ([c439a1f](https://github.com/wwnorton/design-system/commit/c439a1f19c0bc125b28ac4c34862b975e6afb26d))
+
 ### [1.2.1](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.2.1) (2021-05-10)
 
 ### 📝 Documentation

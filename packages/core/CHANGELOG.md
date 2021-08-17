@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.3.0) (2021-08-17)
+
+### 🐛 Bug Fixes
+
+- **core:** remove default focus z-index ([2ccae23](https://github.com/wwnorton/design-system/commit/2ccae234d3bbeaff8fe2a8bfdcccd102267723e9))
+
+### ✨ Features
+
+- initial badge implementation ([97a5e23](https://github.com/wwnorton/design-system/commit/97a5e237bcf52c98de455c8732a79489aec0f8d2))
+- **listbox:** add default listbox and option styling ([aae5942](https://github.com/wwnorton/design-system/commit/aae594249366820fcfb4e0074d0a43c726ca832a))
+- **motion:** add fade transition ([71124e5](https://github.com/wwnorton/design-system/commit/71124e514b3a41e0c8fbc07727eb653614fdd809))
+- **tag:** initial tag implementation ([2590936](https://github.com/wwnorton/design-system/commit/2590936ec4a27e518305e566dba35100a15a1f35))
+
+### ♻️ Refactor
+
+- **core:** black and white are system tokens ([0ceb830](https://github.com/wwnorton/design-system/commit/0ceb830f2b8a5b1a2a0b644f4f4ef80a579133b7))
+- **core:** remove default selection styling ([5af2a09](https://github.com/wwnorton/design-system/commit/5af2a092f1e6e37434f3f266cf9e233a0cee041c))
+- **core:** undeclared properties cannot be null ([ed0426d](https://github.com/wwnorton/design-system/commit/ed0426d8118639cda6bbf7fd50823991a7eafb67))
+- **core:** use data-color-scheme for theming ([0bda516](https://github.com/wwnorton/design-system/commit/0bda516718407420ddfd8a3d674e75257a32d772))
+- **core:** use new sass div syntax ([219ee4d](https://github.com/wwnorton/design-system/commit/219ee4d306ec4fcd1b5079a27145f67ccd7dff31))
+- **popover:** use "distance" for offset token ([a221bf4](https://github.com/wwnorton/design-system/commit/a221bf4ad326072442232f1cf69d024582478de3))
+- **popover:** use updated popper tokens ([f444f48](https://github.com/wwnorton/design-system/commit/f444f48dbea6b19d268a68b4c6d0a5fdd38c4662))
+- **popper:** promote popper sass to real component ([74d2f46](https://github.com/wwnorton/design-system/commit/74d2f4689fc5ff2ed4d52c7fa260b0b7044e7374))
+- **tooltip:** use "distance" for offset token ([f3ccc6a](https://github.com/wwnorton/design-system/commit/f3ccc6a2fb57461d3ed6f4fb4011924f5043563d))
+- **tooltip:** use updated popper tokens ([b21f868](https://github.com/wwnorton/design-system/commit/b21f86832ae678e7e53903339835fbe1b3a94109))
+
 ### [1.2.1](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.2.1) (2021-05-10)
 
 ### ♻️ Refactor
