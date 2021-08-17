@@ -45,11 +45,11 @@
     "react-fast-compare": "^3.2.0",
     "react-is": "^17.0.2",
     "react-popper": "^2.2.5",
-    "react-transition-group": "^4.4.1"
+    "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
     "@types/react-is": "^17.0.0",
-    "@types/react-transition-group": "^4.4.1"
+    "@types/react-transition-group": "^4.4.2"
   },
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0",
