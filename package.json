@@ -124,6 +124,7 @@
     "husky": "^7.0.1",
     "jsdom": "^17.0.0",
     "jsdom-global": "^3.0.2",
+    "lerna": "^4.0.0",
     "lint-staged": "^11.0.0",
     "microbundle": "^0.13.0",
     "mq-polyfill": "^1.1.8",
