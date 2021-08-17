@@ -1,0 +1,11 @@
+coverage:
+  status:
+    patch:
+      default:
+        target: auto
+        threshold: 0.05%
+        base: auto
+comment:
+  # wait for all jobs to complete before reporting to help avoid premature failures
+  # https://docs.codecov.com/docs/unexpected-coverage-changes
+  after_n_builds: 8
