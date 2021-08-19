@@ -2,6 +2,13 @@
   "name": "website",
   "version": "1.3.0",
   "private": true,
+  "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
+  "contributors": [
+    "Annie Hirshman",
+    "Jonathan Chan <jchan@wwnorton.com>",
+    "Erin O'Hara <eohara@wwnorton.com>",
+    "Anand Patil <apatil@wwnorton.com>"
+  ],
   "scripts": {
     "build": "docusaurus build --out-dir ../public",
     "clear": "docusaurus clear",
