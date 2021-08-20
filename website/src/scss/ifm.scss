@@ -101,3 +101,7 @@ td > code:first-child:last-child {
 .navbar__search {
 	padding-left: var(--ifm-navbar-padding-horizontal);
 }
+
+.pagination-nav__link {
+	display: block;
+}
