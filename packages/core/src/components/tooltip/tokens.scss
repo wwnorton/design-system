@@ -3,7 +3,7 @@
 
 $arrow-size: 12px !default;
 $offset-distance: 6px !default;
-$max-width: #{util.px2rem(256)}rem;
+$max-width: #{util.px2rem(256)}rem !default;
 $padding-x: spacing.spacer('tooltip-x') !default;
 $padding-y: spacing.spacer('tooltip-y') !default;
 $border-radius: var(--nds-radius-base) !default;

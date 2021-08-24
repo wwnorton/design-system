@@ -1,9 +1,9 @@
 @use '../../spacing';
 
-$border-width: spacing.px(0);
-$border-radius: var(--nds-radius-base);
-$border: var(--nds-disclosure-border-width) solid var(--nds-base-color-40);
-$padding-y: spacing.spacer('disclosure-y');
-$padding-x: spacing.spacer('disclosure-x');
-$marker-margin: spacing.spacer('ui-inner');
-$summary-background-color: transparent;
+$border-width: spacing.px(0) !default;
+$border-radius: var(--nds-radius-base) !default;
+$border: var(--nds-disclosure-border-width) solid var(--nds-base-color-40) !default;
+$padding-y: spacing.spacer('disclosure-y') !default;
+$padding-x: spacing.spacer('disclosure-x') !default;
+$marker-margin: spacing.spacer('ui-inner') !default;
+$summary-background-color: transparent !default;
