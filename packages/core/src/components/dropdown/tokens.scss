@@ -1,15 +1,15 @@
 @use '../../spacing';
 @use '../../type';
 
-$border-width: 1px;
-$listbox-shadow: 0 2px 4px 0 rgba(var(--nds-black), 0.25);
-$options-max-display: 5;
-$option-hover-color: var(--nds-base-color-20);
-$option-hover-focus-color: var(--nds-base-color-30);
-$option-focus-color: var(--nds-focus-color-background);
-$option-padding-y: spacing.spacer('button-y');
-$option-padding-x: spacing.spacer('dropdown-x');
-$option-font-size: 1rem;
-$option-line-height: type.lh('ui');
-$option-icon-padding-x: calc(var(--nds-dropdown-option-padding-x) / 2);
-$option-icon-size: 0.75em;
+$border-width: 1px !default;
+$listbox-shadow: 0 2px 4px 0 rgba(var(--nds-black), 0.25) !default;
+$options-max-display: 5 !default;
+$option-hover-color: var(--nds-base-color-20) !default;
+$option-hover-focus-color: var(--nds-base-color-30) !default;
+$option-focus-color: var(--nds-focus-color-background) !default;
+$option-padding-y: spacing.spacer('button-y') !default;
+$option-padding-x: spacing.spacer('dropdown-x') !default;
+$option-font-size: 1rem !default;
+$option-line-height: type.lh('ui') !default;
+$option-icon-padding-x: calc(var(--nds-dropdown-option-padding-x) / 2) !default;
+$option-icon-size: 0.75em !default;

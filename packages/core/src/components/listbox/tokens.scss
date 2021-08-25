@@ -1,12 +1,12 @@
 @use '../../spacing';
 @use '../../type';
 
-$border: 1px solid var(--nds-base-color-40);
-$border-radius: var(--nds-radius-base);
-$option-hover-color: var(--nds-base-color-20);
-$option-hover-focus-color: var(--nds-base-color-30);
-$option-focus-color: var(--nds-focus-color-background);
-$option-padding-y: spacing.spacer('button-y');
-$option-padding-x: spacing.spacer('dropdown-x');
-$option-marker-padding-x: calc(var(--nds-option-padding-x) / 2);
-$option-marker-size: 0.75em;
+$border: 1px solid var(--nds-base-color-40) !default;
+$border-radius: var(--nds-radius-base) !default;
+$option-hover-color: var(--nds-base-color-20) !default;
+$option-hover-focus-color: var(--nds-base-color-30) !default;
+$option-focus-color: var(--nds-focus-color-background) !default;
+$option-padding-y: spacing.spacer('button-y') !default;
+$option-padding-x: spacing.spacer('dropdown-x') !default;
+$option-marker-padding-x: calc(var(--nds-option-padding-x) / 2) !default;
+$option-marker-size: 0.75em !default;

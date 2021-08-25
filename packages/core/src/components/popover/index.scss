@@ -1,6 +1,6 @@
 @forward 'tokens';
 @use 'tokens';
-@use '../popper';
+@use '../popper/anatomy' as popper;
 @use '../../config';
 @use '../../spacing';
 @use '../../type';

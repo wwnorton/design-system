@@ -3,8 +3,8 @@
 
 $arrow-size: 16px !default;
 $offset-distance: 8px !default;
-$max-width: #{util.px2rem(375)}rem;
+$max-width: #{util.px2rem(375)}rem !default;
 $padding-x: spacing.spacer('popover-x') !default;
 $padding-y: spacing.spacer('popover-y') !default;
 $border-radius: var(--nds-radius-md) !default;
-$border-width: 1px;
+$border-width: 1px !default;
