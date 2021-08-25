@@ -41,8 +41,8 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 		className = classNames(baseName, `${baseName}--text`),
 		labelClass,
 		descriptionClass,
-		groupClass = classNames(`${baseName}__group`, `${baseName}__group--text`),
-		inputClass = classNames(`${baseName}__input`, `${baseName}__input--text`),
+		groupClass = classNames(`${baseName}__group${multiline ? '--textarea' : ''}`, `${baseName}__group--text`),
+		inputClass = classNames(`${baseName}__${multiline ? 'textarea' : 'input'}`, `${baseName}__${multiline ? 'textarea' : 'input'}--text`),
 		addonClass = `${baseName}__addon`,
 		feedbackClass,
 		errorsClass,
@@ -178,11 +178,12 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 				descriptionId={descId.current}
 				description={description}
 			/>
-			<div className={groupClass}>
+			<div className={!multiline ? groupClass : ''}>
 				{ (multiline)
 					? (
 						<BaseTextArea
 							{...sharedProps}
+							className={classNames(groupClass, inputClass)}
 							multiline={multiline}
 							autoSize={autoSize}
 						/>
