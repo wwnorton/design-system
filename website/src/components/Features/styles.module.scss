@@ -74,7 +74,7 @@
 @mixin feature-media {
 	display: flex;
 	min-width: calc(100% + var(--nds-feature-padding-x) * 2);
-	margin-top: calc(-1 * var(--nds-feature-padding-y));
+	margin-top: calc(-1 * var(--nds-feature-padding-y)) !important; // only necessary to override Infima styling
 	margin-bottom: nds.spacer('1rem');
 	margin-left: calc(-1 * var(--nds-feature-padding-x));
 	border-top-left-radius: var(--nds-feature-border-radius);
@@ -91,6 +91,8 @@
 
 .feature__img {
 	display: block;
+	border-top-left-radius: var(--nds-feature-border-radius);
+	border-top-right-radius: var(--nds-feature-border-radius);
 }
 
 .feature__tk {
