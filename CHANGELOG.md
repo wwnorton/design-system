@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.1](https://github.com/wwnorton/design-system/compare/v1.3.0...v1.3.1) (2021-08-25)
+
+### 📝 Documentation
+
+- **website:** fix pagination display ([7244856](https://github.com/wwnorton/design-system/commit/7244856f9b2c2e7cc17bbcf84fdd4755a6655bd1))
+
+### 🐛 Bug Fixes
+
+- **core:** make all component tokens configurable using "with" ([4fb0221](https://github.com/wwnorton/design-system/commit/4fb02211997099cce36ef93c5811ea2b24d1c175))
+- **core:** make sass@1.33.x an optional peer dependency ([11eaf3f](https://github.com/wwnorton/design-system/commit/11eaf3f013dc32267b52d0d497b53aa641cf414c))
+- **core:** prevent duplicate dependency errors on customization ([6e2ef54](https://github.com/wwnorton/design-system/commit/6e2ef545311eecb1b5f23de89d1afe5055e2ddea))
+- **textfield:** allow the Textfield multiline component to expand vertically and horizontally ([c02b1ee](https://github.com/wwnorton/design-system/commit/c02b1eefedb802db9ee32178e4ce6789377ea371))
+
 ## [1.3.0](https://github.com/wwnorton/design-system/compare/v1.2.0...v1.3.0) (2021-08-17)
 
 ### ⚡️ Performance
