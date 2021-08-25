@@ -128,6 +128,28 @@
 	}
 }
 
+@mixin textarea {
+	position: relative;
+	width: 100%;
+	min-width: 0;
+	padding: var(--nds-textfield-padding-y) var(--nds-textfield-padding-x);
+	background-color: var(--nds-white);
+	border: 0;
+	border-radius: inherit;
+	caret-color: var(--nds-primary-color);
+
+	&:disabled,
+	&.disabled {
+		color: var(--nds-disabled-color-40);
+		background-color: var(--nds-disabled-color-20);
+		border-color: var(--nds-disabled-color-40);
+	}
+
+	&:-moz-ui-invalid {
+		box-shadow: none;
+	}
+}
+
 @mixin counter {
 	margin-left: auto;
 	font-size: var(--nds-font-size-sm);
@@ -139,6 +161,10 @@
 	@include util.declare('textfield') {
 		.nds-field__input--text {
 			@include input;
+		}
+
+		.nds-field__textarea--text {
+			@include textarea;
 		}
 
 		.nds-field__counter {

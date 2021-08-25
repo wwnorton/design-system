@@ -72,6 +72,16 @@
 	@include type.ui-base;
 }
 
+@mixin group-textarea {
+	--nds-field-padding-y: #{tokens.$padding-y};
+	--nds-field-offset-x: #{tokens.$offset-x};
+
+	position: relative;
+	display: flex;
+
+	@include type.ui-base;
+}
+
 // A "choice" modifier for the field group container.
 // Default: `.field__group--choice`
 @mixin group-choice {
@@ -247,6 +257,10 @@
 	@include util.declare('field-group') {
 		.nds-field__group {
 			@include group;
+		}
+
+		.nds-field__group--textarea {
+			@include group-textarea;
 		}
 
 		.nds-field__group--choice {
