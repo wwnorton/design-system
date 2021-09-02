@@ -10,10 +10,11 @@ import {
 import {
 	TextField, TextFieldUncontrolled,
 } from '.';
-import { Button, ButtonProps } from '../Button';
+import { Button } from '../Button';
 import { Icon, IconProps } from '../Icon';
 import { useValidation } from '../../utilities';
 import { TextFieldProps, TextFieldType } from './types';
+import { ButtonProps } from '../Button/types';
 
 export default {
 	title: 'Text Field',

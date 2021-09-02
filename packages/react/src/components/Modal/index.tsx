@@ -5,7 +5,8 @@ import uniqueId from 'lodash/uniqueId';
 import { getFocusable } from './focusable';
 import { canUseDOM } from '../../utilities';
 import { BaseDialog, BaseDialogProps } from '../BaseDialog';
-import { IconButton, ButtonProps } from '../Button';
+import { IconButton } from '../Button';
+import { ButtonProps } from '../Button/types';
 
 export type ModalAnatomy =
 	| 'portal'

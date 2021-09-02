@@ -163,6 +163,11 @@
 	}
 }
 
+@mixin cursor-disabled {
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
 @mixin style {
 	@include util.declare('button') {
 		.nds-button {
@@ -183,6 +188,10 @@
 
 		.nds-button--icon-only {
 			@include icon-only;
+		}
+
+		.nds-button--cursor-disabled {
+			@include cursor-disabled;
 		}
 
 		.nds-button__icon {
