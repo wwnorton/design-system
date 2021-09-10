@@ -45,6 +45,7 @@ module.exports = {
 		'components/spinner',
 		'components/switch',
 		'components/text-field',
+		'components/table',
 		'components/tag',
 		'components/tooltip',
 		'components/react-providers',
