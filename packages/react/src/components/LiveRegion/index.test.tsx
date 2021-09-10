@@ -9,7 +9,7 @@ test.afterEach(cleanup);
 
 const defaultContents = 'Foo bar';
 
-test('live regions only update when their contents change', async (t) => {
+test.skip('live regions only update when their contents change', async (t) => {
 	const { rerender } = render(<LiveRegion />);
 	rerender(<LiveRegion>{ defaultContents }</LiveRegion>);
 	t.truthy(await screen.findByText(defaultContents));
