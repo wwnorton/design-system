@@ -3,6 +3,8 @@ title: Table
 description: A table allows users to view data organized in rows and columns and in some cases perform actions on it.
 ---
 
+import { CalloutError, CalloutSuccess } from '@wwnds/react';
+
 > A table allows users to view data organized in rows and columns and in some cases perform actions on it.
 
 ## Anatomy
@@ -37,7 +39,14 @@ Use a table to organize and display long lists of data or content, or to help us
 
 ### Dos and Don'ts
 
-:::tip Do always include a header row that clearly labels each column.
-:::
-:::danger Don't use a table purely for layout purposes.
-:::
+<CalloutSuccess title="Dos">
+
+Do always include a header row that clearly labels each column.
+
+</CalloutSuccess>
+
+<CalloutError title="Don'ts">
+
+Don't use a table purely for layout purposes.
+
+</CalloutError>
