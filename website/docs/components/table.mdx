@@ -1,20 +1,20 @@
 ---
 title: Table
-description: A table allows users to view data organized in rows and columns and in some cases perform actions on it.
+description: A table allows users to view data organized in rows and columns.
 ---
 
 import { CalloutError, CalloutSuccess } from '@wwnds/react';
 
-> A table allows users to view data organized in rows and columns and in some cases perform actions on it.
+> A table allows users to view data organized in rows and columns.
 
 ## Anatomy
 
-1. Header Row
-1. Rows
-1. Columns
-1. A container
-1. Sort (optional)
-1. Scrolling (optional)
+Tables contain **cells** of data arranged in a grid.
+
+1. **Header row** - the first row of a table contains cells that act as labels for the columns.
+	1. **Sort indicator** (_conditional_) - when sortable, header cells must convey their current sort state, which can be ascending, descending, or unsorted.
+1. **Rows** - a horizontal slice of the table groups related cells.
+1. **Columns** - a vertical slice of the table groups cells related by the label in the header cell.
 
 ## Usage
 
