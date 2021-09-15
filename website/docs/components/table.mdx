@@ -1,0 +1,52 @@
+---
+title: Table
+description: A table allows users to view data organized in rows and columns.
+---
+
+import { CalloutError, CalloutSuccess } from '@wwnds/react';
+
+> A table allows users to view data organized in rows and columns.
+
+## Anatomy
+
+Tables contain **cells** of data arranged in a grid.
+
+1. **Header row** - the first row of a table contains cells that act as labels for the columns.
+	 - **Sort indicator** (_required when sortable_) - sortable header cells must convey their current sort state, which can be ascending, descending, or unsorted.
+1. **Rows** - a horizontal slice of the table groups related cells.
+1. **Columns** - a vertical slice of the table groups cells related by the label in the header cell.
+
+## Usage
+
+Use a table to organize and display long lists of data or content, or to help users find a specific piece of information in a large data set.
+
+- Columns should be in a logical order from left to right based on the content. The farthest left content column should meaningfully label the row. For example, in a student set the first column should be the student's name.
+- Search and filters can be used in conjunction with tables to help users find information
+- Table content can include:
+  - Text
+  - Numbers
+  - Checkboxes or radio buttons
+  - Custom content, such as buttons
+- Checkboxes or radio buttons should be the farthest left column. They're used to take bulk actions on the selected items in a table.
+- Tables must have at least 2 columns.
+- Column titles in the header row should be as short as possible but can wrap to 2 rows and then truncate if necessary.
+- Table content should ideally fit on one row but may wrap to multiple lines.
+- The data within the table should be related in a meaningful way.
+- Column titles should accurately label the data within the column, and include units of measurement in the column title if applicable.
+- All content within a column is the same level of hierarchy as all other content within that column. A table shouldn't be used to communicate hierarchy.
+- If a table has no content, it should display an empty state or not display the table at all.
+- Use an alternating striped background for tables with a lot of complex data to help users keep track of the rows.
+
+### Dos and Don'ts
+
+<CalloutSuccess title="Dos">
+
+Do always include a header row that clearly labels each column.
+
+</CalloutSuccess>
+
+<CalloutError title="Don'ts">
+
+Don't use a table purely for layout purposes.
+
+</CalloutError>
