@@ -16,17 +16,35 @@ import { PropsTable } from '@website/components';
 
 ## Usage
 
+* Use a progress bar when there will be a delay of more than 1 second in loading or completing an action.
+* A progress bar can be used both when the amount of time is determined and when it is indeterminate.
+* If an application is loading, then the spinner will display and the user will be blocked from interacting with the application until it is loaded.
+* You can also use a spinner.
+
+<CalloutSuccess title="Do">
+
+- Do use only 1 progress bar on the screen at a time.
+- Do start the progressive animation slower and allow it to move faster as it approaches the end. It is always a better user experience to exceed customer expectations.
+
+</CalloutSuccess>
+
+<CalloutError title="Don't">
+	
+- Don't use a progress bar for an immediate process (less than 1 second). Nothing should display in that situation.
+- Don't use a pgoress bar if most of the application can load very quickly except for some text or data elements. Use a skeleton instead.
+- Don't use a progress bar inside of a button. Use a spinner or loading state instead.
+
 <Callout title="Indeterminate vs. Determinate">
 
-The progress bar is said to be in "indeterminate" mode if it does not have a set value.
-This conveys to users that something is processing without conveying how close to being done it is.
+The progress bar is in "indeterminate" mode if it does not have a set value.
+This conveys to users that something is processing without communicating how close it is to being complete.
 
 <div className="callout__example">
 	<ProgressBar label="Loading..." />
 </div>
 
-When a progress bar does have a set value, it is said to be in "determinate" mode.
-This gives the user a better sense of how close it is to beng complete.
+When a progress bar does have a set value, it is in "determinate" mode.
+This gives the user an estimate of the percentage or time remaining until completion.
 
 <div className="callout__example">
 	<ProgressBar label="Downloading..." progress={0.35} />
