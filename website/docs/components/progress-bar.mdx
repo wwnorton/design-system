@@ -18,7 +18,7 @@ import { PropsTable } from '@website/components';
 
 * Use a progress bar when there will be a delay of more than 1 second in loading or completing an action.
 * A progress bar can be used both when the amount of time is determined and when it is indeterminate.
-* If an application is loading, then the spinner will display and the user will be blocked from interacting with the application until it is loaded.
+* If an application is loading, then the progress bar will display and the user will be blocked from interacting with the application until it is loaded.
 * You can also use a spinner.
 
 <CalloutSuccess title="Do">
@@ -44,7 +44,7 @@ This conveys to users that something is processing without communicating how clo
 </div>
 
 When a progress bar does have a set value, it is in "determinate" mode.
-This gives the user an estimate of the percentage or time remaining until completion.
+This gives the user an estimate of the percentage of time remaining until completion.
 
 <div className="callout__example">
 	<ProgressBar label="Downloading..." progress={0.35} />
