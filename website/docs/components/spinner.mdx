@@ -15,13 +15,14 @@ import { PropsTable } from '@website/components';
 
 ## Usage
 
-Spinners should appear on the screen when there is a processing delay of between 1-5 seconds.
+- Use a spinner when there will be a delay of more than 1 second in loading or completing an action.
+- A spinner can be used both when the amount of time is determined and when it is indeterminate.
+- If an application is loading, then the spinner will display and the user will be blocked from interacting with the application until it is loaded.
+- You can also use a progress bar.
 
 <CalloutSuccess title="Do">
 
-- Do use a spinner to communicate to the user that the screen is still loading but will be complete in a short time (5 seconds or less).
 - Do use only 1 spinner on the screen at a time.
-- If an application is loading, then the spinner will display and the user will be blocked from interacting with the application until it is loaded.
 - For buttons with spinners, the button should always be disabled until the action completes and the spinner no longer displays on the button.
 
 </CalloutSuccess>
@@ -29,22 +30,21 @@ Spinners should appear on the screen when there is a processing delay of between
 <CalloutError title="Don't">
 
 - Don’t use a spinner for an immediate process (less than 1 second); nothing should display in that situation.
-- Don’t use a spinner if most of the application can load very quickly except for some text or data elements; use skeleton text loading indicator.
-- Don’t use a spinner for a long process. If a process is expected to take more than 5 seconds to complete use a progress bar loading indicator.
+- Don’t use a spinner if most of the application can load very quickly except for some text or data elements; use a skeleton instead.
 
 </CalloutError>
 
 <Callout title="Indeterminate vs. Determinate">
 
-The spinner is said to be in "indeterminate" mode if it does not have a set value.
-This conveys to users that something is processing without conveying how close to being done it is.
+The spinner is in "indeterminate" mode if it does not have a set value.
+This conveys to users that something is processing without communicating how close it is to being complete.
 
 <div className="callout__example">
 	<Spinner label="Loading..." />
 </div>
 
-When a spinner does have a set value, it is said to be in "determinate" mode.
-This gives the user a better sense of how close it is to beng complete.
+When a spinner does have a set value, it is in "determinate" mode.
+This gives the user an estimate of the percentage of time remaining until completion.
 
 <div className="callout__example">
 	<Spinner label="Downloading..." progress={0.35} />
