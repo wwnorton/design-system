@@ -46,6 +46,4 @@ export interface ButtonProps extends BaseButtonProps {
 	 * rendered as a tooltip.
 	 */
 	tooltipProps?: Partial<TooltipCoreProps>;
-	/** Set the loading status of button */
-	loading?: boolean;
 }

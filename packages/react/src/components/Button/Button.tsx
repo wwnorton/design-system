@@ -22,8 +22,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 		textClass = `${baseName}__text`,
 		className,
 		children,
-		loading = false,
-		disabled,
 		'aria-label': ariaLabel,
 		'aria-labelledby': ariaLabelledBy,
 		...props
@@ -60,7 +58,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
 			[`${baseName}--ghost`]: variant === 'ghost',
 			[`${baseName}--icon-only`]: icon && iconOnly,
 			[`${baseName}--${color}`]: color !== undefined,
-			[`${baseName}--cursor-disabled`]: (loading || disabled),
 		},
 		baseName,
 		className,
