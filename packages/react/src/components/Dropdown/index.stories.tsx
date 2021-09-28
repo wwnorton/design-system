@@ -6,6 +6,7 @@ import {
 import { Button } from '../Button';
 import { OnChangeData } from '../BaseListbox';
 import { Dropdown, DropdownProps } from '.';
+import { Modal } from '../Modal';
 
 export default {
 	title: 'Dropdown',
@@ -180,6 +181,74 @@ export const FullyControlled: React.FunctionComponent = () => {
 
 			</Button>
 		</form>
+	);
+};
+
+export const FocusOut: React.FunctionComponent = () => {
+	const [isOpen, setIsOpen] = React.useState(false);
+	const focusHandler = (e): void => {
+		if (e === 'Select modal button') {
+			document.getElementById('btnModal').focus();
+		} else if (e === 'Select modal alert') {
+			document.getElementById('btnAlert').focus();
+		} else if (e === 'Open the modal') {
+			setIsOpen(true);
+		}
+	};
+	const open = () => setIsOpen(true);
+	const close = () => setIsOpen(false);
+	const showAlert = () => {
+		alert('Focus on me !!'); // eslint-disable-line no-alert
+	};
+	return (
+		<>
+			<Dropdown
+				label="Choose focus element"
+				onFocusOut={focusHandler}
+				buttonWidth={`${number('Button width (rem)', 12, { step: 0.25 })}rem`}
+			>
+				<Dropdown.Option>Select modal button</Dropdown.Option>
+				<Dropdown.Option>Select modal alert</Dropdown.Option>
+				<Dropdown.Option>Open the modal</Dropdown.Option>
+			</Dropdown>
+
+			<Button
+				variant="solid"
+				onClick={open}
+				id="btnModal"
+				style={{ marginTop: '1rem' }}
+			>
+				Open the modal
+			</Button>
+
+			<Button
+				variant="solid"
+				id="btnAlert"
+				onClick={showAlert}
+				style={{ marginTop: '1rem', marginLeft: '1rem' }}
+			>
+				Alert
+			</Button>
+
+			<Modal
+				title="Confirm the prompt"
+				isOpen={isOpen}
+				onRequestClose={close}
+				actions={[
+					<Button variant="outline" color="base" onClick={close}>
+						Also confirm
+					</Button>,
+					<Button variant="solid" onClick={close}>
+						Confirm
+					</Button>,
+				]}
+			>
+				<p>
+					This is a demo modal.
+					Real modals should have useful information here.
+				</p>
+			</Modal>
+		</>
 	);
 };
 
