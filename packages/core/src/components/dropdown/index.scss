@@ -19,6 +19,10 @@
 	--nds-dropdown-option-icon-padding-x: #{tokens.$option-icon-padding-x};
 	--nds-dropdown-option-icon-size: #{tokens.$option-icon-size};
 
+	.nds-popper {
+		z-index: 1;
+	}
+
 	@include type.ui-base;
 }
 

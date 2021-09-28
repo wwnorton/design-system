@@ -5,6 +5,7 @@ import { Modifier } from '@popperjs/core';
 import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Button } from '../Button';
+import { Popper } from '../Popper';
 import { canUseDOM } from '../../utilities/environment';
 import { useLayoutEffect, usePopper } from '../../utilities';
 import { PopperOptions } from '../../utilities/popper/types';
@@ -331,24 +332,33 @@ export const Dropdown: DropdownType = ({
 				icon={(getListboxWidth.current) ? undefined : 'chevron-down'}
 				iconRight
 			>
-				<span id={currentId.current}>{ buttonContents }</span>
+				<span id={currentId.current}>{buttonContents}</span>
 			</Button>
-			{ open && (
-				<BaseListbox
-					id={listboxId.current}
-					sort={sort}
-					selected={selected}
-					className={listboxClass}
-					aria-labelledby={labelId.current}
-					optionClass={optionClass}
-					markerClass={`${optionClass}-marker`}
-					contentsClass={`${optionClass}-label`}
-					onChange={changeHandler}
-					ref={setListbox}
+			{open && (
+				<Popper
+					transition="fade"
+					placement="bottom-start"
+					reference={button}
+					isOpen={open}
+					distance={4}
+					matchWidth
 				>
-					{ children }
-				</BaseListbox>
-			) }
+					<BaseListbox
+						id={listboxId.current}
+						sort={sort}
+						selected={selected}
+						className={listboxClass}
+						aria-labelledby={labelId.current}
+						optionClass={optionClass}
+						markerClass={`${optionClass}-marker`}
+						contentsClass={`${optionClass}-label`}
+						onChange={changeHandler}
+						ref={setListbox}
+					>
+						{children}
+					</BaseListbox>
+				</Popper>
+			)}
 		</div>
 	);
 };
