@@ -8,7 +8,7 @@ import {
 import { Badge } from '.';
 import { Icon } from '../Icon';
 import { SystemColorOptions } from '../../utilities/color';
-import { BasePopper } from '../BasePopper';
+import { Popper } from '../Popper';
 import { Button } from '../..';
 
 export default {
@@ -31,7 +31,7 @@ export const WithPopper: React.FunctionComponent = () => {
 	const [ref, setRef] = React.useState<HTMLElement | null>();
 	const modifiers = undefined;
 	const offsetMod = React.useMemo(() => {
-		const offsets = [-10, -17];
+		const offsets = [-12, -18];
 		return {
 			name: 'offset',
 			options: {
@@ -49,7 +49,7 @@ export const WithPopper: React.FunctionComponent = () => {
 					color="gray"
 				/>
 			</Button>
-			<BasePopper
+			<Popper
 				role="dialog"
 				aria-modal="false"
 				placement="top-end"
@@ -63,7 +63,7 @@ export const WithPopper: React.FunctionComponent = () => {
 				>
 					{text('Label', '1')}
 				</Badge>
-			</BasePopper>
+			</Popper>
 		</>
 	);
 };
