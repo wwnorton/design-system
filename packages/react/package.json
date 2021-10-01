@@ -40,7 +40,7 @@
     "build:umd": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format umd --name NDSReact --external @popperjs/core,react,react-dom --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM"
   },
   "dependencies": {
-    "@material/linear-progress": "^12.0.0",
+    "@material/linear-progress": "^13.0.0",
     "@popperjs/core": "^2.4.4",
     "classnames": "^2.2.6",
     "lodash": "^4.17.20",
