@@ -13,15 +13,28 @@ import { PropsTable } from '@website/components';
 ## Anatomy
 
 1. **Text** - link text should succinctly describe its destination.
+2. **Destination** - where the link will navigate when clicked.
+This is typically the address (URL) of another page, or a [fragment identifier](https://www.w3.org/Addressing/URL/4_2_Fragments.html) on the current page.
 
 ## Usage
 
-- A link navigates the user to another place on the same page or to a different page.
-- A link helps define the structure, architecture and hierarchy of the site.
-- A link allows the user to return to the previous location by pressing the browser's back button.
-- Activating the link changes the URL.
+Links (formally "hyperlinks") are foundational to the web, allowing documents to be connected.
+These connections can be thought of as the webbing between sites, which is why we call it "the web."
+Because links form the basis for how we navigate the web, great care should be taken not to override their core behavior.
+
+- Clicking a link navigates the user to another place on the same page or to a different page.
+- A link should always affect the browser history. In other words, after a user clicks a link to navigate to a new location, they should be able to return by pressing the browser's back button.
+A link allows the user to return to the previous location by pressing the browser's back button.
+- Activating the link changes the URL in the same tab or opens a new tab with the link URL.
+- Links should open in the same tab when users are navigating within the same page, product or user flow.
+- Links can open in a new tab when it is taking the user to another website and/or it is in the user's interest not to lose their place in the current flow. Users don't usually expect links to open in a new tab and they can manually choose to open a link in a new tab or window, so when in doubt default to opening in the same tab.
+- All links that open in a new tab display the launch icon after the link text.
 - A link's [href](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href) value must be a valid URL or URL fragment.
 - <kbd>Enter</kbd> (keydown) activates the link. Links always move focus when activated.
+- Links in body copy should always be underlined and displayed in a different color.
+- Links add cognitive load, as every link presents the user with a decision to activate it or not. For this reason, links should be used sparingly and include as few words as possible while accurately and clearly describing the destination.
+- A destination should only be linked once in a given page or section.
+- When linking to the same destination on different pages, the link text should be the same.
 
 <CalloutSuccess title="Dos">
 
@@ -37,9 +50,9 @@ import { PropsTable } from '@website/components';
 <CalloutError title="Don'ts">
 
 - Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.
-- Don’t use an ambiguous label like “click here”. The link’s text content should clearly describe its destination or purpose.
-- Don’t include the full stop if a link is at the end of a sentence or paragraph.
-- Don’t use Javascript to simulate links. Use a valid href instead.
+- Don't use an ambiguous label like “click here”. The link's text content should clearly describe its destination or purpose.
+- Don't include the punctuation if a link is at the end of a sentence or before a comma.
+- Don't use Javascript to simulate links. Use a valid href instead.
 
 </CalloutError>
 
@@ -50,6 +63,11 @@ import { PropsTable } from '@website/components';
 - If the action taken will change or manipulate data on the page.
 
 </Callout>
+
+## Interactions
+
+- Links are focusable so that they can be activated by all users.
+- Links are activated with <kbd>Enter</kbd> or pointer click.
 
 ## React API
 
