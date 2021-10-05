@@ -135,3 +135,8 @@
 	color: var(--nds-text-color);
 	background-color: var(--nds-background-color);
 }
+
+ol ol,
+ul ol {
+	list-style-type: lower-alpha;
+}
