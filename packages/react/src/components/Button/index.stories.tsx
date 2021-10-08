@@ -1,9 +1,8 @@
 import React from 'react';
 import { Story } from '@storybook/react';
-import { Button, IconButton } from '.';
+import { Button, ButtonProps, IconButton } from '.';
 import { IconButtonProps } from './IconButton';
 import { IconOptions } from '../Icon';
-import { ButtonProps } from './types';
 
 export default {
 	title: 'Button',

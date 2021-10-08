@@ -1,12 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { Button } from '../Button';
+import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { TooltipCoreProps } from '../Tooltip/types';
 import { useForwardedRef } from '../../utilities';
-import { ButtonProps } from '../Button/types';
 
 export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
 	/** The name of the Switch. Required. */

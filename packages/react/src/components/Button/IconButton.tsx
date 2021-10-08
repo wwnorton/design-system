@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from './Button';
-import { ButtonProps } from './types';
+import { Button, ButtonProps } from './Button';
 
 export type IconButtonProps = Omit<ButtonProps, 'iconOnly' | 'iconRight'>;
 
