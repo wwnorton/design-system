@@ -3,7 +3,7 @@ title: Progress Bar
 description: A progress bar lets the user know that something is processing or progressing.
 ---
 
-import { ProgressBar, Callout } from '@wwnds/react';
+import { ProgressBar, Callout, CalloutError, CalloutSuccess } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A progress bar lets the user know that something is processing or progressing.
@@ -33,6 +33,8 @@ import { PropsTable } from '@website/components';
 - Don't use a progress bar for an immediate process (less than 1 second). Nothing should display in that situation.
 - Don't use a progress bar if most of the application can load very quickly except for some text or data elements. Use a skeleton instead.
 - Don't use a progress bar inside of a button. Use a spinner or loading state instead.
+
+</CalloutError>
 
 <Callout title="Indeterminate vs. Determinate">
 
