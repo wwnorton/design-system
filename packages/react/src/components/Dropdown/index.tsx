@@ -341,7 +341,6 @@ export const Dropdown: DropdownType = ({
 					reference={button}
 					isOpen={open}
 					distance={4}
-					matchWidth
 				>
 					<BaseListbox
 						id={listboxId.current}

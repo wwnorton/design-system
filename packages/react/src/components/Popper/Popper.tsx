@@ -181,7 +181,7 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(({
 			<div
 				{...props}
 				className={className}
-				style={{ ...style, ...styles.popper }}
+				style={{ ...style, ...styles.popper, zIndex: 1 }}
 				{...attributes.popper}
 				ref={setPopper}
 			>
