@@ -1,6 +1,6 @@
-import { ButtonProps } from '../Button';
 import { PopperProps } from '../Popper';
 import { UsePopperTriggersProps } from '../../utilities';
+import { ButtonProps } from '../Button';
 
 type PopperInherited = Pick<PopperProps,
 | 'isOpen'
