@@ -2977,24 +2977,10 @@
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
 
-"@material/animation@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/@material/animation/-/animation-12.0.0.tgz#755b9528f957f789570a02e55acdbc6667dd7304"
-  integrity sha512-PfRHehbW6xrNaAb5RELmyxn9+pGTYwzxUnT43TdmOOTN+J45MRH8c90ZSdczich6gp7tgyTQsd3HtB5yRgBsIA==
-  dependencies:
-    tslib "^2.1.0"
-
 "@material/animation@^13.0.0":
   version "13.0.0"
   resolved "https://registry.npmjs.org/@material/animation/-/animation-13.0.0.tgz#42ec7aee6548ba27edb49063c7a7ae431e4ef450"
   integrity sha512-YR0/u4u56qXDjKYolQ7F+IvlPkaSBhMl/dZv8DK0FbD6PH4ckOPd3bEXNRndXtprsxwknQQP2pttjPImylkl0g==
-  dependencies:
-    tslib "^2.1.0"
-
-"@material/base@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/@material/base/-/base-12.0.0.tgz#7f5a8ee39af63b20326589964b8e97b97553d7b9"
-  integrity sha512-LcAQGFhuGM5B9BJQPoDYXhka+gkKvjKN6HdmCpKq55EkUoHeEnbu6IT2MOQjhcULTlQdcdGP77YNNGYdv3fGsA==
   dependencies:
     tslib "^2.1.0"
 
@@ -3003,18 +2989,6 @@
   resolved "https://registry.npmjs.org/@material/base/-/base-13.0.0.tgz#18f7f5ac112bf67e66c1ade6ab543ea9df9d3836"
   integrity sha512-vFx0JryRfcvUNX3cZ2u32wUMvxzd+c/YW0LFOXNgqCDWlubHcMm0Y6Wz371LhfQo80/NE69u+/4Joo99yKnVeg==
   dependencies:
-    tslib "^2.1.0"
-
-"@material/circular-progress@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/@material/circular-progress/-/circular-progress-12.0.0.tgz#45106ae2e11914212d5611784515c38db4e5f60b"
-  integrity sha512-3Xi5la6UTS0KhYzxVDqRjQ7uxqeci+MjH8w+0yMoIsw9/gdtZ5S4dYQ0U8/FaWBTzW6nmGxI4zQ3Q0ySFpGRgA==
-  dependencies:
-    "@material/animation" "^12.0.0"
-    "@material/base" "^12.0.0"
-    "@material/feature-targeting" "^12.0.0"
-    "@material/progress-indicator" "^12.0.0"
-    "@material/theme" "^12.0.0"
     tslib "^2.1.0"
 
 "@material/circular-progress@^13.0.0":
@@ -3030,13 +3004,6 @@
     "@material/theme" "^13.0.0"
     tslib "^2.1.0"
 
-"@material/feature-targeting@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/@material/feature-targeting/-/feature-targeting-12.0.0.tgz#ae3f6b04f7c5262ce991bfb3fc3226564b196686"
-  integrity sha512-BbdYzZmGg886X3gvKPxfM5etNwhmKR4PT33NRc7PTKivCHitre8zjgb7kKW1vRLV4YnB54sp9L7tr/QcbbbXGg==
-  dependencies:
-    tslib "^2.1.0"
-
 "@material/feature-targeting@^13.0.0":
   version "13.0.0"
   resolved "https://registry.npmjs.org/@material/feature-targeting/-/feature-targeting-13.0.0.tgz#7bc7840b40930b6831101a22882acdd0329591c0"
@@ -3044,24 +3011,17 @@
   dependencies:
     tslib "^2.1.0"
 
-"@material/linear-progress@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/@material/linear-progress/-/linear-progress-12.0.0.tgz#eee7e35a3cb688d46a563a95802976a557b10008"
-  integrity sha512-I4Z5fuvddsh8XysnvjK7RnRORN+xIreoWwo8hcPnqN0fgM0NXGFIoRTq2NZi1t1qR+ZvmVgJciNKBg2y/ySqMQ==
+"@material/linear-progress@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.npmjs.org/@material/linear-progress/-/linear-progress-13.0.0.tgz#a1c12140c2074018029425365d121013a70f3ec6"
+  integrity sha512-FJpP6flSME5QRPfkB616uA5bk9aMKJBqkklrHk6dSMZaTKbiHRmc6faxMIZ4w9W49JFMXaSwzC39y96tQTiRQg==
   dependencies:
-    "@material/animation" "^12.0.0"
-    "@material/base" "^12.0.0"
-    "@material/feature-targeting" "^12.0.0"
-    "@material/progress-indicator" "^12.0.0"
-    "@material/rtl" "^12.0.0"
-    "@material/theme" "^12.0.0"
-    tslib "^2.1.0"
-
-"@material/progress-indicator@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/@material/progress-indicator/-/progress-indicator-12.0.0.tgz#fa2a5b61ac61bbb405c6bee7c9e8b3be8b9a34c5"
-  integrity sha512-YIY5g3uMpD0W9ivA4FrzRZWM59hgXniJ1KmlHmRSJYzunNqAuX16bAc+lraz6EvFMwIrib0CbHUn6rsUnJBTkg==
-  dependencies:
+    "@material/animation" "^13.0.0"
+    "@material/base" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/progress-indicator" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/theme" "^13.0.0"
     tslib "^2.1.0"
 
 "@material/progress-indicator@^13.0.0":
@@ -3071,28 +3031,12 @@
   dependencies:
     tslib "^2.1.0"
 
-"@material/rtl@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/@material/rtl/-/rtl-12.0.0.tgz#f095701fe78306ab637d70ce0e45fd691486d765"
-  integrity sha512-JmFyyWr2GFa1ODSsq0jaImj6NprDpts3L3riyvsTQVnJDDKyJwYkyjFbssuIqB9wO3IfVPj5JyTKNoTLraW7dA==
-  dependencies:
-    "@material/theme" "^12.0.0"
-    tslib "^2.1.0"
-
 "@material/rtl@^13.0.0":
   version "13.0.0"
   resolved "https://registry.npmjs.org/@material/rtl/-/rtl-13.0.0.tgz#c8dbdc2b63d122450ff456572d08a9f5639704ab"
   integrity sha512-nFGy3iQg7k+xLs67eb86mRFVLwa0yi7MusqRK4OM8DXcLO5yoVfUTPKpdSykcbRryp9imVHsxutox2tZawR4og==
   dependencies:
     "@material/theme" "^13.0.0"
-    tslib "^2.1.0"
-
-"@material/theme@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.npmjs.org/@material/theme/-/theme-12.0.0.tgz#51c11892fd8e6fa244d2b14a8432d14146f1cc68"
-  integrity sha512-E9gFLpOcwtJ2GiPg8S4w+9eaqFNgLO67Yyftcu1XgswAHBFiI7qAHTDYH21H4W88RKlf3sTNyHtzigbTenPUNg==
-  dependencies:
-    "@material/feature-targeting" "^12.0.0"
     tslib "^2.1.0"
 
 "@material/theme@^13.0.0":
