@@ -94,12 +94,6 @@ export interface DropdownProps
 	 * * When the user releases the space bar on the currently focused option.
 	 */
 	onChange?: ({ value, contents }: OnChangeData) => void;
-	/**
-	 * Callback function that is called when the dropdown attempts to close its
-	 * listbox. This will occur under the following condition:
-	 * The user wants to focus on other element.
-	 */
-	onFocusOut?: (e: React.ReactNode) => void;
 }
 
 const matchRefWidth: Modifier<'matchRefWidth', unknown> = {
@@ -138,7 +132,6 @@ export const Dropdown: DropdownType = ({
 	labelClass,
 	descriptionClass,
 	onRequestClose,
-	onFocusOut,
 	onRequestOpen,
 	onChange,
 	placement = 'bottom-start',
@@ -223,14 +216,11 @@ export const Dropdown: DropdownType = ({
 	const changeHandler = ({ value, contents }: OnChangeData): void => {
 		if (onChange) {
 			onChange({ value, contents });
-			if (!onFocusOut) {
-				setShouldReturnFocus(true);
-			}
 		} else {
 			setSelected(value);
-			setShouldReturnFocus(true);
 		}
 		setButtonContents(contents || value);
+		setShouldReturnFocus(true);
 		closeListbox();
 	};
 
@@ -344,34 +334,31 @@ export const Dropdown: DropdownType = ({
 			>
 				<span id={currentId.current}>{buttonContents}</span>
 			</Button>
-			<Popper
-				transition="fade"
-				placement="bottom-start"
-				reference={button}
-				isOpen={open}
-				distance={4}
-				onExited={() => {
-					if (onFocusOut) {
-						onFocusOut(buttonContents);
-					}
-				}}
-				matchWidth
-			>
-				<BaseListbox
-					id={listboxId.current}
-					sort={sort}
-					selected={selected}
-					className={listboxClass}
-					aria-labelledby={labelId.current}
-					optionClass={optionClass}
-					markerClass={`${optionClass}-marker`}
-					contentsClass={`${optionClass}-label`}
-					onChange={changeHandler}
-					ref={setListbox}
+			{open && (
+				<Popper
+					transition="fade"
+					placement="bottom-start"
+					reference={button}
+					isOpen={open}
+					distance={4}
+					matchWidth
 				>
-					{children}
-				</BaseListbox>
-			</Popper>
+					<BaseListbox
+						id={listboxId.current}
+						sort={sort}
+						selected={selected}
+						className={listboxClass}
+						aria-labelledby={labelId.current}
+						optionClass={optionClass}
+						markerClass={`${optionClass}-marker`}
+						contentsClass={`${optionClass}-label`}
+						onChange={changeHandler}
+						ref={setListbox}
+					>
+						{children}
+					</BaseListbox>
+				</Popper>
+			)}
 		</div>
 	);
 };
