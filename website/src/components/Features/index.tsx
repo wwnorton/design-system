@@ -99,22 +99,9 @@ export const FeatureCard = ({
 	);
 };
 
-export const FeatureImage = ({ src: srcProp, alt = '' }: React.ImgHTMLAttributes<HTMLImageElement>): JSX.Element => {
-	const src = useBaseUrl(srcProp);
-
-	if (src) {
-		return (
-			<div className={styles.feature__media}>
-				<img className={styles.feature__img} src={src} alt={alt} />
-			</div>
-		);
-	}
-	return (
-		<div className={styles.feature__tk}>
-			<abbr title="Media to come">TK</abbr>
-		</div>
-	);
-};
+export const FeatureImage = (): JSX.Element => (
+	<div className={styles.feature__tk} />
+);
 
 interface FeaturesProps extends React.HTMLAttributes<HTMLElement> {
 	basePath?: string;
