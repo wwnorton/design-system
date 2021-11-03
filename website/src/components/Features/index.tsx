@@ -98,11 +98,6 @@ export const FeatureCard = ({
 		</Tag>
 	);
 };
-
-export const FeatureImage = (): JSX.Element => (
-	<div className={styles.feature__tk} />
-);
-
 interface FeaturesProps extends React.HTMLAttributes<HTMLElement> {
 	basePath?: string;
 	columns?: number;
