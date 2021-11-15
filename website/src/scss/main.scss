@@ -136,11 +136,6 @@
 	background-color: var(--nds-background-color);
 }
 
-ol,
-ul {
-	padding-left: nds.spacer('1.25rem');
-}
-
 ol ol,
 ul ol {
 	list-style-type: lower-alpha;
@@ -149,20 +144,4 @@ ul ol {
 h1,
 .markdown > h1 {
 	padding-top: nds.rem(4);
-}
-
-h2,
-.markdown > h2 {
-	margin-top: nds.spacer('2.5rem');
-	margin-bottom: nds.spacer('1.25rem');
-}
-
-h3,
-.markdown > h3 {
-	margin-top: nds.spacer('1.5rem');
-	margin-bottom: nds.spacer('1rem');
-}
-
-p {
-	margin-top: nds.rem(1.125);
 }
