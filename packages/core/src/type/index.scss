@@ -145,6 +145,8 @@ $-lh-roles: (
 ///
 @mixin body-xs {
 	@include typeset($size: var(--nds-font-size-xs));
+
+	margin-top: var(--nds-spacing-5) !important;
 }
 
 /// A `typeset` suitable for small body text.
@@ -179,6 +181,8 @@ $-lh-roles: (
 ///
 @mixin body-md {
 	@include typeset($size: var(--nds-font-size-md));
+
+	margin-bottom: var(--nds-spacing-5) !important;
 }
 
 /// A `typeset` suitable for large body text.
@@ -332,6 +336,9 @@ $-lh-roles: (
 		$size: var(--nds-font-size-h2),
 		$height: lh('h2'),
 	);
+
+	margin-top: var(--nds-spacing-10) !important;
+	margin-bottom: var(--nds-spacing-5) !important;
 }
 
 /// A `typeset` suitable for text that is meant to convey the third level of
@@ -341,6 +348,9 @@ $-lh-roles: (
 		$size: var(--nds-font-size-h3),
 		$height: lh('h3'),
 	);
+
+	margin-top: var(--nds-spacing-6) !important;
+	margin-bottom: var(--nds-spacing-4) !important;
 }
 
 /// A `typeset` suitable for text that is meant to convey the fourth level of
