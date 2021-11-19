@@ -3,8 +3,8 @@ module.exports = {
 		'guides/index',
 		{
 			type: 'category',
-			label: 'Developer',
-			collapsed: false,
+			label: 'Development',
+			collapsed: true,
 			items: [
 				'guides/dev/getting-started',
 				'guides/dev/stylesheet-setup',
@@ -15,6 +15,7 @@ module.exports = {
 				// 'migration',
 			],
 		},
+		'guides/usable-writing-guidelines',
 	],
 	foundations: [
 		'foundations/index',

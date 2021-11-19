@@ -140,3 +140,8 @@ ol ol,
 ul ol {
 	list-style-type: lower-alpha;
 }
+
+h1,
+.markdown > h1 {
+	padding-top: nds.rem(4);
+}
