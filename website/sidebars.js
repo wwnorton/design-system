@@ -4,7 +4,7 @@ module.exports = {
 		{
 			type: 'category',
 			label: 'Development',
-			collapsed: false,
+			collapsed: true,
 			items: [
 				'guides/dev/getting-started',
 				'guides/dev/stylesheet-setup',
