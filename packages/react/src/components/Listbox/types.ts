@@ -17,6 +17,8 @@ export interface OptionProps extends OptionBase {
 	 * Default is `<Icon variant="check" />`. Disable it entirely with `null`.
 	 */
 	marker?: React.ReactNode | null;
+
+	optionClass?: string;
 }
 
 export type ListboxBase = Omit<React.HTMLAttributes<HTMLUListElement>, 'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'>;
@@ -80,4 +82,6 @@ export interface ListboxProps extends ListboxBase {
 	focusWrap?: boolean;
 	/** A callback that will trigger when an option is focused. */
 	onOptionFocus?: (e: React.FocusEvent<HTMLLIElement>, index: number) => void;
+	/** The class name that will be applied to all `options` children. */
+	optionClass?: string;
 }

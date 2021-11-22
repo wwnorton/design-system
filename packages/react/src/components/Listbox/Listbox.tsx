@@ -27,6 +27,7 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 	onOptionFocus,
 	className = 'nds-listbox',
 	children: childrenProp,
+	optionClass = 'nds-option',
 	orientation,
 	...listboxProps
 }: ListboxProps, ref) => {
@@ -154,6 +155,7 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 					label={label}
 					selected={selected.includes(value)}
 					disabled={disabled}
+					className={optionClass}
 					tabIndex={(disabled) ? -1 : tabIndex(i)}
 					/**
 					 * - do nothing if disabled
@@ -204,7 +206,7 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 		})
 	), [
 		createRef, dispatch, keyboardClick, onChange, onOptionFocus,
-		optionProps, options, selected, selectedProp, tabIndex, toggle,
+		optionProps, options, selected, selectedProp, tabIndex, toggle, optionClass,
 	]);
 
 	return (

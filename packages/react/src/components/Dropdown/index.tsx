@@ -1,185 +1,81 @@
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import { Modifier } from '@popperjs/core';
-import { BaseListbox, BaseListboxProps, OnChangeData } from '../BaseListbox';
-import { FieldInfo, FieldInfoCoreProps } from '../Field';
-import { Button } from '../Button';
+import { FieldInfo } from '../Field';
 import { canUseDOM } from '../../utilities/environment';
-import { useLayoutEffect, usePopper } from '../../utilities';
-import { PopperOptions } from '../../utilities/popper/types';
-
-type BaseProps = 'children' | 'className' | 'disabled' | 'id';
-
-export interface DropdownProps
-	extends FieldInfoCoreProps, Partial<PopperOptions>,
-	Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, BaseProps> {
-	/** The name of the dropdown. Required. */
-	label: React.ReactNode;
-	/**
-	 * The options for the listbox. Each will be rendered inside a `BaseOption`
-	 * component. When specifying an option as a `BaseOptionProps` object,
-	 * the option's value must be the `BaseOptionProps['children']`.
-	 */
-	children: BaseListboxProps['children'];
-	/** Sort options by value. `undefined` will leave the options unsorted. */
-	sort?: BaseListboxProps['sort'];
-	/** A list of selected options. */
-	selected?: React.ReactText;
-	/**
-	 * The contents of the button. Default is 'Select' on load and then it will
-	 * match the contents of the currently selected option if no `onChange`
-	 * callback is provided.
-	 */
-	buttonContents?: React.ReactNode;
-	/** Indicates whether the listbox is open. */
-	isOpen?: boolean;
-	/** Indicates whether clicking outside the listbox should close the listbox. */
-	closeOnExternalClick?: boolean;
-	/** Indicates whether the dropdown should be closed on `Escape`. */
-	closeOnDocumentEscape?: boolean;
-	/**
-	 * Indicates that the button and listbox should match widths.
-	 * * `button` - the listbox will match the width of the button.
-	 * * `listbox` - the button will match the width of the listbox.
-	 * * `undefined` - not width matching should be done.
-	 */
-	matchWidth?: 'button' | 'listbox';
-	/**
-	 * Set the width of the button. Use when `matchWidth="button"` and the
-	 * button's width is not set with CSS.
-	 */
-	buttonWidth?: string | number;
-	/** The `name` attribute for the internal `<select>`. */
-	name?: HTMLSelectElement['name'];
-
-	/** The base class name according to BEM conventions. Default is "dropdown". */
-	baseName?: string;
-	/** The class name for the label. */
-	labelClass?: string;
-	/** The class name for the button. */
-	buttonClass?: string;
-	/** The class name for the listbox. */
-	listboxClass?: string;
-	/** The class name for all listbox options. */
-	optionClass?: string;
-
-	/** An id for the button. */
-	buttonId?: string;
-	/** An id for the listbox. */
-	listboxId?: string;
-
-	/**
-	 * Callback function that is called when the dropdown attempts to close its
-	 * listbox. This will occur under the following conditions:
-	 * * The user clicks outside of the listbox and `closeOnExternalClick` is
-	 * `true`.
-	 * * The user presses `Escape` and `closeOnDocumentEscape` is `true`.
-	 * * The user presses `Tab` while the listbox is open.
-	 */
-	onRequestClose?: () => void;
-	/**
-	 * Callback function that is called when the dropdown attempts to open its
-	 * listbox. This will occur under the following conditions:
-	 * * The user clicks the dropdown button (default: `.dropdown__button`).
-	 * * The user presses `ArrowUp` or `ArrowDown` while on the dropdown button.
-	 */
-	onRequestOpen?: () => void;
-	/**
-	 * Callback function that is called when an option is selected. This will
-	 * occur under the following conditions:
-	 * * When the user clicks an option.
-	 * * When the user presses `Enter` on the currently focused option.
-	 * * When the user releases the space bar on the currently focused option.
-	 */
-	onChange?: ({ value, contents }: OnChangeData) => void;
-}
-
-const matchRefWidth: Modifier<'matchRefWidth', unknown> = {
-	name: 'matchRefWidth',
-	enabled: true,
-	phase: 'beforeWrite',
-	requires: ['computeStyles'],
-	/* eslint-disable no-param-reassign */
-	fn: ({ state }) => {
-		state.styles.popper.width = `${state.rects.reference.width}px`;
-	},
-	effect: ({ state }) => (): void => {
-		state.elements.popper.style.width = `${(state.elements.reference as HTMLElement).offsetWidth}px`;
-	},
-};
+import { useSelect, useLayoutEffect } from '../../utilities';
+import { Popper } from '../Popper';
+import { Button } from '../Button';
+import {
+	Listbox,
+	ListboxProps,
+	Option,
+	OptionProps,
+} from '../Listbox';
+import { DropdownProps } from './types';
 
 type DropdownType = React.FunctionComponent<DropdownProps> & {
-	Option: typeof BaseListbox['Option'];
-}
+	Option: typeof Option;
+};
 
 export const Dropdown: DropdownType = ({
 	label,
 	description,
-	isOpen = false,
-	selected: selectedProp = '',
+	selected: selectedProps = '',
 	buttonContents: contentsProp = 'Select',
-	closeOnExternalClick = true,
-	closeOnDocumentEscape = true,
+	autofocus = true,
+	isOpen = false,
 	matchWidth,
 	buttonWidth,
 	sort,
 	baseName = 'nds-dropdown',
 	buttonClass = `${baseName}__button`,
-	listboxClass = `${baseName}__listbox`,
-	optionClass = `${baseName}__option`,
+	popperClass = `${baseName}__popper`,
+	listboxClass = `nds-listbox ${baseName}__listbox`,
+	optionClass = 'nds-option',
+	id: idProp,
+	className,
 	labelClass,
 	descriptionClass,
+	closeOnExternalClick = true,
+	closeOnDocumentEscape = true,
 	onRequestClose,
 	onRequestOpen,
 	onChange,
-	placement = 'bottom-start',
-	modifiers = [{
-		name: 'offset',
-		options: {
-			offset: [0, 4],
-		},
-	}],
-	strategy,
-	onFirstUpdate,
-	children,
-	id: idProp,
 	labelId: labelIdProp,
 	descriptionId: descIdProp,
 	buttonId: buttonIdProp,
 	listboxId: listboxIdProp,
 	disabled,
-	className,
+	children,
+	placement = 'bottom-start',
+	strategy = 'fixed',
+	onFirstUpdate,
+	modifiers = [
+		{
+			name: 'offset',
+			options: {
+				offset: [0, 4],
+			},
+		},
+	],
 }: DropdownProps) => {
-	const [open, setOpen] = React.useState(isOpen);
-	const [selected, setSelected] = React.useState(selectedProp);
-	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>(contentsProp);
-	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
-	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
-	const [listboxWidth, setListboxWidth] = React.useState<number>();
-	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
-	const getListboxWidth = React.useRef(false);
-
+	const [open, setOpen] = React.useState(false);
 	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
 	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
 	const descId = React.useRef(descIdProp || `${id.current}-desc`);
 	const buttonId = React.useRef(buttonIdProp || `${id.current}-btn`);
+	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
+	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
+	const [listboxWidth, setListBoxWidth] = React.useState<number>();
+	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>(contentsProp);
+	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
+	const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
+	const { selected, toggle } = useSelect(false, [selectedProps]);
+
 	const listboxId = React.useRef(listboxIdProp || `${id.current}-listbox`);
 	const currentId = React.useRef(`${id.current}-curr`);
-
-	usePopper({
-		reference: button,
-		popper: listbox,
-		placement,
-		modifiers: (matchWidth === 'button') ? [...modifiers, matchRefWidth] : modifiers,
-		strategy,
-		onFirstUpdate,
-	});
-
-	// ensure that props are used as the source of truth for internal state
-	React.useEffect(() => setOpen(isOpen), [isOpen]);
-	React.useEffect(() => setSelected(selectedProp), [selectedProp]);
-	React.useEffect(() => setButtonContents(contentsProp), [contentsProp]);
+	const getListboxWidth = React.useRef(false);
 
 	/** Attempt to open the listbox. */
 	const openListbox = React.useCallback(() => {
@@ -199,53 +95,15 @@ export const Dropdown: DropdownType = ({
 		else openListbox();
 	};
 
-	/** Open the listbox on arrow up or down. */
-	const buttonKeydownHandler = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
-		if (['ArrowDown', 'ArrowUp'].includes(e.key)) {
-			e.preventDefault();
-			openListbox();
-		}
-	};
-
-	/**
-	 * Update selected value, button contents, and close the listbox on change.
-	 * If an `onChange` callback is provided, assume that state will be
-	 * controlled by a parent context.
-	 */
-	const changeHandler = ({ value, contents }: OnChangeData): void => {
-		if (onChange) {
-			onChange({ value, contents });
-		} else {
-			setSelected(value);
-		}
-		setButtonContents(contents || value);
-		setShouldReturnFocus(true);
-		closeListbox();
-	};
-
-	/** Attempt to close the listbox on `Escape` or `Tab`. */
-	const documentKeydownHandler = React.useCallback((e: KeyboardEvent): void => {
-		if (!open) return;
-		if (closeOnDocumentEscape && e.key === 'Escape') {
-			setShouldReturnFocus(true);
-			closeListbox();
-		}
-		if (e.key === 'Tab') {
+	// focus the button when focus should return to it
+	React.useEffect(() => {
+		if (!open && shouldReturnFocus && button !== null) {
+			if (canUseDOM && 'requestAnimationFrame' in window) {
+				window.requestAnimationFrame(() => button.focus());
+			}
 			setShouldReturnFocus(false);
-			closeListbox();
 		}
-	}, [open, closeListbox, closeOnDocumentEscape]);
-
-	/** Attempt to close the listbox on document click. */
-	const documentClickHandler = React.useCallback((e: MouseEvent): void => {
-		const path = e.composedPath();
-		const buttonClicked = button && path.includes(button);
-		const listboxClicked = listbox && path.includes(listbox);
-		if (closeOnExternalClick && !buttonClicked && !listboxClicked) {
-			setShouldReturnFocus(false);
-			closeListbox();
-		}
-	}, [button, listbox, closeOnExternalClick, closeListbox]);
+	}, [button, open, shouldReturnFocus]);
 
 	// close the listbox if the Dropdown is disabled while open
 	React.useEffect(() => {
@@ -254,6 +112,87 @@ export const Dropdown: DropdownType = ({
 			closeListbox();
 		}
 	}, [disabled, closeListbox]);
+
+	// close the listbox if the Dropdown is disabled while open
+	React.useEffect(() => {
+		setOpen(isOpen);
+	}, [isOpen]);
+
+	/** A compare function that will sort children by value */
+	const sorter = React.useMemo(() => {
+		if (!sort) return null;
+		return (a: OptionProps, b: OptionProps): number => {
+			const valueA = String(a.value).toUpperCase();
+			const valueB = String(b.value).toUpperCase();
+			const mod = sort === 'descending' ? -1 : 1;
+			if (valueA < valueB) return -1 * mod;
+			if (valueA > valueB) return 1 * mod;
+			return 0;
+		};
+	}, [sort]);
+
+	const options = React.useMemo(() => {
+		const opts = React.Children.map(children, (child) => {
+			let props: OptionProps;
+			if (React.isValidElement(child)) {
+				props = {
+					...child.props,
+					value:
+						typeof child.props.value === 'number'
+						|| child.props.value !== undefined
+							? child.props.value
+							: child.props.children.toString(),
+				};
+			} else {
+				props = { value: child.toString(), children: child };
+			}
+			return props;
+		});
+		return sorter ? opts.sort(sorter) : opts;
+	}, [children, sorter]);
+
+	/** Attempt to close the listbox on document click. */
+	const documentClickHandler = React.useCallback(
+		(e: MouseEvent): void => {
+			const path = e.composedPath();
+			const buttonClicked = button && path.includes(button);
+			const listboxClicked = listbox && path.includes(listbox);
+			if (closeOnExternalClick && !buttonClicked && !listboxClicked) {
+				setShouldReturnFocus(false);
+				closeListbox();
+			}
+		},
+		[button, listbox, closeOnExternalClick, closeListbox],
+	);
+
+	/** Attempt to close the listbox on `Escape` or `Tab`. */
+	const documentKeydownHandler = React.useCallback(
+		(e: KeyboardEvent): void => {
+			if (!open) return;
+			if (closeOnDocumentEscape && e.key === 'Escape') {
+				setShouldReturnFocus(true);
+				closeListbox();
+			}
+			if (e.key === 'Tab') {
+				setShouldReturnFocus(false);
+				closeListbox();
+			}
+		},
+		[open, closeListbox, closeOnDocumentEscape],
+	);
+
+	const changeHandler: ListboxProps['onChange'] = (props) => {
+		if (onChange) {
+			const { value } = props;
+			onChange({ value, contents: props.label });
+		} else {
+			toggle(props.value);
+		}
+
+		setButtonContents(props.label);
+		setShouldReturnFocus(true);
+		closeListbox();
+	};
 
 	// focus the button when focus should return to it
 	React.useEffect(() => {
@@ -265,20 +204,9 @@ export const Dropdown: DropdownType = ({
 		}
 	}, [button, open, shouldReturnFocus]);
 
-	// attach and detach document listeners
-	useLayoutEffect(() => {
-		document.addEventListener('keydown', documentKeydownHandler);
-		document.addEventListener('click', documentClickHandler);
-
-		return (): void => {
-			document.removeEventListener('keydown', documentKeydownHandler);
-			document.removeEventListener('click', documentClickHandler);
-		};
-	}, [documentKeydownHandler, documentClickHandler]);
-
 	// get the width of the listbox any time it changes
 	useLayoutEffect(() => {
-		if (listbox) setListboxWidth(listbox.offsetWidth);
+		if (listbox) setListBoxWidth(listbox.offsetWidth);
 	}, [listbox]);
 
 	/**
@@ -300,10 +228,21 @@ export const Dropdown: DropdownType = ({
 	 */
 	React.useEffect(() => {
 		if (matchWidth === 'listbox') {
-			setOpen(true);
 			getListboxWidth.current = true;
+			setOpen(true);
 		}
-	}, []);	// eslint-disable-line react-hooks/exhaustive-deps
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	// attach and detach document listeners
+	useLayoutEffect(() => {
+		document.addEventListener('keydown', documentKeydownHandler);
+		document.addEventListener('click', documentClickHandler);
+
+		return (): void => {
+			document.removeEventListener('keydown', documentKeydownHandler);
+			document.removeEventListener('click', documentClickHandler);
+		};
+	}, [documentKeydownHandler, documentClickHandler]);
 
 	return (
 		<div className={classNames(baseName, className)} id={id.current}>
@@ -320,37 +259,47 @@ export const Dropdown: DropdownType = ({
 				className={buttonClass}
 				disabled={disabled}
 				variant="outline"
-				style={{ width: (matchWidth === 'listbox') ? listboxWidth : buttonWidth }}
-				aria-expanded={(open) ? 'true' : undefined}
+				style={{ width: matchWidth === 'listbox' ? listboxWidth : buttonWidth }}
+				aria-expanded={open ? 'true' : undefined}
 				aria-labelledby={`${labelId.current} ${currentId.current}`}
 				aria-haspopup="listbox"
-				aria-controls={(open) ? listboxId.current : undefined}
+				aria-controls={open ? listboxId.current : undefined}
 				onClick={buttonClickHandler}
-				onKeyDown={buttonKeydownHandler}
 				ref={setButton}
-				icon={(getListboxWidth.current) ? undefined : 'chevron-down'}
+				icon={getListboxWidth.current ? undefined : 'chevron-down'}
 				iconRight
 			>
-				<span id={currentId.current}>{ buttonContents }</span>
+				<span id={currentId.current}>{buttonContents}</span>
 			</Button>
-			{ open && (
-				<BaseListbox
+			<Popper
+				placement={placement}
+				className={popperClass}
+				reference={button}
+				isOpen={open}
+				modifiers={modifiers}
+				strategy={strategy}
+				onFirstUpdate={onFirstUpdate}
+				matchWidth={
+					matchWidth === undefined || matchWidth === 'listbox' ? false : true /* eslint-disable-line no-unneeded-ternary */
+				}
+			>
+				<Listbox
 					id={listboxId.current}
-					sort={sort}
-					selected={selected}
+					multiselectable={false}
 					className={listboxClass}
-					aria-labelledby={labelId.current}
 					optionClass={optionClass}
-					markerClass={`${optionClass}-marker`}
-					contentsClass={`${optionClass}-label`}
+					selected={selected}
 					onChange={changeHandler}
+					focusableIndex={optionFocusIndex}
+					autofocus={autofocus}
+					onOptionFocus={(_, i) => setOptionFocusIndex(i)}
 					ref={setListbox}
 				>
-					{ children }
-				</BaseListbox>
-			) }
+					{options}
+				</Listbox>
+			</Popper>
 		</div>
 	);
 };
 
-Dropdown.Option = BaseListbox.Option;
+Dropdown.Option = Option;
