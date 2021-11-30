@@ -3,7 +3,7 @@ title: Button
 description: A button allows the user to perform an action
 ---
 
-import { Button, IconButton } from '@wwnds/react';
+import { Button, IconButton, Callout, CalloutError, CalloutSuccess } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A button allows the user to perform an action.
@@ -20,31 +20,31 @@ import { PropsTable } from '@website/components';
 - A button has a meaningful label that communicates the action that users can take.
 - <kbd>Space</kbd> (keyup) and <kbd>Enter</kbd> (keydown) activates the button.
 
-:::tip Dos
+<CalloutSuccess title="Do">
 - Do indicate the most important action on a page or region with a high-emphasis Primary button.
 - Do indicate less important actions with medium-emphasis Secondary buttons or low-emphasis Tertiary buttons.
-:::
+</CalloutSuccess>
 
-:::danger Don'ts
+<CalloutError title="Don't">
 - Don't wrap text inside a button.
 - Don't use labels that are too long. A button's label should be very concise.
 - Don't choose default button colors that could be confused with disabled buttons.
 - Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.
-:::
+</CalloutError>
 
 ### Buttons vs. links
 
 Links are similar to buttons but the two are not interchangeable.
 The following should help differentiate when a link may be a better fit for your control.
 
-:::note Consider using links if...
+<Callout title="Consider using links if..."
 - You are navigating to another place, either on the same page or on a different page.
 - The action will change the URL.
 - It would be useful to "Copy", "Open in a new tab", or "Bookmark" the destination URL.
 - The label is embedded in a sentence, and does not need margins or padding.
 - The label conveys location, not an action (for example: a link that references a resource).
 - Only <kbd>Enter</kbd> (keydown) should activate the link. Links always move focus when activated.
-:::
+</Callout>
 
 - Use a button if the component is styled like a button. (See _Don't create links that look like buttons_, above).
 - If a button navigates the user to a new page or section, it might not meet the user's expectations.
