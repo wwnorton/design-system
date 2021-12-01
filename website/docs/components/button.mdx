@@ -21,15 +21,19 @@ import { PropsTable } from '@website/components';
 - <kbd>Space</kbd> (keyup) and <kbd>Enter</kbd> (keydown) activates the button.
 
 <CalloutSuccess title="Do">
-- Do indicate the most important action on a page or region with a high-emphasis Primary button.
-- Do indicate less important actions with medium-emphasis Secondary buttons or low-emphasis Tertiary buttons.
+	<ul>
+		<li>Do indicate the most important action on a page or region with a high-emphasis Primary button.</li>
+		<li>Do indicate less important actions with medium-emphasis Secondary buttons or low-emphasis Tertiary buttons.</li>
+	</ul>
 </CalloutSuccess>
 
 <CalloutError title="Don't">
-- Don't wrap text inside a button.
-- Don't use labels that are too long. A button's label should be very concise.
-- Don't choose default button colors that could be confused with disabled buttons.
-- Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.
+	<ul>
+		<li>Don't wrap text inside a button.</li>
+		<li>Don't use labels that are too long. A button's label should be very concise.</li>
+		<li>Don't choose default button colors that could be confused with disabled buttons.</li>
+		<li>Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.</li>
+	</ul>
 </CalloutError>
 
 ### Buttons vs. links
@@ -37,13 +41,15 @@ import { PropsTable } from '@website/components';
 Links are similar to buttons but the two are not interchangeable.
 The following should help differentiate when a link may be a better fit for your control.
 
-<Callout title="Consider using links if..."
-- You are navigating to another place, either on the same page or on a different page.
-- The action will change the URL.
-- It would be useful to "Copy", "Open in a new tab", or "Bookmark" the destination URL.
-- The label is embedded in a sentence, and does not need margins or padding.
-- The label conveys location, not an action (for example: a link that references a resource).
-- Only <kbd>Enter</kbd> (keydown) should activate the link. Links always move focus when activated.
+<Callout title="Consider using links if...">
+	<ul>
+		<li>You are navigating to another place, either on the same page or on a different page.</li>
+		<li>The action will change the URL.</li>
+		<li>It would be useful to "Copy", "Open in a new tab", or "Bookmark" the destination URL.</li>
+		<li>The label is embedded in a sentence, and does not need margins or padding.</li>
+		<li>The label conveys location, not an action (for example: a link that references a resource).</li>
+		<li>Only <kbd>Enter</kbd> (keydown) should activate the link. Links always move focus when activated.</li>
+	</ul>
 </Callout>
 
 - Use a button if the component is styled like a button. (See _Don't create links that look like buttons_, above).
