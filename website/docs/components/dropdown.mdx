@@ -3,7 +3,7 @@ title: Dropdown
 description: A dropdown allows the user to select an option from a list of options in an expandable overlay.
 ---
 
-import { Dropdown, Option } from '@wwnds/react';
+import { Dropdown, Option, CalloutSuccess, CalloutError } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A dropdown allows the user to select an option from a list of options in an expandable overlay.
@@ -27,21 +27,25 @@ import { PropsTable } from '@website/components';
 - <kbd>Down Arrow</kbd>/<kbd>Up Arrow</kbd> moves focus to the next/previous options, respectively.
 - <kbd>Home</kbd> and <kbd>End</kbd> moves focus to the first/last options, respectively.
 
-:::tip Dos
-- Do keep dropdown options very concise.
-    - If long options are unavoidable, then they can truncate when the dropdown is in a closed state, but they should wrap fully in the open state.
-- Do ensure that the clickable area includes the entire selected option area and the icon.
-- Consider the most logical order to list options. Options could be listed alphabetically, chronologically, by popularity, etc.
-:::
+<CalloutSuccess title="Do">
+	<ul>
+		<li>Do keep dropdown options very concise.</li>
+		<li>If long options are unavoidable, then they can truncate when the dropdown is in a closed state, but they should wrap fully in the open state.</li>
+		<li>Do ensure that the clickable area includes the entire selected option area and the icon.</li>
+		<li>Consider the most logical order to list options. Options could be listed alphabetically, chronologically, by popularity, etc.</li>
+	</ul>
+</CalloutSuccess>
 
-:::danger Don'ts
-- Do not start all of the options in a dropdown with the same word or phrase.
-- If there are more than 6 options, consider using a combo box instead.
-- If there are 2 options, consider using [radio group](radio-group) or [switch](switch) instead.
-    - If your interface needs to contain many of these selections, use dropdowns over radio buttons.
-- Do not use a dropdown when the user can multi-select options. Use checkboxes instead.
-- If it is not absolutely necessary for a user to choose from a predefined set of options, then consider a [text field](text-field) for users to type their own information.
-:::
+<CalloutError title="Don't">
+	<ul>	
+		<li>Do not start all of the options in a dropdown with the same word or phrase.</li>
+		<li>If there are more than 6 options, consider using a combo box instead.</li>
+		<li>If there are 2 options, consider using [radio group](radio-group) or [switch](switch) instead.</li>
+		<li>If your interface needs to contain many of these selections, use dropdowns over radio buttons.</li>
+		<li>Do not use a dropdown when the user can multi-select options. Use checkboxes instead.</li>
+		<li>If it is not absolutely necessary for a user to choose from a predefined set of options, then consider a [text field](text-field) for users to type their own information.</li>
+	</ul>
+</CalloutError>
 
 ## React API
 
