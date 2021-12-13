@@ -142,6 +142,7 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 						...optProps,
 						value,
 						label,
+						selectedIndex: i,
 					});
 				} else if (!selectedProp) {
 					toggle(value);

@@ -4,6 +4,7 @@
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
+@use '../listbox';
 
 @mixin base {
 	--nds-dropdown-border-width: #{tokens.$border-width};
@@ -56,14 +57,17 @@
 	max-height: calc(var(--nds-dropdown-options-max-display) * #{$-option-computed-height} + var(--nds-dropdown-border-width) * 2);
 	padding: 0;
 	overflow-x: hidden;
-	overflow-y: none;
+	overflow-y: auto;
 	list-style-type: none;
 	background-color: var(--nds-background-color);
 	border: var(--nds-dropdown-border-width) solid var(--nds-base-color-40);
 }
 
 @mixin listbox {
-	border: unset !important;
+	@include listbox.base;
+	@include listbox.group;
+
+	border: unset;
 	border-radius: none;
 }
 

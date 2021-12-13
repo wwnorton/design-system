@@ -1,4 +1,7 @@
-export type OptionBase = Omit<React.LiHTMLAttributes<HTMLLIElement>, 'role' | 'aria-selected'>;
+export type OptionBase = Omit<
+React.LiHTMLAttributes<HTMLLIElement>,
+'role' | 'aria-selected'
+>;
 
 export interface OptionProps extends OptionBase {
 	/** If set, this option is not selectable. */
@@ -21,7 +24,10 @@ export interface OptionProps extends OptionBase {
 	optionClass?: string;
 }
 
-export type ListboxBase = Omit<React.HTMLAttributes<HTMLUListElement>, 'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'>;
+export type ListboxBase = Omit<
+React.HTMLAttributes<HTMLUListElement>,
+'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'
+>;
 
 export interface ListboxProps extends ListboxBase {
 	/**
@@ -30,23 +36,23 @@ export interface ListboxProps extends ListboxBase {
 	 * used as both the `label` and the `value`.
 	 *
 	 * ```jsx
-     * options={['Cat', 'Dog']}
+	 * options={['Cat', 'Dog']}
 	 * 	// <Listbox>
 	 * 	// 	<Option value="Cat">Cat</Option>
 	 * 	// 	<Option value="Dog">Dog</Option>
 	 * 	// </Listbox>
-     * ```
+	 * ```
 	 *
 	 * ```jsx
-     * options={[{ label: 'Cat', value: '🐱' }, { label: 'Dog', value: '🐶' }]}
+	 * options={[{ label: 'Cat', value: '🐱' }, { label: 'Dog', value: '🐶' }]}
 	 * 	// <Listbox>
 	 * 	// 	<Option value="🐱">Cat</Option>
 	 * 	// 	<Option value="🐶">Dog</Option>
 	 * 	// </Listbox>
-     * ```
+	 * ```
 	 *
 	 * ```jsx
-     * options={{ Cat: '🐱', Dog: '🐶' }}
+	 * options={{ Cat: '🐱', Dog: '🐶' }}
 	 * 	// <Listbox>
 	 * 	// 	<Option value="🐱">Cat</Option>
 	 * 	// 	<Option value="🐶">Dog</Option>
@@ -55,7 +61,9 @@ export interface ListboxProps extends ListboxBase {
 	 */
 	options?: Record<string, string | number> | (string | number | OptionProps)[];
 	/** Option props that should be mapped to all child options. */
-	optionProps?: Partial<OptionProps> | ((index: number) => Partial<OptionProps>);
+	optionProps?:
+	| Partial<OptionProps>
+	| ((index: number) => Partial<OptionProps>);
 	/**
 	 * Indicates that more than one item can be selected. Used to set the
 	 * [aria-multiselectable](https://www.w3.org/TR/wai-aria/#aria-multiselectable) value.
@@ -70,7 +78,13 @@ export interface ListboxProps extends ListboxBase {
 	/** The currently selected value(s). */
 	selected?: (string | number)[];
 	/** A callback that will trigger any time selection changes. */
-	onChange?: (props: OptionProps & { value: string | number; label: React.ReactNode; }) => void;
+	onChange?: (
+		props: OptionProps & {
+			value: string | number;
+			label: React.ReactNode;
+			selectedIndex?: number;
+		}
+	) => void;
 	/** If set, the focusable listbox option should be focused when it is rendered. */
 	autofocus?: boolean;
 	/** The index of the option that should be focusable. */

@@ -8,10 +8,10 @@ type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 type PopperInherited = Pick<PopperProps,
 | 'isOpen'
 | 'transition'
-| 'reference'
 | 'placement'
 | 'modifiers'
 | 'strategy'
+| 'distance'
 | 'onFirstUpdate'
 >;
 
@@ -23,8 +23,8 @@ export interface DropdownProps
 	/** The name of the dropdown. Required. */
 	label: React.ReactNode;
 	/**
-	 * The options for the listbox. Each will be rendered inside a `Option`
-	 * component. When specifying an option as a `OptionProps` object,
+	 * The options for the listbox. Each will be rendered inside an `Option`
+	 * component. When specifying an option as an `OptionProps` object,
 	 * the option's value must be the `OptionProps['children']`.
 	 */
 	children: React.ReactChild[];
@@ -48,7 +48,7 @@ export interface DropdownProps
 	 * Indicates that the button and listbox should match widths.
 	 * * `button` - the listbox will match the width of the button.
 	 * * `listbox` - the button will match the width of the listbox.
-	 * * `undefined` - not width matching should be done.
+	 * * `undefined` - no width matching should be done.
 	 */
 	matchWidth?: 'button' | 'listbox';
 	/**

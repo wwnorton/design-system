@@ -31,8 +31,7 @@ export const Dropdown: DropdownType = ({
 	baseName = 'nds-dropdown',
 	buttonClass = `${baseName}__button`,
 	popperClass = `${baseName}__popper`,
-	listboxClass = `nds-listbox ${baseName}__listbox`,
-	optionClass = 'nds-option',
+	listboxClass = `${baseName}__listbox`,
 	id: idProp,
 	className,
 	labelClass,
@@ -42,6 +41,7 @@ export const Dropdown: DropdownType = ({
 	onRequestClose,
 	onRequestOpen,
 	onChange,
+	onFirstUpdate,
 	labelId: labelIdProp,
 	descriptionId: descIdProp,
 	buttonId: buttonIdProp,
@@ -50,12 +50,13 @@ export const Dropdown: DropdownType = ({
 	children,
 	placement = 'bottom-start',
 	strategy = 'fixed',
-	onFirstUpdate,
+	transition = 'fade',
+	distance = 4,
 	modifiers = [
 		{
 			name: 'offset',
 			options: {
-				offset: [0, 4],
+				offset: [0, distance],
 			},
 		},
 	],
@@ -192,6 +193,7 @@ export const Dropdown: DropdownType = ({
 		setButtonContents(props.label);
 		setShouldReturnFocus(true);
 		closeListbox();
+		setOptionFocusIndex(props.selectedIndex || 0);
 	};
 
 	// focus the button when focus should return to it
@@ -278,21 +280,19 @@ export const Dropdown: DropdownType = ({
 				isOpen={open}
 				modifiers={modifiers}
 				strategy={strategy}
+				distance={distance}
+				transition={transition}
 				onFirstUpdate={onFirstUpdate}
-				matchWidth={
-					matchWidth === undefined || matchWidth === 'listbox' ? false : true /* eslint-disable-line no-unneeded-ternary */
-				}
+				matchWidth={matchWidth === 'button'}
 			>
 				<Listbox
 					id={listboxId.current}
 					multiselectable={false}
 					className={listboxClass}
-					optionClass={optionClass}
 					selected={selected}
 					onChange={changeHandler}
 					focusableIndex={optionFocusIndex}
 					autofocus={autofocus}
-					onOptionFocus={(_, i) => setOptionFocusIndex(i)}
 					ref={setListbox}
 				>
 					{options}
