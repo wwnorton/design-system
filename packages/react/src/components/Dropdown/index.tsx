@@ -50,7 +50,7 @@ export const Dropdown: DropdownType = ({
 	children,
 	placement = 'bottom-start',
 	strategy = 'fixed',
-	transition = 'fade',
+	transition: transitionProp = 'fade',
 	distance = 4,
 	modifiers = [
 		{
@@ -71,6 +71,9 @@ export const Dropdown: DropdownType = ({
 	const [listboxWidth, setListBoxWidth] = React.useState<number>();
 	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>(contentsProp);
 	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
+	const [transition, setTransition] = React.useState<
+		typeof transitionProp | undefined
+	>(transitionProp);
 	const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
 	const { selected, toggle } = useSelect(false, [selectedProps]);
 
@@ -208,7 +211,9 @@ export const Dropdown: DropdownType = ({
 
 	// get the width of the listbox any time it changes
 	useLayoutEffect(() => {
-		if (listbox) setListBoxWidth(listbox.offsetWidth);
+		if (listbox) {
+			setListBoxWidth(listbox.offsetWidth);
+		}
 	}, [listbox]);
 
 	/**
@@ -231,7 +236,11 @@ export const Dropdown: DropdownType = ({
 	React.useEffect(() => {
 		if (matchWidth === 'listbox') {
 			getListboxWidth.current = true;
+			setTransition(undefined);
 			setOpen(true);
+			setTimeout(() => {
+				setTransition(transitionProp);
+			}, 500);
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
