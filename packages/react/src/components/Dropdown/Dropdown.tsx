@@ -76,6 +76,8 @@ export const Dropdown: DropdownType = ({
 	const currentId = React.useRef(`${id.current}-curr`);
 	const getListboxWidth = React.useRef(false);
 
+	const [popper, setPopper] = React.useState<HTMLElement | null>(null);
+
 	/** Attempt to open the listbox. */
 	const openListbox = React.useCallback(() => {
 		if (onRequestOpen) onRequestOpen();
@@ -101,19 +103,6 @@ export const Dropdown: DropdownType = ({
 			openListbox();
 		}
 	};
-
-	// close the listbox if the Dropdown is disabled while open
-	React.useEffect(() => {
-		if (disabled) {
-			setShouldReturnFocus(true);
-			closeListbox();
-		}
-	}, [disabled, closeListbox]);
-
-	// close the listbox if the Dropdown is disabled while open
-	React.useEffect(() => {
-		setOpen(isOpenProp);
-	}, [isOpenProp]);
 
 	/** A compare function that will sort children by value */
 	const sorter = React.useMemo(() => {
@@ -192,6 +181,19 @@ export const Dropdown: DropdownType = ({
 		closeListbox();
 	};
 
+	// close the listbox if the Dropdown is disabled while open
+	React.useEffect(() => {
+		if (disabled) {
+			setShouldReturnFocus(true);
+			closeListbox();
+		}
+	}, [disabled, closeListbox]);
+
+	// close the listbox if the Dropdown is disabled while open
+	React.useEffect(() => {
+		setOpen(isOpenProp);
+	}, [isOpenProp]);
+
 	// focus the button when focus should return to it
 	React.useEffect(() => {
 		if (!isOpen && shouldReturnFocus && button !== null) {
@@ -202,7 +204,30 @@ export const Dropdown: DropdownType = ({
 		}
 	}, [button, isOpen, shouldReturnFocus]);
 
-	// get the width of the listbox any time it changes
+	/**
+	 * [STEP 1] - open the listbox.
+	 * If the button should match the width of the listbox, open the listbox,
+	 * disable any transition, and set the `getListboxWidth` flag. This will
+	 * trigger the layout effect to get the listbox width [STEP 2], and then the
+	 * layout effect to close the listbox [STEP 3].
+	 */
+	React.useEffect(() => {
+		if (matchWidth === 'listbox' && listboxWidth === undefined) {
+			getListboxWidth.current = true;
+			setTransition(undefined);
+			setOpen(true);
+			if (canUseDOM && 'requestAnimationFrame' in window) {
+				window.requestAnimationFrame(() => {
+					setTransition(transitionProp);
+				});
+			}
+		}
+	}, [listboxWidth, matchWidth, transitionProp]);
+
+	/**
+	 * [STEP 2] - get the listbox width.
+	 * Any time the listbox changes, get its width.
+	 */
 	useLayoutEffect(() => {
 		if (listbox) {
 			setListBoxWidth(listbox.offsetWidth);
@@ -210,9 +235,11 @@ export const Dropdown: DropdownType = ({
 	}, [listbox]);
 
 	/**
-	 * If the listbox width is being retrieved, set the open state to its
-	 * initial state. If `isOpenProp` is `false` (default), this will close the
-	 * listbox. Triggered by the on load effect.
+	 * [STEP 3] - restore state.
+	 * If the `getListboxWidth` flag is set and the listbox width has been defined,
+	 * set the open state to its initial state and disable the flag.
+	 * If `isOpenProp` is `false` (default), this will close the listbox.
+	 * Triggered by the on load effect.
 	 */
 	useLayoutEffect(() => {
 		if (typeof listboxWidth === 'number' && getListboxWidth.current) {
@@ -220,22 +247,6 @@ export const Dropdown: DropdownType = ({
 			getListboxWidth.current = false;
 		}
 	}, [listboxWidth, isOpenProp]);
-
-	/**
-	 * If the button should match the width of the listbox, open the listbox on
-	 * load to get the listbox width. This will then trigger a layout effect to
-	 * immediately close the listbox.
-	 */
-	React.useEffect(() => {
-		if (matchWidth === 'listbox') {
-			getListboxWidth.current = true;
-			setTransition(undefined);
-			setOpen(true);
-			setTimeout(() => {
-				setTransition(transitionProp);
-			}, 500);
-		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// attach and detach document listeners
 	useLayoutEffect(() => {
@@ -287,6 +298,7 @@ export const Dropdown: DropdownType = ({
 				transition={transition}
 				onFirstUpdate={onFirstUpdate}
 				matchWidth={matchWidth === 'button'}
+				ref={setPopper}
 			>
 				<Listbox
 					id={listboxId.current}
