@@ -52,14 +52,7 @@ export const Dropdown: DropdownType = ({
 	strategy = 'fixed',
 	transition: transitionProp = 'fade',
 	distance = 4,
-	modifiers = [
-		{
-			name: 'offset',
-			options: {
-				offset: [0, distance],
-			},
-		},
-	],
+	modifiers,
 }: DropdownProps) => {
 	const [open, setOpen] = React.useState(false);
 	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
