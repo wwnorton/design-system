@@ -14,6 +14,8 @@ import {
 } from '../Listbox';
 import { DropdownProps } from './types';
 
+export { DropdownProps } from './types';
+
 type DropdownType = React.FunctionComponent<DropdownProps> & {
 	Option: typeof Option;
 };
