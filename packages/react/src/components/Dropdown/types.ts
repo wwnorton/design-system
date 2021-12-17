@@ -1,9 +1,8 @@
 import React from 'react';
-import { PopperOptions } from '../../utilities/popper/types';
 import { FieldInfoCoreProps } from '../Field';
 import { PopperProps } from '../Popper';
 
-type BaseProps = 'children' | 'className' | 'disabled' | 'id';
+type BaseProps = Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'disabled' | 'id'>;
 
 type PopperInherited = Pick<PopperProps,
 | 'isOpen'
@@ -16,11 +15,7 @@ type PopperInherited = Pick<PopperProps,
 | 'onFirstUpdate'
 >;
 
-export interface OnChangeData { value: React.ReactText; contents: React.ReactNode }
-
-export interface DropdownProps
-	extends FieldInfoCoreProps, PopperInherited, Partial<PopperOptions>,
-	Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, BaseProps> {
+export interface DropdownProps extends FieldInfoCoreProps, PopperInherited, BaseProps {
 	/** The name of the dropdown. Required. */
 	label: React.ReactNode;
 	/**
@@ -100,7 +95,12 @@ export interface DropdownProps
 	 * * When the user presses `Enter` on the currently focused option.
 	 * * When the user releases the space bar on the currently focused option.
 	 */
-	onChange?: ({ value, contents }: OnChangeData) => void;
+	onChange?: (payload: {
+		/** The value of the selected option. */
+		value: React.ReactText;
+		/** The child contents of the selected option. */
+		contents: React.ReactNode;
+	}) => void;
 	/** If set, the focusable dropdown option should be focused when it is rendered. */
 	autofocus?: boolean;
 }
