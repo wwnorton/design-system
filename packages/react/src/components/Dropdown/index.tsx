@@ -21,7 +21,7 @@ type DropdownType = React.FunctionComponent<DropdownProps> & {
 export const Dropdown: DropdownType = ({
 	label,
 	description,
-	selected: selectedProps = '',
+	selected: selectedProp = '',
 	buttonContents: contentsProp = 'Select',
 	autofocus = true,
 	isOpen: isOpenProp = false,
@@ -68,7 +68,7 @@ export const Dropdown: DropdownType = ({
 		typeof transitionProp | undefined
 	>(transitionProp);
 	const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
-	const { selected, toggle } = useSelect(false, [selectedProps]);
+	const { selected, toggle } = useSelect(false, [selectedProp]);
 
 	const listboxId = React.useRef(listboxIdProp || `${id.current}-listbox`);
 	const currentId = React.useRef(`${id.current}-curr`);
