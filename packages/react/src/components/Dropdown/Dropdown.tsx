@@ -76,8 +76,6 @@ export const Dropdown: DropdownType = ({
 	const currentId = React.useRef(`${id.current}-curr`);
 	const getListboxWidth = React.useRef(false);
 
-	const [popper, setPopper] = React.useState<HTMLElement | null>(null);
-
 	/** Attempt to open the listbox. */
 	const openListbox = React.useCallback(() => {
 		if (onRequestOpen) onRequestOpen();
@@ -298,7 +296,6 @@ export const Dropdown: DropdownType = ({
 				transition={transition}
 				onFirstUpdate={onFirstUpdate}
 				matchWidth={matchWidth === 'button'}
-				ref={setPopper}
 			>
 				<Listbox
 					id={listboxId.current}
