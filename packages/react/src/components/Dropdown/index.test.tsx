@@ -62,10 +62,12 @@ test('keydown.enter selects the currently focused option and closes the listbox'
 	t.falsy(screen.queryByRole('listbox'));
 });
 
-test('keyup.space selects the currently focused option and closes the listbox', (t) => {
+test('clicking with space selects the currently focused option and closes the listbox', (t) => {
 	render(<Dropdown isOpen label={label}>{ options }</Dropdown>);
 	const { textContent } = document.activeElement as Element;
 
+	// space "click" is a keydown + keyup on the same element
+	fireEvent.keyDown(document.activeElement as Element, { key: ' ' });
 	fireEvent.keyUp(document.activeElement as Element, { key: ' ' });
 	t.is(screen.getByRole('button').textContent, textContent);
 	t.falsy(screen.queryByRole('listbox'));
