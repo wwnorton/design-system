@@ -24,7 +24,7 @@ export const Dropdown: DropdownType = ({
 	selected: selectedProps = '',
 	buttonContents: contentsProp = 'Select',
 	autofocus = true,
-	isOpen = false,
+	isOpen: isOpenProp = false,
 	matchWidth,
 	buttonWidth,
 	sort,
@@ -54,7 +54,7 @@ export const Dropdown: DropdownType = ({
 	distance = 4,
 	modifiers,
 }: DropdownProps) => {
-	const [open, setOpen] = React.useState(false);
+	const [isOpen, setOpen] = React.useState(isOpenProp);
 	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
 	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
 	const descId = React.useRef(descIdProp || `${id.current}-desc`);
@@ -88,7 +88,7 @@ export const Dropdown: DropdownType = ({
 
 	/** Toggle the listbox on button click. */
 	const buttonClickHandler = (): void => {
-		if (open) closeListbox();
+		if (isOpen) closeListbox();
 		else openListbox();
 	};
 
@@ -110,8 +110,8 @@ export const Dropdown: DropdownType = ({
 
 	// close the listbox if the Dropdown is disabled while open
 	React.useEffect(() => {
-		setOpen(isOpen);
-	}, [isOpen]);
+		setOpen(isOpenProp);
+	}, [isOpenProp]);
 
 	/** A compare function that will sort children by value */
 	const sorter = React.useMemo(() => {
@@ -163,7 +163,7 @@ export const Dropdown: DropdownType = ({
 	/** Attempt to close the listbox on `Escape` or `Tab`. */
 	const documentKeydownHandler = React.useCallback(
 		(e: KeyboardEvent): void => {
-			if (!open) return;
+			if (!isOpen) return;
 			if (closeOnDocumentEscape && e.key === 'Escape') {
 				setShouldReturnFocus(true);
 				closeListbox();
@@ -173,7 +173,7 @@ export const Dropdown: DropdownType = ({
 				closeListbox();
 			}
 		},
-		[open, closeListbox, closeOnDocumentEscape],
+		[isOpen, closeListbox, closeOnDocumentEscape],
 	);
 
 	const changeHandler: ListboxProps['onChange'] = (props, index = 0) => {
@@ -192,13 +192,13 @@ export const Dropdown: DropdownType = ({
 
 	// focus the button when focus should return to it
 	React.useEffect(() => {
-		if (!open && shouldReturnFocus && button !== null) {
+		if (!isOpen && shouldReturnFocus && button !== null) {
 			if (canUseDOM && 'requestAnimationFrame' in window) {
 				window.requestAnimationFrame(() => button.focus());
 			}
 			setShouldReturnFocus(false);
 		}
-	}, [button, open, shouldReturnFocus]);
+	}, [button, isOpen, shouldReturnFocus]);
 
 	// get the width of the listbox any time it changes
 	useLayoutEffect(() => {
@@ -209,15 +209,15 @@ export const Dropdown: DropdownType = ({
 
 	/**
 	 * If the listbox width is being retrieved, set the open state to its
-	 * initial state. If `isOpen` is `false` (default), this will close the
+	 * initial state. If `isOpenProp` is `false` (default), this will close the
 	 * listbox. Triggered by the on load effect.
 	 */
 	useLayoutEffect(() => {
 		if (typeof listboxWidth === 'number' && getListboxWidth.current) {
-			setOpen(isOpen);
+			setOpen(isOpenProp);
 			getListboxWidth.current = false;
 		}
-	}, [listboxWidth, isOpen]);
+	}, [listboxWidth, isOpenProp]);
 
 	/**
 	 * If the button should match the width of the listbox, open the listbox on
@@ -262,10 +262,10 @@ export const Dropdown: DropdownType = ({
 				disabled={disabled}
 				variant="outline"
 				style={{ width: matchWidth === 'listbox' ? listboxWidth : buttonWidth }}
-				aria-expanded={open ? 'true' : undefined}
+				aria-expanded={isOpen ? 'true' : undefined}
 				aria-labelledby={`${labelId.current} ${currentId.current}`}
 				aria-haspopup="listbox"
-				aria-controls={open ? listboxId.current : undefined}
+				aria-controls={isOpen ? listboxId.current : undefined}
 				onClick={buttonClickHandler}
 				onKeyDown={buttonKeydownHandler}
 				ref={setButton}
@@ -278,7 +278,7 @@ export const Dropdown: DropdownType = ({
 				placement={placement}
 				className={popperClass}
 				reference={button}
-				isOpen={open}
+				isOpen={isOpen}
 				modifiers={modifiers}
 				strategy={strategy}
 				distance={distance}
