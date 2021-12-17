@@ -7,7 +7,11 @@ import { createPopper, Instance } from '@popperjs/core';
 import { UsePopperProps, PopperOptions } from './types';
 import { useLayoutEffect } from '../isomorphicLayoutEffect';
 
-/** A hook to create a [Popper.js](https://popper.js.org) instance. */
+/**
+ * A hook to create a [Popper.js](https://popper.js.org) instance.
+ * @deprecated - Use `<Popper>` or [react-popper](https://popper.js.org/react-popper/)'s
+ * `usePopper` hook instead.
+ */
 export const usePopper = ({
 	reference,
 	popper,

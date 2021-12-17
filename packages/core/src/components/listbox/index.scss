@@ -6,16 +6,22 @@
 @use '../../type';
 @use '../../util';
 
-@mixin base {
-	--nds-listbox-border: #{tokens.$border};
-	--nds-listbox-border-radius: #{tokens.$border-radius};
-	--nds-option-hover-color: #{tokens.$option-hover-color};
-	--nds-option-hover-focus-color: #{tokens.$option-hover-focus-color};
-	--nds-option-focus-color: #{tokens.$option-focus-color};
-	--nds-option-padding-y: #{tokens.$option-padding-y};
-	--nds-option-padding-x: #{tokens.$option-padding-x};
-	--nds-option-marker-padding-x: #{tokens.$option-marker-padding-x};
-	--nds-option-marker-size: #{tokens.$option-marker-size};
+@use 'sass:map';
+@use 'sass:meta';
+
+@mixin base ($tokens...) {
+	/* stylelint-disable order/order */
+	$-tokens: map.merge(meta.module-variables('tokens'), meta.keywords($tokens));
+
+	--nds-listbox-border: #{map.get($-tokens, 'border')};
+	--nds-listbox-border-radius: #{map.get($-tokens, 'border-radius')};
+	--nds-option-hover-color: #{map.get($-tokens, 'option-hover-color')};
+	--nds-option-hover-focus-color: #{map.get($-tokens, 'option-hover-focus-color')};
+	--nds-option-focus-color: #{map.get($-tokens, 'option-focus-color')};
+	--nds-option-padding-y: #{map.get($-tokens, 'option-padding-y')};
+	--nds-option-padding-x: #{map.get($-tokens, 'option-padding-x')};
+	--nds-option-marker-padding-x: #{map.get($-tokens, 'option-marker-padding-x')};
+	--nds-option-marker-size: #{map.get($-tokens, 'option-marker-size')};
 
 	border: var(--nds-listbox-border);
 	border-radius: var(--nds-listbox-border-radius);

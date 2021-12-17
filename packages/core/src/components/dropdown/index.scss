@@ -4,6 +4,7 @@
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
+@use '../listbox';
 
 @mixin base {
 	--nds-dropdown-border-width: #{tokens.$border-width};
@@ -49,7 +50,7 @@
 	}
 }
 
-@mixin listbox {
+@mixin popper {
 	$-option-computed-height: calc(var(--nds-dropdown-option-font-size) * var(--nds-dropdown-option-line-height) + var(--nds-dropdown-option-padding-y) * 2);
 
 	z-index: var(--nds-zindex-dropdown);
@@ -60,8 +61,14 @@
 	list-style-type: none;
 	background-color: var(--nds-background-color);
 	border: var(--nds-dropdown-border-width) solid var(--nds-base-color-40);
-	border-radius: var(--nds-radius-base);
-	box-shadow: var(--nds-dropdown-listbox-shadow);
+}
+
+@mixin listbox {
+	@include listbox.base(
+		$border: unset,
+		$border-radius: unset,
+	);
+	@include listbox.group;
 }
 
 @mixin listbox-option {
@@ -114,6 +121,10 @@
 
 		.nds-dropdown__button {
 			@include button;
+		}
+
+		.nds-dropdown__popper {
+			@include popper;
 		}
 
 		.nds-dropdown__listbox {
