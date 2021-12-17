@@ -6,10 +6,8 @@ import {
 	boolean,
 } from '@storybook/addon-knobs';
 import { Badge } from '.';
-import { Icon } from '../Icon';
+import { Icon, Popper } from '..';
 import { SystemColorOptions } from '../../utilities/color';
-import { BasePopper } from '../BasePopper';
-import { Button } from '../..';
 
 export default {
 	title: 'Badge',
@@ -27,33 +25,26 @@ export const Default: React.FunctionComponent = () => (
 	</Badge>
 );
 
-export const WithPopper: React.FunctionComponent = () => {
-	const [ref, setRef] = React.useState<HTMLElement | null>();
-	const modifiers = undefined;
-	const offsetMod = React.useMemo(() => {
-		const offsets = [-10, -17];
-		return {
-			name: 'offset',
-			options: {
-				offset: offsets,
-			},
-		};
-	}, []);
+export const RelativeToAnotherComponent: React.FunctionComponent = () => {
+	const [ref, setRef] = React.useState<SVGSVGElement | null>();
 
 	return (
 		<>
-			<Button ref={setRef} variant="ghost">
-				<Icon
-					variant="calendar"
-					size="45"
-					color="gray"
-				/>
-			</Button>
-			<BasePopper
-				role="dialog"
-				aria-modal="false"
+			<Icon
+				ref={setRef}
+				variant="calendar"
+				size="45"
+				color="gray"
+			/>
+			<Popper
 				placement="top-end"
-				modifiers={[...(modifiers || []), offsetMod]}
+				modifiers={[{
+					name: 'offset',
+					options: {
+						offset: [10, -10],
+					},
+				}]}
+				enableFlip={false}
 				isOpen
 				reference={ref}
 			>
@@ -63,7 +54,7 @@ export const WithPopper: React.FunctionComponent = () => {
 				>
 					{text('Label', '1')}
 				</Badge>
-			</BasePopper>
+			</Popper>
 		</>
 	);
 };
