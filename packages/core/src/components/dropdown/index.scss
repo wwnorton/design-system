@@ -64,11 +64,11 @@
 }
 
 @mixin listbox {
-	@include listbox.base;
+	@include listbox.base(
+		$border: unset,
+		$border-radius: unset,
+	);
 	@include listbox.group;
-
-	border: unset;
-	border-radius: none;
 }
 
 @mixin listbox-option {
