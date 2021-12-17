@@ -7,6 +7,7 @@ type BaseProps = 'children' | 'className' | 'disabled' | 'id';
 
 type PopperInherited = Pick<PopperProps,
 | 'isOpen'
+| 'distance'
 | 'transition'
 | 'placement'
 | 'modifiers'
