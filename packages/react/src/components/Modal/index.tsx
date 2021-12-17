@@ -112,7 +112,6 @@ export interface ModalSnapshot {
  * Modal dialog.
  */
 export class Modal extends React.PureComponent<ModalProps, ModalState> {
-	// eslint-disable-next-line react/sort-comp
 	public static bemBase = 'nds-modal';
 	public static bemElements: Record<ModalAnatomy, string> = {
 		portal: 'portal',

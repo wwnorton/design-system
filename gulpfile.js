@@ -1,6 +1,5 @@
 const del = require('del');
 const gulp = require('gulp');
-const fiber = require('fibers');
 const sass = require('gulp-sass')(require('sass'));
 const shell = require('gulp-shell');
 const header = require('gulp-header');
@@ -46,7 +45,6 @@ const createSass = ({ src, dest }) => () => gulp.src(src, {
 })
 	.pipe(
 		sass({
-			fiber,
 			outputStyle: (production) ? 'compressed' : 'expanded',
 			includePaths: ['node_modules'],
 		}).on('error', sass.logError),
