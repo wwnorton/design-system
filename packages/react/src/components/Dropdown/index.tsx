@@ -185,7 +185,7 @@ export const Dropdown: DropdownType = ({
 		[open, closeListbox, closeOnDocumentEscape],
 	);
 
-	const changeHandler: ListboxProps['onChange'] = (props) => {
+	const changeHandler: ListboxProps['onChange'] = (props, index = 0) => {
 		if (onChange) {
 			const { value } = props;
 			onChange({ value, contents: props.label });
@@ -195,8 +195,8 @@ export const Dropdown: DropdownType = ({
 
 		setButtonContents(props.label);
 		setShouldReturnFocus(true);
+		setOptionFocusIndex(index);
 		closeListbox();
-		setOptionFocusIndex(props.selectedIndex || 0);
 	};
 
 	// focus the button when focus should return to it

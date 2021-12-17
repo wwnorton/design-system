@@ -82,8 +82,9 @@ export interface ListboxProps extends ListboxBase {
 		props: OptionProps & {
 			value: string | number;
 			label: React.ReactNode;
-			selectedIndex?: number;
-		}
+		},
+		/** The index of the selected option. */
+		index: number,
 	) => void;
 	/** If set, the focusable listbox option should be focused when it is rendered. */
 	autofocus?: boolean;
