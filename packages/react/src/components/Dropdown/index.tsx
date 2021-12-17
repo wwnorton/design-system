@@ -92,6 +92,14 @@ export const Dropdown: DropdownType = ({
 		else openListbox();
 	};
 
+	/** Open the listbox on arrow up or down. */
+	const buttonKeydownHandler = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
+		if (['ArrowDown', 'ArrowUp'].includes(e.key)) {
+			e.preventDefault();
+			openListbox();
+		}
+	};
+
 	// focus the button when focus should return to it
 	React.useEffect(() => {
 		if (!open && shouldReturnFocus && button !== null) {
@@ -269,6 +277,7 @@ export const Dropdown: DropdownType = ({
 				aria-haspopup="listbox"
 				aria-controls={open ? listboxId.current : undefined}
 				onClick={buttonClickHandler}
+				onKeyDown={buttonKeydownHandler}
 				ref={setButton}
 				icon={getListboxWidth.current ? undefined : 'chevron-down'}
 				iconRight
