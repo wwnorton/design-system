@@ -100,16 +100,6 @@ export const Dropdown: DropdownType = ({
 		}
 	};
 
-	// focus the button when focus should return to it
-	React.useEffect(() => {
-		if (!open && shouldReturnFocus && button !== null) {
-			if (canUseDOM && 'requestAnimationFrame' in window) {
-				window.requestAnimationFrame(() => button.focus());
-			}
-			setShouldReturnFocus(false);
-		}
-	}, [button, open, shouldReturnFocus]);
-
 	// close the listbox if the Dropdown is disabled while open
 	React.useEffect(() => {
 		if (disabled) {
