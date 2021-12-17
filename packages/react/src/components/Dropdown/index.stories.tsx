@@ -7,7 +7,6 @@ import {
 	number,
 } from '@storybook/addon-knobs';
 import { Button } from '../Button';
-import { OnChangeData } from '../Listbox';
 import { Dropdown, DropdownProps } from '.';
 
 export default {
@@ -158,7 +157,7 @@ export const FullyControlled: React.FunctionComponent = () => {
 	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>('Select something');
 	const [submitted, setSubmitted] = React.useState(false);
 	const [isOpen, setOpen] = React.useState(false);
-	const changeHandler = ({ value, contents }: OnChangeData): void => {
+	const changeHandler: DropdownProps['onChange'] = ({ value, contents }): void => {
 		setSelected(value);
 		setButtonContents(contents || value);
 	};
