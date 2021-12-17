@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Link as ReachLink } from '../../../../../node_modules/@reach/router';
+import { Link as ReachLink } from '@reach/router';
 import { Link, LinkProps } from '.';
 import { LinkContext } from '../../utilities/link';
 
