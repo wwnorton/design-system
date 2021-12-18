@@ -69,15 +69,6 @@ module.exports = {
 				tsx: 'never',
 			},
 		],
-		'react/sort-comp': [1, {
-			order: [
-				'static-methods',
-				'lifecycle',
-				'/^on.+$/',
-				'render',
-				'everything-else',
-			],
-		}],
 	},
 	overrides: [
 		// TypeScript
