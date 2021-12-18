@@ -101,6 +101,7 @@ module.exports = {
 						extensions: ['.jsx', '.tsx'],
 					},
 				],
+				'react/prop-types': 'off',
 				'react/static-property-placement': [
 					'error',
 					'static public field',
