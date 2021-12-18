@@ -34,9 +34,9 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Build Sassdoc 💄
-        run: npm run build:sassdoc -- --dest website/static/sassdoc
+        run: npm run build:sassdoc
       - name: Build Storybook 📚
-        run: npm run build:stories -- --output-dir website/static/storybook
+        run: npm run build:stories
       - name: Build docs 📄
         run: npm run build:docs
         env:
