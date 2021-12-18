@@ -43,7 +43,7 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ],
-    "!(yarn.lock)": [
+    "!(yarn.lock,package-lock.json)": [
       "cspell"
     ]
   },
