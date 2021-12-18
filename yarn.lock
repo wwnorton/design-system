@@ -13197,10 +13197,10 @@
   "resolved" "https://registry.npmjs.org/jsdom-global/-/jsdom-global-3.0.2.tgz"
   "version" "3.0.2"
 
-"jsdom@^18.0.0", "jsdom@>=10.0.0":
-  "integrity" "sha512-NmJQbjQ/gpS/1at/ce3nCx89HbXL/f5OcenBe8wU1Eik0ROhyUc3LtmG3567dEHAGXkN8rmILW/qtCOPxPHQJw=="
-  "resolved" "https://registry.npmjs.org/jsdom/-/jsdom-18.1.1.tgz"
-  "version" "18.1.1"
+"jsdom@^19.0.0", "jsdom@>=10.0.0":
+  "integrity" "sha512-RYAyjCbxy/vri/CfnjUWJQQtZ3LKlLnDqj+9XLNnJPgEGeirZs3hllKR20re8LUZ6o1b1X4Jat+Qd26zmP41+A=="
+  "resolved" "https://registry.npmjs.org/jsdom/-/jsdom-19.0.0.tgz"
+  "version" "19.0.0"
   dependencies:
     "abab" "^2.0.5"
     "acorn" "^8.5.0"
