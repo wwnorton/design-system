@@ -8,6 +8,7 @@ on:
 env:
   FORCE_COLOR: 2
   NODE_VERSION: 14
+  NPM_VERSION: 8
 
 jobs:
   deploy:
@@ -19,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Update npm
+        run: npm i -g npm@${{ env.NPM_VERSION }}
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
