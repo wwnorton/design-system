@@ -13,6 +13,7 @@ export * from './Listbox';
 export * from './LiveRegion';
 export * from './Modal';
 export * from './Popover';
+export * from './Popper';
 export * from './ProgressBar';
 export * from './Radio';
 export * from './Spinner';
