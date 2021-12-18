@@ -21,19 +21,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - name: Cache 💵
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install 📦
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install
       - name: Build 🔧
         run: npm run build
 
@@ -45,19 +38,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - name: Cache 💵
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install 📦
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc
       - name: Build Storybook 📚
@@ -75,19 +61,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - name: Cache 💵
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install 📦
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install
       - name: CSpell ✏️
         run: npm run cspell
 
@@ -99,19 +78,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - name: Cache 💵
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install 📦
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install
       - name: ESLint ✨
         run: npm run lint:es
 
@@ -123,19 +95,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - name: Cache 💵
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install 📦
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install
       - name: Stylelint ✨
         run: npm run lint:style
 
@@ -147,19 +112,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - name: Cache 💵
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install 📦
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install
       - name: Prettier ✨
         run: npm run lint:prettier
 
@@ -175,19 +133,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - name: Cache 💵
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install 📦
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm install
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
