@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Link as ReachLink } from '@reach/router';
+import { BrowserRouter, Link as ReactLink } from 'react-router-dom';
 import { Link, LinkProps } from '.';
 import { LinkContext } from '../../utilities/link';
 
@@ -33,7 +33,9 @@ External.args = {
 };
 
 export const ThirdPartyRouter = (): JSX.Element => (
-	<LinkContext.Provider value={ReachLink}>
-		<Link to="https://github.com/wwnorton/design-system">Norton Design System GitHub</Link>
-	</LinkContext.Provider>
+	<BrowserRouter>
+		<LinkContext.Provider value={ReactLink}>
+			<Link to="/">Norton Design System</Link>
+		</LinkContext.Provider>
+	</BrowserRouter>
 );
