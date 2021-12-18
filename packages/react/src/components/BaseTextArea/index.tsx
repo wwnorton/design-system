@@ -14,24 +14,22 @@ const defaultProps: BaseTextAreaProps = {
  * A base `<textarea>` component. Adds a callback for the DOM's `change` event
  * (`onDOMChange`), which does not exist in React.
  */
-export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaProps>((
-	{
-		multiline = false,
-		autoSize = false,
-		errors: errorsProp,
-		validateOnChange,
-		validateOnDOMChange = defaultProps.validateOnDOMChange,
-		validators,
-		// pull out maxLength because it prevents user textarea past the given
-		// length, which is an anti-pattern according to our usage guidelines.
-		maxLength,
-		maxLengthRestrictsInput = false,
-		onInput,
-		onDOMChange,
-		onValidate,
-		...attributes
-	}: BaseTextAreaProps, ref,
-): React.ReactElement => {
+export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaProps>(({
+	multiline = false,
+	autoSize = false,
+	errors: errorsProp,
+	validateOnChange,
+	validateOnDOMChange = defaultProps.validateOnDOMChange,
+	validators,
+	// pull out maxLength because it prevents user textarea past the given
+	// length, which is an anti-pattern according to our usage guidelines.
+	maxLength,
+	maxLengthRestrictsInput = false,
+	onInput,
+	onDOMChange,
+	onValidate,
+	...attributes
+}: BaseTextAreaProps, ref): React.ReactElement => {
 	const [textarea, setTextarea] = useForwardedRef(ref);
 	const [errors, setErrors] = React.useState(errorsProp);
 	const lines = Number(multiline) > 0 ? Number(multiline) : 1;

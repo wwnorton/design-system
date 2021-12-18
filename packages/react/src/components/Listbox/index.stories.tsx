@@ -62,29 +62,37 @@ export const DisabledOptions = (): JSX.Element => {
 	);
 };
 
+type MarkerProps = { checked: boolean };
+const Marker: React.FC<MarkerProps> = ({ checked }: MarkerProps) => {
+	if (checked) {
+		return (
+			<Icon
+				// https://fonts.google.com/icons?selected=Material%20Icons%3Atoggle_on
+				icon={{ d: 'M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z' }}
+				style={{ color: 'var(--nds-primary-color)' }}
+			/>
+		);
+	}
+	return (
+		<Icon
+			// https://fonts.google.com/icons?selected=Material%20Icons%3Atoggle_off
+			icon={{ d: 'M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zM7 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z' }}
+			style={{ color: 'var(--nds-subdued-color)' }}
+		/>
+	);
+};
+
 export const CustomMarker = (): JSX.Element => {
 	const multiselectable = boolean('Multiselectable', true);
 	const { selected, toggle } = useSelect(multiselectable);
 
-	type MarkerProps = { checked: boolean };
-	const Marker: React.FC<MarkerProps> = ({ checked }: MarkerProps) => {
-		if (checked) {
-			return (
-				<Icon
-					// https://fonts.google.com/icons?selected=Material%20Icons%3Atoggle_on
-					icon={{ d: 'M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z' }}
-					style={{ color: 'var(--nds-primary-color)' }}
-				/>
-			);
-		}
-		return (
-			<Icon
-				// https://fonts.google.com/icons?selected=Material%20Icons%3Atoggle_off
-				icon={{ d: 'M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zM7 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z' }}
-				style={{ color: 'var(--nds-subdued-color)' }}
-			/>
-		);
-	};
+	const optionRender = React.useCallback((i) => ({
+		marker: (
+			<span className="nds-option__marker">
+				<Marker checked={selected.includes(Object.values(defaultOptions)[i])} />
+			</span>
+		),
+	}), [selected]);
 
 	return (
 		<Listbox
@@ -95,13 +103,7 @@ export const CustomMarker = (): JSX.Element => {
 			selected={selected}
 			onChange={({ value }) => toggle(value)}
 			options={defaultOptions}
-			optionProps={(i) => ({
-				marker: (
-					<span className="nds-option__marker">
-						<Marker checked={selected.includes(Object.values(defaultOptions)[i])} />
-					</span>
-				),
-			})}
+			optionProps={optionRender}
 		/>
 	);
 };

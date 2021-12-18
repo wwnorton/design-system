@@ -15,62 +15,60 @@ const defaultProps: Partial<TextFieldProps> = {
 	type: 'text',
 };
 
-export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TextFieldProps>((
-	{
-		// options
-		counterStart = defaultProps.counterStart,
-		validators,
-		validateOnChange,
-		validateOnDOMChange,
-		requiredIndicator,
-		optionalIndicator,
-		multiline = false,
-		autoSize = false,
+export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TextFieldProps>(({
+	// options
+	counterStart = defaultProps.counterStart,
+	validators,
+	validateOnChange,
+	validateOnDOMChange,
+	requiredIndicator,
+	optionalIndicator,
+	multiline = false,
+	autoSize = false,
 
-		// anatomy
-		children,
-		description,
-		addonBefore,
-		addonAfter,
-		feedback,
-		errors: errorsProp,
-		counter = defaultProps.counter,
+	// anatomy
+	children,
+	description,
+	addonBefore,
+	addonAfter,
+	feedback,
+	errors: errorsProp,
+	counter = defaultProps.counter,
 
-		// classes
-		baseName = 'nds-field',
-		className = classNames(baseName, `${baseName}--text`),
-		labelClass,
-		descriptionClass,
-		groupClass = classNames(`${baseName}__group${multiline ? '--textarea' : ''}`, `${baseName}__group--text`),
-		inputClass = classNames(`${baseName}__${multiline ? 'textarea' : 'input'}`, `${baseName}__${multiline ? 'textarea' : 'input'}--text`),
-		addonClass = `${baseName}__addon`,
-		feedbackClass,
-		errorsClass,
-		counterClass = `${baseName}__counter`,
-		invalidClass = `${baseName}--invalid`,
+	// classes
+	baseName = 'nds-field',
+	className = classNames(baseName, `${baseName}--text`),
+	labelClass,
+	descriptionClass,
+	groupClass = classNames(`${baseName}__group${multiline ? '--textarea' : ''}`, `${baseName}__group--text`),
+	inputClass = classNames(`${baseName}__${multiline ? 'textarea' : 'input'}`, `${baseName}__${multiline ? 'textarea' : 'input'}--text`),
+	addonClass = `${baseName}__addon`,
+	feedbackClass,
+	errorsClass,
+	counterClass = `${baseName}__counter`,
+	invalidClass = `${baseName}--invalid`,
 
-		// ids
-		id: idProp,
-		labelId: labelIdProp,
-		descriptionId: descIdProp,
-		errorsId: errIdProp,
+	// ids
+	id: idProp,
+	labelId: labelIdProp,
+	descriptionId: descIdProp,
+	errorsId: errIdProp,
 
-		// <input> attributes
-		maxLength,
-		required,
-		type = defaultProps.type,
-		value,
+	// <input> attributes
+	maxLength,
+	required,
+	type = defaultProps.type,
+	value,
 
-		// event callbacks
-		onChange,
-		onCount,
-		onDOMChange,
-		onValidate,
+	// event callbacks
+	onChange,
+	onCount,
+	onDOMChange,
+	onValidate,
 
-		// everything else
-		...inputProps
-	}: TextFieldProps, ref,
-) => {
+	// everything else
+	...inputProps
+}: TextFieldProps, ref) => {
 	const [errors, setErrors] = React.useState(errorsProp);
 
 	// ids stored as refs since they shouldn't change between renders

@@ -19,14 +19,12 @@ export interface BaseProgressProps extends React.HTMLAttributes<HTMLDivElement> 
  * - [ARIA 1.2 - progressbar (role)](https://www.w3.org/TR/wai-aria-1.2/#progressbar)
  * - [ARIA Authoring Practices - Range properties with progress bars](https://w3c.github.io/aria-practices/#range_related_properties_progressbar_role)
  */
-export const BaseProgress = React.forwardRef<HTMLDivElement, BaseProgressProps>((
-	{
-		progress,
-		max = 1,
-		children,
-		...props
-	}: BaseProgressProps, ref,
-) => (
+export const BaseProgress = React.forwardRef<HTMLDivElement, BaseProgressProps>(({
+	progress,
+	max = 1,
+	children,
+	...props
+}: BaseProgressProps, ref) => (
 	<div
 		role="progressbar"
 		aria-valuenow={progress}

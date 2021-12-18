@@ -59,9 +59,7 @@ const createSass = ({ src, dest }) => () => gulp.src(src, {
 		gulp.dest(dest, { sourcemaps: !production && '.' }),
 	);
 
-const createJsBanner = (
-	cwd, { name, version, license },
-) => () => gulp.src('dist/**/*.js', { cwd })
+const createJsBanner = (cwd, { name, version, license }) => () => gulp.src('dist/**/*.js', { cwd })
 	.pipe(header(createBanner({ name, version, license })))
 	.pipe(gulp.dest('dist', { cwd }));
 

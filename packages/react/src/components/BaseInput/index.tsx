@@ -14,22 +14,20 @@ const defaultProps: BaseInputProps = {
  * A base `<input>` component. Adds a callback for the DOM's `change` event
  * (`onDOMChange`), which does not exist in React.
  */
-export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>((
-	{
-		errors: errorsProp,
-		validateOnChange,
-		validateOnDOMChange = defaultProps.validateOnDOMChange,
-		validators,
-		// pull out maxLength because it prevents user input past the given
-		// length, which is an anti-pattern according to our usage guidelines.
-		maxLength,
-		maxLengthRestrictsInput = false,
-		onInput,
-		onDOMChange,
-		onValidate,
-		...attributes
-	}: BaseInputProps, ref,
-): React.ReactElement => {
+export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(({
+	errors: errorsProp,
+	validateOnChange,
+	validateOnDOMChange = defaultProps.validateOnDOMChange,
+	validators,
+	// pull out maxLength because it prevents user input past the given
+	// length, which is an anti-pattern according to our usage guidelines.
+	maxLength,
+	maxLengthRestrictsInput = false,
+	onInput,
+	onDOMChange,
+	onValidate,
+	...attributes
+}: BaseInputProps, ref): React.ReactElement => {
 	const [input, setInput] = useForwardedRef(ref);
 	const [errors, setErrors] = React.useState(errorsProp);
 

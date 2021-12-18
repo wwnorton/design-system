@@ -9,38 +9,36 @@ import { TooltipProps } from './types';
 
 export { TooltipProps } from './types';
 
-export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>((
-	{
-		// inherited from Popper
-		isOpen: isOpenProp,
-		transition = 'fade',
-		reference,
-		arrowElement,
-		distance,
-		boundary,
-		placement = 'top',
-		modifiers,
-		strategy,
-		onFirstUpdate,
+export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
+	// inherited from Popper
+	isOpen: isOpenProp,
+	transition = 'fade',
+	reference,
+	arrowElement,
+	distance,
+	boundary,
+	placement = 'top',
+	modifiers,
+	strategy,
+	onFirstUpdate,
 
-		// inherited from usePopperTriggers
-		hideDelay = 200,
-		showDelay = 400,
+	// inherited from usePopperTriggers
+	hideDelay = 200,
+	showDelay = 400,
 
-		// unique to Tooltip
-		baseName = 'nds-tooltip',
-		bodyClass = `${baseName}__body`,
-		contentClass,
-		arrowClass,
-		asLabel = false,
-		trigger = 'focus pointerenter',
+	// unique to Tooltip
+	baseName = 'nds-tooltip',
+	bodyClass = `${baseName}__body`,
+	contentClass,
+	arrowClass,
+	asLabel = false,
+	trigger = 'focus pointerenter',
 
-		// inherited from React.HTMLAttributes<HTMLDivElement>
-		children,
-		className,
-		...props
-	}: TooltipProps, ref,
-) => {
+	// inherited from React.HTMLAttributes<HTMLDivElement>
+	children,
+	className,
+	...props
+}: TooltipProps, ref) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const ariaId = React.useRef(uniqueId(`${baseName}-`));
 	const [isOpen, setIsOpen] = React.useState(isOpenProp || false);

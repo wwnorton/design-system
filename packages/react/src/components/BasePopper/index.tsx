@@ -21,20 +21,18 @@ export interface BasePopperProps extends
  * A [Popper.js](https://popper.js.org) component. Position the BasePopper's
  * children relative to a reference element.
  */
-export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>((
-	{
-		isOpen = false,
-		tagName: Tag = 'div',
-		reference,
-		children,
-		placement = 'auto',
-		modifiers,
-		strategy = 'absolute',
-		onFirstUpdate,
-		onCreate,
-		...attributes
-	}: BasePopperProps, ref,
-) => {
+export const BasePopper = React.forwardRef<HTMLElement, BasePopperProps>(({
+	isOpen = false,
+	tagName: Tag = 'div',
+	reference,
+	children,
+	placement = 'auto',
+	modifiers,
+	strategy = 'absolute',
+	onFirstUpdate,
+	onCreate,
+	...attributes
+}: BasePopperProps, ref) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const instance = usePopper({
 		popper,
