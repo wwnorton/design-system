@@ -19,22 +19,17 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Get yarn cache directory
-        id: yarn-cache-dir
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
+            ${{ runner.os }}-node-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm ci
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc -- --dest website/static/sassdoc
       - name: Build Storybook 📚

@@ -13,33 +13,24 @@ env:
 
 jobs:
   build:
-    name: Build library | Node ${{ matrix.node }}
+    name: Build library | Node ${{ env.NODE_VERSION }}
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        node: [12, 14, 16]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node }}
-      - name: Get yarn cache directory
-        id: yarn-cache-dir
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+          node-version: ${{ env.NODE_VERSION }}
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node }}-yarn-
+            ${{ runner.os }}-node-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm ci
       - name: Build 🔧
         run: npm run build
 
@@ -51,22 +42,17 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Get yarn cache directory
-        id: yarn-cache-dir
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
+            ${{ runner.os }}-node-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm ci
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc -- --dest website/static/sassdoc
       - name: Build Storybook 📚
@@ -84,22 +70,17 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Get yarn cache directory
-        id: yarn-cache-dir
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
+            ${{ runner.os }}-node-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm ci
       - name: CSpell ✏️
         run: npm run cspell
 
@@ -111,22 +92,17 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Get yarn cache directory
-        id: yarn-cache-dir
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
+            ${{ runner.os }}-node-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm ci
       - name: ESLint ✨
         run: npm run lint:es
 
@@ -138,22 +114,17 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Get yarn cache directory
-        id: yarn-cache-dir
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
+            ${{ runner.os }}-node-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm ci
       - name: Stylelint ✨
         run: npm run lint:style
 
@@ -165,22 +136,17 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Get yarn cache directory
-        id: yarn-cache-dir
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-yarn-
+            ${{ runner.os }}-node-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm ci
       - name: Prettier ✨
         run: npm run lint:prettier
 
@@ -196,22 +162,17 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - name: Get yarn cache directory
-        id: yarn-cache-dir
-        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache 💵
         id: cache
         uses: actions/cache@v2
         with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node }}-yarn-
+            ${{ runner.os }}-node-
       - name: Install 📦
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install
+        run: npm ci
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
