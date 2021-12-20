@@ -66,7 +66,8 @@
 /// A box shadow focus indicator that is directly attached to the focused element.
 /// Should only be used when the focused element conveys focus through some
 /// additional mechanism, such as the `<input>`'s caret.
-/// @param {box-shadow[]} $current-shadows... - Zero or more additional shadows to be applied in addition to the focus indicator.
+/// @param {box-shadow[]} $current-shadows... - Zero or more additional shadows
+/// to be applied in addition to the focus indicator.
 @mixin focus-ring($current-shadows...) {
 	border-color: var(--nds-focus-color);
 

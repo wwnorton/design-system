@@ -9,55 +9,53 @@ import { PopoverProps } from './types';
 export { PopoverProps } from './types';
 
 /** A popover is a non-modal dialog that points to a reference element. */
-export const Popover = React.forwardRef<HTMLElement, PopoverProps>((
-	{
-		// inherited from Popper
-		isOpen,
-		transition = 'fade',
-		reference,
-		arrowElement,
-		distance,
-		boundary,
-		placement = 'top',
-		modifiers,
-		strategy,
-		onFirstUpdate,
+export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
+	// inherited from Popper
+	isOpen,
+	transition = 'fade',
+	reference,
+	arrowElement,
+	distance,
+	boundary,
+	placement = 'top',
+	modifiers,
+	strategy,
+	onFirstUpdate,
 
-		// inherited from usePopperTriggers
-		hideDelay = 300,
-		showDelay,
-		onRequestOpen,
-		onRequestClose,
+	// inherited from usePopperTriggers
+	hideDelay = 300,
+	showDelay,
+	onRequestOpen,
+	onRequestClose,
 
-		// unique to Popover
-		title,
-		hideTitle,
-		hideCloseButton,
-		actions,
-		baseName = 'nds-popover',
-		headerClass = `${baseName}__header`,
-		titleClass = `${baseName}__title`,
-		closeButtonClass = `${baseName}__close`,
-		bodyClass = `${baseName}__body`,
-		actionBarClass = `${baseName}__actions`,
-		arrowClass,
-		onClose = (shouldFocusReference) => {
-			if (shouldFocusReference && reference instanceof HTMLElement) {
-				reference.focus();
-			}
-		},
-		onOpen = (popper) => {
-			if (popper) popper.focus();
-		},
+	// unique to Popover
+	title,
+	hideTitle,
+	hideCloseButton,
+	actions,
+	baseName = 'nds-popover',
+	headerClass = `${baseName}__header`,
+	titleClass = `${baseName}__title`,
+	closeButtonClass = `${baseName}__close`,
+	bodyClass = `${baseName}__body`,
+	actionBarClass = `${baseName}__actions`,
+	arrowClass,
+	onClose = (shouldFocusReference) => {
+		if (shouldFocusReference && reference instanceof HTMLElement) {
+			reference.focus();
+		}
+	},
+	onOpen = (popper) => {
+		if (popper) popper.focus();
+	},
 
-		// inherited from React.HTMLAttributes<HTMLDivElement>
-		children,
-		className,
-		'aria-labelledby': ariaLabelledby,
-		'aria-label': ariaLabel,
-		...props
-	}: PopoverProps, ref,
-) => {
+	// inherited from React.HTMLAttributes<HTMLDivElement>
+	children,
+	className,
+	'aria-labelledby': ariaLabelledby,
+	'aria-label': ariaLabel,
+	...props
+}: PopoverProps, ref) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const titleId = React.useRef(uniqueId(`${baseName}-title-`));
 	const focusReferenceOnClose = React.useRef(true);

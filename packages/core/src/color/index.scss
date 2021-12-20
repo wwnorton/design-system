@@ -56,7 +56,6 @@
 
 		@for $g from -2 through 2 {
 			$g10: $g * 10;
-
 			$prop: var(--nds-#{$name}-#{util.min-max($grade-root + $g10, 10, 100)});
 			$map: map.merge($map, (map.get($shades, $g10): $prop));
 		}
@@ -81,35 +80,45 @@ $families: (
 
 /// The primary color family is used in UI elements that use a default color.
 $primary-family: 'teal' !default;
+
 /// The grade that defines the "midpoint" of the primary family. For instance,
 /// setting this to `60` will cause the `primary` token to reference `primary-60`.
 $primary-grade: 60 !default;
+
 /// The base color family is used for background color gradients and text colors.
 $base-family: 'navy' !default;
+
 /// The grade that defines the "midpoint" of the base family. For instance,
 /// setting this to `60` will cause the `base` token to reference `base-60`.
 $base-grade: null !default;
+
 /// The color family that will be used for `disabled` controls.
 $disabled-family: 'base-color' !default;
+
 /// The grade that defines the "midpoint" of the disabled family. For instance,
 /// setting this to `60` will cause the `disabled` token to reference `disabled-60`.
 $disabled-grade: 30 !default;
+
 /// The color family that will be used to convey errors/failing.
 $error-family: 'red' !default;
+
 /// The grade that defines the "midpoint" of the error family. For instance,
 /// setting this to `60` will cause the `error` token to reference `error-60`.
 $error-grade: 60 !default;
+
 /// The color family that will be used to convey success/passing.
 $success-family: 'green' !default;
+
 /// The grade that defines the "midpoint" of the success family. For instance,
 /// setting this to `60` will cause the `success` token to reference `success-60`.
 $success-grade: 60 !default;
+
 /// The color family that will be used to convey warning/caution.
 $warning-family: 'yellow' !default;
+
 /// The grade that defines the "midpoint" of the warning family. For instance,
 /// setting this to `60` will cause the `warning` token to reference `warning-60`.
 $warning-grade: 60 !default;
-
 $roles: (
 	(name: 'primary', grade: $primary-grade),
 	(name: 'base', grade: $base-grade),

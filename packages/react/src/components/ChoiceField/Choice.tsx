@@ -49,52 +49,50 @@ export interface ChoiceProps extends
  * or an a single choice (`type="radio"`). You can also use the `Checkbox` or
  * `Radio` components directly, as they wrap this component.
  */
-export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>((
-	{
-		// options
-		type = 'radio',
-		checked: checkedProp = false,
-		indeterminate: indeterminateProp,
-		optionalIndicator,
-		requiredIndicator,
-		validators,
+export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(({
+	// options
+	type = 'radio',
+	checked: checkedProp = false,
+	indeterminate: indeterminateProp,
+	optionalIndicator,
+	requiredIndicator,
+	validators,
 
-		// anatomy
-		description,
-		thumbnail,
-		errors: errorsProp,
-		children,
+	// anatomy
+	description,
+	thumbnail,
+	errors: errorsProp,
+	children,
 
-		// classes
-		baseName = 'nds-field',
-		className = classNames(`${baseName}__group`, `${baseName}__group--choice`),
-		controlClass = classNames(`${baseName}__control`, `${baseName}__control--${type}`),
-		descriptionClass,
-		inputClass = classNames(`${baseName}__input`, `${baseName}__input--${type}`),
-		thumbnailClass = `${baseName}__thumbnail`,
-		checkedClass = `${baseName}--checked`,
-		labelClass,
-		errorsClass,
+	// classes
+	baseName = 'nds-field',
+	className = classNames(`${baseName}__group`, `${baseName}__group--choice`),
+	controlClass = classNames(`${baseName}__control`, `${baseName}__control--${type}`),
+	descriptionClass,
+	inputClass = classNames(`${baseName}__input`, `${baseName}__input--${type}`),
+	thumbnailClass = `${baseName}__thumbnail`,
+	checkedClass = `${baseName}--checked`,
+	labelClass,
+	errorsClass,
 
-		// ids
-		id: idProp,
-		labelId: labelIdProp,
-		descriptionId: descIdProp,
-		errorsId: errorsIdProp,
+	// ids
+	id: idProp,
+	labelId: labelIdProp,
+	descriptionId: descIdProp,
+	errorsId: errorsIdProp,
 
-		// <input> props
-		required,
-		value,
+	// <input> props
+	required,
+	value,
 
-		// event callbacks
-		onChange,
-		onDOMChange,
-		onValidate,
+	// event callbacks
+	onChange,
+	onDOMChange,
+	onValidate,
 
-		// everything else
-		...inputProps
-	}: ChoiceProps, ref,
-) => {
+	// everything else
+	...inputProps
+}: ChoiceProps, ref) => {
 	const [input, setInput] = useForwardedRef(ref);
 	const [checked, setChecked] = React.useState(checkedProp);
 	const [indeterminate, setIndeterminate] = React.useState(indeterminateProp);

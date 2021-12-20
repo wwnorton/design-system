@@ -1,5 +1,4 @@
 @forward 'tokens';
-
 @use 'tokens';
 @use '../../a11y';
 @use '../../spacing';
@@ -102,12 +101,12 @@
 	}
 
 	> .nds-field__input {
-
 		// still position it in the center of the visual control so that form
 		// validator tooltips will point at the right thing
 		top: calc(var(--nds-font-size-base) * #{type.lh('ui')} / 2);
 		left: calc(0.5em + 1px);
 		transform: translateX(-50%);
+
 		// make it invisible
 		@include a11y.sr-only;
 	}

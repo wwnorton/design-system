@@ -1,5 +1,5 @@
 /// A triangle arrow that connects with a Popper.js element
-@mixin arrow (
+@mixin arrow(
 	$size: calc(var(--nds-popper-distance) * 2 + var(--nds-popper-border-width)),
 	$border-width: var(--nds-popper-border-width),
 	$background-color: var(--nds-background-color),

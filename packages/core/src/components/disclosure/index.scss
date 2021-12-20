@@ -119,10 +119,10 @@
 	}
 
 	.nds-disclosure__contents-inner {
-		padding-top: var(--nds-disclosure-padding-y);
-		padding-right: var(--nds-disclosure-padding-x);
-		padding-bottom: spacing.padding(spacing.rem(1.5));
-		padding-left: var(--nds-disclosure-padding-y);
+		padding:
+			var(--nds-disclosure-padding-y) var(--nds-disclosure-padding-x)
+			spacing.padding(spacing.rem(1.5))
+			var(--nds-disclosure-padding-y);
 	}
 }
 

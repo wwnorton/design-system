@@ -2,7 +2,6 @@
 @use './nds';
 @use './ifm';
 @use './navbar';
-
 @include nds.complete;
 
 .nds-dropdown__option {
@@ -104,7 +103,7 @@
 		width: 100%;
 		height: 100%;
 		margin-bottom: 2px;
-		border: 1px solid rgba(0, 0, 0, 0.3);
+		border: 1px solid rgb(0 0 0 / 30%);
 		border-radius: 3px;
 	}
 }

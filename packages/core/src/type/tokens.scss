@@ -5,9 +5,39 @@
 @use 'sass:list';
 
 // System font stacks from https://systemfontstack.com/
-$font-family-system-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-$font-family-system-serif: 'Iowan Old Style', 'Apple Garamond', Baskerville, 'Times New Roman', 'Droid Serif', Times, 'Source Serif Pro', 'Liberation Serif', serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-$font-family-system-mono: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+$font-family-system-sans: system-ui,
+	-apple-system,
+	'Segoe UI',
+	'Roboto',
+	'Helvetica Neue',
+	arial,
+	'Noto Sans',
+	'Liberation Sans',
+	sans-serif,
+	'Apple Color Emoji',
+	'Segoe UI Emoji',
+	'Segoe UI Symbol',
+	'Noto Color Emoji';
+$font-family-system-serif: 'Iowan Old Style',
+	'Apple Garamond',
+	'Baskerville',
+	'Times New Roman',
+	'Droid Serif',
+	times,
+	'Source Serif Pro',
+	'Liberation Serif',
+	serif,
+	'Apple Color Emoji',
+	'Segoe UI Emoji',
+	'Segoe UI Symbol',
+	'Noto Color Emoji';
+$font-family-system-mono: 'SFMono-Regular',
+	'Menlo',
+	'Monaco',
+	'Consolas',
+	'Liberation Mono',
+	'Courier New',
+	monospace;
 
 /// The main sans serif font family. Overrides will have `$font-family-system-sans`
 /// appended as a fallback.
@@ -26,9 +56,9 @@ $font-family-mono: list.append($font-family-mono, var(--nds-font-family-system-m
 
 /// The main font family that will be used throughout your application.
 $font-family-base: var(--nds-font-family-sans) !default;
+
 /// The font family that will be used for all headings.
 $font-family-headings: var(--nds-font-family-base) !default;
-
 $font-size-root: 1em !default;
 $font-size-10: 0.625rem;
 $font-size-12: 0.75rem;
@@ -40,7 +70,6 @@ $font-size-24: 1.5rem;
 $font-size-32: 2rem;
 $font-size-40: 2.5rem;
 $font-size-48: 3rem;
-
 $font-size-xs: var(--nds-font-size-12) !default;
 $font-size-sm: var(--nds-font-size-14) !default;
 $font-size-md: var(--nds-font-size-16) !default;
@@ -52,7 +81,6 @@ $font-size-h4: var(--nds-font-size-18) !default;
 $font-size-h5: var(--nds-font-size-16) !default;
 $font-size-h6: var(--nds-font-size-14) !default;
 $font-size-base: var(--nds-font-size-md) !default;
-
 $font-weight-thin: 100;
 $font-weight-light: 300;
 $font-weight-regular: 400;
@@ -60,7 +88,6 @@ $font-weight-bold: 700;
 $font-weight-black: 900;
 $font-weight-base: var(--nds-font-weight-regular) !default;
 $font-weight-headings: var(--nds-font-weight-bold) !default;
-
 $line-height-1: 1;
 $line-height-2: 1.125;
 $line-height-3: 1.25;

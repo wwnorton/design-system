@@ -1,11 +1,11 @@
 /// @group Elevation
 
 $shadow-none: unset;
-$shadow-1: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
-$shadow-2: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
-$shadow-3: 0 8px 16px 0 rgba(0, 0, 0, 0.25);
-$shadow-4: 0 12px 24px 0 rgba(0, 0, 0, 0.25);
-$shadow-5: 0 16px 32px 0 rgba(0, 0, 0, 0.25);
+$shadow-1: 0 1px 4px 0 rgb(0 0 0 / 25%);
+$shadow-2: 0 4px 8px 0 rgb(0 0 0 / 25%);
+$shadow-3: 0 8px 16px 0 rgb(0 0 0 / 25%);
+$shadow-4: 0 12px 24px 0 rgb(0 0 0 / 25%);
+$shadow-5: 0 16px 32px 0 rgb(0 0 0 / 25%);
 
 // z-index values from Bootstrap
 // https://v5.getbootstrap.com/docs/5.0/layout/z-index/
@@ -14,6 +14,7 @@ $zindex-sticky: 1020;
 $zindex-fixed: 1030;
 $zindex-modal-backdrop: 1040;
 $zindex-modal: 1050;
+
 // not in Bootstrap: ensure that focused elements aren't obscured
 $zindex-focus: 'null' !default;
 $zindex-popover: 1060;

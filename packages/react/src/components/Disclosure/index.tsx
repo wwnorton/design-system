@@ -89,39 +89,37 @@ export interface DisclosureProps extends Omit<BaseDetailsProps, 'open'> {
 	onOpenEnd?: LifecycleCallback;
 }
 
-export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>((
-	{
-		isOpen: propOpen = false,
-		reducedMotion,
-		summary,
-		children,
-		marker = (p) => {
-			if (p) return 'chevron-down';
-			return 'caret-right';
-		},
-		markerPosition = (p) => {
-			if (p) return 'right';
-			return 'left';
-		},
-		markerTransform,
-		panel,
+export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(({
+	isOpen: propOpen = false,
+	reducedMotion,
+	summary,
+	children,
+	marker = (p) => {
+		if (p) return 'chevron-down';
+		return 'caret-right';
+	},
+	markerPosition = (p) => {
+		if (p) return 'right';
+		return 'left';
+	},
+	markerTransform,
+	panel,
 
-		className,
-		baseName = 'nds-disclosure',
-		summaryClass = `${baseName}__summary`,
-		markerClass = `${baseName}__marker`,
-		contentsOuterClass = `${baseName}__contents-outer`,
-		contentsInnerClass = `${baseName}__contents-inner`,
+	className,
+	baseName = 'nds-disclosure',
+	summaryClass = `${baseName}__summary`,
+	markerClass = `${baseName}__marker`,
+	contentsOuterClass = `${baseName}__contents-outer`,
+	contentsInnerClass = `${baseName}__contents-inner`,
 
-		onCloseStart,
-		onCloseCancel,
-		onCloseEnd,
-		onOpenStart,
-		onOpenCancel,
-		onOpenEnd,
-		...attributes
-	}: DisclosureProps, ref,
-): JSX.Element => {
+	onCloseStart,
+	onCloseCancel,
+	onCloseEnd,
+	onOpenStart,
+	onOpenCancel,
+	onOpenEnd,
+	...attributes
+}: DisclosureProps, ref): JSX.Element => {
 	const [isOpen, setOpen] = React.useState(propOpen);
 	const [height, setHeight] = React.useState<number>();
 	const [state, setState] = React.useState<'opening' | 'closing'>();

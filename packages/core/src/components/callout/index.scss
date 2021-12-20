@@ -1,5 +1,4 @@
 @forward 'tokens';
-
 @use 'tokens';
 @use 'sass:map';
 @use 'sass:list';
@@ -14,18 +13,18 @@
 	$width: var(--nds-callout-border-width),
 	$padding: var(--nds-callout-padding-y),
 ) {
-	@if list.index('top' 'right' 'bottom' 'left', #{$position}) == null {
+	@if not list.index('top' 'right' 'bottom' 'left', #{$position}) {
 		@error '$position must be either "top," "right," "bottom," or "left"';
 	}
 
 	$pad: $padding;
 
 	@if not $padding {
-		@if list.index('top' 'bottom', #{$position}) != null {
+		@if list.index('top' 'bottom', #{$position}) {
 			$pad: var(--nds-callout-padding-y);
 		}
 
-		@if list.index('right' 'left', #{$position}) != null {
+		@if list.index('right' 'left', #{$position}) {
 			$pad: var(--nds-callout-padding-x);
 		}
 	}
@@ -62,7 +61,6 @@
 	&--no-title {
 		padding-top: calc(var(--nds-callout-padding-y) / 2);
 
-		//stylelint-disable-next-line selector-no-qualifying-type
 		&[data-border~='top'] {
 			@include border($position: 'top', $padding: calc(var(--nds-callout-padding-y) / 2));
 		}
@@ -138,16 +136,18 @@
 		transform: translateX(calc(-100% + var(--nds-button-padding-x) - 2px));
 	}
 
-	.nds-callout[data-border~=top]:not(.nds-callout--no-title) & {
+	.nds-callout[data-border~='top']:not(.nds-callout--no-title) & {
 		transform:
 			translateY(calc(var(--nds-callout-padding-y) - var(--nds-button-padding-y) - var(--nds-callout-border-width)))
 			translateX(calc(-1 * (var(--nds-callout-padding-x) - var(--nds-button-padding-x) + 2px)));
 	}
 
-	.nds-callout[data-border~=right]:not(.nds-callout--no-title) & {
+	.nds-callout[data-border~='right']:not(.nds-callout--no-title) & {
 		transform:
 			translateY(calc(var(--nds-callout-padding-y) - var(--nds-button-padding-y)))
-			translateX(calc(-1 * (var(--nds-callout-padding-x) - var(--nds-button-padding-x) - var(--nds-callout-border-width) + 2px)));
+			translateX(
+				calc(-1 * (var(--nds-callout-padding-x) - var(--nds-button-padding-x) - var(--nds-callout-border-width) + 2px))
+			);
 	}
 
 	&:not(:disabled):not(.disabled):hover,

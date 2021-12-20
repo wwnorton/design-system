@@ -55,5 +55,7 @@ export const Choices: React.FunctionComponent<ChoicesProps> = ({
 		return choicesMap;
 	}, [choices, props, propSelected, multiple]);
 
+	// ChoiceElements is an array of elements, so we must wrap it in a fragment.
+	// eslint-disable-next-line react/jsx-no-useless-fragment
 	return <>{ ChoiceElements }</>;
 };

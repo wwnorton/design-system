@@ -9,24 +9,22 @@ import { BUTTON_NO_NAME } from './errors';
 import { ButtonProps, ButtonVariant } from './types';
 
 /** A button allows a user to perform an action. */
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
-	{
-		baseName = 'nds-button',
-		variant,
-		icon,
-		iconRight,
-		iconOnly,
-		color,
-		tooltipProps,
-		iconClass = `${baseName}__icon`,
-		textClass = `${baseName}__text`,
-		className,
-		children,
-		'aria-label': ariaLabel,
-		'aria-labelledby': ariaLabelledBy,
-		...props
-	}: ButtonProps, ref,
-) => {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
+	baseName = 'nds-button',
+	variant,
+	icon,
+	iconRight,
+	iconOnly,
+	color,
+	tooltipProps,
+	iconClass = `${baseName}__icon`,
+	textClass = `${baseName}__text`,
+	className,
+	children,
+	'aria-label': ariaLabel,
+	'aria-labelledby': ariaLabelledBy,
+	...props
+}: ButtonProps, ref) => {
 	if (!React.Children.count(children) && !ariaLabel && !ariaLabelledBy) {
 		throw new Error(BUTTON_NO_NAME);
 	}

@@ -92,10 +92,10 @@ export const ThemeProvider: React.FunctionComponent<ThemeProviderProps> = ({
 		if (onColorSchemeChange) onColorSchemeChange(colorScheme);
 	}, [colorScheme, onColorSchemeChange]);
 
-	const theme = {
+	const theme = React.useMemo(() => ({
 		colorScheme,
 		setColorScheme: (scheme: ColorScheme) => setColorScheme(scheme),
-	};
+	}), [colorScheme]);
 
 	return (
 		<ThemeContext.Provider value={theme}>

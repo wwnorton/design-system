@@ -1,12 +1,14 @@
 /* cspell:ignore datalists, textareas, fieldsets */
-/* stylelint-disable at-rule-no-vendor-prefix, property-no-vendor-prefix, selector-no-qualifying-type, max-nesting-depth, no-descending-specificity */
+/* stylelint-disable
+	at-rule-no-vendor-prefix, property-no-vendor-prefix, selector-no-qualifying-type,
+	max-nesting-depth, no-descending-specificity, scss/comment-no-empty
+*/
 
 ////
 /// @group Main
 ////
 
 @forward 'tokens';
-
 @use 'tokens' as *;
 @use '../a11y';
 @use '../color';
@@ -15,7 +17,8 @@
 @use '../util';
 
 /// The global HTML reset.
-/// Forked from [the Bootstrap reboot](https://getbootstrap.com/docs/5.0/content/reboot/) to use the Norton Design System foundations.
+/// Forked from [the Bootstrap reboot](https://getbootstrap.com/docs/5.0/content/reboot/)
+/// to use the Norton Design System foundations.
 /// @link https://github.com/twbs/bootstrap/blob/main/scss/_reboot.scss
 @mixin reset {
 	@include util.declare('reset') {
@@ -43,7 +46,7 @@
 			color: var(--nds-text-color);
 			background-color: var(--nds-background-color); // 3
 			-webkit-text-size-adjust: 100%; // 4
-			-webkit-tap-highlight-color: rgba(var(--nds-black), 0); // 5
+			-webkit-tap-highlight-color: rgb(var(--nds-black) 0); // 5
 
 			@include type.font-smoothing; // 1
 		}

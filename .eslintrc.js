@@ -37,6 +37,10 @@ module.exports = {
 				exceptAfterSingleLine: true,
 			},
 		],
+		'react/function-component-definition': ['error', {
+			namedComponents: 'arrow-function',
+			unnamedComponents: 'function-expression',
+		}],
 		'react/jsx-indent': ['error', 'tab'],
 		'react/jsx-indent-props': ['error', 'tab'],
 		'react/jsx-props-no-spreading': 'off',
@@ -92,6 +96,7 @@ module.exports = {
 						extensions: ['.jsx', '.tsx'],
 					},
 				],
+				'react/prop-types': 'off',
 				'react/static-property-placement': [
 					'error',
 					'static public field',

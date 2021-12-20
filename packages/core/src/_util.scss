@@ -7,7 +7,6 @@
 @use 'sass:math';
 @use 'sass:meta';
 @use 'sass:string';
-
 @use 'config';
 
 $-declared: ();
@@ -15,8 +14,7 @@ $-declared: ();
 @mixin declare($name) {
 	@if config.$enable-duplicate-declarations {
 		@content;
-	}
-	@else if list.index($-declared, $name) == null {
+	} @else if list.index($-declared, $name) == null {
 		$-declared: list.append($-declared, $name) !global;
 
 		@content;
@@ -51,14 +49,12 @@ $-declared: ();
 		}
 
 		@if not $full-key {
-			@error 'When flattening #root keys, ensure that the #root is either '
-				+ 'nested or a valid $name argument is included.';
+			@error 'When flattening #root keys, ensure that the #root is either nested or a valid $name argument is included.';
 		}
 
 		@if meta.type-of($val) == 'map' {
 			$flattened: map.merge($flattened, flatten($val, string.quote($full-key)));
-		}
-		@else {
+		} @else {
 			$flattened: map.merge($flattened, (string.quote($full-key): $val));
 		}
 	}
@@ -91,8 +87,7 @@ $-declared: ();
 
 				$merged: map.merge($merged, ($key: $new-val));
 			}
-		}
-		@else {
+		} @else {
 			@error 'All arguments must be maps.';
 		}
 	}
@@ -134,18 +129,15 @@ $-declared: ();
 ///
 @mixin set($prop-maps...) {
 	$keywords: meta.keywords($prop-maps);
-
 	$props: ();
 
 	@if list.length($keywords) > 0 {
 		$props: $keywords;
-	}
-	@else {
+	} @else {
 		@each $prop-map in $prop-maps {
 			@if meta.type-of($prop-map) != 'map' {
 				@error 'All arguments must be maps';
-			}
-			@else {
+			} @else {
 				$props: map.merge($props, $prop-map);
 			}
 		}
@@ -155,8 +147,7 @@ $-declared: ();
 		@if $value {
 			@if meta.type-of($value) == 'map' {
 				@include set(flatten($value, $token));
-			}
-			@else {
+			} @else {
 				$css-prop: if(string.index($token, '--') == 1, $token, --#{$token});
 
 				#{string.unquote($css-prop)}: #{$value};
@@ -204,11 +195,9 @@ $-declared: ();
 @function prefix($item, $namespace, $separator: '-') {
 	@if meta.type-of($item) == 'string' {
 		@return if($namespace, $namespace + $separator + $item, $item);
-	}
-	@else if meta.type-of($item) == 'number' {
+	} @else if meta.type-of($item) == 'number' {
 		@return if($namespace, '#{$namespace}#{$separator}#{$item}', $item);
-	}
-	@else if meta.type-of($item) == 'map' {
+	} @else if meta.type-of($item) == 'map' {
 		@return -prefix-map($item, $namespace, $separator);
 	}
 }

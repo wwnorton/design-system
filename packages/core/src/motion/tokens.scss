@@ -11,15 +11,19 @@ $duration-scalar: 1 !default;
 /// A duration used for simple animations such as selection controls.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-simple: 100ms;
+
 /// A duration used for simple entrances such as fade-ins.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-simple-enter: 150ms;
+
 /// A duration used for simple exits such as fade-outs.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-simple-exit: 75ms;
+
 /// A duration used for complex animations such as shape changes.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-complex: 200ms;
+
 /// A duration used for detailed animations such as icon transformations.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-detailed: 500ms;
@@ -27,12 +31,15 @@ $duration-detailed: 500ms;
 /// A duration used for elements that open from a closed state, such as a sidebar.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-open: 250ms;
+
 /// A duration used for elements that close from an opened state, such as a sidebar.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-close: 200ms;
+
 /// A duration used when an element expands (grows).
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-expand: 300ms;
+
 /// A duration used when an element collapses (shrinks).
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-collapse: 250ms;
@@ -40,15 +47,19 @@ $duration-collapse: 250ms;
 /// A duration used for elements with a small transition areas, such as icons and selection controls.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-small: var(--nds-duration-simple);
+
 /// A duration used for expanding elements with larger transition areas, such as bottom sheets and expanding chips.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-medium-expand: var(--nds-duration-open);
+
 /// A duration used for collapsing elements with larger transition areas, such as bottom sheets and expanding chips.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-medium-collapse: var(--nds-duration-close);
+
 /// A duration used for expanding elements that traverse a large portion of the screen.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-large-expand: var(--nds-duration-expand);
+
 /// A duration used for collapsing elements that traverse a large portion of the screen.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
 $duration-large-collapse: var(--nds-duration-collapse);
@@ -74,10 +85,12 @@ $easing-deceleration: cubic-bezier(0, 0, 0.2, 1);
 /// @source https://material.io/design/motion/speed.html#easing Material Design: Easings
 $easing-acceleration: cubic-bezier(0.4, 0, 1, 1);
 
+/* stylelint-disable max-line-length */
 /// Timing function to quickly accelerate and decelerate
 /// @source https://material.io/design/motion/speed.html#easing Material Design: Easings
 /// @source https://github.com/material-components/material-components-web/tree/master/packages/mdc-animation @material/animation
 $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+/* stylelint-enable max-line-length */
 
 /// Motion tokens set as CSS custom properties on the `:root` element.
 @mixin motion {

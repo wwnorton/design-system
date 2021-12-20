@@ -15,11 +15,9 @@
 
 	@if $generic == 'sans' {
 		$system: var(--nds-font-family-system-sans);
-	}
-	@else if $generic == 'serif' {
+	} @else if $generic == 'serif' {
 		$system: var(--nds-font-family-system-sans);
-	}
-	@else if $generic == 'mono' {
+	} @else if $generic == 'mono' {
 		$system: var(--nds-font-family-system-mono);
 	}
 

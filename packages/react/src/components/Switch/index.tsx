@@ -35,28 +35,26 @@ export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'chil
 	tooltipProps?: Partial<TooltipCoreProps>;
 }
 
-export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>((
-	{
-		baseName = 'nds-switch',
-		labelClass,
-		descriptionClass,
-		checked: isChecked = false,
-		tooltipProps,
-		children,
-		className,
-		description,
-		disabled,
-		displayDefault = true,
-		label,
-		tipped,
-		id: idProp,
-		labelId: labelIdProp,
-		descriptionId: descIdProp,
-		onClick,
-		onToggle,
-		...attributes
-	}: SwitchProps, ref,
-) => {
+export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
+	baseName = 'nds-switch',
+	labelClass,
+	descriptionClass,
+	checked: isChecked = false,
+	tooltipProps,
+	children,
+	className,
+	description,
+	disabled,
+	displayDefault = true,
+	label,
+	tipped,
+	id: idProp,
+	labelId: labelIdProp,
+	descriptionId: descIdProp,
+	onClick,
+	onToggle,
+	...attributes
+}: SwitchProps, ref) => {
 	const [checked, setChecked] = React.useState(isChecked);
 	const [defaultValue, setDefaultValue] = React.useState('OFF');
 	const prevChecked = React.useRef(checked);

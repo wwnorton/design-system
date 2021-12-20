@@ -2,7 +2,7 @@
 @use '../../type';
 
 $border-width: 1px !default;
-$listbox-shadow: 0 2px 4px 0 rgba(var(--nds-black), 0.25) !default;
+$listbox-shadow: 0 2px 4px 0 rgb(var(--nds-black) 0.25) !default;
 $options-max-display: 5 !default;
 $option-hover-color: var(--nds-base-color-20) !default;
 $option-hover-focus-color: var(--nds-base-color-30) !default;
