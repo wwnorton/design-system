@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Norton Design System Blog</title>
         <link>https://wwnorton.github.io/design-system/design-system/blog</link>
@@ -13,6 +13,7 @@
             <guid>welcome</guid>
             <pubDate>Thu, 06 Aug 2020 00:00:00 GMT</pubDate>
             <description><![CDATA[Welcome to the Norton Design System blog!]]></description>
+            <content:encoded><![CDATA[<p>Welcome to the Norton Design System blog!</p><p>Keep an eye out here for a deeper look at some of the systems, components, and design decisions that might not make as much sense elsewhere.</p><p>That&#x27;s all for now.</p>]]></content:encoded>
         </item>
     </channel>
 </rss>

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[9945],{7282:function(s){s.exports=JSON.parse('{"allTagsPath":"/design-system/blog/tags","slug":"/design-system/blog/tags/info","name":"info","count":1,"permalink":"/design-system/blog/tags/info"}')}}]);
