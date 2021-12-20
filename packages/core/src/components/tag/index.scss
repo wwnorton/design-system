@@ -1,4 +1,3 @@
-
 @use 'sass:map';
 @use 'tokens';
 @use '../../a11y';
@@ -25,7 +24,7 @@
 	align-items: stretch;
 
 	> * {
-		padding: 0.15625rem 0.25rem;
+		padding: 0.1563rem 0.25rem;
 	}
 
 	> :first-child {

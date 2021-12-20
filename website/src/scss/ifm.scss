@@ -75,7 +75,7 @@ code {
 
 .alert--warning {
 	--ifm-alert-color: var(--ifm-font-color-base);
-	--ra-admonition-icon-color: --ifm-alert-color;
+	--ra-admonition-icon-color: var(--ifm-alert-color);
 
 	[data-theme='dark'] & {
 		--ifm-alert-color: var(--ifm-font-color-base-inverse);

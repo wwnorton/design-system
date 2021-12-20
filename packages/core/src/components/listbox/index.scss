@@ -5,11 +5,10 @@
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
-
 @use 'sass:map';
 @use 'sass:meta';
 
-@mixin base ($tokens...) {
+@mixin base($tokens...) {
 	/* stylelint-disable order/order */
 	$-tokens: map.merge(meta.module-variables('tokens'), meta.keywords($tokens));
 

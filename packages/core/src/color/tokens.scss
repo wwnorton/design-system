@@ -22,12 +22,13 @@ $-families: (
 
 /// A list of the color families that should be used.
 $colors: () !default;
+
 /// A list of the color families that should not be used.
 $colors-omitted: () !default;
 
 @if list.length($colors) == 0 {
 	@each $family in $-families {
-		@if list.index($colors-omitted, $family) == null {
+		@if not list.index($colors-omitted, $family) {
 			$colors: list.append($colors, $family) !global;
 		}
 	}
@@ -174,7 +175,6 @@ $-yellow-default: (
 	100: #331d0d,
 );
 $yellow: () !default;
-
 $system-colors: (
 	--nds-black: #{$black},
 	--nds-white: #{$white},
@@ -192,29 +192,38 @@ $system-colors: (
 
 /// The main background color.
 $background-color: var(--nds-white) !default;
+
 /// The inverse background color.
 $background-color-inverse: var(--nds-base-color-90) !default;
+
 /// The main text color.
 $text-color: var(--nds-base-color-90) !default;
+
 /// The inverse text color.
 $text-color-inverse: var(--nds-white) !default;
+
 /// A subdued or "muted" text color, used for less emphasized text.
 $subdued-color: var(--nds-base-color-60) !default;
+
 /// The background color.
 $selection-background-color: 'null' !default;
+
 /// The text color.
 $selection-text-color: var(--nds-text-color-inverse) !default;
+
 /// The color used for the `:focus` state.
 $focus-color: var(--nds-blue-50) !default;
+
 /// The background color used for the `:focus` state in focusable lists, such as
 /// listboxes and menus.
 $focus-color-background: var(--nds-blue-20) !default;
+
 /// The color of the inner ring for the focus halo. Used to visually offset the
 /// default focus halo from the focused element.
 $focus-halo-inner-color: var(--nds-background-color) !default;
+
 /// The color of the outer ring for the focus halo.
 $focus-halo-outer-color: var(--nds-focus-color) !default;
-
 $-scheme-light-default: (
 	--nds-background-color: #{$background-color},
 	--nds-background-color-inverse: #{$background-color-inverse},
@@ -236,7 +245,6 @@ $-scheme-light-default: (
 );
 $scheme-light: () !default;
 $scheme-light: map.merge($-scheme-light-default, $scheme-light);
-
 $-scheme-dark-default: (
 	--nds-background-color: var(--nds-base-color-10),
 	--nds-background-color-inverse: #{$background-color},
@@ -280,8 +288,7 @@ $scheme-dark: map.merge($-scheme-dark-default, $scheme-dark);
 		[data-color-scheme='dark'] {
 			@if config.$enable-dark-scheme {
 				@include dark-scheme;
-			}
-			@else {
+			} @else {
 				@include light-scheme;
 			}
 		}

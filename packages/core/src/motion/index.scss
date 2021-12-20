@@ -24,13 +24,13 @@
 	$easing: var(--nds-easing-standard),
 ) {
 	$full-transition: ();
-
 	$prop-list: if(meta.type-of($properties) == 'string', ($properties), $properties);
 
 	@each $property in $prop-list {
-		$full-transition: list.join($full-transition, #{$property -scale($duration) $easing}, $separator: comma);
+		$full-transition: list.join($full-transition, #{$property} -scale($duration) #{$easing}, $separator: comma);
 	}
 
+	@debug $full-transition;
 	@return $full-transition;
 }
 

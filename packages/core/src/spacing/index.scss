@@ -86,7 +86,9 @@ $-spacer-roles: (
 		token: 'spacing-2',
 	),
 	(
-		keys: (3, '0.75rem', '12px', 'button-x', 'input-x', 'dropdown-x', 'tooltip-x', 'inline-x-md', 'disclosure-y', 'block-sm'),
+		keys: (
+			3,'0.75rem', '12px', 'button-x', 'input-x', 'dropdown-x', 'tooltip-x', 'inline-x-md', 'disclosure-y', 'block-sm'
+		),
 		token: 'spacing-3',
 	),
 	(
