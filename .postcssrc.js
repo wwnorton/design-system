@@ -16,6 +16,9 @@ module.exports = {
 					'last 1 firefox version',
 					'last 1 safari version'
 				],
+			features: {
+				'focus-visible-pseudo-class': false,
+			}
 		}),
 	],
 };
