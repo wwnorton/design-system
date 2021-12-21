@@ -2,7 +2,7 @@
 title: Tooltip
 ---
 
-import { Tooltip, Callout, CalloutError, CalloutSuccess } from '@wwnds/react';
+import { Tooltip, Callout, CalloutError, CalloutSuccess, CalloutWarning } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A tooltip displays the name of or description for a related element on demand.
@@ -34,7 +34,7 @@ But in exchange, users will have a harder time understanding and discovering the
 	</ul>
 </CalloutError>
 
-<Callout title="Use a tooltip...">
+<Callout title="Use a tooltip..." border="left">
 	<ul>
 		<li>to name a control when there isn't enough space to display the label inline.</li>
 		<li>to display an additional description about a control or element that already has an accessible name.</li>
@@ -53,19 +53,23 @@ A tooltip is said to be **naming** its related element when it is acting as a la
 For instance, an icon button's call to action could be captured as a tooltip to ensure that the purpose of the icon button is clear to everyone.
 If the element contains textual content and you also want to use a tooltip to add additional context, the tooltip should be a describing tooltip.
 
-:::a11y Naming tooltips & screen reader experience
+<CalloutWarning title="Naming tooltips & screen reader experience">
+
 When a tooltip **names** its related element, screen readers will read the value of the tooltip when they encounter the related element, entirely ignoring any textual content inside the element.
 For this reason, naming tooltips should only be used for elements that do not already contain textual content.
-:::
+
+</CalloutWarning>
 
 ### Describing
 
 A tooltip is said to be **describing** its related element when it is acting as additional or supplemental information about an element that already has a name.
 For instance, an `<input>` that already has an associated `<label>` could use a tooltip to display help text about the expected input format.
 
-:::a11y Describing tooltips & screen reader experience
+<CalloutWarning title="Describing tooltips & screen reader experience">
+
 When a tooltip **describes** its related element, many screen readers will read the name of the related element, pause briefly, and then read the description contained in the tooltip.
-:::
+
+</CalloutWarning>
 
 ## React API
 
