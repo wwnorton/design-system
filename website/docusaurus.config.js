@@ -167,13 +167,6 @@ module.exports = {
 		path.resolve(__dirname, 'plugin-nds.js'),
 		'docusaurus-lunr-search',
 		[
-			'docusaurus-plugin-sass',
-			{
-				// eslint-disable-next-line global-require
-				implementation: require('sass'),
-			},
-		],
-		[
 			'@docusaurus/plugin-pwa',
 			{
 				debug: process.env.NODE_ENV !== 'production',
