@@ -33,12 +33,12 @@ Because this is a monorepo, a couple extra steps are required to get your local 
 The following assumes that you already have [Node.js](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed locally.
 
 1. Clone the repository.
-2. Install all workspace dependencies via `yarn`.
+2. Install all [workspace](https://docs.npmjs.com/cli/v7/using-npm/workspaces) dependencies via `npm@7+`.
 
 ```sh
 git clone https://github.com/wwnorton/design-system.git
 cd design-system
-yarn
+npm install
 ```
 
 ### Developing
