@@ -23,7 +23,7 @@ module.exports = {
 		'foundations/design-tokens',
 		'foundations/color',
 		'foundations/typography',
-		'foundations/spacing',
+		// 'foundations/spacing',
 		'foundations/motion',
 	],
 	components: [
