@@ -2,15 +2,19 @@
 title: Design Tokens
 ---
 
+import { Callout, CalloutWarning } from '@wwnds/react';
+
 We capture all of our design elements as discrete entities called **design tokens**.
 
 Design tokens have a **static name** and a **variable value**, allowing you to theme the entire design of an application with design tokens alone.
 Most design tokens have a default value assigned, which effectively represents the default theme of the Norton Design System.
 But since token values can be changed, you can simply reassign the value to begin creating a theme for a Norton Design System application.
 
-:::note Prefix Note
+<CalloutWarning title="Prefix Note">
+
 In CSS, our design tokens start with `--nds-`, but that prefix is omitted in most places in our documentation.
-:::
+
+</CalloutWarning>
 
 <!-- Note: this might be better suited as a blog post -->
 <!-- ## Thinking with Tokens
@@ -22,7 +26,8 @@ For instance, when choosing an element's background color, instead of picking a 
 
 The Norton Design System contains three types of design tokens: [**system**](#system-tokens), [**role**](#role-tokens), and [**component**](#component-tokens) tokens, which are used in conjunction to capture the entire design of an application.
 
-:::info Inheritance
+<Callout title="Inheritance" border="left">
+
 The three types of tokens use the following system of inheritance in the Norton Design System.
 
 - Abstract: `component token` → `role token` → `system token`
@@ -43,7 +48,7 @@ And in CSS as implemented by `@wwnds/core`:
 }
 ```
 
-:::
+</Callout>
 
 ### System Tokens
 

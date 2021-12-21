@@ -2,18 +2,14 @@
 title: Principles
 ---
 
-:::caution Work in progress
-This page is incomplete and may see significant changes.
-Please [submit feedback on GitHub](https://github.com/wwnorton/design-system/issues)
-if you would like to contribute.
-:::
+import { Callout } from '@wwnds/react';
 
 ## Accessibility first
 
 **Accessibility should drive decisions and should never be an afterthought**. We
 believe that focusing on accessibility at the outset improves usability for everyone.
 
-:::note Tips
+<Callout title="Tips" border="left">
 
 This is similar to the principle of mobile-first design, where designing first for
 the constraints of a smaller screen ensures that users won't lose information when
@@ -28,7 +24,7 @@ using mobile devices.
 - **Developers**: [use ARIA sparingly and carefully](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria),
   but treat ARIA attributes as your source of truth for everyone whenever possible.
 
-:::
+</Callout>
 
 ## Don't overwhelm
 
@@ -36,7 +32,7 @@ using mobile devices.
 developers and designers who use the design system as well as customers who use
 products built with the design system.
 
-:::note Tips
+<Callout title="Tips" border="left">
 
 - Favor [convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration)
   whenever possible and sensible defaults when many options are required.
@@ -46,4 +42,4 @@ products built with the design system.
   content, not a challenging interface.
 - **Developers**: be wary of abstractions that reduce code readability and maintainability.
 
-:::
+</Callout>
