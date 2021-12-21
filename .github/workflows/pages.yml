@@ -29,7 +29,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install 📦
-        run: npm install
+        run: npm ci
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc
       - name: Build Storybook 📚

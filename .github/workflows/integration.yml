@@ -30,7 +30,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install 📦
-        run: npm install
+        run: npm ci
       - name: Build 🔧
         run: npm run build
 
@@ -51,7 +51,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install 📦
-        run: npm install
+        run: npm ci
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc
       - name: Build Storybook 📚
@@ -78,7 +78,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install 📦
-        run: npm install
+        run: npm ci
       - name: CSpell ✏️
         run: npm run cspell
 
@@ -99,7 +99,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install 📦
-        run: npm install
+        run: npm ci
       - name: ESLint ✨
         run: npm run lint:es
 
@@ -120,7 +120,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install 📦
-        run: npm install
+        run: npm ci
       - name: Stylelint ✨
         run: npm run lint:style
 
@@ -141,7 +141,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install 📦
-        run: npm install
+        run: npm ci
       - name: Prettier ✨
         run: npm run lint:prettier
 
@@ -166,7 +166,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install 📦
-        run: npm install
+        run: npm ci
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
