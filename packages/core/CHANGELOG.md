@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.2](https://github.com/wwnorton/design-system/compare/v1.3.1...v1.3.2) (2021-12-21)
+
+### 💄 Visual design
+
+- **button:** change the cursor to "not-allowed" when disabled ([d597250](https://github.com/wwnorton/design-system/commit/d5972504af050db7f895f54ee7d2099e4f8a7854))
+
+### 📝 Documentation
+
+- publish first draft of the usable writing guidelines ([fbb0313](https://github.com/wwnorton/design-system/commit/fbb03135b6494d451bc309b6a2a978f23b12917b))
+
+### ♻️ Refactor
+
+- **dropdown:** reimagine style mixin extension ([430858e](https://github.com/wwnorton/design-system/commit/430858ef4cb3af0f6305bda25b555493b84f40ab))
+- **dropdown:** switch to new Listbox & Popper ([2710a2a](https://github.com/wwnorton/design-system/commit/2710a2a0a7379fdb6b1524a31e9960f41ba4f482))
+
 ### [1.3.1](https://github.com/wwnorton/design-system/compare/v1.3.0...v1.3.1) (2021-08-25)
 
 ### 🐛 Bug Fixes

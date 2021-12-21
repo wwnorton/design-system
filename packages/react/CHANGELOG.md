@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.2](https://github.com/wwnorton/design-system/compare/v1.3.1...v1.3.2) (2021-12-21)
+
+### 💄 Visual design
+
+- **button:** change the cursor to "not-allowed" when disabled ([d597250](https://github.com/wwnorton/design-system/commit/d5972504af050db7f895f54ee7d2099e4f8a7854))
+
+### ♻️ Refactor
+
+- **dropdown:** add distance to inherited popper props ([ccae87a](https://github.com/wwnorton/design-system/commit/ccae87a1c30b7414864fccfc5d66c9b705c0e041))
+- **dropdown:** add transition prop inherited from Popper ([639be87](https://github.com/wwnorton/design-system/commit/639be877c8ccc6883989576af05cdfaad7bd1c98))
+- **dropdown:** prefer distance to default modifiers ([c5f491b](https://github.com/wwnorton/design-system/commit/c5f491b90a8dbc866f14e2817515271952ca5af6))
+- **dropdown:** reorganize exports ([0793c57](https://github.com/wwnorton/design-system/commit/0793c57c866a01d5be5d1d674e809ab5a1419335))
+- **dropdown:** switch to new Listbox & Popper ([2710a2a](https://github.com/wwnorton/design-system/commit/2710a2a0a7379fdb6b1524a31e9960f41ba4f482))
+- **dropdown:** tighten the main interface ([77f4074](https://github.com/wwnorton/design-system/commit/77f407493896eb4289db9cb5e8d85052d2fdd425))
+- **dropdown:** use isOpen/isOpenProp convention ([1552a48](https://github.com/wwnorton/design-system/commit/1552a482b6840d2a7552a84df0d29e82e5e3030a))
+- **listbox:** emit the index of the selected option on change ([f3c3a91](https://github.com/wwnorton/design-system/commit/f3c3a91a8005e18ad5c65b33e3e69d7deebca928))
+
+### 🐛 Bug Fixes
+
+- **react:** add Popper to the public API ([8315aab](https://github.com/wwnorton/design-system/commit/8315aab55750994ac2759e189743929c43b31290))
+- **ThemeProvider:** don't update theme on every render ([36d83f6](https://github.com/wwnorton/design-system/commit/36d83f62599b8a0deb6bc40a01acfd472be9a607))
+
 ### [1.3.1](https://github.com/wwnorton/design-system/compare/v1.3.0...v1.3.1) (2021-08-25)
 
 ### 🐛 Bug Fixes

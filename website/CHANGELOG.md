@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.2](https://github.com/wwnorton/design-system/compare/v1.3.1...v1.3.2) (2021-12-21)
+
+### 📝 Documentation
+
+- add seach usage to text field ([6b5c8b1](https://github.com/wwnorton/design-system/commit/6b5c8b1dc7be19a528775ddc6e8e18981d4aa7dc))
+- **callout:** tighten description according to UX team feedback ([135efae](https://github.com/wwnorton/design-system/commit/135efae615fc379f4e942f12475971776ea6e7a1))
+- initial table documentation ([8d24af7](https://github.com/wwnorton/design-system/commit/8d24af7000270fd8aab17925bc0da592723fa9a3)), closes [#152](https://github.com/wwnorton/design-system/issues/152)
+- **link:** add to anatomy, improve usage, and add interactions ([6b967b9](https://github.com/wwnorton/design-system/commit/6b967b9831850c3e032f289aa878b23a99f0cc5d))
+- **progress indicators:** add usage docs to progress bar and spinner ([5f22bb8](https://github.com/wwnorton/design-system/commit/5f22bb8ad0c827d3a381540a31b846563224ba35))
+- publish first draft of the usable writing guidelines ([fbb0313](https://github.com/wwnorton/design-system/commit/fbb03135b6494d451bc309b6a2a978f23b12917b))
+- remove card images from components list ([4e44609](https://github.com/wwnorton/design-system/commit/4e4460951fcd838a3132472f72a8618503454fc3))
+- use nds Callouts ([dada84f](https://github.com/wwnorton/design-system/commit/dada84fd80ff222e1d49bb6377faf0dbad2dfa5c))
+
 ### [1.3.1](https://github.com/wwnorton/design-system/compare/v1.3.0...v1.3.1) (2021-08-25)
 
 ### 📝 Documentation

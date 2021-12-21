@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.2](https://github.com/wwnorton/design-system/compare/v1.3.1...v1.3.2) (2021-12-21)
+
+### 💄 Visual design
+
+- **button:** change the cursor to "not-allowed" when disabled ([d597250](https://github.com/wwnorton/design-system/commit/d5972504af050db7f895f54ee7d2099e4f8a7854))
+
+### ♻️ Refactor
+
+- **dropdown:** add distance to inherited popper props ([ccae87a](https://github.com/wwnorton/design-system/commit/ccae87a1c30b7414864fccfc5d66c9b705c0e041))
+- **dropdown:** add transition prop inherited from Popper ([639be87](https://github.com/wwnorton/design-system/commit/639be877c8ccc6883989576af05cdfaad7bd1c98))
+- **dropdown:** prefer distance to default modifiers ([c5f491b](https://github.com/wwnorton/design-system/commit/c5f491b90a8dbc866f14e2817515271952ca5af6))
+- **dropdown:** reimagine style mixin extension ([430858e](https://github.com/wwnorton/design-system/commit/430858ef4cb3af0f6305bda25b555493b84f40ab))
+- **dropdown:** reorganize exports ([0793c57](https://github.com/wwnorton/design-system/commit/0793c57c866a01d5be5d1d674e809ab5a1419335))
+- **dropdown:** switch to new Listbox & Popper ([2710a2a](https://github.com/wwnorton/design-system/commit/2710a2a0a7379fdb6b1524a31e9960f41ba4f482))
+- **dropdown:** tighten the main interface ([77f4074](https://github.com/wwnorton/design-system/commit/77f407493896eb4289db9cb5e8d85052d2fdd425))
+- **dropdown:** use isOpen/isOpenProp convention ([1552a48](https://github.com/wwnorton/design-system/commit/1552a482b6840d2a7552a84df0d29e82e5e3030a))
+- **listbox:** emit the index of the selected option on change ([f3c3a91](https://github.com/wwnorton/design-system/commit/f3c3a91a8005e18ad5c65b33e3e69d7deebca928))
+
+### 📝 Documentation
+
+- add seach usage to text field ([6b5c8b1](https://github.com/wwnorton/design-system/commit/6b5c8b1dc7be19a528775ddc6e8e18981d4aa7dc))
+- **callout:** tighten description according to UX team feedback ([135efae](https://github.com/wwnorton/design-system/commit/135efae615fc379f4e942f12475971776ea6e7a1))
+- initial table documentation ([8d24af7](https://github.com/wwnorton/design-system/commit/8d24af7000270fd8aab17925bc0da592723fa9a3)), closes [#152](https://github.com/wwnorton/design-system/issues/152)
+- **link:** add to anatomy, improve usage, and add interactions ([6b967b9](https://github.com/wwnorton/design-system/commit/6b967b9831850c3e032f289aa878b23a99f0cc5d))
+- **progress indicators:** add usage docs to progress bar and spinner ([5f22bb8](https://github.com/wwnorton/design-system/commit/5f22bb8ad0c827d3a381540a31b846563224ba35))
+- publish first draft of the usable writing guidelines ([fbb0313](https://github.com/wwnorton/design-system/commit/fbb03135b6494d451bc309b6a2a978f23b12917b))
+- remove card images from components list ([4e44609](https://github.com/wwnorton/design-system/commit/4e4460951fcd838a3132472f72a8618503454fc3))
+- use nds Callouts ([dada84f](https://github.com/wwnorton/design-system/commit/dada84fd80ff222e1d49bb6377faf0dbad2dfa5c))
+
+### 🐛 Bug Fixes
+
+- **core:** prefer internal :focus-visible polyfill flag ([6544a8d](https://github.com/wwnorton/design-system/commit/6544a8d99e62b2463b5938b3df49b57edcb899bd))
+- **react:** add Popper to the public API ([8315aab](https://github.com/wwnorton/design-system/commit/8315aab55750994ac2759e189743929c43b31290))
+- **ThemeProvider:** don't update theme on every render ([36d83f6](https://github.com/wwnorton/design-system/commit/36d83f62599b8a0deb6bc40a01acfd472be9a607))
+
 ### [1.3.1](https://github.com/wwnorton/design-system/compare/v1.3.0...v1.3.1) (2021-08-25)
 
 ### 📝 Documentation
