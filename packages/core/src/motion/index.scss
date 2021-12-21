@@ -30,7 +30,6 @@
 		$full-transition: list.join($full-transition, #{$property} -scale($duration) #{$easing}, $separator: comma);
 	}
 
-	@debug $full-transition;
 	@return $full-transition;
 }
 
