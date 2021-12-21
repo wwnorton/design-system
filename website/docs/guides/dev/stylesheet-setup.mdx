@@ -2,18 +2,21 @@
 title: Stylesheet setup
 ---
 
+import { CalloutSuccess, CalloutWarning } from '@wwnds/react'
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 All styling in the Norton Design System is done directly in CSS using the [Sass modules](https://sass-lang.com/blog/the-module-system-is-launched) exposed by the `@wwnds/core` library.
 This library can be used either as one [single global stylesheet](#single-stylesheet) for your entire application or as the basis for [a modular approach](#modular-usage).
 Both approaches are covered here.
 
-:::note Sass compiler
+<CalloutWarning title="Sass compiler">
+
 The Norton Design System's stylesheets must be compiled with the [sass](https://github.com/sass/sass) Node module and will not work with [node-sass](https://github.com/sass/node-sass).
 This is because node-sass's underlying implementation, [libsass](https://github.com/sass/libsass) does not support Sass modules and [has in fact been deprecated](https://sass-lang.com/blog/libsass-is-deprecated) in favor of [dart-sass](https://github.com/sass/dart-sass) (sass's underlying implementation).
 
 If your project is currently using node-sass, migrating should be as simple as swapping out node-sass for sass. View [the "How do I migrate?" guide](https://sass-lang.com/blog/libsass-is-deprecated#how-do-i-migrate) for more details.
-:::
+
+</CalloutWarning>
 
 ## Single stylesheet
 
@@ -67,11 +70,13 @@ This acts as the main place where Sass variables are configured to meet the need
 );
 ```
 
-:::success Customizable variables
+<CalloutSuccess title="Customizable variables">
+
 Any variable in `@wwnds/core` that contains the `!default` flag is customizable in this way.
 
 These variables are documented in <a href={useBaseUrl('sassdoc')} target='\_blank' rel='noopener noreferrer'>the Sassdoc documentation</a>, as well as [the Core API - Theming variables](core-api#theming-variables) table.
-:::
+
+</CalloutSuccess>
 
 Once your configured version of `@wwnds/core` has been forwarded, it should be `@used` anywhere you need to use the core mixins or functions.
 

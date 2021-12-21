@@ -36,18 +36,20 @@ A link allows the user to return to the previous location by pressing the browse
 - A destination should only be linked once in a given page or section.
 - When linking to the same destination on different pages, the link text should be the same.
 
-<CalloutSuccess title="Dos">
-
-- Do use a link when…
-    - It would be useful to "Copy", "Open in a new tab", or "Bookmark" the destination URL.
-    - The text content is embedded in a sentence, and does not need margins or padding.
-    - The text content conveys location, not an action (for example: a link that references a resource).
-    - You want to record the navigation in the user's browser history.
-- Do style links so that they are visually different from plain text, and indicate that they can be clicked.
-
+<CalloutSuccess title="Do">
+	<ul>
+		<li>Do use a link when…</li>
+		<ul>
+			<li>It would be useful to "Copy", "Open in a new tab", or "Bookmark" the destination URL.</li>
+			<li>The text content is embedded in a sentence, and does not need margins or padding.</li>
+			<li>The text content conveys location, not an action (for example: a link that references a resource).</li>
+			<li>You want to record the navigation in the user's browser history.</li>
+		</ul>
+		<li>Do style links so that they are visually different from plain text, and indicate that they can be clicked.</li>
+	</ul>
 </CalloutSuccess>
 
-<CalloutError title="Don'ts">
+<CalloutError title="Don't">
 
 - Don't create links that look like buttons. If dictation software users say "show buttons", the actions will not be listed. Keyboard users may try to press Space to activate, which will do nothing.
 - Don't use an ambiguous label like “click here”. The link's text content should clearly describe its destination or purpose.
@@ -56,7 +58,7 @@ A link allows the user to return to the previous location by pressing the browse
 
 </CalloutError>
 
-<Callout title="Consider using buttons if...">
+<Callout title="Consider using buttons if..." border="left">
 
 - The component is styled like a button. (See _Don't create links that look like buttons_, above).
 - The label communicates an action that the user can take.
