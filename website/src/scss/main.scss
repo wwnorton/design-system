@@ -144,3 +144,15 @@ h1,
 .markdown > h1 {
 	padding-top: nds.rem(4);
 }
+
+h2,
+.markdown > h2 {
+	margin-top: var(--nds-spacing-10);
+	margin-bottom: var(--nds-spacing-5);
+}
+
+h3,
+.markdown > h3 {
+	margin-top: var(--nds-spacing-6) !important;
+	margin-bottom: var(--nds-spacing-4) !important;
+}
