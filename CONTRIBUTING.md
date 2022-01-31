@@ -11,7 +11,8 @@ Don't worry about making mistakes or getting things wrong&mdash;every contributi
 The easiest way to know what needs to be done is to look through [unassigned open issues](https://github.com/wwnorton/design-system/issues?q=is%3Aopen). To get started, write a message in an issue to let the maintainers know you'd like to tackle it and they will help you through the process.
 
 - Read [getting started with GitHub](https://docs.github.com/en/github/getting-started-with-github) for more details on the basics of Git and GitHub.
-- Issues labelled [good first issue](https://github.com/wwnorton/design-system/labels/good%20first%20issue) are a great place to start if you'd like to contribute but aren't sure how.
+- [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) is a helpful starting place for getting acquainted with pull request workflows.
+<!-- - Issues labelled [good first issue](https://github.com/wwnorton/design-system/labels/good%20first%20issue) are a great place to start if you'd like to contribute but aren't sure how. -->
 
 ## Pull Requests
 
@@ -23,6 +24,35 @@ This could be a new feature, documentation updates, a bug fix, a copy change, a 
 - **Start small**. Small changes are _always_ easier than big ones. Opening a pull request that includes changes to many files and big API changes will take much longer to review and there's a good chance that some portions will be rejected.
 - **Define the problem** in the pull request description. Merge requests often introduce solutions to problems, so don't forget to state the problem you're solving, preferably by linking to a related issue.
 - When in doubt, refer to [GitLab's best practices for merge requests](https://about.gitlab.com/handbook/communication/#everything-starts-with-a-merge-request) (GitLab calls a pull request a "merge request").
+
+## Naming conventions
+
+Effective naming is a central goal of the Norton Design System.
+Names should convey the role or purpose of the thing they are naming, and they should accomplish this for a wide audience (not just developers!).
+This is [a genuinely difficult goal](https://www.karlton.org/2017/12/naming-things-hard/), largely because everyone has different domain and cultural knowledge, which results in diverse mental models for the same things.
+
+Expect a lot of discussion around names in code reviews, design reviews, and proposals.
+The goal is to achieve [rough consensus](https://en.wikipedia.org/wiki/Rough_consensus) among the team and that is done through friendly debate to achieve the shared goal.
+Please respect this process and be patient&mdash;the first name someone proposes is sometimes the name we end up with, but it will almost always be discussed and it is often altered.
+
+Here are some tips that tend to be true for our naming conventions:
+
+- [Accurate, clear, brief](https://wwnorton.github.io/design-system/docs/guides/usable-writing-guidelines/#accurate-clear-brief-in-that-order) (in that order).
+  This is one of the central guidelines of our very own writing guidelines and it should apply to names.
+- Avoid technical terms or jargon. Our audience includes developers, designers, editors, and other users. Terms that require prior knowledge in one of those domains will reduce understanding.
+- Metaphorical or symbolic names are rarely the right choice. Metaphor and symbols require the reader to perform an additional cognitive task of converting the symbol into its meaning, and that task leaves a lot of room for interpretation
+
+### Casing
+
+Code often has certain requirements for
+For instance, JavaScript names typically can't have spaces so a component named "Progress bar" would need to be transformed into "ProgressBar".
+The conventions for how this happens varies depending on how the name is being encoded and whenever possible, we follow standards or community conventions for this casing.
+Here are some examples:
+
+- React components should use `PascalCase`: combine words into capitalized first letter of every word.
+  - Enforced by eslint's [react/jsx-pascal-case](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md) rule.
+- React props and non-component function names should use `camelCase`: lowercase first letter, capitalize subsequent words.
+- Sass variables and CSS custom properties should use `kebab-case`: all lowercase with hyphen (`-`) delimiters.
 
 ## Code and Commit Standards
 
