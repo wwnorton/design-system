@@ -1,7 +1,8 @@
 # The Norton Design System
 
-[![Build Status](https://github.com/wwnorton/design-system/workflows/Integration/badge.svg)](https://github.com/wwnorton/design-system/actions?query=workflow%3AIntegration)
-[![codecov](https://codecov.io/gh/wwnorton/design-system/branch/main/graph/badge.svg)](https://codecov.io/gh/wwnorton/design-system)
+[![Language grade](https://img.shields.io/lgtm/grade/javascript/github/wwnorton/design-system?label=Code%20quality)](https://lgtm.com/projects/g/wwnorton/design-system/context:javascript)
+[![Build status](https://img.shields.io/github/checks-status/wwnorton/design-system/main?label=Checks)](https://github.com/wwnorton/design-system/actions?query=workflow%3AIntegration+branch%3Amain)
+[![Code coverage](https://img.shields.io/codecov/c/github/wwnorton/design-system?label=Coverage&token=UFQXP4Y1IB)](https://codecov.io/gh/wwnorton/design-system)
 [![Core version](https://img.shields.io/npm/v/@wwnds/core?label=%40wwnds%2Fcore)](https://www.npmjs.com/package/@wwnds/core)
 [![React version](https://img.shields.io/npm/v/@wwnds/react?label=%40wwnds%2Freact)](https://www.npmjs.com/package/@wwnds/react)
 
