@@ -15,6 +15,7 @@ module.exports = {
 				// 'migration',
 			],
 		},
+		'guides/usable-writing-guidelines',
 	],
 	foundations: [
 		'foundations/index',
