@@ -301,6 +301,7 @@ export const Dropdown: DropdownType = ({
 					id={listboxId.current}
 					multiselectable={false}
 					className={listboxClass}
+					optionClass="nds-dropdown__option"
 					selected={selected}
 					onChange={changeHandler}
 					focusableIndex={optionFocusIndex}

@@ -4,7 +4,6 @@
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
-@use '../listbox';
 
 @mixin base {
 	--nds-dropdown-border-width: #{tokens.$border-width};
@@ -68,18 +67,23 @@
 }
 
 @mixin listbox {
-	@include listbox.base(
-		$border: unset,
-		$border-radius: unset,
-	);
-	@include listbox.group;
+	--nds-option-hover-color: var(--nds-base-color-20);
+	--nds-option-hover-focus-color: var(--nds-base-color-30);
+	--nds-option-focus-color: var(--nds-focus-color-background);
+	--nds-option-padding-y: var(--nds-spacing-2);
+	--nds-option-padding-x: var(--nds-spacing-3);
+	--nds-option-marker-padding-x: calc(var(--nds-option-padding-x) / 2);
+	--nds-option-marker-size: 0.75em;
+
+	padding: 0;
+	margin-bottom: 0;
+	border: unset;
+	border-radius: unset;
 }
 
 @mixin listbox-option {
 	display: flex;
-	padding-top: var(--nds-dropdown-option-padding-y);
-	padding-right: var(--nds-dropdown-option-padding-x);
-	padding-bottom: var(--nds-dropdown-option-padding-y);
+	padding: var(--nds-option-padding-y) var(--nds-option-padding-x);
 	font-size: var(--nds-dropdown-option-font-size);
 	line-height: var(--nds-dropdown-option-line-height);
 	cursor: default;
