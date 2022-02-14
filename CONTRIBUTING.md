@@ -32,24 +32,27 @@ Names should convey the role or purpose of the thing they are naming, and they s
 This is [a genuinely difficult goal](https://www.karlton.org/2017/12/naming-things-hard/), largely because everyone has different domain and cultural knowledge, which results in diverse mental models for the same things.
 
 Expect a lot of discussion around names in code reviews, design reviews, and proposals.
-The goal is to achieve [rough consensus](https://en.wikipedia.org/wiki/Rough_consensus) among the team and that is done through friendly debate to achieve the shared goal.
+The goal is to achieve [rough consensus](https://en.wikipedia.org/wiki/Rough_consensus) among the team.
 Please respect this process and be patient&mdash;the first name someone proposes is sometimes the name we end up with, but it will almost always be discussed and it is often altered.
 
 Here are some tips that tend to be true for our naming conventions:
 
 - [Accurate, clear, brief](https://wwnorton.github.io/design-system/docs/guides/usable-writing-guidelines/#accurate-clear-brief-in-that-order) (in that order).
   This is one of the central guidelines of our very own writing guidelines and it should apply to names.
-- Avoid technical terms or jargon. Our audience includes developers, designers, editors, and other users. Terms that require prior knowledge in one of those domains will reduce understanding.
-- Metaphorical or symbolic names are rarely the right choice. Metaphor and symbols require the reader to perform an additional cognitive task of converting the symbol into its meaning, and that task leaves a lot of room for interpretation
+- Avoid technical terms or jargon. Our audience includes developers, designers, editors, and other users.
+  Terms that require prior knowledge in one of those domains will reduce understanding.
+- Metaphorical or symbolic names are rarely the right choice.
+  Metaphor and symbols require the reader to perform an additional cognitive task of converting the symbol into its meaning, a task that leaves a lot of room for interpretation and misalignment.
 
 ### Casing
 
-Code often has certain requirements for characters and casing.
+Code often has specific requirements for characters and casing.
 For instance, JavaScript names typically can't have spaces so a component named "Progress bar" would need to be transformed into "ProgressBar".
-The conventions for how this happens varies depending on how the name is being encoded and whenever possible, we follow standards or community conventions for this casing.
+The conventions for how this happens varies depending on how the name is being encoded.
+Whenever possible, we follow standards or community conventions for casing transformations.
 Here are some examples:
 
-- React components should use `PascalCase`: combine words into capitalized first letter of every word.
+- React components should use `PascalCase`: combine words and capitalize the first letter of every word.
   - Enforced by eslint's [react/jsx-pascal-case](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md) rule.
 - React props and non-component function names should use `camelCase`: lowercase first letter, capitalize subsequent words.
 - Sass variables and CSS custom properties should use `kebab-case`: all lowercase with hyphen (`-`) delimiters.
