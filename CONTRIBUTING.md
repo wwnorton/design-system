@@ -44,7 +44,7 @@ Here are some tips that tend to be true for our naming conventions:
 
 ### Casing
 
-Code often has certain requirements for
+Code often has certain requirements for characters and casing.
 For instance, JavaScript names typically can't have spaces so a component named "Progress bar" would need to be transformed into "ProgressBar".
 The conventions for how this happens varies depending on how the name is being encoded and whenever possible, we follow standards or community conventions for this casing.
 Here are some examples:
