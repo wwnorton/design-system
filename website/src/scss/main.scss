@@ -139,3 +139,25 @@ ol ol,
 ul ol {
 	list-style-type: lower-alpha;
 }
+
+h1 {
+	padding-top: nds.rem(4);
+}
+
+h2 {
+	margin-top: var(--nds-spacing-10);
+	margin-bottom: var(--nds-spacing-5);
+}
+
+h3 {
+	margin-top: var(--nds-spacing-6);
+	margin-bottom: var(--nds-spacing-4);
+}
+
+.body-xs {
+	margin-top: var(--nds-spacing-5);
+}
+
+.body-md {
+	margin-bottom: var(--nds-spacing-5);
+}
