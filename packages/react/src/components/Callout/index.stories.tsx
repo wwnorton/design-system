@@ -1,11 +1,9 @@
-import React from 'react';
-
 import { Story } from '@storybook/react';
+import React from 'react';
 import {
-	Callout, CalloutError, CalloutProps, CalloutSuccess, CalloutWarning,
+	Callout, CalloutProps,
 } from '.';
-import { IconOptions, IconVariant } from '../Icon';
-import { ColorOptions } from '../../utilities/color';
+import { IconOptions } from '../Icon';
 
 const defaultContents = `
 	Lorem ipsum is simply dummy text of the printing and typesetting industry.
