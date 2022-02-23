@@ -27,13 +27,17 @@
 	$prop-list: if(meta.type-of($properties) == 'string', ($properties), $properties);
 
 	@each $property in $prop-list {
-		$full-transition: list.join($full-transition, #{$property} -scale($duration) #{$easing}, $separator: comma);
+		$full-transition: list.join(
+			$full-transition,
+			#{$property scale-duration($duration) $easing},
+			$separator: comma
+		);
 	}
 
 	@return $full-transition;
 }
 
-@function -scale($duration) {
+@function scale-duration($duration) {
 	@return calc(#{$duration} * var(--nds-duration-scalar));
 }
 
