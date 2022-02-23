@@ -850,7 +850,11 @@
 	$prop-list: if(meta.type-of($properties) == &#39;string&#39;, ($properties), $properties);
 
 	@each $property in $prop-list {
-		$full-transition: list.join($full-transition, #{$property} -scale($duration) #{$easing}, $separator: comma);
+		$full-transition: list.join(
+			$full-transition,
+			#{$property scale-duration($duration) $easing},
+			$separator: comma
+		);
 	}
 
 	@return $full-transition;
