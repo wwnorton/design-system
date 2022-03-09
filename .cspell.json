@@ -74,6 +74,8 @@
     "scrollbox",
     "stylelint",
     "subcomponents",
+    "stickyheader",
+    "tableheader",
     "tabbable",
     "tabindex",
     "testid",

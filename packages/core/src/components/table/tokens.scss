@@ -1,0 +1,13 @@
+@use '../../spacing';
+
+$border-width: spacing.px(1);
+$border: var(--nds-table-border-width) solid var(--nds-base-color-40);
+$padding-y: spacing.spacer('0.75rem') !default;
+$padding-x: spacing.spacer('0.75rem') !default;
+$table-width: 100%;
+$header-background-color: var(--nds-base-color-20);
+$header-font-size: var(--nds-font-size-xs);
+$tablecell-border: var(--nds-table-border-width) solid var(--nds-base-color-20);
+$sort-background-color: var(--nds-base-color-40);
+$sort-asc-desc-background-color: var(--nds-base-color-60);
+$sort-icon-size: 0.875rem;

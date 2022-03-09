@@ -31,10 +31,12 @@
 @forward 'components/modal' as modal-*;
 @forward 'components/popover' as popover-*;
 @forward 'components/popper' as popper-*;
+@forward 'components/progressbar' as progressbar-*;
 @forward 'components/radio' as radio-*;
 @forward 'components/switch' as switch-*;
+@forward 'components/spinner' as spinner-*;
+@forward 'components/table' as table-*;
+@forward 'components/tag' as tag-*;
 @forward 'components/textfield' as textfield-*;
 @forward 'components/tooltip' as tooltip-*;
-@forward 'components/spinner' as spinner-*;
-@forward 'components/progressbar' as progressbar-*;
-@forward 'components/tag' as tag-*;
+
