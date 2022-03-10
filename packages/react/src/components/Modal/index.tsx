@@ -101,6 +101,7 @@ export interface ModalState {
 	stuckHeader: boolean;
 	stuckFooter: boolean;
 	bodyOverflow: string;
+	preventModalClose: boolean;
 }
 
 export interface ModalSnapshot {
@@ -128,6 +129,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	private titleId: string;
 	private portalNode: HTMLElement | null;
 	private dialog: HTMLDivElement | null = null;
+	private initialTarget: HTMLDivElement | null = null;
 	private header: HTMLElement | null = null;
 	private content: HTMLElement | null = null;
 	private footer: HTMLElement | null = null;
@@ -157,6 +159,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			stuckHeader: false,
 			stuckFooter: false,
 			bodyOverflow: '',
+			preventModalClose: false,
 		};
 	}
 
@@ -388,6 +391,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			<section
 				className={classNames(backdropClass, { [`${this.baseName}--long`]: long })}
 				onClick={this.onBackdropClick}
+				onMouseDown={this.handleOnMouseDown}
+				onMouseUp={this.handleOnMouseUp}
 			>
 				<BaseDialog
 					modal
@@ -430,15 +435,28 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		}
 	};
 
+	private handleOnMouseDown = (event: { target: HTMLDivElement | null; }) => {
+		this.initialTarget = event.target;
+	};
+
+	private handleOnMouseUp = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		if (event.target === this.dialog && this.initialTarget) {
+			this.setState({ preventModalClose: true });
+		}
+	};
+
 	private onBackdropClick = (
 		{ nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>,
 	): void => {
 		const { closeOnBackdropClick } = this.props;
+		const { preventModalClose } = this.state;
 		if (
 			closeOnBackdropClick
 			&& this.dialog
 			&& !nativeEvent.composedPath().includes(this.dialog)
+			&& !preventModalClose
 		) {
+			this.setState({ preventModalClose: false });
 			this.requestClose();
 		}
 	};
