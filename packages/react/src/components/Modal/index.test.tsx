@@ -125,6 +125,13 @@ test('the modal can be closed with the `Escape` key', (t) => {
 	t.falsy(screen.queryByRole('dialog'));
 });
 
+test('the modal cannot be closed by releasing the click from inside the dialog to outside', (t) => {
+	render(<Controlled isOpen />);
+	fireEvent.pointerDown(screen.getByRole('dialog'));
+	fireEvent.pointerUp(screen.getByRole('dialog').parentElement);
+	t.truthy(screen.queryByRole('dialog'));
+});
+
 test('on close, focus returns to the element that opened the modal', (t) => {
 	render(<Controlled />);
 	const trigger = screen.getByTestId('trigger');
