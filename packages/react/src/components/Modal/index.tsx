@@ -435,8 +435,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		}
 	};
 
-	private handleOnMouseDown = (event: { target: HTMLDivElement | null; }) => {
-		this.initialTarget = event.target;
+	private handleOnMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		this.initialTarget = event.currentTarget;
 	};
 
 	private handleOnMouseUp = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
