@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
@@ -108,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
@@ -129,7 +129,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
@@ -154,7 +154,7 @@ jobs:
         node: [14, 16]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
       - name: Update npm
