@@ -129,7 +129,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	private titleId: string;
 	private portalNode: HTMLElement | null;
 	private dialog: HTMLDivElement | null = null;
-	private initialTarget: HTMLDivElement | null = null;
+	private initialTarget: EventTarget | null = null;
 	private header: HTMLElement | null = null;
 	private content: HTMLElement | null = null;
 	private footer: HTMLElement | null = null;
@@ -279,6 +279,10 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		document.addEventListener('keydown', this.onDocumentKeydown);
 		this.setState({ bodyOverflow: document.body.style.overflow });
 		document.body.style.overflow = 'hidden';
+
+		// Prevent modal from closing when click didn't initiate outside of content
+		document.addEventListener('mousedown', this.handleOnMouseDown);
+		document.addEventListener('mouseup', this.handleOnMouseUp);
 	}
 
 	private onClose(): void {
@@ -391,8 +395,6 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			<section
 				className={classNames(backdropClass, { [`${this.baseName}--long`]: long })}
 				onClick={this.onBackdropClick}
-				onMouseDown={this.handleOnMouseDown}
-				onMouseUp={this.handleOnMouseUp}
 			>
 				<BaseDialog
 					modal
@@ -435,12 +437,14 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		}
 	};
 
-	private handleOnMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		this.initialTarget = event.currentTarget;
+	private handleOnMouseDown = (event: MouseEvent) => {
+		this.setState({ preventModalClose: false });
+		this.initialTarget = event.target;
 	};
 
-	private handleOnMouseUp = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		if (event.target === this.dialog && this.initialTarget) {
+	private handleOnMouseUp = (event: MouseEvent) => {
+		const target = event.target as Element;
+		if (target?.contains(this.dialog) && this.dialog?.contains(this.initialTarget as Element)) {
 			this.setState({ preventModalClose: true });
 		}
 	};
@@ -456,7 +460,6 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			&& !nativeEvent.composedPath().includes(this.dialog)
 			&& !preventModalClose
 		) {
-			this.setState({ preventModalClose: false });
 			this.requestClose();
 		}
 	};
