@@ -11,8 +11,14 @@ const defaultContents = `
 	when an unknown printer took a galley of type.
 `.replace(/\n\t/g, ' ').replace(/\n/g, '');
 
+type CalloutContent = 'simple' | 'complex'
+
+type CalloutStoryProps = CalloutProps & {
+	childrenType: CalloutContent
+}
+
 const simpleChildren = defaultContents;
-const complexChildren = (
+const complexChildren: React.ReactNode = (
 	<div>
 		<p>
 			{defaultContents}
@@ -26,10 +32,10 @@ const complexChildren = (
 
 const baseDefaultProps = {
 	title: 'Default callout',
-	children: simpleChildren,
+	childrenType: 'simple',
 	dismissible: true,
 	icon: 'check-circle',
-} as CalloutProps;
+} as CalloutStoryProps;
 
 export default {
 	title: 'Callout',
@@ -43,8 +49,8 @@ export default {
 	],
 	args: baseDefaultProps,
 	argTypes: {
-		children: {
-			options: { 'Simple string text': simpleChildren, 'Nested ReactNode': complexChildren },
+		childrenType: {
+			options: { 'Simple string text': 'simple', 'Nested ReactNode': 'complex' } as Record<string, CalloutContent>,
 			control: 'radio',
 		},
 		dismissible: {
@@ -61,10 +67,13 @@ export default {
 	layout: 'padded',
 };
 
-const CalloutTemplate: Story<CalloutProps> = (args) => (
+const CalloutTemplate: Story<CalloutStoryProps> = ({ childrenType, ...args }) => (
 	<Callout
 		{...args}
-	/>
+	>
+		{childrenType === 'simple' && simpleChildren }
+		{childrenType === 'complex' && complexChildren}
+	</Callout>
 );
 
 export const Default = CalloutTemplate.bind({});
