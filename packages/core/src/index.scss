@@ -39,13 +39,14 @@
 	@include nds.modal-style;
 	@include nds.popover-style;
 	@include nds.popper-style;
+	@include nds.progressbar-style;
 	@include nds.radio-style;
+	@include nds.spinner-style;
+	@include nds.stepindicator-style;
 	@include nds.switch-style;
+	@include nds.tag-style;
 	@include nds.textfield-style;
 	@include nds.tooltip-style;
-	@include nds.spinner-style;
-	@include nds.progressbar-style;
-	@include nds.tag-style;
 }
 
 /// Helper declarations that set a composed style uncoupled from any component.
