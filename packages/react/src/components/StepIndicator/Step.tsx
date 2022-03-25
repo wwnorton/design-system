@@ -35,6 +35,7 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 			className={baseClasses}
 			{...props}
 			ref={ref}
+			aria-current={isCurrent ? 'step' : undefined}
 		>
 
 			<div className={markerContainerClass}>
