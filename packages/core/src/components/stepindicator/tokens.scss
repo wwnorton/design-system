@@ -1,0 +1,7 @@
+@use '../../spacing';
+
+$primary-color: var(--nds-primary-color-50) !default;
+$base-color: var(--nds-base-color-90) !default;
+$show-connector: true !default;
+$step-marker-size: spacing.spacer('1.5rem') !default;
+$max-step-width: null !default;

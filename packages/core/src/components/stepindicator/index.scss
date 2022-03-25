@@ -1,0 +1,143 @@
+@use 'tokens';
+@use '../../util';
+@use '../../color';
+@use '../../type';
+@use '../../spacing';
+@use 'sass:map';
+
+@mixin base {
+	--nds-stepindicator-primary-color: #{tokens.$primary-color};
+	--nds-stepindicator-base-color: #{tokens.$base-color};
+	--nds-stepindicator-show-connector: #{tokens.$show-connector};
+	--nds-stepindicator-step-marker-size: #{tokens.$step-marker-size};
+	--nds-stepindicator-max-step-width: #{tokens.$max-step-width};
+
+	display: flex;
+	padding: 0;
+	list-style: none;
+	align-items: flex-start;
+}
+
+@mixin stepindicator-step($connector-class) {
+	display: flex;
+	min-width: spacing.spacer('2rem');
+	max-width: var(--nds-stepindicator-max-step-width);
+	text-align: center;
+	flex-direction: column;
+	flex-basis: 0;
+	flex-grow: 1;
+
+	&:first-child {
+		#{$connector-class}:first-child {
+			visibility: hidden;
+		}
+	}
+
+	&:last-child {
+		#{$connector-class}:last-child {
+			visibility: hidden;
+		}
+	}
+}
+
+@mixin complete {
+	color: var(--nds-stepindicator-primary-color);
+}
+
+@mixin current {
+	outline:
+		calc(spacing.spacer('0.25rem') / 2) solid
+		var(--nds-stepindicator-primary-color);
+	transform: scale(1.1);
+
+	// outline-offset: calc(spacing.spacer("0.25rem") / 2);
+
+	// border: calc(spacing.spacer("0.25rem") / 2) solid
+	// 	var(--nds-stepindicator-primary-color);
+
+	// width: calc(var(--nds-stepindicator-step-marker-size) * 1.1);
+	// height: calc(var(--nds-stepindicator-step-marker-size) * 1.1);
+}
+
+@mixin incomplete {
+	padding: calc(spacing.spacer('0.25rem') / 2);
+
+	&::before {
+		display: block;
+		width: 100%;
+		height: 100%;
+		content: '';
+		background-color: var(--nds-stepindicator-base-color);
+		border-radius: 100%;
+	}
+}
+
+@mixin step-connector {
+	height: calc(spacing.spacer('0.25rem') / 2);
+	flex-grow: 1;
+
+	@if tokens.$show-connector {
+		background-color: var(--nds-stepindicator-base-color);
+	} @else {
+		background-color: transparent;
+	}
+}
+
+@mixin step-marker-container {
+	display: flex;
+	margin-top: spacing.spacer('0.25rem');
+	color: var(--nds-stepindicator-base-color);
+	align-items: center;
+	flex-grow: 1;
+}
+
+@mixin step-marker {
+	width: var(--nds-stepindicator-step-marker-size);
+	height: var(--nds-stepindicator-step-marker-size);
+	margin: calc(spacing.spacer('0.25rem') / 2);
+	border-radius: 100%;
+}
+
+@mixin step-content {
+	font-weight: bold;
+}
+
+@mixin style {
+	@include util.declare('stepindicator') {
+		.nds-step-indicator {
+			@include base;
+		}
+
+		.nds-step {
+			@include stepindicator-step('.nds-step__connector');
+		}
+
+		.nds-step__marker-container {
+			@include step-marker-container;
+		}
+
+		.nds-step__marker {
+			@include step-marker;
+		}
+
+		.nds-step__marker--complete {
+			@include complete;
+		}
+
+		.nds-step__marker--incomplete {
+			@include incomplete;
+		}
+
+		.nds-step__marker--current {
+			@include current;
+		}
+
+		.nds-step__connector {
+			@include step-connector;
+		}
+
+		.nds-step__content {
+			@include step-content;
+		}
+	}
+}
