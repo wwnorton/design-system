@@ -4,7 +4,7 @@ import { StepIndicatorProps } from './types';
 
 export const StepIndicator = React.forwardRef<HTMLOListElement, StepIndicatorProps>(({
 	baseName = 'nds-step-indicator',
-	connected = true,
+	isConnected,
 	className,
 	children,
 	...props
@@ -13,7 +13,7 @@ export const StepIndicator = React.forwardRef<HTMLOListElement, StepIndicatorPro
 		className,
 		baseName,
 		{
-			[`${baseName}--connected`]: connected,
+			[`${baseName}--connected`]: isConnected,
 		},
 	);
 	if (!children) return null;

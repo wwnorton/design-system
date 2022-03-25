@@ -8,7 +8,6 @@ interface StepIndicatorControls extends StepIndicatorProps {
 	stepCount: number,
 	completedSteps: number,
 	currentStep: number,
-	connected: boolean,
 }
 
 const baseDefaultProps = {
@@ -38,7 +37,7 @@ export default {
 		completedSteps: {
 			control: 'number',
 		},
-		connected: {
+		isConnected: {
 			control: 'boolean',
 		},
 	},
@@ -69,7 +68,9 @@ const StepIndicatorTemplate: Story<StepIndicatorControls> = (
 	);
 };
 
-export const Default = StepIndicatorTemplate.bind({});
+export const Connected = StepIndicatorTemplate.bind({});
+
+Connected.args = { isConnected: true };
 
 export const LongNames: Story<StepIndicatorControls> = (
 	{
@@ -94,6 +95,8 @@ export const LongNames: Story<StepIndicatorControls> = (
 		</StepIndicator>
 	);
 };
+
+LongNames.args = { isConnected: true };
 
 export const NoConnector: Story<StepIndicatorControls> = (
 	{
@@ -120,4 +123,4 @@ export const NoConnector: Story<StepIndicatorControls> = (
 	);
 };
 
-NoConnector.args = { connected: false, stepCount: 10 };
+NoConnector.args = { isConnected: false, stepCount: 10 };
