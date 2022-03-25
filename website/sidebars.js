@@ -48,6 +48,7 @@ module.exports = {
 		'components/text-field',
 		'components/table',
 		'components/tag',
+		'components/step-indicator',
 		'components/tooltip',
 		'components/react-providers',
 	],
