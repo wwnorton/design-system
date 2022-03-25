@@ -8,7 +8,6 @@
 @mixin base {
 	--nds-stepindicator-primary-color: #{tokens.$primary-color};
 	--nds-stepindicator-base-color: #{tokens.$base-color};
-	--nds-stepindicator-show-connector: #{tokens.$show-connector};
 	--nds-stepindicator-step-marker-size: #{tokens.$step-marker-size};
 	--nds-stepindicator-max-step-width: #{tokens.$max-step-width};
 
@@ -18,7 +17,7 @@
 	align-items: flex-start;
 }
 
-@mixin stepindicator-step($connector-class) {
+@mixin stepindicator-step {
 	display: flex;
 	min-width: spacing.spacer('2rem');
 	max-width: var(--nds-stepindicator-max-step-width);
@@ -26,18 +25,6 @@
 	flex-direction: column;
 	flex-basis: 0;
 	flex-grow: 1;
-
-	&:first-child {
-		#{$connector-class}:first-child {
-			visibility: hidden;
-		}
-	}
-
-	&:last-child {
-		#{$connector-class}:last-child {
-			visibility: hidden;
-		}
-	}
 }
 
 @mixin complete {
@@ -49,14 +36,6 @@
 		calc(spacing.spacer('0.25rem') / 2) solid
 		var(--nds-stepindicator-primary-color);
 	transform: scale(1.1);
-
-	// outline-offset: calc(spacing.spacer("0.25rem") / 2);
-
-	// border: calc(spacing.spacer("0.25rem") / 2) solid
-	// 	var(--nds-stepindicator-primary-color);
-
-	// width: calc(var(--nds-stepindicator-step-marker-size) * 1.1);
-	// height: calc(var(--nds-stepindicator-step-marker-size) * 1.1);
 }
 
 @mixin incomplete {
@@ -72,14 +51,24 @@
 	}
 }
 
-@mixin step-connector {
-	height: calc(spacing.spacer('0.25rem') / 2);
-	flex-grow: 1;
+@mixin step-connector($step-class, $marker-container-class) {
+	#{$step-class} {
+		#{$marker-container-class}::before,
+		#{$marker-container-class}::after {
+			display: block;
+			height: calc(spacing.spacer('0.25rem') / 2);
+			content: '';
+			background-color: var(--nds-stepindicator-base-color);
+			flex-grow: 1;
+		}
 
-	@if tokens.$show-connector {
-		background-color: var(--nds-stepindicator-base-color);
-	} @else {
-		background-color: transparent;
+		&:first-child #{$marker-container-class}::before {
+			visibility: hidden;
+		}
+
+		&:last-child #{$marker-container-class}::after {
+			visibility: hidden;
+		}
 	}
 }
 
@@ -89,6 +78,7 @@
 	color: var(--nds-stepindicator-base-color);
 	align-items: center;
 	flex-grow: 1;
+	justify-content: center;
 }
 
 @mixin step-marker {
@@ -108,8 +98,12 @@
 			@include base;
 		}
 
+		.nds-step-indicator--connected {
+			@include step-connector('.nds-step', '.nds-step__marker-container');
+		}
+
 		.nds-step {
-			@include stepindicator-step('.nds-step__connector');
+			@include stepindicator-step;
 		}
 
 		.nds-step__marker-container {
@@ -130,10 +124,6 @@
 
 		.nds-step__marker--current {
 			@include current;
-		}
-
-		.nds-step__connector {
-			@include step-connector;
 		}
 
 		.nds-step__content {

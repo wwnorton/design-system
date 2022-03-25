@@ -39,7 +39,6 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 		>
 
 			<div className={markerContainerClass}>
-				<div className={connectorClass} />
 				{isComplete ? (
 					<Icon
 						className={markerClasses}
@@ -51,7 +50,6 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 						className={markerClasses}
 					/>
 				)}
-				<div className={connectorClass} />
 			</div>
 
 			<div className={contentsClass}>

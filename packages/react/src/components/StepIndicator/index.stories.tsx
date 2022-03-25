@@ -1,7 +1,7 @@
 import { Story } from '@storybook/react';
 import React from 'react';
 import {
-	StepProps, StepIndicatorProps, StepIndicator, Step,
+	StepIndicatorProps, StepIndicator, Step,
 } from '.';
 
 interface StepIndicatorControls extends StepIndicatorProps {
@@ -52,7 +52,6 @@ const StepIndicatorTemplate: Story<StepIndicatorControls> = (
 		steps.push(
 			<Step isCurrent={currentStep === i} isComplete={i <= completedSteps}>
 				{`Step ${i}`}
-				{i === 4 && ' very long name'}
 			</Step>,
 		);
 	}
@@ -68,6 +67,50 @@ const StepIndicatorTemplate: Story<StepIndicatorControls> = (
 
 export const Default = StepIndicatorTemplate.bind({});
 
-export const NoTitle = StepIndicatorTemplate.bind({});
-NoTitle.args = {
-} as StepIndicatorProps;
+export const LongNames: Story<StepIndicatorControls> = (
+	{
+		stepCount, currentStep, completedSteps, ...args
+	},
+) => {
+	const steps = [];
+
+	for (let i = 1; i <= stepCount; i += 1) {
+		steps.push(
+			<Step isCurrent={currentStep === i} isComplete={i <= completedSteps}>
+				{`Step ${i} with very long name`}
+			</Step>,
+		);
+	}
+
+	return (
+		<StepIndicator
+			{...args}
+		>
+			{steps}
+		</StepIndicator>
+	);
+};
+
+export const NoConnector: Story<StepIndicatorControls> = (
+	{
+		stepCount, currentStep, completedSteps, ...args
+	},
+) => {
+	const steps = [];
+
+	for (let i = 1; i <= stepCount; i += 1) {
+		steps.push(
+			<Step isCurrent={currentStep === i} isComplete={i <= completedSteps} style={{ '--nds-stepindicator-show-connector': 'false' } as React.CSSProperties}>
+				{i}
+			</Step>,
+		);
+	}
+
+	return (
+		<StepIndicator
+			{...args}
+		>
+			{steps}
+		</StepIndicator>
+	);
+};

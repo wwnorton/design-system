@@ -3,6 +3,8 @@ import React from 'react';
 export interface StepIndicatorProps extends React.ComponentPropsWithRef<'ol'> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
+	/** If false, the connector will not be rendered */
+	connected?: boolean;
 }
 
 export interface StepProps extends React.ComponentPropsWithRef<'li'> {
