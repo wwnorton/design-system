@@ -8,6 +8,7 @@ interface StepIndicatorControls extends StepIndicatorProps {
 	stepCount: number,
 	completedSteps: number,
 	currentStep: number,
+	connected: boolean,
 }
 
 const baseDefaultProps = {
@@ -36,6 +37,9 @@ export default {
 		},
 		completedSteps: {
 			control: 'number',
+		},
+		connected: {
+			control: 'boolean',
 		},
 	},
 	layout: 'padded',
@@ -100,7 +104,7 @@ export const NoConnector: Story<StepIndicatorControls> = (
 
 	for (let i = 1; i <= stepCount; i += 1) {
 		steps.push(
-			<Step isCurrent={currentStep === i} isComplete={i <= completedSteps} style={{ '--nds-stepindicator-show-connector': 'false' } as React.CSSProperties}>
+			<Step isCurrent={currentStep === i} isComplete={i <= completedSteps}>
 				{i}
 			</Step>,
 		);
@@ -109,8 +113,11 @@ export const NoConnector: Story<StepIndicatorControls> = (
 	return (
 		<StepIndicator
 			{...args}
+			style={{ '--nds-stepindicator-max-step-width': '0' } as React.CSSProperties}
 		>
 			{steps}
 		</StepIndicator>
 	);
 };
+
+NoConnector.args = { connected: false, stepCount: 10 };

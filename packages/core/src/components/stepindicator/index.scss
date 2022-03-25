@@ -89,6 +89,7 @@
 }
 
 @mixin step-content {
+	padding: 0 spacing.spacer('0.5rem');
 	font-weight: bold;
 }
 

@@ -3,7 +3,7 @@ import React from 'react';
 export interface StepIndicatorProps extends React.ComponentPropsWithRef<'ol'> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
-	/** If false, the connector will not be rendered */
+	/** If false, no connector line will be shown between the steps	 */
 	connected?: boolean;
 }
 
@@ -15,12 +15,10 @@ export interface StepProps extends React.ComponentPropsWithRef<'li'> {
 	/** When set, this step is visually marked as complete */
 	isComplete?: boolean,
 
-	/** The className for the connector that connects steps */
-	connectorClass?: string;
-	/** The className for the marker's container */
+	/** The className for the container that includes the step marker and it's adjacent  connectors */
 	markerContainerClass?: string;
 	/** The className for the complete/incomplete step marker circle */
-	markerClass ?: string;
+	markerClass?: string;
 	/** The className for the children's container (step label) */
 	contentsClass?: string;
 }

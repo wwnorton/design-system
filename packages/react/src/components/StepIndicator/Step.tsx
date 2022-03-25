@@ -5,7 +5,6 @@ import { Icon } from '../Icon';
 
 export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 	baseName = 'nds-step',
-	connectorClass = `${baseName}__connector`,
 	markerContainerClass = `${baseName}__marker-container`,
 	markerClass = `${baseName}__marker`,
 	contentsClass = `${baseName}__content`,
@@ -16,16 +15,16 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 	...props
 }: StepProps, ref) => {
 	const baseClasses = classNames(
-		className,
 		baseName,
+		className,
 	);
 
 	const markerClasses = classNames(
 		markerClass,
 		{
 			[`${markerClass}--complete`]: isComplete,
-			[`${markerClass}--current`]: isCurrent,
 			[`${markerClass}--incomplete`]: !isComplete,
+			[`${markerClass}--current`]: isCurrent,
 		},
 	);
 
