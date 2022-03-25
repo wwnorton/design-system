@@ -29,13 +29,19 @@ export default {
 	args: baseDefaultProps,
 	argTypes: {
 		stepCount: {
-			control: 'number',
+			control: {
+				type: 'range', min: 1, max: 10, step: 1,
+			},
 		},
 		currentStep: {
-			control: 'number',
+			control: {
+				type: 'range', min: 1, max: 10, step: 1,
+			},
 		},
 		completedSteps: {
-			control: 'number',
+			control: {
+				type: 'range', min: 0, max: 10, step: 1,
+			},
 		},
 		isConnected: {
 			control: 'boolean',
