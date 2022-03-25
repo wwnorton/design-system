@@ -13,11 +13,11 @@ export interface StepProps extends React.ComponentPropsWithRef<'li'> {
 	/** When set, this step is visually marked as the current step */
 	isCurrent?: boolean,
 	/** When set, this step is visually marked as complete */
-	isComplete?: boolean,
+	isCompleted?: boolean,
 
-	/** The className for the container that includes the step marker and it's adjacent  connectors */
+	/** The className for the container that includes the step marker and it's adjacent connectors */
 	markerContainerClass?: string;
-	/** The className for the complete/incomplete step marker circle */
+	/** The className for the step marker circle */
 	markerClass?: string;
 	/** The className for the children's container (step label) */
 	contentsClass?: string;

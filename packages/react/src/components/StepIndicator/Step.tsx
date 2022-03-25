@@ -10,7 +10,7 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 	contentsClass = `${baseName}__content`,
 	className,
 	children,
-	isComplete,
+	isCompleted,
 	isCurrent,
 	...props
 }: StepProps, ref) => {
@@ -22,8 +22,8 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 	const markerClasses = classNames(
 		markerClass,
 		{
-			[`${markerClass}--complete`]: isComplete,
-			[`${markerClass}--incomplete`]: !isComplete,
+			[`${markerClass}--complete`]: isCompleted,
+			[`${markerClass}--incomplete`]: !isCompleted,
 			[`${markerClass}--current`]: isCurrent,
 		},
 	);
@@ -38,7 +38,7 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 		>
 
 			<div className={markerContainerClass}>
-				{isComplete ? (
+				{isCompleted ? (
 					<Icon
 						className={markerClasses}
 						variant="check-circle"

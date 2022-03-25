@@ -54,7 +54,7 @@ const StepIndicatorTemplate: Story<StepIndicatorControls> = (
 
 	for (let i = 1; i <= stepCount; i += 1) {
 		steps.push(
-			<Step isCurrent={currentStep === i} isComplete={i <= completedSteps}>
+			<Step isCurrent={currentStep === i} isCompleted={i <= completedSteps}>
 				{`Step ${i}`}
 			</Step>,
 		);
@@ -80,7 +80,7 @@ export const LongNames: Story<StepIndicatorControls> = (
 
 	for (let i = 1; i <= stepCount; i += 1) {
 		steps.push(
-			<Step isCurrent={currentStep === i} isComplete={i <= completedSteps}>
+			<Step isCurrent={currentStep === i} isCompleted={i <= completedSteps}>
 				{`Step ${i} with very long name`}
 			</Step>,
 		);
@@ -104,7 +104,7 @@ export const NoConnector: Story<StepIndicatorControls> = (
 
 	for (let i = 1; i <= stepCount; i += 1) {
 		steps.push(
-			<Step isCurrent={currentStep === i} isComplete={i <= completedSteps}>
+			<Step isCurrent={currentStep === i} isCompleted={i <= completedSteps}>
 				{i}
 			</Step>,
 		);
