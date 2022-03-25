@@ -8,6 +8,10 @@
 	margin-top: 0 !important;
 }
 
+.nds-step {
+	margin-top: 0 !important;
+}
+
 // TODO: support utilities like these in the design system
 @mixin create-utility($items, $prefix, $property, $important: true) {
 	@each $item in $items {
