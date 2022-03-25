@@ -32,9 +32,7 @@
 }
 
 @mixin current {
-	outline:
-		calc(spacing.spacer('0.25rem') / 2) solid
-		var(--nds-stepindicator-primary-color);
+	box-shadow: 0 0 0 calc(spacing.spacer('0.25rem') / 2) var(--nds-stepindicator-primary-color);
 	transform: scale(1.1);
 }
 
