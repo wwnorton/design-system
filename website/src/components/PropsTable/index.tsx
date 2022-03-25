@@ -23,7 +23,7 @@ const PropRow = ({
 
 type PropsTableProps = {
 	from: typeof React.Component & { __docgenInfo: ComponentDoc; };
-}
+};
 
 export const PropsTable = ({ from: component }: PropsTableProps): JSX.Element | null => {
 	if (!('__docgenInfo' in component)) return null;

@@ -11,11 +11,11 @@ const defaultContents = `
 	when an unknown printer took a galley of type.
 `.replace(/\n\t/g, ' ').replace(/\n/g, '');
 
-type CalloutContent = 'simple' | 'complex'
+type CalloutContent = 'simple' | 'complex';
 
 type CalloutStoryProps = CalloutProps & {
 	childrenType: CalloutContent
-}
+};
 
 const simpleChildren = defaultContents;
 const complexChildren: React.ReactNode = (

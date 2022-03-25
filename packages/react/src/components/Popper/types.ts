@@ -138,4 +138,4 @@ export type PopperProps = PopperPropsBase & TransitionProps<HTMLDivElement> & {
 	preventOverflowOptions?: PreventOverflowOptions;
 	/** When set, the popper will match the width of its reference element. */
 	matchWidth?: boolean;
-}
+};

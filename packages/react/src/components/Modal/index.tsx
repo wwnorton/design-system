@@ -14,7 +14,7 @@ export type ModalAnatomy =
 	| 'title'
 	| 'closeButton'
 	| 'content'
-	| 'actionBar'
+	| 'actionBar';
 
 export interface ModalProps extends BaseDialogProps {
 	/** Indicates whether the Modal dialog is open. */

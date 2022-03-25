@@ -22,7 +22,7 @@ type ColorableA11y = {
 	aaLarge: boolean;
 	aaa: boolean;
 	aaaLarge: boolean;
-}
+};
 
 const getHighestA11y = (obj?: ColorableA11y): string | undefined => {
 	if (!obj) return undefined;
@@ -36,9 +36,9 @@ const getHighestA11y = (obj?: ColorableA11y): string | undefined => {
 	return undefined;
 };
 
-type WCAG = { hex: string; level?: string; ratio: number; }
+type WCAG = { hex: string; level?: string; ratio: number; };
 
-type SwatchProps = { color: string; textLight?: string; textDark?: string; }
+type SwatchProps = { color: string; textLight?: string; textDark?: string; };
 
 export const Swatch = ({ color, textLight, textDark }: SwatchProps): JSX.Element => {
 	const [hex, setHex] = React.useState<string>();
