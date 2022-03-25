@@ -17,6 +17,7 @@ export * from './Popper';
 export * from './ProgressBar';
 export * from './Radio';
 export * from './Spinner';
+export * from './StepIndicator';
 export * from './Switch';
 export * from './Tag';
 export * from './TextField';
