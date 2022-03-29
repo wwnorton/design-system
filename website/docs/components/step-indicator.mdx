@@ -4,10 +4,15 @@ description: TODO
 ---
 
 import {
-	Callout, CalloutError, CalloutSuccess, CalloutWarning, Tag, StepIndicator, Step
+  Callout,
+  CalloutError,
+  CalloutSuccess,
+  CalloutWarning,
+  Tag,
+  StepIndicator,
+  Step,
 } from '@wwnds/react';
-import { PropsTable } from '@website/components';
-
+import { PropsTable, ColorChip } from '@website/components';
 
 ## React API
 
@@ -26,15 +31,13 @@ import { StepIndicator, Step } from '@wwnds/react';
 
 ### StepIndicator
 
-The `StepIndicator` component extends the `React.HTMLAttributes<HTMLOListElement>` interface and renders an `<ol>` element. It is composed using multiple `Step` components, which each render a `<li>` element. 
+The `StepIndicator` component extends the `React.HTMLAttributes<HTMLOListElement>` interface and renders an `<ol>` element. It is composed using multiple `Step` components, which each render a `<li>` element.
 
 - When `isConnected`, the steps will render a connector line between each other, this is done using the pseudo-elements `::after` and `::before`.
 
 ```tsx live
 <StepIndicator isConnected>
-  <Step isCompleted>
-    Order details
-  </Step>
+  <Step isCompleted>Order details</Step>
   <Step isCurrent>Payment</Step>
   <Step>Delivery</Step>
 </StepIndicator>
@@ -47,3 +50,14 @@ The `StepIndicator` component extends the `React.HTMLAttributes<HTMLOListElement
 The `Step` component extends the `React.HTMLAttributes<HTMLLIElement>` interface and renders an `<li>` element. It represents a single step.
 
 <PropsTable from={Step} />
+
+## Core API
+
+The Step Indicator component exposes the following design tokens that allow visual customization.
+
+| Token Name                             | Description                                                                               | Default                                 |
+| -------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------- |
+| `--nds-stepindicator-primary-color`    | The color for the currently active step marker halo and the background of completed steps | <ColorChip>primary-color-50</ColorChip> |
+| `--nds-stepindicator-base-color`       | The background base color for incomplete step markers and connector line                  | <ColorChip>base-color-90</ColorChip>    |
+| `--nds-stepindicator-step-marker-size` | The width and height of the (non-current) step markers circle                             | `1.5rem`                                |
+| `--nds-stepindicator-max-step-width`   | Max-width for the specific steps, can be useful when the number of steps is dynamic       | `null`                                  |
