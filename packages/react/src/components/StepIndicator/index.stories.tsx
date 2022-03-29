@@ -5,12 +5,7 @@ import {
 } from '.';
 
 /** To be added to every story-specific control's argTypes declaration	 */
-const storySpecificProperties = {
-	table: {
-		category: 'Story Controls',
-	},
-	description: "This is a Storybook-only prop, and is not part of this component's interface.",
-};
+const storySpecificCategory = 'Story Controls';
 
 interface StepIndicatorControls extends StepIndicatorProps {
 	stepCount: number,
@@ -37,19 +32,22 @@ export default {
 	args: baseDefaultProps,
 	argTypes: {
 		stepCount: {
-			...storySpecificProperties,
+			table: { category: storySpecificCategory },
+			description: 'Controls the total number of steps',
 			control: {
 				type: 'range', min: 1, max: 10, step: 1,
 			},
 		},
 		currentStep: {
-			...storySpecificProperties,
+			table: { category: storySpecificCategory },
+			description: 'Controls the position of the current step',
 			control: {
 				type: 'range', min: 1, max: 10, step: 1,
 			},
 		},
 		completedSteps: {
-			...storySpecificProperties,
+			table: { category: storySpecificCategory },
+			description: 'Controls the number of completed steps',
 			control: {
 				type: 'range', min: 0, max: 10, step: 1,
 			},
