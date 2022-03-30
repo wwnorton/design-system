@@ -33,7 +33,7 @@ import { StepIndicator, Step } from '@wwnds/react';
 
 The `StepIndicator` component extends the `React.HTMLAttributes<HTMLOListElement>` interface and renders an `<ol>` element. It is composed using multiple `Step` components, which each render a `<li>` element.
 
-- When `isConnected`, the steps will render a connector line between each other, this is done using the pseudo-elements `::after` and `::before`.
+- When `isConnected`, a line will visually connect each step.
 
 ```tsx live
 <StepIndicator isConnected>
