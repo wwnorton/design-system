@@ -38,12 +38,9 @@ test('renders a step as current and incomplete', (t) => {
 		<SimpleStepIndicator currentStepId={1} />,
 	);
 
-	const firstStep = screen.queryAllByRole('listitem')[0];
-	const secondStep = screen.queryAllByRole('listitem')[1];
+	const currentStep = screen.getByRole('listitem', { current: 'step' });
 
-	t.is(firstStep.getAttribute('aria-current'), null);
-	t.is(secondStep.getAttribute('aria-current'), 'step');
-	t.falsy(within(secondStep).queryByLabelText('completed'));
+	t.falsy(within(currentStep).queryByLabelText('completed'));
 });
 
 test('renders a step as current and complete', (t) => {
@@ -51,10 +48,9 @@ test('renders a step as current and complete', (t) => {
 		<SimpleStepIndicator currentStepId={1} completedSteps={2} />,
 	);
 
-	const secondStep = screen.queryAllByRole('listitem')[1];
+	const currentStep = screen.getByRole('listitem', { current: 'step' });
 
-	t.is(secondStep.getAttribute('aria-current'), 'step');
-	t.truthy(within(secondStep).getByLabelText('completed'));
+	t.truthy(within(currentStep).getByLabelText('completed'));
 });
 
 test('renders a step as not-current and complete', (t) => {
@@ -62,10 +58,9 @@ test('renders a step as not-current and complete', (t) => {
 		<SimpleStepIndicator currentStepId={2} completedSteps={2} />,
 	);
 
-	const secondStep = screen.queryAllByRole('listitem')[1];
+	const firstStep = screen.getAllByRole('listitem', { current: false })[0];
 
-	t.is(secondStep.getAttribute('aria-current'), null);
-	t.truthy(within(secondStep).getByLabelText('completed'));
+	t.truthy(within(firstStep).getByLabelText('completed'));
 });
 
 test('renders a step as not-current and incomplete', (t) => {
@@ -73,8 +68,7 @@ test('renders a step as not-current and incomplete', (t) => {
 		<SimpleStepIndicator currentStepId={2} completedSteps={0} />,
 	);
 
-	const secondStep = screen.queryAllByRole('listitem')[1];
+	const firstStep = screen.getAllByRole('listitem', { current: false })[0];
 
-	t.is(secondStep.getAttribute('aria-current'), null);
-	t.falsy(within(secondStep).queryByLabelText('completed'));
+	t.falsy(within(firstStep).queryByLabelText('completed'));
 });
