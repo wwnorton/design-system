@@ -28,7 +28,7 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 		},
 	);
 
-	const completedAriaLabel = 'completed';
+	const completionStatusLabel = isCompleted ? 'completed' : 'incomplete';
 
 	return (
 		<li
@@ -43,11 +43,12 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 					<Icon
 						className={markerClasses}
 						variant="check-circle"
-						aria-label={completedAriaLabel}
+						aria-label={completionStatusLabel}
 					/>
 				) : (
 					<div
 						className={markerClasses}
+						aria-label={completionStatusLabel}
 					/>
 				)}
 			</div>
