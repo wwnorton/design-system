@@ -84,6 +84,12 @@
 	height: var(--nds-stepindicator-step-marker-size);
 	margin: calc(spacing.spacer('0.25rem') / 2);
 	border-radius: 100%;
+
+	svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
 }
 
 @mixin step-content {

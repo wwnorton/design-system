@@ -37,23 +37,25 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 			ref={ref}
 			aria-current={isCurrent ? 'step' : undefined}
 		>
-
 			<div className={markerContainerClass}>
-				{isCompleted ? (
-					<Icon
-						className={markerClasses}
-						variant="check-circle"
-						aria-label={completionStatusLabel}
-					/>
-				) : (
-					<div
-						className={markerClasses}
-						aria-label={completionStatusLabel}
-					/>
-				)}
+				<div
+					className={markerClasses}
+				>
+					{isCompleted && (
+						<Icon
+							variant="check-circle"
+							role="none"
+						/>
+					) }
+				</div>
 			</div>
 
 			<div className={contentsClass}>
+				<span
+					className="nds-sr-only"
+				>
+					{completionStatusLabel}
+				</span>
 				{children}
 			</div>
 		</li>
