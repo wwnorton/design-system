@@ -101,7 +101,7 @@ export interface ModalState {
 	stuckHeader: boolean;
 	stuckFooter: boolean;
 	bodyOverflow: string;
-	preventModalClose: boolean;
+	isClickingDialog: boolean;
 }
 
 export interface ModalSnapshot {
@@ -129,7 +129,6 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	private titleId: string;
 	private portalNode: HTMLElement | null;
 	private dialog: HTMLDivElement | null = null;
-	private initialTarget: EventTarget | null = null;
 	private header: HTMLElement | null = null;
 	private content: HTMLElement | null = null;
 	private footer: HTMLElement | null = null;
@@ -159,7 +158,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			stuckHeader: false,
 			stuckFooter: false,
 			bodyOverflow: '',
-			preventModalClose: false,
+			isClickingDialog: false,
 		};
 	}
 
@@ -253,6 +252,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		document.removeEventListener('keydown', this.onDocumentKeydown);
 		const { bodyOverflow } = this.state;
 		document.body.style.overflow = bodyOverflow;
+
+		document.removeEventListener('pointerup', this.onPointerUpClick);
 	}
 
 	private onOpen(): void {
@@ -281,8 +282,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		document.body.style.overflow = 'hidden';
 
 		// Prevent modal from closing when click didn't initiate outside of content
-		document.addEventListener('mousedown', this.handleOnMouseDown);
-		document.addEventListener('mouseup', this.handleOnMouseUp);
+		document.addEventListener('pointerup', this.onPointerUpClick);
 	}
 
 	private onClose(): void {
@@ -401,6 +401,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 					id={this.id}
 					className={classes}
 					ref={(el): void => { this.dialog = el; }}
+					onPointerDown={this.onPointerDownClick}
 					{...label}
 				>
 					{ this.Header }
@@ -437,15 +438,17 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		}
 	};
 
-	private handleOnMouseDown = (event: MouseEvent) => {
-		this.setState({ preventModalClose: false });
-		this.initialTarget = event.target;
+	private onPointerDownClick = () => {
+		this.setState({ isClickingDialog: true });
 	};
 
-	private handleOnMouseUp = (event: MouseEvent) => {
-		const target = event.target as Element;
-		if (target?.contains(this.dialog) && this.dialog?.contains(this.initialTarget as Element)) {
-			this.setState({ preventModalClose: true });
+	private onPointerUpClick = (event: PointerEvent) => {
+		const { isClickingDialog } = this.state;
+
+		if (!this.dialog?.contains(event.target as Element) && isClickingDialog) {
+			this.setState({ isClickingDialog: true });
+		} else {
+			this.setState({ isClickingDialog: false });
 		}
 	};
 
@@ -453,15 +456,18 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		{ nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>,
 	): void => {
 		const { closeOnBackdropClick } = this.props;
-		const { preventModalClose } = this.state;
+		const { isClickingDialog } = this.state;
+
 		if (
 			closeOnBackdropClick
 			&& this.dialog
 			&& !nativeEvent.composedPath().includes(this.dialog)
-			&& !preventModalClose
+			&& !isClickingDialog
 		) {
 			this.requestClose();
 		}
+
+		this.setState({ isClickingDialog: false });
 	};
 
 	private onDocumentKeydown = (e: KeyboardEvent): void => {
