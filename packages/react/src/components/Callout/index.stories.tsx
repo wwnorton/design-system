@@ -1,27 +1,9 @@
+import { Story } from '@storybook/react';
 import React from 'react';
 import {
-	text, withKnobs, boolean, select,
-} from '@storybook/addon-knobs';
-
-import {
-	Callout, CalloutError, CalloutSuccess, CalloutWarning,
+	Callout, CalloutProps,
 } from '.';
 import { IconOptions } from '../Icon';
-import { ColorOptions } from '../../utilities/color';
-
-export default {
-	title: 'Callout',
-	component: Callout,
-	decorators: [
-		withKnobs,
-		(Story: React.ComponentType): JSX.Element => (
-			<div style={{ maxWidth: '30rem' }}>
-				<Story />
-			</div>
-		),
-	],
-	layout: 'padded',
-};
 
 const defaultContents = `
 	Lorem ipsum is simply dummy text of the printing and typesetting industry.
@@ -29,56 +11,94 @@ const defaultContents = `
 	when an unknown printer took a galley of type.
 `.replace(/\n\t/g, ' ').replace(/\n/g, '');
 
-const borderMap = {
-	None: undefined, Top: 'top', Right: 'right', Bottom: 'bottom', Left: 'left',
+type CalloutContent = 'simple' | 'complex'
+
+type CalloutStoryProps = CalloutProps & {
+	childrenType: CalloutContent
+}
+
+const simpleChildren = defaultContents;
+const complexChildren: React.ReactNode = (
+	<div>
+		<p>
+			{defaultContents}
+		</p>
+		<hr />
+		<p>
+			{defaultContents}
+		</p>
+	</div>
+);
+
+const baseDefaultProps = {
+	title: 'Default callout',
+	childrenType: 'simple',
+	dismissible: true,
+	icon: 'check-circle',
+} as CalloutStoryProps;
+
+export default {
+	title: 'Callout',
+	component: Callout,
+	decorators: [
+		(StoryComponent: React.ComponentType): JSX.Element => (
+			<div style={{ maxWidth: '30rem' }}>
+				<StoryComponent />
+			</div>
+		),
+	],
+	args: baseDefaultProps,
+	argTypes: {
+		childrenType: {
+			options: { 'Simple string text': 'simple', 'Nested ReactNode': 'complex' } as Record<string, CalloutContent>,
+			control: 'radio',
+		},
+		dismissible: {
+			control: 'boolean',
+		},
+		title: {
+			control: 'text',
+		},
+		icon: {
+			options: IconOptions,
+			control: 'select',
+		},
+	},
+	layout: 'padded',
 };
 
-export const Default: React.FunctionComponent = () => (
+const CalloutTemplate: Story<CalloutStoryProps> = ({ childrenType, ...args }) => (
 	<Callout
-		title={text('Title', 'Default callout')}
-		dismissible={boolean('Dismissible', true)}
-		border={select('Border Position', borderMap, undefined)}
-		icon={select('Icon', { None: undefined, ...IconOptions }, 'check-circle')}
-		color={select('Color', { None: undefined, ...ColorOptions }, undefined)}
-		tag={select('Tag Element', { div: 'div', aside: 'aside' }, undefined)}
+		{...args}
 	>
-		<p>{ text('Body', defaultContents) }</p>
+		{childrenType === 'simple' && simpleChildren }
+		{childrenType === 'complex' && complexChildren}
 	</Callout>
 );
 
-export const NoTitle: React.FunctionComponent = () => (
-	<Callout
-		border={select('Border Position', borderMap, undefined)}
-		color={select('Color', { None: undefined, ...ColorOptions }, undefined)}
-		dismissible={boolean('Dismissible', true)}
-	>
-		<p>{ text('Body', defaultContents) }</p>
-	</Callout>
-);
+export const Default = CalloutTemplate.bind({});
 
-export const Success: React.FunctionComponent = () => (
-	<CalloutSuccess
-		title={text('Title', 'Success')}
-		dismissible={boolean('Dismissible', false)}
-	>
-		<p>{ text('Body', defaultContents) }</p>
-	</CalloutSuccess>
-);
+export const NoTitle = CalloutTemplate.bind({});
+NoTitle.args = {
+	title: undefined,
+} as CalloutProps;
 
-export const Warning: React.FunctionComponent = () => (
-	<CalloutWarning
-		title={text('Title', 'Warning')}
-		dismissible={boolean('Dismissible', false)}
-	>
-		<p>{ text('Body', defaultContents) }</p>
-	</CalloutWarning>
-);
+export const Success = CalloutTemplate.bind({});
+Success.args = {
+	color: 'success',
+	border: 'left',
+} as CalloutProps;
 
-export const Error: React.FunctionComponent = () => (
-	<CalloutError
-		title={text('Title', 'Error')}
-		dismissible={boolean('Dismissible', false)}
-	>
-		<p>{ text('Body', defaultContents) }</p>
-	</CalloutError>
-);
+export const Warning = CalloutTemplate.bind({});
+Warning.args = {
+	color: 'warning',
+	border: 'left',
+	icon: 'warning',
+} as CalloutProps;
+
+export const Error = CalloutTemplate.bind({});
+Error.args = {
+	color: 'error',
+	border: 'left',
+	icon: 'exclamation',
+} as CalloutProps;
