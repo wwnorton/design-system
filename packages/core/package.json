@@ -41,10 +41,10 @@
   "dependencies": {
     "@material/circular-progress": "^13.0.0",
     "@material/linear-progress": "^13.0.0",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "sass": ">=1.33.0"
+    "sass": "^1.49.11"
   },
   "peerDependenciesMeta": {
     "sass": {
