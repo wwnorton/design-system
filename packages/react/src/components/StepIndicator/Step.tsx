@@ -54,7 +54,7 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 				<span
 					className="nds-sr-only"
 				>
-					{completionStatusLabel}
+					{`${completionStatusLabel} `}
 				</span>
 				{children}
 			</div>
