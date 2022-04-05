@@ -1,6 +1,6 @@
 ---
 title: Step Indicator
-description: A Step Indicator that lets the user know of their progress in a multiple-step process.
+description: A Step Indicator allows users to know where they are in a long process or form while they focus on completing discrete steps.
 ---
 
 import {
@@ -13,6 +13,37 @@ import {
   Step,
 } from '@wwnds/react';
 import { PropsTable, ColorChip } from '@website/components';
+
+> A step indicator allows users to know where they are in a long process or form while they focus on completing discrete steps.
+
+## Anatomy
+
+A step indicator includes:
+1. **Steps**
+1. **Connector** (optional)
+
+A step marker includes:
+1. **A state indicator**
+1. **A label**
+
+## States
+Completion
+- Shows whether the user has completed a step. It can be either completed or incomplete.
+Current
+- Shows the current step that the user is on. Only one step can be current at a time. (Indicated with [aria-current=“step”] (https://w3c.github.io/aria/#aria-current).)
+
+## Usage
+- Use a step indicator to give users context through a long process or form.
+- Use a step indicator for onboarding, creation, or other processes that are done infrequently.
+- Use a step indicator to break up long processes or forms that include dependent fields.
+- A process that uses a step indicator should include at least 2 steps. The recommended range is 3–7 steps.
+- Steps outlined in a step indicator are often done in a particular order, and users must complete each step before moving on to the next, like in an onboarding flow. However, the steps can sometimes be done out of order or left incomplete, like in interactive assignments.
+- Step indicators are often displayed horizontally at the top of a page or modal, but they can sometimes be displayed vertically along the left margin.
+
+### Dos and Don’ts
+- Do make sure that the process is broken up into logical, discrete steps. 
+- Do show the steps in a logical order from left to right or top to bottom.
+- Don’t use more than one step indicator on a single page or screen. 
 
 ## React API
 
