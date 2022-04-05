@@ -445,9 +445,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	private onPointerUpClick = (event: PointerEvent) => {
 		const { isClickingDialog } = this.state;
 
-		if (!this.dialog?.contains(event.target as Element) && isClickingDialog) {
-			this.setState({ isClickingDialog: true });
-		} else {
+		if (!this.dialog?.contains(event.target as Element) && !isClickingDialog) {
 			this.setState({ isClickingDialog: false });
 		}
 	};
