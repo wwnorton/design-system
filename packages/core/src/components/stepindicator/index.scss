@@ -1,0 +1,138 @@
+@use 'tokens';
+@use '../../util';
+@use '../../color';
+@use '../../type';
+@use '../../spacing';
+@use 'sass:map';
+
+@mixin base {
+	--nds-stepindicator-primary-color: #{tokens.$primary-color};
+	--nds-stepindicator-base-color: #{tokens.$base-color};
+	--nds-stepindicator-step-marker-size: #{tokens.$step-marker-size};
+	--nds-stepindicator-max-step-width: #{tokens.$max-step-width};
+
+	display: flex;
+	padding: 0;
+	list-style: none;
+	align-items: flex-start;
+}
+
+@mixin stepindicator-step {
+	display: flex;
+	min-width: spacing.spacer('2rem');
+	max-width: var(--nds-stepindicator-max-step-width);
+	text-align: center;
+	flex-direction: column;
+	flex-basis: 0;
+	flex-grow: 1;
+}
+
+@mixin complete {
+	color: var(--nds-stepindicator-primary-color);
+}
+
+@mixin current {
+	box-shadow: 0 0 0 calc(spacing.spacer('0.25rem') / 2) var(--nds-stepindicator-primary-color);
+	transform: scale(1.1);
+}
+
+@mixin incomplete {
+	padding: calc(spacing.spacer('0.25rem') / 2);
+
+	&::before {
+		display: block;
+		width: 100%;
+		height: 100%;
+		content: '';
+		background-color: var(--nds-stepindicator-base-color);
+		border-radius: 100%;
+	}
+}
+
+@mixin step-connector($step-class, $marker-container-class) {
+	#{$step-class} {
+		#{$marker-container-class}::before,
+		#{$marker-container-class}::after {
+			display: block;
+			height: calc(spacing.spacer('0.25rem') / 2);
+			content: '';
+			background-color: var(--nds-stepindicator-base-color);
+			flex-grow: 1;
+		}
+
+		&:first-child #{$marker-container-class}::before {
+			visibility: hidden;
+		}
+
+		&:last-child #{$marker-container-class}::after {
+			visibility: hidden;
+		}
+	}
+}
+
+@mixin step-marker-container {
+	display: flex;
+	margin-top: spacing.spacer('0.25rem');
+	color: var(--nds-stepindicator-base-color);
+	align-items: center;
+	flex-grow: 1;
+	justify-content: center;
+}
+
+@mixin step-marker {
+	width: var(--nds-stepindicator-step-marker-size);
+	height: var(--nds-stepindicator-step-marker-size);
+	margin: calc(spacing.spacer('0.25rem') / 2);
+	border-radius: 100%;
+
+	svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+@mixin step-content {
+	padding: 0 spacing.spacer('0.5rem');
+	font-weight: bold;
+}
+
+@mixin style {
+	@include util.declare('stepindicator') {
+		.nds-step-indicator {
+			@include base;
+		}
+
+		.nds-step-indicator--connected {
+			@include step-connector('.nds-step', '.nds-step__marker-container');
+		}
+
+		.nds-step {
+			@include stepindicator-step;
+		}
+
+		.nds-step__marker-container {
+			@include step-marker-container;
+		}
+
+		.nds-step__marker {
+			@include step-marker;
+		}
+
+		.nds-step__marker--complete {
+			@include complete;
+		}
+
+		.nds-step__marker--incomplete {
+			@include incomplete;
+		}
+
+		.nds-step__marker--current {
+			@include current;
+		}
+
+		.nds-step__content {
+			@include step-content;
+		}
+	}
+}
