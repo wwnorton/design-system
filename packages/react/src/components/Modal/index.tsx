@@ -101,6 +101,7 @@ export interface ModalState {
 	stuckHeader: boolean;
 	stuckFooter: boolean;
 	bodyOverflow: string;
+	isClickingDialog: boolean;
 }
 
 export interface ModalSnapshot {
@@ -157,6 +158,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			stuckHeader: false,
 			stuckFooter: false,
 			bodyOverflow: '',
+			isClickingDialog: false,
 		};
 	}
 
@@ -250,6 +252,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		document.removeEventListener('keydown', this.onDocumentKeydown);
 		const { bodyOverflow } = this.state;
 		document.body.style.overflow = bodyOverflow;
+
+		document.removeEventListener('pointerup', this.onPointerUpClick);
 	}
 
 	private onOpen(): void {
@@ -276,6 +280,9 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		document.addEventListener('keydown', this.onDocumentKeydown);
 		this.setState({ bodyOverflow: document.body.style.overflow });
 		document.body.style.overflow = 'hidden';
+
+		// Prevent modal from closing when click didn't initiate outside of content
+		document.addEventListener('pointerup', this.onPointerUpClick);
 	}
 
 	private onClose(): void {
@@ -394,6 +401,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 					id={this.id}
 					className={classes}
 					ref={(el): void => { this.dialog = el; }}
+					onPointerDown={this.onPointerDownClick}
 					{...label}
 				>
 					{ this.Header }
@@ -430,17 +438,34 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		}
 	};
 
+	private onPointerDownClick = () => {
+		this.setState({ isClickingDialog: true });
+	};
+
+	private onPointerUpClick = (event: PointerEvent) => {
+		const { isClickingDialog } = this.state;
+
+		if (!this.dialog?.contains(event.target as Element) && !isClickingDialog) {
+			this.setState({ isClickingDialog: false });
+		}
+	};
+
 	private onBackdropClick = (
 		{ nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>,
 	): void => {
 		const { closeOnBackdropClick } = this.props;
+		const { isClickingDialog } = this.state;
+
 		if (
 			closeOnBackdropClick
 			&& this.dialog
 			&& !nativeEvent.composedPath().includes(this.dialog)
+			&& !isClickingDialog
 		) {
 			this.requestClose();
 		}
+
+		this.setState({ isClickingDialog: false });
 	};
 
 	private onDocumentKeydown = (e: KeyboardEvent): void => {
