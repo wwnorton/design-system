@@ -40,7 +40,7 @@ test('renders a step as current and incomplete', (t) => {
 
 	const currentStep = screen.getByRole('listitem', { current: 'step' });
 
-	t.falsy(within(currentStep).queryByLabelText('completed'));
+	t.falsy(within(currentStep).queryByLabelText('complete'));
 });
 
 test('renders a step as current and complete', (t) => {
@@ -50,7 +50,7 @@ test('renders a step as current and complete', (t) => {
 
 	const currentStep = screen.getByRole('listitem', { current: 'step' });
 
-	t.truthy(within(currentStep).getByText('completed'));
+	t.truthy(within(currentStep).getByText('complete'));
 });
 
 test('renders a step as not-current and complete', (t) => {
@@ -60,7 +60,7 @@ test('renders a step as not-current and complete', (t) => {
 
 	const firstStep = screen.getAllByRole('listitem', { current: false })[0];
 
-	t.truthy(within(firstStep).getByText('completed'));
+	t.truthy(within(firstStep).getByText('complete'));
 });
 
 test('renders a step as not-current and incomplete', (t) => {
@@ -70,5 +70,5 @@ test('renders a step as not-current and incomplete', (t) => {
 
 	const firstStep = screen.getAllByRole('listitem', { current: false })[0];
 
-	t.falsy(within(firstStep).queryByText('completed'));
+	t.falsy(within(firstStep).queryByText('complete'));
 });
