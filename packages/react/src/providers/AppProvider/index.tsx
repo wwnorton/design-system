@@ -8,7 +8,7 @@ export type AppProviderProps = ThemeProviderProps & {
 	 * provided link component instead of its own render function.
 	 */
 	linkComponent?: LinkComponent;
-}
+};
 
 /** The main application-level provider for design system configuration. */
 export const AppProvider: React.FunctionComponent<AppProviderProps> = ({
