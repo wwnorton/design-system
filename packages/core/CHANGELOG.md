@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/wwnorton/design-system/compare/v1.3.2...v1.4.0) (2022-04-06)
+
+### 🐛 Bug Fixes
+
+- **core:** remove listbox dependency in dropdown ([61eb3bf](https://github.com/wwnorton/design-system/commit/61eb3bfc92f429da4f0081d5a47dd62f96a021a3))
+- **core:** restore bottom-margin-only typesets ([bf1a737](https://github.com/wwnorton/design-system/commit/bf1a737c455db66648202fce450e24f42418b4fd))
+- **motion:** ensure that motion durations scale with the scalar unit ([2631c35](https://github.com/wwnorton/design-system/commit/2631c352032add883c8a0115353379ac211da803))
+- **visual:** use correct modal vertical spacing ([eec06da](https://github.com/wwnorton/design-system/commit/eec06da3095622a16f6240b758c7817b947e4a8d))
+
+### ✨ Features
+
+- initial step indicator component ([36e2224](https://github.com/wwnorton/design-system/commit/36e222475f5797cca13c162b2938fe81a4a79b9a))
+
 ### [1.3.2](https://github.com/wwnorton/design-system/compare/v1.3.1...v1.3.2) (2021-12-21)
 
 ### 💄 Visual design

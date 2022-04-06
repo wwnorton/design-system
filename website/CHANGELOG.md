@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/wwnorton/design-system/compare/v1.3.2...v1.4.0) (2022-04-06)
+
+### 🐛 Bug Fixes
+
+- **core:** restore bottom-margin-only typesets ([bf1a737](https://github.com/wwnorton/design-system/commit/bf1a737c455db66648202fce450e24f42418b4fd))
+
+### ✨ Features
+
+- initial step indicator component ([36e2224](https://github.com/wwnorton/design-system/commit/36e222475f5797cca13c162b2938fe81a4a79b9a))
+
+### 📝 Documentation
+
+- add feature card for step indicator ([be71c7a](https://github.com/wwnorton/design-system/commit/be71c7addd3c278d298c8e62d3b99d964e26e238))
+- **step-indicator:** add anatomy, states, properties, and usage ([cc13714](https://github.com/wwnorton/design-system/commit/cc13714b56b92c86823f431946b65d1572b2bbd0))
+
 ### [1.3.2](https://github.com/wwnorton/design-system/compare/v1.3.1...v1.3.2) (2021-12-21)
 
 ### 📝 Documentation

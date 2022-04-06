@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/wwnorton/design-system/compare/v1.3.2...v1.4.0) (2022-04-06)
+
+### ✨ Features
+
+- initial step indicator component ([36e2224](https://github.com/wwnorton/design-system/commit/36e222475f5797cca13c162b2938fe81a4a79b9a))
+
+### 🐛 Bug Fixes
+
+- **core:** remove listbox dependency in dropdown ([61eb3bf](https://github.com/wwnorton/design-system/commit/61eb3bfc92f429da4f0081d5a47dd62f96a021a3))
+- **modal:** don't close when a click starts in dialog but ends outside ([db1e943](https://github.com/wwnorton/design-system/commit/db1e94306e8ee3cf17a9eea9543946a7bbcd42ec))
+- **storybook:** children select for callout story ([7f36f55](https://github.com/wwnorton/design-system/commit/7f36f55794ac19630223934f804e759dfb3c92aa))
+
 ### [1.3.2](https://github.com/wwnorton/design-system/compare/v1.3.1...v1.3.2) (2021-12-21)
 
 ### 💄 Visual design
