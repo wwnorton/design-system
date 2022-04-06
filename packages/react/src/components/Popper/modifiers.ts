@@ -18,7 +18,7 @@ export const flipMod = createModifier<FlipOptions>('flip');
 export const offsetMod = createModifier<OffsetOptions>('offset');
 export const preventOverflowMod = createModifier<PreventOverflowOptions>('preventOverflow');
 
-export const matchWidthMod: Modifier<'matchWidth', unknown> = {
+export const matchWidthMod: Modifier<'matchWidth', Record<string, unknown>> = {
 	name: 'matchWidth',
 	enabled: false,
 	phase: 'beforeWrite',
