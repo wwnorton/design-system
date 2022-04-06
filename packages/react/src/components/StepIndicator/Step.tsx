@@ -28,7 +28,7 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 		},
 	);
 
-	const completionStatusLabel = isCompleted ? 'completed' : 'incomplete';
+	const completionStatusLabel = isCompleted ? 'complete' : 'incomplete';
 
 	return (
 		<li
@@ -46,17 +46,17 @@ export const Step = React.forwardRef<HTMLLIElement, StepProps>(({
 							variant="check-circle"
 							role="none"
 						/>
-					) }
+					)}
 				</div>
 			</div>
 
 			<div className={contentsClass}>
+				{children}
 				<span
 					className="nds-sr-only"
 				>
-					{`${completionStatusLabel} `}
+					{` ${completionStatusLabel}`}
 				</span>
-				{children}
 			</div>
 		</li>
 	);
