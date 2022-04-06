@@ -1,6 +1,6 @@
 ---
 title: Step Indicator
-description: A Step Indicator that lets the user know of their progress in a multiple-step process.
+description: A step indicator allows users to know where they are in a long process or form while they focus on completing discrete steps.
 ---
 
 import {
@@ -13,6 +13,43 @@ import {
   Step,
 } from '@wwnds/react';
 import { PropsTable, ColorChip } from '@website/components';
+
+> A step indicator allows users to know where they are in a long process or form while they focus on completing discrete steps.
+
+## Anatomy
+
+A step indicator contains:
+
+1. **Steps** - a list of steps, each of which is individually called a step.
+1. **Connector** (_optional_) - a purely presentational line that visually connects the individual steps.
+
+A step contains:
+
+1. **A step marker** - the marker visually indicates whether the step is complete or incomplete.
+1. **Contents** - the step's contents function as an [accessible name](https://www.w3.org/TR/accname-1.2/#dfn-accessible-name) for the step.
+
+## States and properties
+
+Each individual Step has two types of state:
+
+- **Current** - a property that shows the user's current step. Only one step can be current at a time.
+	 - Note: this should be conveyed with the [aria-current="step"](https://www.w3.org/TR/wai-aria-1.2/#aria-current) to ensure that it is accessible.
+- **Completion** - a property that indicates whether the step has been completed or not. It can be either "complete" or "incomplete".
+
+## Usage
+
+- Use a step indicator to give users context through a long process or form.
+- Use a step indicator for onboarding, creation, or other processes that are done infrequently.
+- Use a step indicator to break up long processes or forms that include dependent fields.
+- A process that uses a step indicator should include at least 2 steps. The recommended range is 3–7 steps.
+- Steps outlined in a step indicator are often done in a particular order, and users must complete each step before moving on to the next, like in an onboarding flow. However, the steps can sometimes be done out of order or left incomplete, like in interactive assignments.
+- Step indicators are often displayed horizontally at the top of a page or modal, but they can sometimes be displayed vertically along the left margin.
+
+### Dos and Don'ts
+
+- Do make sure that the process is broken up into logical, discrete steps.
+- Do show the steps in a logical order from left to right or top to bottom.
+- Don't use more than one step indicator on a single page or screen.
 
 ## React API
 
