@@ -42,6 +42,7 @@
   "dependencies": {
     "@material/linear-progress": "^13.0.0",
     "@popperjs/core": "^2.11.5",
+    "@types/react-transition-group": "^4.4.4",
     "classnames": "^2.3.1",
     "lodash": "^4.17.21",
     "react-fast-compare": "^3.2.0",
@@ -51,7 +52,6 @@
   },
   "devDependencies": {
     "@types/react-is": "^17.0.3",
-    "@types/react-transition-group": "^4.4.4",
     "react-router-dom": "^6.2.1"
   },
   "peerDependencies": {
