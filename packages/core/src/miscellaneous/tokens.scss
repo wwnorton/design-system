@@ -1,0 +1,41 @@
+////
+/// Foundational design tokens that don't fit neatly into a category.
+/// @group Miscellaneous
+////
+
+@use '../a11y';
+
+/// The default focus shadow has a 2px outer ring and an inner ring that matches
+/// the body's background color by default, giving the illusion of transparency.
+/// @group Accessibility
+$focus-halo: a11y.focus-halo() !default;
+
+/// A collapsed focus shadow that is meant to be used when the focused element
+/// conveys focus through some other mechanism, such as an `<input>`'s caret.
+/// @group Accessibility
+$focus-ring: a11y.focus-ring() !default;
+
+// Border radius
+$radius-sm: 0.125rem;
+$radius-md: 0.25rem;
+$radius-lg: 0.5rem;
+$radius-xl: 1rem;
+$radius-pill: 99rem;
+
+/// The base border radius.
+$radius-base: var(--nds-radius-sm) !default;
+
+/// Miscellaneous tokens as CSS custom properties.
+@mixin miscellaneous-tokens {
+	// Focus shadows
+	--nds-focus-halo: #{$focus-halo};
+	--nds-focus-ring: #{$focus-ring};
+
+	// Border radius
+	--nds-radius-sm: #{$radius-sm};
+	--nds-radius-md: #{$radius-md};
+	--nds-radius-lg: #{$radius-lg};
+	--nds-radius-xl: #{$radius-xl};
+	--nds-radius-pill: #{$radius-pill};
+	--nds-radius-base: #{$radius-base};
+}
