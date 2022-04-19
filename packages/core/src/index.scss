@@ -1,7 +1,7 @@
 ////
-/// The main entry point for using the design system styles contains mixins for
-/// setting declarations according to need. Does not contain any declarations
-/// and will not build to a dist CSS file.
+/// The main entry point for using the design system styles (the public API).
+/// This does not contain any declarations and will not compile to CSS unless
+/// its mixins are @included.
 /// @group Main
 ////
 
