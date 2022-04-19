@@ -61,6 +61,27 @@
 	@include root;
 }
 
+/// All foundational design tokens as CSS custom properties. Use when you need
+/// access to all CSS custom properties outside of the `:root` context.
+/// @require {mixin} color-tokens
+/// @require {mixin} motion-tokens
+/// @require {mixin} spacing-tokens
+/// @require {mixin} typography-tokens
+/// @require {mixin} miscellaneous-tokens
+/// @example shadowDOM - Usage in shadow DOM styling
+///   @use '@wwnds/core' as nds;
+///   :host {
+///     @include nds.design-tokens;
+///   }
+@mixin design-tokens {
+	@include nds.color-tokens;
+	@include nds.elevation-tokens;
+	@include nds.motion-tokens;
+	@include nds.spacing-tokens;
+	@include nds.typography-tokens;
+	@include nds.miscellaneous-tokens;
+}
+
 /// Declarations for every component.
 @mixin components {
 	@include nds.badge-style;
