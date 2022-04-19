@@ -92,27 +92,25 @@ $easing-acceleration: cubic-bezier(0.4, 0, 1, 1);
 $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
 /* stylelint-enable max-line-length */
 
-/// Motion tokens set as CSS custom properties on the `:root` element.
-@mixin motion {
-	:root {
-		--nds-duration-scalar: #{$duration-scalar};
-		--nds-duration-simple: #{$duration-simple};
-		--nds-duration-simple-enter: #{$duration-simple-enter};
-		--nds-duration-simple-exit: #{$duration-simple-exit};
-		--nds-duration-complex: #{$duration-complex};
-		--nds-duration-detailed: #{$duration-detailed};
-		--nds-duration-open: #{$duration-open};
-		--nds-duration-close: #{$duration-close};
-		--nds-duration-expand: #{$duration-expand};
-		--nds-duration-collapse: #{$duration-collapse};
-		--nds-duration-small: #{$duration-small};
-		--nds-duration-medium-expand: #{$duration-medium-expand};
-		--nds-duration-medium-collapse: #{$duration-medium-collapse};
-		--nds-duration-large-expand: #{$duration-large-expand};
-		--nds-duration-large-collapse: #{$duration-large-collapse};
-		--nds-easing-standard: #{$easing-standard};
-		--nds-easing-deceleration: #{$easing-deceleration};
-		--nds-easing-acceleration: #{$easing-acceleration};
-		--nds-easing-sharp: #{$easing-sharp};
-	}
+/// Motion tokens as CSS custom properties.
+@mixin motion-tokens {
+	--nds-duration-scalar: #{$duration-scalar};
+	--nds-duration-simple: #{$duration-simple};
+	--nds-duration-simple-enter: #{$duration-simple-enter};
+	--nds-duration-simple-exit: #{$duration-simple-exit};
+	--nds-duration-complex: #{$duration-complex};
+	--nds-duration-detailed: #{$duration-detailed};
+	--nds-duration-open: #{$duration-open};
+	--nds-duration-close: #{$duration-close};
+	--nds-duration-expand: #{$duration-expand};
+	--nds-duration-collapse: #{$duration-collapse};
+	--nds-duration-small: #{$duration-small};
+	--nds-duration-medium-expand: #{$duration-medium-expand};
+	--nds-duration-medium-collapse: #{$duration-medium-collapse};
+	--nds-duration-large-expand: #{$duration-large-expand};
+	--nds-duration-large-collapse: #{$duration-large-collapse};
+	--nds-easing-standard: #{$easing-standard};
+	--nds-easing-deceleration: #{$easing-deceleration};
+	--nds-easing-acceleration: #{$easing-acceleration};
+	--nds-easing-sharp: #{$easing-sharp};
 }

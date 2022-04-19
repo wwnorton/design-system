@@ -9,19 +9,56 @@
 @use 'sass:map';
 @use './system' as nds;
 
+/// All foundational design tokens set as CSS custom properties on the `:root`.
+/// @require {mixin} color-tokens
+/// @require {mixin} motion-tokens
+/// @require {mixin} spacing-tokens
+/// @require {mixin} typography-tokens
+/// @require {mixin} miscellaneous-tokens
+@mixin root {
+	// set each foundation on a separate :root declaration for visible grouping
+	/* stylelint-disable no-duplicate-selectors */
+	:root {
+		@include nds.color-tokens;
+	}
+
+	:root {
+		@include nds.elevation-tokens;
+	}
+
+	:root {
+		@include nds.motion-tokens;
+	}
+
+	:root {
+		@include nds.spacing-tokens;
+	}
+
+	:root {
+		@include nds.typography-tokens;
+	}
+
+	:root {
+		@include nds.miscellaneous-tokens;
+	}
+
+	// Set color scheme selectors if the dark scheme is enabled.
+	@if nds.$enable-dark-scheme {
+		[data-color-scheme='light'] {
+			@include nds.light-scheme;
+		}
+
+		[data-color-scheme='dark'] {
+			@include nds.dark-scheme;
+		}
+	}
+}
+
 /// All foundational design tokens set as CSS custom properties  on the `:root`.
-/// @see color
-/// @see motion
-/// @see spacing
-/// @see typography
-/// @see miscellaneous
+/// @deprecated Use the `root` mixin to set your `:root` declaration, or set
+/// tokens on your own selector with the `design-tokens` mixin.
 @mixin tokens {
-	@include nds.color;
-	@include nds.elevation;
-	@include nds.motion;
-	@include nds.spacing;
-	@include nds.typography;
-	@include nds.miscellaneous;
+	@include root;
 }
 
 /// Declarations for every component.
@@ -70,7 +107,7 @@
 
 /// The complete design system set in a single global stylesheet.
 @mixin complete {
-	@include tokens;
+	@include root;
 	@include nds.reset;
 	@include components;
 	@include helpers;

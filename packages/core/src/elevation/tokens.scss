@@ -1,5 +1,8 @@
 /// @group Elevation
 
+@use 'sass:map';
+@use '../util';
+
 $shadow-none: unset;
 $shadow-1: 0 1px 4px 0 rgb(0 0 0 / 25%);
 $shadow-2: 0 4px 8px 0 rgb(0 0 0 / 25%);
@@ -20,26 +23,20 @@ $zindex-focus: 'null' !default;
 $zindex-popover: 1060;
 $zindex-tooltip: 1070;
 
-/// Elevation tokens set as CSS custom properties on the `:root` element.
-@mixin elevation {
-	/* stylelint-disable no-duplicate-selectors */
-	:root {
-		--nds-zindex-dropdown: #{$zindex-dropdown};
-		--nds-zindex-sticky: #{$zindex-sticky};
-		--nds-zindex-fixed: #{$zindex-fixed};
-		--nds-zindex-modal-backdrop: #{$zindex-modal-backdrop};
-		--nds-zindex-modal: #{$zindex-modal};
-		--nds-zindex-focus: #{$zindex-focus};
-		--nds-zindex-popover: #{$zindex-popover};
-		--nds-zindex-tooltip: #{$zindex-tooltip};
-	}
-
-	:root {
-		--nds-shadow-none: #{$shadow-none};
-		--nds-shadow-1: #{$shadow-1};
-		--nds-shadow-2: #{$shadow-2};
-		--nds-shadow-3: #{$shadow-3};
-		--nds-shadow-4: #{$shadow-4};
-		--nds-shadow-5: #{$shadow-5};
-	}
+/// Elevation tokens as CSS custom properties.
+@mixin elevation-tokens {
+	--nds-shadow-none: #{$shadow-none};
+	--nds-shadow-1: #{$shadow-1};
+	--nds-shadow-2: #{$shadow-2};
+	--nds-shadow-3: #{$shadow-3};
+	--nds-shadow-4: #{$shadow-4};
+	--nds-shadow-5: #{$shadow-5};
+	--nds-zindex-dropdown: #{$zindex-dropdown};
+	--nds-zindex-sticky: #{$zindex-sticky};
+	--nds-zindex-fixed: #{$zindex-fixed};
+	--nds-zindex-modal-backdrop: #{$zindex-modal-backdrop};
+	--nds-zindex-modal: #{$zindex-modal};
+	--nds-zindex-focus: #{$zindex-focus};
+	--nds-zindex-popover: #{$zindex-popover};
+	--nds-zindex-tooltip: #{$zindex-tooltip};
 }
