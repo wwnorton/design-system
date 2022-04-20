@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type TableHeaderVariant = 'solid' | 'outline' | 'ghost';
 export type TableSort = 'asc' | 'desc' | 'unsorted';
 export type TableCellAlignment = 'right' | 'left' | 'center';
@@ -29,6 +31,8 @@ export interface TableHeaderProps
 	baseName?: string;
 	/** Sortable header maintain current sort state, which can be asc, desc, or unsorted. */
 	sort?: TableSort;
+
+	sortHandler?: (sortOrder: string, sortColumnIndex: number) => void;
 }
 
 export interface TableRowProps
@@ -54,7 +58,51 @@ export interface TableCellProps
 	/** Indicates cell type whether Text,Number,Date,Boolean,Custom */
 	type?: TableCellType;
 	/** Indicates React component or string. */
-	cellFormatter?: () => void;
+	cellFormatter?: () => JSX.Element;
 	/** Indicates table cell value in any format whether. */
-	value?: TableCellType;
+	value?: React.ReactText;
+	/** Indicates whether the table header is sticky. */
+	stickyHeader?: boolean;
+	/** Sortable header maintain current sort state, which can be asc, desc, or unsorted. */
+	sort?: TableSort;
+	/**
+	 * A handler for the `onSort` callback for maintaining sort for selected header
+	 * columns.
+	*/
+	sortHandler?: (sortOrder: string, sortColumnIndex: number) => void;
+	/** Changed sort behavior for selected sort column  */
+	columnIndex?: number;
+}
+
+export interface DataTableProps extends React.TableHTMLAttributes<HTMLTableElement> {
+	/** Indicates array of JSON formatted row data */
+	rows?: (Record<string, unknown> | string[])[];
+	/** Datatype can be string, number, boolean, array or object array.
+	 *  Object array should have properties
+	 * -----------------------------------------------------
+	 * Name 		| string  | default undefined
+	 * key  		| string  | default undefined
+	 * sort 		| variant | 'asc' | 'desc' | 'unsorted'
+	 * -----------------------------------------------------
+	 */
+	header?: (
+		| string
+		| number
+		| boolean
+		| {
+			name?: string;
+			key: string;
+			sort?: string;
+		}
+	)[];
+	/** Indicates whether the table header is sticky. */
+	stickyHeader?: boolean;
+	/** Override or extend existing table style. */
+	className?: string;
+	/** Indicates whether table with or without border. */
+	border?: boolean;
+	/** Sortable header maintain current sort state, which can be asc, desc, or unsorted. */
+	sort?: TableSort;
+	/** The base class name according to BEM conventions. */
+	baseName?: string;
 }

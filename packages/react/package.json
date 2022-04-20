@@ -47,7 +47,8 @@
     "react-fast-compare": "^3.2.0",
     "react-is": "^17.0.2",
     "react-popper": "^2.2.5",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "camel-case": "^4.1.2"
   },
   "devDependencies": {
     "@types/react-is": "^17.0.0",

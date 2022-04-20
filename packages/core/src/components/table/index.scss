@@ -7,12 +7,14 @@
 	--nds-table-padding-x: #{tokens.$padding-x};
 	--nds-table-padding-y: #{tokens.$padding-y};
 	--nds-table-header-background-color: #{tokens.$header-background-color};
+	--nds-table-header-font-color: #{tokens.$header-color};
 	--nds-table-header-font-size: #{tokens.$header-font-size};
+	--nds-table-row-font-size: #{tokens.$table-row-font-size};
 	--nds-table-cell-border: #{tokens.$tablecell-border};
 	--nds-table-width: #{tokens.$table-width};
-	--nds-table-sort-background-color: #{tokens.$sort-background-color};
-	--nds-table-sort-asc-desc-background-color: #{tokens.$sort-asc-desc-background-color};
 	--nds-table-sort-icon-size: #{tokens.$sort-icon-size};
+	--nds-table-sort-default-color: #{tokens.$sort-default-color};
+	--nds-table-sort-selected-color: #{tokens.$sort-selected-color};
 
 	width: var(--nds-table-width);
 
@@ -22,22 +24,54 @@
 }
 
 @mixin table-header {
+	width: 0;
 	font-size: var(--nds-table-header-font-size);
+	white-space: nowrap;
+	border-collapse: collapse;
 	background-color: var(--nds-table-header-background-color);
 
 	th:last-child {
 		border-right: unset;
 	}
+
+	.nds-button__text {
+		font-size: var(--nds-table-header-font-size);
+	}
+
+	.nds-tablecell {
+		>.nds-button {
+			padding: 0;
+			color: var(--nds-table-header-font-color);
+
+			&:not(:disabled):not(.disabled):hover,
+			&:not(:disabled):not(.disabled).hover {
+				background-color: unset;
+				border-color: transparent;
+			}
+
+			:focus {
+				background-color: unset;
+				border-color: unset;
+			}
+		}
+	}
 }
 
 @mixin table-cell {
+	width: fit-content;
 	padding: var(--nds-table-padding-x) var(--nds-table-padding-y);
+	white-space: nowrap;
+	border-collapse: collapse;
 	border-bottom: var(--nds-table-cell-border);
 }
 
 @mixin table-row {
 	td:last-child {
 		border-right: unset;
+	}
+
+	.nds-tablecell {
+		font-size: var(--nds-table-row-font-size);
 	}
 }
 
@@ -48,37 +82,43 @@
 		border-left: var(--nds-table-border);
 	}
 
+	.nds-tablecell {
+		border-right: var(--nds-table-cell-border);
+	}
+
 	.nds-tableheader {
 		border-top: var(--nds-table-border);
 		border-right: var(--nds-table-border);
 		border-left: var(--nds-table-border);
-	}
 
-	.nds-tablecell {
-		border-right: var(--nds-table-cell-border);
+		.nds-tablecell {
+			>span {
+				display: inline-flex;
+				height: 0;
+			}
+		}
 	}
 }
 
 @mixin sort {
 	display: inline-flex;
 	cursor: pointer;
-	flex-direction: column;
 	align-items: center;
 
-	> .nds-button {
+	.nds-button--icon-only {
 		width: var(--nds-table-sort-icon-size);
 		height: var(--nds-table-sort-icon-size);
 		padding: 0;
-		margin-top: -2px;
 
-		> .nds-icon--caret-up {
-			margin-top: -3px;
-			color: var(--nds-table-sort-background-color);
+		&:not(:disabled):not(.disabled):hover,
+		&:not(:disabled):not(.disabled).hover {
+			background-color: unset;
+			border-color: transparent;
 		}
 
-		> .nds-icon--caret-down {
-			margin-top: -12px;
-			color: var(--nds-table-sort-background-color);
+		:focus {
+			background-color: unset;
+			border-color: unset;
 		}
 	}
 
@@ -86,40 +126,38 @@
 		background-color: transparent !important;
 		border: transparent;
 	}
+
+	&[aria-sort='ascending'] {
+		.nds-icon--caret-up {
+			color: var(--nds-table-sort-selected-color) !important;
+		}
+
+		.nds-icon--caret-down {
+			color: var(--nds-table-sort-default-color) !important;
+		}
+	}
+
+	&[aria-sort='descending'] {
+		.nds-icon--caret-up {
+			color: var(--nds-table-sort-default-color) !important;
+		}
+
+		.nds-icon--caret-down {
+			color: var(--nds-table-sort-selected-color) !important;
+		}
+	}
 }
 
 @mixin unsorted {
-	> .nds-button {
-		> .nds-icon--caret-up {
-			color: var(--nds-table-sort-background-color);
-		}
+	> .nds-tablecell--sort {
+		> .nds-button {
+			> .nds-icon--caret-up {
+				color: var(--nds-table-sort-background-color);
+			}
 
-		> .nds-icon--caret-down {
-			color: var(--nds-table-sort-background-color);
-		}
-	}
-}
-
-@mixin sort-asc {
-	> .nds-button {
-		> .nds-icon--caret-up {
-			color: var(--nds-table-sort-asc-desc-background-color);
-		}
-
-		> .nds-icon--caret-down {
-			color: var(--nds-table-sort-background-color);
-		}
-	}
-}
-
-@mixin sort-desc {
-	> .nds-button {
-		> .nds-icon--caret-up {
-			color: var(--nds-table-sort-background-color);
-		}
-
-		> .nds-icon--caret-down {
-			color: var(--nds-table-sort-asc-desc-background-color);
+			> .nds-icon--caret-down {
+				color: var(--nds-table-sort-default-color);
+			}
 		}
 	}
 }
@@ -127,7 +165,7 @@
 @mixin stickyheader {
 	position: sticky;
 	top: 0;
-	box-shadow: 0 1px 1px var(--nds-shadow-1);
+	box-shadow: 0 2px 2px var(--nds-shadow-3);
 }
 
 @mixin ghost {
@@ -144,6 +182,63 @@
 
 @mixin outline {
 	background-color: white;
+}
+
+@mixin left-align {
+	text-align: left;
+}
+
+@mixin right-align {
+	text-align: right;
+}
+
+@mixin center-align {
+	text-align: center;
+
+	.nds-field__group--choice {
+		display: inline-flex;
+	}
+}
+
+@mixin sort-icon-asc {
+	top: -1px;
+	margin-top: -6px;
+	color: var(--nds-table-sort-default-color);
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: unset;
+		border-color: transparent;
+	}
+
+	:focus {
+		background-color: unset;
+		border-color: unset;
+	}
+}
+
+@mixin sort-icon-desc {
+	top: 5px;
+	left: -14px;
+	margin-top: 6px;
+	margin-left: -15px;
+	color: var(--nds-table-sort-default-color);
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: unset;
+		border-color: transparent;
+	}
+
+	:focus {
+		background-color: unset;
+		border-color: unset;
+	}
+
+	:active {
+		background-color: unset;
+		border-color: unset;
+	}
 }
 
 @mixin style {
@@ -184,16 +279,28 @@
 			@include sort;
 		}
 
-		.nds-tablecell--sort-unsorted {
+		.nds-tablecell--no-sort {
 			@include unsorted;
 		}
 
-		.nds-tablecell--sort-asc {
-			@include sort-asc;
+		.nds-tablecell--align-left {
+			@include left-align;
 		}
 
-		.nds-tablecell--sort-desc {
-			@include sort-desc;
+		.nds-tablecell--align-right {
+			@include right-align;
+		}
+
+		.nds-tablecell--align-center {
+			@include center-align;
+		}
+
+		.nds-tablecell--sort-icon_asc {
+			@include sort-icon-asc;
+		}
+
+		.nds-tablecell--sort-icon_desc {
+			@include sort-icon-desc;
 		}
 	}
 }

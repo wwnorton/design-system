@@ -17,13 +17,48 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(
 		}: TableProps,
 		ref,
 	) => {
+		const [tableBody, setTableBody] = React.useState<React.ReactElement[]>();
 		const classes = classNames(className, baseName, {
 			[`${baseName}--border`]: border,
 		});
+
+		/** A compare function that will sort children by value(s) */
+		const compare = React.useCallback((sortBy: string, sortColumnIndex: number) => {
+			if (!sortBy && !sortColumnIndex) return null;
+			return (a:React.ReactElement, b:React.ReactElement): number => {
+				const aCellData = a.props.children[sortColumnIndex].props.value
+					? a.props.children[sortColumnIndex].props.value
+					: a.props.children[sortColumnIndex].props.children;
+				const bCellData = b.props.children[sortColumnIndex].props.value
+					? b.props.children[sortColumnIndex].props.value
+					: b.props.children[sortColumnIndex].props.children;
+				if (aCellData === bCellData) {
+					return 0;
+				}
+				if (sortBy === 'asc') {
+					return aCellData < bCellData ? -1 : 1;
+				}
+				return aCellData > bCellData ? -1 : 1;
+			};
+		}, []);
+
+		const sortHandler = React.useCallback((sortOrder: string, sortColumnIndex: number) => {
+			if (children) {
+				const Children: React.ReactElement[] = children;
+				if (Children) {
+					const sortChild = Children
+						.slice(1)
+						.sort(compare(sortOrder, sortColumnIndex));
+					setTableBody(sortChild);
+				}
+			}
+		}, [compare, setTableBody, children]);
+
 		const tableElements = React.useMemo(() => {
 			if (!children) return null;
-			const tableBody: React.ReactElement[] = [];
+			const tBody: React.ReactElement[] = [];
 			const tHeader = React.Children.map(children, (child) => {
+				if (!child) return null;
 				if (ReactIs.isElement(child)) {
 					if (child.type === TableHeader) {
 						return (
@@ -31,19 +66,22 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(
 								stickyHeader={stickyHeader}
 								{...child.props}
 								sort={sort}
+								sortHandler={sortHandler}
 							/>
 						);
 					}
-					tableBody.push(child);
+					tBody.push(child);
 				}
-				return child;
+				return null;
 			});
-			return { header: tHeader, tbody: tableBody };
-		}, [children, stickyHeader, sort]);
+			setTableBody(tBody);
+			return { header: tHeader, tbody: tBody };
+		}, [children, stickyHeader, sort, sortHandler]);
+
 		return (
 			<table className={classes} ref={ref} {...props}>
 				{tableElements ? tableElements.header : null}
-				<tbody>{tableElements ? tableElements.tbody : null}</tbody>
+				<tbody>{tableBody}</tbody>
 			</table>
 		);
 	},
