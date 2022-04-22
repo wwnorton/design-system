@@ -11,3 +11,4 @@ comment:
   after_n_builds: 8
 ignore:
   - packages/react/src/utilities/popper
+  - packages/react/src/components/LiveRegion
