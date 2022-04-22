@@ -39,3 +39,13 @@ $radius-base: var(--nds-radius-sm) !default;
 	--nds-radius-pill: #{$radius-pill};
 	--nds-radius-base: #{$radius-base};
 }
+
+/// Focus & radius tokens set as CSS custom properties on the `:root` element.
+/// Note: these may be moved to their own mixins at sometime in the future.
+/// @deprecated `@include miscellaneous-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
+@mixin miscellaneous {
+	:root {
+		@include miscellaneous-tokens;
+	}
+}

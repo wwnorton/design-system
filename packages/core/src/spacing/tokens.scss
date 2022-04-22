@@ -32,3 +32,12 @@ $spacing-12: 3rem;
 	--nds-spacing-10: #{$spacing-10};
 	--nds-spacing-12: #{$spacing-12};
 }
+
+/// Spacing tokens set as CSS custom properties on the `:root` element.
+/// @deprecated `@include motion-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
+@mixin spacing {
+	:root {
+		@include spacing-tokens;
+	}
+}

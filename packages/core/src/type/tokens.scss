@@ -157,3 +157,19 @@ $line-height-6: 1.75;
 	@include -font-weight-tokens;
 	@include -line-height-tokens;
 }
+
+/// Typography tokens set as CSS custom properties on the `:root` element.
+/// @deprecated `@include typography-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
+@mixin typography {
+	:root {
+		@include typography-tokens;
+	}
+}
+
+/// @alias typography
+/// @deprecated `@include typography-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
+@mixin type {
+	@include typography;
+}

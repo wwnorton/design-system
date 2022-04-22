@@ -40,3 +40,12 @@ $zindex-tooltip: 1070;
 	--nds-zindex-popover: #{$zindex-popover};
 	--nds-zindex-tooltip: #{$zindex-tooltip};
 }
+
+/// Elevation tokens set as CSS custom properties on the `:root` element.
+/// @deprecated `@include elevation-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
+@mixin elevation {
+	:root {
+		@include elevation-tokens;
+	}
+}

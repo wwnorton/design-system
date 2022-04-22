@@ -114,3 +114,12 @@ $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
 	--nds-easing-acceleration: #{$easing-acceleration};
 	--nds-easing-sharp: #{$easing-sharp};
 }
+
+/// Motion tokens set as CSS custom properties on the `:root` element.
+/// @deprecated `@include motion-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
+@mixin motion {
+	:root {
+		@include motion-tokens;
+	}
+}

@@ -273,3 +273,13 @@ $scheme-dark: map.merge($-scheme-dark-default, $scheme-dark);
 	@include util.set($system-colors);
 	@include light-scheme;
 }
+
+/// Color tokens set as CSS custom properties on the `:root` element and color
+/// schemes set anywhere with the `data-color-scheme` attribute.
+/// @deprecated `@include color-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
+@mixin color {
+	:root {
+		@include color-tokens;
+	}
+}
