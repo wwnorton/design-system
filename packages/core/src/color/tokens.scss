@@ -5,7 +5,6 @@
 @use 'sass:list';
 @use 'sass:map';
 @use '.' as color;
-@use '../config';
 @use '../util';
 
 $-families: (
@@ -269,28 +268,18 @@ $scheme-dark: map.merge($-scheme-dark-default, $scheme-dark);
 	@include util.set($scheme-light);
 }
 
+/// Color tokens as CSS custom properties.
+@mixin color-tokens {
+	@include util.set($system-colors);
+	@include light-scheme;
+}
+
 /// Color tokens set as CSS custom properties on the `:root` element and color
 /// schemes set anywhere with the `data-color-scheme` attribute.
+/// @deprecated `@include color-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
 @mixin color {
-	@include util.declare('color') {
-		:root {
-			@include util.set($system-colors);
-		}
-
-		:root:not([data-color-scheme]) {
-			@include light-scheme;
-		}
-
-		[data-color-scheme='light'] {
-			@include light-scheme;
-		}
-
-		[data-color-scheme='dark'] {
-			@if config.$enable-dark-scheme {
-				@include dark-scheme;
-			} @else {
-				@include light-scheme;
-			}
-		}
+	:root {
+		@include color-tokens;
 	}
 }

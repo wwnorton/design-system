@@ -6,7 +6,7 @@
 @use '../../config';
 @use '../../util';
 
-:root {
+@mixin root {
 	--nds-link-color: #{tokens.$color};
 	--nds-link-decoration: #{tokens.$decoration};
 	--nds-link-hover-color: #{tokens.$hover-color};
@@ -80,6 +80,10 @@
 
 @mixin style {
 	@include util.declare('link') {
+		:root {
+			@include root;
+		}
+
 		.nds-link {
 			@include link;
 		}

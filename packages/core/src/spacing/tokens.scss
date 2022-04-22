@@ -17,21 +17,27 @@ $spacing-8: 2rem;
 $spacing-10: 2.5rem;
 $spacing-12: 3rem;
 
+/// Spacing tokens as CSS custom properties.
+@mixin spacing-tokens {
+	--nds-spacing-0: #{$spacing-0};
+	--nds-spacing-1px: #{$spacing-1px};
+	--nds-spacing-2px: #{$spacing-2px};
+	--nds-spacing-1: #{$spacing-1};
+	--nds-spacing-2: #{$spacing-2};
+	--nds-spacing-3: #{$spacing-3};
+	--nds-spacing-4: #{$spacing-4};
+	--nds-spacing-5: #{$spacing-5};
+	--nds-spacing-6: #{$spacing-6};
+	--nds-spacing-8: #{$spacing-8};
+	--nds-spacing-10: #{$spacing-10};
+	--nds-spacing-12: #{$spacing-12};
+}
+
 /// Spacing tokens set as CSS custom properties on the `:root` element.
+/// @deprecated `@include motion-tokens` inside your own `:root` declaration or
+/// use the `root` mixin to set all design system tokens.
 @mixin spacing {
-	/* stylelint-disable no-duplicate-selectors */
 	:root {
-		--nds-spacing-0: #{$spacing-0};
-		--nds-spacing-1px: #{$spacing-1px};
-		--nds-spacing-2px: #{$spacing-2px};
-		--nds-spacing-1: #{$spacing-1};
-		--nds-spacing-2: #{$spacing-2};
-		--nds-spacing-3: #{$spacing-3};
-		--nds-spacing-4: #{$spacing-4};
-		--nds-spacing-5: #{$spacing-5};
-		--nds-spacing-6: #{$spacing-6};
-		--nds-spacing-8: #{$spacing-8};
-		--nds-spacing-10: #{$spacing-10};
-		--nds-spacing-12: #{$spacing-12};
+		@include spacing-tokens;
 	}
 }

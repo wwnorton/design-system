@@ -12,7 +12,12 @@
 @forward 'a11y';
 
 // All foundational design tokens
-@forward 'foundations';
+@forward './color/tokens';
+@forward './elevation/tokens';
+@forward './miscellaneous/tokens';
+@forward './motion/tokens';
+@forward './spacing/tokens';
+@forward './type/tokens';
 
 // Stylesheet reset
 @forward 'reset';
