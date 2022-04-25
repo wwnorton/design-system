@@ -6,6 +6,7 @@ groups:
   main: Main API
   config: Config
   color: Color
+  elevation: Elevation
   typography: Typography
   spacing: Spacing
   motion: Motion
