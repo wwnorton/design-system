@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/wwnorton/design-system/compare/v1.4.0...v1.5.0) (2022-04-25)
+
+### 🐛 Bug Fixes
+
+- ship dependent types ([2efdbda](https://github.com/wwnorton/design-system/commit/2efdbda7a021c566dbb3eaebb3b74c2090233e1a))
+
 ## [1.4.0](https://github.com/wwnorton/design-system/compare/v1.3.2...v1.4.0) (2022-04-06)
 
 ### ✨ Features

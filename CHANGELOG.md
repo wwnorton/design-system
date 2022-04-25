@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://github.com/wwnorton/design-system/compare/v1.4.0...v1.5.0) (2022-04-25)
+
+### 🐛 Bug Fixes
+
+- ship dependent types ([2efdbda](https://github.com/wwnorton/design-system/commit/2efdbda7a021c566dbb3eaebb3b74c2090233e1a))
+
+### ♻️ Refactor
+
+- move misc tokens to their own file ([229f04e](https://github.com/wwnorton/design-system/commit/229f04e693c623be1dd510847b1f9c4c03f63153))
+- set all :root foundations in one place ([13b68f9](https://github.com/wwnorton/design-system/commit/13b68f943d940f2eece5714901147161ae869f75))
+
+### ✨ Features
+
+- add mixin to set tokens on any selector ([de3847e](https://github.com/wwnorton/design-system/commit/de3847e7cb0bff7c49761ace24de66bcb83e8ec9))
+
 ## [1.4.0](https://github.com/wwnorton/design-system/compare/v1.3.2...v1.4.0) (2022-04-06)
 
 ### ✨ Features
