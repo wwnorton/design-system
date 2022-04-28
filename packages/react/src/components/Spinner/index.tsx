@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 import { CoreProgressProps, BaseProgressSpinner, BaseProgressSpinnerProps } from '../BaseProgress';
 import { SystemColors } from '../../utilities/color';
+import { useId } from '../../utilities';
 
 export interface SpinnerProps extends CoreProgressProps<BaseProgressSpinnerProps> {
 	/** Where the label should be positioned relative to the spinner. */
@@ -30,8 +31,9 @@ export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({
 	className,
 	...props
 }: SpinnerProps, ref) => {
+	const id = useId();
 	const labelPosition = (hideLabel) ? undefined : position;
-	const labelId = React.useRef(uniqueId(`${baseName}-label-`));
+	const labelId = React.useRef(`${baseName}-label-${id}` || uniqueId(`${baseName}-label-`));
 	const classes = classNames(className, baseName, {
 		[`${baseName}--${color}`]: color !== undefined,
 	});

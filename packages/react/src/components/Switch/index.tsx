@@ -5,7 +5,7 @@ import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Tooltip } from '../Tooltip/Tooltip';
 import { TooltipCoreProps } from '../Tooltip/types';
-import { useForwardedRef } from '../../utilities';
+import { useForwardedRef, useId } from '../../utilities';
 
 export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
 	/** The name of the Switch. Required. */
@@ -61,7 +61,8 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
 	const [button, setButton] = useForwardedRef(ref);
 
 	// ids stored as refs since they shouldn't change between renders
-	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const uuid = useId();
+	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
 	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
 	const descId = React.useRef(descIdProp || `${id.current}-desc`);
 

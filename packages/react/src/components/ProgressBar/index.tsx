@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { uniqueId } from 'lodash';
 import { CoreProgressProps, BaseProgressBar, BaseProgressBarProps } from '../BaseProgress';
+import { useId } from '../../utilities';
 
 export interface ProgressBarProps extends CoreProgressProps<BaseProgressBarProps> {
 	/**
@@ -24,7 +25,8 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(({
 	className,
 	...props
 }: ProgressBarProps, ref) => {
-	const labelId = React.useRef(uniqueId(`${baseName}-label-`));
+	const id = useId();
+	const labelId = React.useRef(`${baseName}-label-${id}` || uniqueId(`${baseName}-label-`));
 	const classes = classNames(className, baseName, (size) && `${baseName}--${size}`);
 	return (
 		<div className={classes}>

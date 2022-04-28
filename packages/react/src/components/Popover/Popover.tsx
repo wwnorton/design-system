@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { Button } from '../Button';
 import { Popper } from '../Popper';
-import { useForwardedRef, usePopperTriggers } from '../../utilities';
+import { useForwardedRef, useId, usePopperTriggers } from '../../utilities';
 import { PopoverProps } from './types';
 
 export { PopoverProps } from './types';
@@ -57,7 +57,8 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
 	...props
 }: PopoverProps, ref) => {
 	const [popper, setPopper] = useForwardedRef(ref);
-	const titleId = React.useRef(uniqueId(`${baseName}-title-`));
+	const id = useId();
+	const titleId = React.useRef(`${baseName}-${id}` || uniqueId(`${baseName}-title-`));
 	const focusReferenceOnClose = React.useRef(true);
 	const prevOpen = React.useRef(isOpen);
 

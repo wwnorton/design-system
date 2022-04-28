@@ -7,6 +7,7 @@ import {
 } from '../Field';
 import { Choice, ChoiceProps } from './Choice';
 import { Choices, ChoicesProps } from './Choices';
+import { useId } from '../../utilities';
 
 export interface ChoiceFieldProps
 	extends FieldInfoCoreProps, FieldFeedbackCoreProps, React.HTMLAttributes<HTMLFieldSetElement> {
@@ -83,7 +84,8 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
 
 	// ids stored as refs since they shouldn't change between renders
-	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const uuid = useId();
+	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
 	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
 	const descId = React.useRef(descIdProp || `${id.current}-desc`);
 	const errId = React.useRef(errIdProp || `${id.current}-err`);

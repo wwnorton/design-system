@@ -5,6 +5,7 @@ import { FieldInfo, FieldFeedback, FieldAddon } from '../Field';
 import { BaseInput } from '../BaseInput';
 import { BaseTextArea } from '../BaseTextArea';
 import { TextFieldProps } from './types';
+import { useId } from '../../utilities';
 
 const defaultProps: Partial<TextFieldProps> = {
 	counterStart: 25,
@@ -72,7 +73,8 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 	const [errors, setErrors] = React.useState(errorsProp);
 
 	// ids stored as refs since they shouldn't change between renders
-	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const uuid = useId();
+	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
 	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
 	const descId = React.useRef(descIdProp || `${id.current}-desc`);
 	const errId = React.useRef(errIdProp || `${id.current}-err`);

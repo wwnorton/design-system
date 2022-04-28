@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import {
-	useForwardedRef, usePopperTriggers,
+	useForwardedRef, useId, usePopperTriggers,
 } from '../../utilities';
 import { Popper } from '../Popper';
 import { TooltipProps } from './types';
@@ -40,7 +40,8 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 	...props
 }: TooltipProps, ref) => {
 	const [popper, setPopper] = useForwardedRef(ref);
-	const ariaId = React.useRef(uniqueId(`${baseName}-`));
+	const id = useId();
+	const ariaId = React.useRef(`${baseName}-${id}` || uniqueId(`${baseName}-`));
 	const [isOpen, setIsOpen] = React.useState(isOpenProp || false);
 
 	React.useEffect(() => {

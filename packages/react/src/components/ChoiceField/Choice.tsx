@@ -7,7 +7,7 @@ import {
 	FieldInfo, FieldInfoCoreProps,
 	FieldFeedback, FieldFeedbackCoreProps,
 } from '../Field';
-import { useForwardedRef } from '../../utilities';
+import { useForwardedRef, useId } from '../../utilities';
 import { BaseInputProps } from '../BaseInput/types';
 
 export interface ChoiceProps extends
@@ -99,7 +99,8 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(({
 	const [errors, setErrors] = React.useState(errorsProp);
 
 	// ids stored as refs since they shouldn't change between renders
-	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const uuid = useId();
+	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
 	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
 	const descId = React.useRef(descIdProp || `${id.current}-desc`);
 	const errorsId = React.useRef(errorsIdProp || `${id.current}-err`);
