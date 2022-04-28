@@ -1,4 +1,5 @@
 // Public utilities
+export * from './autoId';
 export * from './children';
 export * from './environment';
 export * from './externalClick';
