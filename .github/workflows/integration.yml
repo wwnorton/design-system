@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - uses: actions/cache@v3.0.1
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -44,7 +44,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - uses: actions/cache@v3.0.1
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -71,7 +71,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - uses: actions/cache@v3.0.1
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -92,7 +92,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - uses: actions/cache@v3.0.1
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -113,7 +113,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - uses: actions/cache@v3.0.1
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -134,7 +134,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - uses: actions/cache@v3.0.1
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -159,7 +159,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Update npm
         run: npm i -g npm@${{ env.NPM_VERSION }}
-      - uses: actions/cache@v3.0.1
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
