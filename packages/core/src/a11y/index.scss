@@ -29,10 +29,10 @@
 /// Disable animations and transitions when either children of `.reduced-motion`
 /// or the user has specified that they prefer reduced motion on their OS.
 @mixin reduce-motion {
+	--nds-duration-scalar: 0;
+
 	transition: none !important;
 	animation: none !important;
-
-	@include util.set($nds-duration-scalar: 0);
 }
 
 /// Screen reader only - ensure that the element is only visible to screen readers.
