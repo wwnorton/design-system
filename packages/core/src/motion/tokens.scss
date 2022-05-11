@@ -5,8 +5,11 @@
 /// @source https://material.io/design/motion/understanding-html Material Design: Understanding Motion
 ////
 
-/// A multiplier used for increasing/decreasing all motion speed.
+/* stylelint-disable max-line-length */
+/// A multiplier used for increasing/decreasing all motion speed when motion is
+/// allowed ([prefers-reduced-motion: no-preference](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)).
 $duration-scalar: 1 !default;
+/* stylelint-enable max-line-length */
 
 /// A duration used for simple animations such as selection controls.
 /// @source https://material.io/design/motion/speed.html#duration Material Design: Durations
@@ -94,7 +97,8 @@ $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
 
 /// Motion tokens as CSS custom properties.
 @mixin motion-tokens {
-	--nds-duration-scalar: #{$duration-scalar};
+	// Motion is disabled by default by setting all durations to 0
+	--nds-duration-scalar: 0;
 	--nds-duration-simple: #{$duration-simple};
 	--nds-duration-simple-enter: #{$duration-simple-enter};
 	--nds-duration-simple-exit: #{$duration-simple-exit};
@@ -113,6 +117,12 @@ $easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
 	--nds-easing-deceleration: #{$easing-deceleration};
 	--nds-easing-acceleration: #{$easing-acceleration};
 	--nds-easing-sharp: #{$easing-sharp};
+
+	// Motion is only enabled when the user allows it (no-motion first design)
+	// https://www.tatianamac.com/posts/prefers-reduced-motion/
+	@media (prefers-reduced-motion: no-preference) {
+		--nds-duration-scalar: #{$duration-scalar};
+	}
 }
 
 /// Motion tokens set as CSS custom properties on the `:root` element.
