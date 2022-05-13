@@ -5,6 +5,7 @@ import { TabProps } from './types';
 export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(({
 	baseName = 'nds-tab',
 	className,
+	role = 'tab',
 	...props
 }: TabProps, ref) => {
 	const classes = classNames(
@@ -16,6 +17,7 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(({
 		<button
 			className={classes}
 			type="button"
+			role={role}
 			{...props}
 			ref={ref}
 		/>
