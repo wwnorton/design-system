@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// This implementation is heavily inspired by @accessible/use-id implementation
+import React, { useState } from 'react';
 import { useLayoutEffect } from '../isomorphicLayoutEffect';
 
 export interface BaseIdGeneratorProps {
@@ -30,7 +31,11 @@ export function useId(providedId?: BaseIdGeneratorProps) {
 
 	useLayoutEffect(() => {
 		if (id === null) {
-			setId(genId());
+			if (typeof (React as any).useId === 'function') {
+				setId((React as any).useId());
+			} else {
+				setId(genId());
+			}
 		}
 
 		serverHandoffComplete = true;
