@@ -3,8 +3,9 @@ import React from 'react';
 import { TabListProps } from './types';
 
 export const TabList = React.forwardRef<HTMLDivElement, TabListProps>(({
-	baseName = 'nds-tab-list',
+	baseName = 'nds-tabs__tablist',
 	className,
+	children,
 	role = 'tablist',
 	...props
 }: TabListProps, ref) => {
@@ -19,6 +20,8 @@ export const TabList = React.forwardRef<HTMLDivElement, TabListProps>(({
 			role={role}
 			{...props}
 			ref={ref}
-		/>
+		>
+			{children}
+		</div>
 	);
 });

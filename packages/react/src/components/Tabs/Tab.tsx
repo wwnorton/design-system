@@ -3,9 +3,13 @@ import React from 'react';
 import { TabProps } from './types';
 
 export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(({
-	baseName = 'nds-tab',
+	baseName = 'nds-tabs__tab',
 	className,
-	role = 'tab',
+	children,
+	id,
+	selected = false,
+	disabled = false,
+	tabIndex,
 	...props
 }: TabProps, ref) => {
 	const classes = classNames(
@@ -16,10 +20,16 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(({
 	return (
 		<button
 			className={classes}
-			type="button"
-			role={role}
 			{...props}
 			ref={ref}
-		/>
+			type="button"
+			role="tab"
+			id={`tab${id}`}
+			aria-selected={selected ? 'true' : 'false'}
+			aria-disabled={disabled ? 'true' : 'false'}
+			aria-controls={`panel${id}`}
+		>
+			{children}
+		</button>
 	);
 });

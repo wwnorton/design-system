@@ -5,6 +5,7 @@ import { TabPanelsProps } from './types';
 export const TabPanels = React.forwardRef<HTMLDivElement, TabPanelsProps>(({
 	baseName = 'nds-tab-panels',
 	className,
+	children,
 	...props
 }: TabPanelsProps, ref) => {
 	const classes = classNames(
@@ -17,6 +18,8 @@ export const TabPanels = React.forwardRef<HTMLDivElement, TabPanelsProps>(({
 			className={classes}
 			{...props}
 			ref={ref}
-		/>
+		>
+			{children}
+		</div>
 	);
 });

@@ -3,9 +3,11 @@ import React from 'react';
 import { TabPanelProps } from './types';
 
 export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(({
-	baseName = 'nds-tab-panel',
+	baseName = 'nds-tabs__tab-panel',
 	className,
-	role = 'tabpanel',
+	children,
+	id,
+	selected = false,
 	...props
 }: TabPanelProps, ref) => {
 	const classes = classNames(
@@ -16,9 +18,13 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(({
 	return (
 		<div
 			className={classes}
-			role={role}
 			{...props}
 			ref={ref}
-		/>
+			role="tabpanel"
+			id={`panel${id}`}
+			aria-labelledby={`tab${id}`}
+		>
+			{selected ? children : null}
+		</div>
 	);
 });
