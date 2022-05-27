@@ -83,4 +83,19 @@ const TabsTemplate: Story<TabsControls> = (
 	);
 };
 
-export const Default = TabsTemplate.bind({});
+export const Uncontrolled = TabsTemplate.bind({});
+
+const TabsDefault: Story<TabsControls> = () => (
+	<Tabs>
+		<TabList>
+			<Tab>Tab 1</Tab>
+			<Tab>Tab 2</Tab>
+		</TabList>
+		<TabPanels>
+			<TabPanel>TabPanel 1</TabPanel>
+			<TabPanel>TabPanel 2</TabPanel>
+		</TabPanels>
+	</Tabs>
+);
+
+export const Default = TabsDefault.bind({});
