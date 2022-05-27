@@ -1,0 +1,81 @@
+@forward 'tokens';
+@use 'tokens';
+@use '../../color';
+@use '../../util';
+@use 'sass:map';
+
+@mixin base {
+	@include util.set($nds-tab-color: color.family('tab-color', tokens.$color));
+
+	--nds-tabs-primary-color: #{tokens.$primary-color};
+	--nds-tabs-base-color: #{tokens.$base-color};
+	--nds-tabs-focus-color: #{tokens.$tab-focus-color};
+	--nds-tab-background-color: var(--nds-tab-color-#{tokens.$background-grade});
+}
+
+@mixin tabs-tablist {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-color: inherit;
+}
+
+@mixin tabs-tab-panel {
+}
+
+@mixin selected {
+	border-color: var(--nds-tabs-primary-color);
+}
+
+@mixin tabs-tab {
+	background-color: transparent;
+	color: var(--nds-base-color-60);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	outline: transparent solid 2px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	outline-offset: 2px;
+	margin-bottom: -2px;
+	cursor: pointer;
+
+	&:focus {
+		box-shadow: none;
+	}
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: var(--nds-tab-background-color);
+		border-color: var(--nds-button-color-dark);
+	}
+
+	&[aria-selected='true'] {
+		border-bottom-width: 3px;
+		border-bottom-style: solid;
+		border-color: var(--nds-button-color-dark);
+	}
+}
+
+@mixin style {
+	@include util.declare('tabs') {
+		.nds-tabs {
+			@include base;
+		}
+
+		.nds-tabs__tablist {
+			@include tabs-tablist;
+		}
+
+		.nds-tabs__tab {
+			@include tabs-tab;
+		}
+
+		.nds-tabs__tab-panel {
+			@include tabs-tab-panel;
+		}
+	}
+}
