@@ -1,4 +1,4 @@
-export interface TabsProps extends React.ComponentPropsWithRef<'div'> {
+export interface TabsProps extends Omit<React.ComponentPropsWithRef<'div'>, 'onChange'> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/**
@@ -26,14 +26,12 @@ export interface TabProps extends React.ComponentPropsWithRef<'button'> {
 	id?: string;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
-	isSelected?: boolean;
+	selected?: boolean;
 	panelId?: string;
 	/**
    	 * If `true`, the `Tab` won't be clickable
    	 */
-	isDisabled?: boolean;
-	type?: 'button';
-	role?: 'tab';
+	disabled?: boolean;
 }
 
 export interface TabListProps extends React.ComponentPropsWithRef<'div'> {
@@ -59,4 +57,5 @@ export interface TabPanelProps extends React.ComponentPropsWithRef<'div'> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	role?: 'tabpanel'
+	selected?: boolean;
 }
