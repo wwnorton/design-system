@@ -4,6 +4,7 @@ import { uniqueId } from 'lodash';
 import { Icon, IconProps } from '../Icon';
 import { Button } from '../Button';
 import { AllColors } from '../../utilities/color';
+import { useId } from '../../utilities';
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	/** The title summarizes the callout's contents. */
@@ -66,7 +67,8 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	...props
 }: CalloutProps) => {
 	const [isDismissed, setDismissed] = React.useState<boolean>(false);
-	const titleIdRef = React.useRef(uniqueId('callout-title-'));
+	const id = useId();
+	const titleIdRef = React.useRef(`callout-title-${id}` || uniqueId('callout-title-'));
 	const titleId = (title) ? titleIdRef.current : undefined;
 
 	const dismiss = () => {

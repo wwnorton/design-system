@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
 import { FieldInfo } from '../Field';
 import { canUseDOM } from '../../utilities/environment';
-import { useSelect, useLayoutEffect } from '../../utilities';
+import { useSelect, useLayoutEffect, useId } from '../../utilities';
 import { Popper } from '../Popper';
 import { Button } from '../Button';
 import {
@@ -57,7 +57,8 @@ export const Dropdown: DropdownType = ({
 	modifiers,
 }: DropdownProps) => {
 	const [isOpen, setOpen] = React.useState(isOpenProp);
-	const id = React.useRef(idProp || uniqueId(`${baseName}-`));
+	const uuid = useId();
+	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
 	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
 	const descId = React.useRef(descIdProp || `${id.current}-desc`);
 	const buttonId = React.useRef(buttonIdProp || `${id.current}-btn`);
