@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
 import { Button } from '../Button';
 import { Popper } from '../Popper';
 import { useForwardedRef, useId, usePopperTriggers } from '../../utilities';
@@ -57,8 +56,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
 	...props
 }: PopoverProps, ref) => {
 	const [popper, setPopper] = useForwardedRef(ref);
-	const id = useId();
-	const titleId = React.useRef(`${baseName}-${id}` || uniqueId(`${baseName}-title-`));
+	const titleId = useId();
 	const focusReferenceOnClose = React.useRef(true);
 	const prevOpen = React.useRef(isOpen);
 
@@ -89,7 +87,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
 				{ !hideTitle && title && (
 					<div
 						className={titleClass}
-						id={titleId.current}
+						id={titleId}
 					>
 						{title}
 					</div>
@@ -108,8 +106,8 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
 			</header>
 		);
 	}, [
-		close, closeButtonClass, headerClass,
-		hideCloseButton, hideTitle, title, titleClass,
+		close, closeButtonClass, headerClass, hideCloseButton,
+		hideTitle, title, titleClass, titleId,
 	]);
 
 	const ActionBar = React.useMemo(() => {
@@ -142,8 +140,8 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
 		// 3. if `hideTitle`, set aria-label equal to the title
 		if (hideTitle) return { 'aria-label': title };
 		// 4. label the dialog with the visible title
-		return { 'aria-labelledby': titleId.current };
-	}, [ariaLabel, ariaLabelledby, hideTitle, title]);
+		return { 'aria-labelledby': titleId };
+	}, [ariaLabel, ariaLabelledby, hideTitle, title, titleId]);
 
 	if (!children) return null;
 	return (

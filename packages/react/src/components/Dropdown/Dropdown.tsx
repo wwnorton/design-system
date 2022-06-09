@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
 import { FieldInfo } from '../Field';
 import { canUseDOM } from '../../utilities/environment';
 import { useSelect, useLayoutEffect, useId } from '../../utilities';
@@ -57,11 +56,11 @@ export const Dropdown: DropdownType = ({
 	modifiers,
 }: DropdownProps) => {
 	const [isOpen, setOpen] = React.useState(isOpenProp);
-	const uuid = useId();
-	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
-	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
-	const descId = React.useRef(descIdProp || `${id.current}-desc`);
-	const buttonId = React.useRef(buttonIdProp || `${id.current}-btn`);
+	const uniqueId = useId();
+	const id = idProp || uniqueId;
+	const labelId = labelIdProp || `${id}-label`;
+	const descId = descIdProp || `${id}-desc`;
+	const buttonId = buttonIdProp || `${id}-btn`;
 	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
 	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
 	const [listboxWidth, setListBoxWidth] = React.useState<number>();
@@ -73,8 +72,8 @@ export const Dropdown: DropdownType = ({
 	const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
 	const { selected, toggle } = useSelect(false, [selectedProp]);
 
-	const listboxId = React.useRef(listboxIdProp || `${id.current}-listbox`);
-	const currentId = React.useRef(`${id.current}-curr`);
+	const listboxId = listboxIdProp || `${id}-listbox`;
+	const currentId = `${id}-curr`;
 	const getListboxWidth = React.useRef(false);
 
 	/** Attempt to open the listbox. */
@@ -259,32 +258,32 @@ export const Dropdown: DropdownType = ({
 	}, [documentKeydownHandler, documentClickHandler]);
 
 	return (
-		<div className={classNames(baseName, className)} id={id.current}>
+		<div className={classNames(baseName, className)} id={idProp}>
 			<FieldInfo
 				label={label}
 				labelClass={labelClass}
-				labelId={labelId.current}
+				labelId={labelId}
 				description={description}
 				descriptionClass={descriptionClass}
-				descriptionId={descId.current}
+				descriptionId={descId}
 			/>
 			<Button
-				id={buttonId.current}
+				id={buttonId}
 				className={buttonClass}
 				disabled={disabled}
 				variant="outline"
 				style={{ width: matchWidth === 'listbox' ? listboxWidth : buttonWidth }}
 				aria-expanded={isOpen ? 'true' : undefined}
-				aria-labelledby={`${labelId.current} ${currentId.current}`}
+				aria-labelledby={`${labelId} ${currentId}`}
 				aria-haspopup="listbox"
-				aria-controls={isOpen ? listboxId.current : undefined}
+				aria-controls={isOpen ? listboxId : undefined}
 				onClick={buttonClickHandler}
 				onKeyDown={buttonKeydownHandler}
 				ref={setButton}
 				icon={getListboxWidth.current ? undefined : 'chevron-down'}
 				iconRight
 			>
-				<span id={currentId.current}>{buttonContents}</span>
+				<span id={currentId}>{buttonContents}</span>
 			</Button>
 			<Popper
 				placement={placement}
@@ -299,7 +298,7 @@ export const Dropdown: DropdownType = ({
 				matchWidth={matchWidth === 'button'}
 			>
 				<Listbox
-					id={listboxId.current}
+					id={listboxId}
 					multiselectable={false}
 					className={listboxClass}
 					optionClass="nds-dropdown__option"

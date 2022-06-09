@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
 import { Button, ButtonProps } from '../Button';
 import { FieldInfo, FieldInfoCoreProps } from '../Field';
 import { Tooltip } from '../Tooltip/Tooltip';
@@ -61,10 +60,10 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
 	const [button, setButton] = useForwardedRef(ref);
 
 	// ids stored as refs since they shouldn't change between renders
-	const uuid = useId();
-	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
-	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
-	const descId = React.useRef(descIdProp || `${id.current}-desc`);
+	const uniqueId = useId();
+	const id = idProp || uniqueId;
+	const labelId = labelIdProp || `${id}-label`;
+	const descId = descIdProp || `${id}-desc`;
 
 	React.useEffect(() => setChecked(isChecked), [isChecked]);
 
@@ -84,21 +83,21 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
 		? <Tooltip asLabel reference={button} {...tooltipProps}>{ label }</Tooltip>
 		: (
 			<FieldInfo
-				htmlFor={id.current}
+				htmlFor={id}
 				label={label}
 				labelClass={labelClass}
-				labelId={labelId.current}
+				labelId={labelId}
 				description={description}
 				descriptionClass={descriptionClass}
-				descriptionId={descId.current}
+				descriptionId={descId}
 			/>
 		);
 
 	const buttonProps = (tipped)
 		? attributes
 		: {
-			id: id.current,
-			'aria-labelledby': `${id.current}-label`,
+			id,
+			'aria-labelledby': `${id}-label`,
 			...attributes,
 		};
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
 import {
 	useForwardedRef, useId, usePopperTriggers,
 } from '../../utilities';
@@ -40,9 +39,8 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 	...props
 }: TooltipProps, ref) => {
 	const [popper, setPopper] = useForwardedRef(ref);
-	const id = useId();
-	const ariaId = React.useRef(`${baseName}-${id}` || uniqueId(`${baseName}-`));
 	const [isOpen, setIsOpen] = React.useState(isOpenProp || false);
+	const labelId = useId();
 
 	React.useEffect(() => {
 		if (isOpenProp !== undefined) setIsOpen(isOpenProp);
@@ -65,13 +63,13 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 	 * use `aria-describedby`.
 	 */
 	React.useEffect(() => {
-		if (reference && reference instanceof Element) {
+		if (labelId && reference && reference instanceof Element) {
 			reference.setAttribute(
 				(asLabel) ? 'aria-labelledby' : 'aria-describedby',
-				ariaId.current,
+				labelId,
 			);
 		}
-	}, [asLabel, reference]);
+	}, [asLabel, labelId, reference]);
 
 	if (!children) return null;
 
@@ -99,7 +97,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 				<div className={contentClass || bodyClass}>{ children }</div>
 			</Popper>
 			{/* a persistent, hidden div that is used for the accessible name or description */}
-			<div hidden aria-hidden="true" id={ariaId.current}>{ children }</div>
+			<div hidden aria-hidden="true" id={labelId}>{ children }</div>
 		</>
 	);
 });

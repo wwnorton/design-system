@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
 import { FieldInfo, FieldFeedback, FieldAddon } from '../Field';
 import { BaseInput } from '../BaseInput';
 import { BaseTextArea } from '../BaseTextArea';
@@ -73,12 +72,12 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 	const [errors, setErrors] = React.useState(errorsProp);
 
 	// ids stored as refs since they shouldn't change between renders
-	const uuid = useId();
-	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
-	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
-	const descId = React.useRef(descIdProp || `${id.current}-desc`);
-	const errId = React.useRef(errIdProp || `${id.current}-err`);
-	const inputId = React.useRef(`${id.current}-input`);
+	const uniqueId = useId();
+	const id = idProp || uniqueId;
+	const labelId = labelIdProp || `${id}-label`;
+	const descId = descIdProp || `${id}-desc`;
+	const errId = errIdProp || `${id}-err`;
+	const inputId = `${id}-input`;
 
 	const getRemaining = React.useCallback((val?: typeof value) => {
 		if (maxLength) {
@@ -148,11 +147,11 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 		onChange: changeHandler,
 		onDOMChange,
 		onValidate: validateHandler,
-		id: inputId.current,
+		id: inputId,
 		className: inputClass,
-		'aria-describedby': (description) ? descId.current : undefined,
+		'aria-describedby': (description) ? descId : undefined,
 		'aria-invalid': !isValid,
-		'aria-errormessage': (!isValid) ? errId.current : undefined,
+		'aria-errormessage': (!isValid) ? errId : undefined,
 		// validation props
 		maxLength,
 		required,
@@ -166,16 +165,16 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 	return (
 		<div
 			className={classNames(className, { [invalidClass]: !isValid })}
-			id={id.current}
+			id={idProp}
 		>
 			<FieldInfo
-				htmlFor={inputId.current}
+				htmlFor={inputId}
 				label={children}
 				indicator={indicator}
-				labelId={labelId.current}
+				labelId={labelId}
 				labelClass={labelClass}
 				descriptionClass={descriptionClass}
-				descriptionId={descId.current}
+				descriptionId={descId}
 				description={description}
 			/>
 			<div className={!multiline ? groupClass : ''}>
@@ -198,7 +197,7 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 			</div>
 			<FieldFeedback
 				className={feedbackClass}
-				errorsId={errId.current}
+				errorsId={errId}
 				errors={errors}
 				errorsClass={errorsClass}
 			>

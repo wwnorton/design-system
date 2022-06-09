@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash';
 import { CoreProgressProps, BaseProgressBar, BaseProgressBarProps } from '../BaseProgress';
 import { useId } from '../../utilities';
 
@@ -25,21 +24,20 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(({
 	className,
 	...props
 }: ProgressBarProps, ref) => {
-	const id = useId();
-	const labelId = React.useRef(`${baseName}-label-${id}` || uniqueId(`${baseName}-label-`));
+	const labelId = useId();
 	const classes = classNames(className, baseName, (size) && `${baseName}--${size}`);
 	return (
 		<div className={classes}>
 			<BaseProgressBar
 				ref={ref}
-				aria-labelledby={(hideLabel) ? undefined : labelId.current}
+				aria-labelledby={(hideLabel) ? undefined : labelId}
 				aria-label={(hideLabel) ? label : undefined}
 				{...props}
 			/>
 			{ !hideLabel && (
 				<div
 					className={labelClass}
-					id={labelId.current}
+					id={labelId}
 					aria-hidden="true"
 				>
 					{ label }

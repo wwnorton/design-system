@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash';
 import { Icon, IconProps } from '../Icon';
 import { Button } from '../Button';
 import { AllColors } from '../../utilities/color';
@@ -67,9 +66,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	...props
 }: CalloutProps) => {
 	const [isDismissed, setDismissed] = React.useState<boolean>(false);
-	const id = useId();
-	const titleIdRef = React.useRef(`callout-title-${id}` || uniqueId('callout-title-'));
-	const titleId = (title) ? titleIdRef.current : undefined;
+	const titleId = useId();
 
 	const dismiss = () => {
 		setDismissed(true);
