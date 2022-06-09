@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import test from 'ava';
 import React from 'react';
 import { useId } from './hook';
+
+test.afterEach(cleanup);
 
 // Tests modified from @accessible/use-id
 // https://github.com/accessible-ui/use-id/blob/master/src/index.test.tsx
