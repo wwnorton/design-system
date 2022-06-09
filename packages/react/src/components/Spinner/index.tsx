@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash';
 import { CoreProgressProps, BaseProgressSpinner, BaseProgressSpinnerProps } from '../BaseProgress';
 import { SystemColors } from '../../utilities/color';
 import { useId } from '../../utilities';
@@ -31,9 +30,8 @@ export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({
 	className,
 	...props
 }: SpinnerProps, ref) => {
-	const id = useId();
+	const labelId = useId();
 	const labelPosition = (hideLabel) ? undefined : position;
-	const labelId = React.useRef(`${baseName}-label-${id}` || uniqueId(`${baseName}-label-`));
 	const classes = classNames(className, baseName, {
 		[`${baseName}--${color}`]: color !== undefined,
 	});
@@ -42,7 +40,7 @@ export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({
 		<div className={classes} data-label={(hideLabel) ? undefined : labelPosition}>
 			<BaseProgressSpinner
 				ref={ref}
-				aria-labelledby={(hideLabel) ? undefined : labelId.current}
+				aria-labelledby={(hideLabel) ? undefined : labelId}
 				aria-label={(hideLabel) ? label : undefined}
 				size={size}
 				{...props}
@@ -50,7 +48,7 @@ export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(({
 			{ !hideLabel && (
 				<div
 					className={labelClass}
-					id={labelId.current}
+					id={labelId}
 					aria-hidden="true"
 				>
 					{ label }

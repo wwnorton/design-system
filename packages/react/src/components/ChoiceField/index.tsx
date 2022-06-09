@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import uniqueId from 'lodash/uniqueId';
 import {
 	FieldInfo, FieldInfoCoreProps,
 	FieldFeedback, FieldFeedbackCoreProps,
@@ -83,12 +82,11 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 	// treat prop versions of errors and value as source of truth
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
 
-	// ids stored as refs since they shouldn't change between renders
-	const uuid = useId();
-	const id = React.useRef(idProp || `${baseName}-${uuid}` || uniqueId(`${baseName}-`));
-	const labelId = React.useRef(labelIdProp || `${id.current}-label`);
-	const descId = React.useRef(descIdProp || `${id.current}-desc`);
-	const errId = React.useRef(errIdProp || `${id.current}-err`);
+	const uniqueId = useId();
+	const id = idProp || uniqueId;
+	const labelId = labelIdProp || `${id}-label`;
+	const descId = descIdProp || `${id}-desc`;
+	const errId = errIdProp || `${id}-err`;
 
 	const indicator = React.useMemo(() => {
 		if (requiredIndicator && required) return 'required';
@@ -107,7 +105,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 		// coerce into a list of `<Choice>` elements
 		return React.Children.map(children, (child) => {
 			if (Array.isArray(child)) return childMap(child);
-			const baseProps: ChoiceProps = { name: name || id.current, type };
+			const baseProps: ChoiceProps = { name: name || id, type };
 			let value: React.ReactText;
 			let props: ChoiceProps;
 			if (typeof child === 'string' || typeof child === 'number') {
@@ -121,7 +119,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 			}
 			return <Choice {...props} value={value} />;
 		});
-	}, [name, type, multiple]);
+	}, [multiple, name, id, type]);
 
 	const ChoiceElements = React.useMemo(() => childMap(childrenProp), [childrenProp, childMap]);
 
@@ -129,6 +127,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 		<fieldset
 			ref={ref}
 			className={className}
+			id={idProp}
 			name={fieldName}
 			onChange={onChange}
 			{...fieldsetProps}
@@ -136,17 +135,17 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 			<FieldInfo
 				label={label}
 				labelClass={labelClass}
-				labelId={labelId.current}
+				labelId={labelId}
 				labelTag="legend"
 				description={description}
 				descriptionClass={descriptionClass}
-				descriptionId={descId.current}
+				descriptionId={descId}
 				indicator={indicator}
 			/>
 			{ ChoiceElements }
 			<FieldFeedback
 				errors={errors}
-				errorsId={errId.current}
+				errorsId={errId}
 				errorsClass={errorsClass}
 			/>
 		</fieldset>
