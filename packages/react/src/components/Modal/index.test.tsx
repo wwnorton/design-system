@@ -144,3 +144,18 @@ test('on close, focus returns to the element that opened the modal', (t) => {
 
 	t.is(document.activeElement, trigger);
 });
+
+test('existing body styles are preserved when the modal closes', (t) => {
+	document.body.style.overflow = 'visible';
+	const bodyCSSText = document.body.style.cssText;
+
+	render(<Controlled isOpen />);
+
+	// body styles should be overwritten on open
+	t.not(document.body.style.cssText, bodyCSSText);
+
+	fireEvent.click(document.activeElement);
+
+	// and restored on close
+	t.is(document.body.style.cssText, bodyCSSText);
+});
