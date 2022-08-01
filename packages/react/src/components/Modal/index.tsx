@@ -100,7 +100,6 @@ export interface ModalState {
 	long: boolean;
 	stuckHeader: boolean;
 	stuckFooter: boolean;
-	bodyOverflow: string;
 	isClickingDialog: boolean;
 }
 
@@ -134,6 +133,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	private footer: HTMLElement | null = null;
 	/** A watcher to detect when the header/footer move off screen. */
 	private stickyObserver: IntersectionObserver | null = null;
+	private bodyStyle: string | null = null;
 
 	static defaultProps = {
 		isOpen: false,
@@ -157,13 +157,14 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			long: false,
 			stuckHeader: false,
 			stuckFooter: false,
-			bodyOverflow: '',
 			isClickingDialog: false,
 		};
 	}
 
 	componentDidMount(): void {
 		if (!canUseDOM || !this.portalNode) return;
+
+		this.bodyStyle = document.body.style.cssText;
 
 		if ('IntersectionObserver' in window) {
 			this.stickyObserver = new IntersectionObserver(([e]) => {
@@ -250,10 +251,11 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		if (!canUseDOM || !this.portalNode) return;
 		this.portalNode.remove();
 		document.removeEventListener('keydown', this.onDocumentKeydown);
-		const { bodyOverflow } = this.state;
-		document.body.style.overflow = bodyOverflow;
-
-		document.removeEventListener('pointerup', this.onPointerUpClick);
+		if (this.bodyStyle) {
+			document.body.setAttribute('style', this.bodyStyle);
+		} else {
+			document.body.removeAttribute('style');
+		}
 	}
 
 	private onOpen(): void {
@@ -278,15 +280,17 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			if (this.footer) this.stickyObserver.observe(this.footer);
 		}
 		document.addEventListener('keydown', this.onDocumentKeydown);
-		this.setState({ bodyOverflow: document.body.style.overflow });
+
+		const scrollbarWidth = Math.abs(window.innerWidth - document.documentElement.clientWidth);
 		document.body.style.overflow = 'hidden';
+		document.body.style.paddingRight = `${scrollbarWidth}px`;
 
 		// Prevent modal from closing when click didn't initiate outside of content
 		document.addEventListener('pointerup', this.onPointerUpClick);
 	}
 
 	private onClose(): void {
-		const { trigger, bodyOverflow } = this.state;
+		const { trigger } = this.state;
 
 		if (this.stickyObserver) {
 			if (this.header) this.stickyObserver.unobserve(this.header);
@@ -296,7 +300,11 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 
 		// return focus on close
 		if (trigger) trigger.focus();
-		document.body.style.overflow = bodyOverflow;
+		if (this.bodyStyle) {
+			document.body.setAttribute('style', this.bodyStyle);
+		} else {
+			document.body.removeAttribute('style');
+		}
 	}
 
 	private get CloseButton(): JSX.Element | null {
@@ -410,7 +418,6 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 						ref={(el): void => { this.content = el; }}
 					>
 						{ children }
-
 					</section>
 					{ this.ActionBar }
 				</BaseDialog>
