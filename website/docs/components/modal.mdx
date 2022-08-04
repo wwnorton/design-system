@@ -58,14 +58,16 @@ function ModalWithButton() {
 				title="Confirm the prompt"
 				isOpen={isOpen}
 				onRequestClose={close}
-				actions={[
-					<Button variant="outline" color="base" onClick={close}>
-						Also confirm
-					</Button>,
-					<Button variant="solid" onClick={close}>
-						Confirm
-					</Button>,
-				]}
+				actions={(
+					<>
+						<Button variant="outline" color="base" onClick={close}>
+							Also confirm
+						</Button>
+						<Button variant="solid" onClick={close}>
+							Confirm
+						</Button>
+					</>
+				)}
 			>
 				<p>
 					This is a demo modal.
