@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
+const sidebars = {
 	guides: [
 		'guides/index',
 		{
@@ -53,3 +54,5 @@ module.exports = {
 		'components/react-providers',
 	],
 };
+
+module.exports = sidebars;
