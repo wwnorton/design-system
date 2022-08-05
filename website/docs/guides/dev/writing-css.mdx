@@ -2,7 +2,6 @@
 title: Writing CSS
 ---
 
-import { Callout } from '@wwnds/react';
 import { ColorChip } from "@website/components";
 
 Once your [stylesheets have been set up](stylesheet-setup) how you want them, you can start writing CSS with the Norton Design System.
@@ -13,9 +12,9 @@ The Norton Design System's CSS is fully themeable through the use of Sass variab
 The variables that capture the [foundational style elements](/docs/foundations) constitute the main interface for theming an application.
 Refer to [the variables table](core-api#theming-variables) to learn more about these customizable variables.
 
-## Best practices
+## Recommended practices
 
-To get the most out of the Norton Design System's CSS, some best practices should be followed for writing your CSS.
+The following practices will help you get the most out of the Norton Design System's CSS.
 
 ### Use CSS custom properties, not Sass variables
 
@@ -36,11 +35,9 @@ Sass variables, on the other hand, are hard-coded into the stylesheet when the C
 }
 ```
 
-<Callout title="Why?" border="left">
-
+:::info Why?
 CSS custom properties are supported directly in the browser, whereas Sass variables are not.
-
-</Callout>
+:::
 
 ### Use role tokens, not system tokens
 
@@ -69,11 +66,9 @@ Refer to the [design token types](/docs/foundations/design-tokens#types-of-desig
 }
 ```
 
-<Callout title="Why?" border="left">
-
+:::info Why?
 System token values are static and cannot be modified, which prevents you from using them to theme your component.
-
-</Callout>
+:::
 
 ### Override token values instead of property values whenever possible
 
@@ -99,16 +94,14 @@ We encourage you to embrace the cascade&mdash;a fundamental feature of CSS&mdash
 }
 ```
 
-<Callout title="Why?" border="left">
-
+:::info Why?
 This will ensure that children of this component that use the role tokens use the locally-scoped values instead of the global ones.
 
 For instance, the [focus-halo](/docs/foundations/accessibility#focus-halo) uses `--nds-background-color` to create the illusion of an offset halo when an element is focused.
 If your element's background color is hard-coded as `--nds-primary-color-80`, that focus halo will now have an offset that does not appear to match the background color.
 
 It's considered okay to use tokens directly in scenarios where component isolation is favored.
-
-</Callout>
+:::
 
 ### Compose your own CSS custom properties out of existing tokens
 
@@ -144,10 +137,8 @@ When using the Sass directly, avoid `@import`, favoring `@forward` and `@use`.
 @import '@wwnds/core/full';
 ```
 
-<Callout title="Why?" border="left">
-
+:::info Why?
 The `@import` at-rule is [being deprecated by Sass](https://sass-lang.com/documentation/at-rules/import) and won't work sometime in the future.
 
 See more about this in [the guide on stylesheet configuration](stylesheet-setup#configuration).
-
-</Callout>
+:::

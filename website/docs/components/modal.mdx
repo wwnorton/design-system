@@ -3,7 +3,7 @@ title: Modal
 description: A modal presents important information or simple tasks to the user in an overlay.
 ---
 
-import { Modal, CalloutSuccess, CalloutError } from '@wwnds/react';
+import { Modal } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A modal presents important information or simple tasks to the user in an overlay.
@@ -23,20 +23,16 @@ import { PropsTable } from '@website/components';
 Use modals to present important information or simple tasks to the user, disabling all access to the main content while the modal is active.
 Modals are sometimes called "modal dialogs" because they create a dialog between the application and the user in a different modality from the main content.
 
-<CalloutSuccess title="Do">
-	<ul>
-		<li>Do use a modal to confirm irreversible actions, such as deleting content.</li>
-		<li>Do use a modal to interrupt the user when it will help them accomplish their tasks.</li>
-		<li>Do be careful about ambiguous action buttons, such as "Yes" or "No".</li>
-	</ul>
-</CalloutSuccess>
+:::tip Do
+- Do use a modal to confirm irreversible actions, such as deleting content.
+- Do use a modal to interrupt the user when it will help them accomplish their tasks.
+- Do be careful about ambiguous action buttons, such as "Yes" or "No".
+:::
 
-<CalloutError title="Don't">
-	<ul>
-		<li>Don't overuse modals. They should be used sparingly and thoughtfully.</li>
-		<li>Don't write long titles for modals. They should be clear and concise.</li>
-	</ul>
-</CalloutError>
+:::danger Don't
+- Don't overuse modals. They should be used sparingly and thoughtfully.
+- Don't write long titles for modals. They should be clear and concise.
+:::
 
 ## React API
 

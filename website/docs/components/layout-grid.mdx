@@ -3,8 +3,6 @@ title: Layout Grid
 description: The layout grid allows us to create responsive page layouts at every screen size.
 ---
 
-import { CalloutError, CalloutSuccess } from '@wwnds/react';
-
 > The layout grid allows us to create responsive page layouts at every screen size.
 
 ## Anatomy
@@ -26,21 +24,17 @@ A Layout Grid includes:
 - A Breakpoint Range is a range of screen sizes that have the same layout. At each breakpoint, the layout may adjust to better fit the screen size.
 - The number of columns and the width of the margins and gutters is determined by each breakpoint range.
 
-<CalloutSuccess title="Dos">
-
+:::tip Do
 - Do align major content areas or regions of the page to the layout grid.
 - Do design layouts for the smallest screen sizes first.
 - Do set a maximum width for the layout grid or content areas within the grid, to avoid long line lengths.
+:::
 
-</CalloutSuccess>
-
-<CalloutError title="Don'ts">
-
+:::danger Don't
 - Don’t set margins so large that there isn’t enough room for content.
 - Don’t include fixed-width sidebars in the layout grid.
 - Don’t visually reorder columns independently from their position in the markup.
-
-</CalloutError>
+:::
 
 ## Types
 

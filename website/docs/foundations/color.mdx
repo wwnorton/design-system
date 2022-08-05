@@ -2,14 +2,12 @@
 title: Color
 ---
 
-import { Callout, CalloutWarning } from '@wwnds/react';
 import { AllFamilies, ColorChip } from "@website/components";
 
 The Norton color system ensures that colors can be used in a predictable way
 across your application and content.
 
-<Callout title="Terms" border="left">
-
+:::info Terms
 A color **family** is a collection of colors of the same hue.
 Individual colors within the family have different brightness and/or saturation.
 A color family is referred to by its generic hue name, such as `red`, `teal`, or `gray`.
@@ -18,8 +16,7 @@ By default, every color family contains `10` total **grades**.
 A color **grade** is numbered a step corresponding to the brightness of that color.
 A higher number corresponds to a darker color and a lower number corresponds to a lighter color.
 By default, grades start at `10` and increase by increments of `10` up to `100`.
-
-</Callout>
+:::
 
 ## Accessibility
 
@@ -39,16 +36,14 @@ Color role tokens use a naming pattern of `{role}-color-{grade}`, such as `prima
 
 The following table lists all the system colors in the Norton Design System, as well as their contrast ratio against pure white and pure black.
 
-<CalloutWarning title="Avoid direct use">
-
+:::caution Avoid direct use
 Using system color tokens directly will make your application more difficult to theme.
 Rather than using system colors directly, use [role colors](#role-tokens) in your designs.
 Role colors can be mapped to system colors to modify your design more broadly and consistently.
 
 For instance, if you want a component's border color to be <ColorChip>gray-40</ColorChip>, set your `base-color` to use the gray family and then set your border color to <ColorChip color="var(--nds-gray-40)">base-color-40</ColorChip>.
 The role&mdash;or purpose&mdash;of the `base-color` is to be used for backgrounds, borders, and other neutral design features.
-
-</CalloutWarning>
+:::
 
 <AllFamilies />
 
@@ -161,8 +156,7 @@ See the `$light-scheme` and `$dark-scheme` maps in the
 [color tokens stylesheet](https://github.com/wwnorton/design-system/blob/main/packages/core/src/color/tokens.scss)
 for a closer look at how this is accomplished.
 
-<CalloutWarning title="Work in progress">
-
+:::caution Work in progress
 The dark color scheme is still being tested and must be turned on with the `$enable-dark-scheme` flag at this time.
 
 ```scss
@@ -170,5 +164,4 @@ The dark color scheme is still being tested and must be turned on with the `$ena
 	$enable-dark-scheme: true,
 );
 ```
-
-</CalloutWarning>
+:::

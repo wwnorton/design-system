@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Icon, IconVariant } from '@wwnds/react';
+import { useHistory } from 'react-router-dom';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
 import styles from './styles.module.scss';
@@ -29,6 +30,7 @@ export const FeatureCard = ({
 	columns = 3,
 	linkArrow = false,
 }: FeatureCardProps): JSX.Element => {
+	const history = useHistory();
 	const [feature, setFeature] = React.useState<HTMLElement | null>(null);
 	const href = useBaseUrl(hrefProp || (slug) ? basePath + slug : undefined);
 	const iconProps = React.useMemo(() => {
@@ -51,7 +53,7 @@ export const FeatureCard = ({
 		)) return;
 
 		// otherwise, navigate to the href
-		window.location.href = href;
+		history.push(href);
 	};
 
 	const Title = React.useCallback<React.FunctionComponent<React.HTMLProps<HTMLElement>>>(

@@ -4,7 +4,7 @@ description: A text field allows the user to enter and edit text.
 ---
 
 import {
-	TextField, FieldInfo, FieldFeedback, FieldAddon, Callout, CalloutSuccess, CalloutError, CalloutWarning
+	TextField, FieldInfo, FieldFeedback, FieldAddon
 } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
@@ -37,75 +37,59 @@ import { PropsTable } from '@website/components';
 - For search that allows users to find information or links within an entire website or application, the field should always be at the top right of the screen, usually contained within the top navigation bar or header. The search bar should be at the top of almost every screen/page, except for processes where searching would interrupt the user’s flow or progress, such as checkout.
 - Search can also be used to help users find information within a specific section of the website/application or within a component, like a table. In this case, the search bar should be clearly associated with the section or component it applies to so users don’t confuse it with
 
+:::tip Do
+- Do let the size of the input area indicate the amount of content you expect the user to enter.
+	- By default, the text field should be full width, defined by the size of its container.
+	- Only use a fixed-width input area if the text entry has a specific, known length. The width should remain fixed unless it is wider than its container&mdash;then shrink width to fit.
+:::
 
-<CalloutSuccess title="Do">
-	<ul>
-		<li>Do let the size of the input area indicate the amount of content you expect the user to enter.</li>
-    		<ul>
-			<li>By default, the text field should be full width, defined by the size of its container.</li>
-    			<li>Only use a fixed-width input area if the text entry has a specific, known length. The width should remain fixed unless it is wider than its container&mdash;then shrink width to fit.</li>
-		</ul>
-	</ul>
-</CalloutSuccess>
-
-<CalloutError title="Don't">
-	<ul>
-		<li>Don’t use labels that are too long. Labels should be very concise.</li>
-		<li>Don’t include instructions in a label&mdash;use help text instead.</li>
-		<li>Don’t disable the user’s ability to select, copy or paste.</li>
-		<li>Don’t require users to write paragraphs of text in a single-line text field.</li>
-	</ul>
-</CalloutError>
+:::danger Don't
+- Don’t use labels that are too long. Labels should be very concise.
+- Don’t include instructions in a label&mdash;use help text instead.
+- Don’t disable the user’s ability to select, copy or paste.
+- Don’t require users to write paragraphs of text in a single-line text field.
+:::
 
 ### Content Guidelines
+
 - The search field should have a clear and meaningful label. For search within a section or component, the label should add context, such as “Search books.”
 - Use the description if necessary for example search queries, especially if the format is important, such as dates.
 
 ### Interactions
+
 - Enter submits the search query.
 
+:::info Character Counter
+- A text field may have a character counter, but it is not an intuitive way for users to understand content length.
+- Use a character counter only if it is important for users to know how long their text entry can be, or to clarify if the user surpasses the character limit.
+- By default, a text field does not have a character limit. If necessary, set a limit higher than most users will need.
+- Allow users to enter more than the character limit, and then display an error. This lets a user type or copy and paste their full text entry, then edit it down.
+- The character count should be announced to assistive technology users after they stop typing.
+:::
 
-<Callout title="Character Counter" border="left">
-	<ul>
-		<li>A text field may have a character counter, but it is not an intuitive way for users to understand content length.</li>
-		<li>Use a character counter only if it is important for users to know how long their text entry can be, or to clarify if the user surpasses the character limit.</li>
-		<li>By default, a text field does not have a character limit. If necessary, set a limit higher than most users will need.</li>
-		<li>Allow users to enter more than the character limit, and then display an error. This lets a user type or copy and paste their full text entry, then edit it down.</li>
-		<li>The character count should be announced to assistive technology users after they stop typing.</li>
-	</ul>
-</Callout>
+:::caution Placeholder
+- A text field may have placeholder text to provide hints or examples, but placeholder text should not contain important information.
+- Don’t use placeholder text in place of a label, because it will disappear once the user starts typing in the field.
+- Set an accessible color for placeholder text. Most browsers’ default rendering of placeholder text does not provide a high enough contrast ratio.
+:::
 
-<CalloutWarning title="Placeholder">
-	<ul>
-		<li>A text field may have placeholder text to provide hints or examples, but placeholder text should not contain important information.</li>
-		<li>Don’t use placeholder text in place of a label, because it will disappear once the user starts typing in the field.</li>
-		<li>Set an accessible color for placeholder text. Most browsers’ default rendering of placeholder text does not provide a high enough contrast ratio.</li>
-	</ul>
-</CalloutWarning>
+:::caution Required Text Fields
+- By default, a text field should be optional unless there is a significant reason to mark it as required.
+- If using both required and optional text fields in a form, include a clear signifier to differentiate required fields from optional fields.
+:::
 
-<CalloutWarning title="Required Text Fields">
-	<ul>
-		<li>By default, a text field should be optional unless there is a significant reason to mark it as required.</li>
-		<li>If using both required and optional text fields in a form, include a clear signifier to differentiate required fields from optional fields.</li>
-	</ul>
-</CalloutWarning>
+:::caution Error Validation
+- By default, display error validation on a text field as soon as the user has moved to the next field.
+- Use caution if displaying error validation before the user has finished entering text.
+- Use caution if displaying error validation on Save or Submit, especially if the text field will not be visible on screen when Save or Submit is activated.
+:::
 
-<CalloutWarning title="Error Validation">
-	<ul>
-		<li>By default, display error validation on a text field as soon as the user has moved to the next field.</li>
-		<li>Use caution if displaying error validation before the user has finished entering text.</li>
-		<li>Use caution if displaying error validation on Save or Submit, especially if the text field will not be visible on screen when Save or Submit is activated.</li>
-	</ul>
-</CalloutWarning>
-
-<CalloutWarning title="Autosize Multi-line Text Fields">
-	<ul>
-		<li>Autosize multi-line text fields should be used sparingly only when necessary.</li>
-		<li>The content on the screen below an autosize multi-line text field must be able to adjust accordingly and the screen must increase in size as necessary.</li>
-		<li>Never use an autosize multi-line text field in a modal or overlay.</li>
-		<li>Always set a maximum height.</li>
-	</ul>
-</CalloutWarning>
+:::caution Autosize Multi-line Text Fields
+- Autosize multi-line text fields should be used sparingly only when necessary.
+- The content on the screen below an autosize multi-line text field must be able to adjust accordingly and the screen must increase in size as necessary.
+- Never use an autosize multi-line text field in a modal or overlay.
+- Always set a maximum height.
+:::
 
 ## Types
 

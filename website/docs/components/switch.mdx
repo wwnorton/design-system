@@ -4,7 +4,7 @@ description: A switch allows the user to immediately turn an option on or off.
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { Switch, CalloutSuccess, CalloutError } from '@wwnds/react';
+import { Switch } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A switch allows the user to immediately turn an option on or off.
@@ -25,20 +25,16 @@ import { PropsTable } from '@website/components';
 - When a user toggles a switch, its corresponding action takes effect right away.
 - A switch has two mutually exclusive states&mdash;on and off.
 
-<CalloutSuccess title="Do">
-	<ul>
-		<li>Do use a switch to mimic a physical on/off switch in the interface.</li>
-		<li>Do allow users to select the switch by clicking the control or its text label.</li>
-	</ul>
-</CalloutSuccess>
+:::tip Do
+- Do use a switch to mimic a physical on/off switch in the interface.
+- Do allow users to select the switch by clicking the control or its text label.
+:::
 
-<CalloutError title="Don't">
-	<ul>
-		<li>Don’t use the words "on/off" in the switch’s text label. The option that the switch controls should be clear from its label. A tooltip/title attribute may be added to convey the on/off state.</li>
-		<li>Don’t use a switch if the option is part of a larger flow, with a final confirmation step or Submit button. Use a [checkbox](checkbox) instead.</li>
-		<li>Don’t use a switch if users can select multiple options from a list. Use [checkboxes](checkbox) instead.</li>
-	</ul>
-</CalloutError>
+:::danger Don't
+- Don’t use the words "on/off" in the switch’s text label. The option that the switch controls should be clear from its label. A tooltip/title attribute may be added to convey the on/off state.
+- Don’t use a switch if the option is part of a larger flow, with a final confirmation step or Submit button. Use a [checkbox](checkbox) instead.
+- Don’t use a switch if users can select multiple options from a list. Use [checkboxes](checkbox) instead.
+:::
 
 ## React API
 

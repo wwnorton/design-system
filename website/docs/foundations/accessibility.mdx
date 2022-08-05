@@ -2,7 +2,7 @@
 title: Accessibility
 ---
 
-import { Button, Callout, TextField } from '@wwnds/react';
+import { Button, TextField } from '@wwnds/react';
 
 We've taken an inclusive approach to nearly every aspect of the design system, and some of the more notable accessibility features are outlined here.
 
@@ -24,15 +24,14 @@ It contains two rings:
 
 The resulting effect looks like a halo around the focused element.
 
-<Callout title="Example: focus halo" border="left">
+:::info Example: focus halo
 
 To see the focus halo in action, tab to the following button.
 
 <Button className="nds-button nds-button--solid">
 	Focus halo
 </Button>
-
-</Callout>
+:::
 
 Using the focus halo for most elements ensures a few things that are key to a well-designed focus indicator:
 
@@ -52,10 +51,9 @@ It contains a `2px` ring with a color of `focus-color`.
 It is used in situations where some other focus affordance is included.
 Most notably, this is seen in `<input>` fields, which provide an additional indication of focus via the [insertion caret](https://developer.mozilla.org/en-US/docs/Glossary/caret).
 
-<Callout title="Example: focus ring" border="left">
+:::info Example: focus ring
 
 To see the focus ring in action, tab to the following text field.
 
 <TextField>Focus ring</TextField>
-
-</Callout>
+:::

@@ -3,7 +3,7 @@ title: Radio Group
 description: A radio group allows the user to select one option from a set of related options.
 ---
 
-import { RadioGroup, Radio, CalloutWarning, CalloutError, CalloutSuccess } from '@wwnds/react';
+import { RadioGroup, Radio } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A radio group allows the user to select one option from a set of related options.
@@ -24,11 +24,11 @@ The anatomy for both a group of related radio buttons and a single radio button 
 1. **Label** - a short name that lets the user know what the radio button is selecting. Clicking the label should select the radio button.
 1. **Description** (_optional_) - additional text that can be used to add clarity or context to the radio button label. Clicking the description should do nothing.
 
-<CalloutWarning title="Single Radio Button Usage">
+:::caution Single Radio Button Usage
 Radio buttons must always be part of a radio group.
 Using a single radio button by itself would allow the user to check the option but not uncheck it.
 If that is desired, use a [checkbox](checkbox) instead to ensure that the user can uncheck it.
-</CalloutWarning>
+:::
 
 ## Usage
 
@@ -40,26 +40,20 @@ If that is desired, use a [checkbox](checkbox) instead to ensure that the user c
 - Arrow keys move focus within the group, uncheck the previously focused button, and check the newly focused button.
 - <kbd>Space</kbd> selects the focused radio button if it is not already selected.
 
-<CalloutSuccess title="Do">
-	<ul>
-		<li>Do allow users to select a Radio by clicking the radio button or its text label.</li>
-		<li>Do position the radio button to the left of its label.</li>
-		<li>Do display options in a vertical layout, by default, for easier scanning.</li>
-		<li>Consider the most logical order to display options, such as alphabetical, chronological or by popularity.</li>
-	</ul>
-</CalloutSuccess>
+:::tip Do
+- Do allow users to select a Radio by clicking the radio button or its text label.
+- Do position the radio button to the left of its label.
+- Do display options in a vertical layout, by default, for easier scanning.
+- Consider the most logical order to display options, such as alphabetical, chronological or by popularity.
+:::
 
-<CalloutError title="Don't">
-	<ul>
-		<li>Don’t use radio buttons if a user could select multiple options. Use [checkboxes](checkbox) instead.</li>
-		<li>Don't use radio buttons if a user could select NO Radio. Use [checkboxes](checkbox) instead.</li>
-		<li>Don’t use radio buttons if an action will take immediate effect when the user selects or deselects it.</li>
-			<ul>
-				<li>Use a [switch](switch) if there are two opposite options (example: YES/NO, ON/OFF).</li>
-				<li>Otherwise, use a group of regular [buttons](button).</li>
-			</ul>
-	</ul>
-</CalloutError>
+:::danger Don't
+- Don’t use radio buttons if a user could select multiple options. Use [checkboxes](checkbox) instead.
+- Don't use radio buttons if a user could select NO Radio. Use [checkboxes](checkbox) instead.
+- Don’t use radio buttons if an action will take immediate effect when the user selects or deselects it.
+	- Use a [switch](switch) if there are two opposite options (example: YES/NO, ON/OFF).
+	- Otherwise, use a group of regular [buttons](button).
+:::
 
 ## React API
 

@@ -9,7 +9,7 @@ on:
 
 env:
   FORCE_COLOR: 2
-  NODE_VERSION: 14
+  NODE_VERSION: 16
   NPM_VERSION: 8
 
 jobs:

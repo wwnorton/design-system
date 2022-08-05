@@ -3,7 +3,7 @@ title: Spinner
 description: A spinner lets the user know that something is processing or progressing.
 ---
 
-import { Spinner, Callout, CalloutError, CalloutSuccess } from '@wwnds/react';
+import { Spinner } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A spinner lets the user know that something is processing or progressing.
@@ -20,49 +20,41 @@ import { PropsTable } from '@website/components';
 - If an application is loading, then the spinner will display and the user will be blocked from interacting with the application until it is loaded.
 - You can also use a progress bar.
 
-<CalloutSuccess title="Do">
-
+:::tip Do
 - Do use only 1 spinner on the screen at a time.
 - For buttons with spinners, the button should always be disabled until the action completes and the spinner no longer displays on the button.
+:::
 
-</CalloutSuccess>
-
-<CalloutError title="Don't">
-
+:::danger Don't
 - Don’t use a spinner for an immediate process (less than 1 second); nothing should display in that situation.
 - Don’t use a spinner if most of the application can load very quickly except for some text or data elements; use a skeleton instead.
+:::
 
-</CalloutError>
-
-<Callout title="Indeterminate vs. Determinate" border="left">
+### Indeterminate vs. Determinate
 
 The spinner is in "indeterminate" mode if it does not have a set value.
 This conveys to users that something is processing without communicating how close it is to being complete.
 
-<div className="callout__example">
+<div className="nds-example">
 	<Spinner label="Loading..." />
 </div>
 
 When a spinner does have a set value, it is in "determinate" mode.
 This gives the user an estimate of the percentage of time remaining until completion.
 
-<div className="callout__example">
+<div className="nds-example">
 	<Spinner label="Downloading..." progress={0.35} />
 </div>
-
-</Callout>
 
 ## React API
 
 We expose one component for the spinner API, the [Spinner](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Spinner).
 
-<Callout title="Related concepts" border="left">
-
+:::info Related concepts
 - HTML element: [&lt;progress&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress)
 - DOM interface: [HTMLProgressElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLProgressElement)
 - ARIA role: [progressbar](https://www.w3.org/TR/wai-aria/#progressbar)
-
-</Callout>
+:::
 
 ### Spinner
 
