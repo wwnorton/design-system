@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[4121],{8070:function(e){e.exports=JSON.parse('[{"label":"field","permalink":"/design-system/docs/tags/field","count":1},{"label":"form","permalink":"/design-system/docs/tags/form","count":1},{"label":"input","permalink":"/design-system/docs/tags/input","count":1}]')}}]);
