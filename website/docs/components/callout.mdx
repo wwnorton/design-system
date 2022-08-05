@@ -22,12 +22,10 @@ Use a callout to bring attention to important information that is related but se
 Effective callouts emphasize, summarize, or provide additional information about the main content, but they should also be clear as standalone snippets of information.
 In other words, callouts should make sense both in context and out of context.
 
-<Callout title="Callouts vs. Alerts" border="left">
-
+:::info Callouts vs. Alerts
 Callouts are meant to be part of the main document and should exist on the page when it first loads.
 It is not recommended to use a callout to alert the user of something that just happened, as screen reader users will not be alerted to the change.
-
-</Callout>
+:::
 
 ### Presets
 
@@ -36,17 +34,17 @@ Three preset callouts are provided to emphasize "success," "warning," and "error
 Be careful to always provide a title for these presets, as color and icons alone will never convey meaning to everyone.
 A clear title will ensure that screen reader users and users with color blindness can still understand the role of the callout.
 
-<div>
-	<CalloutSuccess>
-		Use the success preset to call attention to positive things, such as a correct answer or a good practice.
-	</CalloutSuccess>
-	<CalloutWarning>
-		Use the warning preset to caution or warn the reader.
-	</CalloutWarning>
-	<CalloutError>
-		Use the error preset to call attention to negative things, such as incorrect answers or a bad practice.
-	</CalloutError>
-</div>
+<CalloutSuccess>
+	Use the success preset to call attention to positive things, such as a correct answer or a good practice.
+</CalloutSuccess>
+
+<CalloutWarning>
+	Use the warning preset to caution or warn the reader.
+</CalloutWarning>
+
+<CalloutError>
+	Use the error preset to call attention to negative things, such as incorrect answers or a bad practice.
+</CalloutError>
 
 
 ## React API

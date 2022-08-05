@@ -3,9 +3,7 @@ title: Tag
 description: A tag allows the user to interact with or dismiss a status or classification.
 ---
 
-import {
-	CalloutError, CalloutSuccess, CalloutWarning, Tag,
-} from '@wwnds/react';
+import { Tag } from '@wwnds/react';
 import { PropsTable } from '@website/components';
 
 > A tag allows the user to interact with or dismiss a status or classification.
@@ -23,26 +21,18 @@ Use a tag to communicate status, denote active filter selection(s), or as a cont
 - A tag may or may not be associated with another component.
 When it is, it should be placed as close as possible to the component it is referencing.
 
-<CalloutSuccess title="Do">
-	<ul>
-		<li>Do use a tag if this component should be dismissible or if users need to select or interact with it for any reason.</li>
-	</ul>
-</CalloutSuccess>
+:::tip Dos
+- Do use a tag if this component should be dismissible or if users need to select or interact with it for any reason.
+:::
 
-<CalloutError title="Don't">
-	<ul>
-		<li>Don’t use a tag to communicate a temporary or permanent state if users cannot interact with or dismiss it.
-			Use a [badge](badge) instead.</li>
-	</ul>
-</CalloutError>
+:::danger Don'ts
+- Don’t use a tag to communicate a temporary or permanent state if users cannot interact with or dismiss it. Use a [badge](badge) instead.
+:::
 
-<CalloutWarning title="Caution">
-	<ul>
-		<li>In most contexts, a series of several tags can be overwhelming and create visual clutter.
-			Use tags sparingly (1–3 tags) wherever possible.</li>
-		<li>A tag should be styled with minimal padding around the text inside the container to distinguish it from a button.</li>
-	</ul>
-</CalloutWarning>
+:::caution Caution
+- In most contexts, a series of several tags can be overwhelming and create visual clutter. Use tags sparingly (1–3 tags) wherever possible.
+- A tag should be styled with minimal padding around the text inside the container to distinguish it from a button.
+:::
 
 ## React API
 

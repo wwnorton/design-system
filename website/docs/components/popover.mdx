@@ -3,7 +3,7 @@ title: Popover
 description: A popover allows the user to reveal more information or non-critical tasks in an overlay.
 ---
 
-import { Popover, CalloutError, CalloutSuccess } from '@wwnds/react';
+import { Popover } from '@wwnds/react';
 import { PropsTable, Usage } from "@website/components";
 
 > A popover allows the user to reveal more information or non-critical tasks in an overlay.
@@ -21,17 +21,17 @@ import { PropsTable, Usage } from "@website/components";
 
 Use a popover for progressive disclosure of complex related information or actions that don't belong on the main page.
 
-<CalloutSuccess title="Do">
+:::tip Dos
 - Open a popover by clicking a button or with a timed trigger.
 - Display the popover near the triggering button to clearly convey the relationship between the trigger and the popover.
-</CalloutSuccess>
+:::
 
-<CalloutError title ="Don't">
+:::danger Don'ts
 - Don't open a popover on focus.
 Popovers must be focused when they open, which means that opening one by focusing the trigger element would cause focus to move twice in one action.
 This is a violation of [WCAG 3.2.1: On Focus](https://www.w3.org/WAI/WCAG21/Understanding/on-focus.html).
-- Don't use a popover to label an element. Use a [tooltip](https://wwnorton.github.io/design-system/docs/components/tooltip) instead.	
-</CalloutError>
+- Don't use a popover to label an element. Use a [tooltip](https://wwnorton.github.io/design-system/docs/components/tooltip) instead.
+:::
 
 ## React API
 

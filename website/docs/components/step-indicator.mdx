@@ -3,15 +3,7 @@ title: Step Indicator
 description: A step indicator allows users to know where they are in a long process or form while they focus on completing discrete steps.
 ---
 
-import {
-  Callout,
-  CalloutError,
-  CalloutSuccess,
-  CalloutWarning,
-  Tag,
-  StepIndicator,
-  Step,
-} from '@wwnds/react';
+import { StepIndicator, Step } from '@wwnds/react';
 import { PropsTable, ColorChip } from '@website/components';
 
 > A step indicator allows users to know where they are in a long process or form while they focus on completing discrete steps.
@@ -45,11 +37,14 @@ Each individual Step has two types of state:
 - Steps outlined in a step indicator are often done in a particular order, and users must complete each step before moving on to the next, like in an onboarding flow. However, the steps can sometimes be done out of order or left incomplete, like in interactive assignments.
 - Step indicators are often displayed horizontally at the top of a page or modal, but they can sometimes be displayed vertically along the left margin.
 
-### Dos and Don'ts
-
+:::tip Dos
 - Do make sure that the process is broken up into logical, discrete steps.
 - Do show the steps in a logical order from left to right or top to bottom.
+:::
+
+:::danger Don'ts
 - Don't use more than one step indicator on a single page or screen.
+:::
 
 ## React API
 
@@ -59,12 +54,10 @@ We expose two components for the step indicator API, [StepIndicator and Step](ht
 import { StepIndicator, Step } from '@wwnds/react';
 ```
 
-<Callout title="Related concepts" border="left">
-
+:::info Related concepts
 - HTML elements: [&lt;ol&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol), [&lt;li&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li)
 - ARIA property: [aria-current](https://www.w3.org/TR/wai-aria/#aria-current)
-
-</Callout>
+:::
 
 ### StepIndicator
 
