@@ -20,12 +20,12 @@ import { PropsTable } from '@website/components';
 - If an application is loading, then the spinner will display and the user will be blocked from interacting with the application until it is loaded.
 - You can also use a progress bar.
 
-:::tip Dos
+:::tip Do
 - Do use only 1 spinner on the screen at a time.
 - For buttons with spinners, the button should always be disabled until the action completes and the spinner no longer displays on the button.
 :::
 
-:::danger Don'ts
+:::danger Don't
 - Don’t use a spinner for an immediate process (less than 1 second); nothing should display in that situation.
 - Don’t use a spinner if most of the application can load very quickly except for some text or data elements; use a skeleton instead.
 :::

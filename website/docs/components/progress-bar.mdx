@@ -21,12 +21,12 @@ import { PropsTable } from '@website/components';
 * If an application is loading, then the progress bar will display and the user will be blocked from interacting with the application until it is loaded.
 * You can also use a spinner.
 
-:::tip Dos
+:::tip Do
 - Do use only 1 progress bar on the screen at a time.
 - Do start the progressive animation slower and allow it to move faster as it approaches the end. It is always a better user experience to exceed customer expectations.
 :::
 
-:::danger Don'ts
+:::danger Don't
 - Don't use a progress bar for an immediate process (less than 1 second). Nothing should display in that situation.
 - Don't use a progress bar if most of the application can load very quickly except for some text or data elements. Use a skeleton instead.
 - Don't use a progress bar inside of a button. Use a spinner or loading state instead.
