@@ -24,6 +24,7 @@
 	--ifm-background-color: var(--nds-background-color);
 	--ifm-font-family-base: var(--nds-font-family-sans);
 	--ifm-menu-color-active: var(--nds-primary-color-dark);
+	--ifm-global-radius: var(--nds-radius-base);
 
 	&[data-theme='dark'] {
 		--ifm-background-color: var(--nds-background-color);
@@ -46,7 +47,7 @@ blockquote {
 	--ifm-blockquote-color: var(--ifm-color-emphasis-600);
 
 	[data-theme='dark'] & {
-		--ifm-blockquote-color: var(--ifm-color-emphasis-500);
+		--ifm-blockquote-color: var(--ifm-color-emphasis-600);
 	}
 }
 
@@ -98,8 +99,8 @@ td > code:first-child:last-child {
 	white-space: nowrap;
 }
 
-.navbar__search {
-	padding-left: var(--ifm-navbar-padding-horizontal);
+[data-color-scheme='dark'] .navbar {
+	--ifm-navbar-background-color: var(--nds-gray-100);
 }
 
 .pagination-nav__link {
