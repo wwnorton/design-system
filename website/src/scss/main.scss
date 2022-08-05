@@ -116,10 +116,12 @@
 	white-space: initial !important;
 }
 
-.callout__example {
-	padding: var(--nds-spacing-3);
+.nds-example {
+	position: relative;
+	padding: var(--nds-spacing-6);
 	margin-bottom: var(--nds-spacing-3);
 	background-color: var(--nds-background-color);
+	border: 1px solid var(--nds-base-color-30);
 	border-radius: var(--nds-radius-base);
 }
 
