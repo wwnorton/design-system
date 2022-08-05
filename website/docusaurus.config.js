@@ -1,3 +1,6 @@
+// @ts-check
+// Note: type annotations allow type checking and IDEs autocompletion
+
 const path = require('path');
 
 const baseUrl = process.env.BASE_URL || '/';
@@ -6,15 +9,58 @@ const url = (process.env.BASE_URL)
 	? `https://wwnorton.github.io${base}`
 	: 'http://localhost:3000';
 
-module.exports = {
+/** @type {import('@docusaurus/types').Config} */
+const config = {
 	title: 'Norton Design System',
 	tagline: 'Create beautiful, flexible content and applications, born accessible.',
 	url,
 	baseUrl,
+	onBrokenLinks: 'throw',
+	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/favicon.ico',
+
+	// GitHub pages deployment config.
+	// If you aren't using GitHub pages, you don't need these.
 	organizationName: 'wwnorton',
 	projectName: 'design-system',
-	themeConfig: {
+
+	// Even if you don't use internalization, you can use this field to set useful
+	// metadata like html lang. For example, if your site is Chinese, you may want
+	// to replace "en" with "zh-Hans".
+	i18n: {
+		defaultLocale: 'en',
+		locales: ['en'],
+	},
+
+	presets: [
+		[
+			'classic',
+			/** @type {import('@docusaurus/preset-classic').Options} */
+			({
+				docs: {
+					sidebarPath: require.resolve('./sidebars.js'),
+					// Please change this to your repo.
+					// Remove this to remove the "edit this page" links.
+					editUrl:
+			'https://github.com/wwnorton/design-system/edit/main/website/',
+				},
+				blog: {
+					showReadingTime: true,
+					// Please change this to your repo.
+					// Remove this to remove the "edit this page" links.
+					editUrl:
+			'https://github.com/wwnorton/design-system/edit/main/website/blog/',
+				},
+				theme: {
+					customCss: require.resolve('./src/scss/main.scss'),
+				},
+			}),
+		],
+	],
+
+	themeConfig:
+	/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+	({
 		navbar: {
 			title: 'Norton Design System',
 			logo: {
@@ -23,12 +69,6 @@ module.exports = {
 				srcDark: 'img/seagull-light.svg',
 			},
 			items: [
-				// {
-				// 	to: 'docs/',
-				// 	activeBasePath: 'docs',
-				// 	label: 'Docs',
-				// 	position: 'left',
-				// },
 				{
 					to: 'docs/foundations',
 					label: 'Foundations',
@@ -131,38 +171,14 @@ module.exports = {
 				alt: 'Norton open source',
 				src: 'img/seagull-light.svg',
 				href: 'https://www.wwnorton.com',
+				height: 48,
 			},
 			copyright: `Copyright © ${new Date().getFullYear()} W. W. Norton & Company.`,
 		},
-	},
-	presets: [
-		[
-			'@docusaurus/preset-classic',
-			{
-				docs: {
-					sidebarPath: require.resolve('./sidebars.js'),
-					showLastUpdateAuthor: true,
-					showLastUpdateTime: true,
-					editUrl: 'https://github.com/wwnorton/design-system/edit/main/website/',
-					admonitions: {
-						customTypes: {
-							a11y: {
-								svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>',
-							},
-						},
-					},
-				},
-				blog: {
-					showReadingTime: true,
-					editUrl: 'https://github.com/wwnorton/design-system/edit/main/website/blog/',
-				},
-				theme: {
-					customCss: require.resolve('./src/scss/main.scss'),
-				},
-			},
-		],
-	],
+	}),
+
 	themes: ['@docusaurus/theme-live-codeblock'],
+
 	plugins: [
 		path.resolve(__dirname, 'plugin-nds.js'),
 		'docusaurus-lunr-search',
@@ -223,3 +239,5 @@ module.exports = {
 		],
 	],
 };
+
+module.exports = config;
