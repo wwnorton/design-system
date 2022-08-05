@@ -25,6 +25,7 @@
 	--ifm-font-family-base: var(--nds-font-family-sans);
 	--ifm-menu-color-active: var(--nds-primary-color-dark);
 	--ifm-global-radius: var(--nds-radius-base);
+	--ifm-breadcrumb-item-background-active: var(--ifm-color-emphasis-100);
 
 	&[data-theme='dark'] {
 		--ifm-background-color: var(--nds-background-color);
@@ -40,6 +41,7 @@
 		--ifm-color-emphasis-900: var(--nds-base-color-90);
 		--ifm-navbar-background-color: var(--nds-gray-100);
 		--ifm-menu-color-active: var(--nds-primary-color-light);
+		--ifm-breadcrumb-item-background-active: var(--ifm-color-emphasis-200);
 	}
 }
 
