@@ -44,7 +44,7 @@
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "sass": "^1.50.1"
+    "sass": ">=1.33.0"
   },
   "peerDependenciesMeta": {
     "sass": {
