@@ -58,9 +58,5 @@
   ],
   "engines": {
     "node": ">=14.15.0"
-  },
-  "bundleDependencies": [
-    "@docusaurus/theme-common",
-    "clsx"
-  ]
+  }
 }
