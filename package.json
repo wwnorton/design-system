@@ -106,7 +106,7 @@
     "gulp-postcss": "^9.0.1",
     "gulp-sass": "^5.1.0",
     "gulp-shell": "^0.8.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "jsdom": "^19.0.0",
     "jsdom-global": "^3.0.2",
     "lerna": "^4.0.0",
