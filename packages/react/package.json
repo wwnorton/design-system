@@ -19,12 +19,13 @@
   "license": "MIT",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
-    "Gabriel Rumbaut <grumbaut@wwnorton.com>",
-    "HonChih Chen <hchen@wwnorton.com>",
+    "Gabriel Rumbaut",
+    "HonChih Chen",
+    "Darian Trama",
     "Anand Patil <apatil@wwnorton.com>",
-    "Jonathan Chan <jchan@wwnorton.com>",
-    "Wilmer Guevara <wguevara@wwnorton.com>",
-    "Juan Rebella <JRebella@wwnorton.com>"
+    "Jonathan Chan",
+    "Wilmer Guevara",
+    "Juan Rebella"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",

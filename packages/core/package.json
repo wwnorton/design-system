@@ -23,12 +23,14 @@
   "license": "MIT",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
-    "HonChih Chen <hchen@wwnorton.com>",
-    "Darian Trama <dtrama@wwnorton.com>",
-    "Brian Tri <btri@wwnorton.com>",
-    "Kellie Porter <kporter@wwnorton.com>",
+    "HonChih Chen",
+    "Darian Trama",
+    "Brian Tri",
+    "Kellie Porter",
     "Anand Patil <apatil@wwnorton.com>",
-    "Jonathan Chan <jchan@wwnorton.com>"
+    "Jonathan Chan",
+    "Wilmer Guevara",
+    "Juan Rebella"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",

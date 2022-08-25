@@ -5,9 +5,11 @@
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
     "Annie Hirshman",
-    "Jonathan Chan <jchan@wwnorton.com>",
+    "Jonathan Chan",
     "Erin O'Hara <eohara@wwnorton.com>",
-    "Anand Patil <apatil@wwnorton.com>"
+    "Anand Patil <apatil@wwnorton.com>",
+    "Wilmer Guevara",
+    "Juan Rebella"
   ],
   "scripts": {
     "build": "docusaurus build --out-dir ../public",
