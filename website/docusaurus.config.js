@@ -3,18 +3,12 @@
 
 const path = require('path');
 
-const baseUrl = process.env.BASE_URL || '/';
-const base = baseUrl.replace(/\/$/, '');
-const url = (process.env.BASE_URL)
-	? `https://wwnorton.github.io${base}`
-	: 'http://localhost:3000';
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: 'Norton Design System',
 	tagline: 'Create beautiful, flexible content and applications, born accessible.',
-	url,
-	baseUrl,
+	url: 'https://wwnorton.github.io',
+	baseUrl: process.env.BASE_URL || '/',
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/favicon.ico',
@@ -41,15 +35,13 @@ const config = {
 					sidebarPath: require.resolve('./sidebars.js'),
 					// Please change this to your repo.
 					// Remove this to remove the "edit this page" links.
-					editUrl:
-			'https://github.com/wwnorton/design-system/edit/main/website/',
+					editUrl: 'https://github.com/wwnorton/design-system/edit/main/website/',
 				},
 				blog: {
 					showReadingTime: true,
 					// Please change this to your repo.
 					// Remove this to remove the "edit this page" links.
-					editUrl:
-			'https://github.com/wwnorton/design-system/edit/main/website/blog/',
+					editUrl: 'https://github.com/wwnorton/design-system/edit/main/website/blog/',
 				},
 				theme: {
 					customCss: require.resolve('./src/scss/main.scss'),
@@ -86,12 +78,12 @@ const config = {
 				},
 				// { to: 'blog', label: 'Blog', position: 'left' },
 				{
-					href: `${url}/sassdoc`,
+					href: 'https://wwnorton.github.io/design-system/sassdoc',
 					label: 'Sassdoc',
 					position: 'right',
 				},
 				{
-					href: `${url}/storybook`,
+					href: 'https://wwnorton.github.io/design-system/storybook',
 					label: 'Storybook',
 					position: 'right',
 				},
@@ -133,11 +125,11 @@ const config = {
 						// },
 						{
 							label: 'Sassdoc',
-							href: `${url}/sassdoc`,
+							href: 'https://wwnorton.github.io/design-system/sassdoc',
 						},
 						{
 							label: 'Storybook',
-							href: `${url}/storybook`,
+							href: 'https://wwnorton.github.io/design-system/storybook',
 						},
 						{
 							label: 'GitHub',
@@ -191,12 +183,12 @@ const config = {
 					{
 						tagName: 'link',
 						rel: 'icon',
-						href: `${base}/img/android-chrome-512x512.png`,
+						href: '/img/android-chrome-512x512.png',
 					},
 					{
 						tagName: 'link',
 						rel: 'manifest',
-						href: `${base}/manifest.json`,
+						href: '/manifest.json',
 					},
 					{
 						tagName: 'meta',
@@ -216,18 +208,18 @@ const config = {
 					{
 						tagName: 'link',
 						rel: 'apple-touch-icon',
-						href: `${base}/img/android-chrome-512x512.png`,
+						href: 'https://wwnorton.github.io/design-system/img/android-chrome-512x512.png',
 					},
 					{
 						tagName: 'link',
 						rel: 'mask-icon',
-						href: `${base}/img/seagull-dark.svg`,
+						href: 'https://wwnorton.github.io/design-system/img/seagull-dark.svg',
 						color: 'rgb(50, 71, 94)',
 					},
 					{
 						tagName: 'meta',
 						name: 'msapplication-TileImage',
-						content: `${base}/img/android-chrome-512x512.png`,
+						content: 'https://wwnorton.github.io/design-system/img/android-chrome-512x512.png',
 					},
 					{
 						tagName: 'meta',
