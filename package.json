@@ -121,7 +121,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.2",
     "sass": "^1.54.5",
-    "sass-loader": "^12.6.0",
+    "sass-loader": "^13.0.2",
     "sassdoc": "^2.7.4",
     "stylelint": "^14.11.0",
     "stylelint-config-norton": "^4.1.1",
