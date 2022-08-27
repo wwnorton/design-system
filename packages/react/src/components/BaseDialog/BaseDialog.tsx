@@ -1,19 +1,16 @@
 import React from 'react';
-
-export interface BaseDialogProps extends React.HTMLAttributes<HTMLDivElement> {
-	modal?: boolean;
-}
+import { BaseDialogProps } from './types';
 
 export const BaseDialog = React.forwardRef<HTMLDivElement, BaseDialogProps>(({
 	modal,
 	children,
-	...attributes
+	...props
 }: BaseDialogProps, ref) => (
 	<div
 		role="dialog"
 		ref={ref}
 		aria-modal={(modal) ? 'true' : 'false'}
-		{...attributes}
+		{...props}
 	>
 		{ children }
 	</div>

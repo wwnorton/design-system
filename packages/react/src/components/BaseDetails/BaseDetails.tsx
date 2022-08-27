@@ -1,12 +1,11 @@
 import React from 'react';
-
-export type BaseDetailsProps = React.DetailsHTMLAttributes<HTMLDetailsElement>;
+import { BaseDetailsProps } from './types';
 
 export const BaseDetails = React.forwardRef<HTMLDetailsElement, BaseDetailsProps>(({
 	children,
-	...attributes
+	...props
 }: BaseDetailsProps, ref) => (
-	<details ref={ref} {...attributes}>
+	<details ref={ref} {...props}>
 		{ children }
 	</details>
 ));

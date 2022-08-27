@@ -1,12 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-
-export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	/** Whether the button is currently depressed. Polyfill for :active on keydown. */
-	active?: boolean;
-	/** A class to convey :active. */
-	activeClass?: string;
-}
+import { BaseButtonProps } from './types';
 
 export const defaultProps: BaseButtonProps = {
 	active: false,
@@ -28,7 +22,7 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>((
 	className,
 	children,
 	type = defaultProps.type,
-	...attributes
+	...props
 }: BaseButtonProps, ref) => {
 	const [isActive, setActive] = React.useState(active);
 
@@ -57,7 +51,7 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>((
 			onBlur={handleBlur}
 			ref={ref}
 			type={type}	// eslint-disable-line react/button-has-type
-			{...attributes}
+			{...props}
 		>
 			{ children }
 		</button>

@@ -1,22 +1,13 @@
 import React from 'react';
-
-export interface BaseSummaryProps extends React.HTMLAttributes<HTMLElement> {
-	/**
-	 * A marker or icon that indicates the summary's state or action, typically
-	 * a caret or chevron.
-	 */
-	marker?: JSX.Element;
-	/** The marker's position relative to the summary's text. */
-	markerPosition?: 'left' | 'right';
-}
+import { BaseSummaryProps } from './types';
 
 export const BaseSummary = React.forwardRef<HTMLElement, BaseSummaryProps>(({
 	marker,
 	markerPosition = 'left',
 	children,
-	...attributes
+	...props
 }: BaseSummaryProps, ref) => (
-	<summary ref={ref} {...attributes}>
+	<summary ref={ref} {...props}>
 		{/*
 			This div is a temporary fix for safari 14
 			https://bugs.webkit.org/show_bug.cgi?id=190065 - summary can't be flex box

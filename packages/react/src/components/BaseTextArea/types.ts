@@ -1,7 +1,6 @@
 import { ValidatorEntry } from '../../utilities';
 
-export interface BaseTextAreaProps
-	extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface BaseTextAreaProps extends React.ComponentPropsWithoutRef<'textarea'> {
 	/**
 	 * A list of validation errors. When the input is submitted in a form, the
 	 * list will be concatenated into a single string with a new line separator.

@@ -1,15 +1,9 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { MDCLinearProgress } from '@material/linear-progress';
-import { BaseProgress, BaseProgressProps } from './BaseProgress';
+import { BaseProgress } from './BaseProgress';
+import { BaseProgressBarProps } from './types';
 import { useForwardedRef, useLayoutEffect } from '../../utilities';
-
-export interface BaseProgressBarProps extends BaseProgressProps {
-	/** A buffered value between `0` and `1`. */
-	buffer?: number;
-	/** Indicates that the progress bar should grow right to left. */
-	reversed?: boolean;
-}
 
 export const BaseProgressBar = React.forwardRef<HTMLDivElement, BaseProgressBarProps>(({
 	progress,
