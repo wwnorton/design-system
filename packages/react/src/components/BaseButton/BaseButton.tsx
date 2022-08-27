@@ -45,11 +45,11 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>((
 
 	return (
 		<button
+			ref={ref}
 			className={classNames(activeClass && { [activeClass]: isActive }, className)}
 			onKeyDown={handleKeydown}
 			onKeyUp={handleKeyup}
 			onBlur={handleBlur}
-			ref={ref}
 			type={type}	// eslint-disable-line react/button-has-type
 			{...props}
 		>
