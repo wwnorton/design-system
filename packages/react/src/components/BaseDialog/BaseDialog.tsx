@@ -7,10 +7,10 @@ export const BaseDialog = React.forwardRef<HTMLDivElement, BaseDialogProps>(({
 	...props
 }: BaseDialogProps, ref) => (
 	<div
-		role="dialog"
 		ref={ref}
-		aria-modal={(modal) ? 'true' : 'false'}
 		{...props}
+		role="dialog"
+		aria-modal={(modal) ? 'true' : 'false'}
 	>
 		{ children }
 	</div>
