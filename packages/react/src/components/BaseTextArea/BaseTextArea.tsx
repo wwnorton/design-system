@@ -110,10 +110,10 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaPr
 	return (
 		<textarea
 			ref={setTextarea}
-			rows={lines}
 			onInput={inputHandler}
 			maxLength={(maxLengthRestrictsInput) ? maxLength : undefined}
 			{...props}
+			rows={lines}
 		/>
 	);
 });
