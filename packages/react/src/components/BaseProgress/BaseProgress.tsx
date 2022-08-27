@@ -16,12 +16,12 @@ export const BaseProgress = React.forwardRef<HTMLDivElement, BaseProgressProps>(
 	...props
 }: BaseProgressProps, ref) => (
 	<div
+		ref={ref}
+		{...props}
 		role="progressbar"
 		aria-valuenow={progress}
 		aria-valuemax={max}
 		aria-valuemin={0}	// min is always 0 for <progress> so we're mirroring that here
-		ref={ref}
-		{...props}
 	>
 		{ children }
 	</div>
