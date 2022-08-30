@@ -5,8 +5,6 @@ import { Popper } from '../Popper';
 import { useForwardedRef, useId, usePopperTriggers } from '../../utilities';
 import { PopoverProps } from './types';
 
-export { PopoverProps } from './types';
-
 /** A popover is a non-modal dialog that points to a reference element. */
 export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
 	// inherited from Popper
@@ -48,7 +46,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
 		if (popper) popper.focus();
 	},
 
-	// inherited from React.HTMLAttributes<HTMLDivElement>
+	// inherited from React.ComponentPropsWithoutRef<'div>
 	children,
 	className,
 	'aria-labelledby': ariaLabelledby,

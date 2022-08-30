@@ -1,38 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Button, ButtonProps } from '../Button';
-import { FieldInfo, FieldInfoCoreProps } from '../Field';
+import { FieldInfo } from '../Field';
 import { Tooltip } from '../Tooltip/Tooltip';
-import { TooltipCoreProps } from '../Tooltip/types';
 import { useForwardedRef, useId } from '../../utilities';
-
-export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
-	/** The name of the Switch. Required. */
-	label: React.ReactNode;
-	/**
-	 * Children are set inside the Switch control. Default is 'ON' when `checked`
-	 * and `OFF` when unchecked. Disable default with `displayDefault={false}`.
-	 */
-	children?: React.ReactNode;
-	/** Indicates that the label should be rendered as a tooltip. */
-	tipped?: boolean;
-	/** The switch's initial "on" state. */
-	checked?: boolean;
-	/** A function to call when the switch is toggled. */
-	onToggle?: (checked: boolean) => void;
-	/**
-	 * Indicates whether the default control text should be used when no children
-	 * are provided. "ON" when `checked=true` and "OFF" when `checked=false`.
-	 */
-	displayDefault?: boolean;
-	/** The base class name according to BEM conventions. */
-	baseName?: string;
-	/**
-	 * Tooltip props that should be included when the switch's label is rendered
-	 * as a tooltip.
-	 */
-	tooltipProps?: Partial<TooltipCoreProps>;
-}
+import { SwitchProps } from './types';
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
 	baseName = 'nds-switch',
@@ -52,7 +24,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
 	descriptionId: descIdProp,
 	onClick,
 	onToggle,
-	...attributes
+	...props
 }: SwitchProps, ref) => {
 	const [checked, setChecked] = React.useState(isChecked);
 	const [defaultValue, setDefaultValue] = React.useState('OFF');
@@ -94,11 +66,11 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
 		);
 
 	const buttonProps = (tipped)
-		? attributes
+		? props
 		: {
 			id,
 			'aria-labelledby': `${id}-label`,
-			...attributes,
+			...props,
 		};
 
 	return (

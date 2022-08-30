@@ -5,8 +5,6 @@ import {
 import { Option } from './Option';
 import { ListboxProps, OptionProps } from './types';
 
-export { ListboxProps } from './types';
-
 /**
  * A listbox allows the user to select one or more option from a list of options.
  *

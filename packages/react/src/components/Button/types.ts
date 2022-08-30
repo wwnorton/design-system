@@ -3,6 +3,7 @@ import { BaseButtonProps } from '../BaseButton';
 import { IconVariant, SVGIcon } from '../Icon';
 import { TooltipCoreProps } from '../Tooltip/types';
 
+/** @deprecated - use BaseButtonProps['variant']. */
 export type ButtonVariant = 'solid' | 'outline' | 'ghost';
 
 export interface ButtonProps extends BaseButtonProps {
@@ -13,7 +14,7 @@ export interface ButtonProps extends BaseButtonProps {
 	 */
 	children: BaseButtonProps['children'];
 	/** Button variant conveys the button's level of visual emphasis. */
-	variant?: ButtonVariant;
+	variant?: 'solid' | 'outline' | 'ghost';
 	/** An icon to include in the button. */
 	icon?: IconVariant | SVGIcon;
 	/**
@@ -47,3 +48,5 @@ export interface ButtonProps extends BaseButtonProps {
 	 */
 	tooltipProps?: Partial<TooltipCoreProps>;
 }
+
+export type IconButtonProps = Omit<ButtonProps, 'iconOnly' | 'iconRight'>;

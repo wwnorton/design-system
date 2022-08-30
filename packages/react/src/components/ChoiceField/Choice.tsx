@@ -2,46 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { BaseInput } from '../BaseInput';
 import { Icon } from '../Icon';
-import {
-	FieldInfo, FieldInfoCoreProps,
-	FieldFeedback, FieldFeedbackCoreProps,
-} from '../Field';
+import { FieldInfo, FieldFeedback } from '../Field';
 import { useForwardedRef, useId } from '../../utilities';
-import { BaseInputProps } from '../BaseInput/types';
-
-export interface ChoiceProps extends
-	Omit<FieldInfoCoreProps, 'label'>,
-	FieldFeedbackCoreProps,
-	Omit<BaseInputProps, 'type'> {
-	type?: 'checkbox' | 'radio';
-	/**
-	 * Mark the checkbox as indeterminate. Has no effect when `type="radio"`.
-	 *
-	 * Reference:
-	 * - [DOM - `indeterminate`](https://html.spec.whatwg.org/multipage/input.html#dom-input-indeterminate)
-	 * - [MDN - `indeterminate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Indeterminate_state_checkboxes)
-	 */
-	indeterminate?: boolean;
-	/** Indicates that the indicator should be "required" when `required=true`. */
-	requiredIndicator?: boolean;
-	/** Indicates that the indicator should be "optional" when `required=false`. */
-	optionalIndicator?: boolean;
-	/** The thumbnail element. */
-	thumbnail?: React.ReactNode;
-	/** The base class name according to BEM conventions. */
-	baseName?: string;
-	/** The className for the control that sighted users will see. */
-	controlClass?: string;
-	/** The className for the Checkbox's `<input>` element. */
-	inputClass?: string;
-	/** The className for the Checkbox's thumbnail element. */
-	thumbnailClass?: string;
-	/**
-	 * A className that will be applied to the root of the component when it is
-	 * checked.
-	 */
-	checkedClass?: string;
-}
+import { ChoiceProps } from './types';
 
 /**
  * A choice can either allow for multiple simultaneous choices (`type="checkbox"`)

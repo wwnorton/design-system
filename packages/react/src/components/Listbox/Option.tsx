@@ -2,8 +2,6 @@ import React from 'react';
 import { Icon } from '../Icon';
 import { OptionProps } from './types';
 
-export { OptionProps } from './types';
-
 /**
  * A a selectable item in a list.
  *

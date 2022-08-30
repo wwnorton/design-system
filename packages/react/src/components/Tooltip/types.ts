@@ -21,8 +21,7 @@ type UsePopperTriggersInherited = Pick<UsePopperTriggersProps,
 
 export type TooltipCoreProps = PopperInherited & UsePopperTriggersInherited;
 
-export type TooltipPropsBase =
-	PopperInherited & UsePopperTriggersInherited & React.HTMLAttributes<HTMLDivElement>;
+export type TooltipPropsBase = TooltipCoreProps & React.ComponentPropsWithoutRef<'div'>;
 
 export interface TooltipProps extends TooltipPropsBase {
 	/** The base class name according to BEM conventions. */

@@ -12,7 +12,7 @@ import { TransitionProps as TP } from 'react-transition-group/Transition';
 import { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
 
 // react-transition-group's TransitionProps has an index of [key: string]: any,
-// which we don't want. this utility allows us to removes the index.
+// which we don't want. this utility allows us to remove the index.
 type RemoveIndex<T> = {
 	[P in keyof T as string extends P ? never : number extends P ? never : P] : T[P];
 };
@@ -27,6 +27,8 @@ type OffsetsFunction = (options: {
 	placement: Placement;
 }) => [skidding?: number, distance?: number];
 
+export type PopperPropsBase = React.ComponentPropsWithoutRef<'div'> & PopperOptions;
+
 export interface PopperOptions {
 	/** The [Popper.js placement option](https://popper.js.org/docs/v2/constructors/#placement). */
 	placement?: Options['placement'];
@@ -37,8 +39,6 @@ export interface PopperOptions {
 	/** The [Popper.js onFirstUpdate option](https://popper.js.org/docs/v2/constructors/#onFirstUpdate). */
 	onFirstUpdate?: Options['onFirstUpdate'];
 }
-
-export type PopperPropsBase = React.HTMLAttributes<HTMLDivElement> & PopperOptions;
 
 export type PopperProps = PopperPropsBase & TransitionProps<HTMLDivElement> & {
 	/** Used to control whether the popper is open or closed. */

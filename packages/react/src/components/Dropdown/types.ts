@@ -2,7 +2,7 @@ import React from 'react';
 import { FieldInfoCoreProps } from '../Field';
 import { PopperProps } from '../Popper';
 
-type BaseProps = Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'disabled' | 'id'>;
+type BaseProps = Pick<React.ComponentPropsWithoutRef<'button'>, 'className' | 'disabled' | 'id'>;
 
 type PopperInherited = Pick<PopperProps,
 | 'isOpen'

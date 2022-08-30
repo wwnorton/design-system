@@ -13,13 +13,7 @@ import {
 } from '../Listbox';
 import { DropdownProps } from './types';
 
-export { DropdownProps } from './types';
-
-type DropdownType = React.FunctionComponent<DropdownProps> & {
-	Option: typeof Option;
-};
-
-export const Dropdown: DropdownType = ({
+export const Dropdown = ({
 	label,
 	description,
 	selected: selectedProp = '',

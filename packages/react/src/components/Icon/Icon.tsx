@@ -1,38 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import {
-	findIcon, IconVariant, SVGIcon, viewBox as defaultViewBox,
-} from './icons';
+import { findIcon, viewBox as defaultViewBox } from './icons';
 import { useForwardedRef } from '../../utilities';
-import { BaseSVG, BaseSVGProps } from '../BaseSVG';
-import { Tooltip } from '../Tooltip/Tooltip';
-import { TooltipCoreProps } from '../Tooltip/types';
-
-export * from './icons';
-
-export interface IconProps extends BaseSVGProps {
-	/** The base class name according to BEM conventions */
-	baseName?: string;
-	/** The specific icon that you'd like to use. */
-	variant?: IconVariant;
-	/** A custom icon. Must contain the SVG path's `d` attribute at a minimum. */
-	icon?: SVGIcon;
-	/** The icon's color. Default is `currentColor`. */
-	color?: string;
-	/** The width and height of the icon. Default is `1.25em`. */
-	size?: string | number;
-	/**
-	 * Indicates whether a console warning should be emitted when an `onClick`
-	 * callback is specified. Set to `true` by default to discourage actionable
-	 * icons, which will be inaccessible to many users.
-	 */
-	warnOnClick?: boolean;
-	/**
-	 * Tooltip props that should be included when the icon's children are
-	 * rendered as a tooltip.
-	 */
-	tooltipProps?: Partial<TooltipCoreProps>;
-}
+import { BaseSVG } from '../BaseSVG';
+import { Tooltip } from '../Tooltip';
+import { IconProps } from './types';
 
 /**
  * An icon component. Children are assumed to be the icon's label and will be

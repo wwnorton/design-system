@@ -1,19 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { CoreProgressProps, BaseProgressBar, BaseProgressBarProps } from '../BaseProgress';
+import { BaseProgressBar } from '../BaseProgress';
 import { useId } from '../../utilities';
-
-export interface ProgressBarProps extends CoreProgressProps<BaseProgressBarProps> {
-	/**
-	 * The hight of the progress bar. This sets a className of `nds-progressbar--${size}`,
-	 * which can be used to change the size. `@wwnds/core`'s default stylings
-	 * will correspond to:
-	 * - `small` - `4px`
-	 * - `undefined` - `8px`
-	 * - `large` - `16px`
-	 */
-	size?: 'small' | 'large';
-}
+import { ProgressBarProps } from './types';
 
 export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(({
 	label,

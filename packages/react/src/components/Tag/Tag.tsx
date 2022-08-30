@@ -5,8 +5,6 @@ import { BaseButton } from '../BaseButton';
 import { Icon } from '../Icon';
 import { isLinkElement } from '../../utilities';
 
-export { TagProps } from './types';
-
 export const Tag = React.forwardRef<HTMLElement, TagProps>(({
 	dismissible,
 	baseName = 'nds-tag',

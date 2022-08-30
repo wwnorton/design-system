@@ -1,37 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import {
-	FieldInfo, FieldInfoCoreProps,
-	FieldFeedback, FieldFeedbackCoreProps,
-} from '../Field';
-import { Choice, ChoiceProps } from './Choice';
-import { Choices, ChoicesProps } from './Choices';
+import { FieldInfo, FieldFeedback } from '../Field';
+import { Choice } from './Choice';
+import { Choices } from './Choices';
+import { ChoiceFieldProps, ChoiceProps, ChoicesProps } from './types';
 import { useId } from '../../utilities';
-
-export interface ChoiceFieldProps
-	extends FieldInfoCoreProps, FieldFeedbackCoreProps, React.HTMLAttributes<HTMLFieldSetElement> {
-	/**
-	 * Text that conveys how the choices are related and prompts the user to choose
-	 * one or more choice.
-	 */
-	label: React.ReactNode;
-	/** Whether the field is multi-select or single-select. */
-	multiple?: boolean;
-	/** The name that will be assigned to all child `<input>` elements. */
-	name?: string;
-	/** The name that will be assigned to the parent `<fieldset>`. */
-	fieldName?: string;
-	/** The base class name according to BEM conventions. */
-	baseName?: string;
-	/** The class name that will be used on all Choice elements.  */
-	choiceClass?: string;
-	/** Indicates whether a selection must be made or not. */
-	required?: boolean;
-	/** Indicates that the indicator should be "required" when `required=true`. */
-	requiredIndicator?: boolean;
-	/** Indicates that the indicator should be "optional" when `required=false`. */
-	optionalIndicator?: boolean;
-}
 
 type ChoiceFieldInterface =
 React.ForwardRefExoticComponent<ChoiceFieldProps & React.RefAttributes<HTMLFieldSetElement>> & {
@@ -154,6 +127,3 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 
 ChoiceField.Choice = Choice;
 ChoiceField.Choices = Choices;
-
-export * from './Choice';
-export * from './Choices';

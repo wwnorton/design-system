@@ -23,7 +23,7 @@ type UsePopperTriggersInherited = Pick<UsePopperTriggersProps,
 >;
 
 export type PopoverPropsBase =
-PopperInherited & UsePopperTriggersInherited & React.HTMLAttributes<HTMLDivElement>;
+PopperInherited & UsePopperTriggersInherited & React.ComponentPropsWithoutRef<'div'>;
 
 export interface PopoverProps extends PopoverPropsBase {
 	/**
