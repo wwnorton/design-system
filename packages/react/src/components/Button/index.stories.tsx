@@ -1,7 +1,9 @@
 import React from 'react';
 import { Story } from '@storybook/react';
-import { Button, ButtonProps, IconButton } from '.';
-import { IconButtonProps } from './IconButton';
+import {
+	Button, ButtonProps,
+	IconButton, IconButtonProps,
+} from '.';
 import { IconOptions } from '../Icon';
 
 export default {
@@ -33,8 +35,10 @@ const ButtonTemplate: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const Solid = ButtonTemplate.bind({});
 Solid.args = { variant: 'solid', children: 'Solid' };
+
 export const Outline = ButtonTemplate.bind({});
 Outline.args = { variant: 'outline', children: 'Outline' };
+
 export const Ghost = ButtonTemplate.bind({});
 Ghost.args = { variant: 'ghost', children: 'Ghost' };
 
