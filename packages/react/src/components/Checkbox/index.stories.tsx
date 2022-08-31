@@ -127,18 +127,17 @@ export const Group: React.FunctionComponent = () => (
 );
 
 export const ControlledGroup: React.FunctionComponent = () => {
-	const { selected, changeHandler } = useSelect({ multiple: true });
+	const { selected, formChangeHandler } = useSelect(true);
 
 	React.useEffect(() => action('selection change')(selected), [selected]);
 
 	return (
-		<CheckboxGroup label="Choose your favorite fruits">
+		<CheckboxGroup label="Choose your favorite fruits" onChange={formChangeHandler}>
 			{/* Choices can be mapped manually or with the <Choices> component */}
 			{/* {
 				fruits.map(({ value, ...props }) => (
 					<Checkbox
 						checked={selected.includes(value)}
-						onChange={changeHandler}
 						value={value}
 						name="fruit"
 						key={value}
@@ -149,7 +148,6 @@ export const ControlledGroup: React.FunctionComponent = () => {
 			<Choices
 				choices={fruits}
 				selected={selected}
-				onChange={changeHandler}
 				name="fruit"
 			/>
 		</CheckboxGroup>
