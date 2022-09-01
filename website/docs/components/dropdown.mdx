@@ -73,7 +73,7 @@ The `Dropdown` component does not expose a `ref` or extend a full DOM interface.
 
 ### Option
 
-The `Option` component extends the `React.LiHTMLAttributes<HTMLLIElement>` interface, and uses the [ARIA option role](https://www.w3.org/TR/wai-aria/#option).
+The `Option` component extends the `React.ComponentPropsWithoutRef<'li'>` interface, and uses the [ARIA option role](https://www.w3.org/TR/wai-aria/#option).
 
 Note that the `Dropdown` also exposes the `Option` as a static member (`Dropdown.Option`) for your convenience.
 

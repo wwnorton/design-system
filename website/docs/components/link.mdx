@@ -67,7 +67,7 @@ We expose one component for the link API, the [Link](https://github.com/wwnorton
 
 ### Link
 
-The `<Link>` component extends the `React.AnchorHTMLAttributes<HTMLAnchorElement>` interface.
+The `<Link>` component extends the `React.ComponentPropsWithoutRef<'a'>` interface.
 
 If defined, our `<Link>` will use the link component provided by the nearest [AppProvider](react-providers#app-provider) context.
 This allows you to use our `Link` wrapper for your application's router link component, such as [the React Router `<Link>`](https://reactrouter.com/web/api/Link).
