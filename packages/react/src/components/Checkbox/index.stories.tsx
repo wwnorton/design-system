@@ -1,11 +1,8 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import {
-	withKnobs,
-	boolean,
-	text,
-} from '@storybook/addon-knobs';
-import { Checkbox, CheckboxGroup } from '.';
+	Checkbox, CheckboxGroup, CheckboxProps, CheckboxGroupProps,
+} from '.';
 import { Button } from '../Button';
 import { useSelect, useValidation } from '../../utilities';
 import { Choices } from '../ChoiceField';
@@ -13,80 +10,61 @@ import { Choices } from '../ChoiceField';
 export default {
 	title: 'Checkbox',
 	component: Checkbox,
-	decorators: [withKnobs],
 };
 
-export const Default: React.FunctionComponent = () => (
-	<Checkbox
-		description={text('Description', 'Additional information about this checkbox.')}
-		disabled={boolean('Disabled', false)}
-		required={boolean('Required', false)}
-		requiredIndicator={boolean('Required indicator', false)}
-		optionalIndicator={boolean('Optional indicator', false)}
-		onValidate={action('onValidate')}
-		indeterminate={boolean('Indeterminate', false)}
-	>
-		{ text('Label', 'Checkbox') }
-	</Checkbox>
-);
+const CheckboxTemplate = (args: CheckboxProps) => <Checkbox {...args} />;
 
-export const Controlled: React.FunctionComponent = () => {
+export const Default = CheckboxTemplate.bind({});
+Default.args = {
+	children: 'Checkbox',
+	description: 'Additional information about this checkbox.',
+	disabled: false,
+	required: false,
+	requiredIndicator: false,
+	optionalIndicator: false,
+	indeterminate: false,
+};
+
+export const Controlled = (args: CheckboxProps) => {
 	const [checked, setChecked] = React.useState(false);
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		const isChecked = e.currentTarget.checked;
 		window.setTimeout(() => setChecked(isChecked), 1000);
 	};
-	return (
-		<Checkbox
-			description="This checkbox waits a second before updating."
-			disabled={boolean('Disabled', false)}
-			required={boolean('Required', false)}
-			onValidate={action('onValidate')}
-			indeterminate={boolean('Indeterminate', false)}
-			checked={checked}
-			onChange={changeHandler}
-		>
-			{ text('Label', 'Checkbox') }
-		</Checkbox>
-	);
+	return <Checkbox checked={checked} onChange={changeHandler} {...args} />;
+};
+Controlled.args = {
+	children: 'Checkbox',
+	description: 'This checkbox waits a second before updating to demonstrate that its state is controlled.',
 };
 
-export const Indeterminate: React.FunctionComponent = () => (
-	<Checkbox
-		description="This checkbox starts out in the indeterminate/mixed state."
-		indeterminate
-		disabled={boolean('Disabled', false)}
-		required={boolean('Required', false)}
-	>
-		{ text('Label', 'Checkbox') }
-	</Checkbox>
-);
+export const Indeterminate = CheckboxTemplate.bind({});
+Indeterminate.args = {
+	children: 'Checkbox',
+	description: 'This checkbox starts out in the indeterminate/mixed state.',
+	indeterminate: true,
+};
 
-export const WithThumbnail: React.FunctionComponent = () => (
-	<Checkbox
-		description={(
-			<>
-				This checkbox includes a clickable thumbnail from
-				{' '}
-				<a
-					href="https://picsum.photos"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					https://picsum.photos
-				</a>
-			</>
-		)}
-		disabled={boolean('Disabled', false)}
-		required={boolean('Required', false)}
-		onValidate={action('onValidate')}
-		thumbnail={<img src={text('Thumbnail Source', 'https://picsum.photos/64')} alt="" />}
-	>
-		{ text('Label', 'Checkbox') }
-	</Checkbox>
-);
+export const WithThumbnail = CheckboxTemplate.bind({});
+WithThumbnail.args = {
+	children: 'Checkbox',
+	description: (
+		<>
+			This checkbox includes a clickable thumbnail from
+			{' '}
+			<a
+				href="https://picsum.photos"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				https://picsum.photos
+			</a>
+		</>
+	),
+	thumbnail: <img src="https://picsum.photos/64" alt="" />,
+};
 
-export const SingleCheckboxRequiredForm: React.FunctionComponent = () => {
+export const SingleCheckboxRequiredForm = (args: CheckboxProps) => {
 	const [errors, setErrors] = React.useState<string[]>();
 	const validate = useValidation();
 
@@ -98,6 +76,7 @@ export const SingleCheckboxRequiredForm: React.FunctionComponent = () => {
 		<form className="form" onSubmit={(e): void => { e.preventDefault(); }} onInvalid={invalidHandler}>
 			<div className="field">
 				<Checkbox
+					{...args}
 					description="I have read the terms and conditions."
 					errors={errors}
 					required
@@ -110,15 +89,8 @@ export const SingleCheckboxRequiredForm: React.FunctionComponent = () => {
 	);
 };
 
-const fruits = [
-	{ value: 'apple', children: 'Apple' },
-	{ value: 'banana', children: 'Banana' },
-	{ value: 'kiwi', children: 'Kiwi' },
-	{ value: 'orange', children: 'Orange' },
-];
-
-export const Group: React.FunctionComponent = () => (
-	<CheckboxGroup label="Choose your favorite fruits" name="fruit">
+const CheckboxGroupTemplate = (args: CheckboxGroupProps) => (
+	<CheckboxGroup {...args}>
 		<Checkbox>Apple</Checkbox>
 		<Checkbox>Banana</Checkbox>
 		<Checkbox>Kiwi</Checkbox>
@@ -126,14 +98,32 @@ export const Group: React.FunctionComponent = () => (
 	</CheckboxGroup>
 );
 
-export const ControlledGroup: React.FunctionComponent = () => {
+export const GroupOfCheckboxes = CheckboxGroupTemplate.bind({});
+GroupOfCheckboxes.args = {
+	label: 'Choose your favorite fruits!',
+	name: 'fruit',
+};
+
+const fruits = [
+	{ value: 'apple', children: 'Apple' },
+	{ value: 'banana', children: 'Banana' },
+	{ value: 'kiwi', children: 'Kiwi' },
+	{ value: 'orange', children: 'Orange' },
+];
+
+export const ControlledGroup = (args: CheckboxGroupProps) => {
 	const { selected, formChangeHandler } = useSelect(true);
 
 	React.useEffect(() => action('selection change')(selected), [selected]);
 
 	return (
-		<CheckboxGroup label="Choose your favorite fruits" onChange={formChangeHandler}>
-			{/* Choices can be mapped manually or with the <Choices> component */}
+		<CheckboxGroup {...args} label="Choose your favorite fruits" onChange={formChangeHandler}>
+			<Choices
+				choices={fruits}
+				selected={selected}
+				name="fruit"
+			/>
+			{/* Alternatively, choices could be mapped manually */}
 			{/* {
 				fruits.map(({ value, ...props }) => (
 					<Checkbox
@@ -145,11 +135,6 @@ export const ControlledGroup: React.FunctionComponent = () => {
 					/>
 				))
 			} */}
-			<Choices
-				choices={fruits}
-				selected={selected}
-				name="fruit"
-			/>
 		</CheckboxGroup>
 	);
 };
