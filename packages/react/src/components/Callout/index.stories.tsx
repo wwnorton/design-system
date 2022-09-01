@@ -1,8 +1,6 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import {
-	Callout, CalloutProps,
-} from '.';
+import { Callout, CalloutProps } from '.';
 import { IconOptions } from '../Icon';
 
 const defaultContents = `
