@@ -90,7 +90,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 			} else {
 				throw new Error('invalid children');
 			}
-			return <Choice {...props} value={value} />;
+			return <Choice key={value} {...props} value={value} />;
 		});
 	}, [multiple, name, id, type]);
 
