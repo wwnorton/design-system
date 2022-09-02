@@ -1,48 +1,55 @@
 import React from 'react';
-import {
-	withKnobs,
-	select,
-	boolean,
-	text,
-	number,
-} from '@storybook/addon-knobs';
-import { placements } from '@popperjs/core/lib/enums';
-import { Popover, Button, TextField } from '../..';
+import { Popover, PopoverProps } from '.';
+import { Button } from '../Button';
+import { Link } from '../Link';
+import { TextField } from '../TextField';
 
 export default {
 	title: 'Popover',
 	component: Popover,
-	decorators: [withKnobs],
 	parameters: {
 		layout: 'padded',
 	},
+	argTypes: {
+		isOpen: { control: { type: 'boolean' } },
+		hideTitle: { control: { type: 'boolean' } },
+		hideCloseButton: { control: { type: 'boolean' } },
+		distance: {
+			control: {
+				type: 'range', min: 0, max: 20, step: 1,
+			},
+		},
+	},
 };
 
-export const Default: React.FunctionComponent = () => {
-	const [isOpen, setIsOpen] = React.useState(true);
-	return (
-		<Popover
-			title={text('Title', 'Popover title')}
-			hideTitle={boolean('Hide title', false)}
-			hideCloseButton={boolean('Hide close button', false)}
-			placement={select('Placement', placements, 'bottom-start')}
-			isOpen={isOpen}
-			onRequestClose={() => setIsOpen(false)}
-		>
+const PopoverTemplate = ({ isOpen: isOpenProp, ...args }: PopoverProps) => {
+	const [isOpen, setOpen] = React.useState(isOpenProp);
+	React.useEffect(() => setOpen(isOpenProp), [isOpenProp]);
+
+	return <Popover {...args} isOpen={isOpen} onRequestClose={() => setOpen(false)} />;
+};
+
+export const Default = PopoverTemplate.bind({});
+Default.args = {
+	isOpen: true,
+	title: 'Default popover',
+	placement: 'bottom-start',
+	children: (
+		<>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco
-		</Popover>
-	);
+			Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+		</>
+	),
 };
 
 /**
- * This example demos the minimal setup.
+ * This example demos the minimal setup with a reference element.
  * - The triggering element must use a callback ref, which is bound to the
  *   Popover's `reference` prop. This lets the popover know where to position.
  * - Requests to open and close are used to update the `isOpen` state.
  */
-export const Minimal: React.FunctionComponent = () => {
+export const WithReference = (args: PopoverProps) => {
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
 
@@ -52,22 +59,28 @@ export const Minimal: React.FunctionComponent = () => {
 				Show popover
 			</Button>
 			<Popover
-				title={text('Title', 'Popover title')}
-				hideTitle={boolean('Hide title', true)}
-				hideCloseButton={boolean('Hide close button', true)}
-				placement={select('Placement', placements, 'bottom-start')}
 				reference={ref}
 				isOpen={isOpen}
 				onRequestClose={() => setIsOpen(false)}
 				onRequestOpen={() => setIsOpen(true)}
-				distance={number('Distance', 8)}
+				{...args}
 			>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco
+				Popovers are dialogs that are related to another element, which we call the
+				&ldquo;reference&rdquo; element. This&mdash;along with the fact that they
+				do not change the mode of input when opened&mdash; distinguish them from the
+				{' '}
+				<Link href="./?path=/story/modal--default">Modal component</Link>
+				, which is a modal dialog without a reference.
 			</Popover>
 		</>
 	);
+};
+WithReference.args = {
+	title: 'Popover with a reference button',
+	hideTitle: false,
+	hideCloseButton: true,
+	placement: 'bottom-start',
+	distance: 8,
 };
 
 /**
@@ -86,7 +99,7 @@ export const Minimal: React.FunctionComponent = () => {
  *   onClick callback.
  * - a text field contained by a form will trigger the onSubmit action on Enter
  */
-export const FullyControlled: React.FunctionComponent = () => {
+export const FullyControlled = (args: PopoverProps) => {
 	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
 	const [buttonText, setButtonText] = React.useState('Change this button\'s text');
 	const [inputText, setInputText] = React.useState(buttonText);
@@ -103,7 +116,7 @@ export const FullyControlled: React.FunctionComponent = () => {
 	};
 	const toggle = (t) => ((isOpen) ? close(t) : open());
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
 		if (input) setInputText(e.target.value);
 	};
 	const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -119,13 +132,11 @@ export const FullyControlled: React.FunctionComponent = () => {
 			</Button>
 			<Popover
 				aria-labelledby="change-btn"
-				hideCloseButton={boolean('Hide close button', true)}
-				placement={select('Placement', placements, 'bottom-start')}
 				reference={ref}
 				isOpen={isOpen}
 				onRequestClose={close}
 				onOpen={() => input && input.focus()}
-				actions={boolean('Action bar', true) && (
+				actions={(
 					<>
 						<Button variant="outline" onClick={close}>
 							Cancel
@@ -135,6 +146,7 @@ export const FullyControlled: React.FunctionComponent = () => {
 						</Button>
 					</>
 				)}
+				{...args}
 			>
 				<form id="demo-form" onSubmit={submit}>
 					<TextField
@@ -150,4 +162,8 @@ export const FullyControlled: React.FunctionComponent = () => {
 			</Popover>
 		</>
 	);
+};
+FullyControlled.args = {
+	placement: 'bottom-start',
+	hideCloseButton: true,
 };

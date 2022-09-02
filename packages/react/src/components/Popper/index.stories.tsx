@@ -1,24 +1,32 @@
 import React from 'react';
-import {
-	withKnobs, select, optionsKnob, boolean, number,
-} from '@storybook/addon-knobs';
-import { placements } from '@popperjs/core/lib/enums';
+import { Meta } from '@storybook/react';
 import { Button, Listbox, Option } from '../..';
-import { Popper } from './Popper';
+import { Popper, PopperProps } from '.';
 import { useExternalClick, useSelect } from '../../utilities';
 import { ListboxProps } from '../Listbox';
 
 export default {
 	title: 'Popper',
 	component: Popper,
-	decorators: [withKnobs],
-};
+	argTypes: {
+		enableArrow: { control: { type: 'boolean' } },
+		distance: {
+			control: {
+				type: 'range', min: 0, max: 20, step: 1,
+			},
+		},
+	},
+} as Meta<PopperProps>;
 
-export const Default: React.FunctionComponent = () => {
+export const Default = (args: PopperProps) => {
 	const [isOpen, setIsOpen] = React.useState(true);
 	return (
-		<Popper isOpen={isOpen}>
-			Popper components have no styling by default.
+		<Popper {...args} isOpen={isOpen}>
+			<p>
+				Popper components are used for positioning an element relative to
+				another component and have no styling by default.
+			</p>
+			<p>This Popper has no reference element.</p>
 			<div>
 				<button type="button" onClick={() => setIsOpen(false)}>
 					Close popper
@@ -28,7 +36,7 @@ export const Default: React.FunctionComponent = () => {
 	);
 };
 
-export const Minimal: React.FunctionComponent = () => {
+export const WithReference = (args: PopperProps) => {
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [button, setButton] = React.useState<HTMLButtonElement | null>();
 
@@ -42,17 +50,6 @@ export const Minimal: React.FunctionComponent = () => {
 				Show popover
 			</Button>
 			<Popper
-				transition={optionsKnob(
-					'Transition',
-					{ Fade: 'fade', Grow: 'grow', None: undefined },
-					undefined,
-					{ display: 'inline-radio' },
-				)}
-				enableArrow={boolean('Arrow', false)}
-				distance={number('Distance', 6, {
-					range: true, min: 0, max: 24, step: 1,
-				})}
-				placement={select('Placement', placements, 'bottom-start')}
 				reference={button}
 				isOpen={isOpen}
 				style={{
@@ -62,6 +59,7 @@ export const Minimal: React.FunctionComponent = () => {
 					border: 'var(--nds-popper-border-width) solid var(--nds-red-50)',
 					maxWidth: 200,
 				}}
+				{...args}
 			>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -70,12 +68,18 @@ export const Minimal: React.FunctionComponent = () => {
 		</>
 	);
 };
+WithReference.args = {
+	placement: 'right-start',
+	distance: 6,
+	enableArrow: false,
+	transition: 'fade',
+};
 
-export const BasicDropdown: React.FunctionComponent = () => {
+export const BasicDropdown = (args: PopperProps) => {
 	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
 	const [autofocus, setAutofocus] = React.useState(true);
 	const [isOpen, setIsOpen] = React.useState(false);
-	const [button, setButton] = React.useState<HTMLButtonElement | null>();
+	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
 	const { selected, toggle } = useSelect(false);
 	const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
 	const [buttonText, setButtonText] = React.useState<React.ReactNode>('Select');
@@ -125,6 +129,7 @@ export const BasicDropdown: React.FunctionComponent = () => {
 					}
 				}}
 				matchWidth
+				{...args}
 			>
 				<Listbox
 					aria-label="Choose an animal"

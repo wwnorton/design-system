@@ -1,9 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import {
-	withKnobs, boolean, text, select,
-} from '@storybook/addon-knobs';
-import { Modal } from '.';
+import { Modal, ModalProps } from '.';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
 import { shortContent, longContent } from './modal.fixtures';
@@ -11,67 +8,48 @@ import { shortContent, longContent } from './modal.fixtures';
 export default {
 	title: 'Modal',
 	component: Modal,
-	decorators: [withKnobs],
+	argTypes: {
+		isOpen: { control: { type: 'boolean' } },
+		hideTitle: { control: { type: 'boolean' } },
+		hideCloseButton: { control: { type: 'boolean' } },
+	},
 };
 
-const { defaultProps } = Modal;
+const ModalTemplate = ({ isOpen: isOpenProp, ...args }: ModalProps) => {
+	const [isOpen, setOpen] = React.useState(isOpenProp);
+	React.useEffect(() => setOpen(isOpenProp), [isOpenProp]);
 
-export const Default: React.FunctionComponent = () => {
-	const [isOpen, setOpen] = React.useState(true);
-
-	return (
-		<Modal
-			title={text('Title', 'Modal title')}
-			hideTitle={boolean('Hide title', defaultProps.hideTitle)}
-			hideCloseButton={boolean('Hide close button', false)}
-			closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
-			closeOnEscape={boolean('Close on Escape', defaultProps.closeOnEscape)}
-			onRequestClose={() => setOpen(false)}
-			stickyHeader={boolean('Sticky header', false)}
-			stickyActionBar={boolean('Sticky action bar', false)}
-			isOpen={isOpen}
-		>
-			{
-				select(
-					'Content',
-					{ Short: 'short', Long: 'long' },
-					'short',
-				) === 'short' ? shortContent : longContent
-			}
-		</Modal>
-	);
+	return <Modal {...args} isOpen={isOpen} onRequestClose={() => setOpen(false)} />;
 };
 
-export const WithActionBar: React.FunctionComponent = () => {
-	const [isOpen, setOpen] = React.useState(true);
-
-	return (
-		<Modal
-			isOpen={isOpen}
-			onRequestClose={() => setOpen(false)}
-			title={text('Title', 'Modal title')}
-			hideCloseButton={boolean('Hide close button', false)}
-			actions={(
-				<>
-					<Button variant="outline">Not okay</Button>
-					<Button variant="solid">Okay</Button>
-				</>
-			)}
-			stickyHeader={boolean('Sticky header', false)}
-			stickyActionBar={boolean('Sticky action bar', false)}
-		>
-			{
-				select(
-					'Content',
-					{ Short: 'short', Long: 'long' },
-					'short',
-				) === 'short' ? shortContent : longContent
-			}
-		</Modal>
-	);
+export const Default = ModalTemplate.bind({});
+Default.args = {
+	isOpen: true,
+	title: 'Default modal dialog',
+	children: shortContent,
 };
 
-export const MultiModal: React.FunctionComponent = () => {
+export const LongContent = ModalTemplate.bind({});
+LongContent.args = {
+	isOpen: true,
+	title: 'Modal dialog with long content',
+	children: longContent,
+};
+
+export const WithActionBar = ModalTemplate.bind({});
+WithActionBar.args = {
+	isOpen: true,
+	title: 'Modal dialog with an action bar',
+	actions: (
+		<>
+			<Button variant="outline">Not okay</Button>
+			<Button variant="solid">Okay</Button>
+		</>
+	),
+	children: shortContent,
+};
+
+export const ComplexModal = (args: ModalProps) => {
 	const [firstNameRef, setFirstNameRef] = React.useState<HTMLInputElement | null>(null);
 	const [lastNameRef, setLastNameRef] = React.useState<HTMLInputElement | null>(null);
 	const [isOpen, setOpen] = React.useState(false);
@@ -104,15 +82,12 @@ export const MultiModal: React.FunctionComponent = () => {
 		<>
 			<Button variant="solid" onClick={open}>Open</Button>
 			<Modal
-				title="Your name"
-				focusOnOpen={firstNameRef}
+				focusOnOpen={firstNameRef || undefined}
 				isOpen={isOpen}
 				onOpen={action('onOpen')}
 				onRequestClose={close}
 				closeOnEscape={!resultOpen}
-				hideTitle={boolean('Hide title', defaultProps.hideTitle)}
-				hideCloseButton={boolean('Hide close button', false)}
-				closeOnBackdropClick={boolean('Close on backdrop click', defaultProps.closeOnBackdropClick)}
+				{...args}
 			>
 				<form onSubmit={submit} onChange={handleChange}>
 					<TextField required value={firstName} ref={setFirstNameRef}>First Name</TextField>
@@ -130,4 +105,7 @@ export const MultiModal: React.FunctionComponent = () => {
 			</Modal>
 		</>
 	);
+};
+ComplexModal.args = {
+	title: 'Your name',
 };

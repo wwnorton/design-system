@@ -1,11 +1,12 @@
 const path = require('path');
 
-module.exports = {
+/** @type {import('@storybook/core-common').StorybookConfig} */
+const storybookConfig = {
 	core: {
-		builder: 'webpack5',
+		builder: '@storybook/builder-vite',
 	},
 	webpackFinal: (config) => {
-		config.module.rules.push({
+		config.module?.rules?.push({
 			test: /\.scss$/,
 			use: ['style-loader', 'css-loader', 'sass-loader'],
 		});
@@ -17,7 +18,6 @@ module.exports = {
 	},
 	stories: [path.resolve(__dirname, '../packages/react/src/**/*.stories.{ts,tsx,mdx}')],
 	addons: [
-		'@storybook/addon-knobs',
 		'@storybook/addon-essentials',
 		'@storybook/addon-actions',
 		'@storybook/addon-a11y',
@@ -33,5 +33,7 @@ module.exports = {
 				return true;
 			},
 		},
-	}
-}
+	},
+};
+
+module.exports = storybookConfig;

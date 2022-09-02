@@ -59,12 +59,10 @@ export default {
 	layout: 'padded',
 };
 
-const StepIndicatorTemplate: Story<StepIndicatorControls> = (
-	{
-		stepCount, currentStep, completedSteps, ...args
-	},
-) => {
-	const steps = [];
+const StepIndicatorTemplate: Story<StepIndicatorControls> = ({
+	stepCount, currentStep, completedSteps, ...args
+}) => {
+	const steps: JSX.Element[] = [];
 
 	for (let i = 1; i <= stepCount; i += 1) {
 		steps.push(
@@ -87,12 +85,10 @@ export const Connected = StepIndicatorTemplate.bind({});
 
 Connected.args = { isConnected: true };
 
-export const LongNames: Story<StepIndicatorControls> = (
-	{
-		stepCount, currentStep, completedSteps, ...args
-	},
-) => {
-	const steps = [];
+export const LongNames: Story<StepIndicatorControls> = ({
+	stepCount, currentStep, completedSteps, ...args
+}) => {
+	const steps: JSX.Element[] = [];
 
 	for (let i = 1; i <= stepCount; i += 1) {
 		steps.push(
@@ -113,12 +109,10 @@ export const LongNames: Story<StepIndicatorControls> = (
 
 LongNames.args = { isConnected: true };
 
-export const NoConnector: Story<StepIndicatorControls> = (
-	{
-		stepCount, currentStep, completedSteps, ...args
-	},
-) => {
-	const steps = [];
+export const NoConnector: Story<StepIndicatorControls> = ({
+	stepCount, currentStep, completedSteps, ...args
+}) => {
+	const steps: JSX.Element[] = [];
 
 	for (let i = 1; i <= stepCount; i += 1) {
 		steps.push(

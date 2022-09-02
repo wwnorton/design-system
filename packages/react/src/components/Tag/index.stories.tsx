@@ -1,70 +1,49 @@
 import React from 'react';
-import {
-	withKnobs,
-	boolean,
-	select,
-	text,
-} from '@storybook/addon-knobs';
-import { Tag } from '.';
+import { Meta } from '@storybook/react';
+import { Tag, TagProps } from '.';
 import { Icon } from '../Icon';
 import { Link } from '../Link';
-import { ColorOptions } from '../../utilities/color';
 
 export default {
 	title: 'Tag',
 	component: Tag,
-	decorators: [withKnobs],
+} as Meta<TagProps>;
+
+const TagTemplate = (args: TagProps) => <Tag {...args} />;
+
+export const Default = TagTemplate.bind({});
+Default.args = {
+	children: 'Tag label',
+	color: undefined,
 };
 
-export const Default: React.FunctionComponent = () => (
-	<Tag
-		dismissible={boolean('dismissible', false)}
-		color={select('Color', { None: undefined, ...ColorOptions }, undefined)}
-	>
-		{text('Label', 'Tag Label')}
-	</Tag>
-);
-
-export const MultipleTags: React.FunctionComponent = () => {
-	const [isRenderedTag, setIsRenderedTag] = React.useState(true);
-
-	const dismiss = () => {
-		setIsRenderedTag(false);
-	};
-
-	return (
-		<div style={{ display: 'flex', gap: 4 }}>
-			<Tag color="blue">
-				Default Tag
-			</Tag>
-			<Tag color="green">
-				<Icon variant="download" />
-				With Icon
-			</Tag>
-			{ 	isRenderedTag
-				? (<Tag dismissible color="red" onDismiss={dismiss}>Dismissible</Tag>)
-				: null }
-		</div>
-	);
+export const WithIcon = TagTemplate.bind({});
+WithIcon.args = {
+	color: 'green',
+	children: (
+		<>
+			<Icon variant="download" />
+			With Icon
+		</>
+	),
 };
 
-export const WithLink: React.FunctionComponent = () => {
-	const isAnchor = boolean('Use HTML link', false);
+export const WithLink = TagTemplate.bind({});
+WithLink.args = {
+	children: (
+		<Link href="https://github.com/wwnorton/design-system" external>
+			Norton Design System GitHub
+		</Link>
+	),
+};
+
+export const Dismissible = (args: TagProps) => {
+	const [dismissed, setDismissed] = React.useState(false);
+
+	if (dismissed) return <span {...args} />;
 	return (
-		<Tag dismissible={boolean('dismissible', false)}>
-			{
-				(isAnchor)
-					? (
-						<a href="https://github.com/wwnorton/design-system">
-							Norton Design System GitHub
-						</a>
-					)
-					: (
-						<Link href="https://github.com/wwnorton/design-system" external>
-							Norton Design System GitHub
-						</Link>
-					)
-			}
+		<Tag {...args} dismissible onDismiss={() => setDismissed(true)}>
+			Dismissible
 		</Tag>
 	);
 };
