@@ -2,6 +2,7 @@ module.exports = {
 	root: true,
 	extends: [
 		'norton/react',
+		'plugin:storybook/recommended',
 	],
 	parserOptions: {
 		project: './tsconfig.json',
