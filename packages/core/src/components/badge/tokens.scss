@@ -1,7 +1,7 @@
 @use '../../spacing';
 
-$padding-x: spacing.spacer('2px') !default;
-$padding-y: spacing.spacer('0.5rem') !default;
+$padding-x: 0.5em !default;
+$padding-y: 0.1875em !default;
 $background-family: 'base-color' !default;
 $background-grade: 70 !default;
 $border-radius: var(--nds-radius-pill) !default;
