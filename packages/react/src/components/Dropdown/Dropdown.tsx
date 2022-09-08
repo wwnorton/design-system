@@ -119,8 +119,7 @@ export const Dropdown = ({
 				} else if (child.props.children) {
 					value = child.props.children.toString();
 				}
-				props = child.props;
-				props.value = value;
+				props = { ...child.props, value };
 			} else {
 				props = { value: child.toString(), children: child };
 			}
