@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { BaseProgress, BaseProgressProps } from './BaseProgress';
+import { BaseProgress } from './BaseProgress';
+import { BaseProgressSpinnerProps } from './types';
 
 // CONSTANTS
 
@@ -19,16 +20,6 @@ const SVG_PROPS = {
 };
 
 // COMPONENT
-
-export interface BaseProgressSpinnerProps extends BaseProgressProps {
-	/**
-	 * The height and width of the spinner. Numbers will be treated as pixels.
-	 * Strings must include their unit (e.g., `"2rem"`).
-	 */
-	size?: number | string;
-	/** The width of the spinner circle. Default is `4`. */
-	strokeWidth?: number;
-}
 
 export const BaseProgressSpinner = React.forwardRef<HTMLDivElement, BaseProgressSpinnerProps>(({
 	size = '2rem',

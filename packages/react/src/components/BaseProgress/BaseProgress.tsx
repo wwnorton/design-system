@@ -1,15 +1,5 @@
 import React from 'react';
-
-export interface BaseProgressProps extends React.HTMLAttributes<HTMLDivElement> {
-	/** Indicates how much of the task has been completed. */
-	progress?: number;
-	/**
-	 * Describes how much work is required to complete the progress. If defined,
-	 * it must be greater than `0` and be a valid floating point number.
-	 * The default is `1`.
-	 */
-	max?: number;
-}
+import { BaseProgressProps } from './types';
 
 /**
  * A minimal progress indicator.
@@ -26,13 +16,12 @@ export const BaseProgress = React.forwardRef<HTMLDivElement, BaseProgressProps>(
 	...props
 }: BaseProgressProps, ref) => (
 	<div
+		ref={ref}
+		{...props}
 		role="progressbar"
 		aria-valuenow={progress}
 		aria-valuemax={max}
-		// min is always 0 for <progress> so we're mirroring that here
-		aria-valuemin={0}
-		ref={ref}
-		{...props}
+		aria-valuemin={0}	// min is always 0 for <progress> so we're mirroring that here
 	>
 		{ children }
 	</div>

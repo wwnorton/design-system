@@ -13,13 +13,7 @@ import {
 } from '../Listbox';
 import { DropdownProps } from './types';
 
-export { DropdownProps } from './types';
-
-type DropdownType = React.FunctionComponent<DropdownProps> & {
-	Option: typeof Option;
-};
-
-export const Dropdown: DropdownType = ({
+export const Dropdown = ({
 	label,
 	description,
 	selected: selectedProp = '',
@@ -118,15 +112,14 @@ export const Dropdown: DropdownType = ({
 	const options = React.useMemo(() => {
 		const opts = React.Children.map(children, (child) => {
 			let props: OptionProps;
-			if (React.isValidElement(child)) {
-				props = {
-					...child.props,
-					value:
-						typeof child.props.value === 'number'
-						|| child.props.value !== undefined
-							? child.props.value
-							: child.props.children.toString(),
-				};
+			if (React.isValidElement<OptionProps>(child)) {
+				let value: React.ReactText = '';
+				if (typeof child.props.value === 'number' || child.props.value !== undefined) {
+					value = child.props.value;
+				} else if (child.props.children) {
+					value = child.props.children.toString();
+				}
+				props = { ...child.props, value };
 			} else {
 				props = { value: child.toString(), children: child };
 			}

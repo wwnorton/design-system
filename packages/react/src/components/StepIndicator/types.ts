@@ -1,13 +1,13 @@
 import React from 'react';
 
-export interface StepIndicatorProps extends React.ComponentPropsWithRef<'ol'> {
+export interface StepIndicatorProps extends React.ComponentPropsWithoutRef<'ol'> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** When set, a connector line will be shown between the steps	 */
 	isConnected?: boolean;
 }
 
-export interface StepProps extends React.ComponentPropsWithRef<'li'> {
+export interface StepProps extends React.ComponentPropsWithoutRef<'li'> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** When set, this step is visually marked as the current step */

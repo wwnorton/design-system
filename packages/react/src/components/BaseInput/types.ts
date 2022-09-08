@@ -1,7 +1,7 @@
+import React from 'react';
 import { InputType, ValidatorEntry } from '../../utilities';
 
-export interface BaseInputProps
-	extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface BaseInputProps extends React.ComponentPropsWithoutRef<'input'> {
 	/**
 	 * A list of validation errors. When the input is submitted in a form, the
 	 * list will be concatenated into a single string with a new line separator.

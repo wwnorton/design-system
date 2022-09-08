@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, ButtonProps } from './Button';
-
-export type IconButtonProps = Omit<ButtonProps, 'iconOnly' | 'iconRight'>;
+import { Button } from './Button';
+import { IconButtonProps } from './types';
 
 /**
  * Display an icon in a button. By default,`variant` is "ghost". Equivalent to

@@ -11,8 +11,6 @@ import {
 import { PopperProps } from './types';
 import { useForwardedRef, useLayoutEffect } from '../../utilities';
 
-export { PopperProps } from './types';
-
 const DISTANCE_CSS_PROP = '--nds-popper-distance';
 
 export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(({

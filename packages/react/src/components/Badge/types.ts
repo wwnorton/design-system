@@ -1,6 +1,6 @@
 import { SystemColors } from '../../utilities/color';
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface BadgeProps extends React.ComponentPropsWithoutRef<'span'> {
 	/** When set, renders as a notification dot. */
 	dot?: boolean,
 	/** The badge's color family. */

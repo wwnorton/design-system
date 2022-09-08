@@ -4,7 +4,7 @@ import {
 } from 'react';
 import isEqual from 'react-fast-compare';
 import { createPopper, Instance } from '@popperjs/core';
-import { UsePopperProps, PopperOptions } from './types';
+import { UsePopperProps } from './types';
 import { useLayoutEffect } from '../isomorphicLayoutEffect';
 
 /**
@@ -22,7 +22,7 @@ export const usePopper = ({
 	onFirstUpdate,
 }: UsePopperProps): Instance | null => {
 	const [instance, setInstance] = useState<Instance | null>(null);
-	const options = useRef<PopperOptions>({
+	const options = useRef<UsePopperProps>({
 		placement,
 		modifiers: modifiers || [],
 		strategy,

@@ -1,5 +1,5 @@
 const path = require('path');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const {
 	default: ReactDocgenTypescriptPlugin,
 } = require('@storybook/react-docgen-typescript-plugin');

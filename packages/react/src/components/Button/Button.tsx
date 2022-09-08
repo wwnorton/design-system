@@ -6,10 +6,10 @@ import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
 import { BUTTON_NO_NAME } from './errors';
-import { ButtonProps, ButtonVariant } from './types';
+import { ButtonProps } from './types';
 
 /** A button allows a user to perform an action. */
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 	baseName = 'nds-button',
 	variant,
 	icon,
@@ -87,9 +87,3 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 		</>
 	);
 });
-
-export {
-	ButtonVariant,
-	ButtonProps,
-	Button,
-};

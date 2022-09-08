@@ -1,11 +1,11 @@
-import { Modifier } from '@popperjs/core';
+import { Modifier, Obj } from '@popperjs/core';
 import { Options as ArrowOptions } from '@popperjs/core/lib/modifiers/arrow';
 import { Options as FlipOptions } from '@popperjs/core/lib/modifiers/flip';
 import { Options as OffsetOptions } from '@popperjs/core/lib/modifiers/offset';
 import { Options as PreventOverflowOptions } from '@popperjs/core/lib/modifiers/preventOverflow';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createModifier = <O = Record<string, Record<string, any>>, N = string>(
+const createModifier = <O extends Obj = Record<string, Record<string, any>>, N = string>(
 	name: N,
 ): Partial<Modifier<N, O>> => ({
 	name,

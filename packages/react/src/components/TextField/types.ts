@@ -5,10 +5,9 @@ import { FieldFeedbackCoreProps, FieldInfoCoreProps } from '../Field';
 
 export type TextFieldType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
-export interface BaseTextFieldProps
-	extends FieldInfoCoreProps, FieldFeedbackCoreProps, BaseInputProps {
+export interface BaseTextFieldProps extends FieldInfoCoreProps, FieldFeedbackCoreProps {
 	/** Text fields can be a limited subset of `<input>` types. */
-	type?: TextFieldType;
+	type?: Extract<React.HTMLInputTypeAttribute, TextFieldType>;
 	/** One or more addon that should be included before the `<input>`. */
 	addonBefore?: React.ReactNode;
 	/** One or more addon that should be included after the `<input>`. */
@@ -66,4 +65,4 @@ export interface BaseTextFieldProps
 	autoSize?: boolean;
 }
 
-export type TextFieldProps = BaseTextFieldProps & BaseTextAreaProps;
+export type TextFieldProps = BaseTextFieldProps & BaseTextAreaProps & BaseInputProps;

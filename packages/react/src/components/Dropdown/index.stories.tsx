@@ -1,18 +1,11 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import {
-	withKnobs,
-	boolean,
-	select,
-	number,
-} from '@storybook/addon-knobs';
 import { Button } from '../Button';
 import { Dropdown, DropdownProps } from '.';
 
 export default {
 	title: 'Dropdown',
 	component: Dropdown,
-	decorators: [withKnobs],
 };
 
 /* cspell:disable */
@@ -46,66 +39,47 @@ const options = [
 ];
 /* cspell:enable */
 
-const sortOptions: Record<string, DropdownProps['sort']> = {
-	None: undefined,
-	Ascending: 'ascending',
-	Descending: 'descending',
+const defaultArgs = {
+	label: 'Choose an element',
+	children: options,
 };
 
-export const Default: React.FunctionComponent = () => (
-	<Dropdown
-		label="Choose an element"
-		sort={select<DropdownProps['sort']>('Sort', sortOptions, undefined)}
-		disabled={boolean('Disabled', false)}
-	>
-		{options}
-	</Dropdown>
-);
+const DropdownTemplate = (args: DropdownProps) => <Dropdown {...args} />;
 
-export const MatchListboxWidth: React.FunctionComponent = () => (
-	<Dropdown
-		label="Choose an element"
-		matchWidth="listbox"
-		disabled={boolean('Disabled', false)}
-	>
-		{options}
-	</Dropdown>
-);
+export const Default = DropdownTemplate.bind({});
+Default.args = defaultArgs;
 
-export const MatchButtonWidth: React.FunctionComponent = () => (
-	<Dropdown
-		label="Choose an element"
-		matchWidth="button"
-		buttonWidth={`${number('Button width (rem)', 12, { step: 0.25 })}rem`}
-		disabled={boolean('Disabled', false)}
-	>
-		{options}
-	</Dropdown>
-);
+export const MatchListboxWidth = DropdownTemplate.bind({});
+MatchListboxWidth.args = {
+	matchWidth: 'listbox',
+	...defaultArgs,
+};
 
-export const FlippingPlacement: React.FunctionComponent = () => (
+export const MatchButtonWidth = DropdownTemplate.bind({});
+MatchButtonWidth.args = {
+	matchWidth: 'button',
+	buttonWidth: 256,
+	...defaultArgs,
+};
+
+export const FlippingPlacement = (args: DropdownProps) => (
 	// cspell:ignore scrollbox
 	<div className="scrollbox">
-		<Dropdown
-			label="Choose an element"
-			description="Open the dropdown and then scroll down"
-			disabled={boolean('Disabled', false)}
-		>
-			{options.map((value) => (
-				<Dropdown.Option value={value}>{value}</Dropdown.Option>
-			))}
-		</Dropdown>
+		<Dropdown {...args} />
 	</div>
 );
+FlippingPlacement.args = {
+	description: 'Open the dropdown and then scroll down to see it flip from top to bottom.',
+	...defaultArgs,
+};
 
-export const ComplexOptions: React.FunctionComponent = () => (
+export const ComplexOptions = (args: DropdownProps) => (
 	<Dropdown
+		{...args}
 		label="Select your native fruit"
 		matchWidth="button"
+		buttonWidth="6rem"
 		buttonClass="dropdown__button fruits"
-		sort={select<DropdownProps['sort']>('Sort', sortOptions, undefined)}
-		buttonWidth={`${number('Button width (rem)', 6)}rem`}
-		disabled={boolean('Disabled', false)}
 	>
 		<Dropdown.Option value="apple">
 			<span role="img" aria-label="Apple" title="Apple">
@@ -135,15 +109,15 @@ export const ComplexOptions: React.FunctionComponent = () => (
 	</Dropdown>
 );
 
-export const DifferentChildrenTypes: React.FunctionComponent = () => {
+export const DifferentChildrenTypes = (args: DropdownProps) => {
 	const [selected, setSelected] = React.useState<React.ReactText>();
 	const changeHandler = ({ value }: { value: React.ReactText }): void => setSelected(value);
 	return (
-		<Dropdown label="My dropdown" selected={selected} onChange={changeHandler}>
+		<Dropdown {...args} label="My dropdown" selected={selected} onChange={changeHandler}>
 			{/* explicit value ("foo"); explicit rendered contents ("Foo"); recommended. */}
 			<Dropdown.Option value="foo">Foo</Dropdown.Option>
 			{/* implicit value ("Bar"); explicit rendered contents ("Bar") */}
-			<Dropdown.Option value="foo">Bar</Dropdown.Option>
+			<Dropdown.Option value="bar">Bar</Dropdown.Option>
 			{/* explicit value ("baz"); implicit rendered contents ("baz") */}
 			<Dropdown.Option value="baz" />
 			{/* implicit Option. value & contents both equal "Qux" */}
@@ -152,7 +126,7 @@ export const DifferentChildrenTypes: React.FunctionComponent = () => {
 	);
 };
 
-export const FullyControlled: React.FunctionComponent = () => {
+export const FullyControlled = (args: DropdownProps) => {
 	const [selected, setSelected] = React.useState<React.ReactText>('Mendelevium');
 	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>('Select something');
 	const [submitted, setSubmitted] = React.useState(false);
@@ -172,6 +146,7 @@ export const FullyControlled: React.FunctionComponent = () => {
 	return (
 		<form onSubmit={submit}>
 			<Dropdown
+				{...args}
 				label="Choose an element"
 				isOpen={isOpen}
 				selected={selected}

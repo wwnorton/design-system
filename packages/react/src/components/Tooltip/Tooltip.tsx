@@ -6,8 +6,6 @@ import {
 import { Popper } from '../Popper';
 import { TooltipProps } from './types';
 
-export { TooltipProps } from './types';
-
 export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 	// inherited from Popper
 	isOpen: isOpenProp,
@@ -33,7 +31,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 	asLabel = false,
 	trigger = 'focus pointerenter',
 
-	// inherited from React.HTMLAttributes<HTMLDivElement>
+	// inherited from React.ComponentPropsWithoutRef<'div'>
 	children,
 	className,
 	...props

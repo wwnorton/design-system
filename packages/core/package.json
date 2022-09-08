@@ -23,12 +23,14 @@
   "license": "MIT",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
-    "HonChih Chen <hchen@wwnorton.com>",
-    "Darian Trama <dtrama@wwnorton.com>",
-    "Brian Tri <btri@wwnorton.com>",
-    "Kellie Porter <kporter@wwnorton.com>",
+    "HonChih Chen",
+    "Darian Trama",
+    "Brian Tri",
+    "Kellie Porter",
     "Anand Patil <apatil@wwnorton.com>",
-    "Jonathan Chan <jchan@wwnorton.com>"
+    "Jonathan Chan",
+    "Wilmer Guevara",
+    "Juan Rebella"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",
@@ -39,12 +41,12 @@
     "build": "microbundle --name NDSCore"
   },
   "dependencies": {
-    "@material/circular-progress": "^13.0.0",
-    "@material/linear-progress": "^13.0.0",
+    "@material/circular-progress": "^14.0.0",
+    "@material/linear-progress": "^14.0.0",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "sass": "^1.50.1"
+    "sass": ">=1.33.0"
   },
   "peerDependenciesMeta": {
     "sass": {

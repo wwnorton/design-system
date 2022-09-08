@@ -1,57 +1,45 @@
 import React from 'react';
-import {
-	withKnobs, boolean, text,
-} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import {
 	ChoiceField, Choice, Choices,
+	ChoiceFieldProps, ChoicesProps,
 } from '.';
 import { useSelect } from '../../utilities';
 
 export default {
 	title: 'ChoiceField',
 	component: ChoiceField,
-	decorators: [withKnobs],
 };
 
-const prompt = 'Which of the following is a vegetable?';
+const label = 'Which of the following is a vegetable?';
 const defaultCorrect = 'Green Bean';
 const defaultChoices = ['Apple', 'Banana', defaultCorrect, 'Tomato'];
 
-export const Default: React.FunctionComponent = () => (
-	<ChoiceField
-		label={text('Prompt', prompt)}
-		description={text('Description', 'Descriptive text about this item.')}
-		multiple={boolean('Multiselect', true)}
-	>
-		<ChoiceField.Choice value="apple">Apple</ChoiceField.Choice>
-		<Choice>Banana</Choice>
-		<ChoiceField.Choice checked value="green-bean">Green Bean</ChoiceField.Choice>
-		<ChoiceField.Choice value="Tomato" />
-	</ChoiceField>
-);
+const ChoiceFieldTemplate = (args: ChoiceFieldProps) => <ChoiceField {...args} />;
 
-export const WithChoices: React.FunctionComponent = () => (
-	<ChoiceField
-		label={text('Prompt', prompt)}
-		description={text('Description', 'Descriptive text about this item.')}
-		multiple={boolean('Multiselect', true)}
-	>
-		<Choices choices={defaultChoices} selected="Banana" />
-	</ChoiceField>
-);
+export const Default = ChoiceFieldTemplate.bind({});
+Default.args = {
+	label,
+	description: 'This field is in its default state.',
+	multiple: false,
+	children: defaultChoices.map((fruit) => <Choice key={fruit} value={fruit}>{ fruit }</Choice>),
+};
 
-export const ControlledRadio: React.FunctionComponent = () => {
-	const { changeHandler, selected } = useSelect();
+export const WithChoices = ChoiceFieldTemplate.bind({});
+WithChoices.args = {
+	label,
+	description: 'This field is in its checkbox state and uses the Choices component to map its choices.',
+	multiple: true,
+	children: <Choices choices={defaultChoices} selected="Banana" />,
+};
+
+export const ControlledRadio = (args: ChoiceFieldProps) => {
+	const { formChangeHandler, selected } = useSelect();
 
 	React.useEffect(() => action('selection change')(selected), [selected]);
 
 	return (
-		<ChoiceField
-			label={text('Prompt', prompt)}
-			description={text('Description', 'Descriptive text about this item.')}
-			onChange={changeHandler}
-		>
+		<ChoiceField onChange={formChangeHandler} {...args}>
 			{/* manually map a list to Choice elements */}
 			{
 				[
@@ -72,33 +60,35 @@ export const ControlledRadio: React.FunctionComponent = () => {
 		</ChoiceField>
 	);
 };
+ControlledRadio.args = {
+	label,
+	description: 'This field is in its radio state and uses externally-controlled state.',
+};
 
-export const ControlledCheckbox: React.FunctionComponent = () => {
-	const { changeHandler, selected } = useSelect({ multiple: true });
+export const ControlledCheckbox = (args: ChoiceFieldProps) => {
+	const { formChangeHandler, selected } = useSelect(true);
 
 	React.useEffect(() => action('selection change')(selected), [selected]);
 
 	return (
-		<ChoiceField
-			label={text('Prompt', prompt)}
-			description={text('Description', 'Descriptive text about this item.')}
-			multiple
-		>
+		<ChoiceField {...args} multiple>
 			{/* use the Choices utility component to map a list of choices */}
 			<Choices
 				choices={defaultChoices}
 				selected={selected}
-				onChange={changeHandler}
+				onChange={formChangeHandler}
 			/>
 		</ChoiceField>
 	);
 };
+ControlledCheckbox.args = {
+	label,
+	description: 'This field is in its checkbox state and uses externally-controlled state.',
+};
 
-export const ChoiceList: React.FunctionComponent = () => (
-	<Choices
-		choices={defaultChoices}
-		selected={text('Initially selected', 'Tomato')}
-		multiple={boolean('Multiselect', true)}
-		name="choices"
-	/>
+export const ChoiceList = ({ choices, name, ...args }: ChoicesProps) => (
+	<Choices choices={defaultChoices} name="choices" {...args} />
 );
+ChoiceList.args = {
+	description: "These choices don't have the field label or description.",
+};

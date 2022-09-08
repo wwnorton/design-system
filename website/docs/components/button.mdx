@@ -55,7 +55,7 @@ The following should help differentiate when a link may be a better fit for your
 
 We expose two components for the button API, the [Button](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Button/Button.tsx) and the [IconButton](https://github.com/wwnorton/design-system/tree/main/packages/react/src/components/Button/IconButton.tsx).
 
-Both extend the `React.ButtonHTMLAttributes<HTMLButtonElement>` interface, meaning any prop that is valid on a `<button>` is a valid prop on our `<Button>` or `<IconButton>`.
+Both extend the `React.ComponentPropsWithoutRef<'button'>` interface, meaning any prop that is valid on a `<button>` is also valid on `<Button>` or `<IconButton>`.
 
 ### Button
 

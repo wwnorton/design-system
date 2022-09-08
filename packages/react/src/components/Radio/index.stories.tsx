@@ -1,49 +1,37 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import {
-	withKnobs,
-	boolean,
-	text,
-} from '@storybook/addon-knobs';
-import { Radio, RadioGroup } from '.';
+	Radio, RadioProps,
+	RadioGroup as RadioGroupComp, RadioGroupProps,
+} from '.';
+import { Link } from '../Link';
 import { useSelect } from '../../utilities';
 
 export default {
 	title: 'Radio',
 	component: Radio,
-	decorators: [withKnobs],
 };
 
-export const Default: React.FunctionComponent = () => (
-	<Radio
-		description={text('Description', 'Additional information about this radio.')}
-		disabled={boolean('Disabled', false)}
-	>
-		{ text('Label', 'Radio') }
-	</Radio>
-);
+const RadioTemplate = (args: RadioProps) => <Radio {...args} />;
 
-export const WithThumbnail: React.FunctionComponent = () => (
-	<Radio
-		description={(
-			<>
-				This radio includes a clickable thumbnail from
-				{' '}
-				<a
-					href="https://picsum.photos"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					https://picsum.photos
-				</a>
-			</>
-		)}
-		disabled={boolean('Disabled', false)}
-		thumbnail={<img src={text('Thumbnail Source', 'https://picsum.photos/64')} alt="" />}
-	>
-		{ text('Label', 'Radio') }
-	</Radio>
-);
+export const Default = RadioTemplate.bind({});
+Default.args = {
+	description: 'This is a radio button with all its defaults',
+	children: 'Radio',
+};
+
+export const WithThumbnail = RadioTemplate.bind({});
+WithThumbnail.args = {
+	description: (
+		<>
+			This radio includes a clickable thumbnail from
+			{' '}
+			<Link href="https://picsum.photos" external>https://picsum.photos</Link>
+		</>
+	),
+	thumbnail: <img src="https://picsum.photos/64" alt="" />,
+	children: 'Radio',
+};
 
 const fruits = [
 	{ value: 'apple', children: 'Apple' },
@@ -52,28 +40,32 @@ const fruits = [
 	{ value: 'orange', children: 'Orange' },
 ];
 
-export const Group: React.FunctionComponent = () => (
-	<RadioGroup label="Choose your favorite fruit" name="fruit">
+export const RadioGroup = (args: RadioGroupProps) => (
+	<RadioGroupComp {...args}>
 		<Radio>Apple</Radio>
 		<Radio>Banana</Radio>
 		<Radio>Kiwi</Radio>
 		<Radio>Orange</Radio>
-	</RadioGroup>
+	</RadioGroupComp>
 );
+RadioGroup.args = {
+	label: 'Choose your favorite fruit',
+	name: 'fruit',
+};
 
-export const ControlledGroup: React.FunctionComponent = () => {
-	const { selected, changeHandler } = useSelect();
+export const ControlledRadioGroup = (args: RadioGroupProps) => {
+	const { selected, formChangeHandler } = useSelect();
 
 	React.useEffect(() => action('selection change')(selected), [selected]);
 
 	return (
-		<RadioGroup label="Choose your favorite fruit">
+		<RadioGroupComp {...args}>
 			{/* Choices can be mapped manually or with the <Choices> component */}
 			{
 				fruits.map(({ value, ...props }) => (
 					<Radio
 						checked={selected.includes(value)}
-						onChange={changeHandler}
+						onChange={formChangeHandler}
 						value={value}
 						name="fruit"
 						key={value}
@@ -87,6 +79,11 @@ export const ControlledGroup: React.FunctionComponent = () => {
 				onChange={changeHandler}
 				name="fruit"
 			/> */}
-		</RadioGroup>
+		</RadioGroupComp>
 	);
+};
+ControlledRadioGroup.args = {
+	label: 'Choose your favorite fruit',
+	description: 'This example demonstrates how state can be controlled externally.',
+	name: 'fruit',
 };

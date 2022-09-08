@@ -1,5 +1,5 @@
 export type OptionBase = Omit<
-React.LiHTMLAttributes<HTMLLIElement>,
+React.ComponentPropsWithoutRef<'li'>,
 'role' | 'aria-selected'
 >;
 
@@ -25,7 +25,7 @@ export interface OptionProps extends OptionBase {
 }
 
 export type ListboxBase = Omit<
-React.HTMLAttributes<HTMLUListElement>,
+React.ComponentPropsWithoutRef<'ul'>,
 'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'
 >;
 

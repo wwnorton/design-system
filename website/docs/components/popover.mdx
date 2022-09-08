@@ -39,7 +39,7 @@ We expose one component for the popover API, the [Popover](https://github.com/ww
 
 ### Popover
 
-The `Popover` component extends the `React.HTMLAttributes<HTMLElement>` interface and uses [Popper.js](https://popper.js.org/) for positioning.
+The `Popover` component extends the `React.ComponentPropsWithoutRef<'div'>` interface and uses [Popper.js](https://popper.js.org/) for positioning.
 
 ```js
 import { Popover } from '@wwnds/react';

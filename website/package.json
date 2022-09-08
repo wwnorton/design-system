@@ -5,9 +5,11 @@
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
     "Annie Hirshman",
-    "Jonathan Chan <jchan@wwnorton.com>",
+    "Jonathan Chan",
     "Erin O'Hara <eohara@wwnorton.com>",
-    "Anand Patil <apatil@wwnorton.com>"
+    "Anand Patil <apatil@wwnorton.com>",
+    "Wilmer Guevara",
+    "Juan Rebella"
   ],
   "scripts": {
     "build": "docusaurus build --out-dir ../public",
@@ -35,20 +37,21 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.1",
     "@docusaurus/module-type-aliases": "^2.0.1",
-    "@docusaurus/plugin-pwa": "^2.0.1",
-    "@docusaurus/preset-classic": "^2.0.1",
-    "@docusaurus/theme-live-codeblock": "^2.0.1",
+    "@docusaurus/plugin-pwa": "^2.1.0",
+    "@docusaurus/preset-classic": "^2.1.0",
+    "@docusaurus/theme-live-codeblock": "^2.1.0",
     "@wwnds/core": "^1.5.0",
     "@wwnds/react": "^1.5.0",
     "colorable": "^1.0.5",
-    "docusaurus-lunr-search": "^2.1.15",
+    "docusaurus-lunr-search": "^2.2.0",
+    "markdown-to-jsx": "^7.1.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@storybook/react-docgen-typescript-plugin": "^1.0.1",
-    "ts-loader": "^9.2.8",
-    "tsconfig-paths-webpack-plugin": "^3.5.2"
+    "ts-loader": "^9.3.1",
+    "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
   "bundledDependencies": [
     "@docusaurus/theme-common",
@@ -56,9 +59,5 @@
   ],
   "engines": {
     "node": ">=14.15.0"
-  },
-  "bundleDependencies": [
-    "@docusaurus/theme-common",
-    "clsx"
-  ]
+  }
 }

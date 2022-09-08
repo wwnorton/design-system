@@ -1,31 +1,45 @@
 // cspell:ignore noninteractive, Södra
 import React from 'react';
-import { withKnobs, select, number } from '@storybook/addon-knobs';
-import { placements } from '@popperjs/core/lib/enums';
-import { Tooltip } from './Tooltip';
+import { Tooltip, TooltipProps } from '.';
 import { Button, Callout } from '../..';
 
 export default {
 	title: 'Tooltip',
 	component: Tooltip,
-	decorators: [withKnobs],
 	parameters: {
 		layout: 'padded',
 	},
-};
+	argTypes: {
+		hideDelay: {
+			control: {
+				type: 'range', min: 0, max: 1000, step: 50,
+			},
+		},
+		showDelay: {
+			control: {
+				type: 'range', min: 0, max: 1000, step: 50,
+			},
+		},
 
-const defaultPlacement = 'top';
-const defaultDelay = 200;
+	},
+};
 
 const CALLOUT_WIDTH = 450;
 
-export const Default = (): JSX.Element => (
-	<Tooltip isOpen className={select('Color Scheme', { Default: undefined, Dark: 'nds-tooltip--dark', Light: 'nds-tooltip--light' }, undefined)}>
+type TooltipStoryProps = TooltipProps & { darkScheme: boolean };
+
+export const Default = ({ darkScheme, ...args }: TooltipStoryProps) => (
+	<Tooltip isOpen className={(darkScheme) ? 'nds-tooltip--dark' : 'nds-tooltip--light'} {...args}>
 		Tooltips require a reference element in order to render their arrow.
 	</Tooltip>
 );
+Default.args = {
+	hideDelay: 200,
+	showDelay: 400,
+	darkScheme: true,
+};
 
-export const Labelling = (): JSX.Element => {
+export const Labelling = (args: TooltipProps) => {
 	const [reference, setReference] = React.useState<HTMLImageElement | null>(null);
 	return (
 		<>
@@ -63,19 +77,14 @@ export const Labelling = (): JSX.Element => {
 
 				</figcaption>
 			</figure>
-			<Tooltip
-				reference={reference}
-				asLabel
-				placement={select('Placement', placements, defaultPlacement)}
-				hideDelay={number('Hide delay', defaultDelay)}
-			>
+			<Tooltip {...args} reference={reference} asLabel>
 				A looped animation of two escalators at Södra station in Stockholm.
 			</Tooltip>
 		</>
 	);
 };
 
-export const DefaultTrigger = (): JSX.Element => {
+export const DefaultTrigger = (args: TooltipProps) => {
 	const [reference, setReference] = React.useState<HTMLButtonElement | null>(null);
 	return (
 		<>
@@ -90,19 +99,14 @@ export const DefaultTrigger = (): JSX.Element => {
 			<Button variant="solid" ref={setReference}>
 				Reference
 			</Button>
-			<Tooltip
-				reference={reference}
-				placement={select('Placement', placements, defaultPlacement)}
-				hideDelay={number('Hide delay', defaultDelay)}
-				showDelay={number('Show delay', 0)}
-			>
+			<Tooltip {...args} reference={reference} showDelay={0}>
 				Tooltip
 			</Tooltip>
 		</>
 	);
 };
 
-export const PointerEnterTrigger = (): JSX.Element => {
+export const PointerEnterTrigger = (args: TooltipProps) => {
 	const [reference, setReference] = React.useState<HTMLButtonElement | null>(null);
 
 	return (
@@ -143,11 +147,10 @@ export const PointerEnterTrigger = (): JSX.Element => {
 				Reference
 			</Button>
 			<Tooltip
+				{...args}
 				reference={reference}
 				trigger="pointerenter"
-				placement={select('Placement', placements, defaultPlacement)}
-				hideDelay={number('Hide delay', defaultDelay)}
-				showDelay={number('Show delay', 0)}
+				showDelay={0}
 			>
 				Tooltip
 			</Tooltip>
@@ -155,7 +158,7 @@ export const PointerEnterTrigger = (): JSX.Element => {
 	);
 };
 
-export const FocusTrigger = (): JSX.Element => {
+export const FocusTrigger = (args: TooltipProps) => {
 	const [reference, setReference] = React.useState<HTMLButtonElement | null>(null);
 
 	return (
@@ -181,18 +184,14 @@ export const FocusTrigger = (): JSX.Element => {
 			<Button variant="solid" ref={setReference}>
 				Reference
 			</Button>
-			<Tooltip
-				reference={reference}
-				trigger="focus"
-				placement={select('Placement', placements, defaultPlacement)}
-			>
+			<Tooltip {...args} reference={reference} trigger="focus">
 				Tooltip
 			</Tooltip>
 		</>
 	);
 };
 
-export const ClickTrigger = (): JSX.Element => {
+export const ClickTrigger = (args: TooltipProps) => {
 	const [reference, setReference] = React.useState<HTMLButtonElement | null>(null);
 
 	return (
@@ -226,18 +225,14 @@ export const ClickTrigger = (): JSX.Element => {
 			<Button variant="solid" ref={setReference}>
 				Reference
 			</Button>
-			<Tooltip
-				reference={reference}
-				trigger="click"
-				placement={select('Placement', placements, defaultPlacement)}
-			>
+			<Tooltip {...args} reference={reference} trigger="click">
 				Tooltip
 			</Tooltip>
 		</>
 	);
 };
 
-export const ManualTrigger = (): JSX.Element => {
+export const ManualTrigger = (args: TooltipProps) => {
 	const [reference, setReference] = React.useState<HTMLButtonElement | null>(null);
 	const [isOpen, setOpen] = React.useState(false);
 
@@ -256,10 +251,10 @@ export const ManualTrigger = (): JSX.Element => {
 				Reference
 			</Button>
 			<Tooltip
+				{...args}
 				reference={reference}
 				trigger="manual"
 				isOpen={isOpen}
-				placement={select('Placement', placements, defaultPlacement)}
 			>
 				Tooltip
 			</Tooltip>
@@ -267,7 +262,7 @@ export const ManualTrigger = (): JSX.Element => {
 	);
 };
 
-export const CustomReference: React.FunctionComponent = () => {
+export const CustomReference = (args: TooltipProps) => {
 	const [ref, setRef] = React.useState<HTMLSpanElement | null>();
 	return (
 		<>
@@ -277,11 +272,10 @@ export const CustomReference: React.FunctionComponent = () => {
 				dolor sit amet consectetur adipisicing elit.
 			</p>
 			<Tooltip
+				{...args}
 				reference={ref}
 				trigger="click pointerenter"
-				placement={select('Placement', placements, 'bottom-start')}
-				hideDelay={number('Hide delay', defaultDelay)}
-				showDelay={number('Show delay', 0)}
+				showDelay={0}
 			>
 				Lorem ipsum is a placeholder text commonly used to demonstrate
 				the visual form of a document or a typeface without relying on meaningful content.

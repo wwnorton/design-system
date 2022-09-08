@@ -1,10 +1,6 @@
 import React from 'react';
-import { Choice, ChoiceProps } from './Choice';
-
-export interface ChoicesProps extends ChoiceProps {
-	choices: (React.ReactText | ChoiceProps)[];
-	selected?: React.ReactText[] | React.ReactText;
-}
+import { Choice } from './Choice';
+import { ChoiceProps, ChoicesProps } from './types';
 
 /**
  * Convert a list of choice values or choice props into a memoized array of

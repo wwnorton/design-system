@@ -1,59 +1,49 @@
 import React from 'react';
+import { Meta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import { Switch } from '.';
+import { Switch, SwitchProps } from '.';
 import { Icon } from '../Icon';
+import { Spinner } from '../Spinner';
 
 export default {
 	title: 'Switch',
 	component: Switch,
-	decorators: [withKnobs],
+} as Meta<SwitchProps>;
+
+const SwitchTemplate = (args: SwitchProps) => <Switch {...args} />;
+
+export const Default = SwitchTemplate.bind({});
+Default.args = {
+	checked: undefined,
+	label: 'Default switch',
+	description: 'Toggle on or off',
+	onToggle: action('onToggle'),
+	displayDefault: true,
 };
 
-export const Default: React.FunctionComponent = () => (
-	<Switch
-		label={text('Label', 'Label')}
-		description={text('Description', 'Descriptive text')}
-		onToggle={action('onToggle')}
-		displayDefault={boolean('Default text', true)}
-		disabled={boolean('Disabled', false)}
-		tipped={boolean('Label with tooltip', false)}
-	/>
-);
-
-export const InitiallyOn: React.FunctionComponent = () => (
-	<Switch
-		label={text('Label', 'Label')}
-		description={text('Description', 'Descriptive text')}
-		onToggle={action('onToggle')}
-		disabled={boolean('Disabled', false)}
-		tipped={boolean('Label with tooltip', false)}
-		checked
-	/>
-);
-
-export const CustomContent: React.FunctionComponent = () => {
-	const [checked, setChecked] = React.useState(false);
+export const CustomContent = ({ checked: checkedProp, onClick, ...args }: SwitchProps) => {
+	const [checked, setChecked] = React.useState(checkedProp);
 
 	return (
 		<Switch
-			label={text('Label', 'Label')}
-			description={text('Description', 'Descriptive text')}
 			checked={checked}
-			onToggle={action('onToggle')}
 			onClick={(): void => setChecked(!checked)}
-			disabled={boolean('Disabled', false)}
-			tipped={boolean('Label with tooltip', false)}
+			{...args}
 		>
 			<Icon variant={(checked) ? 'check' : 'close'} />
 		</Switch>
 	);
 };
+CustomContent.args = {
+	label: 'Switch with custom content',
+	description: 'Toggle on or off',
+	onToggle: action('onToggle'),
+	displayDefault: true,
+};
 
-export const FullyControlled: React.FunctionComponent = () => {
-	const [checked, setChecked] = React.useState(false);
+export const Asynchronous = ({ checked: checkedProp, onClick, ...args }: SwitchProps) => {
+	const [checked, setChecked] = React.useState(checkedProp);
 	const [loading, setLoading] = React.useState(false);
-	const [content, setContent] = React.useState('Nope');
 
 	const toggle = (): void => {
 		setChecked(!checked);
@@ -68,22 +58,19 @@ export const FullyControlled: React.FunctionComponent = () => {
 		}
 	};
 
-	React.useEffect(() => setContent((checked) ? 'Yep' : 'Nope'), [checked]);
-
 	return (
-		<>
-			<Switch
-				label={text('Label', 'Asynchronous action')}
-				description={text('Description', 'Do something with a delay')}
-				checked={checked}
-				onToggle={action('onToggle')}
-				onClick={delayedToggle}
-				disabled={loading}
-				tipped={boolean('Label with tooltip', false)}
-			>
-				{ content }
-			</Switch>
-			{ loading && <div>Thinking...</div> }
-		</>
+		<Switch
+			checked={checked}
+			onToggle={action('onToggle')}
+			onClick={delayedToggle}
+			disabled={loading}
+			{...args}
+		>
+			{ loading && <Spinner size="1.25em" label="Thinking..." hideLabel /> }
+		</Switch>
 	);
+};
+Asynchronous.args = {
+	label: 'Asynchronous action',
+	description: 'Toggle something on and off with a delay',
 };

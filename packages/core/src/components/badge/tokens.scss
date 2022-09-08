@@ -1,11 +1,11 @@
 @use '../../spacing';
 
-$padding-x: spacing.spacer('2px') !default;
-$padding-y: spacing.spacer('0.5rem') !default;
+$padding-x: 0.5em !default;
+$padding-y: 0.1875em !default;
 $background-family: 'base-color' !default;
 $background-grade: 70 !default;
 $border-radius: var(--nds-radius-pill) !default;
-$font-size: var(--nds-font-size-sm) !default;
+$font-size: 0.75em !default;
 $color: 'base-color' !default;
 $dot-color: var(--nds-red-50) !default;
-$dot-size: spacing.spacer('0.75rem') !default;
+$dot-size: 0.75rem !default;

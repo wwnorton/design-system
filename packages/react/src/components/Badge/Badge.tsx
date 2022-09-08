@@ -2,8 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import { BadgeProps } from './types';
 
-export { BadgeProps } from './types';
-
 export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(({
 	baseName = 'nds-badge',
 	children,

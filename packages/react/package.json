@@ -19,12 +19,13 @@
   "license": "MIT",
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
-    "Gabriel Rumbaut <grumbaut@wwnorton.com>",
-    "HonChih Chen <hchen@wwnorton.com>",
+    "Gabriel Rumbaut",
+    "HonChih Chen",
+    "Darian Trama",
     "Anand Patil <apatil@wwnorton.com>",
-    "Jonathan Chan <jchan@wwnorton.com>",
-    "Wilmer Guevara <wguevara@wwnorton.com>",
-    "Juan Rebella <JRebella@wwnorton.com>"
+    "Jonathan Chan",
+    "Wilmer Guevara",
+    "Juan Rebella"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",
@@ -40,15 +41,15 @@
     "build:umd": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format umd --name NDSReact --external @popperjs/core,react,react-dom --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM"
   },
   "dependencies": {
-    "@material/linear-progress": "^13.0.0",
-    "@popperjs/core": "^2.11.5",
-    "@types/react-transition-group": "^4.4.4",
+    "@material/linear-progress": "^14.0.0",
+    "@popperjs/core": "^2.11.6",
+    "@types/react-transition-group": "^4.4.5",
     "classnames": "^2.3.1",
     "lodash": "^4.17.21",
     "react-fast-compare": "^3.2.0",
     "react-is": "^17.0.2",
-    "react-popper": "^2.2.5",
-    "react-transition-group": "^4.4.2"
+    "react-popper": "^2.3.0",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "@types/react-is": "^17.0.3",

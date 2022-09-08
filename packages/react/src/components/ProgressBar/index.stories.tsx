@@ -1,82 +1,42 @@
 import React from 'react';
-import {
-	withKnobs,
-	number,
-	text,
-	select,
-} from '@storybook/addon-knobs';
-import { ProgressBar } from '.';
+import { ProgressBar, ProgressBarProps } from '.';
 
 export default {
 	title: 'ProgressBar',
 	component: ProgressBar,
-	decorators: [withKnobs],
+	argTypes: {
+		hideLabel: { control: { type: 'boolean' } },
+		buffer: {
+			control: {
+				type: 'range', min: 0, max: 1, step: 0.05,
+			},
+		},
+		progress: {
+			control: {
+				type: 'range', min: 0, max: 1, step: 0.05,
+			},
+		},
+	},
 };
 
-const Sizes = { Unset: undefined, Small: 'small', Large: 'large' };
+const ProgressBarTemplate = (args: ProgressBarProps) => <ProgressBar {...args} />;
 
-const baseProps = (determinate = false) => ({
-	size: select('Size', Sizes, undefined),
-	progress: determinate ? number('Progress', 0.6, {
-		range: true, min: 0, max: 1, step: 0.01,
-	}) : undefined,
-});
+export const Default = ProgressBarTemplate.bind({});
+Default.args = {
+	progress: undefined,
+	buffer: undefined,
+	label: 'Loading...',
+};
 
-export const Indeterminate: React.FunctionComponent = () => (
-	<div style={{ maxWidth: '100%', width: '20rem' }}>
-		<ProgressBar
-			label={text('Label', 'Loading images...')}
-			{...baseProps()}
-		/>
-	</div>
-);
+export const Determinate = ProgressBarTemplate.bind({});
+Determinate.args = {
+	progress: 0.8,
+	label: 'Almost there...',
+};
 
-export const Determinate: React.FunctionComponent = () => (
-	<div style={{ maxWidth: '100%', width: '20rem' }}>
-		<ProgressBar
-			label={text('Label', 'Loading images...')}
-			{...baseProps(true)}
-		/>
-	</div>
-);
-
-export const Buffered: React.FunctionComponent = () => (
-	<div style={{ maxWidth: '100%', width: '20rem' }}>
-		<ProgressBar
-			label={text('Label', 'Loading images...')}
-			buffer={number('Buffer', 0.8, {
-				range: true, min: 0, max: 1, step: 0.01,
-			})}
-			{...baseProps(true)}
-		/>
-	</div>
-);
-
-export const Reversed: React.FunctionComponent = () => (
-	<div style={{ maxWidth: '100%', width: '20rem' }}>
-		<ProgressBar
-			label={text('Label', 'Loading images...')}
-			reversed
-			{...baseProps(true)}
-		/>
-	</div>
-);
-
-export const ReversedBuffered: React.FunctionComponent = () => (
-	<div style={{ maxWidth: '100%', width: '20rem' }}>
-		<ProgressBar
-			label={text('Label', 'Loading images...')}
-			reversed
-			buffer={number('Buffer', 0.8, {
-				range: true, min: 0, max: 1, step: 0.01,
-			})}
-			{...baseProps(true)}
-		/>
-	</div>
-);
-
-export const FullWidth: React.FunctionComponent = () => (
-	<div style={{ width: '100%' }}>
-		<ProgressBar size="small" label="Loading page..." hideLabel {...baseProps()} />
-	</div>
-);
+export const Buffered = ProgressBarTemplate.bind({});
+Buffered.args = {
+	progress: 0.1,
+	buffer: 0.3,
+	label: 'Buffering...',
+};

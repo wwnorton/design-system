@@ -10,16 +10,16 @@
 	--nds-badge-background-color: var(--nds-#{tokens.$background-family}-#{tokens.$background-grade});
 	--nds-badge-border-radius: #{tokens.$border-radius};
 	--nds-badge-dot-size: #{tokens.$dot-size};
+	--nds-badge-font-size: #{tokens.$font-size};
 
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	min-width: 1.5rem;
-	padding: var(--nds-badge-padding-x) var(--nds-badge-padding-y);
-	font-size: var(--nds-font-size-sm);
+	padding: var(--nds-badge-padding-y) var(--nds-badge-padding-x);
+	font-size: var(--nds-badge-font-size);
 	line-height: type.lh('ui');
 	color: var(--nds-background-color);
-	vertical-align: middle;
 	background-color: var(--nds-badge-background-color);
 	border-radius: var(--nds-badge-border-radius);
 }

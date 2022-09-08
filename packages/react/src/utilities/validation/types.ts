@@ -59,7 +59,6 @@ type ValidationAttributeNames =
  * Reference:
  * [MDN - Validation-related attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes).
  */
-export type ValidationAttributes =
-	Pick<React.InputHTMLAttributes<HTMLInputElement>, ValidationAttributeNames>;
+export type ValidationAttributes = Pick<React.ComponentPropsWithoutRef<'input'>, ValidationAttributeNames>;
 
 export type StateMessageFunction = (attrs: ValidationAttributes, value?: string) => string;

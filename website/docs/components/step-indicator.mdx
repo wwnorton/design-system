@@ -61,7 +61,7 @@ import { StepIndicator, Step } from '@wwnds/react';
 
 ### StepIndicator
 
-The `StepIndicator` component extends the `React.HTMLAttributes<HTMLOListElement>` interface and renders an `<ol>` element. It is composed using multiple `Step` components, which each render a `<li>` element.
+The `StepIndicator` component extends the `React.ComponentPropsWithoutRef<'ol'>` interface and renders an `<ol>` element. It is composed using multiple `Step` components, which each render a `<li>` element.
 
 - When `isConnected`, a line will visually connect each step.
 
@@ -77,7 +77,7 @@ The `StepIndicator` component extends the `React.HTMLAttributes<HTMLOListElement
 
 ### Step
 
-The `Step` component extends the `React.HTMLAttributes<HTMLLIElement>` interface and renders an `<li>` element. It represents a single step.
+The `Step` component extends the `React.ComponentPropsWithoutRef<'li'>` interface and renders an `<li>` element. It represents a single step.
 
 <PropsTable from={Step} />
 

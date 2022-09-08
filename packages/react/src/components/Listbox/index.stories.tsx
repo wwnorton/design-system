@@ -1,19 +1,13 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
 import {
-	withKnobs, boolean, optionsKnob as options,
-} from '@storybook/addon-knobs';
-import { Listbox, Option } from '.';
+	Listbox, ListboxProps, Option,
+} from '.';
 import { Icon } from '..';
 import { useSelect } from '../../utilities';
 
-export default {
-	title: 'Listbox',
-	component: Listbox,
-	decorators: [withKnobs],
-} as Meta;
+type OptionValues = 'dog' | 'cat' | 'hamster' | 'parrot' | 'spider' | 'fish';
 
-const defaultOptions = {
+const defaultOptions: Record<Capitalize<OptionValues>, OptionValues> = {
 	Dog: 'dog',
 	Cat: 'cat',
 	Hamster: 'hamster',
@@ -22,13 +16,24 @@ const defaultOptions = {
 	Fish: 'fish',
 };
 
-export const Default = (): JSX.Element => (
-	<Listbox
-		aria-label="Pets (Default story)"
-		orientation={options('Orientation', { Unset: undefined, Vertical: 'vertical', Horizontal: 'horizontal' }, undefined, { display: 'inline-radio' })}
-		multiselectable={boolean('Multiselectable', false)}
-		focusWrap={boolean('Focus wrap', false)}
-	>
+const optionValues = Object.values(defaultOptions);
+
+export default {
+	title: 'Listbox',
+	component: Listbox,
+	argTypes: {
+		disabled: {
+			control: {
+				type: 'inline-check',
+				options: Object.values(defaultOptions),
+			},
+		},
+		multiselectable: { control: { type: 'boolean' } },
+	},
+};
+
+export const Default = (args: ListboxProps) => (
+	<Listbox {...args}>
 		<Option value="dog">🐶 Dog</Option>
 		<Option value="cat">🐱 Cat</Option>
 		<Option value="hamster">🐹 Hamster</Option>
@@ -40,30 +45,38 @@ export const Default = (): JSX.Element => (
 		<Option value="🐠 Fish" />
 	</Listbox>
 );
+Default.args = {
+	'aria-label': 'Pets (Default story)',
+	multiselectable: false,
+	focusWrap: false,
+};
 
-export const DisabledOptions = (): JSX.Element => {
-	const disabled = options('Disabled', defaultOptions, ['dog', 'cat', 'spider'], { display: 'inline-check' });
-	const multiselectable = boolean('Multiselectable', false);
+type WithDisabledOptions = ListboxProps & { disabled: OptionValues[] };
+
+export const DisabledOptions = ({ disabled, multiselectable, ...args }: WithDisabledOptions) => {
 	const { selected, toggle } = useSelect(multiselectable);
 
 	return (
 		<Listbox
-			aria-label="Pets (Disabled options story)"
-			orientation={options('Orientation', { Unset: undefined, Vertical: 'vertical', Horizontal: 'horizontal' }, undefined, { display: 'inline-radio' })}
 			multiselectable={multiselectable}
-			focusWrap={boolean('Focus wrap', false)}
 			selected={selected}
 			onChange={({ value }) => toggle(value)}
 			options={defaultOptions}
 			optionProps={(i) => ({
-				disabled: disabled.includes(Object.values(defaultOptions)[i]),
+				disabled: disabled.includes(optionValues[i]),
 			})}
+			{...args}
 		/>
 	);
 };
+DisabledOptions.args = {
+	'aria-label': 'Pets (Disabled options story)',
+	disabled: ['dog', 'cat', 'spider'],
+	multiselectable: false,
+};
 
 type MarkerProps = { checked: boolean };
-const Marker: React.FC<MarkerProps> = ({ checked }: MarkerProps) => {
+const Marker = ({ checked }: MarkerProps) => {
 	if (checked) {
 		return (
 			<Icon
@@ -82,28 +95,29 @@ const Marker: React.FC<MarkerProps> = ({ checked }: MarkerProps) => {
 	);
 };
 
-export const CustomMarker = (): JSX.Element => {
-	const multiselectable = boolean('Multiselectable', true);
+export const CustomMarker = ({ multiselectable, ...args }: ListboxProps) => {
 	const { selected, toggle } = useSelect(multiselectable);
 
 	const optionRender = React.useCallback((i) => ({
 		marker: (
 			<span className="nds-option__marker">
-				<Marker checked={selected.includes(Object.values(defaultOptions)[i])} />
+				<Marker checked={selected.includes(optionValues[i])} />
 			</span>
 		),
 	}), [selected]);
 
 	return (
 		<Listbox
-			aria-label="Pets (Disabled options story)"
-			orientation={options('Orientation', { Unset: undefined, Vertical: 'vertical', Horizontal: 'horizontal' }, undefined, { display: 'inline-radio' })}
 			multiselectable={multiselectable}
-			focusWrap={boolean('Focus wrap', false)}
 			selected={selected}
 			onChange={({ value }) => toggle(value)}
 			options={defaultOptions}
 			optionProps={optionRender}
+			{...args}
 		/>
 	);
+};
+CustomMarker.args = {
+	'aria-label': 'Pets (Custom marker story)',
+	multiselectable: false,
 };
