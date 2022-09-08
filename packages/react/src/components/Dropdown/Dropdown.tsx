@@ -112,15 +112,15 @@ export const Dropdown = ({
 	const options = React.useMemo(() => {
 		const opts = React.Children.map(children, (child) => {
 			let props: OptionProps;
-			if (React.isValidElement(child)) {
-				props = {
-					...child.props,
-					value:
-						typeof child.props.value === 'number'
-						|| child.props.value !== undefined
-							? child.props.value
-							: child.props.children.toString(),
-				};
+			if (React.isValidElement<OptionProps>(child)) {
+				let value: React.ReactText = '';
+				if (typeof child.props.value === 'number' || child.props.value !== undefined) {
+					value = child.props.value;
+				} else if (child.props.children) {
+					value = child.props.children.toString();
+				}
+				props = child.props;
+				props.value = value;
 			} else {
 				props = { value: child.toString(), children: child };
 			}
