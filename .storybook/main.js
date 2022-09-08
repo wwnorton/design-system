@@ -3,7 +3,9 @@ const path = require('path');
 /** @type {import('@storybook/core-common').StorybookConfig} */
 const storybookConfig = {
 	core: {
-		builder: '@storybook/builder-vite',
+		builder: {
+			name: 'webpack5',
+		},
 		disableTelemetry: true,
 	},
 	webpackFinal: (config) => {
