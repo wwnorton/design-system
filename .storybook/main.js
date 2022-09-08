@@ -4,6 +4,7 @@ const path = require('path');
 const storybookConfig = {
 	core: {
 		builder: '@storybook/builder-vite',
+		disableTelemetry: true,
 	},
 	webpackFinal: (config) => {
 		config.module?.rules?.push({
