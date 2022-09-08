@@ -69,6 +69,7 @@
 	min-width: 1.25rem;
 	margin-right: var(--nds-disclosure-marker-margin);
 	margin-left: var(--nds-disclosure-marker-margin);
+	flex-grow: 0;
 
 	[open] & {
 		transition: motion.transition(transform, var(--nds-duration-collapse));
@@ -88,6 +89,10 @@
 			rotate3d(1, 0, 0, 0),
 		);
 	}
+}
+
+@mixin title {
+	flex-grow: 1;
 }
 
 @mixin panel {
@@ -154,6 +159,10 @@
 
 		.nds-disclosure__marker {
 			@include marker-svg;
+		}
+
+		.nds-disclosure__title {
+			@include title;
 		}
 
 		.nds-disclosure__contents-outer {
