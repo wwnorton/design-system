@@ -7,14 +7,14 @@ import ReactIs from 'react-is';
  * Coerce React nodes into an array of React elements (`ReactElement<P>[]`).
  * Pass an optional list of required props to validate the nodes.
  */
-export const toElements = <P = any>(
+export const toElements = <P extends Record<string, any> = any>(
 	/** A React node, such as `children` of any element. */
 	node: React.ReactNode,
 	/** A list of required prop names. */
 	required: string[] = [],
 ): React.ReactElement<P>[] => {
 	type ChildArray = (React.ReactChild | React.ReactPortal | React.ReactFragment | P)[]
-	| React.ReactNodeArray;
+	| React.ReactNode[];
 	const childMap: React.ReactElement<P>[] = [];
 	let nodes: ChildArray = [];
 
