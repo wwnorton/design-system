@@ -5,8 +5,14 @@ const storybookConfig = {
 	core: {
 		builder: {
 			name: 'webpack5',
+			options: {
+			  fsCache: true,
+			},
 		},
 		disableTelemetry: true,
+	},
+	features: {
+	  storyStoreV7: true,
 	},
 	webpackFinal: (config) => {
 		config.module?.rules?.push({
