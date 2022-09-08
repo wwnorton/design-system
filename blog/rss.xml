@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Norton Design System Blog</title>
-        <link>https://wwnorton.github.io/design-system/design-system/blog</link>
+        <link>https://wwnorton.github.io/design-system/blog</link>
         <description>Norton Design System Blog</description>
         <lastBuildDate>Thu, 06 Aug 2020 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,7 +10,7 @@
         <language>en</language>
         <item>
             <title><![CDATA[Welcome]]></title>
-            <link>https://wwnorton.github.io/design-system/design-system/blog/welcome</link>
+            <link>https://wwnorton.github.io/design-system/blog/welcome</link>
             <guid>welcome</guid>
             <pubDate>Thu, 06 Aug 2020 00:00:00 GMT</pubDate>
             <description><![CDATA[Welcome to the Norton Design System blog!]]></description>
