@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/wwnorton/design-system/compare/v1.5.0...v1.6.0) (2022-09-08)
+
+### 📝 Documentation
+
+- **sassdoc:** make sure elevation section exists ([fd56280](https://github.com/wwnorton/design-system/commit/fd562800b3c57b76ed9079570f14c8cdcc9d168e))
+
+### ♻️ Refactor
+
+- **badge:** fix horizontal/vertical padding ([e97c650](https://github.com/wwnorton/design-system/commit/e97c6503b4df63f7664516582f0b9c62aea7829d))
+- **badge:** prefer default vertical alignment ([106fa8e](https://github.com/wwnorton/design-system/commit/106fa8e4cd3735618d06294577a18d542a34ab20))
+- **badge:** spacers should only be used for spacing ([c740d15](https://github.com/wwnorton/design-system/commit/c740d15da895c77e65c847b599242d2d2d4e6aa5))
+- switch to no-motion-first ([04771b3](https://github.com/wwnorton/design-system/commit/04771b37c5d93435eff665092c26699a754e0925))
+
+### 🐛 Bug Fixes
+
+- **badge:** use a font size relative to adjacent text ([f3792eb](https://github.com/wwnorton/design-system/commit/f3792eb515727bfef5cf4e94a2eae3fec5f75c56))
+- **disclosure:** make disclosure title full-width ([d8262ae](https://github.com/wwnorton/design-system/commit/d8262ae58a9e1622b69f3ea7587b520f48c3a18c))
+
 ## [1.5.0](https://github.com/wwnorton/design-system/compare/v1.4.0...v1.5.0) (2022-04-25)
 
 ### ♻️ Refactor

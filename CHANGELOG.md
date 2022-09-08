@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/wwnorton/design-system/compare/v1.5.0...v1.6.0) (2022-09-08)
+
+### 📝 Documentation
+
+- **callout:** set examples in an example box ([0fbf221](https://github.com/wwnorton/design-system/commit/0fbf2214f8b09d3a80d596ed7d438154a65639d3))
+- de-pluralize dos & don'ts ([16c067f](https://github.com/wwnorton/design-system/commit/16c067f9c55ee07e545e868a09182615a67c8617))
+- **fix:** use React history when navigating on card click ([ceaba4a](https://github.com/wwnorton/design-system/commit/ceaba4ad1bcc618623777fb99abd88106a52e4e2))
+- make example styling more obvious ([8c49167](https://github.com/wwnorton/design-system/commit/8c491672b8070acbb469545469d404e847ceee5b))
+- **refactor:** use admonition syntax for callouts ([5c6a948](https://github.com/wwnorton/design-system/commit/5c6a94855956d077d05ac5cf0178cdd7facefc5d))
+- **refactor:** use default NavBar & swizzle our own color switch ([baec227](https://github.com/wwnorton/design-system/commit/baec227619f7b71ac02316cb2f12b7311a215775))
+- **sassdoc:** make sure elevation section exists ([fd56280](https://github.com/wwnorton/design-system/commit/fd562800b3c57b76ed9079570f14c8cdcc9d168e))
+- swizzle our own admonition to use the NDS Callout ([1877d40](https://github.com/wwnorton/design-system/commit/1877d403a3948456b7f1c283b373899269c22ac0))
+- update docusaurus to v2 stable! ([1c090e2](https://github.com/wwnorton/design-system/commit/1c090e20e43e971180ddc8df74f934fbfc1656e9))
+- update extended interfaces ([12776d5](https://github.com/wwnorton/design-system/commit/12776d5ecada9bd6854b917bf7fc8150a994e691))
+
+### 🐛 Bug Fixes
+
+- **badge:** use a font size relative to adjacent text ([f3792eb](https://github.com/wwnorton/design-system/commit/f3792eb515727bfef5cf4e94a2eae3fec5f75c56))
+- **disclosure:** make disclosure title full-width ([d8262ae](https://github.com/wwnorton/design-system/commit/d8262ae58a9e1622b69f3ea7587b520f48c3a18c))
+- **modal:** avoid shifting when body scrollbar is removed ([2025ee2](https://github.com/wwnorton/design-system/commit/2025ee2a40c21e93d33b765f40086398f1feb968))
+- use new useId hook to ensure that server and client ids match ([0bbd5db](https://github.com/wwnorton/design-system/commit/0bbd5db6a04d285071a43dadbd13d55eb3bb52e0))
+
+### ✨ Features
+
+- add React 18-compatible useId hook for isomorphic id generation ([11491cf](https://github.com/wwnorton/design-system/commit/11491cf339e40984784251fbf2d05415a6b57a6c))
+- **disclosure:** allow summary to be any React Node ([8714011](https://github.com/wwnorton/design-system/commit/8714011f1ae10422a5da210b7dd5fded0d53b1ec))
+
+### ♻️ Refactor
+
+- always set ref first in base components ([f90feea](https://github.com/wwnorton/design-system/commit/f90feeafd078cbd20dac6388da459f4d5bff8a44))
+- **badge:** fix horizontal/vertical padding ([e97c650](https://github.com/wwnorton/design-system/commit/e97c6503b4df63f7664516582f0b9c62aea7829d))
+- **badge:** prefer default vertical alignment ([106fa8e](https://github.com/wwnorton/design-system/commit/106fa8e4cd3735618d06294577a18d542a34ab20))
+- **badge:** spacers should only be used for spacing ([c740d15](https://github.com/wwnorton/design-system/commit/c740d15da895c77e65c847b599242d2d2d4e6aa5))
+- **BaseDialog:** don't allow overriding role or aria-modal ([5246771](https://github.com/wwnorton/design-system/commit/524677133b8ef4bc7cb442df34e5d77be8125c80))
+- **BaseProgress:** don't allow overriding role or aria attributes ([36cba5b](https://github.com/wwnorton/design-system/commit/36cba5bc4525d79743275a88ed102aa750318721))
+- **BaseSVG:** don't allow overriding xmlns or data-source ([f7afd36](https://github.com/wwnorton/design-system/commit/f7afd36b6334f179f0011440e14b37274c11576a))
+- **BaseTextArea:** don't allow overriding rows ([d6ab6d3](https://github.com/wwnorton/design-system/commit/d6ab6d3f67ff800e9b45e9d9ffa5ef529a519aac))
+- **button:** clarify error and update link ([203223f](https://github.com/wwnorton/design-system/commit/203223fc12684c4582be4c46ad7bddb08ec44324))
+- **disclosure:** prefer inline element for title ([7a116f4](https://github.com/wwnorton/design-system/commit/7a116f49e0865143901e704ecb33a3a7faeb97d3))
+- **dropdown:** account for missing children ([5f93d02](https://github.com/wwnorton/design-system/commit/5f93d020d6d9cfb0c9e4aa12a83eaebe184d9f76))
+- **dropdown:** create new object instead of assigning ([256909f](https://github.com/wwnorton/design-system/commit/256909f5c7adf785b175f400c1c22403dd512666))
+- standardize conventions for all base components ([ea4f65e](https://github.com/wwnorton/design-system/commit/ea4f65e74f07ddf03321f602f54caa5fb2c9d6ad))
+- standardize conventions for component files ([c90ccfe](https://github.com/wwnorton/design-system/commit/c90ccfeb9878c2f6d76f4b0401a8e76e6ec987f0))
+- **storybook:** migrate Checkbox to controls ([138c00d](https://github.com/wwnorton/design-system/commit/138c00d2073b2aad49f1f5e37815a783301e0c65))
+- **storybook:** migrate ChoiceField to controls ([0ed9504](https://github.com/wwnorton/design-system/commit/0ed95044ddb527192191ac9bfaee56ea034e7a6d))
+- **storybook:** migrate Disclosure to controls ([6f48fce](https://github.com/wwnorton/design-system/commit/6f48fce5f5225ce7423d18ea95a75989f0ff9e3a))
+- **storybook:** migrate Dropdown to controls ([0e78ec0](https://github.com/wwnorton/design-system/commit/0e78ec0b6c635dc8162f02cdacb67d59580952fc))
+- **storybook:** update Badge stories and migrate to controls ([532a555](https://github.com/wwnorton/design-system/commit/532a555ffd80f5a47fc973c0df4aba7dca7e3ca8))
+- switch to no-motion-first ([04771b3](https://github.com/wwnorton/design-system/commit/04771b37c5d93435eff665092c26699a754e0925))
+
 ## [1.5.0](https://github.com/wwnorton/design-system/compare/v1.4.0...v1.5.0) (2022-04-25)
 
 ### 🐛 Bug Fixes

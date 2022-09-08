@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://github.com/wwnorton/design-system/compare/v1.5.0...v1.6.0) (2022-09-08)
+
+### 📝 Documentation
+
+- **callout:** set examples in an example box ([0fbf221](https://github.com/wwnorton/design-system/commit/0fbf2214f8b09d3a80d596ed7d438154a65639d3))
+- de-pluralize dos & don'ts ([16c067f](https://github.com/wwnorton/design-system/commit/16c067f9c55ee07e545e868a09182615a67c8617))
+- **fix:** use React history when navigating on card click ([ceaba4a](https://github.com/wwnorton/design-system/commit/ceaba4ad1bcc618623777fb99abd88106a52e4e2))
+- make example styling more obvious ([8c49167](https://github.com/wwnorton/design-system/commit/8c491672b8070acbb469545469d404e847ceee5b))
+- **refactor:** use admonition syntax for callouts ([5c6a948](https://github.com/wwnorton/design-system/commit/5c6a94855956d077d05ac5cf0178cdd7facefc5d))
+- **refactor:** use default NavBar & swizzle our own color switch ([baec227](https://github.com/wwnorton/design-system/commit/baec227619f7b71ac02316cb2f12b7311a215775))
+- swizzle our own admonition to use the NDS Callout ([1877d40](https://github.com/wwnorton/design-system/commit/1877d403a3948456b7f1c283b373899269c22ac0))
+- update docusaurus to v2 stable! ([1c090e2](https://github.com/wwnorton/design-system/commit/1c090e20e43e971180ddc8df74f934fbfc1656e9))
+- update extended interfaces ([12776d5](https://github.com/wwnorton/design-system/commit/12776d5ecada9bd6854b917bf7fc8150a994e691))
+
 ## [1.5.0](https://github.com/wwnorton/design-system/compare/v1.4.0...v1.5.0) (2022-04-25)
 
 **Note:** Version bump only for package website
