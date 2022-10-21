@@ -28,7 +28,6 @@ const storybookConfig = {
 	stories: [path.resolve(__dirname, '../packages/react/src/**/*.stories.{ts,tsx,mdx}')],
 	addons: [
 		'@storybook/addon-essentials',
-		'@storybook/addon-actions',
 		'@storybook/addon-a11y',
 	],
 	typescript: {
