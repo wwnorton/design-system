@@ -50,7 +50,7 @@ export interface ModalProps extends BaseDialogProps {
 	 * focusable element in the Modal will be focused. If none can be found, the
 	 * header or content will be focused.
 	 */
-	focusOnOpen?: HTMLElement;
+	focusOnOpen?: HTMLElement | null;
 	/** Indicates whether clicking the backdrop should close the Modal dialog. */
 	closeOnBackdropClick?: boolean;
 	/** Indicates whether `Escape` should close the Modal dialog. */

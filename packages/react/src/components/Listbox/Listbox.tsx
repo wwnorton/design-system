@@ -39,7 +39,7 @@ export const Listbox = React.forwardRef<HTMLUListElement, ListboxProps>(({
 	 * use the `children` prop.
 	 */
 	const options = React.useMemo(() => {
-		let opts = childrenProp;
+		let opts: React.ReactNode | OptionProps[] = childrenProp;
 		if (optionsProp) {
 			if (Array.isArray(optionsProp)) {
 				opts = optionsProp.map((opt) => {

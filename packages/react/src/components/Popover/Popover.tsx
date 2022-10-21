@@ -58,7 +58,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>(({
 	const focusReferenceOnClose = React.useRef(true);
 	const prevOpen = React.useRef(isOpen);
 
-	const close: PopoverProps['onRequestClose'] = React.useCallback((trigger) => {
+	const close = React.useCallback<Required<PopoverProps>['onRequestClose']>((trigger) => {
 		focusReferenceOnClose.current = trigger !== 'click.external';
 		if (onRequestClose) onRequestClose(trigger);
 	}, [onRequestClose]);
