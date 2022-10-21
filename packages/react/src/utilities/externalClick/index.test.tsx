@@ -1,8 +1,7 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { useExternalClick } from './hook';
 
 test.afterEach(cleanup);
@@ -21,38 +20,44 @@ const Fixture = () => {
 	);
 };
 
-test('should trigger when external elements are clicked', (t) => {
+test('should trigger when external elements are clicked', async (t) => {
+	const user = userEvent.setup();
+
 	render(<Fixture />);
 	const button = screen.getByRole('button');
 
 	t.is(button.textContent, '0');
 
-	fireEvent.click(document);
+	await user.click(document.body);
 	t.is(button.textContent, '1');
 
-	fireEvent.click(document);
+	await user.click(document.body);
 	t.is(button.textContent, '2');
 });
 
-test('should not trigger when the referenced element is clicked', (t) => {
+test('should not trigger when the referenced element is clicked', async (t) => {
+	const user = userEvent.setup();
+
 	render(<Fixture />);
 	const button = screen.getByRole('button');
 
 	t.is(button.textContent, '0');
 
-	fireEvent.click(button);
+	await user.click(button);
 
 	t.is(button.textContent, '0');
 });
 
-test('should not trigger when an internal element is clicked', (t) => {
+test('should not trigger when an internal element is clicked', async (t) => {
+	const user = userEvent.setup();
+
 	render(<Fixture />);
 	const button = screen.getByRole('button');
 	const image = screen.getByRole('img');
 
 	t.is(button.textContent, '0');
 
-	fireEvent.click(image);
+	await user.click(image);
 
 	t.is(button.textContent, '0');
 });
