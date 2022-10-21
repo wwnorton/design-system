@@ -9,6 +9,7 @@ export const BaseSummary = React.forwardRef<HTMLElement, BaseSummaryProps>(({
 }: BaseSummaryProps, ref) => (
 	<summary
 		ref={ref}
+		role="button"
 		{...props}
 	>
 		{/*
