@@ -292,6 +292,7 @@ export const Dropdown = ({
 			>
 				<Listbox
 					id={listboxId}
+					aria-labelledby={labelId}
 					multiselectable={false}
 					className={listboxClass}
 					optionClass="nds-dropdown__option"
