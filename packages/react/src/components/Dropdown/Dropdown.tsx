@@ -65,7 +65,13 @@ export const Dropdown = ({
 		typeof transitionProp | undefined
 	>(transitionProp);
 	const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
-	const { selected, toggle } = useSelect(false, [selectedProp]);
+	const { selected, select } = useSelect(false, [selectedProp]);
+
+	React.useEffect(() => {
+		if (selectedProp !== selected[0]) select(selectedProp);
+	// only update if the selected option is being controlled
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedProp]);
 
 	const listboxId = listboxIdProp || `${id}-listbox`;
 	const currentId = `${id}-curr`;
@@ -164,7 +170,7 @@ export const Dropdown = ({
 			const { value } = props;
 			onChange({ value, contents: props.label });
 		} else {
-			toggle(props.value);
+			select(props.value);
 		}
 
 		setButtonContents(props.label);
