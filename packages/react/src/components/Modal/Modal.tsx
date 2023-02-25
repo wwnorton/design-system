@@ -382,7 +382,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		const { isOpen } = this.state;
 		if (!isOpen) return;
 		if (e.key === 'Escape' && closeOnEscape) this.requestClose();
-		if (e.key === 'Tab') {
+		if (e.key === 'Tab' && (this.dialog?.contains(document.activeElement) || !document.activeElement)) {
 			const tabbable = (this.dialog) ? getFocusable(this.dialog) : [];
 			if (tabbable.length) {
 				let element: HTMLElement | undefined;
