@@ -100,8 +100,9 @@ export const ComplexModal = (args: ModalProps) => {
 				hideTitle
 				isOpen={resultOpen}
 				onRequestClose={closeResult}
+				actions={(<Button variant="solid" onClick={closeResult}>I&apos;m sure</Button>)}
 			>
-				{ `Hello, ${firstName} ${lastName}!` }
+				{ `Are you sure, ${firstName} ${lastName}?` }
 			</Modal>
 		</>
 	);
