@@ -17,10 +17,9 @@ export interface OptionProps extends OptionBase {
 	value: string | number;
 	/**
 	 * An element that comes before the label/children, similar to CSS `::marker`.
-	 * Default is `<Icon variant="check" />`. Disable it entirely with `null`.
+	 * Defaults to a check mark, but can be set as a dot or a React element.
 	 */
-	marker?: React.ReactNode | null;
-
+	marker?: React.ReactElement | 'check' | 'dot';
 	optionClass?: string;
 }
 

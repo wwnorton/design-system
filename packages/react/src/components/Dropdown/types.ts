@@ -103,4 +103,6 @@ export interface DropdownProps extends FieldInfoCoreProps, PopperInherited, Base
 	}) => void;
 	/** If set, the focusable dropdown option should be focused when it is rendered. */
 	autofocus?: boolean;
+	/** Set the visual indicator for the selected option. */
+	selectedMarker?: 'check' | 'dot';
 }

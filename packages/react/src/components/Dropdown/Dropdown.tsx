@@ -41,6 +41,7 @@ export const Dropdown = ({
 	descriptionId: descIdProp,
 	buttonId: buttonIdProp,
 	listboxId: listboxIdProp,
+	selectedMarker = 'check',
 	disabled,
 	children,
 	placement = 'bottom-start',
@@ -296,6 +297,7 @@ export const Dropdown = ({
 					multiselectable={false}
 					className={listboxClass}
 					optionClass="nds-dropdown__option"
+					optionProps={{ marker: selectedMarker }}
 					selected={selected}
 					onChange={changeHandler}
 					focusableIndex={optionFocusIndex}
