@@ -1,6 +1,7 @@
 import test from 'ava';
 import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Callout } from '.';
 
 test.afterEach(cleanup);
@@ -24,5 +25,15 @@ test('a div Callout does not use its title as an accessible name', async (t) => 
 test('a Callout without a title is not rendered as a landmark', async (t) => {
 	render(<Callout />);
 
+	t.falsy(screen.queryByRole('complementary'));
+});
+
+test('clicking the dismiss button dismisses the callout', async (t) => {
+	const name = 'Foo';
+	render(<Callout title={name} dismissible />);
+
+	t.truthy(screen.queryByRole('complementary'));
+
+	await userEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
 	t.falsy(screen.queryByRole('complementary'));
 });
