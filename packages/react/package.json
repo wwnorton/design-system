@@ -44,7 +44,7 @@
     "@material/linear-progress": "^14.0.0",
     "@popperjs/core": "^2.11.6",
     "@types/react-transition-group": "^4.4.5",
-    "classnames": "^2.3.1",
+    "classnames": "^2.3.2",
     "lodash": "^4.17.21",
     "react-fast-compare": "^3.2.0",
     "react-is": "^17.0.2",

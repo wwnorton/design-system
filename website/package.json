@@ -37,20 +37,20 @@
   "dependencies": {
     "@docusaurus/core": "^2.0.1",
     "@docusaurus/module-type-aliases": "^2.0.1",
-    "@docusaurus/plugin-pwa": "^2.1.0",
-    "@docusaurus/preset-classic": "^2.1.0",
-    "@docusaurus/theme-live-codeblock": "^2.1.0",
+    "@docusaurus/plugin-pwa": "^2.3.1",
+    "@docusaurus/preset-classic": "^2.3.1",
+    "@docusaurus/theme-live-codeblock": "^2.3.1",
     "@wwnds/core": "^1.6.0",
     "@wwnds/react": "^1.6.0",
     "colorable": "^1.0.5",
-    "docusaurus-lunr-search": "^2.2.0",
-    "markdown-to-jsx": "^7.1.7",
+    "docusaurus-lunr-search": "^2.3.2",
+    "markdown-to-jsx": "^7.1.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@storybook/react-docgen-typescript-plugin": "^1.0.1",
-    "ts-loader": "^9.3.1",
+    "ts-loader": "^9.4.2",
     "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
   "bundledDependencies": [
