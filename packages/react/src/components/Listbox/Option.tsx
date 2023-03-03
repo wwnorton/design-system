@@ -20,18 +20,22 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(({
 	children,
 	...props
 }: OptionProps, ref) => {
-	const defaultMarker = React.useMemo(() => (
-		<span className="nds-option__marker" aria-hidden={!selected}>
-			<Icon
-				variant="check"
-				color={(selected) ? 'currentColor' : 'transparent'}
-				// not all screen readers announce aria-selected, so use
-				// the marker to convey the state textually
-				aria-label={(selected) ? 'Checked' : undefined}
-				size="0.875em"
-			/>
-		</span>
-	), [selected]);
+	const selectedMarker = React.useMemo(() => {
+		if (React.isValidElement(marker)) return marker;
+		return (
+			<span className="nds-option__marker" aria-hidden={!selected}>
+				<Icon
+					variant={(marker !== 'dot') ? 'check' : undefined}
+					icon={(marker === 'dot') ? { children: <circle r="6" cx="12" cy="12" /> } : undefined}
+					color={(selected) ? 'currentColor' : 'transparent'}
+					// not all screen readers announce aria-selected, so use
+					// the marker to convey the state textually
+					aria-label={(selected) ? 'Checked' : undefined}
+					size="0.875em"
+				/>
+			</span>
+		);
+	}, [marker, selected]);
 
 	return (
 		<li
@@ -44,7 +48,7 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(({
 			aria-disabled={(disabled) ? 'true' : undefined}
 			role="option"
 		>
-			{ (marker === undefined) ? defaultMarker : marker }
+			{ selectedMarker }
 			{ label || children }
 		</li>
 	);
