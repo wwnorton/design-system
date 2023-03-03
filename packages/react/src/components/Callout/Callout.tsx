@@ -58,7 +58,7 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 	if (isDismissed) return null;
 
 	return (
-		<Tag className={classes} data-border={border} aria-labelledby={titleId} {...props}>
+		<Tag className={classes} data-border={border} aria-labelledby={(title && tag !== 'div') ? titleId : undefined} {...props}>
 			{ title && (
 				<header className={headerClass}>
 					{ icon && <span className={iconClass}><Icon {...iconProps} /></span> }
