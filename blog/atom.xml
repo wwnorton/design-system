@@ -9,7 +9,7 @@
     <icon>https://wwnorton.github.io/design-system/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
-        <id>welcome</id>
+        <id>https://wwnorton.github.io/design-system/blog/welcome</id>
         <link href="https://wwnorton.github.io/design-system/blog/welcome"/>
         <updated>2020-08-06T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Welcome to the Norton Design System blog!]]></summary>

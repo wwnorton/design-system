@@ -11,7 +11,7 @@
         <item>
             <title><![CDATA[Welcome]]></title>
             <link>https://wwnorton.github.io/design-system/blog/welcome</link>
-            <guid>welcome</guid>
+            <guid>https://wwnorton.github.io/design-system/blog/welcome</guid>
             <pubDate>Thu, 06 Aug 2020 00:00:00 GMT</pubDate>
             <description><![CDATA[Welcome to the Norton Design System blog!]]></description>
             <content:encoded><![CDATA[<p>Welcome to the Norton Design System blog!</p><p>Keep an eye out here for a deeper look at some of the systems, components, and design decisions that might not make as much sense elsewhere.</p><p>That's all for now.</p>]]></content:encoded>
