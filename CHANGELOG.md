@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://github.com/wwnorton/design-system/compare/v1.6.0...v1.7.0) (2023-03-03)
+
+### ✨ Features
+
+- **@wwnds/react:** add support for react 18 ([d5a68f4](https://github.com/wwnorton/design-system/commit/d5a68f4ad5e1d911ab2f20db8270037bc7c26d2c))
+- **dropdown:** add "dot" indicator for selected options ([0715d02](https://github.com/wwnorton/design-system/commit/0715d0222028e9d5aa9a7c1d5cce0ba7920febfd))
+
+### 🐛 Bug Fixes
+
+- **callout:** only name the callout when appropriate ([495438e](https://github.com/wwnorton/design-system/commit/495438e920271b07529fd4d9f01384afcea32e51))
+- **dropdown:** allow selected option to be controlled ([b5b7857](https://github.com/wwnorton/design-system/commit/b5b7857fdbed632a2e7569a53a225a34243fc25f))
+- **modal:** only intercept tab inside the open modal ([0ca6926](https://github.com/wwnorton/design-system/commit/0ca6926cce20a8bdf0bb65de9233e3770f89e3c0))
+- use the label for the listbox's accessible name ([93cfc70](https://github.com/wwnorton/design-system/commit/93cfc7018c793cf662a5d964e47a27e240824320))
+
 ## [1.6.0](https://github.com/wwnorton/design-system/compare/v1.5.0...v1.6.0) (2022-09-08)
 
 ### 📝 Documentation
