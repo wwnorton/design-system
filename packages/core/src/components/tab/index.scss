@@ -1,0 +1,136 @@
+@forward 'tokens';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'tokens';
+@use '../../a11y';
+@use '../../color';
+@use '../../type';
+@use '../../motion';
+@use '../../spacing';
+@use '../../util';
+
+@mixin inline-flex-centered {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin base {
+	--nds-border-width: #{tokens.$border-width};
+	--nds-padding-x: #{tokens.$padding-x};
+	--nds-padding-y: #{tokens.$padding-y};
+	--nds-border-radius: #{tokens.$border-radius};
+	--nds-selected-border: #{tokens.$selected-border};
+	--nds-border-y: #{tokens.$border-y};
+	--nds-base-border: #{tokens.$border-base};
+	--nds-zindex-focus: 9999;
+
+	position: relative;
+	box-sizing: border-box;
+	padding: var(--nds-padding-y) var(--nds-padding-x);
+	margin-right: 0.1rem;
+	white-space: nowrap;
+	border: var(--nds-base-border);
+	border-top: var(--nds-border-y);
+	border-bottom: var(--nds-border-y);
+	border-radius: var(--nds-border-radius);
+
+	@include inline-flex-centered;
+	@include type.ui-base;
+
+	&:last-child {
+		margin-right: 0;
+	}
+
+	&:disabled,
+	&.disabled {
+		color: var(--nds-disabled-color);
+		cursor: not-allowed;
+	}
+
+	&:focus {
+		position: relative;
+	}
+}
+
+@mixin variant($text-color: null, $background-color: null) {
+	font-size: var(--nds-font-size-sm);
+	color: $text-color;
+	cursor: pointer;
+	background-color: $background-color;
+	transition:
+		motion.transition(
+			color background-color border-color border-radius box-shadow
+		);
+}
+
+@mixin contained {
+	@include variant(
+		$text-color: var(--nds-navy-90),
+		$background-color: var(--nds-gray-30)
+	);
+
+	&:disabled,
+	&.disabled {
+		color: var(--nds-gray-50);
+	}
+
+	&:not(:disabled):not(.disabled).selected {
+		font-weight: var(--nds-font-weight-bold);
+		background-color: var(--nds-gray-10);
+		border-bottom: var(--nds-selected-border);
+	}
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: var(--nds-navy-30);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		background-color: var(--nds-gray-40);
+	}
+}
+
+@mixin line {
+	@include variant(
+		$text-color: var(--nds-text-color),
+		$background-color: transparent
+	);
+
+	&:disabled,
+	&.disabled {
+		color: var(--nds-gray-30);
+	}
+
+	&:not(:disabled):not(.disabled).selected {
+		font-weight: var(--nds-font-weight-bold);
+		border-bottom: var(--nds-selected-border);
+	}
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		background-color: var(--nds-base-color-10);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		background-color: var(--nds-gray-20);
+	}
+}
+
+@mixin style {
+	@include util.declare('tab') {
+		.nds-tab {
+			@include base;
+		}
+
+		.nds-tab--contained {
+			@include contained;
+		}
+
+		.nds-tab--line {
+			@include line;
+		}
+	}
+}

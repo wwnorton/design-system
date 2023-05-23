@@ -48,6 +48,7 @@ const sidebars = {
 		'components/step-indicator',
 		'components/switch',
 		'components/table',
+		'components/tabs',
 		'components/tag',
 		'components/text-field',
 		'components/tooltip',

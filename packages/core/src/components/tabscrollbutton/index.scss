@@ -1,0 +1,59 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use '../../a11y';
+@use '../../color';
+@use '../../type';
+@use '../../motion';
+@use '../../spacing';
+@use '../../util';
+@use '../../device/' as device;
+@use '../button' as btn;
+
+@mixin base {
+	@include btn.base;
+	@include btn.ghost;
+
+	display: flex;
+	width: 3rem;
+	color: var(--nds-navy-80);
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	@include device.media-up('sm') {
+		display: none;
+	}
+
+	&:disabled,
+	&.disabled {
+		color: var(--nds-disabled-color-darker);
+	}
+}
+
+@mixin contained {
+	background-color: var(--nds-gray-20);
+}
+
+@mixin line {
+	background-color: var(--nds-white);
+}
+
+@mixin style {
+	@include util.declare('tab-scroll-button') {
+		.nds-tab-scroll-button {
+			@include base;
+		}
+
+		.nds-tab-scroll-button__text {
+			font-size: 0.563rem;
+		}
+
+		.nds-tab-scroll-button--contained {
+			@include contained;
+		}
+
+		.nds-tab-scroll-button--line {
+			@include line;
+		}
+	}
+}
