@@ -68,7 +68,10 @@ export const Dropdown = ({
 	const { selected, select } = useSelect(false, [selectedProp]);
 
 	React.useEffect(() => {
-		if (selectedProp !== selected[0]) select(selectedProp);
+		if (selectedProp !== selected[0]) {
+			select(selectedProp);
+			setButtonContents(contentsProp);
+		}
 	// only update if the selected option is being controlled
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedProp]);

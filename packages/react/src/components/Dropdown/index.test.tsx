@@ -218,3 +218,30 @@ test('a dropdown is closed when it is disabled', (t) => {
 	rerender(<Dropdown {...defaultProps} isOpen disabled />);
 	t.falsy(screen.queryByRole('listbox'));
 });
+
+test('a dropdown button content is updated', (t) => {
+	const children = [
+		<Dropdown.Option key={0} value={1}>1</Dropdown.Option>,
+		<Dropdown.Option key={1} value={2}>2</Dropdown.Option>,
+		<Dropdown.Option key={2} value={3}>3</Dropdown.Option>,
+		<Dropdown.Option key={3} value={4}>4</Dropdown.Option>,
+		<Dropdown.Option key={4} value={5}>5</Dropdown.Option>,
+	];
+	const { rerender } = render(
+		<Dropdown {...defaultProps} selected={1} buttonContents={1}>
+			{children}
+		</Dropdown>,
+	);
+
+	rerender(
+		<Dropdown {...defaultProps} selected={2} buttonContents={2}>
+			{children}
+		</Dropdown>,
+	);
+
+	t.truthy(
+		// There's some kind of whitespace before and after the number
+		// in the label, curious.
+		screen.queryByRole('button', { name: /\w*2\w*/ }),
+	);
+});
