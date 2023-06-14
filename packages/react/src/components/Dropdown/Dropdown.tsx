@@ -316,7 +316,7 @@ export const Dropdown = ({
 					selected={selected}
 					onChange={changeHandler}
 					focusableIndex={optionFocusIndex}
-					autofocus={autofocus}
+					autofocus={isOpen && autofocus}
 					ref={setListbox}
 				>
 					{options}
