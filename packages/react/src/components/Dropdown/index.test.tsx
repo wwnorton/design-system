@@ -218,3 +218,68 @@ test('a dropdown is closed when it is disabled', (t) => {
 	rerender(<Dropdown {...defaultProps} isOpen disabled />);
 	t.falsy(screen.queryByRole('listbox'));
 });
+
+test('a dropdown button content is updated', (t) => {
+	const children = [
+		<Dropdown.Option key={0} value={1}>1</Dropdown.Option>,
+		<Dropdown.Option key={1} value={2}>2</Dropdown.Option>,
+		<Dropdown.Option key={2} value={3}>3</Dropdown.Option>,
+	];
+	const { rerender } = render(
+		<Dropdown {...defaultProps} selected={1} buttonContents={1}>
+			{children}
+		</Dropdown>,
+	);
+
+	rerender(
+		<Dropdown {...defaultProps} selected={2} buttonContents={2}>
+			{children}
+		</Dropdown>,
+	);
+
+	t.truthy(
+		// There's some kind of whitespace before and after the number
+		// in the label, curious.
+		screen.queryByRole('button', { name: /\w*2\w*/ }),
+	);
+});
+
+test('a dropdown should focus on selected option if picked via props on mount', (t) => {
+	const children = [
+		<Dropdown.Option key={0} value={1}>1</Dropdown.Option>,
+		<Dropdown.Option key={1} value={2}>2</Dropdown.Option>,
+		<Dropdown.Option key={2} value={3}>3</Dropdown.Option>,
+	];
+	render(
+		<Dropdown {...defaultProps} selected={2} isOpen>
+			{children}
+		</Dropdown>,
+	);
+
+	const { textContent } = document.activeElement as Element;
+
+	t.true(textContent === '2');
+});
+
+test('a dropdown should focus on selected option if picked via props on update', (t) => {
+	const children = [
+		<Dropdown.Option key={0} value={1}>1</Dropdown.Option>,
+		<Dropdown.Option key={1} value={2}>2</Dropdown.Option>,
+		<Dropdown.Option key={2} value={3}>3</Dropdown.Option>,
+	];
+	const { rerender } = render(
+		<Dropdown {...defaultProps} selected={1}>
+			{children}
+		</Dropdown>,
+	);
+
+	rerender(
+		<Dropdown {...defaultProps} selected={2} isOpen>
+			{children}
+		</Dropdown>,
+	);
+
+	const { textContent } = document.activeElement as Element;
+
+	t.true(textContent === '2');
+});

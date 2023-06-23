@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { FieldInfo } from '../Field';
 import { canUseDOM } from '../../utilities/environment';
@@ -50,59 +50,6 @@ export const Dropdown = ({
 	distance = 4,
 	modifiers,
 }: DropdownProps) => {
-	const [isOpen, setOpen] = React.useState(isOpenProp);
-	const uniqueId = useId();
-	const id = idProp || uniqueId;
-	const labelId = labelIdProp || `${id}-label`;
-	const descId = descIdProp || `${id}-desc`;
-	const buttonId = buttonIdProp || `${id}-btn`;
-	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
-	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
-	const [listboxWidth, setListBoxWidth] = React.useState<number>();
-	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>(contentsProp);
-	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
-	const [transition, setTransition] = React.useState<
-		typeof transitionProp | undefined
-	>(transitionProp);
-	const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
-	const { selected, select } = useSelect(false, [selectedProp]);
-
-	React.useEffect(() => {
-		if (selectedProp !== selected[0]) select(selectedProp);
-	// only update if the selected option is being controlled
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedProp]);
-
-	const listboxId = listboxIdProp || `${id}-listbox`;
-	const currentId = `${id}-curr`;
-	const getListboxWidth = React.useRef(false);
-
-	/** Attempt to open the listbox. */
-	const openListbox = React.useCallback(() => {
-		if (onRequestOpen) onRequestOpen();
-		else setOpen(true);
-	}, [onRequestOpen]);
-
-	/** Attempt to close the listbox. */
-	const closeListbox = React.useCallback((): void => {
-		if (onRequestClose) onRequestClose();
-		else setOpen(false);
-	}, [onRequestClose]);
-
-	/** Toggle the listbox on button click. */
-	const buttonClickHandler = (): void => {
-		if (isOpen) closeListbox();
-		else openListbox();
-	};
-
-	/** Open the listbox on arrow up or down. */
-	const buttonKeydownHandler = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
-		if (['ArrowDown', 'ArrowUp'].includes(e.key)) {
-			e.preventDefault();
-			openListbox();
-		}
-	};
-
 	/** A compare function that will sort children by value */
 	const sorter = React.useMemo(() => {
 		if (!sort) return null;
@@ -134,6 +81,68 @@ export const Dropdown = ({
 		});
 		return sorter ? opts.sort(sorter) : opts;
 	}, [children, sorter]);
+
+	const findFocusedIndex = useCallback((value: string | number | undefined) => {
+		const idx = options.findIndex((o) => o.value === value);
+		return idx === -1 ? 0 : idx;
+	}, [options]);
+
+	const [isOpen, setOpen] = React.useState(isOpenProp);
+	const uniqueId = useId();
+	const id = idProp || uniqueId;
+	const labelId = labelIdProp || `${id}-label`;
+	const descId = descIdProp || `${id}-desc`;
+	const buttonId = buttonIdProp || `${id}-btn`;
+	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
+	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
+	const [listboxWidth, setListBoxWidth] = React.useState<number>();
+	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>(contentsProp);
+	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
+	const [transition, setTransition] = React.useState<
+		typeof transitionProp | undefined
+	>(transitionProp);
+	const [optionFocusIndex, setOptionFocusIndex] = React.useState(findFocusedIndex(selectedProp));
+	const { selected, select } = useSelect(false, [selectedProp]);
+
+	const listboxId = listboxIdProp || `${id}-listbox`;
+	const currentId = `${id}-curr`;
+	const getListboxWidth = React.useRef(false);
+
+	/** Attempt to open the listbox. */
+	const openListbox = React.useCallback(() => {
+		if (onRequestOpen) onRequestOpen();
+		else setOpen(true);
+	}, [onRequestOpen]);
+
+	/** Attempt to close the listbox. */
+	const closeListbox = React.useCallback((): void => {
+		if (onRequestClose) onRequestClose();
+		else setOpen(false);
+	}, [onRequestClose]);
+
+	/** Toggle the listbox on button click. */
+	const buttonClickHandler = (): void => {
+		if (isOpen) closeListbox();
+		else openListbox();
+	};
+
+	/** Open the listbox on arrow up or down. */
+	const buttonKeydownHandler = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
+		if (['ArrowDown', 'ArrowUp'].includes(e.key)) {
+			e.preventDefault();
+			openListbox();
+		}
+	};
+
+	React.useEffect(() => {
+		if (selectedProp !== selected[0]) {
+			select(selectedProp);
+			setButtonContents(contentsProp);
+			setOptionFocusIndex(findFocusedIndex(selectedProp));
+		}
+	// only update if the selected option is being controlled
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedProp]);
 
 	/** Attempt to close the listbox on document click. */
 	const documentClickHandler = React.useCallback(
@@ -307,7 +316,7 @@ export const Dropdown = ({
 					selected={selected}
 					onChange={changeHandler}
 					focusableIndex={optionFocusIndex}
-					autofocus={autofocus}
+					autofocus={isOpen && autofocus}
 					ref={setListbox}
 				>
 					{options}
