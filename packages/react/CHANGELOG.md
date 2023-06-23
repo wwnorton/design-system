@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/wwnorton/design-system/compare/v1.7.0...v1.7.1) (2023-06-23)
+
+### 🐛 Bug Fixes
+
+- **react:** solve controlled selected not changing default focus on Dropdown list ([7782ea6](https://github.com/wwnorton/design-system/commit/7782ea6fa2e6a9500c4f5a8b0419f4d784da8ded))
+- **react:** solve issue of multiple Dropdowns competing for focus ([62adfd3](https://github.com/wwnorton/design-system/commit/62adfd3c3dfd0bd88c7085cf6d8b40af2d5c63fc))
+- **react:** solves Dropdown not upgrading button contents when controlled ([076cb77](https://github.com/wwnorton/design-system/commit/076cb77e603f49809feecc563d0a2b3807f1e28a))
+
 ## [1.7.0](https://github.com/wwnorton/design-system/compare/v1.6.0...v1.7.0) (2023-03-03)
 
 ### ✨ Features
