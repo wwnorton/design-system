@@ -1,8 +1,6 @@
 {
   "version": "1.7.0",
-  "packages": ["packages/*", "website"],
   "npmClient": "npm",
-  "useWorkspaces": true,
   "command": {
     "publish": {
       "access": "public"
