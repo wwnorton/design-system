@@ -1,5 +1,7 @@
 const path = require('path');
 
+const pattern = '../packages/react/src/**/*.stories.{ts,tsx,mdx}';
+
 /** @type {import('@storybook/core-common').StorybookConfig} */
 const storybookConfig = {
 	core: {
@@ -25,7 +27,10 @@ const storybookConfig = {
 		// Return the altered config
 		return config;
 	},
-	stories: [path.resolve(__dirname, '../packages/react/src/**/*.stories.{ts,tsx,mdx}')],
+	stories: [
+		pattern,
+		path.resolve(__dirname, pattern)
+	],
 	addons: [
 		'@storybook/addon-essentials',
 		'@storybook/addon-actions',
