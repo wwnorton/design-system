@@ -79,11 +79,16 @@ export const useRovingTabindex = <
 	}, [container, dispatch, initialIndex, resetOnExit]);
 
 	const createRef = useCallback((i) => (el: Child | null) => {
-		if (el) {
-			const focusWithin = container && container.contains(document.activeElement);
-			if (state.current === i && (focusWithin || autofocus)) {
-				el.focus();
-			}
+		if (!el || !container) {
+			return;
+		}
+
+		const focusWithin = container.contains(document.activeElement);
+		const hasTheFocusAlready = document.activeElement === el;
+		const shouldFocus = (focusWithin || autofocus);
+
+		if (state.current === i && shouldFocus && !hasTheFocusAlready) {
+			el.focus();
 		}
 	}, [autofocus, container, state]);
 
