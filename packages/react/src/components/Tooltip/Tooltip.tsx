@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import {
-	useForwardedRef, useId, usePopperTriggers,
+	useForwardedRef, useId, usePopperTriggers, useEscapeKeyListener,
 } from '../../utilities';
 import { Popper } from '../Popper';
 import { TooltipProps } from './types';
@@ -38,6 +38,10 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 }: TooltipProps, ref) => {
 	const [popper, setPopper] = useForwardedRef(ref);
 	const [isOpen, setIsOpen] = React.useState(isOpenProp || false);
+	// Use the custom hook to handle Escape key press
+	useEscapeKeyListener(() => {
+		setIsOpen(false);
+	});
 	const labelId = useId();
 
 	React.useEffect(() => {
@@ -53,6 +57,11 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 		showDelay,
 		onRequestClose: () => !trigger.includes('manual') && setIsOpen(false),
 		onRequestOpen: () => !trigger.includes('manual') && setIsOpen(true),
+	});
+
+	// Use the custom hook to handle Escape key press
+	useEscapeKeyListener(() => {
+		setIsOpen(false);
 	});
 
 	/**
@@ -74,6 +83,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 	return (
 		<>
 			{/* the tooltip is an affordance for sighted users only */}
+			<h1 role="alert">{isOpen}</h1>
 			<Popper
 				role="tooltip"
 				aria-hidden="true"
@@ -92,10 +102,10 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(({
 				ref={setPopper}
 				{...props}
 			>
-				<div className={contentClass || bodyClass}>{ children }</div>
+				<div className={contentClass || bodyClass}>{children}</div>
 			</Popper>
 			{/* a persistent, hidden div that is used for the accessible name or description */}
-			<div hidden aria-hidden="true" id={labelId}>{ children }</div>
+			<div hidden aria-hidden="true" id={labelId}>{children}</div>
 		</>
 	);
 });

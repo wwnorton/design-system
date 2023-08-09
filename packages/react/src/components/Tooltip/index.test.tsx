@@ -119,6 +119,12 @@ test('unhovering the reference hides the tooltip after a delay when the trigger 
 	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
+test('the tooltip can be closed with the `Escape` key', (t) => {
+	render(<TooltipFixture trigger="pointerenter" hideDelay={hideDelay} />);
+	fireEvent.keyDown(document.activeElement, { key: 'Escape' });
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+});
+
 test('tooltip contents label the reference even when the tooltip isn\'t visible', (t) => {
 	render(<TooltipFixture trigger="focus pointerenter" asLabel />);
 	t.truthy(screen.queryByRole('button', { name: defaultContents }));
