@@ -1,26 +1,16 @@
+// cspell:ignore autodocs
 import { dirname, join } from "path";
 const path = require('path');
 
-/** @type {import('@storybook/core-common').StorybookConfig} */
+/** @type {import('@storybook/react-vite').StorybookConfig} */
 const storybookConfig = {
     core: {
-        disableTelemetry: true
+		builder: '@storybook/builder-vite',
+        disableTelemetry: true,
     },
 
     features: {
 	  storyStoreV7: true,
-	},
-
-    webpackFinal: (config) => {
-		config.module?.rules?.push({
-			test: /\.scss$/,
-			use: ['style-loader', 'css-loader', 'sass-loader'],
-		});
-
-		config.target = 'browserslist:last 2 versions';
-
-		// Return the altered config
-		return config;
 	},
 
     stories: [path.resolve(__dirname, '../packages/react/src/**/*.stories.{ts,tsx,mdx}')],
@@ -44,15 +34,7 @@ const storybookConfig = {
 		},
 	},
 
-    framework: {
-        name: getAbsolutePath("@storybook/react-webpack5"),
-
-        options: {
-          builder: {
-            fsCache: true
-          }
-        }
-    },
+    framework: '@storybook/react-vite',
 
     docs: {
         autodocs: true
