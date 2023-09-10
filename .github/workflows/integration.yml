@@ -114,6 +114,9 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: "npm"
+      - name: Update npm
+        if: ${{ env.NODE_VERSION == 14 }}
+        run: npm i -g npm@7
       - name: Install 📦
         run: npm ci
       - name: Test 🧪
