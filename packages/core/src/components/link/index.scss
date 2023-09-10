@@ -35,12 +35,12 @@
 }
 
 @mixin base {
-	display: inline-flex;
 	color: var(--nds-link-color);
 	text-decoration: var(--nds-link-decoration);
 }
 
 @mixin launch {
+	display: inline-flex;
 	margin-left: 1px;
 	font-size: 0.875em;
 }
