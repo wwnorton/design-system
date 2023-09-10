@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm use $VERSION_NODE_18
+        - npm ci --cache .npm
+    build:
+      commands:
+        - npm run build:sassdoc
+        - npm run build:stories
+        - npm run build:docs
+  artifacts:
+    baseDirectory: /public
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - .npm
