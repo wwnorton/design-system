@@ -3,137 +3,94 @@
 
 ---
 title: Multiple Choice Question
-description: descriptionTK
+description: This Multiple-Choice Pattern documentation has been released in Beta format. Questions or concerns? [Please let us know.] (nds@wwnorton.com)
 ---
 
 > descriptionTK
 
 ## Anatomy
 ### Question
-1. **Question Intro** (optional) - introductory content that helps frame the question
+1. **Question Intro** (_optional_) - introductory content that helps frame the question
 1. **Question Stem** - the prompt the user responds to
-1. **Instructions** (optional) - text that tells the user how to answer the question
-1. **Answer Choice Label** - a letter or number that identifies each answer choice
+1. **Instructions** (_optional_) - text displaying how many attempts a user may submit an answer and instructions on how to complete a question. Ideally located after the question stem.
 1. **Radio Button** - an input that allows the user to select an answer and reflects the selection state
+1. **Answer Choice Identifier** - a letter or number that identifies each answer choice
 1. **Answer Choice** - a choice in response to the question stem that allows the user to select an answer
 1. **Response Indicator** - a label that signifies whether a selected response is correct or incorrect which appears next to the selected option after an answer has been submitted
 1. **Submit Button** - a button that submits the chosen answer
 1. **Feedback Modal** - a modal dialog that provides feedback about the chosen answer after it is submitted
-
-###Feedback Modal
-1. **General Feedback** - the chosen answer and whether it is correct or incorrect
-1. **Supplementary Feedback** (optional) - additional answer-specific content 
+			- General Feedback - the chosen answer and whether it is correct or incorrect 
+			-	Supplementary Feedback (_optional_) - additional answer-specific content
 
 ## Usage
 
-Use a multiple choice question to TK.
+- Multiple choice questions only have one correct answer, and use radio buttons (not buttons or dropdowns) to display answer choices.  
 
-- Multiple choice questions only have one correct answer and use radio buttons (not buttons or dropdowns).
-**Why:** The consistent use of radio buttons for answer choices, though beneficial for all users, has particular accessibility benefits:
-- Screen reader users know when they encounter radio buttons that they can only make one choice.
-- Since screen magnification users experience smaller portions of the screen at once,  they benefit from the visual consistency of always using radio buttons for answer choices.
-- For users who experience difficulty with attention and working memory, cognitive load is reduced when the same component is encountered repeatedly.
-
-
-- Limit answer options to a maximum of 6. 
 :::note Why:
 
-Too much content can cause cognitive overload, loss of focus, and anxiety for students with disabilities, i.e. those with processing, attention, or working memory challenges.
+The consistent use of radio buttons for answer choices, though beneficial for all users, has particular accessibility benefits:
+		-	Screen reader users know when they encounter radio buttons that they can only make one choice. 
+		-	Since screen magnification users experience smaller portions of the screen at once,  they benefit from the visual consistency of always using radio buttons for answer choices. 
+		-	For users who experience difficulty with attention and working memory, cognitive load is reduced when the same component is encountered repeatedly. See the [Accessibility Notes] section for more information on how consistent navigation benefits users with disabilities. 
 
 :::
 
 
-Feedback should be delivered in a modal after the answer is submitted, as opposed to in-line. 
+-	Limit answer choices to a maximum of 5
+
+:::note Why:
+
+Too much content can cause cognitive overload, loss of focus, and anxiety for students with disabilities, i.e. those with processing, attention, or working memory challenges. 
+
 :::note Why:
 
 In-line feedback presents challenges for many users: 
-- Screen magnification users may miss that the screen content changed
-- In-line feedback can make the screen visually overwhelming and increase cognitive load reducing the user's ability to gain the information intended by the in-line feedback
-- Implementing in-line feedback presents challenges for screen reader users because you have to manage focus in ways that are unanticipated
+	-	Screen magnification users may miss that the screen content changed. 
+	-	In-line feedback can make the screen visually overwhelming and increase cognitive load reducing the user's ability to gain the information intended by the in-line feedback. 
+	-	Implementing in-line feedback presents challenges for screen reader users because you have to manage focus in ways that are unanticipated. See the [Accessibility Notes] section for more information on the impact of in-line feedback on users with disabilities. 
 
 :::
 
-If the number of answer attempts is limited, then the limit and the number of attempts they’ve already made should be indicated to the user.
 
+- If more than one attempt is available, this should be clearly defined in the Instructions. The limit and the number of attempts they’ve already made should be indicated to the user. 
 
-:::note Why: 
+:::note Why:
 
-Transparency and clear expectations are important to ensure all users can complete the task to the best of their ability. It would be frustrating for a user to find out there was a limit only after they hit it.
-
-:::
-
-Provide clear instructions on how to complete a question.
-:::note Why: 
-
-Providing clear instructions to users on how to complete the question is key to ensure all users can complete the assigned task.
+Transparency and clear expectations are important to ensure all users can complete the task to the best of their ability. It would be frustrating for a user to find out there was a limit only after they reached it.
 
 :::
 
-Multiple choice questions require a submit button either at the end of the question or at the platform level. 
 
-:::note Why: 
+Provide clear instructions on how to complete a question.  
+
+:::note Why:
+
+Providing clear instructions to users on how to complete the question is key to ensure all users can complete the assigned task. 
+
+:::
+
+
+Multiple choice questions require a submit button either at the end of the answer choices or at the platform level. Selecting a response should never trigger a submit action. 
+
+:::note Why:
 
 Radio buttons are meant to make a selection only, not to submit an answer. For users with disabilities, the use of a submit button is anticipated and gives them control over when their context changes.
 
 :::
 
-Selecting a response should never trigger a submit action.
-
-:::note Why: 
-
-Radio buttons should not trigger a change of context for the user. This would be particularly disorienting for assistive technology users.
-
-:::
-
-The question intro should immediately precede the question stem.
-
-:::note Why: 
-
-TK
-
-:::
-
-
-The question stem should immediately precede the instructions.
-
-:::note Why: 
-
-TK
-
-:::
-
-The instructions should immediately precede the answer options.
-
-:::note Why: 
-
-TK
-
-:::
 
 ## Dos and Don’ts
 
-Don’t use color alone for signifying correct and incorrect answers.
-
-:::note Why: 
-
-Users who can’t differentiate colors, such as colorblind users or those with visual impairments, won’t know which color is correct or incorrect. All users must have access to the same information.
+:::danger Don't
+Use color alone for signifying correct and incorrect answers. _INSTEAD_ include a visible “correct” or “incorrect” label for response indicators.
+**Why:** Users who can’t differentiate colors, such as colorblind users or those with visual impairments, won’t know which color is correct or incorrect. All users must have access to the same information.
 
 :::
 
-Do include a visible “correct” or “incorrect” label for response indicators.
+:::danger Don't
+Use dropdowns within multiple choice questions. _INSTEAD_ use a radio button.
+**Why:** Using a component like a dropdown doesn’t signal to the user that they can make only one choice and increases cognitive load by hiding answer choice. Using the same design and consistant components creates an anticipated behavior for the user.
 
-:::note Why: 
-
-Text is the only way to guarantee that the meaning of the response indicator will be understood by all users. This supports low-vision users, English language learners, and those with cognitive disabilities.
-
-:::
-
-
-Don’t use dropdowns within multiple choice questions.
-
-:::note Why: 
-
-Using a component like a dropdown doesn’t signal to the user that they can make only one choice and increases cognitive load by hiding answer choices. 
 
 ::: 
 
@@ -143,34 +100,27 @@ Question stems should be kept as brief as possible.
 
 :::note Why: 
 
-It needs to be clear what the user is being asked and what they’re responding to. 
+Clear and concise language ensures that all users understand what they are being asked to do.
 
 :::
 
-Each answer option should be preceded by a corresponding letter or number, with a few exceptions (questions in Chemistry, Math or Music where the answer label could be confused with part of the answer choice). 
+Each answer option should be preceded by a corresponding letter or number, with a few exceptions (where the answer label could be confused with part of the answer choice).  
+-	The format of the answer label should be applied consistently throughout all multiple choice questions in an application. 
 
 :::note Why: 
 
-This allows users to reference the option they’ve selected without reading the full answer text.
+This allows users to reference the option they’ve selected without reading the full answer text and allows users to easily differentiate between answer choices. For users who experience difficulty with attention and working memory, cognitive load is reduced when the same component is encountered repeatedly.
 
 :::
 
-The format of the answer label should be applied consistently throughout all multiple choice questions in an application. 
+Answer-specific feedback should be concise and text-only is recommended. Refer to the [Accessibility Notes] when including imagery or other media is necessary. 
 
 :::note Why: 
 
-For users who experience difficulty with attention and working memory, cognitive load is reduced when the same component is encountered repeatedly.
+Users are less likely to consume the content if there’s too much of it, thus defeating the purpose of giving feedback. 
 
 :::
 
-Answer-specific feedback should be concise and only include text.
-
-:::note Why: 
-
-- Users are less likely to consume the content if there’s too much of it, thus defeating the purpose of giving feedback. 
-- Feedback that is too long could require a significant amount of scrolling, particularly for screen magnification users, thereby increasing cognitive load and the time it would take a student to complete an activity. 
-
-:::
 
 ## Accessibility Guidelines
 
