@@ -1,27 +1,14 @@
 ---
-title: Accessibility Notes -  Multiple Choice Question Pattern
+title: Accessibility Notes -  Patterns
 description: This section expands on the design decisions and considerations made to ensure an inclusive and accessible experience for all users.
 ---
 
-## In-Line Feedback
+## Benefits of Using Patterns in Digital Products for Accessibility
 
-Relying solely on in-line feedback can present challenges for users with disabilities for the following reasons: 
--  Easily missed by users utilizing screen magnification: In-line feedback, particularly subtle visual cues or color changes, may become too small to notice when content is magnified. This can make it difficult for users relying on screen magnification to perceive and interpret the feedback, potentially leading to confusion or incomplete understanding. 
--  Limited perceptual cues in complex interfaces: In-line feedback, especially in interfaces with a lot of visual elements or complexity, may be too subtle for users with visual impairments or cognitive disabilities. These users may require more prominent or distinct cues to effectively grasp and comprehend the feedback provided. 
--  Potential Challenges in Screen Reader Navigation and Perception of In-Line Feedback: Screen reader users rely on auditory feedback to navigate interfaces. If they are not anticipating in-line feedback to appear, they may miss the alert or cue from the screen reader, resulting in a potential loss of understanding about the feedback's presence and location. 
+In the world of digital content creation, accessibility is crucial. Our accessible design patterns provide user-friendly tools to simplify the process while making content more inclusive. Here are the key benefits of using these patterns:
 
+-	**Simplified User Experience:** Patterns create a familiar and predictable environment, making it easier for users to navigate content without confusion. 
+-	**Reduced Learning Curve:** Consistent navigation patterns mean users don't have to relearn how to use a product each time they interact with it, lowering frustration and promoting accessibility. 
+-	
 
-## Images or Other Media in Answer-Specific Feedback
-
-When possible, it is advisable to redirect students to relevant content in their eBook rather than embedding media or imagery within the feedback modal, as this approach enhances accessibility. However, if images or media are deemed absolutely essential, they must meet the following criteria: 
--  **No Two-Way Scrolling:** In order to enhance accessibility, feedback should not require two-way scrolling, especially for screen magnification users. This restriction helps reduce cognitive load and completion time for all students. 
--  **No Color-Dependent Information:** It is strictly prohibited to use color alone in images or media to communicate information. This ensures accessibility for users with color blindness or other visual impairments. 
--  **Color Contrast Requirements:** Ensure that any images used are compliant with color contrast requirements, as they serve as informative elements rather than decorative features. 
--  **Alternative Text (Alt Text):** All images within feedback must have informative alt text to facilitate accessibility for users who rely on screen readers. 
--  **Embedded Media Caution:** It is generally discouraged to embed other media types in feedback. If required, follow these guidelines: 
-  -  **Labeling Controls:** Ensure all controls for embedded media are properly labeled. 
-  -  **WCAG 2.1 AA Compliance:** Embedded media (audio or video) should meet WCAG 2.1 AA requirements, including: 
-    -  Audio descriptions or descriptive transcripts for video content. 
-    -  Closed captions for audio or video content. 
-    -  Visible labels for any media player controls. 
-    -  Compliance with other relevant WCAG criteria. 
+## TK
