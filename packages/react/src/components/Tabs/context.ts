@@ -1,11 +1,12 @@
-import React, {
-	useMemo, useState,
-} from 'react';
+import React, { useMemo, useState } from 'react';
 import {
 	CommonTabsProps,
-	ControlledTabsProps, TabsState, UncontrolledTabsProps,
+	ControlledTabsProps,
+	TabsState,
+	UncontrolledTabsProps,
 } from './types';
 import { useId } from '../../utilities';
+import { createDescendantContext } from '../../utilities/descendant';
 
 export const TabsContext = React.createContext<TabsState | null>(null);
 
@@ -13,15 +14,21 @@ function useInitCommonTabsState({
 	align,
 	idPrefix: userSetIdPrefix,
 	variant,
-}: CommonTabsProps): Omit<TabsState, 'selectedTabIndex' | 'setSelectedTabIndex'> {
+}: CommonTabsProps): Omit<
+	TabsState,
+	'selectedTabIndex' | 'setSelectedTabIndex'
+	> {
 	const generatedIdPrefix = useId() as string;
 	const idPrefix = userSetIdPrefix || generatedIdPrefix;
 
-	return useMemo(() => ({
-		idPrefix,
-		align: align || 'left',
-		variant: variant || 'contained',
-	}), [align, idPrefix, variant]);
+	return useMemo(
+		() => ({
+			idPrefix,
+			align: align || 'left',
+			variant: variant || 'contained',
+		}),
+		[align, idPrefix, variant],
+	);
 }
 
 export function useInitUncontrolledTabsState({
@@ -32,11 +39,14 @@ export function useInitUncontrolledTabsState({
 
 	const [selected, setSelected] = useState(defaultSelectedIndex || 0);
 
-	const state: TabsState = useMemo(() => ({
-		...commonState,
-		selectedTabIndex: selected,
-		setSelectedTabIndex: setSelected,
-	}), [commonState, selected, setSelected]);
+	const state: TabsState = useMemo(
+		() => ({
+			...commonState,
+			selectedTabIndex: selected,
+			setSelectedTabIndex: setSelected,
+		}),
+		[commonState, selected, setSelected],
+	);
 
 	return state;
 }
@@ -48,11 +58,14 @@ export function useInitControlledTabsState({
 }: ControlledTabsProps): TabsState {
 	const commonState = useInitCommonTabsState(rest);
 
-	const state: TabsState = useMemo(() => ({
-		...commonState,
-		selectedTabIndex: selectedIndex,
-		setSelectedTabIndex: onChange,
-	}), [commonState, onChange, selectedIndex]);
+	const state: TabsState = useMemo(
+		() => ({
+			...commonState,
+			selectedTabIndex: selectedIndex,
+			setSelectedTabIndex: onChange,
+		}),
+		[commonState, onChange, selectedIndex],
+	);
 
 	return state;
 }
@@ -75,3 +88,17 @@ export function useTabPanelId(index: number) {
 	const { idPrefix } = useTabsState();
 	return `${idPrefix}-tab-panel-${index}`;
 }
+
+export const [
+	TabListDescendantsProvider,
+	useTabListDescendantsContext,
+	useTabListDescendants,
+	useTabListDescendant,
+] = createDescendantContext();
+
+export const [
+	TabPanelsDescendantsProvider,
+	useTabPanelsDescendantsContext,
+	useTabPanelsDescendants,
+	useTabPanelsDescendant,
+] = createDescendantContext();

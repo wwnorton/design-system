@@ -2,7 +2,9 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { BaseButton } from '../BaseButton';
 import { TabProps } from './types';
-import { useTabId, useTabPanelId, useTabsState } from './context';
+import {
+	useTabId, useTabListDescendant, useTabPanelId, useTabsState,
+} from './context';
 import { moveFocusToTabPanel } from './utils';
 
 const BASE_NAME = 'nds-tab';
@@ -15,14 +17,10 @@ const styles = {
 };
 
 export const Tab = ({
-	index,
 	children,
 	disabled,
 }: TabProps) => {
-	if (index === undefined) {
-		throw new Error('Tab must be a child of TabList');
-	}
-
+	const { index, register } = useTabListDescendant();
 	const { variant, selectedTabIndex, setSelectedTabIndex } = useTabsState();
 
 	const isSelected = index === selectedTabIndex;
@@ -43,6 +41,7 @@ export const Tab = ({
 
 	return (
 		<BaseButton
+			ref={register}
 			className={className}
 			type="button"
 			onClick={onClick}

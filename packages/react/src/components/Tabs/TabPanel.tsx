@@ -1,12 +1,11 @@
 import React from 'react';
 import { TabPanelProps } from './types';
-import { useTabId, useTabPanelId, useTabsState } from './context';
+import {
+	useTabId, useTabPanelId, useTabPanelsDescendant, useTabsState,
+} from './context';
 
-export const TabPanel = ({ index, children }: TabPanelProps) => {
-	if (index === undefined) {
-		throw new Error('TabPanel must be a child of TabPanels');
-	}
-
+export const TabPanel = ({ children }: TabPanelProps) => {
+	const { index, register } = useTabPanelsDescendant();
 	const { selectedTabIndex } = useTabsState();
 
 	const tabId = useTabId(index);
@@ -16,6 +15,7 @@ export const TabPanel = ({ index, children }: TabPanelProps) => {
 
 	return (
 		<div
+			ref={register}
 			role="tabpanel"
 			hidden={isHidden}
 			id={tabPanelId}

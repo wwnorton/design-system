@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { TabListProps, TabProps } from './types';
+import { TabListProps } from './types';
 import { TabScrollButton } from './TabScrollButton';
-import { useTabsState } from './context';
+import { TabListDescendantsProvider, useTabListDescendants, useTabsState } from './context';
 import { useTabListScroll } from './useTabListScroll';
 import { useTabKeyboardNavigation } from './useTabKeyboardNavigation';
 
@@ -34,21 +34,17 @@ export const TabList = ({ children }: TabListProps) => {
 		},
 	);
 
-	return (
-		<div className={styles.container}>
-			<TabScrollButton type="left" onClick={moveLeft} disabled={atMinScroll} />
-			<div ref={tabListRef} className={className} role="tablist">
-				{React.Children.map(children, (child, index: number) => {
-					if (!React.isValidElement<TabProps>(child)) {
-						return null;
-					}
+	const descendants = useTabListDescendants();
 
-					return React.cloneElement(child, {
-						index,
-					});
-				})}
+	return (
+		<TabListDescendantsProvider value={descendants}>
+			<div className={styles.container}>
+				<TabScrollButton type="left" onClick={moveLeft} disabled={atMinScroll} />
+				<div ref={tabListRef} className={className} role="tablist">
+					{children}
+				</div>
+				<TabScrollButton type="right" onClick={moveRight} disabled={atMaxScroll} />
 			</div>
-			<TabScrollButton type="right" onClick={moveRight} disabled={atMaxScroll} />
-		</div>
+		</TabListDescendantsProvider>
 	);
 };

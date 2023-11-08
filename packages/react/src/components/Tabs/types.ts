@@ -14,29 +14,26 @@ export type UncontrolledTabsProps = CommonTabsProps & {
 /**
  * Props used by both controlled and uncontrolled tabs.
  */
-export type CommonTabsProps = React.PropsWithChildren<{
+export type CommonTabsProps = {
 	idPrefix?: string;
 	align?: 'left' | 'center';
 	variant?: 'contained' | 'line';
-}>;
+	children?: React.ReactNode;
+};
 
 export type TabListProps = React.ComponentPropsWithRef<'div'> & {
 	isSelected?: boolean;
 	onSelect?: (index: number) => void;
 };
 
-export type TabProps = React.PropsWithChildren<{
+export type TabProps = {
 	disabled?: boolean;
-} & Indexed>;
+	children?: React.ReactNode;
+};
 
-export type TabPanelProps = React.ComponentPropsWithRef<'div'> & Indexed;
+export type TabPanelProps = { children?: React.ReactNode };
 
 export type TabPanelsProps = { children?: React.ReactNode };
-
-interface Indexed {
-	/** This index is used to link the Tabs and the TabPanels */
-	index?: number;
-}
 
 export interface TabsState {
 	idPrefix: string;
