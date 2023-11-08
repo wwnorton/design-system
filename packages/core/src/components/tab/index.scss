@@ -42,12 +42,6 @@
 		margin-right: 0;
 	}
 
-	&:disabled,
-	&.disabled {
-		color: var(--nds-disabled-color);
-		cursor: not-allowed;
-	}
-
 	&:focus {
 		position: relative;
 	}
@@ -69,27 +63,6 @@
 		$text-color: var(--nds-navy-90),
 		$background-color: var(--nds-gray-30)
 	);
-
-	&:disabled,
-	&.disabled {
-		color: var(--nds-gray-50);
-	}
-
-	&:not(:disabled):not(.disabled).selected {
-		font-weight: var(--nds-font-weight-bold);
-		background-color: var(--nds-gray-10);
-		border-bottom: var(--nds-selected-border);
-	}
-
-	&:not(:disabled):not(.disabled):hover,
-	&:not(:disabled):not(.disabled).hover {
-		background-color: var(--nds-navy-30);
-	}
-
-	&:not(:disabled):not(.disabled):active,
-	&:not(:disabled):not(.disabled).active {
-		background-color: var(--nds-gray-40);
-	}
 }
 
 @mixin line {
@@ -97,26 +70,6 @@
 		$text-color: var(--nds-text-color),
 		$background-color: transparent
 	);
-
-	&:disabled,
-	&.disabled {
-		color: var(--nds-gray-30);
-	}
-
-	&:not(:disabled):not(.disabled).selected {
-		font-weight: var(--nds-font-weight-bold);
-		border-bottom: var(--nds-selected-border);
-	}
-
-	&:not(:disabled):not(.disabled):hover,
-	&:not(:disabled):not(.disabled).hover {
-		background-color: var(--nds-base-color-10);
-	}
-
-	&:not(:disabled):not(.disabled):active,
-	&:not(:disabled):not(.disabled).active {
-		background-color: var(--nds-gray-20);
-	}
 }
 
 @mixin style {

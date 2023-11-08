@@ -27,7 +27,6 @@ export type TabListProps = React.ComponentPropsWithRef<'div'> & {
 };
 
 export type TabProps = {
-	disabled?: boolean;
 	children?: React.ReactNode;
 };
 

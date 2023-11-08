@@ -11,22 +11,15 @@ import { Link } from '../Link';
 export default {
 	title: 'Tabs',
 	component: Tabs,
-	argTypes: {
-		selectedIndex: {
-			control: {
-				type: 'range', min: 0, step: 1, max: 2,
-			},
-		},
-	},
 } as Meta<TabsProps>;
 
 export const Uncontrolled = () => (
 	<div style={{ maxWidth: '960px' }}>
 		<Tabs>
 			<TabList>
-				<Tab disabled>Cats</Tab>
+				<Tab>Cats</Tab>
 				<Tab>Dogs</Tab>
-				<Tab disabled>Horses</Tab>
+				<Tab>Horses</Tab>
 				<Tab>Cows</Tab>
 				<Tab>Beavers</Tab>
 				<Tab>Camels</Tab>
@@ -113,7 +106,7 @@ export const Line = () => (
 			<TabList>
 				<Tab>Cats</Tab>
 				<Tab>Dogs</Tab>
-				<Tab disabled>Horses</Tab>
+				<Tab>Horses</Tab>
 				<Tab>Cows</Tab>
 				<Tab>Beavers</Tab>
 			</TabList>

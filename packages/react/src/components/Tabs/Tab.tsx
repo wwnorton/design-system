@@ -18,7 +18,6 @@ const styles = {
 
 export const Tab = ({
 	children,
-	disabled,
 }: TabProps) => {
 	const { index, register } = useTabListDescendant();
 	const { variant, selectedTabIndex, setSelectedTabIndex } = useTabsState();
@@ -50,7 +49,6 @@ export const Tab = ({
 			aria-controls={panelId}
 			aria-selected={isSelected}
 			tabIndex={isSelected ? 0 : -1}
-			disabled={disabled}
 		>
 			{children}
 		</BaseButton>
