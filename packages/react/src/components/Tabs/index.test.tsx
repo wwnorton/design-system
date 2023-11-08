@@ -1,162 +1,74 @@
-// import test from 'ava';
-// import React from 'react';
-// import {
-// 	cleanup, render, fireEvent, screen,
-// } from '@testing-library/react';
-// import {
-// 	Tabs, Tab, TabList, TabPanels, TabPanel,
-// } from '.';
-// import { shortContent } from './modal.fixtures';
+import test from 'ava';
+import React from 'react';
+import {
+	cleanup, render, fireEvent, screen,
+} from '@testing-library/react';
+import {
+	Tabs, Tab, TabList, TabPanels, TabPanel,
+} from '.';
 
-// test.afterEach(cleanup);
+test.beforeEach(() => {
+	global.ResizeObserver = function ResizeObserver() {
+		return {
+			observe: () => {},
+			disconnect: () => {},
+		};
+	} as any;
+});
 
-// test('the default modal contains focus when open', (t) => {
-// 	render(<Tabs isOpen title={defaultTitle}>{shortContent}</Tabs>);
-// 	t.true(screen.getByRole('dialog').contains(document.activeElement));
-// });
+test.afterEach(cleanup);
 
-// test('a modal without the default close button contains focus when open', (t) => {
-// 	render(<Tabs isOpen title={defaultTitle} hideCloseButton>{shortContent}</Tabs>);
-// 	t.true(screen.getByRole('dialog').contains(document.activeElement));
-// });
+test('clicking on tabs, switches panels', (t) => {
+	render(
+		<Tabs>
+			<TabList>
+				<Tab>Cats</Tab>
+				<Tab>Dogs</Tab>
+			</TabList>
+			<TabPanels>
+				<TabPanel>Cats content</TabPanel>
+				<TabPanel>Dogs content</TabPanel>
+			</TabPanels>
+		</Tabs>,
+	);
 
-// test('a modal with no focusable elements still contains focus when open', (t) => {
-// 	render((
-// 		<Tabs
-// 			isOpen
-// 			title={defaultTitle}
-// 			hideTitle
-// 			hideCloseButton
-// 		>
-// 			{shortContent}
-// 		</Tabs>
-// 	));
-// 	t.true(screen.getByRole('dialog').contains(document.activeElement));
-// });
+	// Cats is selected by default
+	const catsTab = screen.getByRole('tab', { name: 'Cats' });
+	t.true(catsTab.getAttribute('aria-selected') === 'true');
+	const catsPanel = screen.queryByRole('tabpanel', { name: 'Cats' });
+	t.true(catsPanel !== null);
 
-// test('the initially focused element can be chosen before render', (t) => {
-// 	const testId = 'focused';
-// 	const InitiallyFocused = () => {
-// 		const [el, setEl] = React.useState<HTMLButtonElement | null>(null);
-// 		return (
-// 			<Tabs isOpen title={defaultTitle} focusOnOpen={el}>
-// 				{shortContent}
-// 				<button type="button" ref={setEl} data-testid={testId}>Focused button</button>
-// 			</Tabs>
-// 		);
-// 	};
+	// TabPanel changes when click on Dogs Tab
+	const dogsTab = screen.getByRole('tab', { name: 'Dogs' });
+	fireEvent.click(dogsTab);
 
-// 	render(<InitiallyFocused />);
-// 	t.is(document.activeElement, screen.getByTestId(testId));
-// });
+	const dogsPanel = screen.queryByRole('tabpanel', { name: 'Dogs' });
+	t.true(dogsPanel !== null);
+});
 
-// // fixture for inner focus tests
-// const InnerFocus = () => (
-// 	<Tabs
-// 		isOpen
-// 		title={defaultTitle}
-// 		hideCloseButton
-// 		actions={(
-// 			<>
-// 				<button type="button" data-testid="second">Second</button>
-// 				<button type="button" data-testid="last">Last</button>
-// 			</>
-// 		)}
-// 	>
-// 		<button type="button" data-testid="first">First</button>
-// 		{shortContent}
-// 	</Tabs>
-// );
+test('clicking on disabled tab, will not switch panel', (t) => {
+	render(
+		<Tabs>
+			<TabList>
+				<Tab>Cats</Tab>
+				<Tab disabled>Dogs</Tab>
+			</TabList>
+			<TabPanels>
+				<TabPanel>Cats content</TabPanel>
+				<TabPanel>Dogs content</TabPanel>
+			</TabPanels>
+		</Tabs>,
+	);
 
-// test('`Shift + Tab` wraps focus when on the first focusable element', (t) => {
-// 	render(<InnerFocus />);
-// 	fireEvent.keyDown(document.activeElement, { key: 'Tab', shiftKey: true });
-// 	t.is(document.activeElement, screen.getByTestId('last'));
-// });
+	// TabPanel changes when click on Dogs Tab
+	const dogsTab = screen.getByRole('tab', { name: 'Dogs' });
+	t.true((dogsTab as HTMLButtonElement).disabled === true);
+	fireEvent.click(dogsTab);
 
-// test('`Tab` wraps focus when on the last focusable element', (t) => {
-// 	render(<InnerFocus />);
-// 	const lastEl = screen.getByTestId('last');
-// 	lastEl.focus();
-// 	fireEvent.keyDown(document.activeElement, { key: 'Tab', shiftKey: false });
-// 	t.is(document.activeElement, screen.getByTestId('first'));
-// });
+	const catsPanel = screen.queryByRole('tabpanel', { name: 'Cats' });
+	t.true(catsPanel !== null);
+});
 
-// // fixture for controlled open tests
-// // eslint-disable-next-line react/require-default-props
-// const Controlled = ({ isOpen: openProp = false }: { isOpen?: boolean }) => {
-// 	const [isOpen, setOpen] = React.useState(openProp);
-// 	const toggle = () => setOpen(!isOpen);
-// 	return (
-// 		<>
-// 			<button
-// 				type="button"
-// 				onClick={() => setOpen(true)}
-// 				data-testid="trigger"
-// 			>
-// 				Open modal
-// 			</button>
-// 			<Tabs
-// 				isOpen={isOpen}
-// 				onRequestClose={toggle}
-// 				title={defaultTitle}
-// 			>
-// 				{shortContent}
-// 			</Tabs>
-// 		</>
-// 	);
-// };
-
-// test('the modal can be closed by clicking the internal close button', (t) => {
-// 	render(<Controlled isOpen />);
-// 	fireEvent.click(document.activeElement);
-// 	t.falsy(screen.queryByRole('dialog'));
-// });
-
-// test('the modal can be closed by clicking the backdrop', (t) => {
-// 	render(<Controlled isOpen />);
-// 	fireEvent.click(screen.getByRole('dialog').parentElement);
-// 	t.falsy(screen.queryByRole('dialog'));
-// });
-
-// test('the modal can be closed with the `Escape` key', (t) => {
-// 	render(<Controlled isOpen />);
-// 	fireEvent.keyDown(document.activeElement, { key: 'Escape' });
-// 	t.falsy(screen.queryByRole('dialog'));
-// });
-
-// test('the modal cannot be closed by releasing the click from inside the dialog
-// to outside', (t) => {
-// 	render(<Controlled isOpen />);
-// 	fireEvent.pointerDown(screen.getByRole('dialog'));
-// 	fireEvent.pointerUp(screen.getByRole('dialog').parentElement);
-// 	t.truthy(screen.queryByRole('dialog'));
-// });
-
-// test('on close, focus returns to the element that opened the modal', (t) => {
-// 	render(<Controlled />);
-// 	const trigger = screen.getByTestId('trigger');
-// 	// force focus on the trigger since fireEvent.click doesn't simulate it
-// 	trigger.focus();
-// 	// open the modal
-// 	fireEvent.click(trigger);
-// 	// close the modal
-// 	fireEvent.keyDown(document.activeElement, { key: 'Escape' });
-
-// 	t.is(document.activeElement, trigger);
-// });
-
-// test('existing body styles are preserved when the modal closes', (t) => {
-// 	document.body.style.overflow = 'visible';
-// 	const bodyCSSText = document.body.style.cssText;
-
-// 	render(<Controlled isOpen />);
-
-// 	// body styles should be overwritten on open
-// 	t.not(document.body.style.cssText, bodyCSSText);
-
-// 	fireEvent.click(document.activeElement);
-
-// 	// and restored on close
-// 	t.is(document.body.style.cssText, bodyCSSText);
-// });
+test.skip('when first tab disabled, default panel must be valid', () => {
+	// TBD
+});

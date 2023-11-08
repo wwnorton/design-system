@@ -22,9 +22,9 @@ export default {
 
 export const Uncontrolled = () => (
 	<div style={{ maxWidth: '960px' }}>
-		<Tabs defaultSelectedIndex={0}>
+		<Tabs>
 			<TabList>
-				<Tab>Cats</Tab>
+				<Tab disabled>Cats</Tab>
 				<Tab>Dogs</Tab>
 				<Tab disabled>Horses</Tab>
 				<Tab>Cows</Tab>
