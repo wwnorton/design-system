@@ -63,6 +63,22 @@
 		$text-color: var(--nds-navy-90),
 		$background-color: var(--nds-gray-30)
 	);
+
+	&.selected {
+		font-weight: var(--nds-font-weight-bold);
+		background-color: var(--nds-gray-10);
+		border-bottom: var(--nds-selected-border);
+	}
+
+	&:hover,
+	&.hover {
+		background-color: var(--nds-navy-30);
+	}
+
+	&:active,
+	&.active {
+		background-color: var(--nds-gray-40);
+	}
 }
 
 @mixin line {
@@ -70,6 +86,21 @@
 		$text-color: var(--nds-text-color),
 		$background-color: transparent
 	);
+
+	&.selected {
+		font-weight: var(--nds-font-weight-bold);
+		border-bottom: var(--nds-selected-border);
+	}
+
+	&:hover,
+	&.hover {
+		background-color: var(--nds-base-color-10);
+	}
+
+	&:active,
+	&.active {
+		background-color: var(--nds-gray-20);
+	}
 }
 
 @mixin style {
