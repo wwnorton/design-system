@@ -5,15 +5,44 @@ description: TODO
 
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@wwnds/react';
 
-> [TODO]
+> Tabs allow the user to select layered sections of content to display within the same space. 
 
 ## Anatomy
 
-[TODO]
+<img
+	alt="Tabs with indicators pointing to the corresponding anatomy items of tab list, container, label, selected marker, and tab panel: below tab list."
+	src={useBaseUrl('website/static/img/component_tabs-anatomy@2x.png')}
+/>
+
+1. **Tab list** – A horizontal arrangement of selectable tab elements that serve as a navigation interface.
+1. **Tab Container** – An outline, background color, or extra space that sets the tab apart from adjacent tabs. 
+1. **Label** – a short title that lets the user know what content is contained in the tab.
+1. **Selected Tab Marker**- A visual indication of the selected open tab. 
+1. **Tab Panel** – The divider seperating the tab list from the tab content.
 
 ## Usage
 
-[TODO]
+:::caution Single Tab Usage Warning 
+Tabs must always be part of a tab list containing two or more tabs. For a single tab, use a heading instead. 
+:::
+
+- Use tabs to organize and present related content together while keeping the focus in the same place. 
+- The selected tab must have a clear indicator showing that it is selected. 
+- Tabs are commonly displayed horizontally. 
+- The tab list should always be positioned along one edge of the tab panel.  
+- Tabs should always include visible text labels. Tab labels may contain an icon in addition to text. All tab labels in the same tab list must follow the same pattern, whether they include text only or text and an icon.  
+- On mobile, tab bars may scroll if there is not enough space to display all of the tabs at once. It should be clear to users that there are more tabs that they can scroll through. 
+- Tabs should always take up the full width of the page or screen with no other components beside them. 
+
+:::danger Don't
+- Don’t use tabs for more than 4 or 5 sections of content. Use a menu for more than 5 sections of content.  
+:::
+
+## Tabs & Menus
+
+- Tabs and menus can be similar and even styled the same in some cases. Tabs are for displaying layered pieces of content, and menus are for navigation. Tabbed menus may look like tabs but functionally be navigating users to a different link, and menus move focus. 
+
+ 
 
 ## React API
 
