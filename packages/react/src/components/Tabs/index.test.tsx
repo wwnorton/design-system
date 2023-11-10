@@ -18,7 +18,39 @@ test.beforeEach(() => {
 
 test.afterEach(cleanup);
 
-test('clicking on tabs, switches panels', (t) => {
+/**
+ * Component for testing controlled tabs.
+ */
+const TestControlledTabs = () => {
+	const [selectedTab, setSelectedTab] = React.useState(0);
+	return (
+		<div>
+			<button type="button" onClick={() => setSelectedTab(0)}>Go to First Tab</button>
+			<Tabs selectedIndex={selectedTab} onChange={setSelectedTab}>
+				<TabList>
+					<Tab>Cats</Tab>
+					<Tab>Dogs</Tab>
+				</TabList>
+				<TabPanels>
+					<TabPanel>Cats content</TabPanel>
+					<TabPanel>Dogs content</TabPanel>
+				</TabPanels>
+			</Tabs>
+		</div>
+	);
+};
+
+function areTabAndPanelSelected(name: string): boolean {
+	const tab = screen.getByRole('tab', { name });
+	const isTabSelected = tab.getAttribute('aria-selected') === 'true';
+
+	const panel = screen.queryByRole('tabpanel', { name });
+	const isPanelDisplayed = panel !== null;
+
+	return isTabSelected && isPanelDisplayed;
+}
+
+test('Uncontrolled: clicking on tabs, switches panels', (t) => {
 	render(
 		<Tabs>
 			<TabList>
@@ -33,15 +65,35 @@ test('clicking on tabs, switches panels', (t) => {
 	);
 
 	// Cats is selected by default
-	const catsTab = screen.getByRole('tab', { name: 'Cats' });
-	t.true(catsTab.getAttribute('aria-selected') === 'true');
-	const catsPanel = screen.queryByRole('tabpanel', { name: 'Cats' });
-	t.true(catsPanel !== null);
+	t.true(
+		areTabAndPanelSelected('Cats'),
+	);
 
 	// TabPanel changes when click on Dogs Tab
 	const dogsTab = screen.getByRole('tab', { name: 'Dogs' });
 	fireEvent.click(dogsTab);
 
-	const dogsPanel = screen.queryByRole('tabpanel', { name: 'Dogs' });
-	t.true(dogsPanel !== null);
+	t.true(
+		areTabAndPanelSelected('Dogs'),
+	);
+});
+
+test('Controlled: clicking on external controls, switches panels', (t) => {
+	render(
+		<TestControlledTabs />,
+	);
+
+	// TabPanel changes when click on Dogs Tab
+	const dogsTab = screen.getByRole('tab', { name: 'Dogs' });
+	fireEvent.click(dogsTab);
+	t.true(
+		areTabAndPanelSelected('Dogs'),
+	);
+
+	// TabPanel and Tab changes when clicking on external control
+	const externalControl = screen.getByRole('button', { name: 'Go to First Tab' });
+	fireEvent.click(externalControl);
+	t.true(
+		areTabAndPanelSelected('Cats'),
+	);
 });
