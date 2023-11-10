@@ -1,89 +1,178 @@
 ---
 title: Tabs
-description: TODO
+description: Allow the user to select layered sections of content to display within the same space.
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@wwnds/react';
+import { PropsTable } from '@website/components';
 
-> Tabs allow the user to select layered sections of content to display within the same space. 
+> Tabs allow the user to select layered sections of content to display within the same space.
 
 ## Anatomy
 
 <img
 	alt="Tabs with indicators pointing to the corresponding anatomy items of tab list, container, label, selected marker, and tab panel: below tab list."
-	src={useBaseUrl('website/static/img/component_tabs-anatomy@2x.png')}
+	src={useBaseUrl('/img/component_tabs-anatomy@2x.png')}
 />
 
 1. **Tab list** – A horizontal arrangement of selectable tab elements that serve as a navigation interface.
-1. **Tab Container** – An outline, background color, or extra space that sets the tab apart from adjacent tabs. 
+1. **Tab Container** – An outline, background color, or extra space that sets the tab apart from adjacent tabs.
 1. **Label** – a short title that lets the user know what content is contained in the tab.
-1. **Selected Tab Marker**- A visual indication of the selected open tab. 
+1. **Selected Tab Marker**- A visual indication of the selected open tab.
 1. **Tab Panel** – The divider seperating the tab list from the tab content.
 
 ## Usage
 
-:::caution Single Tab Usage Warning 
-Tabs must always be part of a tab list containing two or more tabs. For a single tab, use a heading instead. 
+:::caution Single Tab Usage Warning
+Tabs must always be part of a tab list containing two or more tabs. For a single tab, use a heading instead.
 :::
 
-- Use tabs to organize and present related content together while keeping the focus in the same place. 
-- The selected tab must have a clear indicator showing that it is selected. 
-- Tabs are commonly displayed horizontally. 
-- The tab list should always be positioned along one edge of the tab panel.  
-- Tabs should always include visible text labels. Tab labels may contain an icon in addition to text. All tab labels in the same tab list must follow the same pattern, whether they include text only or text and an icon.  
-- On mobile, tab bars may scroll if there is not enough space to display all of the tabs at once. It should be clear to users that there are more tabs that they can scroll through. 
-- Tabs should always take up the full width of the page or screen with no other components beside them. 
+- Use tabs to organize and present related content together while keeping the focus in the same place.
+- The selected tab must have a clear indicator showing that it is selected.
+- Tabs are commonly displayed horizontally.
+- The tab list should always be positioned along one edge of the tab panel.
+- Tabs should always include visible text labels. Tab labels may contain an icon in addition to text. All tab labels in the same tab list must follow the same pattern, whether they include text only or text and an icon.
+- On mobile, tab bars may scroll if there is not enough space to display all of the tabs at once. It should be clear to users that there are more tabs that they can scroll through.
+- Tabs should always take up the full width of the page or screen with no other components beside them.
 
 :::danger Don't
-- Don’t use tabs for more than 4 or 5 sections of content. Use a menu for more than 5 sections of content.  
+- Don’t use tabs for more than 4 or 5 sections of content. Use a menu for more than 5 sections of content.
 :::
 
 ## Tabs & Menus
 
-- Tabs and menus can be similar and even styled the same in some cases. Tabs are for displaying layered pieces of content, and menus are for navigation. Tabbed menus may look like tabs but functionally be navigating users to a different link, and menus move focus. 
+- Tabs and menus can be similar and even styled the same in some cases. Tabs are for displaying layered pieces of content, and menus are for navigation. Tabbed menus may look like tabs but functionally be navigating users to a different link, and menus move focus.
 
- 
+
 
 ## React API
 
-[TODO]
+The Tabs are implemented by combining the following components:
 
-### Tabs
+- `Tabs`: Wrapper Component, it orchestrates the internal state.
+- `TabList`: A list of `Tab` components.
+- `Tab`: The Tab button, when the user activates this, the corresponding `TabPanel` is displayed.
+- `TabPanels`: A list of `TabPanel` components.
+- `TabPanel`: A wrapper for the content corresponding to a given "Tab".
+
+When the user clicks on a `Tab` the `TabPanel` with same index is shown.
+The index for `Tab` components is calculated based on order of appearance of each `Tab` from top to bottom inside the `TabList`.
+Likewise, the index for `TabPanel` components is based on order of appearance from top to bottom as well, but this time inside `TabPanels` component.
+
+
+```tsx
+<Tabs>
+	<TabList>
+		<Tab>Tab 1</Tab> {/* Index is 1 */}
+		<div> {/* You can add any arbitrary elements, it won't affect indexing */}
+			<Tab>Tab 2</Tab> {/* Index is 2 */}
+		</div>
+	</TabList>
+	<TabPanels>
+		<TabPanel>Content 1</TabPanel> {/* Index is 1 */}
+		<div></div> {/* Won't affect indexing */}
+		<TabPanel>Content 2</TabPanel> {/* Index is 2 */}
+	</TabPanels>
+</Tabs>
+```
+
+### Basic Usage
 
 ```js
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@wwnds/react';
 ```
 
 ```tsx live
-<Tabs defaultSelectedIndex={1}>
+<Tabs>
 	<TabList>
 		<Tab>Cats</Tab>
 		<Tab>Dogs</Tab>
-		<Tab disabled>Horses</Tab>
+		<Tab>Horses</Tab>
 		<Tab>Cows</Tab>
-		<Tab>Beavers</Tab>
-		<Tab>Pigs</Tab>
-		<Tab>Chicken</Tab>
-		<Tab>Elf</Tab>
-		<Tab>Dragon</Tab>
-		<Tab>Orc</Tab>
 	</TabList>
 	<TabPanels>
 		<TabPanel>Cats content</TabPanel>
 		<TabPanel>Dogs content</TabPanel>
 		<TabPanel>Horses content</TabPanel>
-		<TabPanel>Cows content</TabPanel>
-		<TabPanel>Beavers content</TabPanel>
-		<TabPanel>Pigs content</TabPanel>
-		<TabPanel>Chicken content</TabPanel>
-		<TabPanel>Elf content</TabPanel>
-		<TabPanel>Dragon content</TabPanel>
-		<TabPanel>Orc content</TabPanel>
+		<TabPanel>
+			Cows content
+			{' '}
+			<Button onClick={() => console.log('Moo!')}>Moo!</Button>
+		</TabPanel>
 	</TabPanels>
 </Tabs>
 ```
 
-### Centered Alignment
+### Accessibility
+
+This is an implementation of the [WAI-ARIA Tab Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) with Manual Activation.
+Keyboard navigation is implemented as [specified in that pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/#keyboardinteraction).
+
+### Tabs
+
+`Tabs` is the component that wraps and orchestrates the internal state.
+
+```tsx live
+<Tabs>
+	<TabList>
+		<Tab>Tab 1</Tab>
+		<Tab>Tab 2</Tab>
+	</TabList>
+	<TabPanels>
+		<TabPanel>Content 1</TabPanel>
+		<TabPanel>Content 2</TabPanel>
+	</TabPanels>
+</Tabs>
+```
+
+<PropsTable from={Tabs} />
+
+### TabList
+
+`TabList` contains a set of `Tab` components. Renders a component with `tablist` role.
+
+```tsx
+<TabList>
+	<Tab>Tab 1</Tab>
+	<Tab>Tab 2</Tab>
+</TabList>
+```
+
+### Tab
+
+`Tab` renders a Button with the `tab` role. An index is assigned to the tab internally that identifies which `TabPanel` this tab controls, the index is assigned by order of appearance from top to bottom.
+
+```tsx
+<Tab>Tab 1</Tab>
+```
+
+### TabPanels
+
+`TabPanels` contains a set of `TabPanel` components.
+
+```tsx
+<TabPanels>
+	<TabPanel>Content 1</TabPanel>
+	<TabPanel>Content 2</TabPanel>
+</TabPanels>
+```
+
+### TabPanel
+
+`TabPanel` renders, when active, the content of the panel wrapped inside an element with `tabpanel` ARIA role.
+
+The `TabPanel` is active, if the `tab` that controls it is activated. Each `TabPanel` is assigned an index
+based on the order of appeared of the panel inside the `TabPanels` component from top to bottom, this index is used
+to know which `Tab` inside `TabList` controls any given `TabPanel`.
+
+```tsx
+<TabPanel>Content 1</TabPanel>
+```
+
+### Style Variants
+
+#### Centered Alignment
 
 ```tsx live
 <Tabs align="center">
@@ -104,7 +193,7 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@wwnds/react';
 </Tabs>
 ```
 
-### Line Variant
+#### Line Variant
 
 ```tsx live
 <Tabs variant="line">
