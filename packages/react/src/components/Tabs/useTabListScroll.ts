@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const DEFAULT_SCROLL_DELTA = 100;
-const DEFAULT_CORRECTION_DELTA = 100;
 
 function isScrolledToBottom(el: HTMLDivElement) {
 	return el.scrollWidth - el.scrollLeft <= el.clientWidth;
@@ -9,36 +8,6 @@ function isScrolledToBottom(el: HTMLDivElement) {
 
 function isScrolledToTop(el: HTMLDivElement) {
 	return el.scrollLeft === 0;
-}
-/**
- * This hook corrects the scroll position when the "Next" scroll button gets unmounted.
- */
-function useScrollCorrection(
-	ref: React.RefObject<HTMLDivElement>,
-	atMaxScroll: boolean,
-	correctionDelta = DEFAULT_CORRECTION_DELTA,
-) {
-	useEffect(() => {
-		const { current } = ref;
-		if (!current) {
-			return () => { };
-		}
-
-		const resizeObserver = new ResizeObserver((entries) => {
-			entries.forEach(() => {
-				if (atMaxScroll) {
-					// eslint-disable-next-line no-param-reassign
-					current.scrollLeft += correctionDelta;
-				}
-			});
-		});
-
-		resizeObserver.observe(current);
-
-		return () => {
-			resizeObserver.disconnect();
-		};
-	}, [ref, atMaxScroll, correctionDelta]);
 }
 
 /**
@@ -55,8 +24,6 @@ export function useTabListScroll(
 		setAtMinScroll(isScrolledToTop(div));
 		setAtMaxScroll(isScrolledToBottom(div));
 	}, []);
-
-	useScrollCorrection(ref, atMaxScroll);
 
 	const moveLeft = useCallback(() => {
 		if (!ref.current) {

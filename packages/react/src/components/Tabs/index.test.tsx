@@ -8,15 +8,6 @@ import {
 	Tabs, Tab, TabList, TabPanels, TabPanel,
 } from '.';
 
-test.beforeEach(() => {
-	global.ResizeObserver = function ResizeObserver() {
-		return {
-			observe: () => {},
-			disconnect: () => {},
-		};
-	} as any;
-});
-
 test.afterEach.always(cleanup);
 
 /**
