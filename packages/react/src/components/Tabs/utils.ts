@@ -19,10 +19,22 @@ export const getFocusable = (
 	from: Element | Document | ShadowRoot,
 ): NodeListOf<HTMLElement> => from.querySelectorAll(focusableSelectors.join(','));
 
-export function moveFocusToTabPanel(id: string) {
-	// TODO: how can we ensure this will work inside an iFrame?
-	// Is this a problem?
-	const tabPanel = document.getElementById(id);
+/**
+ * Updates the tab index of the panel currently active.
+ *
+ * This is used to enable focus on the panel element as specified
+ * [here](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/#keyboardinteraction),
+ * specifically paragraph:
+ *
+ * > When the tab list contains the focus, moves focus to the next element
+ * > in the page tab sequence outside the tablist, which is the tabpanel
+ * > unless the first element containing meaningful content inside the tabpanel is focusable.
+ *
+ * This function checks if the panel contains focus-able elements, if so assigns `-1` to its
+ * tab index. Otherwise assigns it to `0`
+ */
+export function updateTabPanelTabIndex(currentlyActivePanelId: string) {
+	const tabPanel = document.getElementById(currentlyActivePanelId);
 	if (!tabPanel) {
 		return;
 	}

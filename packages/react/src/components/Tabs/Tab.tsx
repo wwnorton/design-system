@@ -5,7 +5,6 @@ import { TabProps } from './types';
 import {
 	useTabId, useTabListDescendant, useTabPanelId, useTabsState,
 } from './context';
-import { moveFocusToTabPanel } from './utils';
 
 const BASE_NAME = 'nds-tab';
 
@@ -29,8 +28,7 @@ export const Tab = ({
 
 	const onClick = useCallback(() => {
 		setSelectedTabIndex(index);
-		moveFocusToTabPanel(panelId);
-	}, [index, setSelectedTabIndex, panelId]);
+	}, [index, setSelectedTabIndex]);
 
 	const className = classNames(BASE_NAME, {
 		[styles.contained]: variant === 'contained',
