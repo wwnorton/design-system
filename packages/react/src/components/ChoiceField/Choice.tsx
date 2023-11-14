@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { BaseInput } from '../BaseInput';
 import { Icon } from '../Icon';
 import { FieldInfo, FieldFeedback } from '../Field';
-import { useForwardedRef, useId } from '../../utilities';
+import { useForwardedRef, useId, useIsomorphicLayoutEffect } from '../../utilities';
 import { ChoiceProps } from './types';
 
 /**
@@ -68,7 +68,7 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(({
 
 	// treat prop versions of internal state as source of truth
 	React.useEffect(() => setErrors(errorsProp), [errorsProp]);
-	React.useEffect(() => setChecked(checkedProp), [checkedProp]);
+	useIsomorphicLayoutEffect(() => setChecked(checkedProp), [checkedProp]);
 	React.useEffect(() => setIndeterminate(indeterminateProp), [indeterminateProp]);
 
 	const indicator = React.useMemo(() => {
