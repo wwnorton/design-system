@@ -2,11 +2,11 @@ import { useCallback, useState } from 'react';
 
 const DEFAULT_SCROLL_DELTA = 100;
 
-function isScrolledToBottom(el: HTMLDivElement) {
+function isAtMaxScroll(el: HTMLDivElement) {
 	return el.scrollWidth - el.scrollLeft <= el.clientWidth;
 }
 
-function isScrolledToTop(el: HTMLDivElement) {
+function isAtMinScroll(el: HTMLDivElement) {
 	return el.scrollLeft === 0;
 }
 
@@ -21,8 +21,8 @@ export function useTabListScroll(
 	const [atMaxScroll, setAtMaxScroll] = useState(false);
 
 	const updateState = useCallback((div: HTMLDivElement) => {
-		setAtMinScroll(isScrolledToTop(div));
-		setAtMaxScroll(isScrolledToBottom(div));
+		setAtMinScroll(isAtMinScroll(div));
+		setAtMaxScroll(isAtMaxScroll(div));
 	}, []);
 
 	const moveLeft = useCallback(() => {
@@ -30,14 +30,22 @@ export function useTabListScroll(
 			return;
 		}
 
+		if (atMinScroll) {
+			return;
+		}
+
 		// eslint-disable-next-line no-param-reassign
 		ref.current.scrollLeft -= scrollDelta;
 
 		updateState(ref.current);
-	}, [ref, scrollDelta, updateState]);
+	}, [ref, atMinScroll, scrollDelta, updateState]);
 
 	const moveRight = useCallback(() => {
 		if (!ref.current) {
+			return;
+		}
+
+		if (atMaxScroll) {
 			return;
 		}
 
@@ -45,7 +53,7 @@ export function useTabListScroll(
 		ref.current.scrollLeft += scrollDelta;
 
 		updateState(ref.current);
-	}, [ref, scrollDelta, updateState]);
+	}, [ref, scrollDelta, updateState, atMaxScroll]);
 
 	return {
 		moveLeft,
