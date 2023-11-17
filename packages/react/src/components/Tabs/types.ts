@@ -19,6 +19,8 @@ export type UncontrolledTabsProps = {
 	/**
 	 * Sets the default active tab, for uncontrolled use only.
 	 * Will be ignored if the `selectedIndex` prop is defined.
+	 *
+	 * @default 0
 	 */
 	defaultSelectedIndex?: number;
 } & CommonTabsProps;
@@ -42,7 +44,7 @@ export type CommonTabsProps = {
 	 *
 	 * Defaults to `left`.
 	 *
-	 * @default 'left'
+	 * @default left
 	 */
 	align?: 'left' | 'center';
 
@@ -54,6 +56,8 @@ export type CommonTabsProps = {
 	 * - `line`: Tabs are displayed without its own background color, using that of the container.
 	 *
 	 * Defaults to `Contained`
+	 *
+	 * @default contained
 	 */
 	variant?: 'contained' | 'line';
 

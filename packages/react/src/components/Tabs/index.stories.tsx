@@ -1,159 +1,92 @@
-import React, { useCallback } from 'react';
-import { Meta } from '@storybook/react';
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Link } from '../Link';
 import {
 	Tabs,
 	Tab,
 	TabList,
 	TabPanel,
 	TabPanels,
-	TabsProps,
-	ControlledTabsProps,
 } from '.';
-import { Button } from '../Button';
-import { Link } from '../Link';
-import { ThemeProvider } from '../../providers/ThemeProvider';
 
-export default {
-	title: 'Tabs',
+const BASE_TABS = ['Tab 1', 'Tab 2', 'Tab 3'];
+
+const meta: Meta<typeof Tabs> = {
 	component: Tabs,
-} as Meta<TabsProps>;
+	parameters: { controls: { sort: 'requiredFirst' } },
+	argTypes: {
+		children: {
+			table: {
+				disable: true,
+			},
+			control: {
+				type: null,
+			},
+		},
+		selectedIndex: {
+			control: {
+				type: 'range',
+				min: 0,
+				max: BASE_TABS.length - 1,
+			},
+			if: { arg: 'onChange' },
+		},
+		defaultSelectedIndex: {
+			control: {
+				type: 'range',
+				min: 0,
+				max: BASE_TABS.length - 1,
+			},
+			if: { arg: 'onChange', exists: false },
+		},
+		onChange: {
+			control: {
+				type: 'none',
+			},
+			type: {
+				required: false,
+				name: 'function',
+			},
+			action: 'changed',
+		},
+	},
+};
+export default meta;
 
-export const Uncontrolled = () => (
-	<div style={{ maxWidth: '960px' }}>
-		<Tabs>
+type Story = StoryObj<typeof Tabs>;
+
+const TabsTemplate: Story = {
+	render: ({ ...args }) => (
+		<Tabs {...args}>
 			<TabList>
-				<Tab>Cats</Tab>
-				<Tab>Dogs</Tab>
-				<Tab>Horses</Tab>
-				<Tab>Cows</Tab>
-				<Tab>Beavers</Tab>
-				<Tab>Camels</Tab>
-				<Tab>
-					Myxococcus
-					llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochensis
-				</Tab>
+				{BASE_TABS.map((tab, index) => (
+					// eslint-disable-next-line react/no-array-index-key
+					<Tab key={index}>{tab}</Tab>
+				))}
 			</TabList>
 			<TabPanels>
-				<TabPanel>Cats content</TabPanel>
-				<TabPanel>Dogs content</TabPanel>
-				<TabPanel>Horses content</TabPanel>
+				<TabPanel>Content One</TabPanel>
+				<TabPanel>Content Two</TabPanel>
 				<TabPanel>
-					Cows content
-					{' '}
-					<Button onClick={() => console.log('Moo!')}>Moo!</Button>
-				</TabPanel>
-				<TabPanel>Beavers content</TabPanel>
-				<TabPanel>Camels content</TabPanel>
-				<TabPanel>
-					Myxococcus
-					llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochensis
-					content.
-					{' '}
-					<Link
-						external
-						href="https://en.wikipedia.org/wiki/Myxococcus_llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochensis"
-					>
-						Wiki page
-					</Link>
+					Content Three.
+					<Link href="/#" alt="A Link">A Link</Link>
 				</TabPanel>
 			</TabPanels>
 		</Tabs>
-	</div>
-);
-
-export const Controlled = ({ selectedIndex }: ControlledTabsProps) => {
-	const [selectedTabIndex, setSelectedTabIndex] = React.useState(selectedIndex);
-	const onChange = useCallback((index) => {
-		setSelectedTabIndex(index);
-	}, []);
-
-	return (
-		<div style={{ maxWidth: '960px' }}>
-			<Button onClick={() => setSelectedTabIndex(0)}>Switch to tab 1</Button>
-			<Button onClick={() => setSelectedTabIndex(1)}>Switch to tab 2</Button>
-			<Button onClick={() => setSelectedTabIndex(2)}>Switch to tab 3</Button>
-			<hr />
-			<Tabs selectedIndex={selectedTabIndex} onChange={onChange}>
-				<TabList>
-					<Tab>Cats</Tab>
-					<Tab>Dogs</Tab>
-					<Tab>Horses</Tab>
-				</TabList>
-				<TabPanels>
-					<TabPanel>Cats content</TabPanel>
-					<TabPanel>Dogs content</TabPanel>
-					<TabPanel>Horses content</TabPanel>
-				</TabPanels>
-			</Tabs>
-		</div>
-	);
+	),
 };
 
-export const Centered = () => (
-	<div style={{ maxWidth: '960px' }}>
-		<Tabs align="center" defaultSelectedIndex={0}>
-			<TabList>
-				<Tab>Cats</Tab>
-				<Tab>Dogs</Tab>
-				<Tab>Horses</Tab>
-				<Tab>Cows</Tab>
-				<Tab>Beavers</Tab>
-			</TabList>
-			<TabPanels>
-				<TabPanel>Cats content</TabPanel>
-				<TabPanel>Dogs content</TabPanel>
-				<TabPanel>Horses content</TabPanel>
-				<TabPanel>Cows content</TabPanel>
-				<TabPanel>Beavers content</TabPanel>
-			</TabPanels>
-		</Tabs>
-	</div>
-);
-
-export const Line = () => (
-	<div style={{ maxWidth: '960px' }}>
-		<Tabs variant="line" defaultSelectedIndex={0}>
-			<TabList>
-				<Tab>Cats</Tab>
-				<Tab>Dogs</Tab>
-				<Tab>Horses</Tab>
-				<Tab>Cows</Tab>
-				<Tab>Beavers</Tab>
-			</TabList>
-			<TabPanels>
-				<TabPanel>Cats content</TabPanel>
-				<TabPanel>Dogs content</TabPanel>
-				<TabPanel>Horses content</TabPanel>
-				<TabPanel>Cows content</TabPanel>
-				<TabPanel>Beavers content</TabPanel>
-			</TabPanels>
-		</Tabs>
-	</div>
-);
-
-Controlled.args = {
-	selectedIndex: 1,
+export const Default: Story = {
+	...TabsTemplate,
+	args: {
+		defaultSelectedIndex: 0,
+		onChange: undefined,
+	},
 };
 
-export const DarkLine = () => (
-	<ThemeProvider colorScheme="dark" ignoreOSColorScheme>
-		<div style={{ maxWidth: '960px' }}>
-			<Tabs variant="line" defaultSelectedIndex={0}>
-				<TabList>
-					<Tab>Cats</Tab>
-					<Tab>Dogs</Tab>
-					<Tab>Horses</Tab>
-					<Tab>Cows</Tab>
-					<Tab>Beavers</Tab>
-				</TabList>
-				<TabPanels>
-					<TabPanel>Cats content</TabPanel>
-					<TabPanel>Dogs content</TabPanel>
-					<TabPanel>Horses content</TabPanel>
-					<TabPanel>Cows content</TabPanel>
-					<TabPanel>Beavers content</TabPanel>
-				</TabPanels>
-			</Tabs>
-		</div>
-	</ThemeProvider>
-);
+export const Controlled: Story = {
+	...Default,
+	args: {
+		selectedIndex: 0,
+	},
+};
