@@ -1,12 +1,17 @@
 import React, { useCallback } from 'react';
 import { Meta } from '@storybook/react';
 import {
-	Tabs, Tab, TabList, TabPanel, TabPanels,
+	Tabs,
+	Tab,
+	TabList,
+	TabPanel,
+	TabPanels,
 	TabsProps,
 	ControlledTabsProps,
 } from '.';
 import { Button } from '../Button';
 import { Link } from '../Link';
+import { ThemeProvider } from '../../providers/ThemeProvider';
 
 export default {
 	title: 'Tabs',
@@ -23,7 +28,10 @@ export const Uncontrolled = () => (
 				<Tab>Cows</Tab>
 				<Tab>Beavers</Tab>
 				<Tab>Camels</Tab>
-				<Tab>Myxococcus llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochensis</Tab>
+				<Tab>
+					Myxococcus
+					llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochensis
+				</Tab>
 			</TabList>
 			<TabPanels>
 				<TabPanel>Cats content</TabPanel>
@@ -37,7 +45,9 @@ export const Uncontrolled = () => (
 				<TabPanel>Beavers content</TabPanel>
 				<TabPanel>Camels content</TabPanel>
 				<TabPanel>
-					Myxococcus llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochensis content.
+					Myxococcus
+					llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochensis
+					content.
 					{' '}
 					<Link
 						external
@@ -124,3 +134,26 @@ export const Line = () => (
 Controlled.args = {
 	selectedIndex: 1,
 };
+
+export const DarkLine = () => (
+	<ThemeProvider colorScheme="dark" ignoreOSColorScheme>
+		<div style={{ maxWidth: '960px' }}>
+			<Tabs variant="line" defaultSelectedIndex={0}>
+				<TabList>
+					<Tab>Cats</Tab>
+					<Tab>Dogs</Tab>
+					<Tab>Horses</Tab>
+					<Tab>Cows</Tab>
+					<Tab>Beavers</Tab>
+				</TabList>
+				<TabPanels>
+					<TabPanel>Cats content</TabPanel>
+					<TabPanel>Dogs content</TabPanel>
+					<TabPanel>Horses content</TabPanel>
+					<TabPanel>Cows content</TabPanel>
+					<TabPanel>Beavers content</TabPanel>
+				</TabPanels>
+			</Tabs>
+		</div>
+	</ThemeProvider>
+);
