@@ -9,7 +9,7 @@ import {
 	TabPanels,
 } from '.';
 
-const BASE_TABS = ['Tab 1', 'Tab 2', 'Tab 3'];
+const BASE_TABS = ['Tab 1', 'Tab 2', 'Tab 3', 'Long Text "Tab 4"', 'Tab 5'];
 
 const meta: Meta<typeof Tabs> = {
 	component: Tabs,
@@ -71,6 +71,8 @@ const TabsTemplate: Story = {
 					Content Three.
 					<Link href="/#" alt="A Link">A Link</Link>
 				</TabPanel>
+				<TabPanel>Content Four</TabPanel>
+				<TabPanel>Content Five</TabPanel>
 			</TabPanels>
 		</Tabs>
 	),

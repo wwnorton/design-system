@@ -17,6 +17,8 @@ const styles = {
 	contained: `${BASE_NAME}--contained`,
 	line: `${BASE_NAME}--line`,
 	text: `${BASE_NAME}__text`,
+	previous: `${BASE_NAME}--previous`,
+	next: `${BASE_NAME}--next`,
 };
 
 export const TabScrollButton = ({ type, onClick, disabled }: TabScrollButtonProps) => {
@@ -29,6 +31,8 @@ export const TabScrollButton = ({ type, onClick, disabled }: TabScrollButtonProp
 		{
 			[styles.contained]: variant === 'contained',
 			[styles.line]: variant === 'line',
+			[styles.previous]: type === 'left',
+			[styles.next]: type === 'right',
 		},
 	);
 

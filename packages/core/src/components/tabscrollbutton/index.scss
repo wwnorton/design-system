@@ -8,15 +8,20 @@
 @use '../../util';
 @use '../../device/' as device;
 @use '../button' as btn;
+@use 'tokens';
 
 @mixin base {
 	@include btn.base;
 	@include btn.ghost;
 
 	display: flex;
-	width: 3rem;
+	min-width: 3rem;
+	padding: 0;
 	color: var(--nds-navy-80);
+	text-align: center;
 	flex-direction: column;
+	border: none;
+	border-radius: 0;
 	justify-content: center;
 	align-items: center;
 
@@ -30,12 +35,45 @@
 	}
 }
 
+@mixin previous {
+	margin-right: tokens.$negative-space;
+}
+
+@mixin next {
+	margin-left: tokens.$negative-space;
+}
+
 @mixin contained {
 	background-color: var(--nds-gray-20);
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		color: var(--nds-navy-80);
+		background-color: var(--nds-navy-30);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		color: var(--nds-navy-80);
+		background-color: var(--nds-navy-40);
+	}
 }
 
 @mixin line {
-	background-color: var(--nds-white);
+	color: var(--nds-base-color-80);
+	background-color: var(--nds-background-color);
+
+	&:not(:disabled):not(.disabled):hover,
+	&:not(:disabled):not(.disabled).hover {
+		color: var(--nds-base-color-80);
+		background-color: var(--nds-base-color-10);
+	}
+
+	&:not(:disabled):not(.disabled):active,
+	&:not(:disabled):not(.disabled).active {
+		color: var(--nds-base-color-80);
+		background-color: var(--nds-base-color-20);
+	}
 }
 
 @mixin style {
@@ -46,6 +84,14 @@
 
 		.nds-tab-scroll-button__text {
 			font-size: 0.563rem;
+		}
+
+		.nds-tab-scroll-button--previous {
+			@include previous;
+		}
+
+		.nds-tab-scroll-button--next {
+			@include next;
 		}
 
 		.nds-tab-scroll-button--contained {
