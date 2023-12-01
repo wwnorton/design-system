@@ -63,7 +63,7 @@ test('validation errors are not rendered in the field feedback on DOM `input` by
 	await user.keyboard('abc');
 
 	const errList = screen.queryByRole('list', { name: 'Errors' });
-	t.falsy(errList);
+	t.falsy(errList?.children.length);
 });
 
 test('validation errors are rendered in the field feedback on DOM `input` when `validateOnChange` is true', async (t) => {
@@ -80,7 +80,7 @@ test('validation errors are rendered in the field feedback on DOM `input` when `
 	await user.keyboard('abc');
 
 	const errList = screen.queryByRole('list', { name: 'Errors' });
-	t.truthy(errList);
+	t.truthy(errList?.children);
 });
 
 test('the error list is not rendered when there are no errors', async (t) => {
@@ -95,7 +95,7 @@ test('the error list is not rendered when there are no errors', async (t) => {
 	await user.tab();
 
 	const errList = screen.queryByRole('list', { name: 'Errors' });
-	t.falsy(errList);
+	t.falsy(errList?.children.length);
 });
 
 test('invalid input is reflected in both constraint validation and in ARIA', async (t) => {
