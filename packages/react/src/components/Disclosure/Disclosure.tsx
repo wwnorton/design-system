@@ -192,6 +192,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 				marker={Marker}
 				onClick={summaryClickHandler}
 				markerPosition={markerPos}
+				aria-expanded={isOpen}
 			>
 				<span className={`${baseName}__title`}>{ summary }</span>
 			</BaseSummary>
