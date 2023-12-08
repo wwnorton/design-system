@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup ✅
-        uses: ./.github/actions/setup
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
 
       - name: Build 🔧
         run: npm run build
@@ -24,8 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup ✅
-        uses: ./.github/actions/setup
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
 
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc
@@ -41,8 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup ✅
-        uses: ./.github/actions/setup
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
 
       - name: CSpell ✏️
         run: npm run cspell
@@ -52,8 +52,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup ✅
-        uses: ./.github/actions/setup
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
 
       - name: ESLint ✨
         run: npm run lint:es
@@ -63,8 +63,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup ✅
-        uses: ./.github/actions/setup
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
 
       - name: Stylelint ✨
         run: npm run lint:style
@@ -74,8 +74,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup ✅
-        uses: ./.github/actions/setup
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
 
       - name: Prettier ✨
         run: npm run lint:prettier
@@ -91,8 +91,8 @@ jobs:
       COVERAGE_VERSION: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Setup ✅
-        uses: ./.github/actions/setup
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
         with:
           node-version: ${{ matrix.node }}
 

@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup ✅
-        uses: ./.github/actions/setup
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
 
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc

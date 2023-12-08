@@ -16,8 +16,8 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Setup ✅
-        uses: ./.github/composites/setup
+      - name: Prepare ✅
+        uses: ./.github/composites/prepare
       - name: Build 🔧
         run: npm run build
       - name: Publish 🚀
@@ -34,8 +34,8 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Setup ✅
-        uses: ./.github/composites/setup
+      - name: Prepare ✅
+        uses: ./.github/composites/prepare
       - name: Build 🔧
         run: npm run build
       - name: Publish 🚀

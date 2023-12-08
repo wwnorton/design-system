@@ -1,5 +1,5 @@
 # cSpell:ignore npmrc
-name: "Setup"
+name: "Prepare"
 description: "Sets up Node.js, Git, and runs install"
 
 inputs:
