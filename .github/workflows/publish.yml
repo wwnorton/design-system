@@ -23,7 +23,7 @@ jobs:
       - name: Publish 🚀
         run: npx lerna publish --conventional-commits --create-release github --conventional-prerelease --preid next --dist-tag next --yes
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # On changes to the release branch, publish to the "latest" dist tag
@@ -41,5 +41,5 @@ jobs:
       - name: Publish 🚀
         run: npx lerna publish --conventional-commits --create-release github --yes
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
