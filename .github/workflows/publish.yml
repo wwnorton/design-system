@@ -1,0 +1,45 @@
+# cSpell:ignore preid
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+      - release
+
+jobs:
+  # On changes to main, publish to the "next" dist tag
+  publish-next:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Setup ✅
+        uses: ./.github/composites/setup
+      - name: Build 🔧
+        run: npm run build
+      - name: Publish 🚀
+        run: npx lerna publish --conventional-commits --create-release github --conventional-prerelease --preid next --dist-tag next --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # On changes to the release branch, publish to the "latest" dist tag
+  publish:
+    if: github.ref == 'refs/heads/release'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Setup ✅
+        uses: ./.github/composites/setup
+      - name: Build 🔧
+        run: npm run build
+      - name: Publish 🚀
+        run: npx lerna publish --conventional-commits --create-release github --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
