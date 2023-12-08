@@ -1,4 +1,4 @@
-name: Integration
+name: Quality
 
 on:
   push:
@@ -12,8 +12,10 @@ jobs:
     name: Build library
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup ✅
-        uses: ./.github/composites/setup
+        uses: ./.github/actions/setup
+
       - name: Build 🔧
         run: npm run build
 
@@ -21,8 +23,10 @@ jobs:
     name: Build docs
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup ✅
-        uses: ./.github/composites/setup
+        uses: ./.github/actions/setup
+
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc
       - name: Build Storybook 📚
@@ -36,8 +40,10 @@ jobs:
     name: Spell check
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup ✅
-        uses: ./.github/composites/setup
+        uses: ./.github/actions/setup
+
       - name: CSpell ✏️
         run: npm run cspell
 
@@ -45,8 +51,10 @@ jobs:
     name: ESLint
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup ✅
-        uses: ./.github/composites/setup
+        uses: ./.github/actions/setup
+
       - name: ESLint ✨
         run: npm run lint:es
 
@@ -54,8 +62,10 @@ jobs:
     name: Stylelint
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup ✅
-        uses: ./.github/composites/setup
+        uses: ./.github/actions/setup
+
       - name: Stylelint ✨
         run: npm run lint:style
 
@@ -63,8 +73,10 @@ jobs:
     name: Prettier
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup ✅
-        uses: ./.github/composites/setup
+        uses: ./.github/actions/setup
+
       - name: Prettier ✨
         run: npm run lint:prettier
 
@@ -78,10 +90,12 @@ jobs:
     env:
       COVERAGE_VERSION: 20
     steps:
+      - uses: actions/checkout@v4
       - name: Setup ✅
-        uses: ./.github/composites/setup
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ matrix.node }}
+
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
