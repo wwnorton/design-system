@@ -5,22 +5,12 @@ on:
     branches:
       - main
 
-env:
-  NODE_VERSION: 18
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-      - name: Install 📦
-        run: npm ci
+      - name: Setup ✅
+        uses: ./.github/composites/setup
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc
       - name: Build Storybook 📚
@@ -48,4 +38,4 @@ jobs:
     steps:
       - name: Deploy 🚀
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v3
