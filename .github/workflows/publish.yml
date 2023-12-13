@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          ssh-key: ${{ secrets.SSH_KEY }}
       - name: Prepare ✅
         uses: ./.github/actions/prepare
       - name: Build 🔧
@@ -39,6 +39,8 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.SSH_KEY }}
       - name: Prepare ✅
         uses: ./.github/actions/prepare
       - name: Build 🔧
