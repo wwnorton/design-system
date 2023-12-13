@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.2-next.1 (2023-12-13)
+
+**Note:** Version bump only for package @wwnds/core
+
 ## 1.7.2-next.0 (2023-12-13)
 
 **Note:** Version bump only for package @wwnds/core
