@@ -42,6 +42,7 @@
     "@docusaurus/theme-live-codeblock": "^2.3.1",
     "@wwnds/core": "^1.7.2-next.1",
     "@wwnds/react": "^1.7.2-next.1",
+    "@mdx-js/react": "^1.6.22",
     "colorable": "^1.0.5",
     "docusaurus-lunr-search": "^2.3.2",
     "markdown-to-jsx": "^7.1.9",
@@ -59,5 +60,9 @@
   ],
   "engines": {
     "node": ">=14.15.0"
-  }
+  },
+  "bundleDependencies": [
+    "@docusaurus/theme-common",
+    "clsx"
+  ]
 }
