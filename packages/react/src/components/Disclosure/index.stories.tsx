@@ -51,16 +51,16 @@ export const Controlled: Story<DisclosureProps> = (args) => {
 	// load a random poem
 	const getContents = async (): Promise<void> => {
 		setSummary(`${summaryText.current} (retrieving...)`);
-		const [{ content, poet, title }] = await fetch('https://www.poemist.com/api/v1/randompoems')
+		const [{ title, author, lines }] = await fetch('https://poetrydb.org/random/1/title,author,lines')
 			.then((r) => r.json());
 		setContents((
 			<>
 				<h2>{ title }</h2>
-				<pre>{ content }</pre>
+				<pre>{ lines.join('\n') }</pre>
 				<div>
 					&mdash;
 					{' '}
-					{ poet.name }
+					{ author }
 				</div>
 			</>
 		));
