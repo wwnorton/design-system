@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.2-next.0 (2023-12-13)
+
+**Note:** Version bump only for package @wwnds/core
+
 ## [1.6.0](https://github.com/wwnorton/design-system/compare/v1.5.0...v1.6.0) (2022-09-08)
 
 ### 📝 Documentation
