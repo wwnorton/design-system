@@ -29,7 +29,6 @@ runs:
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-        git remote set-url origin "https://$GITHUB_ACTOR:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 
     - name: Install 📦
       shell: bash
