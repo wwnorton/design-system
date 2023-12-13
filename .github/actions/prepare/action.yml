@@ -1,0 +1,35 @@
+# cSpell:ignore npmrc
+name: "Prepare"
+description: "Sets up Node.js, Git, and runs install"
+
+inputs:
+  node-version:
+    description: "Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0."
+    default: "20"
+  registry-url:
+    description: "Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file, and set up auth to read in from env.NODE_AUTH_TOKEN."
+    default: "https://registry.npmjs.org/"
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        cache: "npm"
+        node-version: ${{ inputs.node-version }}
+        registry-url: ${{ inputs.registry-url }}
+
+    - name: Update npm
+      if: ${{ inputs.node-version == 14 }}
+      shell: bash
+      run: npm i -g npm@7
+
+    - name: Configure Git user
+      shell: bash
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+
+    - name: Install 📦
+      shell: bash
+      run: npm ci

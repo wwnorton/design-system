@@ -1,14 +1,11 @@
-# cSpell:ignore coverallsapp
-name: Integration
+name: Quality
 
 on:
   push:
     branches:
       - main
+      - release
   pull_request:
-
-env:
-  NODE_VERSION: 18
 
 jobs:
   build:
@@ -16,12 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-      - name: Install 📦
-        run: npm ci
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
+
       - name: Build 🔧
         run: npm run build
 
@@ -30,12 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-      - name: Install 📦
-        run: npm ci
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
+
       - name: Build Sassdoc 💄
         run: npm run build:sassdoc
       - name: Build Storybook 📚
@@ -50,12 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-      - name: Install 📦
-        run: npm ci
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
+
       - name: CSpell ✏️
         run: npm run cspell
 
@@ -64,12 +52,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-      - name: Install 📦
-        run: npm ci
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
+
       - name: ESLint ✨
         run: npm run lint:es
 
@@ -78,12 +63,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-      - name: Install 📦
-        run: npm ci
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
+
       - name: Stylelint ✨
         run: npm run lint:style
 
@@ -92,12 +74,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-      - name: Install 📦
-        run: npm ci
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
+
       - name: Prettier ✨
         run: npm run lint:prettier
 
@@ -107,22 +86,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [14, 16, 18, 20]
+        node: [16, 18, 20]
+    env:
+      COVERAGE_VERSION: 20
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
         with:
           node-version: ${{ matrix.node }}
-          cache: "npm"
-      - name: Update npm
-        if: ${{ matrix.node == 14 }}
-        run: npm i -g npm@7
-      - name: Install 📦
-        run: npm ci
+
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
         uses: codecov/codecov-action@v3
-        if: ${{ matrix.node == env.NODE_VERSION }}
+        if: ${{ matrix.node == env.COVERAGE_VERSION }}
         with:
           directory: coverage
