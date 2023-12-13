@@ -1,6 +1,6 @@
 @use '../../spacing';
 
-$border-color: var(--nds-base-color-40) !default;
+$border-color: var(--nds-base-color-50) !default;
 $border-width: 1px !default;
 $padding-y: calc(#{spacing.spacer('input-y')} - var(--nds-textfield-border-width)) !default;
 $padding-x: calc(#{spacing.spacer('input-x')} - var(--nds-textfield-border-width)) !default;
