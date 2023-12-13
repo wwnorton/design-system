@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Prepare ✅
-        uses: ./.github/composites/prepare
+        uses: ./.github/actions/prepare
       - name: Build 🔧
         run: npm run build
       - name: Publish 🚀
@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Prepare ✅
-        uses: ./.github/composites/prepare
+        uses: ./.github/actions/prepare
       - name: Build 🔧
         run: npm run build
       - name: Publish 🚀
