@@ -28,7 +28,7 @@ jobs:
       - name: Build 🔧
         run: npm run build
       - name: Publish 🚀
-        run: npx lerna publish --conventional-commits --create-release github --conventional-prerelease --preid next --dist-tag next --yes
+        run: npx lerna publish --conventional-commits --create-release github --conventional-bump-prerelease --preid next --dist-tag next --yes
 
   # On changes to the release branch, publish to the "latest" dist tag
   publish:
