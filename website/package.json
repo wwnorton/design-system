@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "1.8.0-next.0",
+  "version": "1.8.0",
   "private": true,
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
@@ -41,8 +41,8 @@
     "@docusaurus/preset-classic": "^2.3.1",
     "@docusaurus/theme-live-codeblock": "^2.3.1",
     "@mdx-js/react": "^1.6.22",
-    "@wwnds/core": "^1.8.0-next.0",
-    "@wwnds/react": "^1.8.0-next.0",
+    "@wwnds/core": "^1.8.0",
+    "@wwnds/react": "^1.8.0",
     "colorable": "^1.0.5",
     "docusaurus-lunr-search": "^2.3.2",
     "markdown-to-jsx": "^7.1.9",
