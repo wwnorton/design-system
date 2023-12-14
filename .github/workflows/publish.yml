@@ -28,7 +28,7 @@ jobs:
       - name: Build 🔧
         run: npm run build
       - name: Publish 🚀
-        run: npx lerna publish --conventional-commits --create-release github --conventional-bump-prerelease --preid next --dist-tag next --yes
+        run: npx lerna publish --conventional-commits --conventional-bump-prerelease --create-release github --preid next --dist-tag next --yes
 
   # On changes to release branches, publish to the "latest" dist tag
   publish:
@@ -46,4 +46,4 @@ jobs:
       - name: Build 🔧
         run: npm run build
       - name: Publish 🚀
-        run: npx lerna publish --conventional-commits --create-release github --conventional-graduate --yes
+        run: npx lerna publish --conventional-commits --conventional-graduate --create-release github --yes
