@@ -19,6 +19,7 @@ export * from './Radio';
 export * from './Spinner';
 export * from './StepIndicator';
 export * from './Switch';
+export * from './Tabs';
 export * from './Tag';
 export * from './TextField';
 export * from './Tooltip';

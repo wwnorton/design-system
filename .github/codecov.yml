@@ -12,3 +12,4 @@ comment:
 ignore:
   - packages/react/src/utilities/popper
   - packages/react/src/components/LiveRegion
+  - packages/react/src/utilities/descendant

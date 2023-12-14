@@ -1,0 +1,47 @@
+@use '../../util';
+@use '../../device/' as device;
+@use 'tokens';
+
+@mixin base {
+	display: flex;
+	overflow-x: hidden;
+	flex-grow: 2;
+
+	@include device.media-up('sm') {
+		overflow-x: auto;
+	}
+}
+
+@mixin left {
+	justify-content: flex-start;
+}
+
+@mixin centered {
+	@include device.media-up('sm') {
+		justify-content: center;
+	}
+}
+
+@mixin style {
+	@include util.declare('tab-list') {
+		.nds-tab-list-container {
+			display: flex;
+			border-bottom: 1px solid var(--nds-navy-40);
+		}
+
+		.nds-tab-list {
+			@include base;
+
+			padding: tokens.$negative-space;
+			margin: tokens.$negative-space * -1;
+		}
+
+		.nds-tab-list--left {
+			@include left;
+		}
+
+		.nds-tab-list--centered {
+			@include centered;
+		}
+	}
+}
