@@ -12,6 +12,7 @@ import {
 const BASE_TABS = ['Tab 1', 'Tab 2', 'Tab 3', 'Long Text "Tab 4"', 'Tab 5'];
 
 const meta: Meta<typeof Tabs> = {
+	title: 'Tabs',
 	component: Tabs,
 	parameters: { controls: { sort: 'requiredFirst' } },
 	argTypes: {
