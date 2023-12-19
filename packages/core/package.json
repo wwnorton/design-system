@@ -30,7 +30,8 @@
     "Anand Patil <apatil@wwnorton.com>",
     "Jonathan Chan",
     "Wilmer Guevara",
-    "Juan Rebella"
+    "Juan Rebella",
+    "Carlos Frias <cfrias@wwnorton.com>"
   ],
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.js",

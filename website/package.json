@@ -9,7 +9,9 @@
     "Erin O'Hara <eohara@wwnorton.com>",
     "Anand Patil <apatil@wwnorton.com>",
     "Wilmer Guevara",
-    "Juan Rebella"
+    "Juan Rebella",
+    "Carlos Frias <cfrias@wwnorton.com>",
+    "Shelby Johnson <sjohnson@wwnorton.com>"
   ],
   "scripts": {
     "build": "docusaurus build --out-dir ../public",
