@@ -3,19 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## 1.7.2-next.3 (2023-12-14)
-
-**Note:** Version bump only for package website
-
-## 1.7.2-next.2 (2023-12-14)
-
-**Note:** Version bump only for package website
-
-## 1.7.2-next.1 (2023-12-13)
-
-**Note:** Version bump only for package website
-
-## 1.7.2-next.0 (2023-12-13)
+## [1.8.0](https://github.com/wwnorton/design-system/compare/v1.7.1...v1.8.0) (2023-12-14)
 
 **Note:** Version bump only for package website
 

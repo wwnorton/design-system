@@ -3,21 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## 1.7.2-next.3 (2023-12-14)
+## [1.8.0](https://github.com/wwnorton/design-system/compare/v1.7.1...v1.8.0) (2023-12-14)
 
-**Note:** Version bump only for package @wwnds/react
+### ✨ Features
 
-## 1.7.2-next.2 (2023-12-14)
+- add new tabs component ([d627b98](https://github.com/wwnorton/design-system/commit/d627b98a45ec1420f3f24f249b88ead43e44750f))
 
-**Note:** Version bump only for package @wwnds/react
+### 🐛 Bug Fixes
 
-## 1.7.2-next.1 (2023-12-13)
+- reports disclosure collapsed state to screen readers ([43ef06](https://github.com/wwnorton/design-system/commit/43ef0670156d0eef68f648d8d91a6d2fec70a274))
+- **react:** solve disappearing checked state in ChoiceField and RadioGroup ([adfa78](https://github.com/wwnorton/design-system/commit/adfa78cf4518f5f93e1eaa0519e13f1947a4226a))
+- added an extra validation to avoid making focus ([0c7bfd](https://github.com/wwnorton/design-system/commit/0c7bfdbef7272e4533dbe5b90520581deab160d2))
 
-**Note:** Version bump only for package @wwnds/react
+### 📝 Documentation
 
-## 1.7.2-next.0 (2023-12-13)
-
-**Note:** Version bump only for package @wwnds/react
+- **react:** improve Tabs stories ([6d5a76d](https://github.com/wwnorton/design-system/commit/6d5a76dcb53e2f6fce411ac712659617e2b50277))
 
 ## [1.7.1](https://github.com/wwnorton/design-system/compare/v1.7.0...v1.7.1) (2023-06-23)
 
