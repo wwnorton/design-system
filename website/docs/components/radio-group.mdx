@@ -10,19 +10,16 @@ import { PropsTable } from '@website/components';
 
 ## Anatomy
 
-The anatomy for both a group of related radio buttons and a single radio button are outlined here.
+<img
+	alt="A radio group with indicators calling out the corresponding anatomy items starting with Group Label followed by three radio button options that consist of: an unselected control: left, a radio button label: right of control, and description text: below the radio button label."
+	src={useBaseUrl('/img/Anatomy_radio.png')}
+/>
 
-### Radio Group
-
-1. **Label** - text that conveys how the radio buttons are related and prompts the user to select a single radio button.
-1. **Current selection**: a selected radio button indicates that it will be the option that is submitted.
-1. **Choices** - the available radio buttons. Clicking or arrowing to an unselected radio button will deselect the currently selected radio button.
-
-### Radio Button
-
-1. **Control** - the input control that conveys the current state of the radio button to the user.
-1. **Label** - a short name that lets the user know what the radio button is selecting. Clicking the label should select the radio button.
+1. **Group Label** - text that conveys how the radio buttons are related and prompts the user to select a single radio button.
+1. **Control** - the input control that conveys the current state of the radio button to the user.  A selected radio button indicates that it will be the option that is submitted.
+1. **Radio Button Label** - a short name that lets the user know what the radio button is selecting. Clicking the label should select the radio button.
 1. **Description** (_optional_) - additional text that can be used to add clarity or context to the radio button label. Clicking the description should do nothing.
+
 
 :::caution Single Radio Button Usage
 Radio buttons must always be part of a radio group.
