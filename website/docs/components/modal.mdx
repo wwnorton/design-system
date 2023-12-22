@@ -10,13 +10,18 @@ import { PropsTable } from '@website/components';
 
 ## Anatomy
 
+<img
+	alt="A Modal with indicators calling out the corresponding anatomy items starting with modal container, title: top left, close button icon: top right, body, action buttons: bottom right, and a dark backdrop overlay behind the modal."
+	src={useBaseUrl('/img/Anatomy_modal.png')}
+/>
+
 1. **Modal container** - the modal container provides a boundary for the contents of the modal.
-1. **Backdrop overlay** - an overlay that prevents the user from interacting with the page's main content.
-1. **Title** (_recommended_) - the name of the modal lets the user know what to expect from it and functions as a header for the body of the modal.
+1. **Title** (recommended) - the name of the modal lets the user know what to expect from it and functions as a header for the body of the modal.
+1. **Close Button** (_optional_) - a button that will always close the modal.
+      - This should always be included when no other controls exist inside the modal.
 1. **Body** - the main content of the modal presents important information to the user or asks them to perform simple tasks before exiting the modal.
-1. **Close button** (_optional_) - a button that will always close the modal.
-	- This should always be included when no other controls exist inside the modal.
-1. **Action buttons** (_optional_) - one or more actions that will result in the dismissal of the modal.
+1. **Action Buttons** (_optional_) - one or more actions that will result in the dismissal of the modal.
+1. **Backdrop Overlay** - an overlay that prevents the user from interacting with the page’s main content.
 
 ## Usage
 
