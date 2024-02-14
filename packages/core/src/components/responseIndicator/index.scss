@@ -1,0 +1,90 @@
+@use '../../util';
+
+@mixin base {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	&--left {
+		flex-direction: row;
+	}
+
+	&--top {
+		flex-direction: column;
+	}
+
+	&--right {
+		flex-direction: row-reverse;
+	}
+
+	&--bottom {
+		flex-direction: column-reverse;
+	}
+
+	&__label-background {
+		display: flex;
+		padding: 0.25rem;
+		border-radius: 2px;
+	}
+
+	&__label {
+		font-size: var(--nds-spacing-3);
+		font-weight: bold;
+		line-height: 1.5;
+		color: var(--nds-white);
+		text-transform: uppercase;
+		letter-spacing: normal;
+	}
+}
+
+@mixin correct {
+	.nds-response-indicator__label-background {
+		background-color: var(--nds-green-60);
+	}
+
+	.nds-response-indicator__icon {
+		fill: var(--nds-green-60);
+	}
+}
+
+@mixin incorrect {
+	.nds-response-indicator__label-background {
+		background-color: var(--nds-red-60);
+	}
+
+	.nds-response-indicator__icon {
+		fill: var(--nds-red-60);
+	}
+}
+
+@mixin style {
+	@include util.declare('response-indicator') {
+		.nds-response-indicator {
+			@include base;
+		}
+
+		.nds-response-indicator--correct {
+			@include correct;
+		}
+
+		.nds-response-indicator--incorrect {
+			@include incorrect;
+		}
+
+		.nds-response-indicator--left .nds-response-indicator__icon {
+			margin-right: var(--nds-spacing-2);
+		}
+
+		.nds-response-indicator--top .nds-response-indicator__icon {
+			margin-bottom: var(--nds-spacing-2);
+		}
+
+		.nds-response-indicator--right .nds-response-indicator__icon {
+			margin-left: var(--nds-spacing-2);
+		}
+
+		.nds-response-indicator--bottom .nds-response-indicator__icon {
+			margin-top: var(--nds-spacing-2);
+		}
+	}
+}
