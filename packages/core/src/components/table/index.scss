@@ -1,0 +1,64 @@
+@use "../../util";
+
+@mixin base {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	&--left {
+		flex-direction: row;
+	}
+
+	&--top {
+		flex-direction: column;
+	}
+
+	&--right {
+		flex-direction: row-reverse;
+	}
+
+	&--bottom {
+		flex-direction: column-reverse;
+	}
+
+	&__label-background {
+		display: flex;
+		padding: 0.25rem;
+		border-radius: 2px;
+	}
+
+	&__label {
+		font-size: var(--nds-spacing-3);
+		font-weight: bold;
+		line-height: 1.5;
+		color: var(--nds-white);
+		text-transform: uppercase;
+		letter-spacing: normal;
+	}
+}
+
+@mixin style {
+	@include util.declare("table") {
+		.nds-table {
+			width: 100%;
+			&-row {
+			}
+			&-header {
+				&--sorted-asc::after {
+					content: " ▲";
+				}
+
+				&--sorted-desc::after {
+					content: " ▼";
+				}
+			}
+			&-section-header {
+			}
+			&-body--collapsed {
+				tr:not(:first-child) {
+					display: none;
+				}
+			}
+		}
+	}
+}
