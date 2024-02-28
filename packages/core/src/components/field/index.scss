@@ -24,8 +24,8 @@
 @mixin info {
 	@include type.ui-base;
 
-	:last-child {
-		margin-bottom: spacing.spacer('ui-inner');
+	& > *:last-child {
+		margin-bottom: spacing.spacer('1rem');
 	}
 }
 
