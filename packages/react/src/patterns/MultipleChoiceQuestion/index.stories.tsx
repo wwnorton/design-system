@@ -26,7 +26,7 @@ export const Default = () => {
 				{
 					id: 'choice-1',
 					label: 'A',
-					text: 'Jayvon, who had opened a checking account at the branch that same day',
+					text: 'Foo, who had opened a checking account at the branch that same day',
 					feedback: '<p>Answer 1 feedback lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>',
 				},
 				{
@@ -38,7 +38,7 @@ export const Default = () => {
 				{
 					id: 'choice-3',
 					label: 'C',
-					text: 'Huong, who was born with Urbach-Wiethe syndrome and lacks an amygdala',
+					text: 'Bar, who was born with Baz syndrome and lacks an amygdala',
 					feedback: '<p>Answer 3 feedback lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>',
 				},
 			],
