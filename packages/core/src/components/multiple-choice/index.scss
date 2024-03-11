@@ -1,0 +1,31 @@
+@use '../../util';
+
+@mixin style {
+	@include util.declare('multiple-choice') {
+		.nds-multiple-choice {
+			&__stem {
+				font-weight: bold;
+			}
+
+			&__intro {
+			}
+
+			&__instructions {
+				font-size: var(--nds-font-size-xs);
+			}
+
+			&__choice {
+				display: flex;
+				gap: 1rem;
+			}
+
+			&__feedback {
+				min-width: 4rem;
+			}
+
+			&__choice-label {
+				font-weight: bold;
+			}
+		}
+	}
+}
