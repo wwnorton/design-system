@@ -35,4 +35,6 @@ export interface ResponseIndicatorProps {
 	 * will override the default label
 	 */
 	label?: string;
+
+	className?: string;
 }
