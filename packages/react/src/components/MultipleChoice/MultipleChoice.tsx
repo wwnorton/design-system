@@ -30,11 +30,16 @@ const QuestionInstructions = ({ children }: React.PropsWithChildren<unknown>) =>
 
 interface QuestionState {
 	status: 'correct' | 'incorrect' | 'unanswered';
-	onChange?: (event: React.ChangeEvent<HTMLFieldSetElement>) => void;
+	onSelect?: (input: OnSelectInput) => void;
 	selected?: number;
 }
 
 type LabelType = 'lower-alpha' | 'upper-alpha' | 'lower-roman' | 'upper-roman' | 'decimal';
+
+type OnSelectInput = {
+	label: string;
+	index: number;
+};
 
 interface MultipleChoiceProps extends QuestionState {
 	stem: string | React.ReactElement<void, typeof QuestionStem>;
@@ -69,22 +74,22 @@ function resolveLabelType(labelType: LabelType, index: number) {
 }
 
 interface AnswerChoiceProps {
-	index?: number;
+	label?: string;
+	onSelect?: () => void;
 	children: React.ReactNode;
 }
-export const AnswerChoice = ({ index = 0, children }: AnswerChoiceProps) => {
-	const label = React.useContext(LabelCtx);
-	return (
-		<Choice>
-			<span className={styles.choiceLabel}>
-				{`${resolveLabelType(label, index)}. `}
-			</span>
-			<span>
-				{children}
-			</span>
-		</Choice>
-	);
-};
+export const AnswerChoice = ({ label, onSelect, children }: AnswerChoiceProps) => (
+	<Choice onSelect={onSelect}>
+		<span className={styles.choiceLabel}>
+			{label}
+			.
+			{' '}
+		</span>
+		<span>
+			{children}
+		</span>
+	</Choice>
+);
 
 export const MultipleChoice = ({
 	stem,
@@ -93,7 +98,7 @@ export const MultipleChoice = ({
 	children,
 	labelType = 'lower-alpha',
 	status,
-	onChange,
+	onSelect,
 	selected,
 }: MultipleChoiceProps) => {
 	const introElement = typeof intro === 'string' ? <QuestionIntro>{intro}</QuestionIntro> : intro;
@@ -106,7 +111,7 @@ export const MultipleChoice = ({
 			{stemElement}
 			{instructionsElement}
 			<div>
-				<ChoiceField label={undefined} onChange={onChange}>
+				<ChoiceField label={undefined}>
 					<LabelCtx.Provider value={labelType}>
 						{
 							React.Children.map(
@@ -114,6 +119,7 @@ export const MultipleChoice = ({
 								(child, index) => {
 									const isCorrect = status === 'correct' && index === selected;
 									const isIncorrect = status === 'incorrect' && index === selected;
+									const label = resolveLabelType(labelType, index);
 
 									let feedback: React.ReactNode = null;
 									if (isCorrect) {
@@ -136,12 +142,18 @@ export const MultipleChoice = ({
 										feedback = <div className={styles.feedback} />;
 									}
 
+									const handleSelect = () => {
+										if (onSelect) {
+											onSelect({ label, index });
+										}
+									};
+
 									// TODO: use grid to solve issues with incorrect response
 									// indicator
 									return (
 										<div className={styles.choice}>
 											{feedback}
-											{React.cloneElement(child, { index } as any)}
+											{React.cloneElement(child, { label, onSelect: handleSelect } as any)}
 										</div>
 									);
 								},
