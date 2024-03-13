@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { AnswerChoice, MultipleChoice } from './MultipleChoice';
+import { MultipleChoicePattern } from './pattern-example';
 
 const meta: Meta<typeof MultipleChoice> = {
 	component: MultipleChoice,
@@ -53,4 +54,10 @@ export const Incorrect: Story = {
 		selected: 1,
 		children: choices,
 	},
+};
+
+export const PatternExample: Story = {
+	render: () => (
+		<MultipleChoicePattern />
+	),
 };

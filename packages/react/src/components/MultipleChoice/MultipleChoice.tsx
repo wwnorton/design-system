@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Choice, ChoiceField } from '../ChoiceField';
 import { ResponseIndicator } from '../ResponseIndicator';
 
@@ -75,21 +75,32 @@ function resolveLabelType(labelType: LabelType, index: number) {
 
 interface AnswerChoiceProps {
 	label?: string;
-	onSelect?: () => void;
+	checked?: boolean;
+	value?: number;
+	onSelect?: (input: OnSelectInput) => void;
 	children: React.ReactNode;
 }
-export const AnswerChoice = ({ label, onSelect, children }: AnswerChoiceProps) => (
-	<Choice onSelect={onSelect}>
-		<span className={styles.choiceLabel}>
-			{label}
-			.
-			{' '}
-		</span>
-		<span>
-			{children}
-		</span>
-	</Choice>
-);
+export const AnswerChoice = ({
+	label, children, onSelect, value, checked,
+}: AnswerChoiceProps) => {
+	const onChange = useCallback(() => {
+		if (value === undefined || !label || !onSelect) { return; }
+		onSelect({ index: value, label });
+	}, [onSelect, value, label]);
+
+	return (
+		<Choice onChange={onChange} checked={checked}>
+			<span className={styles.choiceLabel}>
+				{label}
+				.
+				{' '}
+			</span>
+			<span>
+				{children}
+			</span>
+		</Choice>
+	);
+};
 
 export const MultipleChoice = ({
 	stem,
@@ -142,18 +153,16 @@ export const MultipleChoice = ({
 										feedback = <div className={styles.feedback} />;
 									}
 
-									const handleSelect = () => {
-										if (onSelect) {
-											onSelect({ label, index });
-										}
-									};
+									const checked = index === selected;
 
 									// TODO: use grid to solve issues with incorrect response
 									// indicator
 									return (
 										<div className={styles.choice}>
 											{feedback}
-											{React.cloneElement(child, { label, onSelect: handleSelect } as any)}
+											{React.cloneElement(child, {
+												label, checked, value: index, onSelect,
+											} as any)}
 										</div>
 									);
 								},
