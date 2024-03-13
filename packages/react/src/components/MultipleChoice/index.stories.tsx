@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { AnswerChoice, MultipleChoice } from './MultipleChoice';
+import { MultipleChoice } from './MultipleChoice';
 import { MultipleChoicePattern } from './pattern-example';
 
 const meta: Meta<typeof MultipleChoice> = {
@@ -11,15 +11,9 @@ export default meta;
 type Story = StoryObj<typeof MultipleChoice>;
 
 const choices = [
-	<AnswerChoice>
-		Jayvon, who had opened a checking account at the branch that same day
-	</AnswerChoice>,
-	<AnswerChoice>
-		Ibrahim, who is taking propranolol to control his blood pressure
-	</AnswerChoice>,
-	<AnswerChoice>
-		Huong, who was born with Urbach-Wiethe syndrome and lacks an amygdala
-	</AnswerChoice>,
+	'Jayvon, who had opened a checking account at the branch that same day',
+	'Ibrahim, who is taking propranolol to control his blood pressure',
+	'Huong, who was born with Urbach-Wiethe syndrome and lacks an amygdala',
 ];
 
 export const Unanswered: Story = {
@@ -28,7 +22,7 @@ export const Unanswered: Story = {
 		stem: 'Which of the people is likely to best remember the event afterward?',
 		instructions: 'Select one that applies. You have 2 attempts remaining.',
 		status: 'unanswered',
-		children: choices,
+		choices,
 	},
 };
 
@@ -40,7 +34,7 @@ export const Correct: Story = {
 		status: 'correct',
 		labelType: 'upper-roman',
 		selected: 2,
-		children: choices,
+		choices,
 	},
 };
 
@@ -52,12 +46,12 @@ export const Incorrect: Story = {
 		status: 'incorrect',
 		labelType: 'upper-alpha',
 		selected: 1,
-		children: choices,
+		choices,
 	},
 };
 
 export const PatternExample: Story = {
 	render: () => (
-		<MultipleChoicePattern />
+		<MultipleChoicePattern choices={choices} />
 	),
 };

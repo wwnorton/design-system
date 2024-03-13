@@ -45,7 +45,7 @@ interface MultipleChoiceProps extends QuestionState {
 	stem: string | React.ReactElement<void, typeof QuestionStem>;
 	intro?: string | React.ReactElement<void, typeof QuestionIntro>;
 	instructions?: string | React.ReactElement<void, typeof QuestionIntro>;
-	children: React.ReactElement<void, typeof AnswerChoice>[];
+	choices: string[];
 	/**
 	 * @default 'lower-alpha'
 	 */
@@ -106,8 +106,8 @@ export const MultipleChoice = ({
 	stem,
 	intro,
 	instructions,
-	children,
 	labelType = 'lower-alpha',
+	choices,
 	status,
 	onSelect,
 	selected,
@@ -125,9 +125,8 @@ export const MultipleChoice = ({
 				<ChoiceField label={undefined}>
 					<LabelCtx.Provider value={labelType}>
 						{
-							React.Children.map(
-								children,
-								(child, index) => {
+							choices.map(
+								(choice, index) => {
 									const isCorrect = status === 'correct' && index === selected;
 									const isIncorrect = status === 'incorrect' && index === selected;
 									const label = resolveLabelType(labelType, index);
@@ -160,9 +159,14 @@ export const MultipleChoice = ({
 									return (
 										<div className={styles.choice}>
 											{feedback}
-											{React.cloneElement(child, {
-												label, checked, value: index, onSelect,
-											} as any)}
+											<AnswerChoice
+												label={label}
+												checked={checked}
+												value={index}
+												onSelect={onSelect}
+											>
+												{choice}
+											</AnswerChoice>
 										</div>
 									);
 								},
