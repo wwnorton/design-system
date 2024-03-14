@@ -1,22 +1,23 @@
 import React from 'react';
-import classNames from 'classnames';
 import { TableProps } from './types';
-
-const BASE_NAME = 'nds-table';
-
-const styles = {
-	base: `${BASE_NAME}`,
-};
+import { TableContext, useInitTableState } from './context';
 
 export const Table: React.FC<TableProps> = ({
+	className: tableClassName = 'nds-table',
+	// TODO: do we need this?
+	// selectableClass = `${tableClassName}--selectable`,
+	children,
 	selectable,
-	onSelect = () => { }, children, ...rest
+	onSelect,
 }) => {
-	const tableClassName = selectable ? 'selectable' : '';
+	const value = useInitTableState({ selectable, onSelect });
 
 	return (
-		<table className={styles.base} onClick={onSelect} {...rest}>
-			{children}
-		</table>
+		<TableContext.Provider value={value}>
+			<table className={tableClassName}>
+				{children}
+			</table>
+		</TableContext.Provider>
+
 	);
 };

@@ -2,17 +2,15 @@ import React from 'react';
 import classNames from 'classnames';
 import { TableBodyProps } from './types';
 
-const BASE_NAME = 'nds-table-body';
-
-const styles = {
-	collapsed: `${BASE_NAME}--collapsed`,
-};
-
-export const TableBody: React.FC<TableBodyProps> = ({ isCollapsed, children, ...rest }) => {
-	const classNames = isCollapsed ? styles.collapsed : '';
+export const TableBody: React.FC<TableBodyProps> = ({
+	children, className: baseName = 'nds-table__body', collapsedClass = `${baseName}--collapsed`, isCollapsed,
+}) => {
+	const bodyClassName = classNames(baseName, {
+		[collapsedClass]: isCollapsed,
+	});
 
 	return (
-		<tbody className={classNames} {...rest}>
+		<tbody className={bodyClassName}>
 			{children}
 		</tbody>
 	);
