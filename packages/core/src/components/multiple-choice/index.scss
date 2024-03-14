@@ -7,16 +7,26 @@
 				font-weight: bold;
 			}
 
-			&__intro {
-			}
-
 			&__instructions {
 				font-size: var(--nds-font-size-xs);
 			}
 
 			&__choice {
-				display: flex;
-				gap: 1rem;
+				& > input,
+				& > label {
+					position: absolute;
+					// FIXME: When adding a div as a children the hidden controls appear
+					// we need to fix this in the ChoiceField component
+					display: block;
+					width: 0;
+					height: 0;
+					visibility: hidden;
+				}
+
+				& .nds-field__label {
+					display: flex;
+					gap: 1rem;
+				}
 			}
 
 			&__feedback {
