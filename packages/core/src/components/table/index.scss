@@ -1,4 +1,4 @@
-@use "../../util";
+@use '../../util';
 
 @mixin base {
 	display: inline-flex;
@@ -38,22 +38,20 @@
 }
 
 @mixin style {
-	@include util.declare("table") {
+	@include util.declare('table') {
 		.nds-table {
 			width: 100%;
-			&-row {
-			}
+
 			&-header {
 				&--sorted-asc::after {
-					content: " ▲";
+					content: ' ▲';
 				}
 
 				&--sorted-desc::after {
-					content: " ▼";
+					content: ' ▼';
 				}
 			}
-			&-section-header {
-			}
+
 			&-body--collapsed {
 				tr:not(:first-child) {
 					display: none;
