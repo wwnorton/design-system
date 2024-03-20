@@ -4,8 +4,6 @@ import { TableContext, useInitTableState } from './context';
 
 export const Table: React.FC<TableProps> = ({
 	className: tableClassName = 'nds-table',
-	// TODO: do we need this?
-	// selectableClass = `${tableClassName}--selectable`,
 	children,
 	selectable,
 	onSelect,
