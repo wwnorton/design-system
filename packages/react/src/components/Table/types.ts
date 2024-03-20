@@ -1,8 +1,17 @@
+export interface TableState {
+	selectable?: boolean;
+	isSelectedAll?: boolean;
+	onSelect?: (data?: any) => void;
+	onSelected?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onSelectedAll?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	selected?: string[];
+}
+
 export interface TableProps {
 	className?: string;
 	selectableClass?: string;
 	selectable?: boolean;
-	onSelect?: () => void;
+	onSelect?: (data?: any) => void;
 }
 
 export interface TableRowProps {
@@ -17,8 +26,6 @@ export interface TableHeadCellProps {
 	className?: string;
 	sortType?: 'none' | 'ascending' | 'descending' | 'other' | undefined;
 	onSort?: VoidFunction;
-	// TODO: do we need to include this here?
-	onSelect?: VoidFunction
 }
 
 export interface TableHeaderProps {
