@@ -1,31 +1,29 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
-import {
-	sortNodes, isElement, getNextIndex, getPrevIndex,
-} from './utils';
+import { sortNodes, isElement, getNextIndex, getPrevIndex } from './utils';
 
 export type DescendantOptions<T = {}> = T & {
 	/**
-   * If `true`, the item will be registered in all nodes map
-   * but omitted from enabled nodes map
-   */
-	disabled?: boolean
+	 * If `true`, the item will be registered in all nodes map
+	 * but omitted from enabled nodes map
+	 */
+	disabled?: boolean;
 	/**
-   * The id of the item
-   */
-	id?: string
+	 * The id of the item
+	 */
+	id?: string;
 };
 
 export type Descendant<T, K> = DescendantOptions<K> & {
 	/**
-   * DOM element of the item
-   */
-	node: T
+	 * DOM element of the item
+	 */
+	node: T;
 	/**
-   * index of item in all nodes map and enabled nodes map
-   */
-	index: number
+	 * index of item in all nodes map and enabled nodes map
+	 */
+	index: number;
 };
 
 /**
@@ -34,10 +32,7 @@ export type Descendant<T, K> = DescendantOptions<K> & {
  * Class to manage descendants and their relative indices in the DOM.
  * It uses `node.compareDocumentPosition(...)` under the hood
  */
-export class DescendantsManager<
-	T extends HTMLElement,
-	K extends Record<string, any> = {},
-> {
+export class DescendantsManager<T extends HTMLElement, K extends Record<string, any> = {}> {
 	private descendants = new Map<T, Descendant<T, K>>();
 
 	register = (nodeOrOptions: T | null | DescendantOptions<K>) => {
@@ -121,11 +116,7 @@ export class DescendantsManager<
 		const item = this.item(index);
 		if (!item) return;
 		const enabledIndex = this.enabledIndexOf(item.node);
-		const nextEnabledIndex = getNextIndex(
-			enabledIndex,
-			this.enabledCount(),
-			loop,
-		);
+		const nextEnabledIndex = getNextIndex(enabledIndex, this.enabledCount(), loop);
 		return this.enabledItem(nextEnabledIndex);
 	};
 
@@ -138,11 +129,7 @@ export class DescendantsManager<
 		const item = this.item(index);
 		if (!item) return;
 		const enabledIndex = this.enabledIndexOf(item.node);
-		const prevEnabledIndex = getPrevIndex(
-			enabledIndex,
-			this.enabledCount() - 1,
-			loop,
-		);
+		const prevEnabledIndex = getPrevIndex(enabledIndex, this.enabledCount() - 1, loop);
 		return this.enabledItem(prevEnabledIndex);
 	};
 

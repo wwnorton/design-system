@@ -14,8 +14,8 @@ const template: Story = {
 	render: ({ ...args }) => (
 		<FeedbackModal {...args}>
 			<p>
-				Answer feedback lorem ipsum dolor sit amet, consectetur adipiscing elit,
-				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Answer feedback lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua.
 			</p>
 		</FeedbackModal>
 	),

@@ -1,9 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Link } from '../Link';
-import {
-	Tabs, Tab, TabList, TabPanel, TabPanels,
-} from '.';
+import { Tabs, Tab, TabList, TabPanel, TabPanels } from '.';
 
 const BASE_TABS = ['Tab 1', 'Tab 2', 'Tab 3', 'Long Text "Tab 4"', 'Tab 5'];
 

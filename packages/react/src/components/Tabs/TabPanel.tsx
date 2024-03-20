@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { TabPanelProps } from './types';
-import {
-	useTabId, useTabPanelId, useTabPanelsDescendant, useTabsState,
-} from './context';
+import { useTabId, useTabPanelId, useTabPanelsDescendant, useTabsState } from './context';
 import { updateTabPanelTabIndex } from './utils';
 
 export const TabPanel = ({ children }: TabPanelProps) => {

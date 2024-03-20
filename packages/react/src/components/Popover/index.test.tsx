@@ -1,8 +1,6 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import { Popover, PopoverProps } from '.';
 
 test.afterEach(cleanup);
@@ -12,17 +10,14 @@ const defaultBody = 'Test content';
 const triggerName = 'Open popover';
 
 // fixture for controlled popover
-const Fixture = ({
-	isOpen: openProp,
-	...props
-}: Partial<PopoverProps>) => {
+const Fixture = ({ isOpen: openProp, ...props }: Partial<PopoverProps>) => {
 	const [isOpen, setOpen] = React.useState(openProp || false);
 	const [ref, setRef] = React.useState<HTMLButtonElement | null>(null);
 	React.useEffect(() => setOpen(openProp), [openProp]);
 	return (
 		<>
 			<button type="button" ref={setRef}>
-				{ triggerName }
+				{triggerName}
 			</button>
 			<Popover
 				reference={ref}
@@ -32,42 +27,54 @@ const Fixture = ({
 				title={defaultTitle}
 				{...props}
 			>
-				{ defaultBody }
+				{defaultBody}
 			</Popover>
 		</>
 	);
 };
 
 test('a popover is rendered when isOpen', (t) => {
-	render(<Popover isOpen>{ defaultBody }</Popover>);
+	render(<Popover isOpen>{defaultBody}</Popover>);
 	t.truthy(screen.queryByRole('dialog'));
 });
 
 test('the popover uses its title as its accessible name by default', (t) => {
-	render(<Popover isOpen title={defaultTitle}>{ defaultBody }</Popover>);
+	render(
+		<Popover isOpen title={defaultTitle}>
+			{defaultBody}
+		</Popover>,
+	);
 	t.is(screen.queryByRole('dialog'), screen.queryByLabelText(defaultTitle));
 });
 
 test('the popover uses its title as its accessible name even when the title is hidden', (t) => {
-	render(<Popover isOpen title={defaultTitle} hideTitle>{ defaultBody }</Popover>);
+	render(
+		<Popover isOpen title={defaultTitle} hideTitle>
+			{defaultBody}
+		</Popover>,
+	);
 	t.is(screen.queryByRole('dialog'), screen.queryByLabelText(defaultTitle));
 });
 
 test('the popover uses a custom aria-label when specified', (t) => {
 	const customName = 'Custom name';
-	render(<Popover isOpen title={defaultTitle} aria-label={customName}>{ defaultBody }</Popover>);
+	render(
+		<Popover isOpen title={defaultTitle} aria-label={customName}>
+			{defaultBody}
+		</Popover>,
+	);
 	t.not(screen.queryByRole('dialog'), screen.queryByLabelText(defaultTitle));
 	t.is(screen.queryByRole('dialog'), screen.queryByLabelText(customName));
 });
 
 test('the popover uses a custom aria-labelledby when specified', (t) => {
 	const customName = 'Custom heading';
-	render((
+	render(
 		<Popover isOpen title={defaultTitle} aria-labelledby="label">
-			<h2 id="label">{ customName }</h2>
-			{ defaultBody }
-		</Popover>
-	));
+			<h2 id="label">{customName}</h2>
+			{defaultBody}
+		</Popover>,
+	);
 	t.not(screen.queryByRole('dialog'), screen.queryByLabelText(defaultTitle));
 	t.is(screen.queryByRole('dialog'), screen.queryByLabelText(customName));
 });
@@ -119,7 +126,7 @@ test('Escape closes the popover and focuses the reference', (t) => {
 	t.is(document.activeElement, trigger);
 });
 
-test('clicking outside the popover closes the popover but doesn\'t focus the reference', (t) => {
+test("clicking outside the popover closes the popover but doesn't focus the reference", (t) => {
 	render(<Fixture isOpen />);
 	const trigger = screen.queryByRole('button', { name: triggerName });
 	fireEvent.click(document.body);

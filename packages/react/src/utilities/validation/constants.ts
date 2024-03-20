@@ -13,15 +13,18 @@ import {
 export const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 /* eslint-enable no-control-regex */
 
-export const validityStateTest = (
-	state: ValidityStateInvalidKeys,
-): ValidatorEntry['test'] => (_, validity): boolean => {
-	if (validity) return !validity[state];
-	return true;
-};
+export const validityStateTest =
+	(state: ValidityStateInvalidKeys): ValidatorEntry['test'] =>
+	(_, validity): boolean => {
+		if (validity) return !validity[state];
+		return true;
+	};
 
 /** Message functions that correspond to each invalid key on ValidityState. */
-export const defaultMessages: Record<Exclude<ValidityStateInvalidKeys, 'customError'>, StateMessageFunction> = {
+export const defaultMessages: Record<
+	Exclude<ValidityStateInvalidKeys, 'customError'>,
+	StateMessageFunction
+> = {
 	/**
 	 * Use the typeMisMatch messages for badInput for the time being. This is
 	 * probably okay since it only really occurs when entering letters in a
@@ -43,11 +46,16 @@ export const defaultMessages: Record<Exclude<ValidityStateInvalidKeys, 'customEr
 	},
 	typeMismatch: ({ type }) => {
 		switch (type) {
-			case 'email': return 'Please enter an email address.';
-			case 'tel': return 'Please enter a phone number.';
-			case 'url': return 'Please enter a URL.';
-			case 'number': return 'Please enter a number.';
-			default: return '';
+			case 'email':
+				return 'Please enter an email address.';
+			case 'tel':
+				return 'Please enter a phone number.';
+			case 'url':
+				return 'Please enter a URL.';
+			case 'number':
+				return 'Please enter a number.';
+			default:
+				return '';
 		}
 	},
 	valueMissing: () => 'This field is required.',
@@ -94,7 +102,8 @@ export const defaultValidators = ({
 	if (type !== undefined) {
 		validators.push({
 			name: 'typeMismatch',
-			test: (type === 'email') ? ((value) => emailRegex.test(value)) : validityStateTest('typeMismatch'),
+			test:
+				type === 'email' ? (value) => emailRegex.test(value) : validityStateTest('typeMismatch'),
 			message: 'Please enter an email address.',
 		});
 		validators.push({
@@ -130,24 +139,22 @@ export const defaultValidators = ({
  * function will return a list of errors based on the current state of the DOM
  * element that is being validated.
  */
-export const createValidator = (
-	validators?: ValidatorEntry[],
-	useDefaultValidators = true,
-) => (el: ValidationAttributes & { value: string; validity: ValidityState }): string[] => {
-	if ((!validators || !validators.length) && !useDefaultValidators) return [];
-	const { value, validity } = el;
-	const val = value.toString();
-	const err = new Set<string>();
-	[
-		...((useDefaultValidators) ? defaultValidators(el) : []),
-		...(validators || []),
-	].forEach(({ message, test }) => {
-		// ensure that the message is a string
-		const msg = (typeof message === 'function') ? message(val) : message;
-		// evaluate the test and add the error message if it exists
-		if (!test(val, validity) && message !== '') {
-			err.add(msg);
-		}
-	});
-	return Array.from(err);
-};
+export const createValidator =
+	(validators?: ValidatorEntry[], useDefaultValidators = true) =>
+	(el: ValidationAttributes & { value: string; validity: ValidityState }): string[] => {
+		if ((!validators || !validators.length) && !useDefaultValidators) return [];
+		const { value, validity } = el;
+		const val = value.toString();
+		const err = new Set<string>();
+		[...(useDefaultValidators ? defaultValidators(el) : []), ...(validators || [])].forEach(
+			({ message, test }) => {
+				// ensure that the message is a string
+				const msg = typeof message === 'function' ? message(val) : message;
+				// evaluate the test and add the error message if it exists
+				if (!test(val, validity) && message !== '') {
+					err.add(msg);
+				}
+			},
+		);
+		return Array.from(err);
+	};

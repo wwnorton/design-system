@@ -7,7 +7,10 @@ export default {
 	argTypes: {
 		size: {
 			control: {
-				type: 'range', min: 24, max: 512, step: 4,
+				type: 'range',
+				min: 24,
+				max: 512,
+				step: 4,
 			},
 		},
 		color: {
@@ -45,23 +48,22 @@ WithARIALabel.args = {
 export const WithContent = IconTemplate.bind({});
 WithContent.args = {
 	variant: 'info',
-	children: 'When an icon has content, that content is used to label the icon via a tooltip. Think of this as the "alt text" for the icon.',
+	children:
+		'When an icon has content, that content is used to label the icon via a tooltip. Think of this as the "alt text" for the icon.',
 };
 
 export const AllIcons = (args: IconProps) => (
 	<div className="icon-list">
-		{
-			Object.keys(IconOptions).map((key) => (
-				<Icon
-					key={IconOptions[key]}
-					variant={IconOptions[key]}
-					tooltipProps={{ hideDelay: 0 }}
-					{...args}
-				>
-					{ key }
-				</Icon>
-			))
-		}
+		{Object.keys(IconOptions).map((key) => (
+			<Icon
+				key={IconOptions[key]}
+				variant={IconOptions[key]}
+				tooltipProps={{ hideDelay: 0 }}
+				{...args}
+			>
+				{key}
+			</Icon>
+		))}
 	</div>
 );
 AllIcons.args = {

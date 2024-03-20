@@ -2,19 +2,14 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { useRef, useState } from 'react';
-import {
-	useSafeLayoutEffect, cast, createContext, mergeRefs,
-} from './utils';
+import { useSafeLayoutEffect, cast, createContext, mergeRefs } from './utils';
 import { DescendantOptions, DescendantsManager } from './descendant';
 
 /**
  * @internal
  * React hook that initializes the DescendantsManager
  */
-function useDescendants<
-	T extends HTMLElement = HTMLElement,
-	K extends Record<string, any> = {},
->() {
+function useDescendants<T extends HTMLElement = HTMLElement, K extends Record<string, any> = {}>() {
 	const descendants = useRef(new DescendantsManager<T, K>());
 	useSafeLayoutEffect(() => () => descendants.current.destroy());
 	return descendants.current;
@@ -30,10 +25,9 @@ export type UseDescendantsReturn = ReturnType<typeof useDescendants>;
 	NB:  I recommend using `createDescendantContext` below
  * -----------------------------------------------------------------------------------------------*/
 
-const [DescendantsContextProvider, useDescendantsContext] =	createContext<UseDescendantsReturn>({
+const [DescendantsContextProvider, useDescendantsContext] = createContext<UseDescendantsReturn>({
 	name: 'DescendantsProvider',
-	errorMessage:
-			'useDescendantsContext must be used within DescendantsProvider',
+	errorMessage: 'useDescendantsContext must be used within DescendantsProvider',
 });
 
 /**
@@ -43,10 +37,9 @@ const [DescendantsContextProvider, useDescendantsContext] =	createContext<UseDes
  * - ref callback to register the descendant
  * - Its enabled index compared to other enabled descendants
  */
-function useDescendant<
-	T extends HTMLElement = HTMLElement,
-	K extends Record<string, any> = {},
->(options?: DescendantOptions<K>) {
+function useDescendant<T extends HTMLElement = HTMLElement, K extends Record<string, any> = {}>(
+	options?: DescendantOptions<K>,
+) {
 	const descendants = useDescendantsContext();
 	const [index, setIndex] = useState(-1);
 	const ref = useRef<T>(null);

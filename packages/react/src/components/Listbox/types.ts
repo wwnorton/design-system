@@ -1,7 +1,4 @@
-export type OptionBase = Omit<
-React.ComponentPropsWithoutRef<'li'>,
-'role' | 'aria-selected'
->;
+export type OptionBase = Omit<React.ComponentPropsWithoutRef<'li'>, 'role' | 'aria-selected'>;
 
 export interface OptionProps extends OptionBase {
 	/** If set, this option is not selectable. */
@@ -24,8 +21,8 @@ export interface OptionProps extends OptionBase {
 }
 
 export type ListboxBase = Omit<
-React.ComponentPropsWithoutRef<'ul'>,
-'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'
+	React.ComponentPropsWithoutRef<'ul'>,
+	'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'
 >;
 
 export interface ListboxProps extends ListboxBase {
@@ -60,9 +57,7 @@ export interface ListboxProps extends ListboxBase {
 	 */
 	options?: Record<string, string | number> | (string | number | OptionProps)[];
 	/** Option props that should be mapped to all child options. */
-	optionProps?:
-	| Partial<OptionProps>
-	| ((index: number) => Partial<OptionProps>);
+	optionProps?: Partial<OptionProps> | ((index: number) => Partial<OptionProps>);
 	/**
 	 * Indicates that more than one item can be selected. Used to set the
 	 * [aria-multiselectable](https://www.w3.org/TR/wai-aria/#aria-multiselectable) value.

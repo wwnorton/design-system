@@ -158,12 +158,7 @@ export const FullyControlled = (args: DropdownProps) => {
 			>
 				{options}
 			</Dropdown>
-			<Button
-				type="submit"
-				variant="solid"
-				disabled={submitted}
-				style={{ marginTop: '1rem' }}
-			>
+			<Button type="submit" variant="solid" disabled={submitted} style={{ marginTop: '1rem' }}>
 				Submit
 			</Button>
 		</form>

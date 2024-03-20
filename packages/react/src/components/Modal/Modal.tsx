@@ -6,9 +6,7 @@ import { getFocusable } from './focusable';
 import { canUseDOM } from '../../utilities';
 import { BaseDialog } from '../BaseDialog';
 import { IconButton } from '../Button';
-import {
-	ModalAnatomy, ModalProps, ModalSnapshot, ModalState,
-} from './types';
+import { ModalAnatomy, ModalProps, ModalSnapshot, ModalState } from './types';
 
 /**
  * Modal dialog.
@@ -51,7 +49,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		this.baseName = props.baseName || Modal.bemBase;
 		this.id = props.id || uniqueId(`${this.baseName}-`);
 		this.titleId = `${this.id}-${Modal.bemElements.title}`;
-		this.portalNode = (canUseDOM) ? this.createPortalNode() : null;
+		this.portalNode = canUseDOM ? this.createPortalNode() : null;
 
 		this.state = {
 			isOpen: props.isOpen || Modal.defaultProps.isOpen,
@@ -69,14 +67,17 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		this.bodyStyle = document.body.style.cssText;
 
 		if ('IntersectionObserver' in window) {
-			this.stickyObserver = new IntersectionObserver(([e]) => {
-				if (e.target === this.header) {
-					this.setState({ stuckHeader: e.intersectionRatio < 1 });
-				}
-				if (e.target === this.footer) {
-					this.setState({ stuckFooter: e.intersectionRatio < 1 });
-				}
-			}, { threshold: [1] });
+			this.stickyObserver = new IntersectionObserver(
+				([e]) => {
+					if (e.target === this.header) {
+						this.setState({ stuckHeader: e.intersectionRatio < 1 });
+					}
+					if (e.target === this.footer) {
+						this.setState({ stuckFooter: e.intersectionRatio < 1 });
+					}
+				},
+				{ threshold: [1] },
+			);
 		}
 
 		if (!document.contains(this.portalNode)) {
@@ -89,9 +90,9 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		if (isOpen) this.onOpen();
 	}
 
-	getSnapshotBeforeUpdate(
-		{ mountPoint: prevMount = Modal.defaultProps.mountPoint }: ModalProps,
-	): ModalSnapshot {
+	getSnapshotBeforeUpdate({
+		mountPoint: prevMount = Modal.defaultProps.mountPoint,
+	}: ModalProps): ModalSnapshot {
 		const { mountPoint = Modal.defaultProps.mountPoint } = this.props;
 		return { prevMount: prevMount(), nextMount: mountPoint() };
 	}
@@ -124,7 +125,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		// props change: closed -> open
 		if (!prevProps.isOpen && isOpen) {
 			this.open();
-		// props change: open -> closed
+			// props change: open -> closed
 		} else if (prevProps.isOpen && !isOpen) {
 			this.close();
 		}
@@ -132,7 +133,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		// state change: closed -> open
 		if (!prevState.isOpen && stateOpen) {
 			this.onOpen();
-		// state change: open -> closed
+			// state change: open -> closed
 		} else if (prevState.isOpen && !stateOpen) {
 			this.onClose();
 		}
@@ -164,8 +165,8 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		const { focusOnOpen } = this.props;
 		let el = focusOnOpen || null;
 		if (!el) {
-			const tabbable = (this.dialog) ? getFocusable(this.dialog) : [];
-			el = (tabbable.length) ? tabbable[0] : null;
+			const tabbable = this.dialog ? getFocusable(this.dialog) : [];
+			el = tabbable.length ? tabbable[0] : null;
 		}
 		if (!el) {
 			el = this.header || this.content;
@@ -233,30 +234,31 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			hideTitle,
 		} = this.props;
 		if (hideTitle) return null;
-		return <h2 className={titleClass} id={this.titleId}>{ title }</h2>;
+		return (
+			<h2 className={titleClass} id={this.titleId}>
+				{title}
+			</h2>
+		);
 	}
 
 	private get Header(): JSX.Element | null {
-		const {
-			headerClass = `${this.baseName}__${Modal.bemElements.header}`,
-			stickyHeader,
-		} = this.props;
+		const { headerClass = `${this.baseName}__${Modal.bemElements.header}`, stickyHeader } =
+			this.props;
 		if (!this.Title && !this.CloseButton) return null;
 		const { stuckHeader, long } = this.state;
-		const classes = classNames(
-			headerClass,
-			{
-				[`${headerClass}--sticky`]: stickyHeader && long,
-				'nds-stuck': stickyHeader && stuckHeader,
-			},
-		);
+		const classes = classNames(headerClass, {
+			[`${headerClass}--sticky`]: stickyHeader && long,
+			'nds-stuck': stickyHeader && stuckHeader,
+		});
 		return (
 			<header
 				className={classes}
-				ref={(el): void => { this.header = el; }}
+				ref={(el): void => {
+					this.header = el;
+				}}
 			>
-				{ this.Title }
-				{ this.CloseButton }
+				{this.Title}
+				{this.CloseButton}
 			</header>
 		);
 	}
@@ -269,16 +271,18 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		} = this.props;
 		if (!actions) return null;
 		const { stuckFooter, long } = this.state;
-		const classes = classNames(
-			actionBarClass,
-			{
-				[`${actionBarClass}--sticky`]: stickyActionBar && long,
-				'nds-stuck': stickyActionBar && stuckFooter,
-			},
-		);
+		const classes = classNames(actionBarClass, {
+			[`${actionBarClass}--sticky`]: stickyActionBar && long,
+			'nds-stuck': stickyActionBar && stuckFooter,
+		});
 		return (
-			<footer className={classes} ref={(el): void => { this.footer = el; }}>
-				{ actions }
+			<footer
+				className={classes}
+				ref={(el): void => {
+					this.footer = el;
+				}}
+			>
+				{actions}
 			</footer>
 		);
 	}
@@ -295,7 +299,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		const { isOpen, long } = this.state;
 		if (!isOpen) return null;
 		const classes = classNames(this.baseName, className);
-		const label = (hideTitle) ? { 'aria-label': title } : { 'aria-labelledby': this.titleId };
+		const label = hideTitle ? { 'aria-label': title } : { 'aria-labelledby': this.titleId };
 		/*
 			eslint-disable
 			jsx-a11y/click-events-have-key-events,
@@ -310,18 +314,22 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 					modal
 					id={this.id}
 					className={classes}
-					ref={(el): void => { this.dialog = el; }}
+					ref={(el): void => {
+						this.dialog = el;
+					}}
 					onPointerDown={this.onPointerDownClick}
 					{...label}
 				>
-					{ this.Header }
+					{this.Header}
 					<section
 						className={contentClass}
-						ref={(el): void => { this.content = el; }}
+						ref={(el): void => {
+							this.content = el;
+						}}
 					>
-						{ children }
+						{children}
 					</section>
-					{ this.ActionBar }
+					{this.ActionBar}
 				</BaseDialog>
 			</section>
 		);
@@ -359,17 +367,17 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		}
 	};
 
-	private onBackdropClick = (
-		{ nativeEvent }: React.MouseEvent<HTMLDivElement, MouseEvent>,
-	): void => {
+	private onBackdropClick = ({
+		nativeEvent,
+	}: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
 		const { closeOnBackdropClick } = this.props;
 		const { isClickingDialog } = this.state;
 
 		if (
-			closeOnBackdropClick
-			&& this.dialog
-			&& !nativeEvent.composedPath().includes(this.dialog)
-			&& !isClickingDialog
+			closeOnBackdropClick &&
+			this.dialog &&
+			!nativeEvent.composedPath().includes(this.dialog) &&
+			!isClickingDialog
 		) {
 			this.requestClose();
 		}
@@ -382,8 +390,11 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		const { isOpen } = this.state;
 		if (!isOpen) return;
 		if (e.key === 'Escape' && closeOnEscape) this.requestClose();
-		if (e.key === 'Tab' && (this.dialog?.contains(document.activeElement) || !document.activeElement)) {
-			const tabbable = (this.dialog) ? getFocusable(this.dialog) : [];
+		if (
+			e.key === 'Tab' &&
+			(this.dialog?.contains(document.activeElement) || !document.activeElement)
+		) {
+			const tabbable = this.dialog ? getFocusable(this.dialog) : [];
 			if (tabbable.length) {
 				let element: HTMLElement | undefined;
 				const tabIndex = Array.from(tabbable).indexOf(document.activeElement as HTMLElement);
@@ -411,9 +422,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	};
 
 	private createPortalNode(): HTMLDivElement {
-		const {
-			portalClass = `${this.baseName}__${Modal.bemElements.portal}`,
-		} = this.props;
+		const { portalClass = `${this.baseName}__${Modal.bemElements.portal}` } = this.props;
 		const node = document.createElement('div');
 		node.className = portalClass;
 		return node;
@@ -422,9 +431,6 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 	render(): React.ReactNode {
 		if (!canUseDOM || !this.portalNode) return null;
 
-		return ReactDOM.createPortal(
-			this.Dialog,
-			this.portalNode,
-		);
+		return ReactDOM.createPortal(this.Dialog, this.portalNode);
 	}
 }

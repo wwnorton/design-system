@@ -21,9 +21,7 @@ export const useSelect = (
 	}, [multiple, selected]);
 
 	const select = (value: string | number): void => {
-		setSelected(
-			(multiple) ? [...selected, value] : [value],
-		);
+		setSelected(multiple ? [...selected, value] : [value]);
 	};
 
 	const deselect = (value: string | number): void => {
@@ -39,14 +37,15 @@ export const useSelect = (
 			else if (multiple) deselect(value);
 		},
 		formChangeHandler: ({ currentTarget, target }) => {
-			const { checked, value } = (('value' in currentTarget) && ('checked' in currentTarget))
-				? currentTarget
-				: target as EventTarget & HTMLInputElement;
+			const { checked, value } =
+				'value' in currentTarget && 'checked' in currentTarget
+					? currentTarget
+					: (target as EventTarget & HTMLInputElement);
 
 			if (checked === undefined) {
 				throw new Error(
-					'formChangeHandler is being attached to an invalid element. '
-					+ 'Attach it to an <input type="checkbox|radio"> or a <fieldset>.',
+					'formChangeHandler is being attached to an invalid element. ' +
+						'Attach it to an <input type="checkbox|radio"> or a <fieldset>.',
 				);
 			}
 
@@ -59,4 +58,5 @@ export const useSelect = (
 	};
 };
 
-useSelect.SELECT_OVERLOAD = 'The number of selected values cannot exceed 1 when not multi-selectable.';
+useSelect.SELECT_OVERLOAD =
+	'The number of selected values cannot exceed 1 when not multi-selectable.';

@@ -13,8 +13,9 @@ export const toElements = <P extends Record<string, any> = any>(
 	/** A list of required prop names. */
 	required: string[] = [],
 ): React.ReactElement<P>[] => {
-	type ChildArray = (React.ReactChild | React.ReactPortal | React.ReactFragment | P)[]
-	| React.ReactNode[];
+	type ChildArray =
+		| (React.ReactChild | React.ReactPortal | React.ReactFragment | P)[]
+		| React.ReactNode[];
 	const childMap: React.ReactElement<P>[] = [];
 	let nodes: ChildArray = [];
 
@@ -26,9 +27,8 @@ export const toElements = <P extends Record<string, any> = any>(
 		nodes = [node];
 	}
 
-	const hasRequiredProps = (
-		props: Record<string, any>,
-	): props is P => required.every((prop) => prop in props);
+	const hasRequiredProps = (props: Record<string, any>): props is P =>
+		required.every((prop) => prop in props);
 
 	const missingProps = (props: Record<string, any>) => required.filter((prop) => !(prop in props));
 

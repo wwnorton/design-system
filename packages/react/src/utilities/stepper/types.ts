@@ -16,6 +16,6 @@ export interface StepperState {
 }
 
 export type StepperAction =
-| { type: 'INCREMENT' }
-| { type: 'DECREMENT' }
-| { type: 'GOTO'; payload: number };
+	| { type: 'INCREMENT' }
+	| { type: 'DECREMENT' }
+	| { type: 'GOTO'; payload: number };

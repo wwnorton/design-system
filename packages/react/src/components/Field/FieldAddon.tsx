@@ -5,4 +5,4 @@ export const FieldAddon: React.FunctionComponent<FieldAddonProps> = ({
 	children,
 	baseName = 'nds-field',
 	className = `${baseName}__addon`,
-}: FieldAddonProps) => <span className={className}>{ children }</span>;
+}: FieldAddonProps) => <span className={className}>{children}</span>;

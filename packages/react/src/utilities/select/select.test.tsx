@@ -1,52 +1,44 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import { useSelect } from './hook';
 
 test.afterEach(cleanup);
 
-const Fixture = (
-	{
-		multiple,
-		handlerOnInput,
-		initialValue,
-		callSetSelected,
-		useDefaults,
-	}: {
-		multiple?: boolean;
-		handlerOnInput?: boolean;
-		initialValue?: string[];
-		callSetSelected?: string;
-		useDefaults?: boolean;
-	},
-): JSX.Element => {
-	const parameters: Parameters<typeof useSelect> = (useDefaults) ? [] : [multiple, initialValue];
-	const {
-		selected,
-		select,
-		formChangeHandler,
-	} = useSelect(...parameters);
+const Fixture = ({
+	multiple,
+	handlerOnInput,
+	initialValue,
+	callSetSelected,
+	useDefaults,
+}: {
+	multiple?: boolean;
+	handlerOnInput?: boolean;
+	initialValue?: string[];
+	callSetSelected?: string;
+	useDefaults?: boolean;
+}): JSX.Element => {
+	const parameters: Parameters<typeof useSelect> = useDefaults ? [] : [multiple, initialValue];
+	const { selected, select, formChangeHandler } = useSelect(...parameters);
 
 	React.useEffect(() => {
 		if (callSetSelected) select(callSetSelected);
-	}, [callSetSelected]);	// eslint-disable-line react-hooks/exhaustive-deps
+	}, [callSetSelected]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<fieldset onChange={(handlerOnInput) ? undefined : formChangeHandler}>
-			{ ['one', 'two', 'three'].map((value) => (
+		<fieldset onChange={handlerOnInput ? undefined : formChangeHandler}>
+			{['one', 'two', 'three'].map((value) => (
 				<input
 					name="choice"
-					type={(multiple) ? 'checkbox' : 'radio'}
+					type={multiple ? 'checkbox' : 'radio'}
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
-					onChange={(handlerOnInput) ? formChangeHandler : () => {}}
+					onChange={handlerOnInput ? formChangeHandler : () => {}}
 					value={value}
 					checked={selected.includes(value)}
 					aria-label={value}
 					key={value}
 				/>
-			)) }
+			))}
 		</fieldset>
 	);
 };

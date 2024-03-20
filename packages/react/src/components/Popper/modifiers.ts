@@ -27,8 +27,12 @@ export const matchWidthMod: Modifier<'matchWidth', Record<string, unknown>> = {
 	fn: ({ state }) => {
 		state.styles.popper.width = `${state.rects.reference.width}px`;
 	},
-	effect: ({ state }) => (): void => {
-		state.elements.popper.style.width = `${(state.elements.reference as HTMLElement).offsetWidth}px`;
-	},
+	effect:
+		({ state }) =>
+		(): void => {
+			state.elements.popper.style.width = `${
+				(state.elements.reference as HTMLElement).offsetWidth
+			}px`;
+		},
 	/* eslint-enable no-param-reassign */
 };

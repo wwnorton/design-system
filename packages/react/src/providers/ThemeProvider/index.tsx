@@ -9,7 +9,7 @@ const getColorScheme = (
 ): ColorScheme => {
 	if (scheme === 'inverse') {
 		if (parentScheme) {
-			return (parentScheme === 'light') ? 'dark' : 'light';
+			return parentScheme === 'light' ? 'dark' : 'light';
 		}
 		throw new Error('colorScheme cannot be inverted on the root <ThemeProvider>.');
 	}
@@ -47,16 +47,16 @@ export const ThemeProvider: React.FunctionComponent<ThemeProviderProps> = ({
 	children,
 }: ThemeProviderProps) => {
 	const parentContext = React.useContext(ThemeContext);
-	const parentColorScheme = (parentContext) ? parentContext.colorScheme : undefined;
+	const parentColorScheme = parentContext ? parentContext.colorScheme : undefined;
 	const isRoot = parentContext === undefined;
 
 	const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
-	const preferredScheme = React.useMemo(() => ((prefersDark) ? 'dark' : 'light'), [prefersDark]);
+	const preferredScheme = React.useMemo(() => (prefersDark ? 'dark' : 'light'), [prefersDark]);
 	const prevPreference = React.useRef(preferredScheme);
 
 	const [colorScheme, setColorScheme] = React.useState<ColorScheme>(
 		getColorScheme(
-			schemeProp || ((ignoreOSColorScheme) ? undefined : preferredScheme),
+			schemeProp || (ignoreOSColorScheme ? undefined : preferredScheme),
 			parentColorScheme,
 		),
 	);
@@ -84,7 +84,7 @@ export const ThemeProvider: React.FunctionComponent<ThemeProviderProps> = ({
 	// child <ThemeProvider>: inverse when parent colorScheme changes
 	React.useEffect(() => {
 		if (parentColorScheme && schemeProp === 'inverse') {
-			setColorScheme((parentColorScheme === 'dark') ? 'light' : 'dark');
+			setColorScheme(parentColorScheme === 'dark' ? 'light' : 'dark');
 		}
 	}, [parentColorScheme, schemeProp]);
 
@@ -92,14 +92,17 @@ export const ThemeProvider: React.FunctionComponent<ThemeProviderProps> = ({
 		if (onColorSchemeChange) onColorSchemeChange(colorScheme);
 	}, [colorScheme, onColorSchemeChange]);
 
-	const theme = React.useMemo(() => ({
-		colorScheme,
-		setColorScheme: (scheme: ColorScheme) => setColorScheme(scheme),
-	}), [colorScheme]);
+	const theme = React.useMemo(
+		() => ({
+			colorScheme,
+			setColorScheme: (scheme: ColorScheme) => setColorScheme(scheme),
+		}),
+		[colorScheme],
+	);
 
 	return (
 		<ThemeContext.Provider value={theme}>
-			{ (isRoot) ? children : <div data-color-scheme={colorScheme}>{ children }</div> }
+			{isRoot ? children : <div data-color-scheme={colorScheme}>{children}</div>}
 		</ThemeContext.Provider>
 	);
 };

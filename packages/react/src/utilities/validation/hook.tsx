@@ -13,7 +13,7 @@ export const useValidation = (
 ): ReturnType<typeof createValidator> => {
 	const validators = useMemo(() => {
 		if (!validator) return undefined;
-		return (Array.isArray(validator)) ? validator : [validator];
+		return Array.isArray(validator) ? validator : [validator];
 	}, [validator]);
 
 	return createValidator(validators, useDefaults);

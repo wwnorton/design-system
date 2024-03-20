@@ -1,9 +1,7 @@
 import test from 'ava';
 import sinon from 'sinon';
 import React from 'react';
-import {
-	cleanup, fireEvent, render, screen,
-} from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { FeedbackModal } from '.';
 
 test.afterEach.always(cleanup);
@@ -12,8 +10,8 @@ test('correct', (t) => {
 	render(
 		<FeedbackModal isOpen choiceText="Answer Choice 3" isCorrect choiceLabel="C">
 			<p>
-				Answer feedback lorem ipsum dolor sit amet, consectetur adipiscing elit,
-				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Answer feedback lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua.
 			</p>
 		</FeedbackModal>,
 	);
@@ -26,8 +24,8 @@ test('incorrect', (t) => {
 	render(
 		<FeedbackModal isOpen choiceText="Answer Choice 3" choiceLabel="C">
 			<p>
-				Answer feedback lorem ipsum dolor sit amet, consectetur adipiscing elit,
-				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Answer feedback lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua.
 			</p>
 		</FeedbackModal>,
 	);
@@ -40,10 +38,16 @@ test('on close button', (t) => {
 	const closeMock = sinon.mock();
 
 	render(
-		<FeedbackModal isOpen choiceText="Answer Choice 3" isCorrect choiceLabel="C" onRequestClose={closeMock}>
+		<FeedbackModal
+			isOpen
+			choiceText="Answer Choice 3"
+			isCorrect
+			choiceLabel="C"
+			onRequestClose={closeMock}
+		>
 			<p>
-				Answer feedback lorem ipsum dolor sit amet, consectetur adipiscing elit,
-				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Answer feedback lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua.
 			</p>
 		</FeedbackModal>,
 	);
@@ -53,7 +57,5 @@ test('on close button', (t) => {
 
 	fireEvent.click(closeButtons[1]);
 
-	t.true(
-		closeMock.calledOnce,
-	);
+	t.true(closeMock.calledOnce);
 });

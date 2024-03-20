@@ -6,9 +6,7 @@ export const TabPanels = ({ children }: TabPanelProps) => {
 	const descendants = useTabPanelsDescendants();
 	return (
 		<TabPanelsDescendantsProvider value={descendants}>
-			<div className="nds-tab-panels-container">
-				{children}
-			</div>
+			<div className="nds-tab-panels-container">{children}</div>
 		</TabPanelsDescendantsProvider>
 	);
 };

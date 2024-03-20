@@ -16,7 +16,10 @@ export default {
 		hideCloseButton: { control: { type: 'boolean' } },
 		distance: {
 			control: {
-				type: 'range', min: 0, max: 20, step: 1,
+				type: 'range',
+				min: 0,
+				max: 20,
+				step: 1,
 			},
 		},
 	},
@@ -36,9 +39,8 @@ Default.args = {
 	placement: 'bottom-start',
 	children: (
 		<>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-			sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+			labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
 		</>
 	),
 };
@@ -66,11 +68,10 @@ export const WithReference = (args: PopoverProps) => {
 				{...args}
 			>
 				Popovers are dialogs that are related to another element, which we call the
-				&ldquo;reference&rdquo; element. This&mdash;along with the fact that they
-				do not change the mode of input when opened&mdash; distinguish them from the
-				{' '}
-				<Link href="./?path=/story/modal--default">Modal component</Link>
-				, which is a modal dialog without a reference.
+				&ldquo;reference&rdquo; element. This&mdash;along with the fact that they do not change the
+				mode of input when opened&mdash; distinguish them from the{' '}
+				<Link href="./?path=/story/modal--default">Modal component</Link>, which is a modal dialog
+				without a reference.
 			</Popover>
 		</>
 	);
@@ -101,7 +102,7 @@ WithReference.args = {
  */
 export const FullyControlled = (args: PopoverProps) => {
 	const [ref, setRef] = React.useState<HTMLButtonElement | null>();
-	const [buttonText, setButtonText] = React.useState('Change this button\'s text');
+	const [buttonText, setButtonText] = React.useState("Change this button's text");
 	const [inputText, setInputText] = React.useState(buttonText);
 	const [input, setInput] = React.useState<HTMLInputElement | null>(null);
 	const [isOpen, setOpen] = React.useState(false);
@@ -114,7 +115,7 @@ export const FullyControlled = (args: PopoverProps) => {
 		// don't close on reference clicks since we're using our own onClick callback
 		if (trigger !== 'click.reference') setOpen(false);
 	};
-	const toggle = (t) => ((isOpen) ? close(t) : open());
+	const toggle = (t) => (isOpen ? close(t) : open());
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
 		if (input) setInputText(e.target.value);
@@ -128,7 +129,7 @@ export const FullyControlled = (args: PopoverProps) => {
 	return (
 		<>
 			<Button variant="solid" ref={setRef} onClick={toggle}>
-				{ buttonText }
+				{buttonText}
 			</Button>
 			<Popover
 				aria-labelledby="change-btn"
@@ -136,7 +137,7 @@ export const FullyControlled = (args: PopoverProps) => {
 				isOpen={isOpen}
 				onRequestClose={close}
 				onOpen={() => input && input.focus()}
-				actions={(
+				actions={
 					<>
 						<Button variant="outline" onClick={close}>
 							Cancel
@@ -145,7 +146,7 @@ export const FullyControlled = (args: PopoverProps) => {
 							Submit
 						</Button>
 					</>
-				)}
+				}
 				{...args}
 			>
 				<form id="demo-form" onSubmit={submit}>

@@ -11,12 +11,18 @@ export default {
 		hideLabel: { control: { type: 'boolean' } },
 		buffer: {
 			control: {
-				type: 'range', min: 0, max: 1, step: 0.05,
+				type: 'range',
+				min: 0,
+				max: 1,
+				step: 0.05,
 			},
 		},
 		progress: {
 			control: {
-				type: 'range', min: 0, max: 1, step: 0.05,
+				type: 'range',
+				min: 0,
+				max: 1,
+				step: 0.05,
 			},
 		},
 	},

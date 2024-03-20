@@ -2,7 +2,10 @@ import React from 'react';
 import { useLayoutEffect } from '../isomorphicLayoutEffect';
 
 let ID = 0;
-const genId = () => { ID += 1; return ID; };
+const genId = () => {
+	ID += 1;
+	return ID;
+};
 let serverHandoffComplete = false;
 
 function useIdPolyfill() {
@@ -15,10 +18,10 @@ function useIdPolyfill() {
 		}
 
 		serverHandoffComplete = true;
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return (id === undefined) ? id : `nds-${id.toString(32)}`;
+	return id === undefined ? id : `nds-${id.toString(32)}`;
 }
 
 /**

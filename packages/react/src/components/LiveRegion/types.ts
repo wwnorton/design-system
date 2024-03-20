@@ -1,4 +1,11 @@
-type BaseProps = 'children' | 'id' | 'className' | 'role' | 'aria-atomic' | 'aria-live' | 'aria-relevant';
+type BaseProps =
+	| 'children'
+	| 'id'
+	| 'className'
+	| 'role'
+	| 'aria-atomic'
+	| 'aria-live'
+	| 'aria-relevant';
 
 export interface LiveRegionProps extends Pick<React.ComponentPropsWithoutRef<'div'>, BaseProps> {
 	/**

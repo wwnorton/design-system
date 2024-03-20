@@ -33,12 +33,12 @@ test('generates different ids on every invocation', (t) => {
 });
 
 // TODO: set up an environment to test with React 18
-test('uses React 18\'s useId when it\'s available', (t) => {
+test("uses React 18's useId when it's available", (t) => {
 	render(<Comp />);
 
 	const id0 = screen.getByTestId('0').id;
 
 	const major = Number(React.version.split('.')[0]);
 
-	t.true((major < 18) ? id0.startsWith('nds-') : id0.startsWith(':r'));
+	t.true(major < 18 ? id0.startsWith('nds-') : id0.startsWith(':r'));
 });

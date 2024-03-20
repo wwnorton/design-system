@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import { TextField,	TextFieldProps } from '.';
+import { TextField, TextFieldProps } from '.';
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
 
@@ -38,7 +38,8 @@ Email.args = {
 export const Number = TextFieldTemplate.bind({});
 Number.args = {
 	children: 'Number',
-	description: 'Email fields can be incremented with arrow keys and show an error if the value is not a number.',
+	description:
+		'Email fields can be incremented with arrow keys and show an error if the value is not a number.',
 	type: 'number',
 	validateOnChange: true,
 };
@@ -58,7 +59,8 @@ WithMaxLength.args = {
 	counterStart: 8,
 	validateOnChange: true,
 	children: 'TextField with max length',
-	description: 'Control the maximum length and optionally prevent input after that number of characters.',
+	description:
+		'Control the maximum length and optionally prevent input after that number of characters.',
 };
 
 export const WithAddonBefore = TextFieldTemplate.bind({});
@@ -85,8 +87,16 @@ const hide: ButtonProps = {
 		d: 'M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z',
 	},
 };
-const invalid: IconProps = { variant: 'close', color: 'var(--nds-error-color)', 'aria-label': 'Invalid' };
-const valid: IconProps = { variant: 'check', color: 'var(--nds-success-color)', 'aria-label': 'Valid' };
+const invalid: IconProps = {
+	variant: 'close',
+	color: 'var(--nds-error-color)',
+	'aria-label': 'Invalid',
+};
+const valid: IconProps = {
+	variant: 'check',
+	color: 'var(--nds-success-color)',
+	'aria-label': 'Valid',
+};
 const neutralUser: IconProps = { variant: 'account' };
 const neutralPW: IconProps = { variant: 'info' };
 
@@ -103,14 +113,17 @@ export const ExampleLoginForm = ({ minLength, maxLength, ...args }: TextFieldPro
 	const [pwIcon, setPWIcon] = React.useState<IconProps>(neutralPW);
 
 	const toggle = (): void => {
-		setType((type === 'password') ? 'text' : 'password');
+		setType(type === 'password' ? 'text' : 'password');
 	};
 
-	const errors = React.useCallback((errs?: string[]) => {
-		const sameError = 'Username and password cannot be the same.';
-		if (isSame) return (errs) ? [...errs, sameError] : [sameError];
-		return errs || [];
-	}, [isSame]);
+	const errors = React.useCallback(
+		(errs?: string[]) => {
+			const sameError = 'Username and password cannot be the same.';
+			if (isSame) return errs ? [...errs, sameError] : [sameError];
+			return errs || [];
+		},
+		[isSame],
+	);
 
 	React.useEffect(() => {
 		if (username || password) {
@@ -120,14 +133,14 @@ export const ExampleLoginForm = ({ minLength, maxLength, ...args }: TextFieldPro
 
 	React.useEffect(() => {
 		if (pwErrors) {
-			setPWIcon((pwErrors.length) ? invalid : valid);
+			setPWIcon(pwErrors.length ? invalid : valid);
 		} else {
 			setPWIcon(neutralPW);
 		}
 	}, [pwErrors]);
 
 	React.useEffect(() => {
-		setButtonProps((type === 'password') ? show : hide);
+		setButtonProps(type === 'password' ? show : hide);
 	}, [type]);
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -172,20 +185,15 @@ export const ExampleLoginForm = ({ minLength, maxLength, ...args }: TextFieldPro
 				onValidate={setPwErrors}
 				validateOnChange
 				addonBefore={<Icon className="addon-icon" {...pwIcon} />}
-				addonAfter={(
-					<Button
-						iconOnly
-						variant="ghost"
-						onClick={toggle}
-						{...buttonProps}
-					/>
-				)}
+				addonAfter={<Button iconOnly variant="ghost" onClick={toggle} {...buttonProps} />}
 				ref={setPwField}
 				{...args}
 			>
 				Password
 			</TextField>
-			<Button variant="solid" type="submit">Submit</Button>
+			<Button variant="solid" type="submit">
+				Submit
+			</Button>
 		</form>
 	);
 };
@@ -194,7 +202,7 @@ ExampleLoginForm.args = {
 	maxLength: 32,
 };
 
-type CustomValidationProps = TextFieldProps & { firstName: string; lastName: string; };
+type CustomValidationProps = TextFieldProps & { firstName: string; lastName: string };
 export const CustomValidation = ({ firstName, lastName, ...args }: CustomValidationProps) => {
 	const [value, setValue] = React.useState('');
 	const [errors, setErrors] = React.useState<string[]>();

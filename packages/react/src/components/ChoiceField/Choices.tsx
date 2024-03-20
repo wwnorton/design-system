@@ -31,7 +31,7 @@ export const Choices: React.FunctionComponent<ChoicesProps> = ({
 				value = choice;
 				choiceProps = { value, children: value, ...props };
 			}
-			const key = (value !== undefined) ? value.toString() : `choice-${i}`;
+			const key = value !== undefined ? value.toString() : `choice-${i}`;
 			const checked = propSelected.includes(value);
 			if (checked) selectedValid = true;
 
@@ -40,7 +40,7 @@ export const Choices: React.FunctionComponent<ChoicesProps> = ({
 					key={key}
 					{...choiceProps}
 					checked={checked}
-					type={(multiple) ? 'checkbox' : 'radio'}
+					type={multiple ? 'checkbox' : 'radio'}
 				/>
 			);
 		});
@@ -53,5 +53,5 @@ export const Choices: React.FunctionComponent<ChoicesProps> = ({
 
 	// ChoiceElements is an array of elements, so we must wrap it in a fragment.
 	// eslint-disable-next-line react/jsx-no-useless-fragment
-	return <>{ ChoiceElements }</>;
+	return <>{ChoiceElements}</>;
 };

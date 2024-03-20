@@ -1,8 +1,6 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import { useExternalClick } from './hook';
 
 test.afterEach(cleanup);
@@ -15,7 +13,7 @@ const Fixture = () => {
 
 	return (
 		<button type="button" ref={setRef}>
-			{ externalClicks }
+			{externalClicks}
 			<img alt="An internal element" src="foo.jpeg" />
 		</button>
 	);

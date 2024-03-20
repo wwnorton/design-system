@@ -65,7 +65,7 @@ export interface RovingTabindex<Container, Child> {
 		 * if specified (see `resetOnExit` option).
 		 */
 		onBlur: React.FocusEventHandler<NonNullable<Container>>;
-	}
+	};
 	/** Props for each child in the roving tabindex group. */
 	childProps: {
 		/**
@@ -75,5 +75,5 @@ export interface RovingTabindex<Container, Child> {
 		createRef: (index: number) => (instance: Child | null) => void;
 		/** The current `tabIndex` of the mapped child element. */
 		tabIndex: (index: number) => -1 | 0;
-	}
+	};
 }

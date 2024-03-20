@@ -1,8 +1,6 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Switch } from '.';
 
@@ -23,7 +21,7 @@ test('clicking a switch toggles its state', (t) => {
 	t.is(control.getAttribute('aria-checked'), 'true');
 });
 
-test('clicking a switch\'s label toggles its checked state', (t) => {
+test("clicking a switch's label toggles its checked state", (t) => {
 	render(<Switch label={defaultLabel} />);
 	const control = screen.getByRole('switch', { name: defaultLabel });
 	const label = screen.getByText(defaultLabel);

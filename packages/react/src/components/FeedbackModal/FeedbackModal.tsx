@@ -12,7 +12,10 @@ import { css } from './tokens';
  * Supplementary Feedback can be passed in `children`.
  */
 export const FeedbackModal = ({
-	isCorrect, choiceLabel, choiceText, ...modalProps
+	isCorrect,
+	choiceLabel,
+	choiceText,
+	...modalProps
 }: FeedbackModalProps) => {
 	const title = isCorrect ? 'Correct' : 'Incorrect';
 	const icon = isCorrect ? 'check-circle' : 'cancel';
@@ -20,40 +23,31 @@ export const FeedbackModal = ({
 	return (
 		<Modal
 			title={title}
-			actions={(
+			actions={
 				<div>
-					<Button variant="outline" onClick={modalProps.onRequestClose}>Close</Button>
+					<Button variant="outline" onClick={modalProps.onRequestClose}>
+						Close
+					</Button>
 				</div>
-			)}
+			}
 			{...modalProps}
 		>
 			<div className={css.container}>
 				<div className={css.iconContainer}>
 					<Icon
-						className={
-							classNames(
-								css.icon,
-								{ [css.iconCorrect]: isCorrect, [css.iconIncorrect]: !isCorrect },
-							)
-						}
+						className={classNames(css.icon, {
+							[css.iconCorrect]: isCorrect,
+							[css.iconIncorrect]: !isCorrect,
+						})}
 						variant={icon}
 					/>
 				</div>
 				<div>
 					<p className={css.heading}>
-						<strong>
-							Your answer was
-							{' '}
-							{' '}
-							{title.toLowerCase()}
-							:
-						</strong>
+						<strong>Your answer was {title.toLowerCase()}:</strong>
 					</p>
 					<p>
-						{choiceLabel}
-						.
-						{' '}
-						{choiceText}
+						{choiceLabel}. {choiceText}
 					</p>
 					{modalProps.children}
 				</div>

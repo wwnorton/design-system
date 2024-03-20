@@ -2,7 +2,13 @@ import { PopperCoreProps } from '../popper';
 
 export type PopperTriggersOpen = 'click.reference' | 'focus' | 'focusin' | 'pointerenter';
 
-export type PopperTriggersClose = 'click.reference' | 'click.internal' | 'click.external' | 'escape' | 'blur' | 'pointerleave';
+export type PopperTriggersClose =
+	| 'click.reference'
+	| 'click.internal'
+	| 'click.external'
+	| 'escape'
+	| 'blur'
+	| 'pointerleave';
 
 export interface UsePopperTriggersProps extends PopperCoreProps {
 	/** Indicates whether the popper is open or closed. */
