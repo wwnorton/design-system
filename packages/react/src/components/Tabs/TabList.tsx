@@ -6,16 +6,13 @@ import { TabListDescendantsProvider, useTabListDescendants, useTabsState } from 
 import { useTabListScroll } from './useTabListScroll';
 import { useTabKeyboardNavigation } from './useTabKeyboardNavigation';
 
-const BASE_NAME = 'nds-tab-list';
-
-const styles = {
-	base: BASE_NAME,
-	container: `${BASE_NAME}-container`,
-	left: `${BASE_NAME}--left`,
-	centered: `${BASE_NAME}--centered`,
-};
-
-export const TabList = ({ children }: TabListProps) => {
+export const TabList = ({
+	baseName = 'nds-tab-list',
+	containerClass = `${baseName}-container`,
+	leftClass = `${baseName}--left`,
+	centeredClass = `${baseName}--centered`,
+	children,
+}: TabListProps) => {
 	const tabListRef = React.useRef<HTMLDivElement>(null);
 
 	useTabKeyboardNavigation(tabListRef);
@@ -27,10 +24,10 @@ export const TabList = ({ children }: TabListProps) => {
 	const { align } = useTabsState();
 
 	const className = classNames(
-		styles.base,
+		baseName,
 		{
-			[styles.left]: align === 'left',
-			[styles.centered]: align === 'center',
+			[leftClass]: align === 'left',
+			[centeredClass]: align === 'center',
 		},
 	);
 
@@ -38,7 +35,7 @@ export const TabList = ({ children }: TabListProps) => {
 
 	return (
 		<TabListDescendantsProvider value={descendants}>
-			<div className={styles.container}>
+			<div className={containerClass}>
 				<TabScrollButton type="left" onClick={moveLeft} disabled={atMinScroll} />
 				<div ref={tabListRef} className={className} role="tablist">
 					{children}

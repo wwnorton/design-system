@@ -10,13 +10,14 @@ function isControlled(props: TabsProps): props is ControlledTabsProps {
 
 const ControlledTabs = React.forwardRef<HTMLDivElement, ControlledTabsProps>(({
 	children,
+	className = 'nds-tabs',
 	...rest
 }, ref) => {
 	const state = useInitControlledTabsState(rest);
 
 	return (
 		<TabsContext.Provider value={state}>
-			<div ref={ref}>
+			<div ref={ref} className={className}>
 				{children}
 			</div>
 		</TabsContext.Provider>
@@ -25,13 +26,14 @@ const ControlledTabs = React.forwardRef<HTMLDivElement, ControlledTabsProps>(({
 
 const UncontrolledTabs = React.forwardRef<HTMLDivElement, UncontrolledTabsProps>(({
 	children,
+	className = 'nds-tabs',
 	...rest
 }, ref) => {
 	const state = useInitUncontrolledTabsState(rest);
 
 	return (
 		<TabsContext.Provider value={state}>
-			<div ref={ref}>
+			<div ref={ref} className={className}>
 				{children}
 			</div>
 		</TabsContext.Provider>
