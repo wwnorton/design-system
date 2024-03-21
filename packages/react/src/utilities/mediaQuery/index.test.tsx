@@ -1,5 +1,5 @@
 import test from 'ava';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import matchMediaPolyfill from 'mq-polyfill';
 import { useMediaQuery } from './hook';
 

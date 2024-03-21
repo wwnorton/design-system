@@ -1,6 +1,6 @@
 import test from 'ava';
 import React from 'react';
-import { cleanup, render, fireEvent, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from '.';
 
@@ -40,7 +40,9 @@ function areTabAndPanelSelected(name: string): boolean {
 	return isTabSelected && isPanelDisplayed;
 }
 
-test('Uncontrolled: clicking on tabs, switches panels', (t) => {
+test('Uncontrolled: clicking on tabs, switches panels', async (t) => {
+	const user = userEvent.setup();
+
 	render(
 		<Tabs>
 			<TabList>
@@ -59,26 +61,30 @@ test('Uncontrolled: clicking on tabs, switches panels', (t) => {
 
 	// TabPanel changes when click on Dogs Tab
 	const dogsTab = screen.getByRole('tab', { name: 'Dogs' });
-	fireEvent.click(dogsTab);
+	await user.click(dogsTab);
 
 	t.true(areTabAndPanelSelected('Dogs'));
 });
 
-test('Controlled: clicking on external controls, switches panels', (t) => {
+test('Controlled: clicking on external controls, switches panels', async (t) => {
+	const user = userEvent.setup();
+
 	render(<TestControlledTabs />);
 
 	// TabPanel changes when click on Dogs Tab
 	const dogsTab = screen.getByRole('tab', { name: 'Dogs' });
-	fireEvent.click(dogsTab);
+	await user.click(dogsTab);
 	t.true(areTabAndPanelSelected('Dogs'));
 
 	// TabPanel and Tab changes when clicking on external control
 	const externalControl = screen.getByRole('button', { name: 'Go to First Tab' });
-	fireEvent.click(externalControl);
+	await user.click(externalControl);
 	t.true(areTabAndPanelSelected('Cats'));
 });
 
-test('Tabs Keyboard Navigation', (t) => {
+test.only('Tabs Keyboard Navigation', async (t) => {
+	const user = userEvent.setup();
+
 	render(
 		<Tabs>
 			<TabList>
@@ -98,36 +104,36 @@ test('Tabs Keyboard Navigation', (t) => {
 	const tab2 = screen.getByRole('tab', { name: 'Tab 2' });
 	const tab3 = screen.getByRole('tab', { name: 'Tab 3' });
 
-	tab1.focus();
-
-	const tabList = screen.getByRole('tablist');
+	// Focus moves into the tab list
+	await user.tab();
+	t.is(document.activeElement, tab1);
 
 	// Right Arrow moves to next
-	fireEvent.keyDown(tabList, { key: 'ArrowRight' });
-	t.true(document.activeElement === tab2);
+	await user.keyboard('{ArrowRight}');
+	t.is(document.activeElement, tab2);
 
 	// Left Arrow moves to previous
-	fireEvent.keyDown(tabList, { key: 'ArrowLeft' });
-	t.true(document.activeElement === tab1);
+	await user.keyboard('{ArrowLeft}');
+	t.is(document.activeElement, tab1);
 
 	// End moves to last
-	fireEvent.keyDown(tabList, { key: 'End' });
-	t.true(document.activeElement === tab3);
+	await user.keyboard('{End}');
+	t.is(document.activeElement, tab3);
 
 	// Home moves to first
-	fireEvent.keyDown(tabList, { key: 'Home' });
-	t.true(document.activeElement === tab1);
+	await user.keyboard('{Home}');
+	t.is(document.activeElement, tab1);
 
 	// Left on first wraps to last
-	fireEvent.keyDown(tabList, { key: 'ArrowLeft' });
-	t.true(document.activeElement === tab3);
+	await user.keyboard('{ArrowLeft}');
+	t.is(document.activeElement, tab3);
 
 	// Right on last wraps to first
-	fireEvent.keyDown(tabList, { key: 'ArrowRight' });
-	t.true(document.activeElement === tab1);
+	await user.keyboard('{ArrowRight}');
+	t.is(document.activeElement, tab1);
 });
 
-test('Tabbing order: No focus-able elements, focus goes to container', (t) => {
+test('Tabbing order: No focus-able elements, focus goes to container', async (t) => {
 	render(
 		<Tabs>
 			<TabList>
@@ -146,14 +152,14 @@ test('Tabbing order: No focus-able elements, focus goes to container', (t) => {
 
 	// First tab event moves focus to First Tab
 	userEvent.tab();
-	t.true(document.activeElement === tab1);
+	t.is(document.activeElement, tab1);
 
 	// Second tab event should move the focus to the panel
 	userEvent.tab();
 	t.true(document.activeElement === tabPanel1);
 });
 
-test('Tabbing order: with focus-able elements, focus goes to first element', (t) => {
+test('Tabbing order: with focus-able elements, focus goes to first element', async (t) => {
 	render(
 		<Tabs>
 			<TabList>
@@ -175,7 +181,7 @@ test('Tabbing order: with focus-able elements, focus goes to first element', (t)
 
 	// First tab event moves focus to First Tab
 	userEvent.tab();
-	t.true(document.activeElement === tab1);
+	t.is(document.activeElement, tab1);
 
 	// Second tab event should move the focus to the first button
 	userEvent.tab();
