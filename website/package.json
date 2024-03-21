@@ -59,8 +59,7 @@
     "@storybook/react-docgen-typescript-plugin": "^1.0.1",
     "@types/react": "^18.2.67",
     "ts-loader": "^9.4.2",
-    "tsconfig-paths-webpack-plugin": "^4.0.0",
-    "typescript": "^5.4.3"
+    "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
   "engines": {
     "node": ">=18.0"
