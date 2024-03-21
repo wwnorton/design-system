@@ -56,8 +56,8 @@
     "@docusaurus/module-type-aliases": "3.1.1",
     "@docusaurus/tsconfig": "^3.1.1",
     "@docusaurus/types": "3.1.1",
-    "@storybook/react-docgen-typescript-plugin": "^1.0.1",
     "@types/react": "^18.2.67",
+    "react-docgen-typescript-plugin": "^1.0.5",
     "ts-loader": "^9.4.2",
     "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
