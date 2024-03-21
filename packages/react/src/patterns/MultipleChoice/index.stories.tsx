@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { MultipleChoice } from './multiple-choice';
-import { PatternExample as PatternExampleComponent } from './pattern-example';
+import { MultipleChoice } from './MultipleChoice';
+import { PatternExample as PatternExampleComponent } from './PatternExample';
 
 const meta: Meta<typeof MultipleChoice> = {
 	component: MultipleChoice,
@@ -18,7 +18,8 @@ const choices = [
 
 export const Unanswered: Story = {
 	args: {
-		intro: 'Three people are present when a pregnant person suddenly goes into labor and gives birth in a bank lobby.',
+		intro:
+			'Three people are present when a pregnant person suddenly goes into labor and gives birth in a bank lobby.',
 		stem: 'Which of the people is likely to best remember the event afterward?',
 		instructions: 'Select one that applies. You have 2 attempts remaining.',
 		status: 'unanswered',
@@ -28,7 +29,8 @@ export const Unanswered: Story = {
 
 export const Correct: Story = {
 	args: {
-		intro: 'Three people are present when a pregnant person suddenly goes into labor and gives birth in a bank lobby.',
+		intro:
+			'Three people are present when a pregnant person suddenly goes into labor and gives birth in a bank lobby.',
 		stem: 'Which of the people is likely to best remember the event afterward?',
 		instructions: 'Select one that applies. You have 2 attempts remaining.',
 		status: 'correct',
@@ -40,7 +42,8 @@ export const Correct: Story = {
 
 export const Incorrect: Story = {
 	args: {
-		intro: 'Three people are present when a pregnant person suddenly goes into labor and gives birth in a bank lobby.',
+		intro:
+			'Three people are present when a pregnant person suddenly goes into labor and gives birth in a bank lobby.',
 		stem: 'Which of the people is likely to best remember the event afterward?',
 		instructions: 'Select one that applies. You have 2 attempts remaining.',
 		status: 'incorrect',
@@ -51,7 +54,5 @@ export const Incorrect: Story = {
 };
 
 export const PatternExample: Story = {
-	render: () => (
-		<PatternExampleComponent choices={choices} />
-	),
+	render: () => <PatternExampleComponent choices={choices} />,
 };

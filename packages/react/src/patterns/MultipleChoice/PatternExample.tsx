@@ -1,10 +1,8 @@
-import React, {
-	useCallback,
-} from 'react';
-import { Button } from '../Button';
-import { FeedbackModal } from '../FeedbackModal';
-import { MultipleChoice } from './multiple-choice';
-import { useMultipleChoice } from './use-multiple-choice';
+import React, { useCallback } from 'react';
+import { Button } from '../../components/Button';
+import { FeedbackModal } from '../../components/FeedbackModal';
+import { MultipleChoice } from './MultipleChoice';
+import { useMultipleChoice } from './useMultipleChoice';
 
 interface PatternExampleProps {
 	choices: string[];
@@ -13,10 +11,13 @@ interface PatternExampleProps {
 export const PatternExample = ({ choices }: PatternExampleProps) => {
 	const { questionState, setStatus, modalState } = useMultipleChoice(choices);
 
-	const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		setStatus('correct');
-	}, [setStatus]);
+	const handleSubmit = useCallback(
+		(event: React.FormEvent<HTMLFormElement>) => {
+			event.preventDefault();
+			setStatus('correct');
+		},
+		[setStatus],
+	);
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -27,7 +28,11 @@ export const PatternExample = ({ choices }: PatternExampleProps) => {
 				{...questionState}
 			/>
 			<FeedbackModal {...modalState} />
-			<div><Button type="submit" variant="solid" color="primary">Submit</Button></div>
+			<div>
+				<Button type="submit" variant="solid" color="primary">
+					Submit
+				</Button>
+			</div>
 		</form>
 	);
 };

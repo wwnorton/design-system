@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { FeedbackModalProps } from '../FeedbackModal/types';
+import { FeedbackModalProps } from '../../components/FeedbackModal/types';
 import { MultipleChoiceStatus, OnSelectInput } from './types';
 
 interface MultipleChoiceState {
@@ -9,7 +9,10 @@ interface MultipleChoiceState {
 		selected?: number;
 		choices: string[];
 	};
-	modalState: Pick<FeedbackModalProps, 'isOpen' | 'isCorrect' | 'choiceLabel' | 'choiceText' | 'onRequestClose'>;
+	modalState: Pick<
+		FeedbackModalProps,
+		'isOpen' | 'isCorrect' | 'choiceLabel' | 'choiceText' | 'onRequestClose'
+	>;
 	setStatus: (status: MultipleChoiceStatus) => void;
 }
 
@@ -33,7 +36,6 @@ export function useMultipleChoice(choices: string[]): MultipleChoiceState {
 	}, [choices, selected, status]);
 
 	const modalState = useMemo(() => {
-		console.log('modalState');
 		return {
 			isOpen: modalOpen,
 			isCorrect: status === 'correct',
