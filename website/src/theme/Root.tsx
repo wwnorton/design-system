@@ -1,14 +1,18 @@
-import React from 'react';
-import { canUseDOM, ColorScheme, AppProvider } from '@wwnds/react';
-import Head from '@docusaurus/Head';
-import Link from '@docusaurus/Link';
+import React from "react";
+import { canUseDOM, ColorScheme, AppProvider } from "@wwnds/react";
+import Head from "@docusaurus/Head";
+import Link from "@docusaurus/Link";
 
-const COLOR_SCHEME_KEY = 'nds-color-scheme';
+const COLOR_SCHEME_KEY = "nds-color-scheme";
 
-const Root: React.FunctionComponent = ({ children }: { children?: React.ReactNode }) => {
+const Root: React.FunctionComponent = ({
+	children,
+}: {
+	children?: React.ReactNode;
+}) => {
 	// get the initial color scheme from local storage
 	const colorScheme = React.useMemo(() => {
-		if (canUseDOM && 'localStorage' in window) {
+		if (canUseDOM && "localStorage" in window) {
 			const storedScheme = window.localStorage.getItem(COLOR_SCHEME_KEY);
 			if (storedScheme) return storedScheme as ColorScheme;
 		}
@@ -17,7 +21,7 @@ const Root: React.FunctionComponent = ({ children }: { children?: React.ReactNod
 
 	// update local storage any time the color scheme changes
 	const storeScheme = (scheme: ColorScheme): void => {
-		if ('localStorage' in window) {
+		if ("localStorage" in window) {
 			window.localStorage.setItem(COLOR_SCHEME_KEY, scheme);
 		}
 	};
@@ -32,7 +36,7 @@ const Root: React.FunctionComponent = ({ children }: { children?: React.ReactNod
 				colorScheme={colorScheme}
 				onColorSchemeChange={storeScheme}
 			>
-				{ children }
+				{children}
 			</AppProvider>
 		</>
 	);

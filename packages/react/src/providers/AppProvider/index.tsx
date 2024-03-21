@@ -24,7 +24,7 @@ export const AppProvider: React.FunctionComponent<AppProviderProps> = ({
 			ignoreOSColorScheme={ignoreOSColorScheme}
 			onColorSchemeChange={onColorSchemeChange}
 		>
-			{ children }
+			{children}
 		</ThemeProvider>
 	</LinkContext.Provider>
 );

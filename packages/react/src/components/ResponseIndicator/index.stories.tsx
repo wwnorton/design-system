@@ -11,11 +11,7 @@ export default meta;
 type Story = StoryObj<typeof ResponseIndicator>;
 
 const Template: Story = {
-	render: ({ ...args }) => (
-		<ResponseIndicator
-			{...args}
-		/>
-	),
+	render: ({ ...args }) => <ResponseIndicator {...args} />,
 };
 
 // With Icon and Label

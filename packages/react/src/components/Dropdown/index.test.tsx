@@ -1,8 +1,6 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import { Dropdown } from '.';
 
 test.afterEach(cleanup);
@@ -34,7 +32,7 @@ test('clicking the button opens the listbox when closed', (t) => {
 	t.is(document.activeElement, screen.queryAllByRole('option')[0]);
 });
 
-test('clicking the button closes the listbox when it\'s open', (t) => {
+test("clicking the button closes the listbox when it's open", (t) => {
 	render(<Dropdown {...defaultProps} isOpen />);
 
 	// clicking the button should open the listbox
@@ -54,7 +52,11 @@ test('clicking an option selects it and closes the listbox', (t) => {
 });
 
 test('keydown.enter selects the currently focused option and closes the listbox', (t) => {
-	render(<Dropdown isOpen label={label}>{ options }</Dropdown>);
+	render(
+		<Dropdown isOpen label={label}>
+			{options}
+		</Dropdown>,
+	);
 	const { textContent } = document.activeElement as Element;
 
 	fireEvent.keyDown(document.activeElement as Element, { key: 'Enter' });
@@ -63,7 +65,11 @@ test('keydown.enter selects the currently focused option and closes the listbox'
 });
 
 test('clicking with space selects the currently focused option and closes the listbox', (t) => {
-	render(<Dropdown isOpen label={label}>{ options }</Dropdown>);
+	render(
+		<Dropdown isOpen label={label}>
+			{options}
+		</Dropdown>,
+	);
 	const { textContent } = document.activeElement as Element;
 
 	// space "click" is a keydown + keyup on the same element
@@ -180,7 +186,11 @@ test('open state can be controlled externally', (t) => {
 test('ascending sort renders options from A to Z', (t) => {
 	const unsorted = ['Z', 'C', 'J'];
 	const sorted = ['C', 'J', 'Z'];
-	render(<Dropdown label={label} sort="ascending" isOpen>{ unsorted }</Dropdown>);
+	render(
+		<Dropdown label={label} sort="ascending" isOpen>
+			{unsorted}
+		</Dropdown>,
+	);
 	const opts = screen.queryAllByRole('option');
 	opts.forEach((option, i) => {
 		t.is(option.textContent, sorted[i]);
@@ -190,7 +200,11 @@ test('ascending sort renders options from A to Z', (t) => {
 test('descending sort renders options from Z to A', (t) => {
 	const unsorted = ['Z', 'C', 'J'];
 	const sorted = ['Z', 'J', 'C'];
-	render(<Dropdown label={label} sort="descending" isOpen>{ unsorted }</Dropdown>);
+	render(
+		<Dropdown label={label} sort="descending" isOpen>
+			{unsorted}
+		</Dropdown>,
+	);
 	const opts = screen.queryAllByRole('option');
 	opts.forEach((option, i) => {
 		t.is(option.textContent, sorted[i]);
@@ -199,13 +213,15 @@ test('descending sort renders options from Z to A', (t) => {
 
 test('a disabled option cannot be selected', (t) => {
 	const OPTION_INDEX = 1;
-	render((
+	render(
 		<Dropdown label={label} isOpen>
 			<Dropdown.Option value="1">First</Dropdown.Option>
-			<Dropdown.Option value="2" disabled>Second</Dropdown.Option>
+			<Dropdown.Option value="2" disabled>
+				Second
+			</Dropdown.Option>
 			<Dropdown.Option value="3">Third</Dropdown.Option>
-		</Dropdown>
-	));
+		</Dropdown>,
+	);
 	const target = screen.queryAllByRole('option')[OPTION_INDEX];
 
 	fireEvent.click(target);
@@ -221,9 +237,15 @@ test('a dropdown is closed when it is disabled', (t) => {
 
 test('a dropdown button content is updated', (t) => {
 	const children = [
-		<Dropdown.Option key={0} value={1}>1</Dropdown.Option>,
-		<Dropdown.Option key={1} value={2}>2</Dropdown.Option>,
-		<Dropdown.Option key={2} value={3}>3</Dropdown.Option>,
+		<Dropdown.Option key={0} value={1}>
+			1
+		</Dropdown.Option>,
+		<Dropdown.Option key={1} value={2}>
+			2
+		</Dropdown.Option>,
+		<Dropdown.Option key={2} value={3}>
+			3
+		</Dropdown.Option>,
 	];
 	const { rerender } = render(
 		<Dropdown {...defaultProps} selected={1} buttonContents={1}>
@@ -246,9 +268,15 @@ test('a dropdown button content is updated', (t) => {
 
 test('a dropdown should focus on selected option if picked via props on mount', (t) => {
 	const children = [
-		<Dropdown.Option key={0} value={1}>1</Dropdown.Option>,
-		<Dropdown.Option key={1} value={2}>2</Dropdown.Option>,
-		<Dropdown.Option key={2} value={3}>3</Dropdown.Option>,
+		<Dropdown.Option key={0} value={1}>
+			1
+		</Dropdown.Option>,
+		<Dropdown.Option key={1} value={2}>
+			2
+		</Dropdown.Option>,
+		<Dropdown.Option key={2} value={3}>
+			3
+		</Dropdown.Option>,
 	];
 	render(
 		<Dropdown {...defaultProps} selected={2} isOpen>
@@ -263,9 +291,15 @@ test('a dropdown should focus on selected option if picked via props on mount', 
 
 test('a dropdown should focus on selected option if picked via props on update', (t) => {
 	const children = [
-		<Dropdown.Option key={0} value={1}>1</Dropdown.Option>,
-		<Dropdown.Option key={1} value={2}>2</Dropdown.Option>,
-		<Dropdown.Option key={2} value={3}>3</Dropdown.Option>,
+		<Dropdown.Option key={0} value={1}>
+			1
+		</Dropdown.Option>,
+		<Dropdown.Option key={1} value={2}>
+			2
+		</Dropdown.Option>,
+		<Dropdown.Option key={2} value={3}>
+			3
+		</Dropdown.Option>,
 	];
 	const { rerender } = render(
 		<Dropdown {...defaultProps} selected={1}>

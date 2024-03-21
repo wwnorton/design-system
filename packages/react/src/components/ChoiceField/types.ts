@@ -1,10 +1,10 @@
 import { FieldInfoCoreProps, FieldFeedbackCoreProps } from '../Field';
 import { BaseInputProps } from '../BaseInput/types';
 
-export interface ChoiceProps extends
-	Omit<FieldInfoCoreProps, 'label'>,
-	FieldFeedbackCoreProps,
-	Omit<BaseInputProps, 'type'> {
+export interface ChoiceProps
+	extends Omit<FieldInfoCoreProps, 'label'>,
+		FieldFeedbackCoreProps,
+		Omit<BaseInputProps, 'type'> {
 	type?: 'checkbox' | 'radio';
 	/**
 	 * Mark the checkbox as indeterminate. Has no effect when `type="radio"`.
@@ -41,7 +41,9 @@ export interface ChoicesProps extends ChoiceProps {
 }
 
 export interface ChoiceFieldProps
-	extends FieldInfoCoreProps, FieldFeedbackCoreProps, React.ComponentPropsWithoutRef<'fieldset'> {
+	extends FieldInfoCoreProps,
+		FieldFeedbackCoreProps,
+		React.ComponentPropsWithoutRef<'fieldset'> {
 	/**
 	 * Text that conveys how the choices are related and prompts the user to choose
 	 * one or more choice.

@@ -1,8 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import {
-	Checkbox, CheckboxGroup, CheckboxProps, CheckboxGroupProps,
-} from '.';
+import { Checkbox, CheckboxGroup, CheckboxProps, CheckboxGroupProps } from '.';
 import { Button } from '../Button';
 import { useSelect, useValidation } from '../../utilities';
 import { Choices } from '../ChoiceField';
@@ -35,7 +33,8 @@ export const Controlled = (args: CheckboxProps) => {
 };
 Controlled.args = {
 	children: 'Checkbox',
-	description: 'This checkbox waits a second before updating to demonstrate that its state is controlled.',
+	description:
+		'This checkbox waits a second before updating to demonstrate that its state is controlled.',
 };
 
 export const Indeterminate = CheckboxTemplate.bind({});
@@ -50,13 +49,8 @@ WithThumbnail.args = {
 	children: 'Checkbox',
 	description: (
 		<>
-			This checkbox includes a clickable thumbnail from
-			{' '}
-			<a
-				href="https://picsum.photos"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
+			This checkbox includes a clickable thumbnail from{' '}
+			<a href="https://picsum.photos" target="_blank" rel="noopener noreferrer">
 				https://picsum.photos
 			</a>
 		</>
@@ -73,7 +67,13 @@ export const SingleCheckboxRequiredForm = (args: CheckboxProps) => {
 	};
 
 	return (
-		<form className="form" onSubmit={(e): void => { e.preventDefault(); }} onInvalid={invalidHandler}>
+		<form
+			className="form"
+			onSubmit={(e): void => {
+				e.preventDefault();
+			}}
+			onInvalid={invalidHandler}
+		>
 			<div className="field">
 				<Checkbox
 					{...args}
@@ -84,7 +84,9 @@ export const SingleCheckboxRequiredForm = (args: CheckboxProps) => {
 					Agree
 				</Checkbox>
 			</div>
-			<Button variant="solid" type="submit">Submit</Button>
+			<Button variant="solid" type="submit">
+				Submit
+			</Button>
 		</form>
 	);
 };
@@ -118,11 +120,7 @@ export const ControlledGroup = (args: CheckboxGroupProps) => {
 
 	return (
 		<CheckboxGroup {...args} label="Choose your favorite fruits" onChange={formChangeHandler}>
-			<Choices
-				choices={fruits}
-				selected={selected}
-				name="fruit"
-			/>
+			<Choices choices={fruits} selected={selected} name="fruit" />
 			{/* Alternatively, choices could be mapped manually */}
 			{/* {
 				fruits.map(({ value, ...props }) => (

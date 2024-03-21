@@ -3,13 +3,13 @@ import { AllColors } from '../../utilities/color';
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	/** The title summarizes the callout's contents. */
-	title?: string,
+	title?: string;
 	/** An icon can be added for character or to emphasize the callout's title. */
-	icon?: IconProps['variant'] | IconProps['icon'],
+	icon?: IconProps['variant'] | IconProps['icon'];
 	/** The callout's color family. */
 	color?: Exclude<AllColors, 'disabled'>;
 	/** The position of the border. */
-	border?: 'top' | 'right' | 'bottom' | 'left',
+	border?: 'top' | 'right' | 'bottom' | 'left';
 	/** Indicates whether callout can be dismissed. */
 	dismissible?: boolean;
 	/**
@@ -25,15 +25,15 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	/** Callback function that is called when the callout is dismissed. */
 	onDismiss?: () => void;
 	/** The base class name according to BEM conventions. */
-	baseName?: string,
+	baseName?: string;
 	/** The `className` that will be applied to the callout icon. */
-	iconClass?: string,
+	iconClass?: string;
 	/** The `className` that will be applied to the callout header element. */
-	headerClass?: string,
+	headerClass?: string;
 	/** The className that will applied to the callout title. */
-	titleClass?: string,
+	titleClass?: string;
 	/** The className that will be applied to the close Button. */
-	dismissClass?: string,
+	dismissClass?: string;
 	/** The className that will be applied to the callout's body container */
-	bodyClass?: string,
+	bodyClass?: string;
 }

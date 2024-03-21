@@ -17,24 +17,21 @@ export function sortNodes(nodes: Node[]) {
 		const compare = a.compareDocumentPosition(b);
 
 		if (
-			compare & Node.DOCUMENT_POSITION_FOLLOWING
-			|| compare & Node.DOCUMENT_POSITION_CONTAINED_BY
+			compare & Node.DOCUMENT_POSITION_FOLLOWING ||
+			compare & Node.DOCUMENT_POSITION_CONTAINED_BY
 		) {
 			// a < b
 			return -1;
 		}
 
-		if (
-			compare & Node.DOCUMENT_POSITION_PRECEDING
-			|| compare & Node.DOCUMENT_POSITION_CONTAINS
-		) {
+		if (compare & Node.DOCUMENT_POSITION_PRECEDING || compare & Node.DOCUMENT_POSITION_CONTAINS) {
 			// a > b
 			return 1;
 		}
 
 		if (
-			compare & Node.DOCUMENT_POSITION_DISCONNECTED
-			|| compare & Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC
+			compare & Node.DOCUMENT_POSITION_DISCONNECTED ||
+			compare & Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC
 		) {
 			throw Error('Cannot sort the given nodes.');
 		} else {
@@ -43,9 +40,8 @@ export function sortNodes(nodes: Node[]) {
 	});
 }
 
-export const isElement = (el: any): el is HTMLElement => typeof el === 'object'
-	&& 'nodeType' in el
-	&& el.nodeType === Node.ELEMENT_NODE;
+export const isElement = (el: any): el is HTMLElement =>
+	typeof el === 'object' && 'nodeType' in el && el.nodeType === Node.ELEMENT_NODE;
 
 export function getNextIndex(current: number, max: number, loop: boolean) {
 	let next = current + 1;
@@ -59,7 +55,7 @@ export function getPrevIndex(current: number, max: number, loop: boolean) {
 	return next;
 }
 
-export const useSafeLayoutEffect =	typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+export const useSafeLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 export const cast = <T>(value: any) => value as T;
 
@@ -72,11 +68,7 @@ export interface CreateContextOptions<T> {
 	defaultValue?: T;
 }
 
-export type CreateContextReturn<T> = [
-	React.Provider<T>,
-	() => T,
-	React.Context<T>,
-];
+export type CreateContextReturn<T> = [React.Provider<T>, () => T, React.Context<T>];
 
 function getErrorMessage(hook: string, provider: string) {
 	return `${hook} returned \`undefined\`. Seems you forgot to wrap component within ${provider}`;
@@ -100,9 +92,7 @@ export function createContext<T>(options: CreateContextOptions<T> = {}) {
 		const context = useReactContext(Context);
 
 		if (!context && strict) {
-			const error = new Error(
-				errorMessage ?? getErrorMessage(hookName, providerName),
-			);
+			const error = new Error(errorMessage ?? getErrorMessage(hookName, providerName));
 			error.name = 'ContextError';
 			Error.captureStackTrace?.(error, useContext);
 			throw error;
@@ -116,10 +106,7 @@ export function createContext<T>(options: CreateContextOptions<T> = {}) {
 
 export type ReactRef<T> = React.RefCallback<T> | React.MutableRefObject<T>;
 
-export function assignRef<T = any>(
-	ref: ReactRef<T> | null | undefined,
-	value: T,
-) {
+export function assignRef<T = any>(ref: ReactRef<T> | null | undefined, value: T) {
 	if (ref == null) return;
 
 	if (typeof ref === 'function') {

@@ -1,23 +1,21 @@
 import { PopperProps } from '../Popper';
 import { UsePopperTriggersProps } from '../../utilities';
 
-type PopperInherited = Pick<PopperProps,
-| 'isOpen'
-| 'transition'
-| 'reference'
-| 'arrowElement'
-| 'distance'
-| 'boundary'
-| 'placement'
-| 'modifiers'
-| 'strategy'
-| 'onFirstUpdate'
+type PopperInherited = Pick<
+	PopperProps,
+	| 'isOpen'
+	| 'transition'
+	| 'reference'
+	| 'arrowElement'
+	| 'distance'
+	| 'boundary'
+	| 'placement'
+	| 'modifiers'
+	| 'strategy'
+	| 'onFirstUpdate'
 >;
 
-type UsePopperTriggersInherited = Pick<UsePopperTriggersProps,
-| 'hideDelay'
-| 'showDelay'
->;
+type UsePopperTriggersInherited = Pick<UsePopperTriggersProps, 'hideDelay' | 'showDelay'>;
 
 export type TooltipCoreProps = PopperInherited & UsePopperTriggersInherited;
 

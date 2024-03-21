@@ -3,6 +3,6 @@ module.exports = {
 		browser: true,
 	},
 	parserOptions: {
-		project: './tsconfig.json',
+		project: "./tsconfig.json",
 	},
 };

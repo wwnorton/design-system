@@ -1,10 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import {
-	CommonTabsProps,
-	ControlledTabsProps,
-	TabsState,
-	UncontrolledTabsProps,
-} from './types';
+import { CommonTabsProps, ControlledTabsProps, TabsState, UncontrolledTabsProps } from './types';
 import { useId } from '../../utilities';
 import { createDescendantContext } from '../../utilities/descendant';
 
@@ -14,10 +9,7 @@ function useInitCommonTabsState({
 	align,
 	idPrefix: userSetIdPrefix,
 	variant,
-}: CommonTabsProps): Omit<
-	TabsState,
-	'selectedTabIndex' | 'setSelectedTabIndex'
-	> {
+}: CommonTabsProps): Omit<TabsState, 'selectedTabIndex' | 'setSelectedTabIndex'> {
 	const generatedIdPrefix = useId() as string;
 	const idPrefix = userSetIdPrefix || generatedIdPrefix;
 

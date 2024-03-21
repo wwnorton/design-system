@@ -12,7 +12,10 @@ export default {
 		enableArrow: { control: { type: 'boolean' } },
 		distance: {
 			control: {
-				type: 'range', min: 0, max: 20, step: 1,
+				type: 'range',
+				min: 0,
+				max: 20,
+				step: 1,
 			},
 		},
 	},
@@ -23,8 +26,8 @@ export const Default = (args: PopperProps) => {
 	return (
 		<Popper {...args} isOpen={isOpen}>
 			<p>
-				Popper components are used for positioning an element relative to
-				another component and have no styling by default.
+				Popper components are used for positioning an element relative to another component and have
+				no styling by default.
 			</p>
 			<p>This Popper has no reference element.</p>
 			<div>
@@ -42,11 +45,7 @@ export const WithReference = (args: PopperProps) => {
 
 	return (
 		<>
-			<Button
-				variant="solid"
-				ref={setButton}
-				onClick={() => setIsOpen(!isOpen)}
-			>
+			<Button variant="solid" ref={setButton} onClick={() => setIsOpen(!isOpen)}>
 				Show popover
 			</Button>
 			<Popper
@@ -61,9 +60,8 @@ export const WithReference = (args: PopperProps) => {
 				}}
 				{...args}
 			>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-				veniam, quis nostrud exercitation ullamco
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+				labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
 			</Popper>
 		</>
 	);

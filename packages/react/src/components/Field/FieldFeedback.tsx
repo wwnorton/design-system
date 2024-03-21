@@ -19,18 +19,20 @@ export const FieldFeedback: React.FunctionComponent<FieldFeedbackProps> = ({
 				className={errorsClass}
 				id={errorsId}
 				aria-label="Errors"
-				aria-live={(liveErrors) ? 'assertive' : undefined}
-				aria-atomic={(liveErrors) ? 'true' : undefined}
+				aria-live={liveErrors ? 'assertive' : undefined}
+				aria-atomic={liveErrors ? 'true' : undefined}
 			>
-				{ errors.map((err) => <li key={err}>{ err }</li>) }
+				{errors.map((err) => (
+					<li key={err}>{err}</li>
+				))}
 			</ul>
 		);
 	}, [errors, errorsClass, errorsId, liveErrors]);
 
 	return (
 		<div id={id} className={className}>
-			{ Errors }
-			{ children }
+			{Errors}
+			{children}
 		</div>
 	);
 };

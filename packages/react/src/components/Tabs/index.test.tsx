@@ -1,12 +1,8 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-	Tabs, Tab, TabList, TabPanels, TabPanel,
-} from '.';
+import { Tabs, Tab, TabList, TabPanels, TabPanel } from '.';
 
 test.afterEach.always(cleanup);
 
@@ -17,7 +13,9 @@ const TestControlledTabs = () => {
 	const [selectedTab, setSelectedTab] = React.useState(0);
 	return (
 		<div>
-			<button type="button" onClick={() => setSelectedTab(0)}>Go to First Tab</button>
+			<button type="button" onClick={() => setSelectedTab(0)}>
+				Go to First Tab
+			</button>
 			<Tabs selectedIndex={selectedTab} onChange={setSelectedTab}>
 				<TabList>
 					<Tab>Cats</Tab>
@@ -57,37 +55,27 @@ test('Uncontrolled: clicking on tabs, switches panels', (t) => {
 	);
 
 	// Cats is selected by default
-	t.true(
-		areTabAndPanelSelected('Cats'),
-	);
+	t.true(areTabAndPanelSelected('Cats'));
 
 	// TabPanel changes when click on Dogs Tab
 	const dogsTab = screen.getByRole('tab', { name: 'Dogs' });
 	fireEvent.click(dogsTab);
 
-	t.true(
-		areTabAndPanelSelected('Dogs'),
-	);
+	t.true(areTabAndPanelSelected('Dogs'));
 });
 
 test('Controlled: clicking on external controls, switches panels', (t) => {
-	render(
-		<TestControlledTabs />,
-	);
+	render(<TestControlledTabs />);
 
 	// TabPanel changes when click on Dogs Tab
 	const dogsTab = screen.getByRole('tab', { name: 'Dogs' });
 	fireEvent.click(dogsTab);
-	t.true(
-		areTabAndPanelSelected('Dogs'),
-	);
+	t.true(areTabAndPanelSelected('Dogs'));
 
 	// TabPanel and Tab changes when clicking on external control
 	const externalControl = screen.getByRole('button', { name: 'Go to First Tab' });
 	fireEvent.click(externalControl);
-	t.true(
-		areTabAndPanelSelected('Cats'),
-	);
+	t.true(areTabAndPanelSelected('Cats'));
 });
 
 test('Tabs Keyboard Navigation', (t) => {
@@ -174,9 +162,7 @@ test('Tabbing order: with focus-able elements, focus goes to first element', (t)
 			</TabList>
 			<TabPanels>
 				<TabPanel>
-					Content 1:
-					{' '}
-					<button type="button">Button 1</button>
+					Content 1: <button type="button">Button 1</button>
 					<button type="button">Button 2</button>
 				</TabPanel>
 				<TabPanel>Content 2</TabPanel>

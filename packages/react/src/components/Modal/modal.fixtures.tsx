@@ -2,9 +2,9 @@ import React from 'react';
 
 export const shortContent = (
 	<p>
-		Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-		Id cum reiciendis sed ab voluptas velit quibusdam expedita sapiente nemo?
-		Modi accusamus minus distinctio error non! Provident quasi officia pariatur fugit.
+		Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id cum reiciendis sed ab voluptas
+		velit quibusdam expedita sapiente nemo? Modi accusamus minus distinctio error non! Provident
+		quasi officia pariatur fugit.
 	</p>
 );
 
@@ -13,13 +13,10 @@ const line = { style: { display: 'block' } };
 /* cspell:disable */
 export const longContent = (
 	<>
-		{ shortContent }
+		{shortContent}
 		<p>
 			<span {...line}>
-				Whan that Aprille with his shoures
-				{' '}
-				<a href="https://en.wiktionary.org/wiki/soote">soote</a>
-				,
+				Whan that Aprille with his shoures <a href="https://en.wiktionary.org/wiki/soote">soote</a>,
 			</span>
 			<span {...line}>The droghte of March hath perced to the roote,</span>
 			<span {...line}>And bathed every veyne in swich licóur</span>

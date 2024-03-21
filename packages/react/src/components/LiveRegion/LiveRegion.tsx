@@ -80,31 +80,25 @@ export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
 		}
 	}, [children]);
 
-	const Node = React.useMemo(() => (
-		<div
-			aria-atomic={ariaAtomic}
-			aria-live={ariaLive}
-			aria-relevant={ariaRelevant}
-			className={className}
-			id={id}
-			role={role}
-			style={(visible) ? undefined : srOnly}
-		>
-			{ liveText }
-		</div>
-	), [
-		ariaAtomic,
-		ariaLive,
-		ariaRelevant,
-		className,
-		id,
-		liveText,
-		role,
-		visible,
-	]);
+	const Node = React.useMemo(
+		() => (
+			<div
+				aria-atomic={ariaAtomic}
+				aria-live={ariaLive}
+				aria-relevant={ariaRelevant}
+				className={className}
+				id={id}
+				role={role}
+				style={visible ? undefined : srOnly}
+			>
+				{liveText}
+			</div>
+		),
+		[ariaAtomic, ariaLive, ariaRelevant, className, id, liveText, role, visible],
+	);
 
 	if (typeof document === 'undefined') return null;
-	return createPortal((shouldRender) ? Node : null, document.body);
+	return createPortal(shouldRender ? Node : null, document.body);
 };
 
 LiveRegion.defaultProps = defaultProps;

@@ -1,25 +1,27 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen, queryAllByRole,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen, queryAllByRole } from '@testing-library/react';
 import { TextField, TextFieldUncontrolled } from '.';
 
 test.afterEach(cleanup);
 
-const noop = () => {};	// eslint-disable-line @typescript-eslint/no-empty-function
+const noop = () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 const defaultLabel = 'Text field';
 
 // maintenance note: this is duplicated in ChoiceField/Checkbox/Radio
 test('the text field `<input>` is labelled by its `<label>`', (t) => {
-	render(<TextField>{ defaultLabel }</TextField>);
+	render(<TextField>{defaultLabel}</TextField>);
 	t.truthy(screen.queryByText(defaultLabel));
 	t.truthy(screen.queryByLabelText(defaultLabel));
 });
 
 // maintenance note: this is duplicated in ChoiceField/Checkbox/Radio
 test('a required text field renders its required indicator as part of the label', (t) => {
-	render(<TextField required requiredIndicator>{ defaultLabel }</TextField>);
+	render(
+		<TextField required requiredIndicator>
+			{defaultLabel}
+		</TextField>,
+	);
 	const label = screen.getByText(defaultLabel);
 	const indicator = screen.getByText('(required)');
 	t.true(label.contains(indicator));
@@ -27,7 +29,7 @@ test('a required text field renders its required indicator as part of the label'
 
 // maintenance note: this is duplicated in ChoiceField/Checkbox/Radio
 test('an optional checkbox renders its optional indicator as part of the label', (t) => {
-	render(<TextField optionalIndicator>{ defaultLabel }</TextField>);
+	render(<TextField optionalIndicator>{defaultLabel}</TextField>);
 	const label = screen.getByText(defaultLabel);
 	const indicator = screen.getByText('(optional)');
 	t.true(label.contains(indicator));
@@ -35,7 +37,7 @@ test('an optional checkbox renders its optional indicator as part of the label',
 
 test('validation errors are rendered in the field feedback on DOM `change` by default', (t) => {
 	const label = 'Email';
-	render(<TextField type="email">{ label }</TextField>);
+	render(<TextField type="email">{label}</TextField>);
 
 	fireEvent.change(screen.getByLabelText(label), { target: { value: 'abc' } });
 	const errList = screen.getByRole('list', { name: 'Errors' });
@@ -45,7 +47,7 @@ test('validation errors are rendered in the field feedback on DOM `change` by de
 
 test('validation errors are not rendered in the field feedback on DOM `input` by default', (t) => {
 	const label = 'Email';
-	render(<TextField type="email">{ label }</TextField>);
+	render(<TextField type="email">{label}</TextField>);
 
 	fireEvent.input(screen.getByLabelText(label), { target: { value: 'abc' } });
 	const errList = screen.queryByRole('list', { name: 'Errors' });
@@ -54,7 +56,11 @@ test('validation errors are not rendered in the field feedback on DOM `input` by
 
 test('validation errors are rendered in the field feedback on DOM `input` when `validateOnChange` is true', (t) => {
 	const label = 'Email';
-	render(<TextField type="email" validateOnChange>{ label }</TextField>);
+	render(
+		<TextField type="email" validateOnChange>
+			{label}
+		</TextField>,
+	);
 
 	fireEvent.input(screen.getByLabelText(label), { target: { value: 'abc' } });
 	const errList = screen.queryByRole('list', { name: 'Errors' });
@@ -63,7 +69,7 @@ test('validation errors are rendered in the field feedback on DOM `input` when `
 
 test('the error list is not rendered when there are no errors', (t) => {
 	const label = 'Email';
-	render(<TextField type="email">{ label }</TextField>);
+	render(<TextField type="email">{label}</TextField>);
 
 	fireEvent.change(screen.getByLabelText(label), { target: { value: 'abc@domain.tld' } });
 	const errList = screen.queryByRole('list', { name: 'Errors' });
@@ -72,7 +78,7 @@ test('the error list is not rendered when there are no errors', (t) => {
 
 test('invalid input is reflected in both constraint validation and in ARIA', (t) => {
 	const label = 'Email';
-	render(<TextField type="email">{ label }</TextField>);
+	render(<TextField type="email">{label}</TextField>);
 	const input = screen.getByLabelText(label) as HTMLInputElement;
 
 	fireEvent.change(input, { target: { value: 'abc' } });
@@ -81,31 +87,42 @@ test('invalid input is reflected in both constraint validation and in ARIA', (t)
 });
 
 test('the character counter counts down as `value` changes when `maxLength` is defined', (t) => {
-	render(<TextField maxLength={10} value="abc" onChange={noop}>{ defaultLabel }</TextField>);
+	render(
+		<TextField maxLength={10} value="abc" onChange={noop}>
+			{defaultLabel}
+		</TextField>,
+	);
 	t.truthy(screen.getByText('7/10 characters remaining'));
 });
 
-test('the character counter doesn\'t appear until the `counterStart` threshold is met', (t) => {
-	const { rerender } = render((
-		<TextField maxLength={10} counterStart={8} value="" onChange={noop}>{ defaultLabel }</TextField>
-	));
+test("the character counter doesn't appear until the `counterStart` threshold is met", (t) => {
+	const { rerender } = render(
+		<TextField maxLength={10} counterStart={8} value="" onChange={noop}>
+			{defaultLabel}
+		</TextField>,
+	);
 	t.falsy(screen.queryByText('10/10 characters remaining'));
 
-	rerender((
-		<TextField maxLength={10} counterStart={8} value="abc" onChange={noop}>{ defaultLabel }</TextField>
-	));
+	rerender(
+		<TextField maxLength={10} counterStart={8} value="abc" onChange={noop}>
+			{defaultLabel}
+		</TextField>,
+	);
 	t.truthy(screen.getByText('7/10 characters remaining'));
 });
 
-test('a programmatically-set value overwrites the user\'s input', (t) => {
+test("a programmatically-set value overwrites the user's input", (t) => {
 	const CURRENT_PAGE_ID = 'current-page';
 	const TwoWayBinding = (): JSX.Element => {
 		const [pageNumber, setPageNumber] = React.useState('');
 
-		const handleChange = React.useCallback((e) => {
-			const { value } = e.target;
-			setPageNumber(value.slice(0, 6));
-		}, [setPageNumber]);
+		const handleChange = React.useCallback(
+			(e) => {
+				const { value } = e.target;
+				setPageNumber(value.slice(0, 6));
+			},
+			[setPageNumber],
+		);
 
 		const setPageNumberTo76 = React.useCallback(() => {
 			setPageNumber('76');
@@ -113,12 +130,9 @@ test('a programmatically-set value overwrites the user\'s input', (t) => {
 
 		return (
 			<div className="App">
-				<p data-testid={CURRENT_PAGE_ID}>{ pageNumber }</p>
+				<p data-testid={CURRENT_PAGE_ID}>{pageNumber}</p>
 				<TextField value={pageNumber} onChange={handleChange} />
-				<button
-					type="button"
-					onClick={setPageNumberTo76}
-				>
+				<button type="button" onClick={setPageNumberTo76}>
 					Set page number to 76
 				</button>
 			</div>
@@ -139,53 +153,61 @@ test('a programmatically-set value overwrites the user\'s input', (t) => {
 });
 
 test('single addon elements rendered as-is', (t) => {
-	render(<TextField addonAfter={<button type="button">Show</button>}>{ defaultLabel }</TextField>);
+	render(<TextField addonAfter={<button type="button">Show</button>}>{defaultLabel}</TextField>);
 	t.truthy(screen.getByRole('button', { name: 'Show' }));
 });
 
 test('multiple addon elements rendered as-is', (t) => {
-	render((
+	render(
 		<TextField
-			addonAfter={(
+			addonAfter={
 				<>
 					<button type="button">Show</button>
 					<button type="button">Hide</button>
 				</>
-			)}
+			}
 		>
-			{ defaultLabel }
-		</TextField>
-	));
+			{defaultLabel}
+		</TextField>,
+	);
 	t.truthy(screen.getByRole('button', { name: 'Show' }));
 	t.truthy(screen.getByRole('button', { name: 'Hide' }));
 });
 
 test('addon strings are rendered as-is', (t) => {
-	render(<TextField addonAfter={<button type="button">Show</button>}>{ defaultLabel }</TextField>);
+	render(<TextField addonAfter={<button type="button">Show</button>}>{defaultLabel}</TextField>);
 	t.truthy(screen.getByText('Show'));
 });
 
 test('an uncontrolled text field manages its own state', (t) => {
-	render(<TextFieldUncontrolled>{ defaultLabel }</TextFieldUncontrolled>);
+	render(<TextFieldUncontrolled>{defaultLabel}</TextFieldUncontrolled>);
 	const input = screen.getByRole('textbox') as HTMLInputElement;
 	fireEvent.change(input, { target: { value: 'abc' } });
 	t.is(input.value, 'abc');
 });
 
 test('text field renders as <textarea> element', (t) => {
-	render(<TextField multiline>{ defaultLabel }</TextField>);
+	render(<TextField multiline>{defaultLabel}</TextField>);
 	t.truthy(screen.getByRole('textbox') as HTMLTextAreaElement);
 });
 
 test('text field renders as <textarea> element within oninput autoSize', (t) => {
-	render(<TextField multiline autoSize>{ defaultLabel }</TextField>);
+	render(
+		<TextField multiline autoSize>
+			{defaultLabel}
+		</TextField>,
+	);
 	const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
 	fireEvent.input(textarea, { key: 'Enter', code: 'Enter' });
 	t.notDeepEqual(textarea.rows, 2);
 });
 
 test('text field renders as <textarea> element within onchange autoSize', (t) => {
-	render(<TextField multiline autoSize>{ defaultLabel }</TextField>);
+	render(
+		<TextField multiline autoSize>
+			{defaultLabel}
+		</TextField>,
+	);
 	const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
 	fireEvent.change(textarea, { key: 'Enter', code: 'Enter' });
 	t.notDeepEqual(textarea.rows, 2);

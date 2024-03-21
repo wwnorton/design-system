@@ -28,16 +28,11 @@ export const ResponseIndicator: React.FC<ResponseIndicatorProps> = ({
 
 	return (
 		<div className={containerClassName}>
-			{withIcon
-			&& (
+			{withIcon && (
 				<Icon className={styles.icon} variant={variant === 'correct' ? 'check-circle' : 'cancel'} />
 			)}
 			<div className={styles.labelBackground}>
-				<span
-					id={id}
-					className={styles.label}
-					aria-label={label || variant}
-				>
+				<span id={id} className={styles.label} aria-label={label || variant}>
 					{label || variant}
 				</span>
 			</div>

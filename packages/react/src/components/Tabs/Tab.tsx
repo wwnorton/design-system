@@ -2,9 +2,7 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { BaseButton } from '../BaseButton';
 import { TabProps } from './types';
-import {
-	useTabId, useTabListDescendant, useTabPanelId, useTabsState,
-} from './context';
+import { useTabId, useTabListDescendant, useTabPanelId, useTabsState } from './context';
 
 export const Tab = ({
 	baseName = 'nds-tab',

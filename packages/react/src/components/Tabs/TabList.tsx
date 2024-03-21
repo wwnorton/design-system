@@ -17,19 +17,14 @@ export const TabList = ({
 
 	useTabKeyboardNavigation(tabListRef);
 
-	const {
-		moveLeft, moveRight, atMinScroll, atMaxScroll,
-	} = useTabListScroll(tabListRef);
+	const { moveLeft, moveRight, atMinScroll, atMaxScroll } = useTabListScroll(tabListRef);
 
 	const { align } = useTabsState();
 
-	const className = classNames(
-		baseName,
-		{
-			[leftClass]: align === 'left',
-			[centeredClass]: align === 'center',
-		},
-	);
+	const className = classNames(baseName, {
+		[leftClass]: align === 'left',
+		[centeredClass]: align === 'center',
+	});
 
 	const descendants = useTabListDescendants();
 

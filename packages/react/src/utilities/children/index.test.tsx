@@ -9,27 +9,31 @@ test.afterEach(cleanup);
 
 const ITEMS = ['foo', 'bar', 'baz'];
 
-const Fixture = (
-	{ children, nodes, requiredProps }: {
-		children?: React.ReactNode;
-		nodes?: React.ReactNode;
-		requiredProps?: string[];
-	},
-) => {
+const Fixture = ({
+	children,
+	nodes,
+	requiredProps,
+}: {
+	children?: React.ReactNode;
+	nodes?: React.ReactNode;
+	requiredProps?: string[];
+}) => {
 	const childElements = React.useMemo(
 		() => toElements(nodes || children, requiredProps),
 		[children, nodes, requiredProps],
 	);
 	return (
 		<ul>
-			{ childElements.map((el, i) => <li key={`item-${i + 1}`}>{ el }</li>)}
+			{childElements.map((el, i) => (
+				<li key={`item-${i + 1}`}>{el}</li>
+			))}
 		</ul>
 	);
 };
 
 test('a single number child is set as a single item', (t) => {
 	const children = 2;
-	render(<Fixture>{ children }</Fixture>);
+	render(<Fixture>{children}</Fixture>);
 	const items = screen.queryAllByRole('listitem');
 	items.forEach((item) => {
 		t.is(item.textContent, `${children}`);
@@ -38,7 +42,7 @@ test('a single number child is set as a single item', (t) => {
 
 test('a single string child is set as a single item', (t) => {
 	const children = '2';
-	render(<Fixture>{ children }</Fixture>);
+	render(<Fixture>{children}</Fixture>);
 	const items = screen.queryAllByRole('listitem');
 	items.forEach((item) => {
 		t.is(item.textContent, children);
@@ -47,7 +51,7 @@ test('a single string child is set as a single item', (t) => {
 
 test('an array of numbers and strings is set as separate items', (t) => {
 	const children = [2, 'three', undefined, null];
-	render(<Fixture>{ children }</Fixture>);
+	render(<Fixture>{children}</Fixture>);
 	const items = screen.queryAllByRole('listitem');
 	items.forEach((item, i) => {
 		t.is(item.textContent, `${children[i]}`);
@@ -56,28 +60,28 @@ test('an array of numbers and strings is set as separate items', (t) => {
 });
 
 test('React elements are mapped to elements', (t) => {
-	render((
+	render(
 		<Fixture>
-			<p>{ ITEMS[0] }</p>
-			<p>{ ITEMS[1] }</p>
-			<p>{ ITEMS[2] }</p>
-		</Fixture>
-	));
+			<p>{ITEMS[0]}</p>
+			<p>{ITEMS[1]}</p>
+			<p>{ITEMS[2]}</p>
+		</Fixture>,
+	);
 	const items = screen.queryAllByRole('listitem');
 	items.forEach((item, i) => {
 		t.is(item.textContent, `${ITEMS[i]}`);
 	});
 });
 
-test('a React fragment\'s children are mapped to elements', (t) => {
+test("a React fragment's children are mapped to elements", (t) => {
 	const children = (
 		<>
-			<p>{ ITEMS[0] }</p>
-			<p>{ ITEMS[1] }</p>
-			<p>{ ITEMS[2] }</p>
+			<p>{ITEMS[0]}</p>
+			<p>{ITEMS[1]}</p>
+			<p>{ITEMS[2]}</p>
 		</>
 	);
-	render(<Fixture>{ children }</Fixture>);
+	render(<Fixture>{children}</Fixture>);
 	const items = screen.queryAllByRole('listitem');
 	items.forEach((item, i) => {
 		t.is(item.textContent, `${ITEMS[i]}`);
@@ -85,11 +89,7 @@ test('a React fragment\'s children are mapped to elements', (t) => {
 });
 
 test('an array of React nodes are mapped to elements', (t) => {
-	const children = [
-		<p>{ ITEMS[0] }</p>,
-		<span>{ ITEMS[1] }</span>,
-		ITEMS[2],
-	];
+	const children = [<p>{ITEMS[0]}</p>, <span>{ITEMS[1]}</span>, ITEMS[2]];
 	render(<Fixture nodes={children} />);
 	const items = screen.queryAllByRole('listitem');
 	items.forEach((item, i) => {
@@ -108,7 +108,7 @@ test('an array of arrays are mapped to elements', (t) => {
 
 test('an array of objects are mapped to elements', (t) => {
 	const children = ITEMS.map((item) => ({ children: item }));
-	render(<Fixture>{ children }</Fixture>);
+	render(<Fixture>{children}</Fixture>);
 	const items = screen.queryAllByRole('listitem');
 	items.forEach((item, i) => {
 		t.is(item.textContent, `${ITEMS[i]}`);
@@ -119,11 +119,11 @@ test('throws when objects are missing required props', (t) => {
 	window.onerror = () => true;
 	const children = ITEMS.map((item) => ({ children: item }));
 	const requiredProps = ['data-foo'];
-	render((
+	render(
 		<ErrorBoundary>
-			<Fixture requiredProps={requiredProps}>{ children }</Fixture>
-		</ErrorBoundary>
-	));
+			<Fixture requiredProps={requiredProps}>{children}</Fixture>
+		</ErrorBoundary>,
+	);
 	t.truthy(screen.queryByText(toElements.MISSING_PROPS(requiredProps)));
 	t.is(screen.queryAllByRole('listitem').length, 0);
 	window.onerror = () => null;
@@ -131,11 +131,11 @@ test('throws when objects are missing required props', (t) => {
 
 test('throws when invalid React nodes are provided', (t) => {
 	window.onerror = () => true;
-	render((
+	render(
 		<ErrorBoundary>
 			<Fixture nodes={Symbol('foo')} />
-		</ErrorBoundary>
-	));
+		</ErrorBoundary>,
+	);
 	t.truthy(screen.queryByText(toElements.INVALID_NODES));
 	t.is(screen.queryAllByRole('listitem').length, 0);
 	window.onerror = () => null;
@@ -144,15 +144,15 @@ test('throws when invalid React nodes are provided', (t) => {
 test('throws when elements are missing required props', (t) => {
 	window.onerror = () => true;
 	const requiredProps = ['data-foo'];
-	render((
+	render(
 		<ErrorBoundary>
 			<Fixture requiredProps={requiredProps}>
-				<p>{ ITEMS[0] }</p>
-				<p>{ ITEMS[1] }</p>
-				<p>{ ITEMS[2] }</p>
+				<p>{ITEMS[0]}</p>
+				<p>{ITEMS[1]}</p>
+				<p>{ITEMS[2]}</p>
 			</Fixture>
-		</ErrorBoundary>
-	));
+		</ErrorBoundary>,
+	);
 	t.truthy(screen.queryByText(toElements.MISSING_PROPS(requiredProps)));
 	t.is(screen.queryAllByRole('listitem').length, 0);
 	window.onerror = () => null;
@@ -160,15 +160,15 @@ test('throws when elements are missing required props', (t) => {
 
 test('does not throw when elements contain required props', (t) => {
 	const requiredProps = ['data-foo'];
-	render((
+	render(
 		<ErrorBoundary>
 			<Fixture requiredProps={requiredProps}>
-				<p data-foo="foo">{ ITEMS[0] }</p>
-				<p data-foo="bar">{ ITEMS[1] }</p>
-				<p data-foo="baz">{ ITEMS[2] }</p>
+				<p data-foo="foo">{ITEMS[0]}</p>
+				<p data-foo="bar">{ITEMS[1]}</p>
+				<p data-foo="baz">{ITEMS[2]}</p>
 			</Fixture>
-		</ErrorBoundary>
-	));
+		</ErrorBoundary>,
+	);
 	t.falsy(screen.queryByText(toElements.MISSING_PROPS(requiredProps)));
 	t.is(screen.queryAllByRole('listitem').length, 3);
 });
@@ -177,11 +177,11 @@ test('throws when an array of numbers and strings are used with required props',
 	window.onerror = () => true;
 	const children = [2, 'three', undefined, null];
 	const requiredProps = ['data-foo'];
-	render((
+	render(
 		<ErrorBoundary>
-			<Fixture requiredProps={requiredProps}>{ children }</Fixture>
-		</ErrorBoundary>
-	));
+			<Fixture requiredProps={requiredProps}>{children}</Fixture>
+		</ErrorBoundary>,
+	);
 	t.truthy(screen.queryByText(toElements.MISSING_PROPS(requiredProps)));
 	t.is(screen.queryAllByRole('listitem').length, 0);
 	window.onerror = () => null;

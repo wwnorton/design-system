@@ -7,24 +7,22 @@ const defaultContents = `
 	Lorem ipsum is simply dummy text of the printing and typesetting industry.
 	Lorem ipsum has been the industry’s standard dummy text ever since the 1500s,
 	when an unknown printer took a galley of type.
-`.replace(/\n\t/g, ' ').replace(/\n/g, '');
+`
+	.replace(/\n\t/g, ' ')
+	.replace(/\n/g, '');
 
 type CalloutContent = 'simple' | 'complex';
 
 type CalloutStoryProps = CalloutProps & {
-	childrenType: CalloutContent
+	childrenType: CalloutContent;
 };
 
 const simpleChildren = defaultContents;
 const complexChildren: React.ReactNode = (
 	<div>
-		<p>
-			{defaultContents}
-		</p>
+		<p>{defaultContents}</p>
 		<hr />
-		<p>
-			{defaultContents}
-		</p>
+		<p>{defaultContents}</p>
 	</div>
 );
 
@@ -48,7 +46,10 @@ export default {
 	args: baseDefaultProps,
 	argTypes: {
 		childrenType: {
-			options: { 'Simple string text': 'simple', 'Nested ReactNode': 'complex' } as Record<string, CalloutContent>,
+			options: { 'Simple string text': 'simple', 'Nested ReactNode': 'complex' } as Record<
+				string,
+				CalloutContent
+			>,
 			control: 'radio',
 		},
 		dismissible: {
@@ -66,10 +67,8 @@ export default {
 };
 
 const CalloutTemplate: Story<CalloutStoryProps> = ({ childrenType, ...args }) => (
-	<Callout
-		{...args}
-	>
-		{childrenType === 'simple' && simpleChildren }
+	<Callout {...args}>
+		{childrenType === 'simple' && simpleChildren}
 		{childrenType === 'complex' && complexChildren}
 	</Callout>
 );

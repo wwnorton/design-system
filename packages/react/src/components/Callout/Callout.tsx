@@ -41,85 +41,70 @@ export const Callout: React.FunctionComponent<CalloutProps> = ({
 		return { icon };
 	}, [icon]);
 
-	const classes = classNames(
-		className,
-		baseName,
-		{
-			[`${baseName}--${color}`]: color !== undefined,
-			[`${baseName}--no-title`]: !title,
-		},
-	);
+	const classes = classNames(className, baseName, {
+		[`${baseName}--${color}`]: color !== undefined,
+		[`${baseName}--no-title`]: !title,
+	});
 
 	const Tag = React.useMemo(() => {
 		if (tag) return tag;
-		return (title) ? 'aside' : 'div';
+		return title ? 'aside' : 'div';
 	}, [tag, title]);
 
 	if (isDismissed) return null;
 
 	return (
-		<Tag className={classes} data-border={border} aria-labelledby={(title && tag !== 'div') ? titleId : undefined} {...props}>
-			{ title && (
+		<Tag
+			className={classes}
+			data-border={border}
+			aria-labelledby={title && tag !== 'div' ? titleId : undefined}
+			{...props}
+		>
+			{title && (
 				<header className={headerClass}>
-					{ icon && <span className={iconClass}><Icon {...iconProps} /></span> }
-					<div className={titleClass} id={titleId}>{ title }</div>
+					{icon && (
+						<span className={iconClass}>
+							<Icon {...iconProps} />
+						</span>
+					)}
+					<div className={titleClass} id={titleId}>
+						{title}
+					</div>
 				</header>
-			) }
-			{ dismissible && (
-				<Button
-					icon="close"
-					iconOnly
-					onClick={dismiss}
-					className={dismissClass}
-				>
+			)}
+			{dismissible && (
+				<Button icon="close" iconOnly onClick={dismiss} className={dismissClass}>
 					Dismiss
 				</Button>
-			) }
-			<div className={bodyClass}>
-				{children}
-			</div>
+			)}
+			<div className={bodyClass}>{children}</div>
 		</Tag>
 	);
 };
 
-export const CalloutError: React.FunctionComponent<CalloutProps> = (
-	{ children, ...props }: CalloutProps,
-) => (
-	<Callout
-		border="left"
-		color="error"
-		icon="exclamation"
-		title="Error"
-		{...props}
-	>
+export const CalloutError: React.FunctionComponent<CalloutProps> = ({
+	children,
+	...props
+}: CalloutProps) => (
+	<Callout border="left" color="error" icon="exclamation" title="Error" {...props}>
 		{children}
 	</Callout>
 );
 
-export const CalloutSuccess: React.FunctionComponent<CalloutProps> = (
-	{ children, ...props }: CalloutProps,
-) => (
-	<Callout
-		border="left"
-		color="success"
-		icon="check-circle"
-		title="Success"
-		{...props}
-	>
+export const CalloutSuccess: React.FunctionComponent<CalloutProps> = ({
+	children,
+	...props
+}: CalloutProps) => (
+	<Callout border="left" color="success" icon="check-circle" title="Success" {...props}>
 		{children}
 	</Callout>
 );
 
-export const CalloutWarning: React.FunctionComponent<CalloutProps> = (
-	{ children, ...props }: CalloutProps,
-) => (
-	<Callout
-		border="left"
-		color="warning"
-		icon="warning"
-		title="Warning"
-		{...props}
-	>
+export const CalloutWarning: React.FunctionComponent<CalloutProps> = ({
+	children,
+	...props
+}: CalloutProps) => (
+	<Callout border="left" color="warning" icon="warning" title="Warning" {...props}>
 		{children}
 	</Callout>
 );

@@ -4,15 +4,16 @@ import { PopperProps } from '../Popper';
 
 type BaseProps = Pick<React.ComponentPropsWithoutRef<'button'>, 'className' | 'disabled' | 'id'>;
 
-type PopperInherited = Pick<PopperProps,
-| 'isOpen'
-| 'distance'
-| 'transition'
-| 'placement'
-| 'modifiers'
-| 'strategy'
-| 'distance'
-| 'onFirstUpdate'
+type PopperInherited = Pick<
+	PopperProps,
+	| 'isOpen'
+	| 'distance'
+	| 'transition'
+	| 'placement'
+	| 'modifiers'
+	| 'strategy'
+	| 'distance'
+	| 'onFirstUpdate'
 >;
 
 export interface DropdownProps extends FieldInfoCoreProps, PopperInherited, BaseProps {

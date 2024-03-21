@@ -18,7 +18,8 @@ export interface FieldInfoCoreProps {
 
 type InfoBaseProps = 'htmlFor' | 'className' | 'children' | 'id';
 export interface FieldInfoProps
-	extends FieldInfoCoreProps, Pick<React.ComponentPropsWithoutRef<'label'>, InfoBaseProps> {
+	extends FieldInfoCoreProps,
+		Pick<React.ComponentPropsWithoutRef<'label'>, InfoBaseProps> {
 	baseName?: string;
 	/** The name of the field. Required. */
 	label: React.ReactNode;
@@ -51,7 +52,8 @@ export interface FieldFeedbackCoreProps {
 
 type FBBaseProps = 'className' | 'children' | 'id';
 export interface FieldFeedbackProps
-	extends FieldFeedbackCoreProps, Pick<React.ComponentPropsWithoutRef<'div'>, FBBaseProps> {
+	extends FieldFeedbackCoreProps,
+		Pick<React.ComponentPropsWithoutRef<'div'>, FBBaseProps> {
 	/**
 	 * Indicates whether errors should be a live region. Default is `true`. Only
 	 * set to `false` if you intend to communicate errors to screen reader users

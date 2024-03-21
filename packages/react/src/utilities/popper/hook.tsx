@@ -1,7 +1,4 @@
-import {
-	useEffect,
-	useRef, useState,
-} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import isEqual from 'react-fast-compare';
 import { createPopper, Instance } from '@popperjs/core';
 import { UsePopperProps } from './types';

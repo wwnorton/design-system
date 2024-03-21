@@ -11,9 +11,9 @@ export interface StepProps extends React.ComponentPropsWithoutRef<'li'> {
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** When set, this step is visually marked as the current step */
-	isCurrent?: boolean,
+	isCurrent?: boolean;
 	/** When set, this step is visually marked as complete */
-	isCompleted?: boolean,
+	isCompleted?: boolean;
 
 	/** The className for the container that includes the step marker and it's adjacent connectors */
 	markerContainerClass?: string;

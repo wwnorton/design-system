@@ -1,8 +1,6 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import { Modal } from '.';
 import { shortContent } from './modal.fixtures';
 
@@ -11,26 +9,29 @@ test.afterEach(cleanup);
 const defaultTitle = 'Test modal';
 
 test('the default modal contains focus when open', (t) => {
-	render(<Modal isOpen title={defaultTitle}>{ shortContent }</Modal>);
+	render(
+		<Modal isOpen title={defaultTitle}>
+			{shortContent}
+		</Modal>,
+	);
 	t.true(screen.getByRole('dialog').contains(document.activeElement));
 });
 
 test('a modal without the default close button contains focus when open', (t) => {
-	render(<Modal isOpen title={defaultTitle} hideCloseButton>{ shortContent }</Modal>);
+	render(
+		<Modal isOpen title={defaultTitle} hideCloseButton>
+			{shortContent}
+		</Modal>,
+	);
 	t.true(screen.getByRole('dialog').contains(document.activeElement));
 });
 
 test('a modal with no focusable elements still contains focus when open', (t) => {
-	render((
-		<Modal
-			isOpen
-			title={defaultTitle}
-			hideTitle
-			hideCloseButton
-		>
-			{ shortContent }
-		</Modal>
-	));
+	render(
+		<Modal isOpen title={defaultTitle} hideTitle hideCloseButton>
+			{shortContent}
+		</Modal>,
+	);
 	t.true(screen.getByRole('dialog').contains(document.activeElement));
 });
 
@@ -40,8 +41,10 @@ test('the initially focused element can be chosen before render', (t) => {
 		const [el, setEl] = React.useState<HTMLButtonElement | null>(null);
 		return (
 			<Modal isOpen title={defaultTitle} focusOnOpen={el}>
-				{ shortContent }
-				<button type="button" ref={setEl} data-testid={testId}>Focused button</button>
+				{shortContent}
+				<button type="button" ref={setEl} data-testid={testId}>
+					Focused button
+				</button>
 			</Modal>
 		);
 	};
@@ -56,15 +59,21 @@ const InnerFocus = () => (
 		isOpen
 		title={defaultTitle}
 		hideCloseButton
-		actions={(
+		actions={
 			<>
-				<button type="button" data-testid="second">Second</button>
-				<button type="button" data-testid="last">Last</button>
+				<button type="button" data-testid="second">
+					Second
+				</button>
+				<button type="button" data-testid="last">
+					Last
+				</button>
 			</>
-		)}
+		}
 	>
-		<button type="button" data-testid="first">First</button>
-		{ shortContent }
+		<button type="button" data-testid="first">
+			First
+		</button>
+		{shortContent}
 	</Modal>
 );
 
@@ -89,19 +98,11 @@ const Controlled = ({ isOpen: openProp = false }: { isOpen?: boolean }) => {
 	const toggle = () => setOpen(!isOpen);
 	return (
 		<>
-			<button
-				type="button"
-				onClick={() => setOpen(true)}
-				data-testid="trigger"
-			>
+			<button type="button" onClick={() => setOpen(true)} data-testid="trigger">
 				Open modal
 			</button>
-			<Modal
-				isOpen={isOpen}
-				onRequestClose={toggle}
-				title={defaultTitle}
-			>
-				{ shortContent }
+			<Modal isOpen={isOpen} onRequestClose={toggle} title={defaultTitle}>
+				{shortContent}
 			</Modal>
 		</>
 	);

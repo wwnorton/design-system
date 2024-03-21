@@ -1,8 +1,6 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Listbox, Option } from '.';
 import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
@@ -36,11 +34,11 @@ test('a list of option props renders as Options', (t) => {
 test('a list of option props with a missing label throws an error', (t) => {
 	// suppress JSDOM errors in the log
 	window.onerror = () => true;
-	render((
+	render(
 		<ErrorBoundary>
 			<Listbox options={[{ value: 'dog' }]} />
-		</ErrorBoundary>
-	));
+		</ErrorBoundary>,
+	);
 	t.truthy(screen.queryByText((el) => el.startsWith('The <Listbox> options prop')));
 	t.falsy(screen.queryByRole('listbox'));
 	window.onerror = null;
@@ -49,12 +47,12 @@ test('a list of option props with a missing label throws an error', (t) => {
 test('a list of option props with a missing value throws an error', (t) => {
 	// suppress JSDOM errors in the log
 	window.onerror = () => true;
-	render((
+	render(
 		<ErrorBoundary>
 			{/* @ts-ignore */}
 			<Listbox options={[{ label: 'Dog' }]} />
-		</ErrorBoundary>
-	));
+		</ErrorBoundary>,
+	);
 	t.truthy(screen.queryByText((el) => el.startsWith('The <Listbox> options prop')));
 	t.falsy(screen.queryByRole('listbox'));
 	window.onerror = null;
@@ -95,13 +93,13 @@ test('a props function can be mapped to all options', (t) => {
 });
 
 test('selected options can be controlled via the listbox', (t) => {
-	render((
+	render(
 		<Listbox multiselectable selected={['dog', 'hamster']}>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
 			<Option value="hamster">🐹 Hamster</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	// selected options get a icon with an aria-label of "Checked", which results
 	// in an accessible name of "Checked 🐶 Dog", so find selected elements by
 	// checking that they end with the label
@@ -117,13 +115,17 @@ test('selected options can be controlled via the listbox', (t) => {
 });
 
 test('selected options can be controlled via the options', (t) => {
-	render((
+	render(
 		<Listbox multiselectable>
-			<Option value="dog" selected>🐶 Dog</Option>
+			<Option value="dog" selected>
+				🐶 Dog
+			</Option>
 			<Option value="cat">🐱 Cat</Option>
-			<Option value="hamster" selected>🐹 Hamster</Option>
-		</Listbox>
-	));
+			<Option value="hamster" selected>
+				🐹 Hamster
+			</Option>
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 	const hamster = screen.getByRole('option', { name: (n) => n.endsWith('🐹 Hamster') });
@@ -138,15 +140,15 @@ test('selected options can be controlled via the options', (t) => {
 test('throws an error when the selected prop length is greater than 1 in non-multiselectable mode', (t) => {
 	// suppress JSDOM errors in the log
 	window.onerror = () => true;
-	render((
+	render(
 		<ErrorBoundary>
 			<Listbox multiselectable={false} selected={['dog', 'hamster']}>
 				<Option value="dog">🐶 Dog</Option>
 				<Option value="cat">🐱 Cat</Option>
 				<Option value="hamster">🐹 Hamster</Option>
 			</Listbox>
-		</ErrorBoundary>
-	));
+		</ErrorBoundary>,
+	);
 	t.truthy(screen.queryByText(useSelect.SELECT_OVERLOAD));
 	t.falsy(screen.queryByRole('listbox'));
 	window.onerror = null;
@@ -155,27 +157,33 @@ test('throws an error when the selected prop length is greater than 1 in non-mul
 test('throws an error when multiple options are selected in non-multiselectable mode', (t) => {
 	// suppress JSDOM errors in the log
 	window.onerror = () => true;
-	render((
+	render(
 		<ErrorBoundary>
 			<Listbox multiselectable={false}>
-				<Option value="dog" selected>🐶 Dog</Option>
+				<Option value="dog" selected>
+					🐶 Dog
+				</Option>
 				<Option value="cat">🐱 Cat</Option>
-				<Option value="hamster" selected>🐹 Hamster</Option>
+				<Option value="hamster" selected>
+					🐹 Hamster
+				</Option>
 			</Listbox>
-		</ErrorBoundary>
-	));
+		</ErrorBoundary>,
+	);
 	t.truthy(screen.queryByText(useSelect.SELECT_OVERLOAD));
 	t.falsy(screen.queryByRole('listbox'));
 	window.onerror = null;
 });
 
 test('clicking an option does nothing when selected is controlled', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
-			<Option value="cat" selected>🐱 Cat</Option>
-		</Listbox>
-	));
+			<Option value="cat" selected>
+				🐱 Cat
+			</Option>
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 
@@ -193,12 +201,12 @@ test('clicking an option does nothing when selected is controlled', (t) => {
 });
 
 test('clicking an option focuses it and selects it', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
@@ -213,12 +221,12 @@ test('clicking an option focuses it and selects it', (t) => {
 });
 
 test('only one option can be selected when not multiselectable', (t) => {
-	render((
+	render(
 		<Listbox multiselectable={false}>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 
@@ -238,12 +246,14 @@ test('only one option can be selected when not multiselectable', (t) => {
 });
 
 test('clicking a selected option does nothing when not multiselectable', (t) => {
-	render((
+	render(
 		<Listbox multiselectable={false}>
-			<Option value="dog" selected>🐶 Dog</Option>
+			<Option value="dog" selected>
+				🐶 Dog
+			</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 
@@ -259,12 +269,14 @@ test('clicking a selected option does nothing when not multiselectable', (t) => 
 });
 
 test('multiple options can be selected when multiselectable', (t) => {
-	render((
+	render(
 		<Listbox multiselectable>
-			<Option value="dog" selected>🐶 Dog</Option>
+			<Option value="dog" selected>
+				🐶 Dog
+			</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 
@@ -280,12 +292,12 @@ test('multiple options can be selected when multiselectable', (t) => {
 });
 
 test('clicking a selected option deselects it when multiselectable', (t) => {
-	render((
+	render(
 		<Listbox multiselectable>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 
@@ -303,12 +315,12 @@ test('clicking a selected option deselects it when multiselectable', (t) => {
 });
 
 test('Enter selects an option on press', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 
@@ -321,12 +333,12 @@ test('Enter selects an option on press', (t) => {
 });
 
 test('space bar selects an option on release', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 
@@ -340,12 +352,12 @@ test('space bar selects an option on release', (t) => {
 });
 
 test('select can be cancelled with the keyboard by moving focus before release space', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: (n) => n.endsWith('🐶 Dog') });
 	const cat = screen.getByRole('option', { name: (n) => n.endsWith('🐱 Cat') });
 
@@ -360,23 +372,23 @@ test('select can be cancelled with the keyboard by moving focus before release s
 });
 
 test('the first option is focused when autofocus is true', (t) => {
-	render((
+	render(
 		<Listbox autofocus>
 			<Option value="dog">🐶 Dog</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 
 	t.is(document.activeElement, dog);
 });
 
 test('focus lands on the first option when focusable index is unset', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 
 	userEvent.tab();
@@ -384,12 +396,12 @@ test('focus lands on the first option when focusable index is unset', (t) => {
 });
 
 test('focus lands on the focusable index when it is set', (t) => {
-	render((
+	render(
 		<Listbox focusableIndex={1}>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
 	userEvent.tab();
@@ -397,12 +409,12 @@ test('focus lands on the focusable index when it is set', (t) => {
 });
 
 test('ArrowDown moves focus down the list of options when orientation is unset', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
@@ -414,12 +426,12 @@ test('ArrowDown moves focus down the list of options when orientation is unset',
 });
 
 test('ArrowRight moves focus down the list of options when orientation is unset', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
@@ -431,12 +443,12 @@ test('ArrowRight moves focus down the list of options when orientation is unset'
 });
 
 test('"next" keys do not move focus when at the last option', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
 	userEvent.click(cat);
@@ -450,12 +462,12 @@ test('"next" keys do not move focus when at the last option', (t) => {
 });
 
 test('ArrowUp moves focus up the list of options when orientation is unset', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
@@ -467,12 +479,12 @@ test('ArrowUp moves focus up the list of options when orientation is unset', (t)
 });
 
 test('ArrowLeft moves focus up the list of options when orientation is unset', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
@@ -484,12 +496,12 @@ test('ArrowLeft moves focus up the list of options when orientation is unset', (
 });
 
 test('"previous" keys do not move focus when at the first option', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 
 	userEvent.tab();
@@ -503,12 +515,12 @@ test('"previous" keys do not move focus when at the first option', (t) => {
 });
 
 test('only ArrowRight and ArrowLeft move focus when orientation is "horizontal"', (t) => {
-	render((
+	render(
 		<Listbox orientation="horizontal">
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
@@ -516,25 +528,25 @@ test('only ArrowRight and ArrowLeft move focus when orientation is "horizontal"'
 	t.is(document.activeElement, dog);
 
 	fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
-	t.is(document.activeElement, dog);	// no movement
+	t.is(document.activeElement, dog); // no movement
 
 	fireEvent.keyDown(document.activeElement, { key: 'ArrowRight' });
 	t.is(document.activeElement, cat);
 
 	fireEvent.keyDown(document.activeElement, { key: 'ArrowUp' });
-	t.is(document.activeElement, cat);	// no movement
+	t.is(document.activeElement, cat); // no movement
 
 	fireEvent.keyDown(document.activeElement, { key: 'ArrowLeft' });
 	t.is(document.activeElement, dog);
 });
 
 test('only ArrowDown and ArrowUp move focus when orientation is "vertical"', (t) => {
-	render((
+	render(
 		<Listbox orientation="vertical">
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
@@ -542,26 +554,26 @@ test('only ArrowDown and ArrowUp move focus when orientation is "vertical"', (t)
 	t.is(document.activeElement, dog);
 
 	fireEvent.keyDown(document.activeElement, { key: 'ArrowRight' });
-	t.is(document.activeElement, dog);	// no movement
+	t.is(document.activeElement, dog); // no movement
 
 	fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' });
 	t.is(document.activeElement, cat);
 
 	fireEvent.keyDown(document.activeElement, { key: 'ArrowLeft' });
-	t.is(document.activeElement, cat);	// no movement
+	t.is(document.activeElement, cat); // no movement
 
 	fireEvent.keyDown(document.activeElement, { key: 'ArrowUp' });
 	t.is(document.activeElement, dog);
 });
 
 test('End moves focus to the last option', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
 			<Option value="hamster">🐹 Hamster</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const hamster = screen.getByRole('option', { name: '🐹 Hamster' });
 
@@ -573,13 +585,13 @@ test('End moves focus to the last option', (t) => {
 });
 
 test('Home moves focus to the first option', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
 			<Option value="cat">🐱 Cat</Option>
 			<Option value="hamster">🐹 Hamster</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const dog = screen.getByRole('option', { name: '🐶 Dog' });
 	const hamster = screen.getByRole('option', { name: '🐹 Hamster' });
 
@@ -591,12 +603,14 @@ test('Home moves focus to the first option', (t) => {
 });
 
 test('clicking a disabled option does not select it', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
-			<Option value="cat" disabled>🐱 Cat</Option>
-		</Listbox>
-	));
+			<Option value="cat" disabled>
+				🐱 Cat
+			</Option>
+		</Listbox>,
+	);
 	const cat = screen.getByRole('option', { name: '🐱 Cat' });
 
 	fireEvent.click(cat);
@@ -607,13 +621,15 @@ test('clicking a disabled option does not select it', (t) => {
 });
 
 test('arrowing skips disabled options', (t) => {
-	render((
+	render(
 		<Listbox>
 			<Option value="dog">🐶 Dog</Option>
-			<Option value="cat" disabled>🐱 Cat</Option>
+			<Option value="cat" disabled>
+				🐱 Cat
+			</Option>
 			<Option value="hamster">🐹 Hamster</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const hamster = screen.getByRole('option', { name: '🐹 Hamster' });
 
 	userEvent.tab();
@@ -622,43 +638,49 @@ test('arrowing skips disabled options', (t) => {
 });
 
 test('disabled elements are not focused on tab', (t) => {
-	render((
+	render(
 		<Listbox>
-			<Option value="dog" disabled>🐶 Dog</Option>
-			<Option value="cat" disabled>🐱 Cat</Option>
+			<Option value="dog" disabled>
+				🐶 Dog
+			</Option>
+			<Option value="cat" disabled>
+				🐱 Cat
+			</Option>
 			<Option value="hamster">🐹 Hamster</Option>
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	const hamster = screen.getByRole('option', { name: '🐹 Hamster' });
 
 	userEvent.tab();
 	t.is(document.activeElement, hamster);
 });
 
-test('an option\'s label is used for its accessible name', (t) => {
-	render((
+test("an option's label is used for its accessible name", (t) => {
+	render(
 		<Listbox>
 			<Option value="parrot" label="🦜 Parrot" />
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	t.truthy(screen.getByRole('option', { name: '🦜 Parrot' }));
 });
 
-test('an option\'s label overrides its children', (t) => {
-	render((
+test("an option's label overrides its children", (t) => {
+	render(
 		<Listbox>
-			<Option value="spider" label="🕷️ Spider">🕷️</Option>
-		</Listbox>
-	));
+			<Option value="spider" label="🕷️ Spider">
+				🕷️
+			</Option>
+		</Listbox>,
+	);
 	t.truthy(screen.getByRole('option', { name: '🕷️ Spider' }));
 	t.falsy(screen.queryByRole('option', { name: '🕷️' }));
 });
 
-test('an option\'s value is used for its accessible name when label and children are undefined', (t) => {
-	render((
+test("an option's value is used for its accessible name when label and children are undefined", (t) => {
+	render(
 		<Listbox>
 			<Option value="🐠 Fish" />
-		</Listbox>
-	));
+		</Listbox>,
+	);
 	t.truthy(screen.getByRole('option', { name: '🐠 Fish' }));
 });

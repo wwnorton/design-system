@@ -1,7 +1,4 @@
-import {
-	useCallback,
-	useMemo, useRef,
-} from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { canUseDOM } from '../environment';
 import { useExternalClick } from '../externalClick';
 import { useLayoutEffect } from '../isomorphicLayoutEffect';
@@ -30,16 +27,22 @@ export const usePopperTriggers = ({
 	const clearShowTimer = (): void => window.clearTimeout(showTimer.current);
 	const clearHideTimer = (): void => window.clearTimeout(hideTimer.current);
 
-	const show = useCallback((triggeredBy: PopperTriggersOpen) => {
-		openTrigger.current = triggeredBy;
-		if (onRequestOpen) onRequestOpen(triggeredBy);
-		clearHideTimer();
-	}, [onRequestOpen]);
+	const show = useCallback(
+		(triggeredBy: PopperTriggersOpen) => {
+			openTrigger.current = triggeredBy;
+			if (onRequestOpen) onRequestOpen(triggeredBy);
+			clearHideTimer();
+		},
+		[onRequestOpen],
+	);
 
-	const hide = useCallback((triggeredBy: PopperTriggersClose) => {
-		if (onRequestClose) onRequestClose(triggeredBy);
-		clearShowTimer();
-	}, [onRequestClose]);
+	const hide = useCallback(
+		(triggeredBy: PopperTriggersClose) => {
+			if (onRequestClose) onRequestClose(triggeredBy);
+			clearShowTimer();
+		},
+		[onRequestClose],
+	);
 
 	const externalTo = useMemo(() => {
 		if (canUseDOM) {
@@ -123,9 +126,8 @@ export const usePopperTriggers = ({
 			}, hideDelay);
 		};
 
-		const isHTMLorSVGElement = (el: typeof reference): el is HTMLElement | SVGElement => (
-			(el) ? el instanceof window.HTMLElement || el instanceof window.SVGElement : false
-		);
+		const isHTMLorSVGElement = (el: typeof reference): el is HTMLElement | SVGElement =>
+			el ? el instanceof window.HTMLElement || el instanceof window.SVGElement : false;
 
 		// hide on Escape for all triggers
 		document.addEventListener('keydown', docKeydownHandler);

@@ -1,20 +1,26 @@
-import React from 'react';
-import { FieldInfo } from '@wwnds/react';
+import React from "react";
+import { FieldInfo } from "@wwnds/react";
 /* eslint-disable import/no-extraneous-dependencies */
-import { ComponentDoc, PropItem } from 'react-docgen-typescript';
-import Markdown from 'markdown-to-jsx';
+import { ComponentDoc, PropItem } from "react-docgen-typescript";
+import Markdown from "markdown-to-jsx";
 
 const PropRow = ({
 	name,
 	required,
 	type,
 	description,
-	// defaultValue,
-}: PropItem): JSX.Element => (
+}: // defaultValue,
+PropItem): JSX.Element => (
 	<tr>
-		<td><FieldInfo indicator={(required) ? 'required' : undefined} label={name} /></td>
-		<td><Markdown>{ description }</Markdown></td>
-		<td><code className="code-wrap">{ type.name.replace(' | undefined', '') }</code></td>
+		<td>
+			<FieldInfo indicator={required ? "required" : undefined} label={name} />
+		</td>
+		<td>
+			<Markdown>{description}</Markdown>
+		</td>
+		<td>
+			<code className="code-wrap">{type.name.replace(" | undefined", "")}</code>
+		</td>
 		{/* <td>
 			{ (defaultValue && <code>{ defaultValue.value }</code>) || '-' }
 		</td> */}
@@ -22,11 +28,13 @@ const PropRow = ({
 );
 
 type PropsTableProps = {
-	from: typeof React.Component & { __docgenInfo: ComponentDoc; };
+	from: typeof React.Component & { __docgenInfo: ComponentDoc };
 };
 
-export const PropsTable = ({ from: component }: PropsTableProps): JSX.Element | null => {
-	if (!('__docgenInfo' in component)) return null;
+export const PropsTable = ({
+	from: component,
+}: PropsTableProps): JSX.Element | null => {
+	if (!("__docgenInfo" in component)) return null;
 	// eslint-disable-next-line no-underscore-dangle
 	const { displayName, props } = component.__docgenInfo;
 	const propMap = Object.keys(props).map((prop) => {
@@ -43,7 +51,7 @@ export const PropsTable = ({ from: component }: PropsTableProps): JSX.Element | 
 					{/* <th>Default Value</th> */}
 				</tr>
 			</thead>
-			<tbody>{ propMap }</tbody>
+			<tbody>{propMap}</tbody>
 		</table>
 	);
 };

@@ -25,12 +25,8 @@ export const CustomContent = ({ checked: checkedProp, onClick, ...args }: Switch
 	const [checked, setChecked] = React.useState(checkedProp);
 
 	return (
-		<Switch
-			checked={checked}
-			onClick={(): void => setChecked(!checked)}
-			{...args}
-		>
-			<Icon variant={(checked) ? 'check' : 'close'} />
+		<Switch checked={checked} onClick={(): void => setChecked(!checked)} {...args}>
+			<Icon variant={checked ? 'check' : 'close'} />
 		</Switch>
 	);
 };
@@ -66,7 +62,7 @@ export const Asynchronous = ({ checked: checkedProp, onClick, ...args }: SwitchP
 			disabled={loading}
 			{...args}
 		>
-			{ loading && <Spinner size="1.25em" label="Thinking..." hideLabel /> }
+			{loading && <Spinner size="1.25em" label="Thinking..." hideLabel />}
 		</Switch>
 	);
 };

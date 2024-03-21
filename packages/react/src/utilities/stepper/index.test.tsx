@@ -1,9 +1,7 @@
 /* eslint-disable react/require-default-props */
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, fireEvent, screen } from '@testing-library/react';
 import { useStepper } from './hook';
 
 test.afterEach(cleanup);
@@ -15,38 +13,31 @@ const Fixture = ({
 	initialIndex,
 	wrap,
 	gotoIndex,
-}: { size?: number; initialIndex?: number; wrap?: boolean; gotoIndex?: number }) => {
-	const options = React.useRef((initialIndex || wrap) ? { initialIndex, wrap } : undefined);
+}: {
+	size?: number;
+	initialIndex?: number;
+	wrap?: boolean;
+	gotoIndex?: number;
+}) => {
+	const options = React.useRef(initialIndex || wrap ? { initialIndex, wrap } : undefined);
 	const [state, dispatch] = useStepper(size, options.current);
 
 	return (
 		<>
-			<button
-				type="button"
-				onClick={() => dispatch({ type: 'INCREMENT' })}
-			>
+			<button type="button" onClick={() => dispatch({ type: 'INCREMENT' })}>
 				INCREMENT
 			</button>
-			<button
-				type="button"
-				onClick={() => dispatch({ type: 'DECREMENT' })}
-			>
+			<button type="button" onClick={() => dispatch({ type: 'DECREMENT' })}>
 				DECREMENT
 			</button>
-			<button
-				type="button"
-				onClick={() => dispatch({ type: 'GOTO', payload: gotoIndex })}
-			>
+			<button type="button" onClick={() => dispatch({ type: 'GOTO', payload: gotoIndex })}>
 				GOTO
 			</button>
-			<button
-				type="button"
-				onClick={() => dispatch({ type: 'FOO' })}
-			>
+			<button type="button" onClick={() => dispatch({ type: 'FOO' })}>
 				INVALID
 			</button>
-			<output data-testid="current">{ state.current }</output>
-			<output data-testid="direction">{ state.direction }</output>
+			<output data-testid="current">{state.current}</output>
+			<output data-testid="direction">{state.direction}</output>
 		</>
 	);
 };

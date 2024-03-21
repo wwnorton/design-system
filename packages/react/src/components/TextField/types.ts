@@ -24,10 +24,7 @@ export interface BaseTextFieldProps extends FieldInfoCoreProps, FieldFeedbackCor
 	 * number of characters and returns the string or element that will be
 	 * rendered in the character counter slot.
 	 */
-	counter?: false | (({ remaining, max }: {
-		remaining: number;
-		max: number;
-	}) => React.ReactNode);
+	counter?: false | (({ remaining, max }: { remaining: number; max: number }) => React.ReactNode);
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** The className for the TextField's `<input>` element. */
