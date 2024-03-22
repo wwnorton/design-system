@@ -36,7 +36,7 @@ Color role tokens use a naming pattern of `{role}-color-{grade}`, such as `prima
 
 The following table lists all the system colors in the Norton Design System, as well as their contrast ratio against pure white and pure black.
 
-:::caution Avoid direct use
+:::warning Avoid direct use
 Using system color tokens directly will make your application more difficult to theme.
 Rather than using system colors directly, use [role colors](#role-tokens) in your designs.
 Role colors can be mapped to system colors to modify your design more broadly and consistently.
@@ -156,7 +156,7 @@ See the `$light-scheme` and `$dark-scheme` maps in the
 [color tokens stylesheet](https://github.com/wwnorton/design-system/blob/main/packages/core/src/color/tokens.scss)
 for a closer look at how this is accomplished.
 
-:::caution Work in progress
+:::warning Work in progress
 The dark color scheme is still being tested and must be turned on with the `$enable-dark-scheme` flag at this time.
 
 ```scss
