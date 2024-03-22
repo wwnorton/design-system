@@ -2,7 +2,7 @@ const path = require("path");
 const { TsconfigPathsPlugin } = require("tsconfig-paths-webpack-plugin");
 const {
 	default: ReactDocgenTypescriptPlugin,
-} = require("@storybook/react-docgen-typescript-plugin");
+} = require("react-docgen-typescript-plugin");
 
 const isProd = process.env.NODE_ENV === "production";
 

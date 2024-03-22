@@ -170,6 +170,9 @@ const config = {
 				},
 				copyright: `Copyright © ${new Date().getFullYear()} W. W. Norton & Company.`,
 			},
+			prism: {
+				additionalLanguages: ["scss"],
+			},
 		}),
 
 	themes: ["@docusaurus/theme-live-codeblock"],

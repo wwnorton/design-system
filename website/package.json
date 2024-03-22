@@ -37,30 +37,31 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.1",
-    "@docusaurus/module-type-aliases": "^2.0.1",
-    "@docusaurus/plugin-pwa": "^2.3.1",
-    "@docusaurus/preset-classic": "^2.3.1",
-    "@docusaurus/theme-live-codeblock": "^2.3.1",
-    "@mdx-js/react": "^1.6.22",
+    "@docusaurus/core": "^3.1.1",
+    "@docusaurus/module-type-aliases": "^3.1.1",
+    "@docusaurus/plugin-content-docs": "^3.1.1",
+    "@docusaurus/plugin-pwa": "^3.1.1",
+    "@docusaurus/preset-classic": "^3.1.1",
+    "@docusaurus/theme-live-codeblock": "^3.1.1",
+    "@mdx-js/react": "^3.0.1",
     "@wwnds/core": "^1.8.0",
     "@wwnds/react": "^1.8.0",
     "colorable": "^1.0.5",
-    "docusaurus-lunr-search": "^2.3.2",
+    "docusaurus-lunr-search": "^3.3.2",
     "markdown-to-jsx": "^7.1.9",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.2"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@storybook/react-docgen-typescript-plugin": "^1.0.1",
+    "@docusaurus/module-type-aliases": "3.1.1",
+    "@docusaurus/tsconfig": "^3.1.1",
+    "@docusaurus/types": "3.1.1",
+    "@types/react": "^18.2.67",
+    "react-docgen-typescript-plugin": "^1.0.5",
     "ts-loader": "^9.4.2",
     "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
-  "bundledDependencies": [
-    "@docusaurus/theme-common",
-    "clsx"
-  ],
   "engines": {
-    "node": ">=14.15.0"
+    "node": ">=18.0"
   }
 }

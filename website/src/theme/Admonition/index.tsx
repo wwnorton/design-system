@@ -18,6 +18,7 @@ const Admonition = ({ children, type, title }: AdmonitionProps) => {
 			case "tip":
 				return CalloutSuccess;
 			case "caution":
+			case "warning":
 				return CalloutWarning;
 			case "danger":
 				return CalloutError;
