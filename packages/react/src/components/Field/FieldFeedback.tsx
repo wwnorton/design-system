@@ -14,25 +14,21 @@ export const FieldFeedback: React.FunctionComponent<FieldFeedbackProps> = ({
 }: FieldFeedbackProps) => {
 	const Errors = React.useMemo(() => {
 		if (!errors || !errors.length) return null;
-		return (
-			<ul
-				className={errorsClass}
-				id={errorsId}
-				aria-label="Errors"
-				aria-live={liveErrors ? 'assertive' : undefined}
-				aria-atomic={liveErrors ? 'true' : undefined}
-			>
-				{errors.map((err) => (
-					<li key={err}>{err}</li>
-				))}
-			</ul>
-		);
-	}, [errors, errorsClass, errorsId, liveErrors]);
+		return errors.join(' ');
+	}, [errors]);
 
 	return (
 		<div id={id} className={className}>
-			{Errors}
-			{children}
+			<div
+				className={errorsClass}
+				id={errorsId}
+				aria-label="Errors"
+				aria-live={(liveErrors) ? 'assertive' : undefined}
+				aria-atomic={(liveErrors) ? 'true' : undefined}
+			>
+				{Errors}
+			</div>
+			{ children }
 		</div>
 	);
 };
