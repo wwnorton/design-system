@@ -1,10 +1,12 @@
 export interface TableState {
 	selectable?: boolean;
-	isSelectedAll?: boolean;
+	isSelected: (id:string) => boolean;
+	isSelectedAll: () => boolean;
 	onSelect?: (data?: any) => void;
-	onSelected?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	registerId: (key: string, value?: boolean) => void;
+	onSelected?: (id: string, checked: boolean) => void;
 	onSelectedAll?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	selected?: string[];
+	selected: Choices;
 }
 
 export interface TableProps {
@@ -20,12 +22,13 @@ export interface TableRowProps {
 	sectionHeaderClass?: string;
 	isHeader?: boolean;
 	isSectionHeader?: boolean;
+	id?: string;
 }
 
 export interface TableHeadCellProps {
 	className?: string;
 	sortType?: 'none' | 'ascending' | 'descending' | 'other' | undefined;
-	onSort?: VoidFunction;
+	onSort?: VoidFunction |undefined;
 	'aria-label'?: string;
 }
 
@@ -38,3 +41,5 @@ export interface TableBodyProps {
 	collapsedClass?: string;
 	isCollapsed?: boolean;
 }
+
+export type Choices = Record<string, boolean>;
