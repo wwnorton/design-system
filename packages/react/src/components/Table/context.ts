@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { TableState } from "./types";
+import React, { useState, ChangeEvent } from "react";
+import { Choices, TableState } from "./types";
 
 export const TableContext = React.createContext<TableState | undefined>(
 	undefined
@@ -19,31 +19,32 @@ export function useInitTableState({
 	onSelect,
 	selected,
 }: TableState): TableState {
-	const [isSelectedAll, setIsSelectedAll] = React.useState<boolean>(false);
-	const [uniqueIds, setUniqueIds] = useState<Set<string>>(
-		new Set(selected || [])
-	);
+	const [choices, setChoices] = useState<Choices>(selected || {});
 
-	const onSelectedAll = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setIsSelectedAll(event.target.checked || false);
-		onSelected(event);
+	const onSelectedAll = (event: ChangeEvent<HTMLInputElement>) => {
+		setChoices((old: Choices) => ({
+			...old,
+			...Object.fromEntries(Object.entries(old).map(([key]) => [key, event.target.checked])),
+		}));
 	};
-	const onSelected = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const newSet = new Set(uniqueIds); // Create a copy to avoid mutation
-		if (event.target.checked) {
-			newSet.add(event.target.id);
-		} else {
-			newSet.delete(event.target.id);
-		}
-		setUniqueIds(newSet);
-		onSelect?.([...newSet]);
+	const onSelected = (id: string, checked: boolean) => {
+		setChoices((old: Choices) => ({ ...old, [id]: checked, }));
+		onSelect?.(event);
+	};
+const isSelected = (key:string):boolean => (choices && choices[key]);
+const isSelectedAll = ():boolean => (choices && Object.values(choices).every(value => value === true));
+
+	const registerId = (key: string, value: boolean = false) => {
+		setChoices((old: Choices) => ({ ...old, [key]: value, }));
 	};
 	return {
 		selectable,
 		onSelect,
-		selected: [...uniqueIds],
+		selected: choices,
 		onSelected,
 		onSelectedAll,
+		isSelected,
 		isSelectedAll,
+		registerId,
 	};
 }

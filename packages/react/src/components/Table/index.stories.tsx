@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
 	Table,
@@ -18,13 +18,8 @@ type Story = StoryObj<typeof Table>;
 
 // default table - presentation only
 export const Default: Story = {
-	render: () => {
-		const [message, setMessage] = React.useState<string>("0 row(s) selected");
-		const handleSelect = (selected?: string[] ) => selected && setMessage(`${ selected.includes('check-all')  ? 'All' : selected.length } row(s) selected!`);
-
-		return (
-			<>
-				<Table selectable onSelect={handleSelect}>
+	render: () => (
+				<Table selectable onSelect={() => {}}>
 					<TableHeader>
 						<TableHeadCell sortType="ascending" onSort={() => {}}>
 							Header 1
@@ -35,22 +30,19 @@ export const Default: Story = {
 						<TableHeadCell>Header 3</TableHeadCell>
 					</TableHeader>
 					<TableBody>
-						<TableRow>
+						<TableRow id='1'>
 							<td>Row 1, Cell 1</td>
 							<td>Row 1, Cell 2</td>
 							<td>Row 1, Cell 3</td>
 						</TableRow>
-						<TableRow>
+						<TableRow id='2'>
 							<td>Row 2, Cell 1</td>
 							<td>Row 2, Cell 2</td>
 							<td>Row 2, Cell 3</td>
 						</TableRow>
 					</TableBody>
 				</Table>
-				<div aria-live="polite">{message}</div>
-			</>
-		);
-	},
+		),
 };
 
 // selectable table
