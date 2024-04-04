@@ -6,6 +6,7 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
 	className: tableHeadCellClassName = 'nds-table__head-cell',
 	sortType,
 	children,
+	'aria-label': ariaLabel,
 	onSort,
 }) => {
 	const tableHeadCellClass = className(tableHeadCellClassName, {
@@ -15,11 +16,7 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ({
 	});
 
 	return (
-		<th
-			className={tableHeadCellClass}
-			aria-sort={sortType}
-			onClick={onSort}
-		>
+		<th className={tableHeadCellClass} aria-sort={sortType} onClick={onSort} aria-label={ariaLabel}>
 			{children}
 		</th>
 	);

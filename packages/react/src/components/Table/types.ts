@@ -26,6 +26,7 @@ export interface TableHeadCellProps {
 	className?: string;
 	sortType?: 'none' | 'ascending' | 'descending' | 'other' | undefined;
 	onSort?: VoidFunction;
+	'aria-label'?: string;
 }
 
 export interface TableHeaderProps {
