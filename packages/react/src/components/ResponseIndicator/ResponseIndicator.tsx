@@ -23,9 +23,14 @@ export const ResponseIndicator: React.FC<ResponseIndicatorProps> = ({
 	const uniqueId = useId();
 	const id = idProp || uniqueId;
 
-	const containerClassName = classNames(BASE_NAME, `${BASE_NAME}--${variant}`, {
-		[`${BASE_NAME}--${placementIcon}`]: withIcon,
-	}, className);
+	const containerClassName = classNames(
+		BASE_NAME,
+		`${BASE_NAME}--${variant}`,
+		{
+			[`${BASE_NAME}--${placementIcon}`]: withIcon,
+		},
+		className,
+	);
 
 	return (
 		<div className={containerClassName}>

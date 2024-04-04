@@ -9,7 +9,7 @@ import { styles } from './styles';
 import { LabelType, OnSelectInput } from './types';
 import { resolveLabelType } from './utils';
 
-interface MultipleChoiceProps {
+export interface MultipleChoiceProps {
 	stem: string | React.ReactElement<void, typeof Stem>;
 	intro?: string | React.ReactElement<void, typeof Intro>;
 	instructions?: string | React.ReactElement<void, typeof Instructions>;

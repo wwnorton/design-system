@@ -31,6 +31,10 @@ const Home = (): JSX.Element => {
 							The building blocks for composing applications and content with
 							the Norton Design System.
 						</FeatureCard>
+						<FeatureCard title="Patterns" slug="patterns" linkArrow>
+							Components organized to offer an optimal UI solution based on best
+							practices.
+						</FeatureCard>
 						<FeatureCard title="Guides" slug="guides" linkArrow>
 							Tutorials and examples to help designers, developers, and editors
 							learn how get the most out of the Norton Design System.
