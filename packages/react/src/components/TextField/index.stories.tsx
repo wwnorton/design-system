@@ -16,6 +16,7 @@ export default {
 			control: { type: 'range', min: 5, step: 1 },
 		},
 		validateOnChange: { control: { type: 'boolean' } },
+		validateOnDOMChange: { control: { type: 'boolean' } },
 	},
 } as Meta<TextFieldProps>;
 
