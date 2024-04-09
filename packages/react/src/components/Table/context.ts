@@ -1,25 +1,20 @@
-import React, { useState, ChangeEvent } from "react";
-import { Choices, TableState } from "./types";
+import React, { useState, ChangeEvent } from 'react';
+// eslint-disable-next-line import/no-cycle
+import { Choices, TableSetup, TableState } from './types';
 
-export const TableContext = React.createContext<TableState | undefined>(
-	undefined
-);
+export const TableContext = React.createContext<TableState | undefined>(undefined);
 
 export function useTableState() {
 	const result = React.useContext(TableContext);
 	if (!result) {
-		throw new Error("TableContext not initialized");
+		throw new Error('TableContext not initialized');
 	}
 
 	return result;
 }
 
-export function useInitTableState({
-	selectable,
-	onSelect,
-	selected,
-}: TableState): TableState {
-	const [choices, setChoices] = useState<Choices>(selected || {});
+export function useInitTableState({ selectable, onSelect, sortable }: TableSetup): TableState {
+	const [choices, setChoices] = useState<Choices>({});
 
 	const onSelectedAll = (event: ChangeEvent<HTMLInputElement>) => {
 		setChoices((old: Choices) => ({
@@ -28,17 +23,19 @@ export function useInitTableState({
 		}));
 	};
 	const onSelected = (id: string, checked: boolean) => {
-		setChoices((old: Choices) => ({ ...old, [id]: checked, }));
-		onSelect?.(event);
+		setChoices((old: Choices) => ({ ...old, [id]: checked }));
+		onSelect?.();
 	};
-const isSelected = (key:string):boolean => (choices && choices[key]);
-const isSelectedAll = ():boolean => (choices && Object.values(choices).every(value => value === true));
+	const isSelected = (key: string): boolean => choices && choices[key];
+	const isSelectedAll = (): boolean =>
+		choices && Object.values(choices).every((value) => value === true);
 
-	const registerId = (key: string, value: boolean = false) => {
-		setChoices((old: Choices) => ({ ...old, [key]: value, }));
+	const registerId = (key: string, value = false) => {
+		setChoices((old: Choices) => ({ ...old, [key]: value }));
 	};
 	return {
 		selectable,
+		sortable,
 		onSelect,
 		selected: choices,
 		onSelected,

@@ -1,6 +1,15 @@
+import { Sortable } from './index.stories';
+
+export interface TableSetup {
+	selectable?: boolean;
+	sortable?: boolean;
+	onSelect?: () => void;
+}
+
 export interface TableState {
 	selectable?: boolean;
-	isSelected: (id:string) => boolean;
+	sortable?: boolean;
+	isSelected: (id: string) => boolean;
 	isSelectedAll: () => boolean;
 	onSelect?: (data?: any) => void;
 	registerId: (key: string, value?: boolean) => void;
@@ -13,6 +22,7 @@ export interface TableProps {
 	className?: string;
 	selectableClass?: string;
 	selectable?: boolean;
+	sortable?: boolean;
 	onSelect?: (data?: any) => void;
 }
 
@@ -28,7 +38,7 @@ export interface TableRowProps {
 export interface TableHeadCellProps {
 	className?: string;
 	sortType?: 'none' | 'ascending' | 'descending' | 'other' | undefined;
-	onSort?: VoidFunction |undefined;
+	onSort?: VoidFunction | undefined;
 	'aria-label'?: string;
 }
 
