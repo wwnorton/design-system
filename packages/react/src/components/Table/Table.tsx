@@ -7,15 +7,13 @@ export const Table: React.FC<TableProps> = ({
 	children,
 	selectable,
 	onSelect,
+	sortable,
 }) => {
-	const value = useInitTableState({ selectable, onSelect });
+	const value = useInitTableState({ selectable, onSelect, sortable });
 
 	return (
 		<TableContext.Provider value={value}>
-			<table className={tableClassName}>
-				{children}
-			</table>
+			<table className={tableClassName}>{children}</table>
 		</TableContext.Provider>
-
 	);
 };
