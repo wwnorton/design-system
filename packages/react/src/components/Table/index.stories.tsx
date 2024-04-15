@@ -88,3 +88,33 @@ export const Selectable: Story = {
 		</Table>
 	),
 };
+
+// table sections
+export const TableSections: Story = {
+	render: () => (
+		<Table>
+			<TableHeader>
+				<TableHeadCell>Header 1</TableHeadCell>
+				<TableHeadCell>Header 2</TableHeadCell>
+				<TableHeadCell>Header 3</TableHeadCell>
+			</TableHeader>
+			<TableBody isCollapsed id="section-1">
+				<TableRow isSectionHeader sectionId="section-1" sectionLabel="Section 1">
+					<th>Subheader 1</th>
+					<th>Subheader 2</th>
+					<th>Subheader 3</th>
+				</TableRow>
+				<TableRow>
+					<td>Row 1, Cell 1</td>
+					<td>Row 1, Cell 2</td>
+					<td>Row 1, Cell 3</td>
+				</TableRow>
+				<TableRow>
+					<td>Row 2, Cell 1</td>
+					<td>Row 2, Cell 2</td>
+					<td>Row 2, Cell 3</td>
+				</TableRow>
+			</TableBody>
+		</Table>
+	),
+};
