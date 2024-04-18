@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, useMemo, ChangeEvent } from 'react';
 // eslint-disable-next-line import/no-cycle
 import { TableSections, Choices, TableSetup, TableState } from './types';
 
@@ -17,51 +17,81 @@ export function useInitTableState({ selectable, onSelect, sortable }: TableSetup
 	const [choices, setChoices] = useState<Choices>({});
 	const [sections, setSections] = useState<TableSections>({});
 
-	const onSelectedAll = (event: ChangeEvent<HTMLInputElement>) => {
+	const onSelectedAll = React.useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		setChoices((old: Choices) => ({
 			...old,
 			...Object.fromEntries(Object.entries(old).map(([key]) => [key, event.target.checked])),
 		}));
-	};
+	}, []);
 
-	const onSelected = (id: string, checked: boolean) => {
-		setChoices((old: Choices) => ({ ...old, [id]: checked }));
-		onSelect?.();
-	};
+	const onSelected = React.useCallback(
+		(id: string, checked: boolean) => {
+			setChoices((old: Choices) => ({ ...old, [id]: checked }));
+			onSelect?.();
+		},
+		[onSelect],
+	);
 
-	const onToggleSection = (sectionId?: string) => {
+	const onToggleSection = React.useCallback((sectionId?: string) => {
 		if (!sectionId) return;
 		setSections((old: TableSections) => ({ ...old, [sectionId]: !old[sectionId] }));
-	};
+	}, []);
 
-	const isSelected = (key: string): boolean => choices && choices[key];
+	const isSelected = React.useCallback(
+		(key: string): boolean => choices && choices[key],
+		[choices],
+	);
 
-	const isSectionExpanded = (sectionId: string): boolean => !sections[sectionId];
+	const isSectionExpanded = React.useCallback(
+		(sectionId: string): boolean => !sections[sectionId],
+		[sections],
+	);
 
-	const isSelectedAll = (): boolean =>
-		choices && Object.values(choices).every((value) => value === true);
+	const isSelectedAll = React.useCallback(
+		(): boolean => choices && Object.values(choices).every((value) => value === true),
+		[choices],
+	);
 
-	const registerId = (key: string, value = false) => {
+	const registerId = React.useCallback((key: string, value = false) => {
 		setChoices((old: Choices) => ({ ...old, [key]: value }));
-	};
+	}, []);
 
-	const registerSection = (key: string, isOpen = false) => {
+	const registerSection = React.useCallback((key: string, isOpen = false) => {
 		setSections((old: TableSections) => ({ ...old, [key]: isOpen }));
-	};
+	}, []);
 
-	return {
-		selectable,
-		sortable,
-		onSelect,
-		selected: choices,
-		sections,
-		onSelected,
-		onSelectedAll,
-		isSelected,
-		isSelectedAll,
-		isSectionExpanded,
-		onToggleSection,
-		registerId,
-		registerSection,
-	};
+	const tableState = React.useMemo(
+		() => ({
+			selectable,
+			sortable,
+			onSelect,
+			selected: choices,
+			sections,
+			onSelected,
+			onSelectedAll,
+			isSelected,
+			isSelectedAll,
+			isSectionExpanded,
+			onToggleSection,
+			registerId,
+			registerSection,
+		}),
+		[
+			selectable,
+			sortable,
+			onSelect,
+			choices,
+			sections,
+			onSelected,
+			onSelectedAll,
+			isSelected,
+			isSelectedAll,
+			isSectionExpanded,
+			onToggleSection,
+			registerId,
+			registerSection,
+		],
+	);
+
+	return tableState;
 }

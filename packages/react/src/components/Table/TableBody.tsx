@@ -11,7 +11,7 @@ export const TableBody: React.FC<TableBodyProps> = ({
 	isCollapsed,
 	id: idProp,
 }) => {
-	const { isSectionExpanded, registerSection} = useTableState();
+	const { isSectionExpanded, registerSection } = useTableState();
 
 	const uniqueId = useId();
 	const id = idProp || uniqueId;
@@ -20,14 +20,19 @@ export const TableBody: React.FC<TableBodyProps> = ({
 		[collapsedClass]: isCollapsed,
 	});
 
-	;
+	const isSection = isCollapsed !== undefined;
+	const showSection = isSection && isSectionExpanded(id as string);
+
+	let label = '';
+	if (isSection) {
+		label = showSection ? 'Collapsed' : 'Expanded';
+	}
 
 	useEffect(() => {
-		registerSection(id);
-	}, []);
-
-	const showSection = isSectionExpanded(id as string);
-	const label = showSection ? 'Collapsed' : 'Expanded';
+		if (isSection && registerSection && id) {
+			registerSection(id);
+		}
+	}, [isSection, registerSection, id]);
 
 	return (
 		<tbody className={bodyClassName} aria-label={label}>

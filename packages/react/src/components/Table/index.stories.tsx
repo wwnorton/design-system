@@ -14,21 +14,25 @@ type Story = StoryObj<typeof Table>;
 export const Default: Story = {
 	render: () => (
 		<Table>
+			<caption>Class Activity Report - Question 02 Results</caption>
 			<TableHeader>
-				<TableHeadCell>Header 1</TableHeadCell>
-				<TableHeadCell>Header 2</TableHeadCell>
-				<TableHeadCell>Header 3</TableHeadCell>
+				<TableHeadCell>Student Sha</TableHeadCell>
+				<TableHeadCell>Attempts</TableHeadCell>
+				<TableHeadCell>Submission Date</TableHeadCell>
+				<TableHeadCell>Time Spent</TableHeadCell>
 			</TableHeader>
 			<TableBody>
 				<TableRow>
-					<td>Row 1, Cell 1</td>
-					<td>Row 1, Cell 2</td>
-					<td>Row 1, Cell 3</td>
+					<td>Agustin Kimbe1</td>
+					<td>888</td>
+					<td></td>
+					<td>0</td>
 				</TableRow>
 				<TableRow>
-					<td>Row 2, Cell 1</td>
-					<td>Row 2, Cell 2</td>
-					<td>Row 2, Cell 3</td>
+					<td>Amantle Trinh</td>
+					<td>46</td>
+					<td></td>
+					<td>0</td>
 				</TableRow>
 			</TableBody>
 		</Table>
@@ -39,25 +43,27 @@ export const Default: Story = {
 export const Sortable: Story = {
 	render: () => (
 		<Table sortable>
+			<caption>Class Activity Report - Question 02 Results</caption>
 			<TableHeader>
-				<TableHeadCell sortType="ascending" onSort={() => {}}>
-					Header 1
-				</TableHeadCell>
 				<TableHeadCell sortType="descending" onSort={() => {}}>
-					Header 2
+					Student SHA
 				</TableHeadCell>
-				<TableHeadCell>Header 3</TableHeadCell>
+				<TableHeadCell>Attempts</TableHeadCell>
+				<TableHeadCell>Submission Date</TableHeadCell>
+				<TableHeadCell>Time Spent</TableHeadCell>
 			</TableHeader>
 			<TableBody>
-				<TableRow id="1">
-					<td>Row 1, Cell 1</td>
-					<td>Row 1, Cell 2</td>
-					<td>Row 1, Cell 3</td>
+				<TableRow>
+					<td>Amantle Trinh</td>
+					<td>46</td>
+					<td></td>
+					<td>0</td>
 				</TableRow>
-				<TableRow id="2">
-					<td>Row 2, Cell 1</td>
-					<td>Row 2, Cell 2</td>
-					<td>Row 2, Cell 3</td>
+				<TableRow>
+					<td>Agustin Kimbe1</td>
+					<td>888</td>
+					<td></td>
+					<td>0</td>
 				</TableRow>
 			</TableBody>
 		</Table>
@@ -68,21 +74,25 @@ export const Sortable: Story = {
 export const Selectable: Story = {
 	render: () => (
 		<Table selectable onSelect={() => {}}>
+			<caption>Class Activity Report - Question 02 Results</caption>
 			<TableHeader>
-				<TableHeadCell>Header 1</TableHeadCell>
-				<TableHeadCell>Header 2</TableHeadCell>
-				<TableHeadCell>Header 3</TableHeadCell>
+				<TableHeadCell>Student SHA</TableHeadCell>
+				<TableHeadCell>Attempts</TableHeadCell>
+				<TableHeadCell>Submission Date</TableHeadCell>
+				<TableHeadCell>Time Spent</TableHeadCell>
 			</TableHeader>
 			<TableBody>
 				<TableRow id="1">
-					<td>Row 1, Cell 1</td>
-					<td>Row 1, Cell 2</td>
-					<td>Row 1, Cell 3</td>
+					<td>Agustin Kimbe</td>
+					<td>888</td>
+					<td>-</td>
+					<td>0</td>
 				</TableRow>
 				<TableRow id="2">
-					<td>Row 2, Cell 1</td>
-					<td>Row 2, Cell 2</td>
-					<td>Row 2, Cell 3</td>
+					<td>Amantle Trinh</td>
+					<td>46</td>
+					<td>-</td>
+					<td>0</td>
 				</TableRow>
 			</TableBody>
 		</Table>
@@ -93,26 +103,49 @@ export const Selectable: Story = {
 export const TableSections: Story = {
 	render: () => (
 		<Table>
+			<caption>Class Activity Report - Question 02 Results</caption>
 			<TableHeader>
-				<TableHeadCell>Header 1</TableHeadCell>
-				<TableHeadCell>Header 2</TableHeadCell>
-				<TableHeadCell>Header 3</TableHeadCell>
+				<TableHeadCell>Student SHA</TableHeadCell>
+				<TableHeadCell>Attempts</TableHeadCell>
+				<TableHeadCell>Submission Date</TableHeadCell>
+				<TableHeadCell>Time Spent</TableHeadCell>
 			</TableHeader>
 			<TableBody isCollapsed id="section-1">
-				<TableRow isSectionHeader sectionId="section-1" sectionLabel="Section 1">
-					<th>Subheader 1</th>
-					<th>Subheader 2</th>
-					<th>Subheader 3</th>
+				<TableRow isSectionHeader sectionId="section-1" sectionTitle="Question 01 Results">
 				</TableRow>
 				<TableRow>
-					<td>Row 1, Cell 1</td>
-					<td>Row 1, Cell 2</td>
-					<td>Row 1, Cell 3</td>
+				<td>Agustin Kimbe</td>
+        <td>888</td>
+        <td>-</td>
+        <td>0</td>
 				</TableRow>
 				<TableRow>
-					<td>Row 2, Cell 1</td>
-					<td>Row 2, Cell 2</td>
-					<td>Row 2, Cell 3</td>
+				<td>Amantle Trinh</td>
+        <td>46</td>
+        <td>-</td>
+        <td>0</td>
+				</TableRow>
+			</TableBody>
+			<TableBody isCollapsed id="section-2">
+				<TableRow isSectionHeader sectionId="section-2" sectionTitle="Question 02 Results">
+				</TableRow>
+				<TableRow>
+				<td>Chuck Norris</td>
+        <td>51</td>
+        <td>-</td>
+        <td>0</td>
+				</TableRow>
+				<TableRow>
+				<td>Jane Doe</td>
+        <td>715</td>
+        <td>-</td>
+        <td>0</td>
+				</TableRow>
+				<TableRow>
+				<td>Kim Bassinger</td>
+        <td>324</td>
+        <td>-</td>
+        <td>0</td>
 				</TableRow>
 			</TableBody>
 		</Table>
