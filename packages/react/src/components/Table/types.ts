@@ -1,3 +1,5 @@
+import { ReactChild, ReactNode } from 'react';
+
 export interface TableSetup {
 	selectable?: boolean;
 	sortable?: boolean;
@@ -34,7 +36,7 @@ export interface TableRowProps {
 	sectionHeaderClass?: string;
 	isHeader?: boolean;
 	isSectionHeader?: boolean;
-	sectionLabel?: string;
+	sectionTitle?: string;
 	sectionId?: string;
 	id?: string;
 }
@@ -51,10 +53,16 @@ export interface TableHeaderProps {
 }
 
 export interface TableBodyProps {
+	//children: ReactChild | ReactChild[] | ReactNode;
 	id?: string;
 	className?: string;
 	collapsedClass?: string;
 	isCollapsed?: boolean;
+}
+
+export interface TableSectionHeaderProps {
+	title: string;
+	id: string;
 }
 
 export type Choices = Record<string, boolean>;

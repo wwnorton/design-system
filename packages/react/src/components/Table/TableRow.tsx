@@ -1,46 +1,39 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import { TableRowProps } from './types';
 import { useTableState } from './context';
+import { TableSectionHeader } from './TableSectionHeader';
 import { Checkbox } from '../Checkbox';
 import { useId } from '../../utilities';
-import { IconButton } from '../Button';
 
 export const TableRow: React.FC<TableRowProps> = ({
 	baseName = 'nds-table-row',
 	headerClass = `${baseName}__header`,
 	sectionHeaderClass = `${baseName}__header--section`,
-	isHeader,
-	isSectionHeader,
-	sectionId,
-	sectionLabel = '',
+	isHeader = false,
+	isSectionHeader = false,
+	sectionId = null,
+	sectionTitle = '',
 	id: idProp,
 	children,
 }) => {
-	const {
-		selectable,
-		onSelect,
-		onSelected,
-		isSelected,
-		isSelectedAll,
-		registerId,
-		onToggleSection,
-	} = useTableState();
+	const { selectable, onSelect, onSelected, isSelected, isSelectedAll, registerId } =
+		useTableState();
 
 	const uniqueId = useId();
 	const id = idProp || uniqueId;
 
 	const isSelectable = selectable && onSelect && !isHeader && !isSectionHeader;
-	const isChecked = isSelectedAll() || isSelected(id);
+	const isChecked = isSelectedAll() || isSelected(id as string);
 
 	useEffect(() => {
-		if (isSelectable) {
-			registerId(id);
+		if (isSelectable && registerId) {
+			registerId(id as string, isChecked);
 		}
-	}, [isSelectable, id]);
+	}, [isSelectable, registerId, id, isChecked]);
 
-	const onChange = () => onSelected?.(id, !isChecked);
-	const onToggle = () => onToggleSection?.(sectionId);
+	const onChange = () => onSelected?.(id as string, !isChecked);
 
 	const trClassName = classNames(baseName, {
 		[`${headerClass}`]: isHeader,
@@ -49,28 +42,16 @@ export const TableRow: React.FC<TableRowProps> = ({
 
 	return (
 		<tr className={trClassName} id={id}>
-			{isSectionHeader && (
-				<th style={{ display: 'block', width: '100%' }}>
-					{sectionLabel}
-					<IconButton
-						variant="outline"
-						icon="chevron-down"
-						onClick={onToggle}
-						aria-label="Toggle section"
-						children={undefined}
-					/>
-				</th>
+			{isSectionHeader && sectionId ? (
+				<TableSectionHeader title={sectionTitle} id={sectionId} />
+			) : isSelectable ? (
+				<td>
+					<Checkbox checked={isChecked} onChange={onChange} />
+				</td>
+			) : (
+				<></>
 			)}
-			{!isSectionHeader && (
-				<>
-					{isSelectable && (
-						<td>
-							<Checkbox checked={isChecked} onChange={onChange} />
-						</td>
-					)}
-					{children}
-				</>
-			)}
+			{children}
 		</tr>
 	);
 };
