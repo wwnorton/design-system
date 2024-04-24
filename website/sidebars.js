@@ -54,6 +54,7 @@ const sidebars = {
 		"components/tooltip",
 		"components/react-providers",
 	],
+	patterns: ["patterns/index", "patterns/multiple-choice-pattern"],
 };
 
 module.exports = sidebars;
