@@ -75,6 +75,11 @@ const config = {
 						position: "left",
 					},
 					{
+						to: "docs/patterns",
+						label: "Patterns",
+						position: "left",
+					},
+					{
 						to: "docs/guides",
 						label: "Guides",
 						position: "left",

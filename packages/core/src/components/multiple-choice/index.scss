@@ -1,0 +1,48 @@
+@use '../../util';
+
+@mixin style {
+	@include util.declare('multiple-choice') {
+		.nds-multiple-choice {
+			&__intro {
+				margin-bottom: 0.25rem;
+			}
+
+			&__stem {
+				margin-bottom: 0.25rem;
+				font-weight: bold;
+			}
+
+			&__instructions {
+				margin-bottom: 2rem;
+				font-size: var(--nds-font-size-xs);
+			}
+
+			&__choice {
+				& > input,
+				& > label {
+					position: absolute;
+
+					// FIXME: When adding a div as a children the hidden controls appear
+					// we need to fix this in the ChoiceField component
+					display: block;
+					width: 0;
+					height: 0;
+					visibility: hidden;
+				}
+
+				& .nds-field__label {
+					display: flex;
+					gap: 1rem;
+				}
+			}
+
+			&__feedback {
+				min-width: 5rem;
+			}
+
+			&__choice-label {
+				font-weight: bold;
+			}
+		}
+	}
+}

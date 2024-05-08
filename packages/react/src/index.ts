@@ -6,3 +6,5 @@ export * from './providers';
 
 // Public utilities
 export * from './utilities';
+
+export * from './patterns';
