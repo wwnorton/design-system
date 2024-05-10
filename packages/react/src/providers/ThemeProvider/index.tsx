@@ -60,6 +60,7 @@ export const ThemeProvider: React.FunctionComponent<ThemeProviderProps> = ({
 			parentColorScheme,
 		),
 	);
+	const prevScheme = React.useRef(colorScheme);
 
 	// root <ThemeProvider>: update colorScheme when the user changes their OS scheme
 	React.useEffect(() => {
@@ -89,7 +90,10 @@ export const ThemeProvider: React.FunctionComponent<ThemeProviderProps> = ({
 	}, [parentColorScheme, schemeProp]);
 
 	React.useEffect(() => {
-		if (onColorSchemeChange) onColorSchemeChange(colorScheme);
+		if (prevScheme.current !== colorScheme) {
+			prevScheme.current = colorScheme;
+			if (onColorSchemeChange) onColorSchemeChange(colorScheme);
+		}
 	}, [colorScheme, onColorSchemeChange]);
 
 	const theme = React.useMemo(
