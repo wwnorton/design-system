@@ -16,5 +16,5 @@ export type FeedbackModalProps = Omit<ModalProps, 'title'> & {
 	/**
 	 * The text of the selected choice
 	 */
-	choiceText: string;
+	choiceText: React.ReactNode;
 };

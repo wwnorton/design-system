@@ -13,7 +13,7 @@ export interface MultipleChoiceProps {
 	stem: string | React.ReactElement<void, typeof Stem>;
 	intro?: string | React.ReactElement<void, typeof Intro>;
 	instructions?: string | React.ReactElement<void, typeof Instructions>;
-	choices: string[];
+	choices: React.ReactNode[];
 	/**
 	 * @default 'lower-alpha'
 	 */
@@ -21,7 +21,6 @@ export interface MultipleChoiceProps {
 	status: 'correct' | 'incorrect' | 'unanswered';
 	onSelect?: (input: OnSelectInput) => void;
 	selected?: number;
-	// TODO: support styling pieces
 }
 
 export const MultipleChoice = ({
@@ -70,10 +69,6 @@ export const MultipleChoice = ({
 
 						const checked = index === selected;
 
-						// TODO: think a way to allow control of response indicator layout
-						//
-						// TODO: use grid to solve issues with incorrect response
-						// indicator
 						return (
 							<div key={label} className={styles.choice}>
 								{feedback}
