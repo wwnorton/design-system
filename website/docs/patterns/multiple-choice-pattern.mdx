@@ -16,29 +16,45 @@ import { PropsTable } from "@website/components";
 
 ## Anatomy
 
-<img
-	alt="Anatomy of the Multiple Choice Pattern"
-	src={useBaseUrl("/img/multiple-choice-anatomy.png")}
-/>
+The Multiple Choice pattern contains two views that are presented sequentially in the user flow:
 
-<img
-	alt="Anatomy of the Multiple Choice Pattern"
-	src={useBaseUrl("/img/feedback-modal-anatomy.png")}
-/>
+1. A [question](#question) view, where the user responds to a prompt by selecting an answer and then submitting it.
+	Submitting a response immediately opens the feedback view.
+2. A [feedback](#feedback) view, where the user learns whether they answered correctly and is presented with additional feedback about their answer.
+	Closing the feedback returns the user to the response view.
 
-1. **Question Intro** (optional) - introductory content that helps frame the question.
-1. **Question Stem** - the prompt the user responds to.
-1. **Instructions** (optional) - text displaying how many attempts a user may submit an answer and instructions to how to complete a question\*, ideally located after the question stem.
-1. **[Radio Button](../components/radio-group)** - an input that allows the user to select one answer and reflects the selection state.
-1. **Answer Choice Identifier** - a letter or number that identifies each answer choice.
-1. **Answer Choice** - a choice in response to the question stem that allows the user to select an answer.
-1. **Response Indicator** (optional) - a label that signifies whether a selected response is correct or incorrect which appears next to the selected option after an answer has been submitted.
-1. **Submit [Button](../components/button)** - a button that submits the chosen answer that can be located at the application level.
-1. **Feedback [Modal](../components/modal)** - a modal dialog that provides feedback about the chosen answer after it is submitted.
-   - **a)** General Feedback - the chosen answer and whether it is correct or incorrect 1. Supplementary Feedback (optional) - additional answer-specific content
-   - **b)** Supplementary Feedback (optional) - additional answer-specific content
+### Question
 
-## Usage
+The question view presents a prompt to the user, allowing them to select and then submit their answer.
+Once submitted, the [feedback](#feedback) view appears.
+
+![The response anatomy shows various elements, annotated with numbers that correspond to the following anatomy description.](/img/multiple-choice-anatomy.png)
+
+1. **Question Framing** (_optional_) - introductory content that provides additional context for the question.
+	This can include any type of content, including but not limited to text, images, and video.
+1. **Question Stem** - the text-only prompt. Answer choices are responses to the question stem.
+1. **Functional Instructions** (_optional_) - the constraints for answering the question.
+	Unlike the stem and framing, this should not contain subject matter related to the question.
+1. **Answer Choice** - an option that answers the question.
+	1. **Selector** - a [radio button](/docs/components/radio-group) that indicates which choice is currently selected and will be submitted.
+	1. **Identifier** - a letter or number that identifies the choice.
+	1. **Response** - an answer that relates directly to the question stem.
+	1. **Response Indicator** (_only visible after submission_) - a label that signifies whether a submitted response was correct or incorrect.
+		Once visible, the answer choice can no longer be selected.
+1. **Submit Button** - a [button](/docs/components/button) that submits the chosen answer.
+
+### Feedback
+
+Feedback is presented in a [modal dialog](/docs/components/modal) after the user has submitted an answer.
+Once closed, the user should be returned to the [question](#question) view.
+
+![The feedback anatomy shows a modal dialog, annotated with numbers that correspond to the following anatomy description.](/img/feedback-modal-anatomy.png)
+
+1. **Title** - the title should summarize the result of the user's submission in as few words as possible.
+1. **General Feedback** - the answer that the user submitted and whether it is correct or incorrect.
+1. **Supplementary Feedback** (_optional_) - additional answer-specific content.
+
+## Design Guidelines
 
 - Multiple choice questions only have one correct answer, and use radio buttons (not buttons or dropdowns) to display answer choices.
 
