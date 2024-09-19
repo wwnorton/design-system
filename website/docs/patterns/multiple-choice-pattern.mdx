@@ -56,17 +56,55 @@ Once closed, the user should be returned to the [question](#question) view.
 
 ## Design Guidelines
 
+### Display the stem and responses in the same view
+
+short description
+
+image
+
+:::note Why?
+Multiple choice requires the user to hold the question stem in their working memory in order to choose a corresponding response.
+This can be difficult for us when we experience impairment of our working memory, such as when we're tired or if we've had a traumatic brain injury.
+Displaying the responses in a different view from the question stem unnecessarily compounds this cognitive task.
+:::
+
 - Multiple choice questions only have one correct answer, and use radio buttons (not buttons or dropdowns) to display answer choices.
 
   **Why:** The consistent use of radio buttons for answer choices, though beneficial for all users, has particular accessibility benefits: - Screen reader users know when they encounter radio buttons that they can only make one choice. - Since screen magnification users experience smaller portions of the screen at once,  they benefit from the visual consistency of always using radio buttons for answer choices. - For users who experience difficulty with attention and working memory, cognitive load is reduced when the same component is encountered repeatedly. See the [Accessibility Notes](#accessibility-notes) section for more information on how consistent navigation benefits users with disabilities.
 
-- Limit _answer choices_ to a maximum of 5.
+### Provide no more than 5 answer choices
 
-  **Why:** Too much content can cause cognitive overload, loss of focus, and anxiety for students with disabilities, i.e. those with processing, attention, or working memory challenges.
+We've chosen 5 as the design system's preferred limit for most cases, but this depends heavily on the amount of information in the stem and answer choices.
 
-- Feedback should be delivered in a modal after the answer is submitted, as opposed to in-line.\*
+image
 
-  **Why:** In-line feedback presents challenges for many users: - Screen magnification users may miss that the screen content changed. - In-line feedback can make the screen visually overwhelming and increase cognitive load reducing the user's ability to gain the information intended by the in-line feedback. - Implementing in-line feedback presents challenges for screen reader users because you have to manage focus in ways that are unanticipated. See the [Accessibility Notes](#accessibility-notes) section for more information on the impact of in-line feedback on users with disabilities.
+:::note Why?
+Multiple choice requires us to hold the question stem and all of the answer choices in our working memory.
+The more answer choices there are, the more difficult this becomes.
+
+This can prevent us from even being able to answer the question when we are experiencing impairment of our working memory.
+:::
+
+### Deliver answer feedback in its own view
+
+When feedback is displayed directly in the question view, it's impossible to guarantee that the user will notice it or absorb it.
+The Norton Design System has chosen to use our [modal](/docs/components/modal) for feedback in order to bring focus to it.
+
+image
+
+:::note Why?
+Absorbing feedback on our answer choice is critical for an effective multiple choice question.
+Displaying it in the question view makes this difficult in many ways.
+
+- Screen magnification users may miss the feedback entirely if it was out of view when it appeared.
+- The question view is already visually and cognitively dense.
+Adding feedback to this view can disorient, distract, and overwhelm users, preventing them from absorbing it.
+
+{/* TODO: RESUME HERE */}
+- Screen readers need to be told when content appears, which does not happen automatically, so the experience needs to be carefully designed the user needs to expect it, and which have difficulty managing focus when unanticipated content appears.
+
+- Implementing in-line feedback presents challenges for screen reader users because you have to manage focus in ways that are unanticipated. See the [Accessibility Notes](#accessibility-notes) section for more information on the impact of in-line feedback on users with disabilities.
+:::
 
 - If more than one attempt is available, this should be clearly defined in the Instructions. The limit and the number of attempts they’ve already made should be indicated to the user.
 
