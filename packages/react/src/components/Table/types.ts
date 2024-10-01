@@ -1,0 +1,111 @@
+export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
+	/**
+	 * Indicates whether the table header is sticky.
+	 */
+	stickyHeader?: boolean;
+
+	/**
+	 * Override or extend existing table style.
+	 */
+	className?: string;
+
+	/**
+	 * Indicates whether table with or without border.
+	 */
+	hasBorder?: boolean;
+
+	/**
+	 * Used to enable sorting in the table.
+	 * For Uncontrolled Sorting, this activates the internal sorting state of the Table component.
+	 * For Controlled Sorting, this just renders the buttons in the headers that will call `onSort`.
+	 */
+	isSortable?: boolean;
+
+	/**
+	 * Used for Controlled Sorting. When set, the Table component will not manage the sorting state.
+	 * `onSort` is called when the user clicks on one of the column sorting buttons. It receives
+	 * the `columnIndex` and the `direction` of the sort `asc`, `desc`, or `default`.
+	 */
+	onSort?: (columnIndex: number, direction: 'asc' | 'desc' | undefined) => void;
+
+	/**
+	 * Define header style ghost, outline and solid.
+	 *
+	 * @default 'solid'
+	 */
+	variant?: 'ghost' | 'outline' | 'solid';
+
+	/**
+	 * The data to be rendered in the table.
+	 */
+	data?: TableData;
+}
+
+export interface TableData {
+	headers: TableDataHeader[];
+	rows: TableDataCell[][];
+}
+
+export type SortableValue = string | number | boolean;
+
+export interface TableDataHeader {
+	/**
+	 * The element to render inside the data cell
+	 */
+	children: React.ReactNode;
+
+	/**
+	 * Used for Uncontrolled Sorting, overrides the default sorting function for this column.
+	 */
+	sorter?: (a: SortableValue, b: SortableValue) => void;
+}
+
+export interface TableDataCell {
+	/**
+	 * The value of the cell
+	 */
+	value: SortableValue;
+
+	/**
+	 * The react component used to wrap the value to render it
+	 */
+	wrapper?: (value: SortableValue) => React.ReactNode;
+}
+
+export interface TableHeaderProps extends React.TableHTMLAttributes<HTMLTableSectionElement> {
+	/**
+	 * Override or extend existing table style.
+	 */
+	className?: string;
+}
+
+export interface TableHeaderCellProps extends React.TableHTMLAttributes<HTMLTableCellElement> {
+	/**
+	 * Override or extend existing table style.
+	 */
+	className?: string;
+
+	/**
+	 * Used for Uncontrolled Sorting, overrides the default sorting function for this column.
+	 */
+	sorter?: (a: SortableValue, b: SortableValue) => void;
+
+	/**
+	 * Used for Controlled Sorting, defines the current sort state of the column.
+	 */
+	sorted?: 'asc' | 'desc' | undefined;
+}
+
+export interface TableBodyProps extends React.TableHTMLAttributes<HTMLTableSectionElement> {
+	/**
+	 * Override or extend existing table style.
+	 */
+	className?: string;
+}
+
+export interface TableRowProps extends React.TableHTMLAttributes<HTMLTableRowElement> {
+	/**
+	 * Override or extend existing table style.
+	 */
+	className?: string;
+}
