@@ -57,7 +57,7 @@ export interface TableDataHeader {
 	/**
 	 * Used for Uncontrolled Sorting, overrides the default sorting function for this column.
 	 */
-	sorter?: (a: SortableValue, b: SortableValue) => void;
+	sorter?: (a: SortableValue, b: SortableValue) => number;
 }
 
 export interface TableDataCell {
@@ -88,7 +88,7 @@ export interface TableHeaderCellProps extends React.TableHTMLAttributes<HTMLTabl
 	/**
 	 * Used for Uncontrolled Sorting, overrides the default sorting function for this column.
 	 */
-	sorter?: (a: SortableValue, b: SortableValue) => void;
+	sorter?: (a: SortableValue, b: SortableValue) => number;
 
 	/**
 	 * Used for Controlled Sorting, defines the current sort state of the column.

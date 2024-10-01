@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+	SortableValue,
 	TableBodyProps,
 	TableData,
 	TableHeaderCellProps,
@@ -87,6 +88,16 @@ type SortState = {
 	rows: TableData['rows'];
 };
 
+function defaultSorter(a: SortableValue, b: SortableValue): number {
+	if (a < b) {
+		return -1;
+	}
+	if (a > b) {
+		return 1;
+	}
+	return 0;
+}
+
 const DataTable = ({ data, isSortable }: TableDataProps) => {
 	const [sortState, setSortState] = useState<SortState>({
 		order: 1,
@@ -103,16 +114,19 @@ const DataTable = ({ data, isSortable }: TableDataProps) => {
 						newOrder = (prevState.order + 1) % 3;
 					}
 
+					if (newOrder === 1) {
+						return {
+							order: newOrder,
+							index: idx,
+							rows: data.rows,
+						};
+					}
+
 					const direction = newOrder === 0 ? -1 : 1;
+					const sorter = data.headers[idx].sorter || defaultSorter;
 
 					const newRows = data.rows.toSorted((a, b) => {
-						if (a[idx].value < b[idx].value) {
-							return -1 * direction;
-						}
-						if (a[idx].value > b[idx].value) {
-							return 1 * direction;
-						}
-						return 0;
+						return sorter(a[idx].value, b[idx].value) * direction;
 					});
 
 					return {
@@ -124,7 +138,7 @@ const DataTable = ({ data, isSortable }: TableDataProps) => {
 			};
 		}
 		return undefined;
-	}, [isSortable, data.rows]);
+	}, [isSortable, data]);
 
 	return (
 		<table>
