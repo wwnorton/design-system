@@ -1,0 +1,43 @@
+$cell-paddings: (
+	'sm': var(--nds-spacing-3) var(--nds-spacing-4),
+	'base': var(--nds-spacing-4),
+	'lg': var(--nds-spacing-5) var(--nds-spacing-4),
+	'xl': var(--nds-spacing-6) var(--nds-spacing-4),
+);
+$cell-border-color: var(--nds-navy-20);
+$border-out-color: var(--nds-navy-40);
+$row-background-color: var(--nds-background-color);
+$color-schemes: (
+	'navy': (
+		'header-text': var(--nds-navy-90),
+		'header-text-ghost': var(--nds-navy-90),
+		'header-background': var(--nds-navy-20),
+		'stripe-contrast': var(--nds-navy-10),
+		'sort-button-background': var(--nds-navy-60),
+		'sort-button-text': var(--nds-navy-60),
+	),
+	'navy-dark': (
+		'header-text': white,
+		'header-text-ghost': var(--nds-navy-90),
+		'header-background': var(--nds-navy-80),
+		'stripe-contrast': var(--nds-navy-10),
+		'sort-button-background': var(--nds-navy-60),
+		'sort-button-text': white,
+	),
+	'gray': (
+		'header-text': var(--nds-gray-90),
+		'header-text-ghost': var(--nds-gray-90),
+		'header-background': var(--nds-gray-20),
+		'stripe-contrast': var(--nds-gray-10),
+		'sort-button-background': var(--nds-gray-60),
+		'sort-button-text': var(--nds-gray-60),
+	),
+	'gray-dark': (
+		'header-text': white,
+		'header-text-ghost': var(--nds-gray-90),
+		'header-background': var(--nds-gray-80),
+		'stripe-contrast': var(--nds-gray-10),
+		'sort-button-background': var(--nds-gray-60),
+		'sort-button-text': white,
+	),
+);
