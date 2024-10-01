@@ -1,4 +1,4 @@
-export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
+export interface BaseTableProps extends React.TableHTMLAttributes<HTMLTableElement> {
 	/**
 	 * Indicates whether the table header is sticky.
 	 */
@@ -15,6 +15,20 @@ export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> 
 	hasBorder?: boolean;
 
 	/**
+	 * Define header style ghost, outline and solid.
+	 *
+	 * @default 'solid'
+	 */
+	variant?: 'ghost' | 'outline' | 'solid';
+}
+
+export interface TableProps extends BaseTableProps {
+	/**
+	 * The data to be rendered in the table.
+	 */
+	data?: TableData;
+
+	/**
 	 * Used to enable sorting in the table.
 	 * For Uncontrolled Sorting, this activates the internal sorting state of the Table component.
 	 * For Controlled Sorting, this just renders the buttons in the headers that will call `onSort`.
@@ -27,18 +41,6 @@ export interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> 
 	 * the `columnIndex` and the `direction` of the sort `asc`, `desc`, or `default`.
 	 */
 	onSort?: (columnIndex: number, direction: 'asc' | 'desc' | undefined) => void;
-
-	/**
-	 * Define header style ghost, outline and solid.
-	 *
-	 * @default 'solid'
-	 */
-	variant?: 'ghost' | 'outline' | 'solid';
-
-	/**
-	 * The data to be rendered in the table.
-	 */
-	data?: TableData;
 }
 
 export interface TableData {
