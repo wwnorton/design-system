@@ -5,6 +5,7 @@ import { TableRow } from '../TableRow/TableRow';
 import { BaseTableCell } from '../TableCell/BaseTableCell';
 import { TableHeader } from '../TableHeader/TableHeader';
 import { TableBody } from '../TableBody/TableBody';
+import { BaseTable } from '../BaseTable/BaseTable';
 
 export const BaseDataTable = ({
 	headersData,
@@ -47,9 +48,9 @@ export const BaseDataTable = ({
 	}, [rows, rowsData]);
 
 	return (
-		<table {...tableProps}>
+		<BaseTable {...tableProps}>
 			<TableHeader>{Headers}</TableHeader>
 			<TableBody>{Rows}</TableBody>
-		</table>
+		</BaseTable>
 	);
 };

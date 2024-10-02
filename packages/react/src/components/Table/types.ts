@@ -111,3 +111,17 @@ export interface TableRowProps extends React.TableHTMLAttributes<HTMLTableRowEle
 	 */
 	className?: string;
 }
+
+export interface TableCellProps extends React.TableHTMLAttributes<HTMLTableCellElement> {
+	/**
+	 * Override or extend existing table style.
+	 */
+	className?: string;
+
+	/**
+	 * The value of the cell.
+	 * In uncontrolled sorting the value is used to sort the column. If none is defined
+	 * the text content of the cell is used as value.
+	 */
+	value?: SortableValue;
+}

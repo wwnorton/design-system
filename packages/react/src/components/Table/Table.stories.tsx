@@ -1,8 +1,14 @@
+import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from '@faker-js/faker';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Table } from './Table';
 import { TableDataCell } from './types';
+import { TableHeader } from './TableHeader/TableHeader';
+import { TableHeaderCell } from './TableHeaderCell/TableHeaderCell';
+import { TableBody } from './TableBody/TableBody';
+import { TableRow } from './TableRow/TableRow';
+import { TableCell } from './TableCell/TableCell';
 
 faker.seed(123);
 
@@ -37,15 +43,70 @@ const data = {
 		]),
 };
 
-export const Default: Story = {
+export const DataTable: Story = {
 	args: {
 		data,
 	},
 };
 
-export const UncontrolledSort: Story = {
+export const UncontrolledSortableDataTable: Story = {
 	args: {
 		isSortable: true,
 		data,
+	},
+};
+
+export const ComposableTable: Story = {
+	render(args) {
+		return (
+			<Table {...args}>
+				<TableHeader>
+					<TableHeaderCell>First Name</TableHeaderCell>
+					<TableHeaderCell>Last Name</TableHeaderCell>
+					<TableHeaderCell>Age</TableHeaderCell>
+				</TableHeader>
+				<TableBody>
+					<TableRow>
+						<TableCell>Marissa</TableCell>
+						<TableCell>Keep</TableCell>
+						<TableCell>25 years</TableCell>
+					</TableRow>
+					<TableRow>
+						<TableCell>Andrew</TableCell>
+						<TableCell>Arnold</TableCell>
+						<TableCell>31 years</TableCell>
+					</TableRow>
+				</TableBody>
+			</Table>
+		);
+	},
+};
+
+export const UncontrolledSortableComposableTable: Story = {
+	args: {
+		isSortable: true,
+	},
+	render(args) {
+		return (
+			<Table {...args}>
+				<TableHeader>
+					<TableHeaderCell>First Name</TableHeaderCell>
+					<TableHeaderCell>Last Name</TableHeaderCell>
+					<TableHeaderCell>Age</TableHeaderCell>
+				</TableHeader>
+				<TableBody>
+					<TableRow>
+						<TableCell>Marissa</TableCell>
+						<TableCell>Keep</TableCell>
+						<TableCell>25 years</TableCell>
+					</TableRow>
+					<TableRow>
+						<TableCell>Andrew</TableCell>
+						<TableCell>Arnold</TableCell>
+						<TableCell>31 years</TableCell>
+					</TableRow>
+				</TableBody>
+			</Table>
+		);
 	},
 };
