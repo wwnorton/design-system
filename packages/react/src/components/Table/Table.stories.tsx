@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from '@faker-js/faker';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -70,6 +70,7 @@ export const ComposableTable: Story = {
 				<TableBody>
 					{data.rows.map((row, index) => {
 						return (
+							// eslint-disable-next-line react/no-array-index-key
 							<TableRow key={index}>
 								<TableCell>{row[0].value}</TableCell>
 								<TableCell>{row[1].value}</TableCell>
@@ -95,13 +96,16 @@ export const UncontrolledSortableComposableTable: Story = {
 				<TableHeader>
 					{data.headers.map((header) => {
 						return (
-							<TableHeaderCell key={header.children as string}>{header.children}</TableHeaderCell>
+							<TableHeaderCell key={header.children as string} sorter={header.sorter}>
+								{header.children}
+							</TableHeaderCell>
 						);
 					})}
 				</TableHeader>
 				<TableBody>
 					{data.rows.map((row, index) => {
 						return (
+							// eslint-disable-next-line react/no-array-index-key
 							<TableRow key={index}>
 								<TableCell>{row[0].value}</TableCell>
 								<TableCell>{row[1].value}</TableCell>

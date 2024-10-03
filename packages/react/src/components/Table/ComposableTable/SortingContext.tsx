@@ -1,12 +1,4 @@
-import React, {
-	ReactNode,
-	useCallback,
-	useContext,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import React, { ReactNode, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { SortableValue } from '../types';
 
 export interface SortingHeaderData {
@@ -114,10 +106,6 @@ export const SortingProvider = ({ children }: { children?: ReactNode }) => {
 			};
 		});
 	}, []);
-
-	useEffect(() => {
-		console.log('Data updated', data);
-	}, [data]);
 
 	const onSort = useCallback(
 		(colId: string) => {

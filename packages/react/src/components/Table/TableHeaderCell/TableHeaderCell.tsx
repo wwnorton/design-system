@@ -27,7 +27,5 @@ export const TableHeaderCell = ({ sorter, ...others }: TableHeaderCellProps) => 
 		return undefined;
 	}, [sortingState, colId]);
 
-	console.log('alksdjflkajsdflkjasdf', direction, onSort);
-
 	return <BaseTableHeaderCell {...others} order={direction} onSort={onSort} />;
 };
