@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from '@faker-js/faker';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -30,7 +30,7 @@ const data = {
 		{
 			children: 'Country',
 			sorter: (a, b) => {
-				return (b as string).length - (a as string).length;
+				return (a as string).length - (b as string).length;
 			},
 		},
 	],
@@ -87,26 +87,39 @@ export const UncontrolledSortableComposableTable: Story = {
 		isSortable: true,
 	},
 	render(args) {
+		const [key, setKey] = React.useState(0);
+		const [showAge, setShowAge] = React.useState(true);
+
+		useEffect(() => {
+			setKey((p) => p + 1);
+		}, [showAge]);
+
 		return (
-			<Table {...args}>
-				<TableHeader>
-					<TableHeaderCell>First Name</TableHeaderCell>
-					<TableHeaderCell>Last Name</TableHeaderCell>
-					<TableHeaderCell>Age</TableHeaderCell>
-				</TableHeader>
-				<TableBody>
-					<TableRow>
-						<TableCell>Marissa</TableCell>
-						<TableCell>Keep</TableCell>
-						<TableCell>25 years</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>Andrew</TableCell>
-						<TableCell>Arnold</TableCell>
-						<TableCell>31 years</TableCell>
-					</TableRow>
-				</TableBody>
-			</Table>
+			<div>
+				<Table key={key} {...args}>
+					<TableHeader>
+						<TableHeaderCell>First Name</TableHeaderCell>
+						<TableHeaderCell>Last Name</TableHeaderCell>
+						{showAge && <TableHeaderCell>Age</TableHeaderCell>}
+					</TableHeader>
+					<TableBody>
+						<TableRow>
+							<TableCell>Marissa</TableCell>
+							<TableCell>Keep</TableCell>
+							{showAge && <TableCell>25 years</TableCell>}
+						</TableRow>
+						<TableRow>
+							<TableCell>Andrew</TableCell>
+							<TableCell>Arnold</TableCell>
+							{showAge && <TableCell>31 years</TableCell>}
+						</TableRow>
+					</TableBody>
+				</Table>
+				<hr />
+				<button type="button" onClick={() => setShowAge((p) => !p)}>
+					{showAge ? 'Hide' : 'Show'} Age
+				</button>
+			</div>
 		);
 	},
 };
