@@ -10,6 +10,7 @@ import React, {
 import { SortableValue } from '../types';
 
 export interface SortingHeaderData {
+	colId: string;
 	sorter?: (a: SortableValue, b: SortableValue) => number;
 }
 
@@ -19,11 +20,21 @@ export interface SortingCellData {
 
 export interface SortingRowData {
 	id: string;
+	/**
+	 * This number is used to determine the "natural" order of the rows
+	 * before any sorting is applied.
+	 */
+	order: number;
 	cells: SortingCellData[];
 }
 
 export interface SortingTableData {
-	headers: Set<SortingHeaderData>;
+	colId: string;
+	/**
+	 * 0 - descending, 1 - default, 2 - ascending
+	 */
+	direction: number;
+	headers: SortingHeaderData[];
 	rows: SortingRowData[];
 }
 
@@ -32,21 +43,27 @@ export interface SortingState {
 	registerHeader: (header: SortingHeaderData) => void;
 	registerCell: (cell: SortingCellData) => void;
 	registerRow: (id: string) => void;
+	getDirection(colId: string): number;
+	onSort: (colId: string) => void;
 }
 
-export const SortingContext = React.createContext<SortingState>({
-	data: {
-		headers: new Set(),
-		rows: [],
-	},
-	registerHeader: () => {},
-	registerCell: () => {},
-	registerRow: () => {},
-});
+function defaultSorter(a: SortableValue, b: SortableValue): number {
+	if (a < b) {
+		return -1;
+	}
+	if (a > b) {
+		return 1;
+	}
+	return 0;
+}
+
+export const SortingContext = React.createContext<SortingState | null>(null);
 
 export const SortingProvider = ({ children }: { children?: ReactNode }) => {
 	const [data, setData] = useState<SortingTableData>({
-		headers: new Set(),
+		colId: '',
+		direction: 1,
+		headers: [],
 		rows: [],
 	});
 
@@ -54,16 +71,15 @@ export const SortingProvider = ({ children }: { children?: ReactNode }) => {
 
 	const registerHeader: SortingState['registerHeader'] = useCallback((header) => {
 		setData((prevState) => {
-			if (prevState.headers.has(header)) {
+			if (prevState.headers.some((h) => h.colId === header.colId)) {
 				return prevState;
 			}
 
-			const newHeaders = new Set(prevState.headers);
-			newHeaders.add(header);
+			prevState.headers.push(header);
 
 			return {
 				...prevState,
-				headers: newHeaders,
+				headers: prevState.headers,
 			};
 		});
 	}, []);
@@ -77,7 +93,7 @@ export const SortingProvider = ({ children }: { children?: ReactNode }) => {
 		tmpCells.current = new Set();
 
 		setData((prevState) => {
-			if (cellsToPush.length !== prevState.headers.size) {
+			if (cellsToPush.length !== prevState.headers.length) {
 				console.warn(`Cells count does not match headers count for row ${prevState.rows.length}`);
 			}
 
@@ -89,6 +105,7 @@ export const SortingProvider = ({ children }: { children?: ReactNode }) => {
 			newRows.push({
 				id,
 				cells: cellsToPush,
+				order: prevState.rows.length,
 			});
 
 			return {
@@ -98,22 +115,72 @@ export const SortingProvider = ({ children }: { children?: ReactNode }) => {
 		});
 	}, []);
 
+	useEffect(() => {
+		console.log('Data updated', data);
+	}, [data]);
+
+	const onSort = useCallback(
+		(colId: string) => {
+			setData((prev) => {
+				let newDirection = 2;
+				if (colId === prev.colId) {
+					newDirection = (prev.direction + 1) % 3;
+				}
+
+				if (newDirection === 1) {
+					return {
+						...prev,
+						direction: newDirection,
+						colId,
+						rows: data.rows.toSorted((a, b) => a.order - b.order),
+					};
+				}
+
+				const idx = prev.headers.findIndex((h) => h.colId === colId);
+				if (idx === -1) {
+					console.warn(`Column ${colId} not found`);
+					return prev;
+				}
+
+				const dirMultiplier = newDirection === 0 ? -1 : 1;
+				const sorter = prev.headers[idx].sorter || defaultSorter;
+
+				const newRows = data.rows.toSorted((a, b) => {
+					return sorter(a.cells[idx].value, b.cells[idx].value) * dirMultiplier;
+				});
+
+				return {
+					...prev,
+					direction: newDirection,
+					colId,
+					rows: newRows,
+				};
+			});
+		},
+		[data],
+	);
+
+	const getDirection = useCallback(
+		(colId: string) => {
+			return data.colId === colId ? data.direction : 1;
+		},
+		[data],
+	);
+
 	const state: SortingState = useMemo(() => {
 		return {
 			data,
 			registerHeader,
 			registerRow,
 			registerCell,
+			onSort,
+			getDirection,
 		};
-	}, [data, registerCell, registerHeader, registerRow]);
+	}, [data, registerHeader, registerRow, registerCell, onSort, getDirection]);
 
 	return <SortingContext.Provider value={state}>{children}</SortingContext.Provider>;
 };
 
-export function useSortingState(): SortingState | undefined {
-	try {
-		return useContext(SortingContext);
-	} catch (e) {
-		return undefined;
-	}
+export function useSortingState(): SortingState | null {
+	return useContext(SortingContext);
 }

@@ -1,21 +1,33 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useId } from '../../../utilities';
 import { TableHeaderCellProps } from '../types';
 import { BaseTableHeaderCell } from './BaseTableHeaderCell';
-import { SortingHeaderData, useSortingState } from '../ComposableTable/SortingContext';
+import { useSortingState } from '../ComposableTable/SortingContext';
 
 export const TableHeaderCell = ({ sorter, ...others }: TableHeaderCellProps) => {
+	const colId = useId() || '';
 	const sortingState = useSortingState();
-
-	const headerRef = useRef<SortingHeaderData>({
-		sorter,
-	});
 
 	useEffect(() => {
 		if (sortingState) {
-			sortingState.registerHeader(headerRef.current);
+			sortingState.registerHeader({
+				colId,
+				sorter,
+			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return <BaseTableHeaderCell {...others} />;
+	const direction = sortingState?.getDirection(colId);
+
+	const onSort = useMemo(() => {
+		if (sortingState) {
+			return () => sortingState.onSort(colId);
+		}
+		return undefined;
+	}, [sortingState, colId]);
+
+	console.log('alksdjflkajsdflkjasdf', direction, onSort);
+
+	return <BaseTableHeaderCell {...others} order={direction} onSort={onSort} />;
 };

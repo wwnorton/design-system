@@ -61,21 +61,24 @@ export const ComposableTable: Story = {
 		return (
 			<Table {...args}>
 				<TableHeader>
-					<TableHeaderCell>First Name</TableHeaderCell>
-					<TableHeaderCell>Last Name</TableHeaderCell>
-					<TableHeaderCell>Age</TableHeaderCell>
+					{data.headers.map((header) => {
+						return (
+							<TableHeaderCell key={header.children as string}>{header.children}</TableHeaderCell>
+						);
+					})}
 				</TableHeader>
 				<TableBody>
-					<TableRow>
-						<TableCell>Marissa</TableCell>
-						<TableCell>Keep</TableCell>
-						<TableCell>25 years</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>Andrew</TableCell>
-						<TableCell>Arnold</TableCell>
-						<TableCell>31 years</TableCell>
-					</TableRow>
+					{data.rows.map((row, index) => {
+						return (
+							<TableRow key={index}>
+								<TableCell>{row[0].value}</TableCell>
+								<TableCell>{row[1].value}</TableCell>
+								<TableCell value={row[2].value}>
+									{row[2].wrapper ? row[2].wrapper(row[2].value) : row[2].value}
+								</TableCell>
+							</TableRow>
+						);
+					})}
 				</TableBody>
 			</Table>
 		);
@@ -87,39 +90,29 @@ export const UncontrolledSortableComposableTable: Story = {
 		isSortable: true,
 	},
 	render(args) {
-		const [key, setKey] = React.useState(0);
-		const [showAge, setShowAge] = React.useState(true);
-
-		useEffect(() => {
-			setKey((p) => p + 1);
-		}, [showAge]);
-
 		return (
-			<div>
-				<Table key={key} {...args}>
-					<TableHeader>
-						<TableHeaderCell>First Name</TableHeaderCell>
-						<TableHeaderCell>Last Name</TableHeaderCell>
-						{showAge && <TableHeaderCell>Age</TableHeaderCell>}
-					</TableHeader>
-					<TableBody>
-						<TableRow>
-							<TableCell>Marissa</TableCell>
-							<TableCell>Keep</TableCell>
-							{showAge && <TableCell>25 years</TableCell>}
-						</TableRow>
-						<TableRow>
-							<TableCell>Andrew</TableCell>
-							<TableCell>Arnold</TableCell>
-							{showAge && <TableCell>31 years</TableCell>}
-						</TableRow>
-					</TableBody>
-				</Table>
-				<hr />
-				<button type="button" onClick={() => setShowAge((p) => !p)}>
-					{showAge ? 'Hide' : 'Show'} Age
-				</button>
-			</div>
+			<Table {...args}>
+				<TableHeader>
+					{data.headers.map((header) => {
+						return (
+							<TableHeaderCell key={header.children as string}>{header.children}</TableHeaderCell>
+						);
+					})}
+				</TableHeader>
+				<TableBody>
+					{data.rows.map((row, index) => {
+						return (
+							<TableRow key={index}>
+								<TableCell>{row[0].value}</TableCell>
+								<TableCell>{row[1].value}</TableCell>
+								<TableCell value={row[2].value}>
+									{row[2].wrapper ? row[2].wrapper(row[2].value) : row[2].value}
+								</TableCell>
+							</TableRow>
+						);
+					})}
+				</TableBody>
+			</Table>
 		);
 	},
 };
