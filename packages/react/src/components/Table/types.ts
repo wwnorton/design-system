@@ -1,5 +1,10 @@
 export interface BaseTableProps extends React.TableHTMLAttributes<HTMLTableElement> {
 	/**
+	 * Adjusts the padding of the cells.
+	 */
+	cellPadding?: 'sm' | 'base' | 'lg' | 'xl';
+
+	/**
 	 * Indicates whether the table header is sticky.
 	 */
 	stickyHeader?: boolean;

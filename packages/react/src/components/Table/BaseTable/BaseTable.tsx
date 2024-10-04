@@ -1,6 +1,19 @@
 import React from 'react';
+import classNames from 'classnames';
 import { BaseTableProps } from '../types';
 
-export const BaseTable = (props: BaseTableProps) => {
-	return <table {...props} />;
+const css = {
+	base: 'nds-table',
+};
+
+export const BaseTable = ({ cellPadding = 'base', className, ...others }: BaseTableProps) => {
+	const resolvedClassName = classNames(
+		css.base,
+		{
+			[`nds-table--cell-${cellPadding}`]: !!cellPadding,
+		},
+		className,
+	);
+
+	return <table className={resolvedClassName} {...others} />;
 };

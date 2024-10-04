@@ -1,0 +1,27 @@
+@use 'sass:map';
+@use './tokens';
+@use '../../util';
+
+@mixin base {
+	@include util.set($cell-padding: map.get(tokens.$cell-paddings, 'base'), );
+
+	& th,
+	& td {
+		padding: var(--cell-padding);
+		line-height: var(--nds-line-height-3);
+	}
+}
+
+@mixin style {
+	@include util.declare('table') {
+		.nds-table {
+			@include base;
+		}
+
+		@each $name, $val in tokens.$cell-paddings {
+			.nds-table--cell-#{$name} {
+				@include util.set($cell-padding: $val);
+			}
+		}
+	}
+}

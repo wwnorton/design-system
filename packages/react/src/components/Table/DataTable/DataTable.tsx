@@ -13,5 +13,5 @@ export const DataTable = ({ data, isSortable, onSort, ...others }: DataTableProp
 		return <SortableDataTable data={data} {...others} />;
 	}
 
-	return <BaseDataTable rowsData={data.rows} headersData={data.headers} />;
+	return <BaseDataTable rowsData={data.rows} headersData={data.headers} {...others} />;
 };
