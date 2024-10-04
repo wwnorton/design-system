@@ -60,6 +60,11 @@ export interface TableDataHeader {
 	 * Used for Uncontrolled Sorting, overrides the default sorting function for this column.
 	 */
 	sorter?: (a: SortableValue, b: SortableValue) => number;
+
+	/**
+	 * Used for Controlled Sorting, defines the current sort state of the column.
+	 */
+	sorted?: 'asc' | 'desc' | undefined;
 }
 
 export interface TableDataCell {

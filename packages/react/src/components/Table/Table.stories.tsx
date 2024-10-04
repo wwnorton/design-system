@@ -3,7 +3,7 @@ import React from 'react';
 import { faker } from '@faker-js/faker';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Table } from './Table';
-import { TableDataCell } from './types';
+import { TableData, TableDataCell } from './types';
 import { TableHeader } from './TableHeader/TableHeader';
 import { TableHeaderCell } from './TableHeaderCell/TableHeaderCell';
 import { TableBody } from './TableBody/TableBody';
@@ -23,12 +23,13 @@ type Story = StoryObj<typeof Table>;
 
 const ROWS = 10;
 
-const data = {
+const data: TableData = {
 	headers: [
 		{ children: 'Name' },
-		{ children: 'Age' },
+		{ children: 'Age', sorted: 'asc' },
 		{
 			children: 'Country',
+			sorted: 'desc',
 			sorter: (a, b) => {
 				return (a as string).length - (b as string).length;
 			},
@@ -52,6 +53,16 @@ export const DataTable: Story = {
 export const UncontrolledSortableDataTable: Story = {
 	args: {
 		isSortable: true,
+		data,
+	},
+};
+
+export const ControlledSortableDataTable: Story = {
+	args: {
+		isSortable: true,
+		onSort: (idx, direction) => {
+			console.log('Sort', idx, direction);
+		},
 		data,
 	},
 };
