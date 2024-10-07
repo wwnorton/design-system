@@ -15,9 +15,13 @@ export interface BaseTableProps extends React.TableHTMLAttributes<HTMLTableEleme
 	className?: string;
 
 	/**
-	 * Indicates whether table with or without border.
+	 * Allows to define the table border style.
+	 *  - `all` - Adds vertical and horizontal cell borders.
+	 *  - `no-vertical` - Adds horizontal cell borders only.
+	 *
+	 * @default 'all'
 	 */
-	hasBorder?: boolean;
+	borders?: 'all' | 'no-vertical';
 
 	/**
 	 * Define header style ghost, outline and solid.

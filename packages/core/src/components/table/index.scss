@@ -3,12 +3,34 @@
 @use '../../util';
 
 @mixin base {
+	@include util.set($cell-border-color: tokens.$cell-border-color);
 	@include util.set($cell-padding: map.get(tokens.$cell-paddings, 'base'), );
+
+	border: 1px solid var(--nds-navy-40);
 
 	& th,
 	& td {
 		padding: var(--cell-padding);
 		line-height: var(--nds-line-height-3);
+	}
+
+	& th {
+		// TODO: colors should be tokenized
+		background-color: var(--nds-navy-20);
+	}
+
+	& td {
+		&:last-child {
+			border-right: 0 !important;
+		}
+	}
+
+	& tr {
+		&:last-child {
+			& td {
+				border-bottom: 0 !important;
+			}
+		}
 	}
 }
 
@@ -21,6 +43,20 @@
 		@each $name, $val in tokens.$cell-paddings {
 			.nds-table--cell-#{$name} {
 				@include util.set($cell-padding: $val);
+			}
+		}
+
+		.nds-table--borders-all {
+			& td {
+				border-right: 1px solid var(--cell-border-color);
+				border-bottom: 1px solid var(--cell-border-color);
+			}
+		}
+
+		.nds-table--borders-no-vertical {
+			& td {
+				border-right: none;
+				border-bottom: 1px solid var(--cell-border-color);
 			}
 		}
 	}
