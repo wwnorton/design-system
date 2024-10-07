@@ -3,6 +3,8 @@
 @use '../../util';
 
 @mixin base {
+	@include util.set($stripe-background-base: tokens.$stripe-background-base);
+	@include util.set($stripe-background-contrast: tokens.$stripe-background-contrast);
 	@include util.set($cell-border-color: tokens.$cell-border-color);
 	@include util.set($cell-padding: map.get(tokens.$cell-paddings, 'base'), );
 
@@ -26,6 +28,8 @@
 	}
 
 	& tr {
+		background-color: var(--stripe-background-base);
+
 		&:last-child {
 			& td {
 				border-bottom: 0 !important;
@@ -57,6 +61,14 @@
 			& td {
 				border-right: none;
 				border-bottom: 1px solid var(--cell-border-color);
+			}
+		}
+
+		.nds-table--striped {
+			& tr {
+				&:nth-child(even) {
+					background-color: var(--stripe-background-contrast);
+				}
 			}
 		}
 	}

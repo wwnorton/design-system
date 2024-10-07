@@ -9,6 +9,7 @@ const css = {
 export const BaseTable = ({
 	cellPadding = 'base',
 	borders = 'all',
+	isStriped = false,
 	className,
 	...others
 }: BaseTableProps) => {
@@ -17,6 +18,7 @@ export const BaseTable = ({
 		{
 			[`nds-table--cell-${cellPadding}`]: !!cellPadding,
 			[`nds-table--borders-${borders}`]: !!borders,
+			'nds-table--striped': isStriped,
 		},
 		className,
 	);

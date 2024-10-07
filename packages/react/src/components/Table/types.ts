@@ -29,6 +29,11 @@ export interface BaseTableProps extends React.TableHTMLAttributes<HTMLTableEleme
 	 * @default 'solid'
 	 */
 	variant?: 'ghost' | 'outline' | 'solid';
+
+	/**
+	 * Whether the rows will render with an alternating striped background.
+	 */
+	isStriped?: boolean;
 }
 
 export interface TableProps extends BaseTableProps {

@@ -5,3 +5,5 @@ $cell-paddings: (
 	'xl': var(--nds-spacing-6) var(--nds-spacing-4),
 );
 $cell-border-color: var(--nds-navy-20);
+$stripe-background-base: var(--nds-background-color);
+$stripe-background-contrast: var(--nds-navy-10);
