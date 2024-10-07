@@ -7,8 +7,10 @@
 	@include util.set($stripe-background-contrast: tokens.$stripe-background-contrast);
 	@include util.set($cell-border-color: tokens.$cell-border-color);
 	@include util.set($cell-padding: map.get(tokens.$cell-paddings, 'base'), );
+	@include util.set($header-background-color: tokens.$header-background-color);
+	@include util.set($border-out-color: tokens.$border-out-color);
 
-	border: 1px solid var(--nds-navy-40);
+	border: 1px solid var(--border-out-color);
 
 	& th,
 	& td {
@@ -17,8 +19,7 @@
 	}
 
 	& th {
-		// TODO: colors should be tokenized
-		background-color: var(--nds-navy-20);
+		background-color: var(--header-background-color);
 	}
 
 	& td {
@@ -69,6 +70,24 @@
 				&:nth-child(even) {
 					background-color: var(--stripe-background-contrast);
 				}
+			}
+		}
+
+		.nds-table--outline {
+			@include util.set($header-background-color: var(--nds-background-color));
+
+			& tbody {
+				border-top: 1px solid var(--cell-border-color);
+			}
+		}
+
+		.nds-table--ghost {
+			@include util.set($header-background-color: var(--nds-background-color));
+
+			border: none;
+
+			tbody {
+				border: 1px solid var(--border-out-color);
 			}
 		}
 	}

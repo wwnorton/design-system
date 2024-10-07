@@ -10,6 +10,7 @@ export const BaseTable = ({
 	cellPadding = 'base',
 	borders = 'all',
 	isStriped = false,
+	variant = 'solid',
 	className,
 	...others
 }: BaseTableProps) => {
@@ -18,6 +19,7 @@ export const BaseTable = ({
 		{
 			[`nds-table--cell-${cellPadding}`]: !!cellPadding,
 			[`nds-table--borders-${borders}`]: !!borders,
+			[`nds-table--${variant}`]: !!variant,
 			'nds-table--striped': isStriped,
 		},
 		className,
