@@ -5,12 +5,108 @@ id: accessible-content
 tags: [accessibility, screen reader]
 ---
 
-:::warning Work in progress
-This guide will cover the absolute basics of accessible content.
+## Image descriptions
 
-- Image descriptions ("alt text")
-- Captions for videos
-- Video descriptions
-- Readability (text accessibility)
-:::
+Image descriptions make images accessible to users who are blind or have low vision by providing a text alternative that describes the visual content.
 
+Use the `alt` attribute on `<img>` elements to provide concise, meaningful descriptions for screen readers.
+
+```html
+<img src="image.jpg" alt="A red chair with wooden legs">
+```
+
+Descriptions should be clear and focus on the essential information that a non-sighted user would need to understand the image. Avoid irrelevant details and focus on the purpose of the image in the context.
+
+For decorative images, use `alt=""` to ensure they are ignored by screen readers. Complex images (like charts) should have detailed explanations via surrounding text or elements like `<figure>` and `<figcaption>`.
+
+For non-standard images (e.g., CSS-generated content), use `aria-label` or `aria-labelledby` to describe the image.
+
+```html
+<div role="img" aria-label="A red chair with wooden legs"></div>
+```
+
+However, prefer native HTML `alt` attributes for image descriptions when possible.
+
+### WCAG Guidelines
+
+1. **Informative images**: Must include helpful `alt` text ([*WCAG 1.1.1*](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)).
+
+## Captions for videos
+
+Captions make video content accessible to users who are deaf or hard of hearing by providing a text version of spoken dialogue and relevant sounds (e.g., music, sound effects).
+
+Use the `<track>` element with `kind="captions"` to add captions to a `<video>`. Captions are typically provided in WebVTT format and synchronized with the video.
+
+```html
+<video controls>
+  <source src="video.mp4" type="video/mp4">
+  <track kind="captions" src="captions.vtt" srclang="en" label="English">
+</video>
+```
+
+For accessibility, all pre-recorded video content with audio should include captions.
+
+### Transcripts
+Transcripts offer a full-text version of all dialogue and audio cues from the video. Unlike captions, they don't need to be synchronized with the video and can be provided in a separate file or inline. Transcripts benefit users who prefer reading content or need a searchable text format.
+
+For custom elements (like CSS-based video players), ARIA can be used to provide additional context, but captions should primarily be handled using the native HTML `<track>` element.
+
+Providing both captions and transcripts ensures your video content meets accessibility standards, offering multiple ways for users to engage with multimedia.
+
+### WCAG Guidelines
+
+1. **Captions**: Required for all pre-recorded video content with audio ([*WCAG 1.2.2*](https://www.w3.org/TR/UNDERSTANDING-WCAG20/media-equiv-captions.html)).
+1. **Live Captions**: Required for live video ([*WCAG 1.2.4*](https://www.w3.org/WAI/WCAG21/Understanding/captions-live.html)).
+1. **Transcripts**: Required for audio-only or video-only content ([*WCAG 1.2.1*](https://www.w3.org/WAI/WCAG21/Understanding/audio-only-and-video-only-prerecorded.html)).
+
+## Video Descriptions
+
+Video descriptions provide a spoken narration of important visual content for users who are blind or have low vision. They describe key visual details that are not conveyed through audio, ensuring full comprehension of the video.
+
+HTML does not have a built-in element for video descriptions, but they can be offered as a separate audio track using the `<track>` element with `kind="descriptions"`.
+
+```html
+<video controls>
+  <source src="video.mp4" type="video/mp4">
+  <track kind="descriptions" src="descriptions.vtt" srclang="en" label="English Descriptions">
+</video>
+```
+
+Alternatively, video descriptions can be integrated directly into the video by including pauses in the dialogue for the narration.
+
+ARIA does not offer specific attributes for video descriptions, so use native HTML when possible. For custom media elements, ensure descriptions are provided through alternative methods, such as external audio tracks.
+
+### WCAG Guidelines
+
+1. **Pre-recorded video with audio**: Video descriptions are required for Level AA compliance ([*WCAG 1.2.5*](https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded.html)).
+1. **Live video**: For Level AAA compliance, live video must also include descriptions ([*WCAG 1.2.9*](https://www.w3.org/TR/UNDERSTANDING-WCAG20/media-equiv-live-audio-only.html)).
+
+## Readability
+
+Ensuring readable text improves accessibility for all users, especially those with cognitive or visual impairments.
+
+The following principles focus on creating content that is easy to understand and navigate.
+
+1. **Clear Language**
+   Use simple, direct language. Avoid jargon and keep sentences short to reduce cognitive load.
+
+2. **Chunking Information**
+   Break text into short paragraphs and sections. Large blocks of text are harder to read and process.
+
+3. **Consistent Terminology**
+   Use the same terms consistently to avoid confusion, which is especially helpful for screen reader users.
+
+Use **semantic HTML** elements (e.g., `<p>`, `<h1>`, `<ul>`) to ensure logical document structure and better accessibility.
+
+Implement **ARIA landmarks** like `role="main"` to assist screen reader navigation on complex pages.
+
+### WCAG Guidelines
+
+1. **Text Contrast**: Ensure a 4.5:1 contrast ratio for normal text and 3:1 for large text ([*WCAG 1.4.3*](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)).
+1. **Resizable Text**: Ensure text can be resized up to 200% without losing functionality ([*WCAG 1.4.4*](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html)).
+1. **Text in Images**: Avoid using text within images ([*WCAG 1.4.5*](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-text-presentation.html)).
+1. **Text Spacing**: Allow adjustable line height and spacing for better readability ([*WCAG 1.4.12*](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html)).
+
+### Additional Resources:
+
+1. [Readability Guidelines Checklist](https://readabilityguidelines.co.uk/readability-checklist/)
