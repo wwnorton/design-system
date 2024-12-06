@@ -7,7 +7,7 @@ description: A table allows users to view data organized in rows and columns.
 
 ## Anatomy
 
-Tables contain **cells** of data arranged in a grid.
+Tables contain cells of data arranged in a grid.
 
 1. **Cell** - an individual unit within a table that contains a single piece of data. 
 1. **Header row** - the first row of a table contains cells that act as labels for the columns. 
@@ -25,7 +25,6 @@ Use a table to organize and display long lists of data or content, or to help us
 	- Numbers  - right align
 	- Checkboxes or radio buttons  - center align
 - Columns should be in a logical order from left to right based on the content. The farthest left content column should meaningfully label the row. If bulk actions can be taken, a checkbox should be the first item in the column.  If there are no bulk actions, the most important identifying information should be in the first column. For example, in a student set the first column should be the student’s name.
-
 :::note Why
 Placing the most important or identifying information in the leftmost columns allows users to quickly scan and understand the table or take an action quickly.
 :::
@@ -37,29 +36,27 @@ Placing the most important or identifying information in the leftmost columns al
 Short titles help to minimize visual clutter, making it easier for users to find and understand the information they need. Wrapping content ensures that important information is not truncated, which can be critical for understanding the data presented.
 :::
 
+- All content within a column is the same level of hierarchy as all other content within that column. A table shouldn’t be used to communicate hierarchy.
+- If a table has no content, it should display an empty state or not display the table at all.
 - Column titles should accurately label the data within the column, and include units of measurement in the column title if possible. 
-
 :::note Why
 Including the unit of measurement inside each data cell (e.g., 95%) complicates exporting and importing data into another system, and may require users to manually remove all the percentage signs from each cell.
 :::
 
-- All content within a column is the same level of hierarchy as all other content within that column. A table shouldn’t be used to communicate hierarchy.
-- If a table has no content, it should display an empty state or not display the table at all.
-
 
 ### Search & Filter 
 
--Search and filters can be used in conjunction with tables to help users find information 
+Search and filters can be used in conjunction with tables to help users find information 
 - If columns are sortable, the sort symbols are always visible. 
 - Introducing more functionality within a table will create more complexity and can lead to users having difficulty interpreting.
-
 :::note Why
 Splitting complex tables into simpler, focused tables enhances clarity and usability, allowing users to understand each sub-topic more effectively.
 :::
 
+
 :::danger Don't
-- Don’t use a table purely for layout purposes.
-	- **Why:** Tables are meant for tabular data, providing a clear, semantic structure. Using tables for layout purposes misrepresents the content and structure of the page, which can confuse screen readers and other assistive technologies.
+Don’t use a table purely for layout purposes.
+	**Why:** Tables are meant for tabular data, providing a clear, semantic structure. Using tables for layout purposes misrepresents the content and structure of the page, which can confuse screen readers and other assistive technologies.
 :::
 
 
@@ -69,16 +66,16 @@ This section expands on the design decisions and considerations made to ensure a
 
 The following list outlines key recommendations for ensuring proper and accessible usage of the `Table` component in your React projects. These guidelines aim to align with best practices for accessibility, focusing on creating a seamless experience for all users, including those relying on assistive technologies. 
 
-- Focus and Navigation: ensure focus indicators and keyboard navigation for all actionable elements.   
-- Keyboard-Only Usability: Ensure all features are fully operable via keyboard.   
-- Focus Management: Test focus behavior rigorously across all breakpoints.   
-- Descriptive Labels: Provide accessible labels for tables. Consider  using captions describing their purpose.   
-- Avoid Color-Only Indicators: Do not rely solely on color to convey sorting or status, as this affects accessibility for colorblind users.   
-- Custom Components: When using non-native HTML elements or third-party components for table interactions, ensure they adhere to accessibility standards (e.g., visible focus indicators, keyboard accessibility, sufficient color contrast). We highly recommend Using components from this library (NDS) for better accessibility compliance.   
-- Responsive Design: Ensure table elements scale effectively with zoom and high-contrast modes.   
-- Dynamic Styling: Avoid hardcoding focus styles; they should adapt to high-contrast and reduced-motion preferences.   
-- ARIA Live Regions: Use ARIA live regions for real-time critical updates to enhance dynamic content accessibility.   
-- User Testing: Conduct regular testing with screen readers and real users to identify and address gaps in accessibility.   
+- **Focus and Navigation:** ensure focus indicators and keyboard navigation for all actionable elements.   
+- **Keyboard-Only Usability:** Ensure all features are fully operable via keyboard.   
+- **Focus Management:** Test focus behavior rigorously across all breakpoints.   
+- **Descriptive Labels:** Provide accessible labels for tables. Consider  using captions describing their purpose.   
+- **Avoid Color-Only Indicators:** Do not rely solely on color to convey sorting or status, as this affects accessibility for colorblind users.   
+- **Custom Components:** When using non-native HTML elements or third-party components for table interactions, ensure they adhere to accessibility standards (e.g., visible focus indicators, keyboard accessibility, sufficient color contrast). We highly recommend Using components from this library (NDS) for better accessibility compliance.   
+- **Responsive Design:** Ensure table elements scale effectively with zoom and high-contrast modes.   
+- **Dynamic Styling:** Avoid hardcoding focus styles; they should adapt to high-contrast and reduced-motion preferences.   
+- **ARIA Live Regions:** Use ARIA live regions for real-time critical updates to enhance dynamic content accessibility.   
+- **User Testing:** Conduct regular testing with screen readers and real users to identify and address gaps in accessibility.   
 
 For foundational guidance for native HTML table accessibility and ARIA patterns, refer to these essential resources:   
 
