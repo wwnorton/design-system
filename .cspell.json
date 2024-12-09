@@ -23,6 +23,7 @@
     "**/yarn.lock",
     "public/**",
     "website/src/theme/(Navbar|SearchBar)/**",
+    ".storybook/**",
     ".idea",
     ".gitignore"
   ],
