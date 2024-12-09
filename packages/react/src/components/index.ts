@@ -21,6 +21,7 @@ export * from './ResponseIndicator';
 export * from './Spinner';
 export * from './StepIndicator';
 export * from './Switch';
+export * from './Table';
 export * from './Tabs';
 export * from './Tag';
 export * from './TextField';
