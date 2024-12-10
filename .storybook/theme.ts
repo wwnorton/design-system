@@ -1,11 +1,12 @@
-import { create } from '@storybook/theming/create';
-import seagull from './seagull.svg';
+import { create } from "@storybook/theming";
+// @ts-ignore
+import seagull from "./seagull.svg";
 
 export default create({
-	base: 'light',
+	base: "light",
 	brandImage: seagull,
-	brandTitle: 'The Norton Design System Storybook',
-	brandUrl: 'https://wwnorton.github.io/design-system',
+	brandTitle: "The Norton Design System Storybook",
+	brandUrl: "https://wwnorton.github.io/design-system",
 
 	// colorPrimary: 'var(--nds-primary)',
 	// colorSecondary: 'var(--nds-base)',
