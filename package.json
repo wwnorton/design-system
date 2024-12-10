@@ -32,6 +32,7 @@
     "prettier": "prettier '**/!(react)/!(package-lock)*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "serve:docs": "npm run serve -w website",
     "storybook": "storybook dev -p 9009",
+    "storybook:test": "test-storybook --url http://127.0.0.1:9009",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ava --serial"
   },
   "lint-staged": {
@@ -84,9 +85,13 @@
     "@faker-js/faker": "^9.0.3",
     "@storybook/addon-a11y": "^8.4.7",
     "@storybook/addon-actions": "^8.4.7",
+    "@storybook/addon-coverage": "^1.0.4",
     "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
+    "@storybook/test": "^8.4.7",
+    "@storybook/test-runner": "^0.20.1",
     "@storybook/theming": "^8.4.7",
     "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.5.2",
