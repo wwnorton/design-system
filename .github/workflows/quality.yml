@@ -97,11 +97,4 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Test 🧪
-        run: npm run coverage
-      - name: Codecov ☂
-        uses: codecov/codecov-action@v4
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        if: ${{ matrix.node == env.COVERAGE_VERSION }}
-        with:
-          directory: coverage
+        run: npm run test

@@ -1,0 +1,31 @@
+name: "Storybook Tests"
+
+on: push
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Build Storybook
+        run: npm run build:stories --quiet
+      - name: Serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server website/static/storybook --port 6006 --silent" \
+            "npx wait-on tcp:127.0.0.1:6006 && npx test-storybook --coverage"
+      - name: Codecov ☂
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        if: ${{ matrix.node == env.COVERAGE_VERSION }}
+        with:
+          directory: coverage
