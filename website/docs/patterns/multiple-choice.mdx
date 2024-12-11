@@ -5,7 +5,7 @@ beta: true
 ---
 
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import { Badge, MultipleChoice, FeedbackModal } from "@wwnds/react";
+import { Badge, MultipleChoiceQuestion, MultipleChoiceFeedback } from "@wwnds/react";
 import { PropsTable } from "@website/components";
 
 > The multiple choice pattern allows the user to respond to a prompt and then provides feedback about their answer choice.
@@ -133,71 +133,64 @@ A consistent way to reference responses across questions ensures that we don't h
 This is especially critical for users who experience difficulty with attention and working memory.
 :::
 
+## React API
 
-A live demo can be found in the storybook for the <a href={useBaseUrl('/storybook/?path=/story/patterns-multiplechoice--pattern-example')}>Multiple Choice Pattern</a>.
+Our implementation includes components for the [Question view](#question) and the [Feedback view](#feedback), as well as a hook to help manage state across views.
+
+The following code demonstrates one way to compose the components and hook together.
+Head to the <a href={useBaseUrl('/storybook/?path=/docs/patterns-multiple-choice--docs')}>Multiple Choice Storybook</a> to view a live example.
 
 ```tsx
-import React, { useCallback } from "react";
 import {
+	MultipleChoiceQuestion,
+	MultipleChoiceFeedback,
 	useMultipleChoice,
-	MultipleChoice,
-	FeedbackModal,
 	Button,
 } from "@wwnds/react";
 
-const choices = [
-	"Jayvon, who had opened a checking account at the branch that same day",
-	"Ibrahim, who is taking propranolol to control his blood pressure",
-	"Huong, who was born with Urbach-Wiethe syndrome and lacks an amygdala",
-];
-
-export function PatternExample() {
+export function MultipleChoice({ choices }: { choices: string[] }) {
 	const { questionState, setStatus, modalState } = useMultipleChoice(choices);
 
 	const handleSubmit = useCallback(
 		(event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
-
-			if (questionState.selected === 1) {
-				setStatus("correct");
-			} else {
-				setStatus("incorrect");
-			}
+			// check if the user submitted the correct answer or not.
+			// for instance, use setStatus("correct") if they got it right.
 		},
-		[setStatus, questionState.selected]
+		[setStatus, questionState.selected],
 	);
 
 	return (
+		// note that the <form> and <Button> are not part of the Multiple Choice
+		// pattern's public API but are used to handle choice submission.
 		<form onSubmit={handleSubmit}>
-			<MultipleChoice
-				intro="Three people are present when a pregnant person suddenly goes into labor and gives birth in a bank lobby."
-				stem="Which of the people is likely to best remember the event afterward?"
-				instructions="Select one that applies. You have 2 attempts remaining."
+			<MultipleChoiceQuestion
+				framing="..."
+				stem="..."
 				{...questionState}
 			/>
-			<FeedbackModal {...modalState} />
-			<div>
-				<Button type="submit" variant="solid" color="primary">
-					Submit
-				</Button>
-			</div>
+			<MultipleChoiceFeedback {...modalState} />
+			<Button type="submit" variant="solid">
+				Submit
+			</Button>
 		</form>
 	);
 }
 ```
 
+### MultipleChoiceQuestion Component
+
+The `MultipleChoiceQuestion` component is used to render the multiple choice question. It accepts the following props:
+
+<PropsTable from={MultipleChoiceQuestion} />
+
+### MultipleChoiceFeedback Component
+
+The `MultipleChoiceFeedback` component extends our [Modal component](../components/modal) and inherits all of its props except the ones related to the title.
+
+<PropsTable from={MultipleChoiceFeedback} />
+
 ### useMultipleChoice Hook
 
-The `useMultipleChoice` hook is used to manage the state of the multiple choice question. It accepts an array of answer choices and returns the state shared by the `FeedbackModal` and `MultipleChoice` components.
-
-### MultipleChoice Component
-
-The `MultipleChoice` component is used to render the multiple choice question. It accepts the following props:
-
-<PropsTable from={MultipleChoice} />
-
-### FeedbackModal Component
-
-The `FeedbackModal` component is used to render the feedback modal. It accepts the following props:
-
-<PropsTable from={FeedbackModal} />
+The `useMultipleChoice` hook is used to manage the state of the multiple choice question.
+It accepts an array of answer choices and returns the state shared by the `FeedbackModal` and `MultipleChoice` components.
