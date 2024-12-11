@@ -1,4 +1,4 @@
-export const CSS_NAME = 'nds-feedback-modal';
+export const CSS_NAME = 'nds-mc-feedback';
 
 export const css = {
 	container: `${CSS_NAME}__container`,

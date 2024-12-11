@@ -1,29 +1,16 @@
 import { useState, useEffect, useMemo } from 'react';
-import { FeedbackModalProps } from '../../components/FeedbackModal/types';
-import { MultipleChoiceStatus, OnSelectInput } from './types';
-
-interface MultipleChoiceState {
-	questionState: {
-		status: 'unanswered' | 'correct' | 'incorrect';
-		onSelect?: (input: OnSelectInput) => void;
-		selected?: number;
-		choices: string[];
-	};
-	modalState: Pick<
-		FeedbackModalProps,
-		'isOpen' | 'isCorrect' | 'choiceLabel' | 'choiceText' | 'onRequestClose'
-	>;
-	setStatus: (status: MultipleChoiceStatus) => void;
-}
+import { AnswerChoiceProps } from '../views/Question/types';
+import { MultipleChoiceState } from './types';
 
 export function useMultipleChoice(choices: string[]): MultipleChoiceState {
-	const [status, setStatus] = useState<MultipleChoiceStatus>('unanswered');
+	const [status, setStatus] =
+		useState<MultipleChoiceState['questionState']['status']>('unanswered');
 	const [selected, setSelected] = useState<number | undefined>(undefined);
 	const [modalOpen, setModalOpen] = useState(false);
 
 	const questionState = useMemo(() => {
-		const onSelect = (input: OnSelectInput) => {
-			setSelected(input.index);
+		const onSelect: NonNullable<AnswerChoiceProps['onSelect']> = (choice) => {
+			setSelected(choice.index);
 			setStatus('unanswered');
 		};
 

@@ -1,6 +1,6 @@
-import { ModalProps } from '../Modal';
+import { ModalProps } from '@wwnds/react';
 
-export type FeedbackModalProps = Omit<ModalProps, 'title'> & {
+export type FeedbackProps = Omit<ModalProps, 'title'> & {
 	/**
 	 * If the general feedback to give is "correct".
 	 *

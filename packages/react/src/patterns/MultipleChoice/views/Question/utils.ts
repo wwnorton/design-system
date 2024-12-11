@@ -1,9 +1,9 @@
-import { LabelType } from './types';
+import { AnswerChoiceIdentifierType } from './types';
 
 const RomanLiterals = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
 
-export function resolveLabelType(labelType: LabelType, index: number) {
-	switch (labelType) {
+export function resolveLabelType(identifierType: AnswerChoiceIdentifierType, index: number) {
+	switch (identifierType) {
 		case 'lower-alpha':
 			return String.fromCharCode(97 + index);
 		case 'upper-alpha':
@@ -15,6 +15,6 @@ export function resolveLabelType(labelType: LabelType, index: number) {
 		case 'decimal':
 			return String(index + 1);
 		default:
-			throw new Error(`Invalid label type: ${labelType}`);
+			throw new Error(`Invalid label type: ${identifierType}`);
 	}
 }

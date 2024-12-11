@@ -6,7 +6,6 @@ export * from './Checkbox';
 export * from './ChoiceField';
 export * from './Disclosure';
 export * from './Dropdown';
-export * from './FeedbackModal';
 export * from './Field';
 export * from './Icon';
 export * from './Link';
