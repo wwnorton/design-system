@@ -31,14 +31,16 @@ And of course, we measure our success against the latest version of the [Web Con
 
 While the Norton Design System only plays one part in creating an accessible user experience of Norton products, the part we play has an enormous upstream impact.
 A small mistake in a design system component could result in serious problems for users in Norton products.
-For this reason, we guarantee that we will prioritize accessibility across all our components and foundations, and will fix issues within any of our components or foundations.
+For this reason, we guarantee that we will prioritize accessibility across the internals of our components and foundations, and will fix issues found inside the design system.
 
 :::note Internal vs. External
 We often refer to design system "internals" as opposed to things that are "external" to the design system.
-This is a way of differentiating where responsibility lies.
+This is a way of delineating boundaries between the design system and the applications that use the design system, helping us to understand where responsibility lies.
 
 For instance, the semantics of our [Button](/docs/components/button)&mdash;its HTML markup&mdash;are _internal_ to the design system because we define it.
-You will always get a `<button type="button">` if you use our default `<Button>` (you can override the `type` if you like).
+For example, our default `<Button>` will always render as a `<button type="button">`.
+We allow the `type` to be overridden since we consider that logic that belongs to the application, but the HTML element cannot be since we consider it to belong to the design system.
+This means it would be impossible to use our `<Button>` and get a `<div role="button" tabindex="0">`, for instance.
 
 But we can't guarantee how our button is used since that is inherently _external_ to the design system.
 For instance, there is nothing stopping a design system user from using our button to navigate between pages.
