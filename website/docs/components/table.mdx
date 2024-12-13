@@ -7,14 +7,13 @@ description: A table allows users to view data organized in rows and columns.
 
 ## Anatomy
 
-Tables contain cells of data arranged in a grid.
+Tables are a collection of **cells** arranged in a two-dimensional grid.
+We call the horizontal slice a **row** and the vertical slice a **column**.
 
-1. **Cell** - an individual unit within a table that contains a single piece of data. 
-1. **Header row** - the first row of a table contains cells that act as labels for the columns. 
-1. **Sort indicator** (_required when sortable_) - sortable header cells must convey their current sort state, which can be ascending or descending. 
-1. **Rows** - a horizontal slice of the table groups related cells. 
-1. **Columns** - a vertical slice of the table groups cells related by the label in the header cell. 
-
+1. **Cell** - the fundamental unit of a table. Each cell contains one piece of data.
+1. **Header** row - the first row of a table contains header cells that label the cells within their column.
+	1. **Sort indicator** (_required when sortable_) - a visual indicator of the table's sort state, which can be ascending, descending, or unsorted.
+1. **Body** rows - the remaining rows of the table contain the data arranged in rows. Each row represents a single slice of the data.
 
 ## Usage
 
@@ -35,16 +34,16 @@ Use a table to organize and display long lists of data or content, or to help us
 	:::
 - All content within a column is the same level of hierarchy as all other content within that column. A table shouldn't be used to communicate hierarchy.
 - If a table has no content, it should display an empty state or not display the table at all.
-- Column titles should accurately label the data within the column, and include units of measurement in the column title if possible. 
+- Column titles should accurately label the data within the column, and include units of measurement in the column title if possible.
 	:::note Why
 	Including the unit of measurement inside each data cell (e.g., 95%) complicates exporting and importing data into another system, and may require users to manually remove all the percentage signs from each cell.
 	:::
 
-### Search & Filter 
+### Search & Filter
 
 Search and filters can be used in conjunction with tables to help users find information.
 
-- If columns are sortable, the sort symbols are always visible. 
+- If columns are sortable, the sort symbols are always visible.
 - Introducing more functionality within a table will create more complexity and can lead to users having difficulty interpreting the information presented in the table.
 	:::note Why
 	Tables are already complex. Splitting complex tables into simpler, focused tables enhances clarity and usability, allowing users to understand each sub-topic more effectively.
@@ -52,24 +51,24 @@ Search and filters can be used in conjunction with tables to help users find inf
 - Don't use a table purely for layout purposes.
 	:::note Why
 	Tables are meant for tabular data, providing a clear, semantic structure. Using tables for layout purposes misrepresents the content and structure of the page, which can confuse screen readers and other assistive technologies.
-:::
+	:::
 
-### Accessibility Notes 
+### Accessibility Notes
 
 This section expands on the design decisions and considerations made to ensure an inclusive and accessible experience for all users. The following list outlines key recommendations for ensuring proper and accessible usage of the `Table` component in your React projects.
 
-- **Focus and Navigation:** ensure focus indicators and keyboard navigation for all actionable elements.   
-- **Keyboard-Only Usability:** Ensure all features are fully operable via keyboard.   
-- **Focus Management:** Test focus behavior rigorously across all breakpoints.   
-- **Descriptive Labels:** Provide accessible labels for tables. Consider  using captions describing their purpose.   
-- **Avoid Color-Only Indicators:** Do not rely solely on color to convey sorting or status, as this affects accessibility for colorblind users.   
+- **Focus and Navigation:** ensure focus indicators and keyboard navigation for all actionable elements.
+- **Keyboard-Only Usability:** Ensure all features are fully operable via keyboard.
+- **Focus Management:** Test focus behavior rigorously across all breakpoints.
+- **Descriptive Labels:** Provide accessible labels for tables. Consider  using captions describing their purpose.
+- **Avoid Color-Only Indicators:** Do not rely solely on color to convey sorting or status, as this affects accessibility for colorblind users.
 - **Custom Components:** When using non-native HTML elements or third-party components for table interactions, ensure they adhere to accessibility standards (e.g., visible focus indicators, keyboard accessibility, sufficient color contrast).
-- **Responsive Design:** Ensure table elements scale effectively with zoom and high-contrast modes.   
-- **Dynamic Styling:** Avoid hardcoding focus styles; they should adapt to high-contrast and reduced-motion preferences.   
-- **ARIA Live Regions:** Use ARIA live regions for real-time critical updates to enhance dynamic content accessibility.   
-- **User Testing:** Conduct regular testing with screen readers and real users to identify and address gaps in accessibility.   
+- **Responsive Design:** Ensure table elements scale effectively with zoom and high-contrast modes.
+- **Dynamic Styling:** Avoid hardcoding focus styles; they should adapt to high-contrast and reduced-motion preferences.
+- **ARIA Live Regions:** Use ARIA live regions for real-time critical updates to enhance dynamic content accessibility.
+- **User Testing:** Conduct regular testing with screen readers and real users to identify and address gaps in accessibility.
 
-For foundational guidance for native HTML table accessibility and ARIA patterns, refer to these essential resources:   
+For foundational guidance for native HTML table accessibility and ARIA patterns, refer to these essential resources:
 
-- HTML Table Accessibility Guidelines: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table#accessibility_concerns.   
-- ARIA Table Design Patterns Guide: https://www.w3.org/WAI/ARIA/apg/patterns/table/.   
+- HTML Table Accessibility Guidelines: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table#accessibility_concerns.
+- ARIA Table Design Patterns Guide: https://www.w3.org/WAI/ARIA/apg/patterns/table/.
