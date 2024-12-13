@@ -53,7 +53,7 @@ A tooltip is said to be **naming** its related element when it is acting as a la
 For instance, an icon button's call to action could be captured as a tooltip to ensure that the purpose of the icon button is clear to everyone.
 If the element contains textual content and you also want to use a tooltip to add additional context, the tooltip should be a describing tooltip.
 
-:::caution Naming tooltips & screen reader experience
+:::warning Naming tooltips & screen reader experience
 When a tooltip **names** its related element, screen readers will read the value of the tooltip when they encounter the related element, entirely ignoring any textual content inside the element.
 For this reason, naming tooltips should only be used for elements that do not already contain textual content.
 :::
@@ -63,7 +63,7 @@ For this reason, naming tooltips should only be used for elements that do not al
 A tooltip is said to be **describing** its related element when it is acting as additional or supplemental information about an element that already has a name.
 For instance, an `<input>` that already has an associated `<label>` could use a tooltip to display help text about the expected input format.
 
-:::caution Describing tooltips & screen reader experience
+:::warning Describing tooltips & screen reader experience
 When a tooltip **describes** its related element, many screen readers will read the name of the related element, pause briefly, and then read the description contained in the tooltip.
 :::
 

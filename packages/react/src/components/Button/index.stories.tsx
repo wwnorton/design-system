@@ -1,9 +1,6 @@
 import React from 'react';
 import { Story } from '@storybook/react';
-import {
-	Button, ButtonProps,
-	IconButton, IconButtonProps,
-} from '.';
+import { Button, ButtonProps, IconButton, IconButtonProps } from '.';
 import { IconOptions } from '../Icon';
 
 export default {
@@ -52,13 +49,7 @@ export const ChangingContent: Story<Omit<ButtonProps, 'children' | 'icon'>> = (a
 		return { children: 'Favorite', icon: 'heart-outline' };
 	}, [favorite]);
 
-	return (
-		<Button
-			onClick={toggleFavorite}
-			{...buttonProps}
-			{...args}
-		/>
-	);
+	return <Button onClick={toggleFavorite} {...buttonProps} {...args} />;
 };
 ChangingContent.args = { variant: 'solid' };
 

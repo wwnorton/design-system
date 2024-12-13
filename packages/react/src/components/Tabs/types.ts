@@ -61,14 +61,23 @@ export type CommonTabsProps = {
 	 */
 	variant?: 'contained' | 'line';
 
+	className?: string;
+
 	children?: React.ReactNode;
 };
 
 export type TabListProps = {
+	baseName?: string;
+	containerClass?: string;
+	leftClass?: string;
+	centeredClass?: string;
 	children?: React.ReactNode;
 };
 
 export type TabProps = {
+	baseName?: string;
+	containedClass?: string;
+	lineClass?: string;
 	children?: React.ReactNode;
 };
 

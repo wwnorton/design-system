@@ -1,9 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import {
-	ChoiceField, Choice, Choices,
-	ChoiceFieldProps, ChoicesProps,
-} from '.';
+import { ChoiceField, Choice, Choices, ChoiceFieldProps, ChoicesProps } from '.';
 import { useSelect } from '../../utilities';
 
 export default {
@@ -22,13 +19,18 @@ Default.args = {
 	label,
 	description: 'This field is in its default state.',
 	multiple: false,
-	children: defaultChoices.map((fruit) => <Choice key={fruit} value={fruit}>{ fruit }</Choice>),
+	children: defaultChoices.map((fruit) => (
+		<Choice key={fruit} value={fruit}>
+			{fruit}
+		</Choice>
+	)),
 };
 
 export const WithChoices = ChoiceFieldTemplate.bind({});
 WithChoices.args = {
 	label,
-	description: 'This field is in its checkbox state and uses the Choices component to map its choices.',
+	description:
+		'This field is in its checkbox state and uses the Choices component to map its choices.',
 	multiple: true,
 	children: <Choices choices={defaultChoices} selected="Banana" />,
 };
@@ -41,22 +43,20 @@ export const ControlledRadio = (args: ChoiceFieldProps) => {
 	return (
 		<ChoiceField onChange={formChangeHandler} {...args}>
 			{/* manually map a list to Choice elements */}
-			{
-				[
-					{ value: 'apple', children: 'Apple' },
-					{ value: 'banana', children: 'Banana' },
-					{ value: 'green-bean', children: 'Green Bean' },
-					{ value: 'tomato', children: 'Tomato' },
-				].map(({ value, ...props }) => (
-					<Choice
-						checked={selected.includes(value)}
-						value={value}
-						name="fruit"
-						key={value}
-						{...props}
-					/>
-				))
-			}
+			{[
+				{ value: 'apple', children: 'Apple' },
+				{ value: 'banana', children: 'Banana' },
+				{ value: 'green-bean', children: 'Green Bean' },
+				{ value: 'tomato', children: 'Tomato' },
+			].map(({ value, ...props }) => (
+				<Choice
+					checked={selected.includes(value)}
+					value={value}
+					name="fruit"
+					key={value}
+					{...props}
+				/>
+			))}
 		</ChoiceField>
 	);
 };
@@ -73,11 +73,7 @@ export const ControlledCheckbox = (args: ChoiceFieldProps) => {
 	return (
 		<ChoiceField {...args} multiple>
 			{/* use the Choices utility component to map a list of choices */}
-			<Choices
-				choices={defaultChoices}
-				selected={selected}
-				onChange={formChangeHandler}
-			/>
+			<Choices choices={defaultChoices} selected={selected} onChange={formChangeHandler} />
 		</ChoiceField>
 	);
 };

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-	Listbox, ListboxProps, Option,
-} from '.';
+import { Listbox, ListboxProps, Option } from '.';
 import { Icon } from '..';
 import { useSelect } from '../../utilities';
 
@@ -40,7 +38,9 @@ export const Default = (args: ListboxProps) => (
 		{/* label is rendered when children aren't provided. */}
 		<Option value="parrot" label="🦜 Parrot" />
 		{/* label is preferred over children if both are provided. */}
-		<Option value="spider" label="🕷️ Spider">🕷️</Option>
+		<Option value="spider" label="🕷️ Spider">
+			🕷️
+		</Option>
 		{/* if neither label nor children are provided, the value is rendered. */}
 		<Option value="🐠 Fish" />
 	</Listbox>
@@ -81,7 +81,9 @@ const Marker = ({ checked }: MarkerProps) => {
 		return (
 			<Icon
 				// https://fonts.google.com/icons?selected=Material%20Icons%3Atoggle_on
-				icon={{ d: 'M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z' }}
+				icon={{
+					d: 'M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z',
+				}}
 				style={{ color: 'var(--nds-primary-color)' }}
 			/>
 		);
@@ -89,7 +91,9 @@ const Marker = ({ checked }: MarkerProps) => {
 	return (
 		<Icon
 			// https://fonts.google.com/icons?selected=Material%20Icons%3Atoggle_off
-			icon={{ d: 'M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zM7 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z' }}
+			icon={{
+				d: 'M17 7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h10c2.76 0 5-2.24 5-5s-2.24-5-5-5zM7 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z',
+			}}
 			style={{ color: 'var(--nds-subdued-color)' }}
 		/>
 	);
@@ -98,13 +102,16 @@ const Marker = ({ checked }: MarkerProps) => {
 export const CustomMarker = ({ multiselectable, ...args }: ListboxProps) => {
 	const { selected, toggle } = useSelect(multiselectable);
 
-	const optionRender = React.useCallback((i) => ({
-		marker: (
-			<span className="nds-option__marker">
-				<Marker checked={selected.includes(optionValues[i])} />
-			</span>
-		),
-	}), [selected]);
+	const optionRender = React.useCallback(
+		(i) => ({
+			marker: (
+				<span className="nds-option__marker">
+					<Marker checked={selected.includes(optionValues[i])} />
+				</span>
+			),
+		}),
+		[selected],
+	);
 
 	return (
 		<Listbox

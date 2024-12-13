@@ -1,0 +1,79 @@
+@use 'tokens';
+@use '../../util';
+
+@mixin style {
+	@include util.declare('multiple-choice') {
+		// Styles for the question view
+		.nds-mc-question {
+			&__framing {
+				margin-bottom: 0.25rem;
+			}
+
+			&__stem {
+				margin-bottom: 0.25rem;
+				font-weight: bold;
+			}
+
+			&__instructions {
+				margin-bottom: 2rem;
+				font-size: var(--nds-font-size-xs);
+			}
+
+			&__choice {
+				& > input,
+				& > label {
+					position: absolute;
+
+					// FIXME: When adding a div as a children the hidden controls appear
+					// we need to fix this in the ChoiceField component
+					display: block;
+					width: 0;
+					height: 0;
+					visibility: hidden;
+				}
+
+				& .nds-field__label {
+					display: flex;
+					gap: 1rem;
+				}
+			}
+
+			&__feedback {
+				min-width: 5rem;
+			}
+
+			&__choice-label {
+				font-weight: bold;
+			}
+		}
+
+		// Styles for the feedback view, which extends the modal dialog
+		.nds-mc-feedback {
+			&__container {
+				display: flex;
+				gap: 1rem;
+			}
+
+			&__icon-container {
+				min-width: tokens.$icon-width;
+			}
+
+			&__icon {
+				width: tokens.$icon-width;
+				height: tokens.$icon-width;
+
+				&--correct {
+					color: tokens.$correct;
+				}
+
+				&--incorrect {
+					color: tokens.$incorrect;
+				}
+			}
+
+			&__heading {
+				margin-bottom: 0;
+			}
+		}
+	}
+}

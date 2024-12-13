@@ -15,9 +15,8 @@ const focusableSelectors = [
 ];
 
 /** Get a list of focusable elements inside an element. */
-export const getFocusable = (
-	from: Element | Document | ShadowRoot,
-): NodeListOf<HTMLElement> => from.querySelectorAll(focusableSelectors.join(','));
+export const getFocusable = (from: Element | Document | ShadowRoot): NodeListOf<HTMLElement> =>
+	from.querySelectorAll(focusableSelectors.join(','));
 
 /**
  * Updates the tab index of the panel currently active.

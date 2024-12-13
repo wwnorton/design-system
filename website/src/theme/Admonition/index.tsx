@@ -1,7 +1,10 @@
-import React from 'react';
+import React from "react";
 import {
-	Callout, CalloutError, CalloutSuccess, CalloutWarning,
-} from '@wwnds/react';
+	Callout,
+	CalloutError,
+	CalloutSuccess,
+	CalloutWarning,
+} from "@wwnds/react";
 
 interface AdmonitionProps {
 	type: string;
@@ -12,16 +15,21 @@ interface AdmonitionProps {
 const Admonition = ({ children, type, title }: AdmonitionProps) => {
 	const CalloutComponent = React.useMemo(() => {
 		switch (type) {
-			case 'tip': return CalloutSuccess;
-			case 'caution': return CalloutWarning;
-			case 'danger': return CalloutError;
-			default: return Callout;
+			case "tip":
+				return CalloutSuccess;
+			case "caution":
+			case "warning":
+				return CalloutWarning;
+			case "danger":
+				return CalloutError;
+			default:
+				return Callout;
 		}
 	}, [type]);
 
 	return (
 		<CalloutComponent title={title} border="left">
-			{ children }
+			{children}
 		</CalloutComponent>
 	);
 };

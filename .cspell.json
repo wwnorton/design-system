@@ -22,7 +22,9 @@
     "**/static/**",
     "**/yarn.lock",
     "public/**",
-    "website/src/theme/(Navbar|SearchBar)/**"
+    "website/src/theme/(Navbar|SearchBar)/**",
+    ".idea",
+    ".gitignore"
   ],
   "ignoreRegExpList": ["url\\(\"data(?:[^\\\"]+|\\.)*\"\\)"],
   "words": [
@@ -64,7 +66,9 @@
     "microbundle",
     "mixins",
     "multiselect",
+    "multiplechoice",
     "Myxococcus",
+    "noninteractive",
     "Patil",
     "popperjs",
     "progessbar",
@@ -104,6 +108,11 @@
     "wwnds",
     "wwnorton",
     "Yamanishi",
-    "zindex"
+    "zindex",
+    "Jayvon",
+    "Ibrahim",
+    "Huong",
+    "Urbach",
+    "Wiethe"
   ]
 }

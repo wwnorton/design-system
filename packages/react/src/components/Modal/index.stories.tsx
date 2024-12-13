@@ -80,7 +80,9 @@ export const ComplexModal = (args: ModalProps) => {
 	const closeResult = (): void => setResultOpen(false);
 	return (
 		<>
-			<Button variant="solid" onClick={open}>Open</Button>
+			<Button variant="solid" onClick={open}>
+				Open
+			</Button>
 			<Modal
 				focusOnOpen={firstNameRef || undefined}
 				isOpen={isOpen}
@@ -90,9 +92,15 @@ export const ComplexModal = (args: ModalProps) => {
 				{...args}
 			>
 				<form onSubmit={submit} onChange={handleChange}>
-					<TextField required value={firstName} ref={setFirstNameRef}>First Name</TextField>
-					<TextField required value={lastName} ref={setLastNameRef}>Last Name</TextField>
-					<Button variant="solid" type="submit">Submit</Button>
+					<TextField required value={firstName} ref={setFirstNameRef}>
+						First Name
+					</TextField>
+					<TextField required value={lastName} ref={setLastNameRef}>
+						Last Name
+					</TextField>
+					<Button variant="solid" type="submit">
+						Submit
+					</Button>
 				</form>
 			</Modal>
 			<Modal
@@ -100,9 +108,13 @@ export const ComplexModal = (args: ModalProps) => {
 				hideTitle
 				isOpen={resultOpen}
 				onRequestClose={closeResult}
-				actions={(<Button variant="solid" onClick={closeResult}>I&apos;m sure</Button>)}
+				actions={
+					<Button variant="solid" onClick={closeResult}>
+						I&apos;m sure
+					</Button>
+				}
 			>
-				{ `Are you sure, ${firstName} ${lastName}?` }
+				{`Are you sure, ${firstName} ${lastName}?`}
 			</Modal>
 		</>
 	);

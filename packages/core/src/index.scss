@@ -95,10 +95,12 @@
 	@include nds.link-style;
 	@include nds.listbox-style;
 	@include nds.modal-style;
+	@include nds.multiple-choice-style;
 	@include nds.popover-style;
 	@include nds.popper-style;
 	@include nds.progressbar-style;
 	@include nds.radio-style;
+	@include nds.responseIndicator-style;
 	@include nds.spinner-style;
 	@include nds.stepindicator-style;
 	@include nds.switch-style;
@@ -106,6 +108,7 @@
 	@include nds.tab-list-style;
 	@include nds.tab-panels-style;
 	@include nds.tab-scroll-button-style;
+	@include nds.table-style;
 	@include nds.tag-style;
 	@include nds.textfield-style;
 	@include nds.tooltip-style;

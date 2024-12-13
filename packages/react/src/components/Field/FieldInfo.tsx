@@ -28,11 +28,7 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 		return (
 			<>
 				{' '}
-				<span className={indicatorClass}>
-					(
-					{ indicator }
-					)
-				</span>
+				<span className={indicatorClass}>({indicator})</span>
 			</>
 		);
 	}, [indicator, indicatorClass]);
@@ -44,36 +40,40 @@ export const FieldInfo: React.FunctionComponent<FieldInfoProps> = ({
 			id: labelId,
 			children: (
 				<>
-					{ label }
-					{ Indicator }
+					{label}
+					{Indicator}
 				</>
 			),
 		};
-		const LabelTag = (htmlFor) ? 'label' : labelTag || 'div';
+		const LabelTag = htmlFor ? 'label' : labelTag || 'div';
 		return <LabelTag {...labelProps} />;
 	}, [label, labelClass, htmlFor, labelId, Indicator, labelTag]);
 
 	const Description = React.useMemo(() => {
 		if (labelTag !== 'legend' && !description) return null;
-		return <div className={descriptionClass} id={descriptionId}>{ description }</div>;
+		return (
+			<div className={descriptionClass} id={descriptionId}>
+				{description}
+			</div>
+		);
 	}, [labelTag, description, descriptionClass, descriptionId]);
 
 	// legend elements cannot be the child of a div so render without the container
 	if (labelTag === 'legend') {
 		return (
 			<>
-				{ Label }
-				{ Description }
-				{ children }
+				{Label}
+				{Description}
+				{children}
 			</>
 		);
 	}
 
 	return (
 		<div className={classNames(`${baseName}__info`, className)} id={id}>
-			{ Label }
-			{ Description }
-			{ children }
+			{Label}
+			{Description}
+			{children}
 		</div>
 	);
 };

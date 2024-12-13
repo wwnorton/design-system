@@ -30,7 +30,7 @@ const defaultArgs = {
 
 const DisclosureTemplate: Story<DisclosureProps> = (args) => (
 	<Disclosure {...args}>
-		<p>{ defaultContents }</p>
+		<p>{defaultContents}</p>
 	</Disclosure>
 );
 
@@ -51,19 +51,16 @@ export const Controlled: Story<DisclosureProps> = (args) => {
 	// load a random poem
 	const getContents = async (): Promise<void> => {
 		setSummary(`${summaryText.current} (retrieving...)`);
-		const [{ title, author, lines }] = await fetch('https://poetrydb.org/random/1/title,author,lines')
-			.then((r) => r.json());
-		setContents((
+		const [{ title, author, lines }] = await fetch(
+			'https://poetrydb.org/random/1/title,author,lines',
+		).then((r) => r.json());
+		setContents(
 			<>
-				<h2>{ title }</h2>
-				<pre>{ lines.join('\n') }</pre>
-				<div>
-					&mdash;
-					{' '}
-					{ author }
-				</div>
-			</>
-		));
+				<h2>{title}</h2>
+				<pre>{lines.join('\n')}</pre>
+				<div>&mdash; {author}</div>
+			</>,
+		);
 		setSummary(summaryText.current);
 	};
 
@@ -75,7 +72,7 @@ export const Controlled: Story<DisclosureProps> = (args) => {
 			onOpenStart={getContents}
 			onCloseEnd={(): void => setContents(undefined)}
 		>
-			{ contents }
+			{contents}
 		</Disclosure>
 	);
 };

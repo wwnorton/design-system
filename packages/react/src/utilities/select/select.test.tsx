@@ -1,52 +1,46 @@
 import test from 'ava';
 import React from 'react';
-import {
-	cleanup, render, fireEvent, screen,
-} from '@testing-library/react';
+import { cleanup, render, renderHook, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { useSelect } from './hook';
+import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 
 test.afterEach(cleanup);
 
-const Fixture = (
-	{
-		multiple,
-		handlerOnInput,
-		initialValue,
-		callSetSelected,
-		useDefaults,
-	}: {
-		multiple?: boolean;
-		handlerOnInput?: boolean;
-		initialValue?: string[];
-		callSetSelected?: string;
-		useDefaults?: boolean;
-	},
-): JSX.Element => {
-	const parameters: Parameters<typeof useSelect> = (useDefaults) ? [] : [multiple, initialValue];
-	const {
-		selected,
-		select,
-		formChangeHandler,
-	} = useSelect(...parameters);
+const Fixture = ({
+	multiple,
+	handlerOnInput,
+	initialValue,
+	callSetSelected,
+	useDefaults,
+}: {
+	multiple?: boolean;
+	handlerOnInput?: boolean;
+	initialValue?: string[];
+	callSetSelected?: string;
+	useDefaults?: boolean;
+}): JSX.Element => {
+	const parameters: Parameters<typeof useSelect> = useDefaults ? [] : [multiple, initialValue];
+	const { selected, select, formChangeHandler } = useSelect(...parameters);
 
 	React.useEffect(() => {
 		if (callSetSelected) select(callSetSelected);
-	}, [callSetSelected]);	// eslint-disable-line react-hooks/exhaustive-deps
+	}, [callSetSelected]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<fieldset onChange={(handlerOnInput) ? undefined : formChangeHandler}>
-			{ ['one', 'two', 'three'].map((value) => (
+		<fieldset onChange={handlerOnInput ? undefined : formChangeHandler}>
+			{['one', 'two', 'three'].map((value) => (
 				<input
 					name="choice"
-					type={(multiple) ? 'checkbox' : 'radio'}
+					type={multiple ? 'checkbox' : 'radio'}
 					// eslint-disable-next-line @typescript-eslint/no-empty-function
-					onChange={(handlerOnInput) ? formChangeHandler : () => {}}
+					onChange={handlerOnInput ? formChangeHandler : () => {}}
 					value={value}
 					checked={selected.includes(value)}
 					aria-label={value}
 					key={value}
 				/>
-			)) }
+			))}
 		</fieldset>
 	);
 };
@@ -58,82 +52,91 @@ Fixture.defaultProps = {
 	useDefaults: false,
 };
 
-test('an initial value is checked', (t) => {
-	const name = 'two';
-	render(<Fixture initialValue={[name]} />);
+test('the default hook has nothing selected', async (t) => {
+	const { result } = renderHook(useSelect);
 
-	const initialInput = screen.queryByRole('radio', { name }) as HTMLInputElement;
-	t.true(initialInput.checked);
-
-	const inputs = screen.queryAllByRole('radio') as HTMLInputElement[];
-	inputs.forEach((input) => {
-		fireEvent.click(input);
-		t.true(input.checked);
-		t.is(inputs.filter(({ checked }) => checked).length, 1);
-	});
+	t.deepEqual(result.current.selected, []);
 });
 
-test('calling setSelected updates the selected list', (t) => {
+test('an initial value is selected', async (t) => {
+	const first = 'apple';
+	const { result } = renderHook(() => useSelect(false, [first]));
+
+	t.deepEqual(result.current.selected, [first]);
+});
+
+test('passing an array of initial values when in single-select throws an error', async (t) => {
+	// suppress JSDOM errors in the log
+	window.onerror = () => true;
+
+	const InvalidSelect = () => {
+		useSelect(false, ['apple', 'banana']);
+		return <div />;
+	};
+	render(
+		<ErrorBoundary>
+			<InvalidSelect />
+		</ErrorBoundary>,
+	);
+
+	t.truthy(screen.queryByText(useSelect.SELECT_OVERLOAD));
+
+	window.onerror = null;
+});
+
+test('selecting a value updates the selected list', async (t) => {
 	const name = 'two';
 	render(<Fixture callSetSelected={name} useDefaults />);
 
 	const initialInput = screen.queryByRole('radio', { name }) as HTMLInputElement;
 	t.true(initialInput.checked);
-
-	const inputs = screen.queryAllByRole('radio') as HTMLInputElement[];
-	inputs.forEach((input) => {
-		fireEvent.click(input);
-		t.true(input.checked);
-		t.is(inputs.filter(({ checked }) => checked).length, 1);
-	});
 });
 
-test('single-select with handler on fieldset only selects one option at a time', (t) => {
+test('single-select only selects one option at a time', async (t) => {
+	const user = userEvent.setup();
 	render(<Fixture multiple={false} />);
 
-	const inputs = screen.queryAllByRole('radio') as HTMLInputElement[];
-	inputs.forEach((input) => {
-		fireEvent.click(input);
-		t.true(input.checked);
-		t.is(inputs.filter(({ checked }) => checked).length, 1);
-	});
+	const [one, two, three] = screen.getAllByRole('radio') as HTMLInputElement[];
+
+	await user.click(one);
+	t.true(one.checked);
+	t.false(two.checked);
+	t.false(three.checked);
+
+	await user.click(two);
+	t.false(one.checked);
+	t.true(two.checked);
+	t.false(three.checked);
+
+	await user.click(three);
+	t.false(one.checked);
+	t.false(two.checked);
+	t.true(three.checked);
 });
 
-test('single-select with handler on input only selects one option at a time', (t) => {
-	render(<Fixture multiple={false} handlerOnInput />);
-
-	const inputs = screen.queryAllByRole('radio') as HTMLInputElement[];
-	inputs.forEach((input) => {
-		fireEvent.click(input);
-		t.true(input.checked);
-		t.is(inputs.filter(({ checked }) => checked).length, 1);
-	});
-});
-
-test('multi-select with handler on fieldset selects multiple options', (t) => {
+test('multi-select selects multiple options', async (t) => {
+	const user = userEvent.setup();
 	render(<Fixture multiple />);
 
-	const inputs = screen.queryAllByRole('checkbox') as HTMLInputElement[];
-	inputs.forEach((input, i) => {
-		fireEvent.click(input);
-		t.true(input.checked);
-		t.is(inputs.filter(({ checked }) => checked).length, i + 1);
-	});
+	const [one, two, three] = screen.getAllByRole('checkbox') as HTMLInputElement[];
 
-	fireEvent.click(inputs[1]);
-	t.false(inputs[1].checked);
-});
+	await user.click(one);
+	t.true(one.checked);
+	t.false(two.checked);
+	t.false(three.checked);
 
-test('multi-select with handler on input selects multiple options', (t) => {
-	render(<Fixture multiple handlerOnInput />);
+	await user.click(two);
+	t.true(one.checked);
+	t.true(two.checked);
+	t.false(three.checked);
 
-	const inputs = screen.queryAllByRole('checkbox') as HTMLInputElement[];
-	inputs.forEach((input, i) => {
-		fireEvent.click(input);
-		t.true(input.checked);
-		t.is(inputs.filter(({ checked }) => checked).length, i + 1);
-	});
+	await user.click(three);
+	t.true(one.checked);
+	t.true(two.checked);
+	t.true(three.checked);
 
-	fireEvent.click(inputs[1]);
-	t.false(inputs[1].checked);
+	await user.click(one);
+	t.false(one.checked);
+	t.true(two.checked);
+	t.true(three.checked);
 });

@@ -1,42 +1,38 @@
 import React from 'react';
-import {
-	TabsProps, ControlledTabsProps, UncontrolledTabsProps,
-} from './types';
+import { TabsProps, ControlledTabsProps, UncontrolledTabsProps } from './types';
 import { TabsContext, useInitControlledTabsState, useInitUncontrolledTabsState } from './context';
 
 function isControlled(props: TabsProps): props is ControlledTabsProps {
 	return 'selectedIndex' in props;
 }
 
-const ControlledTabs = React.forwardRef<HTMLDivElement, ControlledTabsProps>(({
-	children,
-	...rest
-}, ref) => {
-	const state = useInitControlledTabsState(rest);
+const ControlledTabs = React.forwardRef<HTMLDivElement, ControlledTabsProps>(
+	({ children, className = 'nds-tabs', ...rest }, ref) => {
+		const state = useInitControlledTabsState(rest);
 
-	return (
-		<TabsContext.Provider value={state}>
-			<div ref={ref}>
-				{children}
-			</div>
-		</TabsContext.Provider>
-	);
-});
+		return (
+			<TabsContext.Provider value={state}>
+				<div ref={ref} className={className}>
+					{children}
+				</div>
+			</TabsContext.Provider>
+		);
+	},
+);
 
-const UncontrolledTabs = React.forwardRef<HTMLDivElement, UncontrolledTabsProps>(({
-	children,
-	...rest
-}, ref) => {
-	const state = useInitUncontrolledTabsState(rest);
+const UncontrolledTabs = React.forwardRef<HTMLDivElement, UncontrolledTabsProps>(
+	({ children, className = 'ncs-tabs', ...rest }, ref) => {
+		const state = useInitUncontrolledTabsState(rest);
 
-	return (
-		<TabsContext.Provider value={state}>
-			<div ref={ref}>
-				{children}
-			</div>
-		</TabsContext.Provider>
-	);
-});
+		return (
+			<TabsContext.Provider value={state}>
+				<div ref={ref} className={className}>
+					{children}
+				</div>
+			</TabsContext.Provider>
+		);
+	},
+);
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
 	if (isControlled(props)) {

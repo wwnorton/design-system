@@ -2,28 +2,28 @@ import { PopperProps } from '../Popper';
 import { UsePopperTriggersProps } from '../../utilities';
 import { ButtonProps } from '../Button';
 
-type PopperInherited = Pick<PopperProps,
-| 'isOpen'
-| 'transition'
-| 'reference'
-| 'arrowElement'
-| 'distance'
-| 'boundary'
-| 'placement'
-| 'modifiers'
-| 'strategy'
-| 'onFirstUpdate'
+type PopperInherited = Pick<
+	PopperProps,
+	| 'isOpen'
+	| 'transition'
+	| 'reference'
+	| 'arrowElement'
+	| 'distance'
+	| 'boundary'
+	| 'placement'
+	| 'modifiers'
+	| 'strategy'
+	| 'onFirstUpdate'
 >;
 
-type UsePopperTriggersInherited = Pick<UsePopperTriggersProps,
-| 'hideDelay'
-| 'showDelay'
-| 'onRequestOpen'
-| 'onRequestClose'
+type UsePopperTriggersInherited = Pick<
+	UsePopperTriggersProps,
+	'hideDelay' | 'showDelay' | 'onRequestOpen' | 'onRequestClose'
 >;
 
-export type PopoverPropsBase =
-PopperInherited & UsePopperTriggersInherited & React.ComponentPropsWithoutRef<'div'>;
+export type PopoverPropsBase = PopperInherited &
+	UsePopperTriggersInherited &
+	React.ComponentPropsWithoutRef<'div'>;
 
 export interface PopoverProps extends PopoverPropsBase {
 	/**

@@ -1,0 +1,83 @@
+---
+title: Response Indicator
+description: A response indicator lets the user know if their answer selection is correct or incorrect.
+---
+
+import { ResponseIndicator } from '@wwnds/react';
+import { PropsTable } from '@website/components';
+
+> A response indicator lets the user know if their answer selection is correct or incorrect.
+
+## Anatomy
+
+A response indicator includes:
+
+1. **Visible Text Label**: This is a label that must clearly and accurately communicate to the user whether their answer is "correct" or "incorrect." It is important that the label uses either the word "correct" or "incorrect" to ensure that the user understands the outcome of their action.
+1. **Icon** (_optional_): The visible text label may be accompanied by an icon as an additional visual support. A green checkmark is used to indicate a correct answer, and a red X is used to indicate an incorrect answer.
+
+## States and properties
+
+1. **Color**: The label or icon is displayed in green to indicate a correct answer and red to indicate an incorrect answer. This color scheme helps users quickly identify whether their response was correct or incorrect.
+1. **Correct**: When the user selects a correct answer, the visible text label “correct” is shown with a green container.
+1. **Incorrect**: When the user selects an incorrect answer, the visible text label “incorrect” is shown with a red container.
+
+## Usage
+
+A response indicator is used to communicate to a user if their answer selection is correct or incorrect. Examples where a response indicator may be used include:
+
+1. Multiple choice questions where only one answer is correct
+1. True/false questions where only one answer is correct
+1. Multiselect questions where more than one answer may be correct
+
+
+:::tip Do
+- Use the visible text label to communicate to users if their answer is correct or incorrect clearly and consistently. Check out the [Accessibility Notes](#accessibility-notes) section to learn how clear, visible labels support users with disabilities.
+- Place the response indicator to the left of the answer choice to ensure consistency, discoverability, and accessibility for all users.
+	- In the instance where there is not sufficient space for the descriptive text label and an icon alone is used, the response indicator may be placed above or below the answer choice provided the distance between the response indicator and the answer choice is no more than eight [8] pixels. Close proximity ensures the user understands the relationship between the response indicator and their answer selection.
+- Use the green and red colors provided in the [color system](/docs/foundations/color).
+- If the response indicator is present, ensure that screen reader users can access information on whether their response is correct or incorrect.
+:::
+
+:::danger Don't
+- Do not communicate correct or incorrect states using color alone, as users with color blindness or other visual impairments may not be able to distinguish between colors.
+- Do not place the response indicator in a location that is inconsistent or difficult to find.
+- Avoid using the response indicator as the only means of communicating answer feedback to users. Using an icon alone to communicate to a user if their answer is correct or incorrect presents barriers to users with disabilities. To learn more, check out the “Accessibility Notes” section of this documentation
+	- The [Multiple Choice Pattern] outlines best practices for communicating answer feedback.
+- In the rare instance where there is not sufficient space for the visible text label, an icon only, as defined in the anatomy section of this documentation, may be used.
+	- If an icon only is used as a response indicator, a key that clearly defines the meaning of the icons must be provided to the user.
+:::
+
+## Accessibility Notes
+
+This section expands on the design decisions and considerations made to ensure an inclusive and accessible experience for all users.
+
+### Visible Labels
+
+Clear, visible labels support students with disabilities in the following ways:
+
+1. **Clarity**: Text labels are typically clearer and more specific than icons, which can be ambiguous or difficult to interpret. Users with learning disabilities may have difficulty recognizing or understanding abstract symbols or icons, whereas text labels provide a clear and straightforward message.
+1. **Consistency**: Text labels provide consistency across various parts of the interface, which can be particularly helpful for users with learning disabilities who may rely on familiar patterns and structures to navigate and understand information.
+1. **Discoverability**: Text labels are more discoverable for users with low vision who may rely on screen magnification to access information and complete tasks. Icons may be easily missed, whereas visible text labels are more prominent and easier to read at higher magnification levels.
+1. **Language-based**: Users with learning disabilities often benefit from language-based information, which can help them make connections and understand relationships between concepts more easily. Text labels provide this type of information in a way that is more accessible and easier to understand.
+
+### Problems with using icons alone
+
+Relying solely on icons to communicate if an answer is correct or incorrect can present challenges for users with disabilities for the following reasons:
+
+- Easily missed by users utilizing screen magnification: Icons alone may be too subtle of a change when content is magnified. This can make it difficult for users relying on screen magnification to perceive and interpret the feedback, potentially leading to confusion or incomplete understanding.
+- Limited perceptual cues in complex interfaces: Icons alone, especially in interfaces with a lot of visual elements or complexity, may not be prominent enough for users with visual impairments or cognitive disabilities. These users often require distinct cues to effectively grasp and comprehend the feedback provided.
+
+## React API
+
+```js
+import { ResponseIndicator } from '@wwnds/react';
+```
+
+```tsx live
+<ResponseIndicator
+	variant="correct"
+	withIcon
+/>
+```
+
+<PropsTable from={ResponseIndicator} />

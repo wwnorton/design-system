@@ -6,7 +6,7 @@ export interface TagProps extends React.HTMLAttributes<HTMLElement> {
 	/** Indicates whether tag can be dismissed. */
 	dismissible?: boolean;
 	/** The base class name according to BEM conventions. */
-	baseName?: string,
+	baseName?: string;
 	/** The className for the span that wraps `children`. */
 	contentsClass?: string;
 	/** The className for the dismiss button. */

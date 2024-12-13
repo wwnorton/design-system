@@ -1,9 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import {
-	Radio, RadioProps,
-	RadioGroup as RadioGroupComp, RadioGroupProps,
-} from '.';
+import { Radio, RadioProps, RadioGroup as RadioGroupComp, RadioGroupProps } from '.';
 import { Link } from '../Link';
 import { useSelect } from '../../utilities';
 
@@ -24,9 +21,10 @@ export const WithThumbnail = RadioTemplate.bind({});
 WithThumbnail.args = {
 	description: (
 		<>
-			This radio includes a clickable thumbnail from
-			{' '}
-			<Link href="https://picsum.photos" external>https://picsum.photos</Link>
+			This radio includes a clickable thumbnail from{' '}
+			<Link href="https://picsum.photos" external>
+				https://picsum.photos
+			</Link>
 		</>
 	),
 	thumbnail: <img src="https://picsum.photos/64" alt="" />,
@@ -61,18 +59,16 @@ export const ControlledRadioGroup = (args: RadioGroupProps) => {
 	return (
 		<RadioGroupComp {...args}>
 			{/* Choices can be mapped manually or with the <Choices> component */}
-			{
-				fruits.map(({ value, ...props }) => (
-					<Radio
-						checked={selected.includes(value)}
-						onChange={formChangeHandler}
-						value={value}
-						name="fruit"
-						key={value}
-						{...props}
-					/>
-				))
-			}
+			{fruits.map(({ value, ...props }) => (
+				<Radio
+					checked={selected.includes(value)}
+					onChange={formChangeHandler}
+					value={value}
+					name="fruit"
+					key={value}
+					{...props}
+				/>
+			))}
 			{/* <Choices
 				choices={fruits}
 				selected={selected}

@@ -1,5 +1,5 @@
 import test from 'ava';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import matchMediaPolyfill from 'mq-polyfill';
 import { useMediaQuery } from './hook';
 
@@ -16,7 +16,7 @@ test.before(() => {
 	window.resizeTo(400, 400);
 });
 
-test('should be false when the media query doesn\'t match', (t) => {
+test("should be false when the media query doesn't match", (t) => {
 	const { result } = renderHook(() => useMediaQuery('(min-width: 600px)'));
 
 	t.false(result.current);

@@ -3,10 +3,13 @@ module.exports = {
 		browser: true,
 	},
 	parserOptions: {
-		project: './tsconfig.json',
+		project: "./tsconfig.json",
 	},
 	rules: {
-		'react/require-default-props': 'off',
-		'import/no-unresolved': ['error', { ignore: ['^@docusaurus', '^@theme', '^@wwnds'] }],
+		"react/require-default-props": "off",
+		"import/no-unresolved": [
+			"error",
+			{ ignore: ["^@docusaurus", "^@theme", "^@wwnds"] },
+		],
 	},
 };

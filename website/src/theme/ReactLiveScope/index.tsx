@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
-import * as NDS from '@wwnds/react';
+import React from "react";
+import * as NDS from "@wwnds/react";
 
 // Add react-live imports you need here
 const ReactLiveScope = {

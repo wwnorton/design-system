@@ -9,13 +9,7 @@ export type SystemColors =
 	| 'teal'
 	| 'yellow';
 
-export type RoleColors =
-	| 'primary'
-	| 'base'
-	| 'disabled'
-	| 'error'
-	| 'success'
-	| 'warning';
+export type RoleColors = 'primary' | 'base' | 'disabled' | 'error' | 'success' | 'warning';
 
 export type AllColors = SystemColors | RoleColors;
 

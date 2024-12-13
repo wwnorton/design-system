@@ -24,7 +24,7 @@
 @mixin info {
 	@include type.ui-base;
 
-	:last-child {
+	& > *:last-child {
 		margin-bottom: spacing.spacer('ui-inner');
 	}
 }
@@ -87,7 +87,7 @@
 	display: flex;
 	padding: var(--nds-field-padding-y) 0;
 
-	> * {
+	>* {
 		margin-right: var(--nds-field-offset-x);
 	}
 
@@ -100,7 +100,7 @@
 		margin-right: unset;
 	}
 
-	> .nds-field__input {
+	>.nds-field__input {
 		// still position it in the center of the visual control so that form
 		// validator tooltips will point at the right thing
 		top: calc(var(--nds-font-size-base) * #{type.lh('ui')} / 2);

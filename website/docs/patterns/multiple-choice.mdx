@@ -1,0 +1,196 @@
+---
+title: Multiple Choice
+description: The multiple choice pattern allows the user to respond to a prompt and then provides feedback about their answer choice.
+beta: true
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Badge, MultipleChoiceQuestion, MultipleChoiceFeedback } from "@wwnds/react";
+import { PropsTable } from "@website/components";
+
+> The multiple choice pattern allows the user to respond to a prompt and then provides feedback about their answer choice.
+
+:::warning
+<Badge>Beta</Badge> This pattern is still a work in progress. Questions or concerns? [Please let us know](mailto:nds@wwnorton.com).
+:::
+
+## Anatomy
+
+The Multiple Choice pattern contains two views that are presented sequentially in the user flow:
+
+1. A [question](#question) view, where the user responds to a prompt by selecting an answer and then submitting it.
+	Submitting a response immediately opens the feedback view.
+2. A [feedback](#feedback) view, where the user learns whether they answered correctly and is presented with additional feedback about their answer.
+	Closing the feedback returns the user to the response view.
+
+### Question
+
+The question view presents a prompt to the user, allowing them to select and then submit their answer.
+Once submitted, the [feedback](#feedback) view appears.
+
+![The question anatomy shows various elements, annotated with numbers that correspond to the following anatomy description.](/img/mc_anatomy_question.png)
+
+1. **Question Framing** (_optional_) - introductory content that provides additional context for the question.
+	This can include any type of content, including but not limited to text, images, and video.
+1. **Question Stem** - the text-only prompt. Answer choices are responses to the question stem.
+1. **Functional Instructions** (_optional_) - the constraints for answering the question.
+	Unlike the stem and framing, this should not contain subject matter related to the question.
+1. **Answer Choice** - an option that answers the question.
+	1. **Selector** - a [radio button](/docs/components/radio-group) that indicates which choice is currently selected and will be submitted.
+	1. **Identifier** - a letter or number that identifies the choice.
+	1. **Response** - an answer that relates directly to the question stem.
+	1. **Response Indicator** (_only visible after submission_) - a label that signifies whether a submitted response was correct or incorrect.
+		Once visible, the answer choice can no longer be selected.
+1. **Submit Button** - a [button](/docs/components/button) that submits the chosen answer.
+
+### Feedback
+
+Feedback is presented in a [modal dialog](/docs/components/modal) after the user has submitted an answer.
+Once closed, the user should be returned to the [question](#question) view.
+
+![The feedback anatomy shows a modal dialog, annotated with numbers that correspond to the following anatomy description.](/img/mc_anatomy_feedback.png)
+
+1. **Title** - the title should summarize the result of the user's submission in as few words as possible.
+1. **General Feedback** - the answer that the user submitted and whether it is correct or incorrect.
+1. **Supplementary Feedback** (_optional_) - additional answer-specific content.
+
+## Design Guidelines
+
+Following these guidelines will help us create a more consistent experience of multiple choice questions throughout Norton products.
+
+### Display the stem and answer choices in the same view
+
+The question stem and its corresponding answer choices should be viewable together, rather than presenting them in separate views or requiring the user to scroll to view them together.
+
+{/* TODO: add image */}
+
+:::note Why?
+Multiple choice requires the user to hold the question stem in their working memory in order to choose a corresponding response.
+This can be difficult for us when we experience impairment of our working memory, such as when we're tired or if we've had a traumatic brain injury.
+Displaying the responses in a different view from the question stem unnecessarily compounds this cognitive task.
+:::
+
+### Provide no more than 5 answer choices
+
+We've chosen 5 as the Norton Design System's preferred limit for most cases, but this depends heavily on the amount of information in the stem and answer choices.
+
+{/* TODO: add image */}
+
+:::note Why?
+To answer a multiple choice question, we must hold the question stem and all of the answer choices in our working memory.
+The more answer choices there are, the more difficult this becomes.
+
+If we have a disability that impairs our working memory or are experiencing a temporary impairment of our working memory, this may prevent us from even being able to answer the question.
+
+A complex question stem will contribute to this as well, which is why we also recommend [keeping the stem brief](#keep-the-stem-and-instructions-brief).
+:::
+
+### Deliver answer feedback in its own view
+
+When feedback is displayed directly in the question view, it's impossible to guarantee that the user will notice it or absorb it.
+The Norton Design System has chosen to use our [modal](/docs/components/modal) for feedback in order to bring focus to it.
+
+{/* TODO: add image */}
+
+:::note Why?
+Absorbing feedback on our answer choice is critical for an effective multiple choice question.
+Displaying it in the question view makes this difficult in many ways.
+
+- The question view is already visually and cognitively dense.
+Adding feedback to this view can disorient, distract, and overwhelm users, preventing them from absorbing it or potentially missing it entirely.
+- Modal dialogs are the ideal way to directly bring attention to feedback for everyone, including users of assistive technology.
+:::
+
+### Keep the stem and instructions clear and brief
+
+Both the question stem and the functional instructions give question authors a space to outline requirements for answering the question.
+These should follow the rule of [accurate, clear, brief (in that order)](/docs/guides/usable-writing-guidelines#accurate-clear-brief-in-that-order)
+
+:::note Why?
+Complex, unclear, or long text will add extraneous cognitive load to an already information-dense question.
+We want users to spend their brain power answering the question.
+:::
+
+### Always use visible text for answer choice feedback
+
+Avoid using icons or color alone to convey whether the response was correct or incorrect.
+Text is the only way to guarantee that the meaning will be understood by all users.
+
+This supports low-vision users, English language learners, and users with cognitive disabilities.
+
+:::note Why?
+Users who can't differentiate colors, such as colorblind users or those with visual impairments, won't know which color is correct or incorrect.
+All users must have access to the same information.
+:::
+
+### Use a consistent answer choice identifier
+
+The Norton Design System allows answer choice identifiers to be Roman numerals, numbers, or letters to suit the needs of the application.
+Avoid mixing these across the same set of questions.
+
+:::note Why?
+A consistent way to reference responses across questions ensures that we don't have to mentally switch from a familiar pattern.
+This is especially critical for users who experience difficulty with attention and working memory.
+:::
+
+## React API
+
+Our implementation includes components for the [Question view](#question) and the [Feedback view](#feedback), as well as a hook to help manage state across views.
+
+The following code demonstrates one way to compose the components and hook together.
+Head to the <a href={useBaseUrl('/storybook/?path=/docs/patterns-multiple-choice--docs')}>Multiple Choice Storybook</a> to view a live example.
+
+```tsx
+import {
+	MultipleChoiceQuestion,
+	MultipleChoiceFeedback,
+	useMultipleChoice,
+	Button,
+} from "@wwnds/react";
+
+export function MultipleChoice({ choices }: { choices: string[] }) {
+	const { questionState, setStatus, modalState } = useMultipleChoice(choices);
+
+	const handleSubmit = useCallback(
+		(event: React.FormEvent<HTMLFormElement>) => {
+			event.preventDefault();
+			// check if the user submitted the correct answer or not.
+			// for instance, use setStatus("correct") if they got it right.
+		},
+		[setStatus, questionState.selected],
+	);
+
+	return (
+		// note that the <form> and <Button> are not part of the Multiple Choice
+		// pattern's public API but are used to handle choice submission.
+		<form onSubmit={handleSubmit}>
+			<MultipleChoiceQuestion
+				framing="..."
+				stem="..."
+				{...questionState}
+			/>
+			<MultipleChoiceFeedback {...modalState} />
+			<Button type="submit" variant="solid">
+				Submit
+			</Button>
+		</form>
+	);
+}
+```
+
+### MultipleChoiceQuestion Component
+
+The `MultipleChoiceQuestion` component is used to render the multiple choice question. It accepts the following props:
+
+<PropsTable from={MultipleChoiceQuestion} />
+
+### MultipleChoiceFeedback Component
+
+The `MultipleChoiceFeedback` component extends our [Modal component](../components/modal) and inherits all of its props except the ones related to the title.
+
+<PropsTable from={MultipleChoiceFeedback} />
+
+### useMultipleChoice Hook
+
+The `useMultipleChoice` hook is used to manage the state of the multiple choice question.
+It accepts an array of answer choices and returns the state shared by the `FeedbackModal` and `MultipleChoice` components.

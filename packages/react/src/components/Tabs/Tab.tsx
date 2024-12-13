@@ -2,20 +2,12 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { BaseButton } from '../BaseButton';
 import { TabProps } from './types';
-import {
-	useTabId, useTabListDescendant, useTabPanelId, useTabsState,
-} from './context';
-
-const BASE_NAME = 'nds-tab';
-
-const styles = {
-	base: BASE_NAME,
-	contained: `${BASE_NAME}--contained`,
-	line: `${BASE_NAME}--line`,
-	selected: 'selected',
-};
+import { useTabId, useTabListDescendant, useTabPanelId, useTabsState } from './context';
 
 export const Tab = ({
+	baseName = 'nds-tab',
+	containedClass = `${baseName}--contained`,
+	lineClass = `${baseName}--line`,
 	children,
 }: TabProps) => {
 	const { index, register } = useTabListDescendant();
@@ -30,10 +22,10 @@ export const Tab = ({
 		setSelectedTabIndex(index);
 	}, [index, setSelectedTabIndex]);
 
-	const className = classNames(BASE_NAME, {
-		[styles.contained]: variant === 'contained',
-		[styles.line]: variant === 'line',
-		[styles.selected]: isSelected,
+	const className = classNames(baseName, {
+		[containedClass]: variant === 'contained',
+		[lineClass]: variant === 'line',
+		selected: isSelected,
 	});
 
 	return (

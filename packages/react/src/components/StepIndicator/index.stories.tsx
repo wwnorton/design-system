@@ -1,16 +1,14 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import {
-	StepIndicatorProps, StepIndicator, Step,
-} from '.';
+import { StepIndicatorProps, StepIndicator, Step } from '.';
 
 /** To be added to every story-specific control's argTypes declaration	 */
 const storySpecificCategory = 'Story Controls';
 
 interface StepIndicatorControls extends StepIndicatorProps {
-	stepCount: number,
-	completedSteps: number,
-	currentStep: number,
+	stepCount: number;
+	completedSteps: number;
+	currentStep: number;
 }
 
 const baseDefaultProps = {
@@ -35,21 +33,30 @@ export default {
 			table: { category: storySpecificCategory },
 			description: 'Controls the total number of steps',
 			control: {
-				type: 'range', min: 1, max: 10, step: 1,
+				type: 'range',
+				min: 1,
+				max: 10,
+				step: 1,
 			},
 		},
 		currentStep: {
 			table: { category: storySpecificCategory },
 			description: 'Controls the position of the current step',
 			control: {
-				type: 'range', min: 1, max: 10, step: 1,
+				type: 'range',
+				min: 1,
+				max: 10,
+				step: 1,
 			},
 		},
 		completedSteps: {
 			table: { category: storySpecificCategory },
 			description: 'Controls the number of completed steps',
 			control: {
-				type: 'range', min: 0, max: 10, step: 1,
+				type: 'range',
+				min: 0,
+				max: 10,
+				step: 1,
 			},
 		},
 		isConnected: {
@@ -60,7 +67,10 @@ export default {
 };
 
 const StepIndicatorTemplate: Story<StepIndicatorControls> = ({
-	stepCount, currentStep, completedSteps, ...args
+	stepCount,
+	currentStep,
+	completedSteps,
+	...args
 }) => {
 	const steps: JSX.Element[] = [];
 
@@ -72,13 +82,7 @@ const StepIndicatorTemplate: Story<StepIndicatorControls> = ({
 		);
 	}
 
-	return (
-		<StepIndicator
-			{...args}
-		>
-			{steps}
-		</StepIndicator>
-	);
+	return <StepIndicator {...args}>{steps}</StepIndicator>;
 };
 
 export const Connected = StepIndicatorTemplate.bind({});
@@ -86,7 +90,10 @@ export const Connected = StepIndicatorTemplate.bind({});
 Connected.args = { isConnected: true };
 
 export const LongNames: Story<StepIndicatorControls> = ({
-	stepCount, currentStep, completedSteps, ...args
+	stepCount,
+	currentStep,
+	completedSteps,
+	...args
 }) => {
 	const steps: JSX.Element[] = [];
 
@@ -98,19 +105,16 @@ export const LongNames: Story<StepIndicatorControls> = ({
 		);
 	}
 
-	return (
-		<StepIndicator
-			{...args}
-		>
-			{steps}
-		</StepIndicator>
-	);
+	return <StepIndicator {...args}>{steps}</StepIndicator>;
 };
 
 LongNames.args = { isConnected: true };
 
 export const NoConnector: Story<StepIndicatorControls> = ({
-	stepCount, currentStep, completedSteps, ...args
+	stepCount,
+	currentStep,
+	completedSteps,
+	...args
 }) => {
 	const steps: JSX.Element[] = [];
 

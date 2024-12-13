@@ -1,6 +1,5 @@
 import test from 'ava';
-import { renderHook } from '@testing-library/react-hooks';
-import { cleanup, act } from '@testing-library/react';
+import { renderHook, cleanup, act } from '@testing-library/react';
 import { useTabListScroll } from './useTabListScroll';
 
 test.afterEach.always(cleanup);

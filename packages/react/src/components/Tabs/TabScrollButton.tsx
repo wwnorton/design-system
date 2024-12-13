@@ -26,27 +26,19 @@ export const TabScrollButton = ({ type, onClick, disabled }: TabScrollButtonProp
 	const icon = type === 'left' ? 'chevron-left' : 'chevron-right';
 	const { variant } = useTabsState();
 
-	const className = classNames(
-		styles.base,
-		{
-			[styles.contained]: variant === 'contained',
-			[styles.line]: variant === 'line',
-			[styles.previous]: type === 'left',
-			[styles.next]: type === 'right',
-		},
-	);
+	const className = classNames(styles.base, {
+		[styles.contained]: variant === 'contained',
+		[styles.line]: variant === 'line',
+		[styles.previous]: type === 'left',
+		[styles.next]: type === 'right',
+	});
 
 	if (disabled) {
 		return null;
 	}
 
 	return (
-		<BaseButton
-			className={className}
-			onClick={onClick}
-			aria-hidden
-			tabIndex={-1}
-		>
+		<BaseButton className={className} onClick={onClick} aria-hidden tabIndex={-1}>
 			<Icon variant={icon} />
 			<span className={styles.text}>{text}</span>
 		</BaseButton>

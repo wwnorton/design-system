@@ -5,12 +5,7 @@ import { canUseDOM } from '../../utilities/environment';
 import { useSelect, useLayoutEffect, useId } from '../../utilities';
 import { Popper } from '../Popper';
 import { Button } from '../Button';
-import {
-	Listbox,
-	ListboxProps,
-	Option,
-	OptionProps,
-} from '../Listbox';
+import { Listbox, ListboxProps, Option, OptionProps } from '../Listbox';
 import { DropdownProps } from './types';
 
 export const Dropdown = ({
@@ -82,10 +77,13 @@ export const Dropdown = ({
 		return sorter ? opts.sort(sorter) : opts;
 	}, [children, sorter]);
 
-	const findFocusedIndex = useCallback((value: string | number | undefined) => {
-		const idx = options.findIndex((o) => o.value === value);
-		return idx === -1 ? 0 : idx;
-	}, [options]);
+	const findFocusedIndex = useCallback(
+		(value: string | number | undefined) => {
+			const idx = options.findIndex((o) => o.value === value);
+			return idx === -1 ? 0 : idx;
+		},
+		[options],
+	);
 
 	const [isOpen, setOpen] = React.useState(isOpenProp);
 	const uniqueId = useId();
@@ -98,9 +96,9 @@ export const Dropdown = ({
 	const [listboxWidth, setListBoxWidth] = React.useState<number>();
 	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>(contentsProp);
 	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
-	const [transition, setTransition] = React.useState<
-		typeof transitionProp | undefined
-	>(transitionProp);
+	const [transition, setTransition] = React.useState<typeof transitionProp | undefined>(
+		transitionProp,
+	);
 	const [optionFocusIndex, setOptionFocusIndex] = React.useState(findFocusedIndex(selectedProp));
 	const { selected, select } = useSelect(false, [selectedProp]);
 
@@ -140,8 +138,8 @@ export const Dropdown = ({
 			setButtonContents(contentsProp);
 			setOptionFocusIndex(findFocusedIndex(selectedProp));
 		}
-	// only update if the selected option is being controlled
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// only update if the selected option is being controlled
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedProp]);
 
 	/** Attempt to close the listbox on document click. */
