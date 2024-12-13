@@ -7,38 +7,50 @@ description: A table allows users to view data organized in rows and columns.
 
 ## Anatomy
 
-Tables contain **cells** of data arranged in a grid.
+Tables are a collection of **cells** arranged in a two-dimensional grid.
+We call the horizontal slice a **row** and the vertical slice a **column**.
 
-1. **Header row** - the first row of a table contains cells that act as labels for the columns.
-	1. **Sort indicator** (_required when sortable_) - sortable header cells must convey their current sort state, which can be ascending, descending, or unsorted.
-1. **Rows** - a horizontal slice of the table groups related cells.
-1. **Columns** - a vertical slice of the table groups cells related by the label in the header cell.
+![The table anatomy shows various elements, annotated with numbers that correspond to the following anatomy description](/img/anatomy_table.png)
+
+1. **Cell** - the fundamental unit of a table. Each cell contains one piece of data.
+1. **Header** row - the first row of a table contains header cells that label the cells within their column.
+	1. **Sort indicator** (_required when sortable_) - a visual indicator of the table's sort state, which can be ascending, descending, or unsorted.
+1. **Body** rows - the remaining rows of the table contain the data arranged in rows. Each row represents a single slice of the data.
 
 ## Usage
 
 Use a table to organize and display long lists of data or content, or to help users find a specific piece of information in a large data set.
 
-- Columns should be in a logical order from left to right based on the content. The farthest left content column should meaningfully label the row. For example, in a student set the first column should be the student's name.
-- Search and filters can be used in conjunction with tables to help users find information
-- Table content can include:
-  - Text
-  - Numbers
-  - Checkboxes or radio buttons
-  - Custom content, such as buttons
-- Checkboxes or radio buttons should be the farthest left column. They're used to take bulk actions on the selected items in a table.
-- Tables must have at least 2 columns.
-- Column titles in the header row should be as short as possible but can wrap to 2 rows and then truncate if necessary.
-- Table content should ideally fit on one row but may wrap to multiple lines.
-- The data within the table should be related in a meaningful way.
-- Column titles should accurately label the data within the column, and include units of measurement in the column title if applicable.
+- Table columns should be aligned based on their content type:
+	- Text - left align
+	- Numbers - right align
+	- Checkboxes or radio buttons - center align
+- Columns should be in a logical order from left to right based on the content. The farthest left content column should meaningfully label the row. If bulk actions can be taken, a checkbox should be the first item in the column.  If there are no bulk actions, the most important identifying information should be in the first column. For example, in a student set the first column should be the student's name.
+	:::note Why
+	Placing the most important or identifying information in the leftmost columns allows users to quickly scan and understand the table or take an action quickly.
+	:::
+- Tables must have at least 2 columns. If a table has less than 2 columns, use a list or another format to present the data so it is easier to understand the information.
+- Column titles in the header row should be as short as possible, allowing wrapping to two lines if necessary, while table content should ideally fit on one line but can wrap to multiple lines when needed.
+	:::note Why
+	Short titles help to minimize visual clutter, making it easier for users to find and understand the information they need. Wrapping content ensures that important information is not truncated, which can be critical for understanding the data presented.
+	:::
 - All content within a column is the same level of hierarchy as all other content within that column. A table shouldn't be used to communicate hierarchy.
 - If a table has no content, it should display an empty state or not display the table at all.
-- Use an alternating striped background for tables with a lot of complex data to help users keep track of the rows.
+- Column titles should accurately label the data within the column, and include units of measurement in the column title if possible.
+	:::note Why
+	Including the unit of measurement inside each data cell (e.g., 95%) complicates exporting and importing data into another system, and may require users to manually remove all the percentage signs from each cell.
+	:::
 
-:::tip Do
-- Do always include a header row that clearly labels each column.
-:::
+### Search & Filter
 
-:::danger Don't
+Search and filters can be used in conjunction with tables to help users find information.
+
+- If columns are sortable, the sort symbols are always visible.
+- Introducing more functionality within a table will create more complexity and can lead to users having difficulty interpreting the information presented in the table.
+	:::note Why
+	Tables are already complex. Splitting complex tables into simpler, focused tables enhances clarity and usability, allowing users to understand each sub-topic more effectively.
+	:::
 - Don't use a table purely for layout purposes.
-:::
+	:::note Why
+	Tables are meant for tabular data, providing a clear, semantic structure. Using tables for layout purposes misrepresents the content and structure of the page, which can confuse screen readers and other assistive technologies.
+	:::
