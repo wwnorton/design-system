@@ -20,57 +20,39 @@ Tables contain cells of data arranged in a grid.
 
 Use a table to organize and display long lists of data or content, or to help users find a specific piece of information in a large data set.
 
-- Table content can include and be aligned accordingly:
-	- Text  - left align
-	- Numbers  - right align
-	- Checkboxes or radio buttons  - center align
-
-- Columns should be in a logical order from left to right based on the content. The farthest left content column should meaningfully label the row. If bulk actions can be taken, a checkbox should be the first item in the column.  If there are no bulk actions, the most important identifying information should be in the first column. For example, in a student set the first column should be the student’s name.
+- Table columns should be aligned based on their content type:
+	- Text - left align
+	- Numbers - right align
+	- Checkboxes or radio buttons - center align
+- Columns should be in a logical order from left to right based on the content. The farthest left content column should meaningfully label the row. If bulk actions can be taken, a checkbox should be the first item in the column.  If there are no bulk actions, the most important identifying information should be in the first column. For example, in a student set the first column should be the student's name.
 	:::note Why
 	Placing the most important or identifying information in the leftmost columns allows users to quickly scan and understand the table or take an action quickly.
 	:::
-
-
 - Tables must have at least 2 columns. If a table has less than 2 columns, use a list or another format to present the data so it is easier to understand the information.
-
-
 - Column titles in the header row should be as short as possible, allowing wrapping to two lines if necessary, while table content should ideally fit on one line but can wrap to multiple lines when needed.
 	:::note Why
 	Short titles help to minimize visual clutter, making it easier for users to find and understand the information they need. Wrapping content ensures that important information is not truncated, which can be critical for understanding the data presented.
 	:::
-
-
-- All content within a column is the same level of hierarchy as all other content within that column. A table shouldn’t be used to communicate hierarchy.
-
+- All content within a column is the same level of hierarchy as all other content within that column. A table shouldn't be used to communicate hierarchy.
 - If a table has no content, it should display an empty state or not display the table at all.
-
 - Column titles should accurately label the data within the column, and include units of measurement in the column title if possible. 
 	:::note Why
 	Including the unit of measurement inside each data cell (e.g., 95%) complicates exporting and importing data into another system, and may require users to manually remove all the percentage signs from each cell.
 	:::
-
-
 
 ### Search & Filter 
 
 Search and filters can be used in conjunction with tables to help users find information.
 
 - If columns are sortable, the sort symbols are always visible. 
-
 - Introducing more functionality within a table will create more complexity and can lead to users having difficulty interpreting the information presented in the table.
 	:::note Why
 	Tables are already complex. Splitting complex tables into simpler, focused tables enhances clarity and usability, allowing users to understand each sub-topic more effectively.
 	:::
-
-
-
-:::danger Don't
-Don’t use a table purely for layout purposes.
-
-**Why:** Tables are meant for tabular data, providing a clear, semantic structure. Using tables for layout purposes misrepresents the content and structure of the page, which can confuse screen readers and other assistive technologies.
+- Don't use a table purely for layout purposes.
+	:::note Why
+	Tables are meant for tabular data, providing a clear, semantic structure. Using tables for layout purposes misrepresents the content and structure of the page, which can confuse screen readers and other assistive technologies.
 :::
-
-
 
 ### Accessibility Notes 
 
@@ -90,5 +72,4 @@ This section expands on the design decisions and considerations made to ensure a
 For foundational guidance for native HTML table accessibility and ARIA patterns, refer to these essential resources:   
 
 - HTML Table Accessibility Guidelines: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table#accessibility_concerns.   
-
 - ARIA Table Design Patterns Guide: https://www.w3.org/WAI/ARIA/apg/patterns/table/.   
