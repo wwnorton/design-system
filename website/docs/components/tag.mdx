@@ -5,14 +5,20 @@ description: A tag allows the user to interact with or dismiss a status or class
 
 import { Tag } from '@wwnds/react';
 import { PropsTable } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A tag allows the user to interact with or dismiss a status or classification.
 
 ## Anatomy
 
-1. **A container** - an outline or background sets the tag apart from adjacent text.
-1. **A label** - the tag's label conveys a status or classification.
-1. **A dismiss indicator** - an icon that appears when the tag is dismissible.
+<img
+	alt="A tag with indicators calling out the corresponding anatomy items of a gray tag container container a label of “tag label” followed by a dismiss indicator."
+	src={useBaseUrl('/img/Anatomy_tag.png')}
+/>
+
+1. **Tag Container** - an outline or background sets the tag apart from adjacent text.
+1. **Label** - the tag's label conveys a status or classification.
+1. **Dismiss Indicator** - an icon that appears when the tag is dismissible.
 
 ## Usage
 

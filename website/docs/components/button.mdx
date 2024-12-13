@@ -3,12 +3,18 @@ title: Button
 description: A button allows the user to perform an action
 ---
 
-import { Button, IconButton, Callout, CalloutError, CalloutSuccess } from '@wwnds/react';
+import { Button, IconButton } from '@wwnds/react';
 import { PropsTable } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A button allows the user to perform an action.
 
 ## Anatomy
+
+<img
+	alt="A button with indicators calling out the corresponding anatomy items of a solid teal container, text label of “Button,” and heart icon."
+	src={useBaseUrl('/img/Anatomy_button.png')}
+/>
 
 1. **Text** - button text lets the user know what will happen when they click the button.
 	- If a button's text is not displayed inside the button, it should be displayed in a related [tooltip](tooltip).

@@ -5,20 +5,21 @@ description: A step indicator allows users to know where they are in a long proc
 
 import { StepIndicator, Step } from '@wwnds/react';
 import { PropsTable, ColorChip } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A step indicator allows users to know where they are in a long process or form while they focus on completing discrete steps.
 
 ## Anatomy
 
-A step indicator contains:
+<img
+	alt="A step indicator with indicators calling out the corresponding anatomy items of four steps with each step containing a step marker (top): two completed, one active, and one incomplete, a connector, and step labels (bottom)."
+	src={useBaseUrl('/img/Anatomy_step-indicator.png')}
+/>
 
-1. **Steps** - a list of steps, each of which is individually called a step.
+1. **Step** - an individual step that is part of a list of steps.
+1. **Step Marker** - the marker visually indicates whether the step is complete or incomplete.
 1. **Connector** (_optional_) - a purely presentational line that visually connects the individual steps.
-
-A step contains:
-
-1. **A step marker** - the marker visually indicates whether the step is complete or incomplete.
-1. **Contents** - the step's contents function as an [accessible name](https://www.w3.org/TR/accname-1.2/#dfn-accessible-name) for the step.
+1. **Step Label** - text that identifies the step and function as an [accessible name](https://www.w3.org/TR/accname-1.2/#dfn-accessible-name) for the step.
 
 ## States and properties
 

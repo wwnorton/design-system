@@ -5,24 +5,22 @@ tags: [field, form, input]
 ---
 import { Checkbox, CheckboxGroup } from '@wwnds/react';
 import { PropsTable } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A checkbox allows the user to check or uncheck an option.
 
 ## Anatomy
 
-The anatomy for both the standalone checkbox and a group of related checkboxes are outlined here.
+<img
+	alt="A checkbox group with indicators calling out the corresponding anatomy items starting with Group Label followed by three checkbox options that consist of: an unchecked control box: left, a checkbox label: right of control box, and descriptive text: below the checkbox label."
+	src={useBaseUrl('/img/Anatomy_checkbox.png')}
+/>
 
-### Checkbox
-
-1. **Control** - the input control that conveys the current state of the checkbox to the user.
-1. **Label** - a short name that lets the user know what the checkbox is checking. Clicking the label should toggle the checkbox.
+1. **Group Label** - text that conveys how the checkboxes are related and prompts the user to check one or more checkbox.
+1. **Control** - the input control that conveys the appropriate state of the checkbox to the user. By default it is unselected. Clicking a checkbox will check or uncheck it.
+1. **Checkbox Label** - a short name that lets the user know what the checkbox is checking. Clicking the label should toggle the checkbox.
 1. **Description** (_optional_) - additional text that can be used to add clarity or context to the checkbox label. Clicking the description should do nothing.
 
-### Checkbox Group
-
-1. **Label** - text that conveys how the checkboxes are related and prompts the user to check one or more checkbox.
-1. **Current selection**: a checked checkbox indicates that it will be included when the field is submitted.
-1. **Choices** - the available checkboxes. Clicking a checkbox will check or uncheck it.
 
 ## Usage
 

@@ -5,15 +5,21 @@ description: A callout brings attention to important information that is related
 
 import { Callout, CalloutError, CalloutSuccess, CalloutWarning } from '@wwnds/react';
 import { PropsTable } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A callout brings attention to important information that is related to the main content.
 
 ## Anatomy
 
+<img
+	alt="A callout with indicators pointing to the corresponding anatomy items of container, icon: top left, title: right of icon, dismiss button: top right, and body text: below title and dismiss button."
+	src={useBaseUrl('/img/Anatomy_callout.png')}
+/>
+
 1. **Container** - the container sets the contents of the callout apart from the main content.
 1. **Icon** (_optional_) - an icon can be used to add character or emphasize the title.
 1. **Title** (_recommended_) - the title of a callout summarizes its contents.
-1. **Dismiss button** (_optional_) - a control that allows the user to dismiss the callout.
+1. **Dismiss Button** (_optional_) - a control that allows the user to dismiss the callout.
 1. **Body** - the contents of the callout.
 
 ## Usage

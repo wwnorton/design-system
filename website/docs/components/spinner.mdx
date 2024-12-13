@@ -5,12 +5,18 @@ description: A spinner lets the user know that something is processing or progre
 
 import { Spinner } from '@wwnds/react';
 import { PropsTable } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A spinner lets the user know that something is processing or progressing.
 
 ## Anatomy
 
-1. **Progress circle** - the circle spins to convey that something is processing and fills clockwise to convey progress toward completion.
+<img
+	alt="A spinner with indicators calling out the corresponding anatomy items of an incomplete progress circle followed by a label: Loading images… on the bottom."
+	src={useBaseUrl('/img/Anatomy_spinner.png')}
+/>
+
+1. **Progress Circle** - the circle spins to convey that something is processing and fills clockwise to convey progress toward completion.
 1. **Label** - a description of what is processing or progressing.
 
 ## Usage

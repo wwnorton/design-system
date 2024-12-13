@@ -4,18 +4,24 @@ description: A popover allows the user to reveal more information or non-critica
 ---
 
 import { Popover } from '@wwnds/react';
-import { PropsTable, Usage } from "@website/components";
+import { PropsTable } from "@website/components";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A popover allows the user to reveal more information or non-critical tasks in an overlay.
 
 ## Anatomy
 
-1. **Container** - the popover's container overlays the main page's content.
+<img
+	alt="A popover with indicators calling out the corresponding anatomy items starting with popover container that contains, an arrow: pointing to an info icon, title: top left, close button icon: top right, body, and action buttons: bottom right."
+	src={useBaseUrl('/img/Anatomy_popover.png')}
+/>
+
+1. **Container Container** - the popover's container overlays the main page's content.
 1. **Arrow** - a visual indicator that points to the related element.
 1. **Title** (_recommended_) - the title of a callout summarizes its contents.
-1. **Close button** (_optional_) - a button that will always close the popover.
+1. **Close Button** (_optional_) - a button that will always close the popover.
 1. **Body** - the contents of the popover.
-1. **Action buttons** (_optional_) - one or more custom actions that will result in the popover closing.
+1. **Action Buttons** (_optional_) - one or more custom actions that will result in the popover closing.
 
 ## Usage
 

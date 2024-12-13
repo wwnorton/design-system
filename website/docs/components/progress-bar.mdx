@@ -5,13 +5,19 @@ description: A progress bar lets the user know that something is processing or p
 
 import { ProgressBar } from '@wwnds/react';
 import { PropsTable } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A progress bar lets the user know that something is processing or progressing.
 
 ## Anatomy
 
+<img
+	alt="A progress bar with indicators calling out the corresponding anatomy items of a gray track containing a teal progress indicator with a label: ‘Loading content…’ below the track."
+	src={useBaseUrl('/img/Anatomy_progress-bar.png')}
+/>
+
 1. **Track** - a fixed width track for the progress indicator to travel along.
-1. **Progress indicator** - an animated bar that conveys processing or progress toward completion.
+1. **Progress Indicator** - an animated bar that conveys processing or progress toward completion.
 1. **Label** - a description of what is progressing.
 
 ## Usage

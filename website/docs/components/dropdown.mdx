@@ -5,18 +5,24 @@ description: A dropdown allows the user to select an option from a list of optio
 
 import { Dropdown, Option } from '@wwnds/react';
 import { PropsTable } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 > A dropdown allows the user to select an option from a list of options in an expandable overlay.
 
 ## Anatomy
+
+<img
+	alt="A dropdown closed with indicators calling out the corresponding anatomy items starting with Label above the Button followed by an open Dropdown that consist of: a listbox that includes options and the selected option."
+	src={useBaseUrl('/img/Anatomy_dropdown.png')}
+/>
 
 1. **Label** - a short description or prompt that lets the user know what they will be selecting.
 1. **Button** - a button that opens the dropdown listbox and displays the currently selected option.
 	- Default text before selection should be "Select".
 	- A marker should be displayed to the right of the button's text to convey whether the dropdown listbox is open or closed.
 1. **Listbox** - a container for the list of options that only appears when opened by the dropdown button.
-1. **Selected option** - the currently selected option.
 1. **Options** - the available options. Clicking an unselected option will select that option, deselect the currently selected option, and close the listbox.
+1. **Selected Option** - the currently selected option.
 
 ## Usage
 
