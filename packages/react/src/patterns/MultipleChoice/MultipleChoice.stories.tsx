@@ -105,9 +105,9 @@ const meta: Meta<StoryProps> = {
 export default meta;
 type Story = StoryObj<StoryProps>;
 
-export const Default: Story = {};
+export const Example: Story = {};
 
-export const WithInstructions: Story = {
+export const ExampleWithInstructions: Story = {
 	args: {
 		attemptCount: 2,
 	},
