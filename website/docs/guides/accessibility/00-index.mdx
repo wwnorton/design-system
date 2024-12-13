@@ -1,0 +1,78 @@
+---
+title: Introduction
+slug: /guides/accessibility
+---
+
+Accessibility&mdash;the practice of ensuring that products and environments work for people with disabilities&mdash;was one of the original reasons we created a design system and is still central to our design and development process.
+
+But simply **using the Norton Design System will not guarantee that an application or its content will be accessible**.
+In fact, a significant portion of an accessible user experience depends on factors that the Norton Design System either cannot or should not control.
+In general, these include how the application composes design system foundations and components together, and the accessibility of the content itself.
+
+These guides will help fill in some of those gaps, guiding us to build more accessible applications and content.
+
+:::caution More to come
+We're planning to add additional standalone topic-based guides soon so watch here for updates!
+:::
+
+## Guiding principles
+
+The Norton Design System team follows a few simple principles to help guide our accessibility practices.
+
+1. Build for accessibility first
+1. Provide guarantees about our internals
+1. Make the right thing the easy thing
+
+### Build for accessibility first
+
+Everything that the Norton Design System ships uses accessibility not only to define requirements, but to guide our designs and implementations.
+To do this, we start with the most familiar, vetted standards for UI like operating system patterns, [the HTML specification](https://html.spec.whatwg.org/), and the [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/) ([we have even contributed this](https://www.w3.org/WAI/ARIA/apg/about/acknowledgements/#participantsactiveintheariaauthoringpracticestaskforce)!).
+These standards form the foundations of accessible UI, so we use their guidance, semantics, and models wherever possible to best ensure a familiar experience.
+
+And of course, we measure our success against the latest version of the [Web Content Accessibility Guidelines](https://www.w3.org/WAI/standards-guidelines/) (WCAG).
+
+### Provide guarantees about our internals
+
+While the Norton Design System only plays one part in creating an accessible user experience of Norton products, the part we play has an enormous downstream impact.
+A small mistake in a design system component could result in serious problems for users in Norton products.
+For this reason, we guarantee that we will prioritize accessibility across the internals of our components and foundations, and will fix issues found inside the design system.
+
+:::note Internal vs. External
+We often refer to design system "internals" as opposed to things that are "external" to the design system.
+This is a way of delineating boundaries between the design system and the applications that use the design system, helping us to understand where responsibility lies.
+
+For instance, the semantics of our [Button](/docs/components/button)&mdash;its HTML markup&mdash;are _internal_ to the design system because we define it.
+For example, our default `<Button>` will always render as a `<button type="button">`.
+We allow the `type` to be overridden since we consider that logic that belongs to the application, but the HTML element cannot be since we consider it to belong to the design system.
+This means it would be impossible to use our `<Button>` and get a `<div role="button" tabindex="0">`, for instance.
+
+But we can't guarantee how our button is used since that is inherently _external_ to the design system.
+For instance, there is nothing stopping a design system user from using our button to navigate between pages.
+We advise against this since using a [Link](/docs/components/link) is the best way to make navigation accessible, but we can't and won't prevent it.
+:::
+
+Of course, a significant portion of an accessible user experience happens _external_ to the design system's components and foundations, where we cannot provide guarantees.
+For those, we do our best to provide guardrails, guidelines, and help our users safely break the rules.
+
+### Make the right thing the easy thing
+
+We believe that application and content authors know best how their application should behave and how their content should be composed.
+This includes behavior for people using assistive technology like screen readers or voice control software.
+
+But accessibility can be hard and it's easy to make mistakes or oversights, so to address this tension, we provide guardrails and reasonable defaults to help **make the right thing the easy thing**.
+
+This also means that application and content authors can use the design system in ways that aren't accessible, either accidentally or due to a misunderstanding about accessible design and development.
+Since we know that our application and content authors want to make accessible products, we've created these accessibility guides to help cover the areas of accessibility that our components, foundations, and patterns don't or can't cover.
+
+:::note Enforced accessibility vs. Reasonable defaults
+Whenever possible, the Norton Design System will enforce accessibility requirements within its React implementation, but these instances are surprisingly rare.
+Most often, we provide what is often called "reasonable defaults": default values that can be changed if necessary, but will work for most cases out of the box.
+
+Here are a couple real examples of this contrasting approach.
+
+- **Enforced**: when a [modal dialog](https://wwnorton.github.io/design-system/docs/components/modal) is opened, focus moves into it and stays within it until it is closed.
+	There is no way to customize this with the design system because it is a fundamental requirement of modal dialogs.
+- **Reasonable default**: [tooltips](https://wwnorton.github.io/design-system/docs/components/tooltip) have a `trigger` prop that controls when the tooltip is opened and defaults to `focus pointerenter`.
+	This causes the tooltip to appear when users focus the tooltipped element (either with a mouse or a keyboard), or when they hover over it with [all pointers](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/pointerType) (mouse, stylus, finger)&mdash;a reasonable assumption for the default behavior.
+	But if an application author wants to explicitly require another action to open the tooltip such as on click, they can customize this.
+:::
