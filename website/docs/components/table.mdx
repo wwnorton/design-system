@@ -52,23 +52,3 @@ Search and filters can be used in conjunction with tables to help users find inf
 	:::note Why
 	Tables are meant for tabular data, providing a clear, semantic structure. Using tables for layout purposes misrepresents the content and structure of the page, which can confuse screen readers and other assistive technologies.
 	:::
-
-### Accessibility Notes
-
-This section expands on the design decisions and considerations made to ensure an inclusive and accessible experience for all users. The following list outlines key recommendations for ensuring proper and accessible usage of the `Table` component in your React projects.
-
-- **Focus and Navigation:** ensure focus indicators and keyboard navigation for all actionable elements.
-- **Keyboard-Only Usability:** Ensure all features are fully operable via keyboard.
-- **Focus Management:** Test focus behavior rigorously across all breakpoints.
-- **Descriptive Labels:** Provide accessible labels for tables. Consider  using captions describing their purpose.
-- **Avoid Color-Only Indicators:** Do not rely solely on color to convey sorting or status, as this affects accessibility for colorblind users.
-- **Custom Components:** When using non-native HTML elements or third-party components for table interactions, ensure they adhere to accessibility standards (e.g., visible focus indicators, keyboard accessibility, sufficient color contrast).
-- **Responsive Design:** Ensure table elements scale effectively with zoom and high-contrast modes.
-- **Dynamic Styling:** Avoid hardcoding focus styles; they should adapt to high-contrast and reduced-motion preferences.
-- **ARIA Live Regions:** Use ARIA live regions for real-time critical updates to enhance dynamic content accessibility.
-- **User Testing:** Conduct regular testing with screen readers and real users to identify and address gaps in accessibility.
-
-For foundational guidance for native HTML table accessibility and ARIA patterns, refer to these essential resources:
-
-- HTML Table Accessibility Guidelines: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table#accessibility_concerns.
-- ARIA Table Design Patterns Guide: https://www.w3.org/WAI/ARIA/apg/patterns/table/.
