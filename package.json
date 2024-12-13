@@ -109,7 +109,7 @@
     "gulp": "^5.0.0",
     "gulp-header": "^2.0.9",
     "gulp-postcss": "^10.0.0",
-    "gulp-sass": "^5.1.0",
+    "gulp-sass": "^6.0.0",
     "gulp-shell": "^0.8.0",
     "husky": "^9.1.7",
     "jsdom": "^25.0.1",
