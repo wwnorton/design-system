@@ -1,47 +1,36 @@
 import React from 'react';
-import { RadioGroup } from '../../components/Radio';
-import { ResponseIndicator } from '../../components/ResponseIndicator';
+import { RadioGroup } from '../../../../components/Radio';
+import { ResponseIndicator } from '../../../../components/ResponseIndicator';
+import { useId } from '../../../../utilities/id';
 import { AnswerChoice } from './AnswerChoice';
-import { Instructions } from './Instructions';
-import { Intro } from './Intro';
-import { Stem } from './Stem';
+import { Instructions } from './QuestionInstructions';
+import { QuestionFraming } from './QuestionFraming';
+import { QuestionStem } from './QuestionStem';
 import { styles } from './styles';
-import { LabelType, OnSelectInput } from './types';
+import { QuestionProps } from './types';
 import { resolveLabelType } from './utils';
 
-export interface MultipleChoiceProps {
-	stem: string | React.ReactElement<void, typeof Stem>;
-	intro?: string | React.ReactElement<void, typeof Intro>;
-	instructions?: string | React.ReactElement<void, typeof Instructions>;
-	choices: string[];
-	/**
-	 * @default 'lower-alpha'
-	 */
-	labelType?: LabelType;
-	status: 'correct' | 'incorrect' | 'unanswered';
-	onSelect?: (input: OnSelectInput) => void;
-	selected?: number;
-	// TODO: support styling pieces
-}
-
-export const MultipleChoice = ({
+export const Question = ({
 	stem,
-	intro,
+	framing,
 	instructions,
-	labelType = 'lower-alpha',
+	identifierType = 'lower-alpha',
 	choices,
 	status,
 	onSelect,
 	selected,
-}: MultipleChoiceProps) => {
-	const introElement = typeof intro === 'string' ? <Intro>{intro}</Intro> : intro;
-	const stemElement = typeof stem === 'string' ? <Stem>{stem}</Stem> : stem;
+	readOnly,
+}: QuestionProps) => {
+	const groupName = useId() || '';
+	const framingElement =
+		typeof framing === 'string' ? <QuestionFraming>{framing}</QuestionFraming> : framing;
+	const stemElement = typeof stem === 'string' ? <QuestionStem>{stem}</QuestionStem> : stem;
 	const instructionsElement =
 		typeof instructions === 'string' ? <Instructions>{instructions}</Instructions> : instructions;
 
 	return (
 		<div>
-			{introElement}
+			{framingElement}
 			{stemElement}
 			{instructionsElement}
 			<div>
@@ -49,7 +38,7 @@ export const MultipleChoice = ({
 					{choices.map((choice, index) => {
 						const isCorrect = status === 'correct' && index === selected;
 						const isIncorrect = status === 'incorrect' && index === selected;
-						const label = resolveLabelType(labelType, index);
+						const label = resolveLabelType(identifierType, index);
 
 						let feedback: React.ReactNode = null;
 						if (isCorrect) {
@@ -78,7 +67,14 @@ export const MultipleChoice = ({
 							<div key={label} className={styles.choice}>
 								{feedback}
 								<div>
-									<AnswerChoice label={label} checked={checked} value={index} onSelect={onSelect}>
+									<AnswerChoice
+										label={label}
+										checked={checked}
+										index={index}
+										onSelect={onSelect}
+										name={groupName}
+										disabled={readOnly}
+									>
 										{choice}
 									</AnswerChoice>
 								</div>

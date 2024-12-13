@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Modal } from '../Modal';
-import { Button } from '../Button';
-import { Icon } from '../Icon';
-import { FeedbackModalProps } from './types';
+import { Button } from '../../../../components/Button';
+import { Icon } from '../../../../components/Icon';
+import { Modal } from '../../../../components/Modal';
+import { FeedbackProps } from './types';
 import { css } from './tokens';
 
 /**
@@ -11,12 +11,7 @@ import { css } from './tokens';
  *
  * Supplementary Feedback can be passed in `children`.
  */
-export const FeedbackModal = ({
-	isCorrect,
-	choiceLabel,
-	choiceText,
-	...modalProps
-}: FeedbackModalProps) => {
+export const Feedback = ({ isCorrect, choiceLabel, choiceText, ...modalProps }: FeedbackProps) => {
 	const title = isCorrect ? 'Correct' : 'Incorrect';
 	const icon = isCorrect ? 'check-circle' : 'cancel';
 

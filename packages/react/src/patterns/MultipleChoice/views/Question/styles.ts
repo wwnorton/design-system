@@ -1,4 +1,4 @@
-const prefix = 'nds-multiple-choice';
+const prefix = 'nds-mc-question';
 
 export const styles = {
 	stem: `${prefix}__stem`,
