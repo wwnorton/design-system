@@ -14,9 +14,9 @@ export async function assertUncontrolledSort(
 
 		const rows = screen.getAllByRole('row');
 		/* spell-checker: disable */
-		within(rows[1]).getByText('Alberto Abshire');
-		within(rows[2]).getByText('Bernice Orn');
-		within(rows[3]).getByText('Bert Greenholt');
+		within(rows[1]).getByText('Abel Walter');
+		within(rows[2]).getByText('Andy Leannon');
+		within(rows[3]).getByText('Bert Schultz');
 		/* spell-checker: enable */
 	}
 
@@ -26,9 +26,9 @@ export async function assertUncontrolledSort(
 
 		const rows = screen.getAllByRole('row');
 		/* spell-checker: disable */
-		within(rows[1]).getByText('Willie Mitchell');
-		within(rows[2]).getByText('Valerie Marks');
-		within(rows[3]).getByText('Taylor Runolfsdottir');
+		within(rows[1]).getByText('Winifred Hirthe');
+		within(rows[2]).getByText('Willard Keebler');
+		within(rows[3]).getByText('Terrance Nicolas');
 		/* spell-checker: enable */
 	}
 
@@ -38,9 +38,9 @@ export async function assertUncontrolledSort(
 
 		const rows = screen.getAllByRole('row');
 		/* spell-checker: disable */
-		within(rows[1]).getByText('Leroy Lubowitz');
-		within(rows[2]).getByText('Mathew Heathcote');
-		within(rows[3]).getByText('Bridget Daniel');
+		within(rows[1]).getByText('Edmond Lubowitz');
+		within(rows[2]).getByText('Jeffery Heathcote');
+		within(rows[3]).getByText('Natalie Daniel');
 		/* spell-checker: enable */
 	}
 

@@ -44,8 +44,8 @@ const createSass =
 			})
 			.pipe(
 				sass({
-					outputStyle: production ? "compressed" : "expanded",
-					includePaths: ["node_modules"],
+					style: production ? "compressed" : "expanded",
+					loadPaths: ["node_modules"],
 				}).on("error", sass.logError)
 			)
 			.pipe(postcss())

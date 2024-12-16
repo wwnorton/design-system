@@ -1,4 +1,4 @@
-import { ArgsTable, Canvas, Meta } from '@storybook/blocks';
+import { ArgTypes, Meta } from '@storybook/blocks';
 import { MultipleChoiceQuestion, MultipleChoiceFeedback } from '.';
 import * as MultipleChoiceStories from './MultipleChoice.stories';
 
@@ -12,10 +12,10 @@ The multiple choice pattern exposes a component for the question view and a comp
 
 The `<MultipleChoiceQuestion>` component is the initial view for the pattern.
 
-<ArgsTable of={MultipleChoiceQuestion} />
+<ArgTypes of={MultipleChoiceQuestion} />
 
 ## Feedback view props
 
 The `<MultipleChoiceFeedback>` view extends our [Modal dialog](?path=/docs/modal--docs) and should be shown after the user answers the question.
 
-<ArgsTable of={MultipleChoiceFeedback} />
+<ArgTypes of={MultipleChoiceFeedback} />
