@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://github.com/wwnorton/design-system/compare/v1.8.1-alpha.0...v1.9.0) (2024-12-16)
+
+### Features
+
+* **react,core:** add Table component ([cfbc194](https://github.com/wwnorton/design-system/commit/cfbc194161ca8b0b247c7300cf52a4dc17ea9469))
+
 ## [1.8.0](https://github.com/wwnorton/design-system/compare/v1.7.1...v1.8.0) (2023-12-14)
 
 ### ✨ Features
