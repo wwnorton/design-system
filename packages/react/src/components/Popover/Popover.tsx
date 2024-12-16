@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Button } from '../Button';
 import { Popper } from '../Popper';
-import { useForwardedRef, useId, usePopperTriggers } from '../../utilities';
+import { PopperTriggersClose, useForwardedRef, useId, usePopperTriggers } from '../../utilities';
 import { PopoverProps } from './types';
 
 /** A popover is a non-modal dialog that points to a reference element. */
@@ -63,7 +63,7 @@ export const Popover = React.forwardRef<HTMLElement, PopoverProps>(
 		const prevOpen = React.useRef(isOpen);
 
 		const close: PopoverProps['onRequestClose'] = React.useCallback(
-			(trigger) => {
+			(trigger: PopperTriggersClose) => {
 				focusReferenceOnClose.current = trigger !== 'click.external';
 				if (onRequestClose) onRequestClose(trigger);
 			},

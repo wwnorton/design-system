@@ -43,10 +43,6 @@
 		"build:main": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format modern,es,cjs --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM",
 		"build:umd": "microbundle --jsx React.createElement --jsxFragment React.Fragment --format umd --name NDSReact --external @popperjs/core,react,react-dom --globals @popperjs/core=Popper,react=React,react-dom=ReactDOM"
 	},
-	"overrides": {
-		"@types/react": "^17",
-		"@types/react-dom": "^17"
-	},
 	"dependencies": {
 		"@material/linear-progress": "^14.0.0",
 		"@popperjs/core": "^2.11.6",
@@ -59,10 +55,8 @@
 		"react-transition-group": "^4.4.5"
 	},
 	"devDependencies": {
+		"@types/react-is": "^18.3.0",
 		"@faker-js/faker": "^9.0.3",
-		"@types/react": "^17.0.53",
-		"@types/react-dom": "^17.0.19",
-		"@types/react-is": "^17.0.3",
 		"react-router-dom": "^5.3.4"
 	},
 	"peerDependencies": {

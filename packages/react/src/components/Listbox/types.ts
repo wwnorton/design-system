@@ -22,10 +22,12 @@ export interface OptionProps extends OptionBase {
 
 export type ListboxBase = Omit<
 	React.ComponentPropsWithoutRef<'ul'>,
-	'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'
+	'children' | 'role' | 'aria-multiselectable' | 'aria-orientation' | 'onChange'
 >;
 
 export interface ListboxProps extends ListboxBase {
+	children?: OptionProps[] | React.ReactNode;
+
 	/**
 	 * A list of options as either an array of `value` props, an array of `OptionProps`
 	 * objects, or an object with `label: value` entries. Array values will be

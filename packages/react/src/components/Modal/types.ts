@@ -32,7 +32,7 @@ export interface ModalProps extends BaseDialogProps {
 	 * A list of actions or React Fragment that will be set inside an action bar
 	 * at the bottom of the Modal dialog.
 	 */
-	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
+	actions?: React.ReactElement | React.ReactElement<ButtonProps>[] | React.ReactFragment;
 	/**
 	 * Indicates whether the header should stick to the top of the screen. Only
 	 * has an effect when the modal's content is longer than the window height
