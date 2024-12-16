@@ -16,7 +16,10 @@ const config: StorybookConfig = {
 		},
 	},
 
-	stories: ["../packages/react/src/**/*.stories.{ts,tsx,mdx}"],
+	stories: [
+		"../packages/react/src/**/*.mdx",
+		"../packages/react/src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+	],
 
 	addons: [
 		getAbsolutePath("@storybook/addon-essentials"),
