@@ -1,6 +1,6 @@
 {
 	"name": "@wwnds/react",
-	"version": "1.9.0",
+	"version": "1.9.1",
 	"description": "React components for the Norton Design System.",
 	"keywords": [
 		"component",
@@ -55,8 +55,8 @@
 		"react-transition-group": "^4.4.5"
 	},
 	"devDependencies": {
-		"@types/react-is": "^18.3.0",
 		"@faker-js/faker": "^9.0.3",
+		"@types/react-is": "^18.3.0",
 		"react-router-dom": "^5.3.4"
 	},
 	"peerDependencies": {
