@@ -13,8 +13,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 - fix type react types mismatch ([0d4dfb3](https://github.com/wwnorton/design-system/commit/0d4dfb3c7bb66092b634d30015f1dbb1b0b5e210))
 
-## [1.9.0](https://github.com/wwnorton/design-system/compare/v1.8.1-alpha.0...v1.9.0) (2024-12-16)
-
 ### 📝 Documentation
 
 - add component anatomy images ([#361](https://github.com/wwnorton/design-system/issues/361)) ([7bdedc5](https://github.com/wwnorton/design-system/commit/7bdedc52bdb7cf301d6c84bb5b45870d1c2e5a23))
