@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## <small>1.9.1 (2024-12-17)</small>
+## [1.9.1](https://github.com/wwnorton/design-system/compare/v1.9.0...v1.9.1) (2024-12-17)
 
-- chore: add missing 1.9.0 changelog entries ([3a23294](https://github.com/wwnorton/design-system/commit/3a23294))
-- chore: add missing lerna version options ([84ce1d8](https://github.com/wwnorton/design-system/commit/84ce1d8))
-- chore: align mixed declarations with CSS nesting ([a342abf](https://github.com/wwnorton/design-system/commit/a342abf))
-- chore: migrate husky hooks for husky@v10 ([04a4acd](https://github.com/wwnorton/design-system/commit/04a4acd))
-- chore: remove duplicate header ([06d1bbf](https://github.com/wwnorton/design-system/commit/06d1bbf))
-- chore: update CHANGELOG.md with v1.9.0 ([b9a5571](https://github.com/wwnorton/design-system/commit/b9a5571))
-- chore: vendor @material css ([3b33b76](https://github.com/wwnorton/design-system/commit/3b33b76))
-- fix: fix type react types mismatch ([0d4dfb3](https://github.com/wwnorton/design-system/commit/0d4dfb3))
+### 🐛 Bug Fixes
+
+- fix type react types mismatch ([0d4dfb3](https://github.com/wwnorton/design-system/commit/0d4dfb3c7bb66092b634d30015f1dbb1b0b5e210))
 
 ## [1.9.0](https://github.com/wwnorton/design-system/compare/v1.8.1-alpha.0...v1.9.0) (2024-12-16)
 
