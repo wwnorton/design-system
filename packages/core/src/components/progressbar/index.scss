@@ -1,4 +1,4 @@
-@use '@material/linear-progress/mixins' as linear-progress;
+@use './material-linear-progress' as linear-progress;
 @use './tokens';
 @use '../../config';
 @use '../../util';

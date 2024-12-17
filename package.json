@@ -20,7 +20,7 @@
     "dev:docs": "npm run start -w website",
     "dev:docs-full": "npm run build:sassdoc & npm run build:stories && npm run dev:docs",
     "dev:react": "npm run storybook",
-    "postinstall": "husky install",
+    "prepare": "husky",
     "lint": "npm run lint:es && npm run lint:prettier && npm run lint:style",
     "lint:es": "eslint '**/*.{js,jsx,ts,tsx}' --ignore-path .gitignore",
     "lint:es-fix": "npm run lint:es -- --fix",
