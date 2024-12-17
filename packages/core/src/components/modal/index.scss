@@ -95,16 +95,16 @@
 
 	margin: 0;
 
-	&:not(:last-child) {
-		padding-right: calc(var(--nds-modal-padding-x) / 2);
+	@include device.media-up('xs') {
+		font-size: var(--nds-font-size-h5);
 	}
 
 	@include device.media-up('sm') {
 		font-size: var(--nds-font-size-h4);
 	}
 
-	@include device.media-up('xs') {
-		font-size: var(--nds-font-size-h5);
+	&:not(:last-child) {
+		padding-right: calc(var(--nds-modal-padding-x) / 2);
 	}
 }
 
