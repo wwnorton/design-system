@@ -46,7 +46,7 @@
       "prettier --write"
     ],
     "!(yarn.lock|package-lock.json)": [
-      "cspell"
+      "cspell lint --no-must-find-files"
     ]
   },
   "ava": {
