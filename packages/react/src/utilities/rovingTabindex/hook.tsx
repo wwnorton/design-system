@@ -80,7 +80,7 @@ export const useRovingTabindex = <Container extends HTMLElement | null, Child ex
 	);
 
 	const createRef = useCallback(
-		(i) => (el: Child | null) => {
+		(i: number) => (el: Child | null) => {
 			if (!el || !container) {
 				return;
 			}

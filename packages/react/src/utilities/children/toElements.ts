@@ -9,7 +9,7 @@ import ReactIs from 'react-is';
  */
 export const toElements = <P extends Record<string, any> = any>(
 	/** A React node, such as `children` of any element. */
-	node: React.ReactNode,
+	node: P[] | React.ReactNode,
 	/** A list of required prop names. */
 	required: string[] = [],
 ): React.ReactElement<P>[] => {
