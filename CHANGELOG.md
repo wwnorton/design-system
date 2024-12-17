@@ -5,9 +5,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [1.9.0](https://github.com/wwnorton/design-system/compare/v1.8.1-alpha.0...v1.9.0) (2024-12-16)
 
-### Features
+### ✨ Features
 
-* **react,core:** add Table component ([cfbc194](https://github.com/wwnorton/design-system/commit/cfbc194161ca8b0b247c7300cf52a4dc17ea9469))
+- **react,core:** add Table component ([cfbc194](https://github.com/wwnorton/design-system/commit/cfbc194161ca8b0b247c7300cf52a4dc17ea9469))
+
+### 🐛 Bug Fixes
+
+- fix type react types mismatch ([0d4dfb3](https://github.com/wwnorton/design-system/commit/0d4dfb3c7bb66092b634d30015f1dbb1b0b5e210))
+
+## [1.9.0](https://github.com/wwnorton/design-system/compare/v1.8.1-alpha.0...v1.9.0) (2024-12-16)
+
+### 📝 Documentation
+
+- add component anatomy images ([#361](https://github.com/wwnorton/design-system/issues/361)) ([7bdedc5](https://github.com/wwnorton/design-system/commit/7bdedc52bdb7cf301d6c84bb5b45870d1c2e5a23))
+- add initial accessibility guide intro ([#360](https://github.com/wwnorton/design-system/issues/360)) ([e154c41](https://github.com/wwnorton/design-system/commit/e154c41e4e2c410af212dff8ceefa8cb5e20e963))
+- Multiple Choice Updates ([#362](https://github.com/wwnorton/design-system/issues/362)) ([d4e9fd6](https://github.com/wwnorton/design-system/commit/d4e9fd60c0409896e11ebd1a0606490f5aaae6e5)), closes [#2](https://github.com/wwnorton/design-system/issues/2)
+- **website:** refresh table docs to reflect the new implementation ([#364](https://github.com/wwnorton/design-system/issues/364)) ([36975a8](https://github.com/wwnorton/design-system/commit/36975a8ec243c00661f3edd4d00e22a22dcb37c2))
+
+### ♻️ Refactor
+
+- update multiple choice to reflect anatomy ([#366](https://github.com/wwnorton/design-system/issues/366)) ([17fd382](https://github.com/wwnorton/design-system/commit/17fd382a209e8eaad65aa3784016e0c38b4a9d0e))
 
 ## [1.8.0](https://github.com/wwnorton/design-system/compare/v1.7.1...v1.8.0) (2023-12-14)
 
