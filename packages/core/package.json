@@ -42,8 +42,6 @@
     "build": "microbundle --name NDSCore"
   },
   "dependencies": {
-    "@material/circular-progress": "^14.0.0",
-    "@material/linear-progress": "^14.0.0",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
