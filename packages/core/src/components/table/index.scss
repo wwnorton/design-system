@@ -217,6 +217,18 @@
 			}
 		}
 
+		.nds-table-header {
+			position: relative;
+			height: 0;
+			opacity: 0;
+
+			@include device.media-up('sm') {
+				position: static;
+				height: auto;
+				opacity: 1;
+			}
+		}
+
 		.nds-table-sort-button {
 			display: none;
 			padding: 0;
