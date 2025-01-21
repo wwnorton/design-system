@@ -23,7 +23,7 @@
 	--nds-selected-border: #{tokens.$selected-border};
 	--nds-border-y: #{tokens.$border-y};
 	--nds-base-border: #{tokens.$border-base};
-	--nds-zindex-focus: 9999;
+	--nds-zindex-focus: var(--nds-zindex-dropdown);
 
 	position: relative;
 	box-sizing: border-box;
