@@ -2,10 +2,6 @@ import React from 'react';
 import { useForwardedRef, useLayoutEffect, useValidation } from '../../utilities';
 import { BaseInputProps } from './types';
 
-const defaultProps: BaseInputProps = {
-	validateOnDOMChange: true,
-};
-
 /**
  * A base `<input>` component. Adds a callback for the DOM's `change` event
  * (`onDOMChange`), which does not exist in React.
@@ -15,7 +11,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
 		{
 			errors: errorsProp,
 			validateOnChange,
-			validateOnDOMChange = defaultProps.validateOnDOMChange,
+			validateOnDOMChange = true,
 			validators,
 			// pull out maxLength because it prevents user input past the given
 			// length, which is an anti-pattern according to our usage guidelines.
@@ -116,5 +112,3 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
 		);
 	},
 );
-
-BaseInput.defaultProps = defaultProps;

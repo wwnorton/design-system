@@ -2,10 +2,6 @@ import React from 'react';
 import { useForwardedRef, useLayoutEffect, useValidation } from '../../utilities';
 import { BaseTextAreaProps } from './types';
 
-const defaultProps: BaseTextAreaProps = {
-	validateOnDOMChange: true,
-};
-
 /**
  * A base `<textarea>` component. Adds a callback for the DOM's `change` event
  * (`onDOMChange`), which does not exist in React.
@@ -17,7 +13,7 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaPr
 			autoSize = false,
 			errors: errorsProp,
 			validateOnChange,
-			validateOnDOMChange = defaultProps.validateOnDOMChange,
+			validateOnDOMChange = true,
 			validators,
 			// pull out maxLength because it prevents user textarea past the given
 			// length, which is an anti-pattern according to our usage guidelines.
@@ -124,5 +120,3 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaPr
 		);
 	},
 );
-
-BaseTextArea.defaultProps = defaultProps;

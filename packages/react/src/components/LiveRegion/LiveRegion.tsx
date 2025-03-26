@@ -15,12 +15,6 @@ const srOnly: React.CSSProperties = {
 	border: '0',
 };
 
-const defaultProps: LiveRegionProps = {
-	removeAfter: 450,
-	updateAfter: 50,
-	'aria-live': 'assertive',
-};
-
 /**
  * Render an ARIA live region as a React Portal. Changing the `children` of this
  * component will result in
@@ -34,11 +28,11 @@ const defaultProps: LiveRegionProps = {
  * - [MDN - ARIA Live Regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)
  */
 export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
-	removeAfter = defaultProps.removeAfter,
-	updateAfter = defaultProps.updateAfter,
+	removeAfter = 450,
+	updateAfter = 50,
 	visible,
 	'aria-atomic': ariaAtomic,
-	'aria-live': ariaLive = defaultProps['aria-live'],
+	'aria-live': ariaLive = 'assertive',
 	'aria-relevant': ariaRelevant,
 	children,
 	className,
@@ -100,8 +94,6 @@ export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
 	if (typeof document === 'undefined') return null;
 	return createPortal(shouldRender ? Node : null, document.body);
 };
-
-LiveRegion.defaultProps = defaultProps;
 
 /**
  * Monitor an element for content changes. Returns the element's changed content,

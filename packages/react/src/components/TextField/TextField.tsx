@@ -6,20 +6,11 @@ import { BaseTextArea } from '../BaseTextArea';
 import { TextFieldProps } from './types';
 import { useId } from '../../utilities';
 
-const defaultProps: Partial<TextFieldProps> = {
-	counterStart: 25,
-	counter: ({ remaining, max }) => {
-		if (remaining < 0) return null;
-		return `${remaining}/${max} characters remaining`;
-	},
-	type: 'text',
-};
-
 export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TextFieldProps>(
 	(
 		{
 			// options
-			counterStart = defaultProps.counterStart,
+			counterStart = 25,
 			validators,
 			validateOnChange,
 			validateOnDOMChange,
@@ -35,7 +26,10 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 			addonAfter,
 			feedback,
 			errors: errorsProp,
-			counter = defaultProps.counter,
+			counter = ({ remaining, max }) => {
+				if (remaining < 0) return null;
+				return `${remaining}/${max} characters remaining`;
+			},
 
 			// classes
 			baseName = 'nds-field',
@@ -65,7 +59,7 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 			// <input> attributes
 			maxLength,
 			required,
-			type = defaultProps.type,
+			type = 'text',
 			value,
 
 			// event callbacks
