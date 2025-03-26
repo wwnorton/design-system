@@ -19,6 +19,7 @@ export const usePopperTriggers = ({
 	onRequestClose,
 }: UsePopperTriggersProps): void => {
 	const openTrigger = useRef<PopperTriggersOpen>();
+	const awaitingHideDelay = useRef(false);
 	const keyboardClick = useRef(false);
 	const spaceClick = useRef(false);
 	const showTimer = useRef<number>();
@@ -121,7 +122,9 @@ export const usePopperTriggers = ({
 			}, showDelay);
 		};
 		const pointerleaveHandler = () => {
+			awaitingHideDelay.current = true;
 			hideTimer.current = window.setTimeout((): void => {
+				awaitingHideDelay.current = false;
 				if (openTrigger.current === 'pointerenter') hide('pointerleave');
 			}, hideDelay);
 		};
@@ -129,8 +132,32 @@ export const usePopperTriggers = ({
 		const isHTMLorSVGElement = (el: typeof reference): el is HTMLElement | SVGElement =>
 			el ? el instanceof window.HTMLElement || el instanceof window.SVGElement : false;
 
+		/**
+		 * Bug fix: ensure that tooltips are closed when not hovered.
+		 * There are scenarios where the `pointerleave` event doesn't trigger,
+		 * so the tooltip won't close until the user moves their pointer back
+		 * over the reference element.
+		 * It's possible that this happens when the `pointerleave` event occurs
+		 * between the event loop. For instance, if the user tabs away, moves
+		 * their pointer somewhere else on their screen, and then tabs back.
+		 */
+		const docPointermoveHandler = (e: PointerEvent) => {
+			// do nothing if the tooltip isn't open, if it wasn't opened by the
+			// pointer, or if its state is being controlled
+			if ((isOpen && openTrigger.current === 'pointerenter') || openTrigger.current === undefined) {
+				const composedPath = e.composedPath();
+				if (isHTMLorSVGElement(reference) && isHTMLorSVGElement(popper)) {
+					const hovering = composedPath.includes(reference) || composedPath.includes(popper);
+					if (!hovering && !awaitingHideDelay.current) hide('pointermove.document');
+				}
+			}
+		};
+
 		// hide on Escape for all triggers
 		document.addEventListener('keydown', docKeydownHandler);
+
+		// hide on pointer move if the ref & tooltip aren't being hovered
+		document.addEventListener('pointermove', docPointermoveHandler);
 
 		// click
 		if (trigger.includes('click') && isHTMLorSVGElement(reference)) {
@@ -168,6 +195,7 @@ export const usePopperTriggers = ({
 		return (): void => {
 			clearHideTimer();
 			document.removeEventListener('keydown', docKeydownHandler);
+			document.removeEventListener('pointermove', docPointermoveHandler);
 
 			if (isHTMLorSVGElement(reference)) {
 				// click

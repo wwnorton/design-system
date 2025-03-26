@@ -154,3 +154,15 @@ test("complex tooltip contents are flattened and used as the reference's label e
 	);
 	t.truthy(screen.queryByRole('button', { name: FLATTENED }));
 });
+
+test("tooltips close when the user moves their pointer outside the reference even when pointerleave doesn't trigger", async (t) => {
+	const user = userEvent.setup();
+
+	const hideDelay = 200;
+	render(<TooltipFixture isOpen trigger="pointerenter" hideDelay={hideDelay} />);
+
+	t.truthy(screen.getByRole('tooltip', { hidden: true }));
+
+	await user.pointer({ target: document.body });
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+});
