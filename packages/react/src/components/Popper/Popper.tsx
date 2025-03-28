@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import { arrowMod, flipMod, matchWidthMod, offsetMod, preventOverflowMod } from './modifiers';
@@ -60,6 +60,19 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 		const [popper, setPopper] = useForwardedRef(ref);
 		const [arrowElement, setArrowElement] = React.useState<HTMLDivElement | null>(null);
 		const [distanceToken, setDistanceToken] = React.useState<number>();
+
+		/**
+		 * Fix for https://github.com/reactjs/react-transition-group/issues/918
+		 * Create an internal reference to the popper node so that we can use it
+		 * as the `nodeRef` for the CSSTransition. This prevents that library
+		 * from using `React.findDOMNode()`, which was deprecated in React 19.
+		 * TODO: switch to a different transition library since react-transition-group
+		 * is no longer maintained.
+		 */
+		const nodeRef = React.useRef<typeof popper>(null);
+		useEffect(() => {
+			nodeRef.current = popper;
+		}, [popper]);
 
 		const distance = React.useMemo(() => {
 			if (offset) {
@@ -162,7 +175,9 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 			if (addEndListener) return { addEndListener };
 			if (timeout) return { timeout };
 			return {
-				addEndListener: (node: HTMLElement, done: () => void) => {
+				addEndListener: (done: () => void) => {
+					if (!nodeRef.current) return;
+					const node = nodeRef.current;
 					const duration = parseFloat(window.getComputedStyle(node).transitionDuration);
 					if (duration > 0) {
 						node.addEventListener('transitionend', done, false);
@@ -186,6 +201,7 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 				in={isOpen}
 				mountOnEnter
 				unmountOnExit
+				nodeRef={nodeRef}
 			>
 				<div
 					{...props}

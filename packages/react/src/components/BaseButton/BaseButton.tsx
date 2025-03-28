@@ -2,12 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import { BaseButtonProps } from './types';
 
-export const defaultProps: BaseButtonProps = {
-	active: false,
-	activeClass: 'active',
-	type: 'button',
-};
-
 /**
  * A base `<button>` component with `type="button"` by default (browser default
  * is "submit") and a polyfill to ensure that :active is triggered while the
@@ -16,14 +10,14 @@ export const defaultProps: BaseButtonProps = {
 export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(
 	(
 		{
-			active = defaultProps.active,
-			activeClass = defaultProps.activeClass,
+			active = false,
+			activeClass = 'active',
 			onKeyDown,
 			onKeyUp,
 			onBlur,
 			className,
 			children,
-			type = defaultProps.type,
+			type = 'button',
 			...props
 		}: BaseButtonProps,
 		ref,
@@ -64,5 +58,3 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(
 		);
 	},
 );
-
-BaseButton.defaultProps = defaultProps;

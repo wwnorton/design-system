@@ -8,11 +8,11 @@ import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 test.afterEach(cleanup);
 
 const Fixture = ({
-	multiple,
-	handlerOnInput,
+	multiple = false,
+	handlerOnInput = false,
 	initialValue,
 	callSetSelected,
-	useDefaults,
+	useDefaults = false,
 }: {
 	multiple?: boolean;
 	handlerOnInput?: boolean;
@@ -43,13 +43,6 @@ const Fixture = ({
 			))}
 		</fieldset>
 	);
-};
-Fixture.defaultProps = {
-	multiple: false,
-	handlerOnInput: false,
-	initialValue: undefined,
-	callSetSelected: undefined,
-	useDefaults: false,
 };
 
 test('the default hook has nothing selected', async (t) => {
