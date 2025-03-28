@@ -8,7 +8,8 @@ export type PopperTriggersClose =
 	| 'click.external'
 	| 'escape'
 	| 'blur'
-	| 'pointerleave';
+	| 'pointerleave'
+	| 'pointermove.document';
 
 export interface UsePopperTriggersProps extends PopperCoreProps {
 	/** Indicates whether the popper is open or closed. */
