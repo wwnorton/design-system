@@ -99,7 +99,7 @@ jobs:
       - name: Test 🧪
         run: npm run coverage
       - name: Codecov ☂
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         if: ${{ matrix.node == env.COVERAGE_VERSION }}
