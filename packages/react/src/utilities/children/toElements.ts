@@ -55,7 +55,7 @@ export const toElements = <P extends Record<string, any> = any>(
 		if (typeof child === 'object') {
 			if (child === null) return 0;
 			if (ReactIs.isElement(child)) {
-				if (child.type === React.Fragment) {
+				if (ReactIs.typeOf(child) === ReactIs.Fragment) {
 					return childMap.push(...toElements<P>(child.props.children, required));
 				}
 				if (hasRequiredProps(child.props)) {
