@@ -45,7 +45,9 @@ test('a checkbox can be checked and unchecked by clicking the thumbnail', async 
 	const user = userEvent.setup();
 
 	render(
-		<Checkbox thumbnail={<img src="https://picsum.photos/64" alt="" />}>{defaultLabel}</Checkbox>,
+		<Checkbox thumbnail={<img src="https://picsum.photos/64" alt="a test thumbnail" />}>
+			{defaultLabel}
+		</Checkbox>,
 	);
 	const thumbnail = screen.getByRole('img');
 	const input = screen.getByLabelText(defaultLabel) as HTMLInputElement;
