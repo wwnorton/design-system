@@ -3,6 +3,18 @@
 import React from 'react';
 import ReactIs from 'react-is';
 
+/*
+ * Patch for ReactIs.isElement()
+ * If users have an older version of react-is, the .isElement method won't recognize
+ * elements properly since React changed its symbol in v19. This prevents us from
+ * having to set a specific react-is version in our peerDependencies.
+ * https://github.com/facebook/react/pull/28813
+ */
+const originalIsElement = ReactIs.isElement.bind({});
+ReactIs.isElement = (node: any): node is React.ReactElement => {
+	return originalIsElement(node) || node.$$typeof === Symbol.for('react.transitional.element');
+};
+
 /**
  * Coerce React nodes into an array of React elements (`ReactElement<P>[]`).
  * Pass an optional list of required props to validate the nodes.
