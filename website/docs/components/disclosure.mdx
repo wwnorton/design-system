@@ -10,40 +10,33 @@ import { PropsTable } from '@website/components';
 
 ## Anatomy
 
-1. **Summary Button** - a control that opens or closes the disclosure and conveys to the user what is contained in the disclosure body.
-1. **Summary Marker** - an icon that indicates that the disclosure can be opened or closed.
-	- When displayed before the label, the marker should point to the right when closed and down when open.
-	- When displayed after the label, the marker should point down when closed and up when open.
-1. **Body** - the disclosed contents, as summarized by the summary button.
+1. **Summary Button** - a button used to summarize what is conveyed in the disclosure body.
+	a. **Summary Marker** - a visual indicator of the disclosure state.
+1. **Body** - displays the content when expanded and hides the content when collapsed.
 
 ## Usage
 
-Use a disclosure when you want to help the user manage their attention on the page.
-Disclosures allow the user to skip over secondary content or features by not expanding the disclosure, while still giving them the option to delve deeper should they choose to expand it.
-The disclosure is named for the principle of [progressive disclosure](https://www.nngroup.com/articles/progressive-disclosure/).
-
+- Use a disclosure when you want to help the users manage their attention on the page.  
+	:::note Why
+	A disclosure improves content scanability by keeping the primary information visible, allowing users to focus on what’s most relevant to them.
+	:::
 - A disclosure has two states: collapsed and expanded. A disclosure is collapsed by default.
-- A disclosure should include an icon that conveys that it can be activated for more information.
-- A disclosure’s label should clearly and succinctly describe its hidden content, so that the user can choose to expand it.
-- When a disclosure has focus, <kbd>Enter</kbd> and <kbd>Space</kbd> activate the disclosure and toggle the visibility of content.
-- All focusable elements inside a disclosure are included in the tab order, if the disclosure is expanded.
+- A disclosure’s summary button should clearly and succinctly describe its hidden content, allowing users to quickly identify relevant sections without needing to expand every disclosure.
+- Ensure that the entire summary button is selectable.
+	:::note Why
+	Expanding the target area improves usability, making it easier for users to interact with the disclosure, especially on touch devices.
+	:::
+- If multiple related disclosures are needed, use an (accordion).
 
-:::tip Do
-- Do use a disclosure to make the page easier to scan, and hide lower-priority information that only some users will need.
-- Do ensure that the entire expandable button (label and icon) is clickable.
-- Do display the expanded content directly after the expandable button.
-:::
 
 :::danger Don't
-- Don’t use a disclosure if most or all users need to see the content. When content is hidden, users may ignore that information.
-- Don’t display a disabled disclosure if there is no content to reveal. Instead, do not display the disclosure at all, or include a message explaining why there is no content when the user activates it.
-- Don’t use an icon that has multiple meanings within the same system.
+- Don't nest disclosures within each other.
+	- **Why:** Nested disclosures are difficult to navigate and not easily accessible. 
+- Don’t use a disabled disclosure when there is no content to reveal.
+	- **Why:** A disabled disclosure can confuse users, making them wonder if something is broken or missing.
 :::
 
-:::info Notes
-- If there is only one section of content, then use a disclosure.
-- If there are multiple sections of content, then use an accordion or tabs.
-:::
+
 
 ## React API
 
