@@ -108,7 +108,7 @@ export const Swatch = ({
 					styles["color-use"],
 					usable ? styles["color-use--success"] : styles["color-use--error"]
 				);
-				const href = `https://whocanuse.com/?b=${hex.replace("#", "")}&c=${
+				const href = `https://whocanuse.com/?bg=${hex.replace("#", "")}&fg=${
 					i === 0 ? "ffffff" : "000000"
 				}`;
 				return (
