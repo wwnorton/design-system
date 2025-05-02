@@ -16,7 +16,10 @@ test('clicking the summary opens a closed disclosure', async (t) => {
 	const details = screen.getByRole('group') as HTMLDetailsElement;
 	t.false(details.hasAttribute('open'));
 
-	const summary = screen.getByRole('button');
+	// TODO: use a more semantic selector for all summary elements in this file.
+	// Ideally we would getByRole, but summary elements don't have an implicit role.
+	// See https://www.w3.org/TR/html-aria/#el-summary
+	const summary = screen.getByText(defaultSummary);
 	await user.click(summary);
 
 	t.true(details.hasAttribute('open'));
@@ -33,7 +36,7 @@ test('clicking the summary closes an open disclosure', async (t) => {
 	const details = screen.getByRole('group') as HTMLDetailsElement;
 	t.true(details.hasAttribute('open'));
 
-	const summary = screen.getByRole('button');
+	const summary = screen.getByText(defaultSummary);
 	await user.click(summary);
 
 	t.false(details.hasAttribute('open'));
@@ -47,7 +50,7 @@ test('returning false on a callback cancels the callback', async (t) => {
 			{shortContent}
 		</Disclosure>,
 	);
-	const summary = screen.getByRole('button');
+	const summary = screen.getByText(defaultSummary);
 	await user.click(summary);
 	const details = screen.getByRole('group') as HTMLDetailsElement;
 	t.is(details.open, false);
