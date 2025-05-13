@@ -49,6 +49,39 @@ WithActionBar.args = {
 	children: shortContent,
 };
 
+export const DescribedByContents = (args: ModalProps) => {
+	const [isOpen, setOpen] = React.useState(false);
+	const descriptionId = React.useId();
+
+	const close = (): void => {
+		setOpen(false);
+		action('onRequestClose')();
+	};
+	return (
+		<>
+			<Button variant="solid" onClick={() => setOpen(true)}>
+				Open
+			</Button>
+			<Modal
+				isOpen={isOpen}
+				onOpen={action('onOpen')}
+				onRequestClose={close}
+				aria-describedby={descriptionId}
+				{...args}
+			>
+				<section id={descriptionId}>
+					<p>
+						This modal dialog is described by its contents with <code>aria-describedby</code>.
+					</p>
+				</section>
+			</Modal>
+		</>
+	);
+};
+DescribedByContents.args = {
+	title: 'Described Modal',
+};
+
 export const ComplexModal = (args: ModalProps) => {
 	const [firstNameRef, setFirstNameRef] = React.useState<HTMLInputElement | null>(null);
 	const [lastNameRef, setLastNameRef] = React.useState<HTMLInputElement | null>(null);
@@ -56,6 +89,8 @@ export const ComplexModal = (args: ModalProps) => {
 	const [lastName, setFirst] = React.useState('');
 	const [firstName, setLast] = React.useState('');
 	const [resultOpen, setResultOpen] = React.useState(false);
+	const formId = React.useId();
+
 	const open = (): void => setOpen(true);
 	const close = (): void => {
 		setOpen(false);
@@ -89,9 +124,10 @@ export const ComplexModal = (args: ModalProps) => {
 				onOpen={action('onOpen')}
 				onRequestClose={close}
 				closeOnEscape={!resultOpen}
+				aria-describedby={formId}
 				{...args}
 			>
-				<form onSubmit={submit} onChange={handleChange}>
+				<form onSubmit={submit} onChange={handleChange} id={formId}>
 					<TextField required value={firstName} ref={setFirstNameRef}>
 						First Name
 					</TextField>

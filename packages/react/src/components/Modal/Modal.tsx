@@ -295,6 +295,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			children,
 			contentClass = `${this.baseName}__${Modal.bemElements.content}`,
 			backdropClass = `${this.baseName}__${Modal.bemElements.backdrop}`,
+			'aria-describedby': ariaDescribedby,
 		} = this.props;
 		const { isOpen, long } = this.state;
 		if (!isOpen) return null;
@@ -319,6 +320,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 					}}
 					onPointerDown={this.onPointerDownClick}
 					{...label}
+					aria-describedby={ariaDescribedby}
 				>
 					{this.Header}
 					<section
