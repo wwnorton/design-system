@@ -69,11 +69,9 @@ export const DescribedByContents = (args: ModalProps) => {
 				aria-describedby={descriptionId}
 				{...args}
 			>
-				<section id={descriptionId}>
-					<p>
-						This modal dialog is described by its contents with <code>aria-describedby</code>.
-					</p>
-				</section>
+				<p id={descriptionId}>
+					This modal dialog is described by its contents with <code>aria-describedby</code>.
+				</p>
 			</Modal>
 		</>
 	);
