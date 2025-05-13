@@ -40,5 +40,14 @@ test("uses React 18's useId when it's available", (t) => {
 
 	const major = Number(React.version.split('.')[0]);
 
-	t.true(major < 18 ? id0.startsWith('nds-') : id0.startsWith(':r'));
+	switch (major) {
+		case 18:
+			t.true(id0.startsWith(':r'));
+			break;
+		case 19:
+			t.true(id0.startsWith('«r'));
+			break;
+		default:
+			t.true(id0.startsWith('nds-'));
+	}
 });

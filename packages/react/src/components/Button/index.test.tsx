@@ -3,7 +3,6 @@ import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Button, IconButton } from '.';
-import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 import { ChangingContent } from './index.stories';
 import { BUTTON_NO_NAME } from './errors';
 
@@ -12,18 +11,8 @@ test.afterEach(cleanup);
 const defaultChildren = 'Button action';
 
 test('throws when an accessible name is not provided', async (t) => {
-	// suppress JSDOM errors in the log
-	window.onerror = () => true;
-	render(
-		<ErrorBoundary>
-			{/* @ts-ignore */}
-			<Button />
-		</ErrorBoundary>,
-	);
-
-	t.truthy(screen.queryByText(BUTTON_NO_NAME));
-	t.falsy(screen.queryByRole('button'));
-	window.onerror = null;
+	// @ts-ignore
+	t.throws(() => render(<Button />), { message: BUTTON_NO_NAME });
 });
 
 test('renders a <button>', async (t) => {

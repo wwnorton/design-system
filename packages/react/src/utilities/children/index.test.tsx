@@ -2,7 +2,6 @@
 import test from 'ava';
 import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
-import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 import { toElements } from '.';
 
 test.afterEach(cleanup);
@@ -14,12 +13,12 @@ const Fixture = ({
 	nodes,
 	requiredProps,
 }: {
-	children?: React.ReactNode;
+	children?: React.ReactNode | React.ReactNode[];
 	nodes?: React.ReactNode;
 	requiredProps?: string[];
 }) => {
 	const childElements = React.useMemo(
-		() => toElements(nodes || children, requiredProps),
+		() => toElements(nodes ?? children, requiredProps),
 		[children, nodes, requiredProps],
 	);
 	return (
@@ -108,6 +107,7 @@ test('an array of arrays are mapped to elements', (t) => {
 
 test('an array of objects are mapped to elements', (t) => {
 	const children = ITEMS.map((item) => ({ children: item }));
+	// @ts-ignore
 	render(<Fixture>{children}</Fixture>);
 	const items = screen.queryAllByRole('listitem');
 	items.forEach((item, i) => {
@@ -116,73 +116,57 @@ test('an array of objects are mapped to elements', (t) => {
 });
 
 test('throws when objects are missing required props', (t) => {
-	window.onerror = () => true;
 	const children = ITEMS.map((item) => ({ children: item }));
 	const requiredProps = ['data-foo'];
-	render(
-		<ErrorBoundary>
-			<Fixture requiredProps={requiredProps}>{children}</Fixture>
-		</ErrorBoundary>,
-	);
-	t.truthy(screen.queryByText(toElements.MISSING_PROPS(requiredProps)));
-	t.is(screen.queryAllByRole('listitem').length, 0);
-	window.onerror = () => null;
+	// @ts-ignore
+	t.throws(() => render(<Fixture requiredProps={requiredProps}>{children}</Fixture>), {
+		message: toElements.MISSING_PROPS(requiredProps),
+	});
 });
 
 test('throws when invalid React nodes are provided', (t) => {
-	window.onerror = () => true;
-	render(
-		<ErrorBoundary>
-			<Fixture nodes={Symbol('foo')} />
-		</ErrorBoundary>,
-	);
-	t.truthy(screen.queryByText(toElements.INVALID_NODES));
-	t.is(screen.queryAllByRole('listitem').length, 0);
-	window.onerror = () => null;
+	// @ts-ignore
+	t.throws(() => render(<Fixture nodes={Symbol('foo')} />), {
+		message: toElements.INVALID_NODES,
+	});
 });
 
 test('throws when elements are missing required props', (t) => {
-	window.onerror = () => true;
 	const requiredProps = ['data-foo'];
-	render(
-		<ErrorBoundary>
-			<Fixture requiredProps={requiredProps}>
-				<p>{ITEMS[0]}</p>
-				<p>{ITEMS[1]}</p>
-				<p>{ITEMS[2]}</p>
-			</Fixture>
-		</ErrorBoundary>,
+	t.throws(
+		() =>
+			render(
+				<Fixture requiredProps={requiredProps}>
+					<p>{ITEMS[0]}</p>
+					<p>{ITEMS[1]}</p>
+					<p>{ITEMS[2]}</p>
+				</Fixture>,
+			),
+		{
+			message: toElements.MISSING_PROPS(requiredProps),
+		},
 	);
-	t.truthy(screen.queryByText(toElements.MISSING_PROPS(requiredProps)));
-	t.is(screen.queryAllByRole('listitem').length, 0);
-	window.onerror = () => null;
 });
 
 test('does not throw when elements contain required props', (t) => {
 	const requiredProps = ['data-foo'];
-	render(
-		<ErrorBoundary>
+	t.notThrows(() =>
+		render(
 			<Fixture requiredProps={requiredProps}>
 				<p data-foo="foo">{ITEMS[0]}</p>
 				<p data-foo="bar">{ITEMS[1]}</p>
 				<p data-foo="baz">{ITEMS[2]}</p>
-			</Fixture>
-		</ErrorBoundary>,
+			</Fixture>,
+		),
 	);
 	t.falsy(screen.queryByText(toElements.MISSING_PROPS(requiredProps)));
 	t.is(screen.queryAllByRole('listitem').length, 3);
 });
 
 test('throws when an array of numbers and strings are used with required props', (t) => {
-	window.onerror = () => true;
 	const children = [2, 'three', undefined, null];
 	const requiredProps = ['data-foo'];
-	render(
-		<ErrorBoundary>
-			<Fixture requiredProps={requiredProps}>{children}</Fixture>
-		</ErrorBoundary>,
-	);
-	t.truthy(screen.queryByText(toElements.MISSING_PROPS(requiredProps)));
-	t.is(screen.queryAllByRole('listitem').length, 0);
-	window.onerror = () => null;
+	t.throws(() => render(<Fixture requiredProps={requiredProps}>{children}</Fixture>), {
+		message: toElements.MISSING_PROPS(requiredProps),
+	});
 });

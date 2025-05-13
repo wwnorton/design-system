@@ -44,7 +44,11 @@ test('a radio can be checked but not unchecked by clicking the control', async (
 test('a radio can be checked but not unchecked by clicking the thumbnail', async (t) => {
 	const user = userEvent.setup();
 
-	render(<Radio thumbnail={<img src="https://picsum.photos/64" alt="" />}>{defaultLabel}</Radio>);
+	render(
+		<Radio thumbnail={<img src="https://picsum.photos/64" alt="a test thumbnail" />}>
+			{defaultLabel}
+		</Radio>,
+	);
 	const thumbnail = screen.getByRole('img');
 	const input = screen.getByLabelText(defaultLabel) as HTMLInputElement;
 	await user.click(thumbnail);
