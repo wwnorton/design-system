@@ -1,5 +1,5 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { ChoiceField, Choice, Choices, ChoiceFieldProps, ChoicesProps } from '.';
 import { useSelect } from '../../utilities';
 

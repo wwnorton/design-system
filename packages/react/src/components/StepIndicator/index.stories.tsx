@@ -1,4 +1,4 @@
-import { Story } from '@storybook/react';
+import { Story } from '@storybook/react-vite';
 import React from 'react';
 import { StepIndicatorProps, StepIndicator, Step } from '.';
 

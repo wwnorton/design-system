@@ -22,9 +22,9 @@ const config: StorybookConfig = {
 	],
 
 	addons: [
-		getAbsolutePath("@storybook/addon-essentials"),
 		getAbsolutePath("@storybook/addon-a11y"),
-		"@chromatic-com/storybook",
+		getAbsolutePath("@chromatic-com/storybook"),
+		getAbsolutePath("@storybook/addon-docs"),
 	],
 
 	typescript: {

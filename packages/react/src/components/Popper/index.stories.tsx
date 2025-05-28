@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
+import { Meta } from '@storybook/react-vite';
 import { Button, Listbox, Option } from '../..';
 import { Popper, PopperProps } from '.';
 import { useExternalClick, useSelect } from '../../utilities';
