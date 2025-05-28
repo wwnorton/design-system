@@ -45,18 +45,18 @@
 	},
 	"dependencies": {
 		"@material/linear-progress": "^14.0.0",
-		"@popperjs/core": "^2.11.6",
-		"@types/react-transition-group": "^4.4.5",
-		"classnames": "^2.3.2",
+		"@popperjs/core": "^2.11.8",
+		"@types/react-transition-group": "^4.4.12",
+		"classnames": "^2.5.1",
 		"lodash": "^4.17.21",
-		"react-fast-compare": "^3.2.0",
+		"react-fast-compare": "^3.2.2",
 		"react-is": "^17.0.2",
 		"react-popper": "^2.3.0",
 		"react-transition-group": "^4.4.5"
 	},
 	"devDependencies": {
-		"@faker-js/faker": "^9.0.3",
-		"@types/react-is": "^18.3.0",
+		"@faker-js/faker": "^9.8.0",
+		"@types/react-is": "^18.3.1",
 		"react-router-dom": "^5.3.4"
 	},
 	"peerDependencies": {
