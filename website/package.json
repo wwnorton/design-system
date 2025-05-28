@@ -18,8 +18,8 @@
     "clear": "docusaurus clear",
     "deploy": "docusaurus deploy",
     "docusaurus": "docusaurus",
-    "serve": "docusaurus serve --dir ../public",
-    "start": "docusaurus start",
+    "serve": "docusaurus serve --dir ../public --no-open",
+    "start": "docusaurus start --no-open",
     "swizzle": "docusaurus swizzle",
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations"
