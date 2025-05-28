@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
+import { Meta } from '@storybook/react-vite';
 import { Tag, TagProps } from '.';
 import { Icon } from '../Icon';
 import { Link } from '../Link';

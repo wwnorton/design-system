@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MultipleChoiceQuestion, MultipleChoiceFeedback, useMultipleChoice } from '.';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';

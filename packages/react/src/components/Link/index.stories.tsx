@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, Story } from '@storybook/react-vite';
 import { BrowserRouter, Link as ReactLink } from 'react-router-dom';
 import { Link, LinkProps } from '.';
 import { LinkContext } from '../../utilities/link';

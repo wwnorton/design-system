@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story } from '@storybook/react';
+import { Story } from '@storybook/react-vite';
 import { Button, ButtonProps, IconButton, IconButtonProps } from '.';
 import { IconOptions } from '../Icon';
 

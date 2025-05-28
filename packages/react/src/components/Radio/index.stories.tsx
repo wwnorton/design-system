@@ -1,5 +1,5 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { Radio, RadioProps, RadioGroup as RadioGroupComp, RadioGroupProps } from '.';
 import { Link } from '../Link';
 import { useSelect } from '../../utilities';

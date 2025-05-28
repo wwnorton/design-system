@@ -1,4 +1,4 @@
-import { Story } from '@storybook/react';
+import { Story } from '@storybook/react-vite';
 import React from 'react';
 import { Callout, CalloutProps } from '.';
 import { IconOptions } from '../Icon';
