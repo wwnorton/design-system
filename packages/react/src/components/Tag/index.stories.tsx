@@ -1,49 +1,56 @@
 import React from 'react';
-import { Meta } from '@storybook/react-vite';
-import { Tag, TagProps } from '.';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Tag } from '.';
 import { Icon } from '../Icon';
 import { Link } from '../Link';
 
-export default {
-	title: 'Tag',
+const meta = {
+	title: 'Components/Tag',
 	component: Tag,
-} as Meta<TagProps>;
+} satisfies Meta<typeof Tag>;
 
-const TagTemplate = (args: TagProps) => <Tag {...args} />;
+export default meta;
 
-export const Default = TagTemplate.bind({});
-Default.args = {
-	children: 'Tag label',
-	color: undefined,
-};
+type Story = StoryObj<typeof Tag>;
 
-export const WithIcon = TagTemplate.bind({});
-WithIcon.args = {
-	color: 'green',
-	children: (
-		<>
-			<Icon variant="download" />
-			With Icon
-		</>
-	),
-};
+export const Default = {
+	args: {
+		children: 'Tag label',
+		color: undefined,
+	},
+} satisfies Story;
 
-export const WithLink = TagTemplate.bind({});
-WithLink.args = {
-	children: (
-		<Link href="https://github.com/wwnorton/design-system" external>
-			Norton Design System GitHub
-		</Link>
-	),
-};
+export const WithIcon = {
+	args: {
+		color: 'green',
+		children: (
+			<>
+				<Icon variant="download" />
+				With Icon
+			</>
+		),
+	},
+} satisfies Story;
 
-export const Dismissible = (args: TagProps) => {
-	const [dismissed, setDismissed] = React.useState(false);
+export const WithLink = {
+	args: {
+		children: (
+			<Link href="https://github.com/wwnorton/design-system" external>
+				Norton Design System GitHub
+			</Link>
+		),
+	},
+} satisfies Story;
 
-	if (dismissed) return <span {...args} />;
-	return (
-		<Tag {...args} dismissible onDismiss={() => setDismissed(true)}>
-			Dismissible
-		</Tag>
-	);
-};
+export const Dismissible = {
+	render: (args) => {
+		const [dismissed, setDismissed] = React.useState(false);
+
+		if (dismissed) return <span {...args} />;
+		return (
+			<Tag {...args} dismissible onDismiss={() => setDismissed(true)}>
+				Dismissible
+			</Tag>
+		);
+	},
+} satisfies Story;

@@ -4,7 +4,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Button, IconButton } from '.';
 import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
-import { ChangingContent } from './index.stories';
+import { ChangingContent } from './Button.stories';
 import { BUTTON_NO_NAME } from './errors';
 
 test.afterEach(cleanup);

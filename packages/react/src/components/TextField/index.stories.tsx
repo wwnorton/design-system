@@ -1,11 +1,11 @@
 import React from 'react';
-import { Meta } from '@storybook/react-vite';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { TextField, TextFieldProps } from '.';
 import { Button, ButtonProps } from '../Button';
 import { Icon, IconProps } from '../Icon';
 
-export default {
-	title: 'Text Field',
+const meta = {
+	title: 'Components/Text Field',
 	component: TextField,
 	argTypes: {
 		maxLength: {
@@ -18,63 +18,72 @@ export default {
 		validateOnChange: { control: { type: 'boolean' } },
 		validateOnDOMChange: { control: { type: 'boolean' } },
 	},
-} as Meta<TextFieldProps>;
+} satisfies Meta<typeof TextField>;
 
-const TextFieldTemplate = (args: TextFieldProps) => <TextField {...args} />;
+export default meta;
 
-export const Default = TextFieldTemplate.bind({});
-Default.args = {
-	children: 'Default Text Field',
-	description: 'The default Text Field has a type of "text".',
-};
+type Story = StoryObj<typeof TextField>;
 
-export const Email = TextFieldTemplate.bind({});
-Email.args = {
-	children: 'Email',
-	description: 'Email fields show an error if the value is not an email address.',
-	type: 'email',
-	validateOnChange: true,
-};
+export const Default = {
+	args: {
+		children: 'Default Text Field',
+		description: 'The default Text Field has a type of "text".',
+	},
+} satisfies Story;
 
-export const Number = TextFieldTemplate.bind({});
-Number.args = {
-	children: 'Number',
-	description:
-		'Email fields can be incremented with arrow keys and show an error if the value is not a number.',
-	type: 'number',
-	validateOnChange: true,
-};
+export const Email = {
+	args: {
+		children: 'Email',
+		description: 'Email fields show an error if the value is not an email address.',
+		type: 'email',
+		validateOnChange: true,
+	},
+} satisfies Story;
 
-export const Password = TextFieldTemplate.bind({});
-Password.args = {
-	children: 'Password',
-	description: 'Password fields obscure their value.',
-	type: 'password',
-	validateOnChange: true,
-};
+export const Number = {
+	args: {
+		children: 'Number',
+		description:
+			'Email fields can be incremented with arrow keys and show an error if the value is not a number.',
+		type: 'number',
+		validateOnChange: true,
+	},
+} satisfies Story;
 
-export const WithMaxLength = TextFieldTemplate.bind({});
-WithMaxLength.args = {
-	maxLengthRestrictsInput: false,
-	maxLength: 10,
-	counterStart: 8,
-	validateOnChange: true,
-	children: 'TextField with max length',
-	description:
-		'Control the maximum length and optionally prevent input after that number of characters.',
-};
+export const Password = {
+	args: {
+		children: 'Password',
+		description: 'Password fields obscure their value.',
+		type: 'password',
+		validateOnChange: true,
+	},
+} satisfies Story;
 
-export const WithAddonBefore = TextFieldTemplate.bind({});
-WithAddonBefore.args = {
-	addonBefore: <Button variant="ghost">Do something</Button>,
-	children: 'Text field with a button addon before the input',
-};
+export const WithMaxLength = {
+	args: {
+		maxLengthRestrictsInput: false,
+		maxLength: 10,
+		counterStart: 8,
+		validateOnChange: true,
+		children: 'TextField with max length',
+		description:
+			'Control the maximum length and optionally prevent input after that number of characters.',
+	},
+} satisfies Story;
 
-export const WithAddonAfter = TextFieldTemplate.bind({});
-WithAddonAfter.args = {
-	addonAfter: <Button variant="outline">Do something else</Button>,
-	children: 'Text field with a button addon after the input',
-};
+export const WithAddonBefore = {
+	args: {
+		addonBefore: <Button variant="ghost">Do something</Button>,
+		children: 'Text field with a button addon before the input',
+	},
+} satisfies Story;
+
+export const WithAddonAfter = {
+	args: {
+		addonAfter: <Button variant="outline">Do something else</Button>,
+		children: 'Text field with a button addon after the input',
+	},
+} satisfies Story;
 
 const show: ButtonProps = {
 	children: 'Show',
@@ -101,146 +110,176 @@ const valid: IconProps = {
 const neutralUser: IconProps = { variant: 'account' };
 const neutralPW: IconProps = { variant: 'info' };
 
-export const ExampleLoginForm = ({ minLength, maxLength, ...args }: TextFieldProps) => {
-	const [type, setType] = React.useState<TextFieldProps['type']>('password');
-	const [userField, setUserField] = React.useState<HTMLInputElement | null>(null);
-	const [pwField, setPwField] = React.useState<HTMLInputElement | null>(null);
-	const [username, setUsername] = React.useState('');
-	const [password, setPassword] = React.useState('');
-	const [buttonProps, setButtonProps] = React.useState<ButtonProps>(show);
-	const [userErrors, setUserErrors] = React.useState<string[]>();
-	const [pwErrors, setPwErrors] = React.useState<string[]>();
-	const [isSame, setIsSame] = React.useState(false);
-	const [pwIcon, setPWIcon] = React.useState<IconProps>(neutralPW);
+export const ExampleLoginForm = {
+	render: ({ minLength, maxLength, ...args }: TextFieldProps) => {
+		const [type, setType] = React.useState<TextFieldProps['type']>('password');
+		const [userField, setUserField] = React.useState<HTMLInputElement | null>(null);
+		const [pwField, setPwField] = React.useState<HTMLInputElement | null>(null);
+		const [username, setUsername] = React.useState('');
+		const [password, setPassword] = React.useState('');
+		const [buttonProps, setButtonProps] = React.useState<ButtonProps>(show);
+		const [userErrors, setUserErrors] = React.useState<string[]>();
+		const [pwErrors, setPwErrors] = React.useState<string[]>();
+		const [isSame, setIsSame] = React.useState(false);
+		const [pwIcon, setPWIcon] = React.useState<IconProps>(neutralPW);
 
-	const toggle = (): void => {
-		setType(type === 'password' ? 'text' : 'password');
-	};
+		const toggle = (): void => {
+			setType(type === 'password' ? 'text' : 'password');
+		};
 
-	const errors = React.useCallback(
-		(errs?: string[]) => {
-			const sameError = 'Username and password cannot be the same.';
-			if (isSame) return errs ? [...errs, sameError] : [sameError];
-			return errs || [];
-		},
-		[isSame],
-	);
+		const errors = React.useCallback(
+			(errs?: string[]) => {
+				const sameError = 'Username and password cannot be the same.';
+				if (isSame) return errs ? [...errs, sameError] : [sameError];
+				return errs || [];
+			},
+			[isSame],
+		);
 
-	React.useEffect(() => {
-		if (username || password) {
-			setIsSame(username === password);
-		}
-	}, [username, password]);
+		React.useEffect(() => {
+			if (username || password) {
+				setIsSame(username === password);
+			}
+		}, [username, password]);
 
-	React.useEffect(() => {
-		if (pwErrors) {
-			setPWIcon(pwErrors.length ? invalid : valid);
-		} else {
-			setPWIcon(neutralPW);
-		}
-	}, [pwErrors]);
+		React.useEffect(() => {
+			if (pwErrors) {
+				setPWIcon(pwErrors.length ? invalid : valid);
+			} else {
+				setPWIcon(neutralPW);
+			}
+		}, [pwErrors]);
 
-	React.useEffect(() => {
-		setButtonProps(type === 'password' ? show : hide);
-	}, [type]);
+		React.useEffect(() => {
+			setButtonProps(type === 'password' ? show : hide);
+		}, [type]);
 
-	const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
-		e.preventDefault();
-	};
+		const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
+			e.preventDefault();
+		};
 
-	const changeHandler = (e: React.FormEvent<HTMLFormElement>): void => {
-		const { value: val } = e.target as HTMLInputElement;
-		switch (e.target) {
-			case userField:
-				setUsername(val);
-				break;
-			case pwField:
-				setPassword(val);
-				break;
-			default:
-		}
-	};
+		const changeHandler = (e: React.FormEvent<HTMLFormElement>): void => {
+			const { value: val } = e.target as HTMLInputElement;
+			switch (e.target) {
+				case userField:
+					setUsername(val);
+					break;
+				case pwField:
+					setPassword(val);
+					break;
+				default:
+			}
+		};
 
-	return (
-		<form className="form" onSubmit={submitHandler} onChange={changeHandler}>
-			<TextField
-				type="text"
-				value={username}
-				errors={errors(userErrors)}
-				onValidate={setUserErrors}
-				validateOnChange
-				required
-				addonBefore={<Icon {...neutralUser} />}
-				ref={setUserField}
-				{...args}
-			>
-				Username
-			</TextField>
-			<TextField
-				type={type}
-				value={password}
-				errors={errors(pwErrors)}
-				required
-				minLength={minLength}
-				maxLength={maxLength}
-				onValidate={setPwErrors}
-				validateOnChange
-				addonBefore={<Icon className="addon-icon" {...pwIcon} />}
-				addonAfter={<Button iconOnly variant="ghost" onClick={toggle} {...buttonProps} />}
-				ref={setPwField}
-				{...args}
-			>
-				Password
-			</TextField>
-			<Button variant="solid" type="submit">
-				Submit
-			</Button>
-		</form>
-	);
-};
-ExampleLoginForm.args = {
-	minLength: 8,
-	maxLength: 32,
-};
+		return (
+			<form className="form" onSubmit={submitHandler} onChange={changeHandler}>
+				<TextField
+					type="text"
+					value={username}
+					errors={errors(userErrors)}
+					onValidate={setUserErrors}
+					validateOnChange
+					required
+					addonBefore={<Icon {...neutralUser} />}
+					ref={setUserField}
+					{...args}
+				>
+					Username
+				</TextField>
+				<TextField
+					type={type}
+					value={password}
+					errors={errors(pwErrors)}
+					required
+					minLength={minLength}
+					maxLength={maxLength}
+					onValidate={setPwErrors}
+					validateOnChange
+					addonBefore={<Icon className="addon-icon" {...pwIcon} />}
+					addonAfter={<Button iconOnly variant="ghost" onClick={toggle} {...buttonProps} />}
+					ref={setPwField}
+					{...args}
+				>
+					Password
+				</TextField>
+				<Button variant="solid" type="submit">
+					Submit
+				</Button>
+			</form>
+		);
+	},
+	args: {
+		minLength: 8,
+		maxLength: 32,
+	},
+} satisfies Story;
 
 type CustomValidationProps = TextFieldProps & { firstName: string; lastName: string };
-export const CustomValidation = ({ firstName, lastName, ...args }: CustomValidationProps) => {
-	const [value, setValue] = React.useState('');
-	const [errors, setErrors] = React.useState<string[]>();
+export const CustomValidation = {
+	render: ({ firstName, lastName, ...args }: CustomValidationProps) => {
+		const [value, setValue] = React.useState('');
+		const [errors, setErrors] = React.useState<string[]>();
 
-	const changeHandler = (e): void => setValue(e.target.value);
+		const feedback = React.useMemo(() => {
+			if (errors && !errors.length) {
+				return `Well done, ${value}!`;
+			}
+			return undefined;
+		}, [errors, value]);
 
-	const feedback = React.useMemo(() => {
-		if (errors && !errors.length) {
-			return `Well done, ${value}!`;
-		}
-		return undefined;
-	}, [errors, value]);
+		React.useEffect(() => {
+			if (value) {
+				const newErrors: string[] = [];
+				if (!value.startsWith(firstName)) newErrors.push(`Must begin with "${firstName}".`);
+				if (!value.endsWith(lastName)) newErrors.push(`Must end with "${lastName}".`);
+				setErrors(newErrors);
+			}
+		}, [value, firstName, lastName]);
 
-	React.useEffect(() => {
-		if (value) {
-			const newErrors: string[] = [];
-			if (!value.startsWith(firstName)) newErrors.push(`Must begin with "${firstName}".`);
-			if (!value.endsWith(lastName)) newErrors.push(`Must end with "${lastName}".`);
-			setErrors(newErrors);
-		}
-	}, [value, firstName, lastName]);
+		return (
+			<TextField
+				value={value}
+				errors={errors}
+				onChange={(e): void => setValue(e.target.value)}
+				description="Change the required name in the Storybook controls below."
+				feedback={feedback}
+				required
+				{...args}
+			>
+				Full name
+			</TextField>
+		);
+	},
+	args: {
+		firstName: 'Jane',
+		lastName: 'Doe',
+	},
+} satisfies StoryObj<CustomValidationProps>;
 
-	return (
-		<TextField
-			value={value}
-			errors={errors}
-			onChange={changeHandler}
-			description="Change the required name in the Storybook controls below."
-			feedback={feedback}
-			required
-			{...args}
-		>
-			Full name
-		</TextField>
-	);
-};
-CustomValidation.args = {
-	firstName: 'Jane',
-	lastName: 'Doe',
-};
+export const Multiline = {
+	args: {
+		multiline: true,
+		autoSize: true,
+		children: 'Multiline Text Field',
+		description: 'This field allows for multiple lines of text and will automatically resize.',
+	},
+} satisfies Story;
+
+export const MultilineWithSetRows = {
+	args: {
+		multiline: 5,
+		autoSize: false,
+		children: 'Multiline Text Field with rows',
+		description: 'This field will internally scroll after the specified number of rows.',
+	},
+} satisfies Story;
+
+export const MultilineWithMaxLength = {
+	args: {
+		multiline: true,
+		maxLength: 10,
+		counterStart: 8,
+		children: 'Multiline Text Field with Max Length',
+		description: 'This field',
+	},
+} satisfies Story;

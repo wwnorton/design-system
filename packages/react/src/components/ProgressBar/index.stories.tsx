@@ -1,8 +1,8 @@
-import React from 'react';
-import { ProgressBar, ProgressBarProps } from '.';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ProgressBar } from '.';
 
-export default {
-	title: 'ProgressBar',
+const meta = {
+	title: 'Components/ProgressBar',
 	component: ProgressBar,
 	argTypes: {
 		hideLabel: { control: { type: 'boolean' } },
@@ -23,26 +23,31 @@ export default {
 			},
 		},
 	},
-};
+} satisfies Meta<typeof ProgressBar>;
 
-const ProgressBarTemplate = (args: ProgressBarProps) => <ProgressBar {...args} />;
+export default meta;
 
-export const Default = ProgressBarTemplate.bind({});
-Default.args = {
-	progress: undefined,
-	buffer: undefined,
-	label: 'Loading...',
-};
+type Story = StoryObj<typeof ProgressBar>;
 
-export const Determinate = ProgressBarTemplate.bind({});
-Determinate.args = {
-	progress: 0.8,
-	label: 'Almost there...',
-};
+export const Default = {
+	args: {
+		progress: undefined,
+		buffer: undefined,
+		label: 'Loading...',
+	},
+} satisfies Story;
 
-export const Buffered = ProgressBarTemplate.bind({});
-Buffered.args = {
-	progress: 0.1,
-	buffer: 0.3,
-	label: 'Buffering...',
-};
+export const Determinate = {
+	args: {
+		progress: 0.8,
+		label: 'Almost there...',
+	},
+} satisfies Story;
+
+export const Buffered = {
+	args: {
+		progress: 0.1,
+		buffer: 0.3,
+		label: 'Buffering...',
+	},
+} satisfies Story;

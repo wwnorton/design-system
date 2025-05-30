@@ -1,33 +1,55 @@
-import { Story } from '@storybook/react-vite';
 import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { StepIndicatorProps, StepIndicator, Step } from '.';
 
 /** To be added to every story-specific control's argTypes declaration	 */
 const storySpecificCategory = 'Story Controls';
 
-interface StepIndicatorControls extends StepIndicatorProps {
+interface StepIndicatorStoryProps extends StepIndicatorProps {
 	stepCount: number;
 	completedSteps: number;
 	currentStep: number;
+	stepNameFn: (stepNumber: number) => string;
 }
 
-const baseDefaultProps = {
-	stepCount: 4,
-	currentStep: 3,
-	completedSteps: 2,
-} as StepIndicatorControls;
+const StepIndicatorStory = ({
+	stepCount,
+	currentStep,
+	completedSteps,
+	stepNameFn = (n) => `Step ${n}`,
+	...args
+}: StepIndicatorStoryProps) => {
+	const steps = React.useMemo(() => [...Array(stepCount + 1)], [stepCount]);
 
-export default {
-	title: 'StepIndicator',
+	return (
+		<StepIndicator {...args}>
+			{steps.map((_, i) => {
+				const step = i + 1;
+				return (
+					<Step isCurrent={currentStep === step} isCompleted={step <= completedSteps}>
+						{stepNameFn(step)}
+					</Step>
+				);
+			})}
+		</StepIndicator>
+	);
+};
+
+const meta = {
+	title: 'Components/StepIndicator',
 	component: StepIndicator,
 	decorators: [
-		(StoryComponent: React.ComponentType): JSX.Element => (
+		(StoryComponent) => (
 			<div style={{ maxWidth: '30rem' }}>
 				<StoryComponent />
 			</div>
 		),
 	],
-	args: baseDefaultProps,
+	args: {
+		stepCount: 4,
+		currentStep: 3,
+		completedSteps: 2,
+	},
 	argTypes: {
 		stepCount: {
 			table: { category: storySpecificCategory },
@@ -59,81 +81,27 @@ export default {
 				step: 1,
 			},
 		},
-		isConnected: {
-			control: 'boolean',
-		},
+		stepNameFn: { table: { category: storySpecificCategory } },
+		isConnected: { type: 'boolean' },
 	},
-	layout: 'padded',
-};
+	render: StepIndicatorStory,
+} satisfies Meta<typeof StepIndicatorStory>;
 
-const StepIndicatorTemplate: Story<StepIndicatorControls> = ({
-	stepCount,
-	currentStep,
-	completedSteps,
-	...args
-}) => {
-	const steps: JSX.Element[] = [];
+export default meta;
 
-	for (let i = 1; i <= stepCount; i += 1) {
-		steps.push(
-			<Step isCurrent={currentStep === i} isCompleted={i <= completedSteps}>
-				{`Step ${i}`}
-			</Step>,
-		);
-	}
+type Story = StoryObj<typeof StepIndicatorStory>;
 
-	return <StepIndicator {...args}>{steps}</StepIndicator>;
-};
+export const Default = {} satisfies Story;
 
-export const Connected = StepIndicatorTemplate.bind({});
+export const Connected = {
+	args: {
+		isConnected: true,
+	},
+} satisfies Story;
 
-Connected.args = { isConnected: true };
-
-export const LongNames: Story<StepIndicatorControls> = ({
-	stepCount,
-	currentStep,
-	completedSteps,
-	...args
-}) => {
-	const steps: JSX.Element[] = [];
-
-	for (let i = 1; i <= stepCount; i += 1) {
-		steps.push(
-			<Step isCurrent={currentStep === i} isCompleted={i <= completedSteps}>
-				{`Step ${i} with very long name`}
-			</Step>,
-		);
-	}
-
-	return <StepIndicator {...args}>{steps}</StepIndicator>;
-};
-
-LongNames.args = { isConnected: true };
-
-export const NoConnector: Story<StepIndicatorControls> = ({
-	stepCount,
-	currentStep,
-	completedSteps,
-	...args
-}) => {
-	const steps: JSX.Element[] = [];
-
-	for (let i = 1; i <= stepCount; i += 1) {
-		steps.push(
-			<Step isCurrent={currentStep === i} isCompleted={i <= completedSteps}>
-				{i}
-			</Step>,
-		);
-	}
-
-	return (
-		<StepIndicator
-			{...args}
-			style={{ '--nds-stepindicator-max-step-width': '0' } as React.CSSProperties}
-		>
-			{steps}
-		</StepIndicator>
-	);
-};
-
-NoConnector.args = { isConnected: false, stepCount: 10 };
+export const LongNames = {
+	args: {
+		isConnected: true,
+		stepNameFn: (n) => `Step ${n} with very long name`,
+	},
+} satisfies Story;

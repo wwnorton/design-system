@@ -1,6 +1,28 @@
 import { IconProps } from '../Icon';
 import { AllColors } from '../../utilities/color';
 
+type BaseDouble<T extends string> = {
+	[S1 in T]: `${S1} ${Exclude<T, S1>}`;
+}[T];
+
+type BaseTriple<T extends string> = {
+	[S1 in T]: {
+		[S2 in Exclude<T, S1>]: `${S1} ${S2} ${Exclude<T, S1 | S2>}`;
+	}[Exclude<T, S1>];
+}[T];
+
+type BaseQuad<T extends string> = {
+	[S1 in T]: {
+		[S2 in Exclude<T, S1>]: {
+			[S3 in Exclude<T, S1 | S2>]: `${S1} ${S2} ${S3} ${Exclude<T, S1 | S2 | S3>}`;
+		}[Exclude<T, S1 | S2>];
+	}[Exclude<T, S1>];
+}[T];
+
+export type CombinedListOfTwo<T extends string> = T | BaseDouble<T>;
+export type CombinedListOfThree<T extends string> = CombinedListOfTwo<T> | BaseTriple<T>;
+export type CombinedListOfFour<T extends string> = CombinedListOfThree<T> | BaseQuad<T>;
+
 export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	/** The title summarizes the callout's contents. */
 	title?: string;
@@ -9,7 +31,7 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLElement> {
 	/** The callout's color family. */
 	color?: Exclude<AllColors, 'disabled'>;
 	/** The position of the border. */
-	border?: 'top' | 'right' | 'bottom' | 'left';
+	border?: CombinedListOfFour<'top' | 'right' | 'bottom' | 'left'>;
 	/** Indicates whether callout can be dismissed. */
 	dismissible?: boolean;
 	/**

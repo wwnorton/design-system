@@ -1,8 +1,9 @@
 import React from 'react';
-import { Icon, IconOptions, IconProps } from '.';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Icon, IconOptions } from '.';
 
-export default {
-	title: 'Icon',
+const meta = {
+	title: 'Components/Icon',
 	component: Icon,
 	argTypes: {
 		size: {
@@ -30,43 +31,50 @@ export default {
 			},
 		},
 	},
-};
+} satisfies Meta<typeof Icon>;
 
-const IconTemplate = (args: IconProps) => <Icon {...args} />;
+export default meta;
 
-export const Default = IconTemplate.bind({});
-Default.args = {
-	variant: 'caret-right',
-};
+type Story = StoryObj<typeof Icon>;
 
-export const WithARIALabel = IconTemplate.bind({});
-WithARIALabel.args = {
-	variant: 'caret-right',
-	'aria-label': 'Right-pointing caret',
-};
+export const Default = {
+	args: {
+		variant: 'caret-right',
+	},
+} satisfies Story;
 
-export const WithContent = IconTemplate.bind({});
-WithContent.args = {
-	variant: 'info',
-	children:
-		'When an icon has content, that content is used to label the icon via a tooltip. Think of this as the "alt text" for the icon.',
-};
+export const WithARIALabel = {
+	args: {
+		variant: 'caret-right',
+		'aria-label': 'Right-pointing caret',
+	},
+} satisfies Story;
 
-export const AllIcons = (args: IconProps) => (
-	<div className="icon-list">
-		{Object.keys(IconOptions).map((key) => (
-			<Icon
-				key={IconOptions[key]}
-				variant={IconOptions[key]}
-				tooltipProps={{ hideDelay: 0 }}
-				{...args}
-			>
-				{key}
-			</Icon>
-		))}
-	</div>
-);
-AllIcons.args = {
-	size: 48,
-	color: 'currentColor',
-};
+export const WithContent = {
+	args: {
+		variant: 'info',
+		children:
+			'When an icon has content, that content is used to label the icon via a tooltip. Think of this as the "alt text" for the icon.',
+	},
+} satisfies Story;
+
+export const AllIcons = {
+	render: (args) => (
+		<div className="icon-list">
+			{Object.keys(IconOptions).map((key) => (
+				<Icon
+					key={IconOptions[key]}
+					variant={IconOptions[key]}
+					tooltipProps={{ hideDelay: 0 }}
+					{...args}
+				>
+					{key}
+				</Icon>
+			))}
+		</div>
+	),
+	args: {
+		size: 48,
+		color: 'currentColor',
+	},
+} satisfies Story;

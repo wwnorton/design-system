@@ -1,12 +1,8 @@
 import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 import { Button } from '../Button';
 import { Dropdown, DropdownProps } from '.';
-
-export default {
-	title: 'Dropdown',
-	component: Dropdown,
-};
 
 /* cspell:disable */
 const options = [
@@ -39,131 +35,143 @@ const options = [
 ];
 /* cspell:enable */
 
-const defaultArgs = {
-	label: 'Choose an element',
-	children: options,
-};
+const meta = {
+	title: 'Components/Dropdown',
+	component: Dropdown,
+	args: {
+		label: 'Choose an element',
+		children: options,
+	},
+} satisfies Meta<typeof Dropdown>;
 
-const DropdownTemplate = (args: DropdownProps) => <Dropdown {...args} />;
+export default meta;
 
-export const Default = DropdownTemplate.bind({});
-Default.args = defaultArgs;
+type Story = StoryObj<typeof Dropdown>;
 
-export const MatchListboxWidth = DropdownTemplate.bind({});
-MatchListboxWidth.args = {
-	matchWidth: 'listbox',
-	...defaultArgs,
-};
+export const Default = {} satisfies Story;
 
-export const MatchButtonWidth = DropdownTemplate.bind({});
-MatchButtonWidth.args = {
-	matchWidth: 'button',
-	buttonWidth: 256,
-	...defaultArgs,
-};
+export const MatchListboxWidth = {
+	args: {
+		matchWidth: 'listbox',
+	},
+} satisfies Story;
 
-export const FlippingPlacement = (args: DropdownProps) => (
-	// cspell:ignore scrollbox
-	<div className="scrollbox">
-		<Dropdown {...args} />
-	</div>
-);
-FlippingPlacement.args = {
-	description: 'Open the dropdown and then scroll down to see it flip from top to bottom.',
-	...defaultArgs,
-};
+export const MatchButtonWidth = {
+	args: {
+		matchWidth: 'button',
+		buttonWidth: 256,
+	},
+} satisfies Story;
 
-export const ComplexOptions = (args: DropdownProps) => (
-	<Dropdown
-		{...args}
-		label="Select your native fruit"
-		matchWidth="button"
-		buttonWidth="6rem"
-		buttonClass="dropdown__button fruits"
-	>
-		<Dropdown.Option value="apple">
-			<span role="img" aria-label="Apple" title="Apple">
-				🍎
-			</span>
-		</Dropdown.Option>
-		<Dropdown.Option value="peach">
-			<span role="img" aria-label="Peach" title="Peach">
-				🍑
-			</span>
-		</Dropdown.Option>
-		<Dropdown.Option value="pear">
-			<span role="img" aria-label="Pear" title="Pear">
-				🍐
-			</span>
-		</Dropdown.Option>
-		<Dropdown.Option value="cherry">
-			<span role="img" aria-label="Cherry" title="Cherry">
-				🍒
-			</span>
-		</Dropdown.Option>
-		<Dropdown.Option value="orange">
-			<span role="img" aria-label="Orange" title="Orange">
-				🍊
-			</span>
-		</Dropdown.Option>
-	</Dropdown>
-);
+export const FlippingPlacement = {
+	render: (args) => (
+		// cspell:ignore scrollbox
+		<div className="scrollbox">
+			<Dropdown {...args} />
+		</div>
+	),
+	args: {
+		description: 'Open the dropdown and then scroll down to see it flip from top to bottom.',
+	},
+} satisfies Story;
 
-export const DifferentChildrenTypes = (args: DropdownProps) => {
-	const [selected, setSelected] = React.useState<React.ReactText>();
-	const changeHandler = ({ value }: { value: React.ReactText }): void => setSelected(value);
-	return (
-		<Dropdown {...args} label="My dropdown" selected={selected} onChange={changeHandler}>
-			{/* explicit value ("foo"); explicit rendered contents ("Foo"); recommended. */}
-			<Dropdown.Option value="foo">Foo</Dropdown.Option>
-			{/* implicit value ("Bar"); explicit rendered contents ("Bar") */}
-			<Dropdown.Option value="bar">Bar</Dropdown.Option>
-			{/* explicit value ("baz"); implicit rendered contents ("baz") */}
-			<Dropdown.Option value="baz" />
-			{/* implicit Option. value & contents both equal "Qux" */}
-			Qux
+export const ComplexOptions = {
+	render: (args) => (
+		<Dropdown
+			{...args}
+			label="Select your favorite fruit"
+			matchWidth="button"
+			buttonWidth="6rem"
+			buttonClass="dropdown__button fruits"
+		>
+			<Dropdown.Option value="apple">
+				<span role="img" aria-label="Apple" title="Apple">
+					🍎
+				</span>
+			</Dropdown.Option>
+			<Dropdown.Option value="peach">
+				<span role="img" aria-label="Peach" title="Peach">
+					🍑
+				</span>
+			</Dropdown.Option>
+			<Dropdown.Option value="pear">
+				<span role="img" aria-label="Pear" title="Pear">
+					🍐
+				</span>
+			</Dropdown.Option>
+			<Dropdown.Option value="cherry">
+				<span role="img" aria-label="Cherry" title="Cherry">
+					🍒
+				</span>
+			</Dropdown.Option>
+			<Dropdown.Option value="orange">
+				<span role="img" aria-label="Orange" title="Orange">
+					🍊
+				</span>
+			</Dropdown.Option>
 		</Dropdown>
-	);
-};
+	),
+} satisfies Story;
 
-export const FullyControlled = (args: DropdownProps) => {
-	const [selected, setSelected] = React.useState<React.ReactText>('Mendelevium');
-	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>('Select something');
-	const [submitted, setSubmitted] = React.useState(false);
-	const [isOpen, setOpen] = React.useState(false);
-	const changeHandler: DropdownProps['onChange'] = ({ value, contents }): void => {
-		setSelected(value);
-		setButtonContents(contents || value);
-	};
-	const closeHandler = (): void => setOpen(false);
-	const openHandler = (): void => setOpen(true);
-	const submit = (e: React.FormEvent<HTMLFormElement>): void => {
-		action('onSubmit')(selected);
-		alert(`${selected} submitted!`); // eslint-disable-line no-alert
-		setSubmitted(true);
-		e.preventDefault();
-	};
-	return (
-		<form onSubmit={submit}>
-			<Dropdown
-				{...args}
-				label="Choose an element"
-				isOpen={isOpen}
-				selected={selected}
-				buttonContents={buttonContents}
-				disabled={submitted}
-				onChange={changeHandler}
-				onRequestClose={closeHandler}
-				onRequestOpen={openHandler}
-			>
-				{options}
+export const DifferentChildrenTypes = {
+	render: (args) => {
+		const [selected, setSelected] = React.useState<React.ReactText>();
+		const changeHandler = ({ value }: { value: React.ReactText }): void => setSelected(value);
+		return (
+			<Dropdown {...args} label="My dropdown" selected={selected} onChange={changeHandler}>
+				{/* explicit value ("foo"); explicit rendered contents ("Foo"); recommended. */}
+				<Dropdown.Option value="foo">Foo</Dropdown.Option>
+				{/* implicit value ("Bar"); explicit rendered contents ("Bar") */}
+				<Dropdown.Option value="bar">Bar</Dropdown.Option>
+				{/* explicit value ("baz"); implicit rendered contents ("baz") */}
+				<Dropdown.Option value="baz" />
+				{/* implicit Option. value & contents both equal "Qux" */}
+				Qux
 			</Dropdown>
-			<Button type="submit" variant="solid" disabled={submitted} style={{ marginTop: '1rem' }}>
-				Submit
-			</Button>
-		</form>
-	);
-};
+		);
+	},
+} satisfies Story;
+
+export const FullyControlled = {
+	render: (args) => {
+		const [selected, setSelected] = React.useState<string | number>('Mendelevium');
+		const [buttonContents, setButtonContents] = React.useState<React.ReactNode>('Select something');
+		const [submitted, setSubmitted] = React.useState(false);
+		const [isOpen, setOpen] = React.useState(false);
+		const changeHandler: DropdownProps['onChange'] = ({ value, contents }): void => {
+			setSelected(value);
+			setButtonContents(contents || value);
+		};
+		const closeHandler = (): void => setOpen(false);
+		const openHandler = (): void => setOpen(true);
+		const submit = (e: React.FormEvent<HTMLFormElement>): void => {
+			action('onSubmit')(selected);
+			alert(`${selected} submitted!`); // eslint-disable-line no-alert
+			setSubmitted(true);
+			e.preventDefault();
+		};
+		return (
+			<form onSubmit={submit}>
+				<Dropdown
+					{...args}
+					label="Choose an element"
+					isOpen={isOpen}
+					selected={selected}
+					buttonContents={buttonContents}
+					disabled={submitted}
+					onChange={changeHandler}
+					onRequestClose={closeHandler}
+					onRequestOpen={openHandler}
+				>
+					{options}
+				</Dropdown>
+				<Button type="submit" variant="solid" disabled={submitted} style={{ marginTop: '1rem' }}>
+					Submit
+				</Button>
+			</form>
+		);
+	},
+} satisfies Story;
 
 /* TODO: implement a listbox and demo the multiselect variant
 export const MultiselectListbox: React.FunctionComponent = () => {

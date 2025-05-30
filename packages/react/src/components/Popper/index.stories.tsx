@@ -1,12 +1,12 @@
 import React from 'react';
-import { Meta } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Listbox, Option } from '../..';
-import { Popper, PopperProps } from '.';
+import { Popper } from '.';
 import { useExternalClick, useSelect } from '../../utilities';
 import { ListboxProps } from '../Listbox';
 
-export default {
-	title: 'Popper',
+const meta = {
+	title: 'Components/Popper',
 	component: Popper,
 	argTypes: {
 		enableArrow: { control: { type: 'boolean' } },
@@ -19,134 +19,146 @@ export default {
 			},
 		},
 	},
-} as Meta<PopperProps>;
-
-export const Default = (args: PopperProps) => {
-	const [isOpen, setIsOpen] = React.useState(true);
-	return (
-		<Popper {...args} isOpen={isOpen}>
-			<p>
-				Popper components are used for positioning an element relative to another component and have
-				no styling by default.
-			</p>
-			<p>This Popper has no reference element.</p>
-			<div>
-				<button type="button" onClick={() => setIsOpen(false)}>
-					Close popper
-				</button>
-			</div>
-		</Popper>
-	);
-};
-
-export const WithReference = (args: PopperProps) => {
-	const [isOpen, setIsOpen] = React.useState(false);
-	const [button, setButton] = React.useState<HTMLButtonElement | null>();
-
-	return (
-		<>
-			<Button variant="solid" ref={setButton} onClick={() => setIsOpen(!isOpen)}>
-				Show popover
-			</Button>
-			<Popper
-				reference={button}
-				isOpen={isOpen}
-				style={{
-					['--nds-popper-border-width' as string]: '3px',
-					['--nds-background-color' as string]: 'var(--nds-red-30)',
-					backgroundColor: 'var(--nds-background-color)',
-					border: 'var(--nds-popper-border-width) solid var(--nds-red-50)',
-					maxWidth: 200,
-				}}
-				{...args}
-			>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-				labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+	render: ({ isOpen: isOpenProp, ...args }) => {
+		const [isOpen, setIsOpen] = React.useState(isOpenProp);
+		return (
+			<Popper {...args} isOpen={isOpen}>
+				<p>
+					Popper components are used for positioning an element relative to another component and
+					have no styling by default.
+				</p>
+				<p>This Popper has no reference element.</p>
+				<div>
+					<button type="button" onClick={() => setIsOpen(false)}>
+						Close popper
+					</button>
+				</div>
 			</Popper>
-		</>
-	);
-};
-WithReference.args = {
-	placement: 'right-start',
-	distance: 6,
-	enableArrow: false,
-	transition: 'fade',
-};
+		);
+	},
+} satisfies Meta<typeof Popper>;
 
-export const BasicDropdown = (args: PopperProps) => {
-	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
-	const [autofocus, setAutofocus] = React.useState(true);
-	const [isOpen, setIsOpen] = React.useState(false);
-	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
-	const { selected, toggle } = useSelect(false);
-	const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
-	const [buttonText, setButtonText] = React.useState<React.ReactNode>('Select');
+export default meta;
 
-	const close = () => setIsOpen(false);
+type Story = StoryObj<typeof Popper>;
 
-	const changeHandler: ListboxProps['onChange'] = ({ value, label }) => {
-		toggle(value);
-		close();
-		setButtonText(label);
-	};
+export const Default = {
+	args: { isOpen: true },
+} satisfies Story;
 
-	useExternalClick([button, listbox], close);
+export const WithReference = {
+	render: (args) => {
+		const [isOpen, setIsOpen] = React.useState(false);
+		const [button, setButton] = React.useState<HTMLButtonElement | null>();
 
-	return (
-		<>
-			<Button
-				variant="outline"
-				aria-haspopup="listbox"
-				aria-expanded={isOpen}
-				ref={setButton}
-				onClick={() => setIsOpen(!isOpen)}
-				icon="chevron-down"
-				iconRight
-				style={{ minWidth: 150, justifyContent: 'space-between' }}
-			>
-				{buttonText}
-			</Button>
-			<Popper
-				transition="fade"
-				placement="bottom-start"
-				reference={button}
-				isOpen={isOpen}
-				distance={4}
-				onEntered={() => {
-					setAutofocus(false);
-				}}
-				onExited={() => {
-					setAutofocus(true);
-					if (button) {
-						/**
-						 * Wait briefly to ensure that the listbox doesn't immediately
-						 * reopen if exit was triggered by selecting an option with
-						 * the `Enter` key.
-						 */
-						window.setTimeout(() => button.focus(), 10);
-					}
-				}}
-				matchWidth
-				{...args}
-			>
-				<Listbox
-					aria-label="Choose an animal"
-					selected={selected}
-					onChange={changeHandler}
-					focusableIndex={optionFocusIndex}
-					autofocus={autofocus}
-					ref={setListbox}
-					onOptionFocus={(_, i) => setOptionFocusIndex(i)}
-					style={{ backgroundColor: 'var(--nds-background-color)' }}
+		return (
+			<>
+				<Button variant="solid" ref={setButton} onClick={() => setIsOpen(!isOpen)}>
+					Show popover
+				</Button>
+				<Popper
+					reference={button}
+					isOpen={isOpen}
+					style={{
+						['--nds-popper-border-width' as string]: '3px',
+						['--nds-background-color' as string]: 'var(--nds-red-30)',
+						backgroundColor: 'var(--nds-background-color)',
+						border: 'var(--nds-popper-border-width) solid var(--nds-red-50)',
+						maxWidth: 200,
+					}}
+					{...args}
 				>
-					<Option value="dog">🐶 Dog</Option>
-					<Option value="cat">🐱 Cat</Option>
-					<Option value="hamster">🐹 Hamster</Option>
-					<Option value="parrot">🦜 Parrot</Option>
-					<Option value="spider">🕷️ Spider</Option>
-					<Option value="fish">🐠 Fish</Option>
-				</Listbox>
-			</Popper>
-		</>
-	);
-};
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+					ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+					ullamco
+				</Popper>
+			</>
+		);
+	},
+	args: {
+		placement: 'right-start',
+		distance: 6,
+		enableArrow: false,
+		transition: 'fade',
+	},
+} satisfies Story;
+
+export const BasicDropdown = {
+	render: (args) => {
+		const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
+		const [autofocus, setAutofocus] = React.useState(true);
+		const [isOpen, setIsOpen] = React.useState(false);
+		const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
+		const { selected, toggle } = useSelect(false);
+		const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
+		const [buttonText, setButtonText] = React.useState<React.ReactNode>('Select');
+
+		const close = () => setIsOpen(false);
+
+		const changeHandler: ListboxProps['onChange'] = ({ value, label }) => {
+			toggle(value);
+			close();
+			setButtonText(label);
+		};
+
+		useExternalClick([button, listbox], close);
+
+		return (
+			<>
+				<Button
+					variant="outline"
+					aria-haspopup="listbox"
+					aria-expanded={isOpen}
+					ref={setButton}
+					onClick={() => setIsOpen(!isOpen)}
+					icon="chevron-down"
+					iconRight
+					style={{ minWidth: 150, justifyContent: 'space-between' }}
+				>
+					{buttonText}
+				</Button>
+				<Popper
+					transition="fade"
+					placement="bottom-start"
+					reference={button}
+					isOpen={isOpen}
+					distance={4}
+					onEntered={() => {
+						setAutofocus(false);
+					}}
+					onExited={() => {
+						setAutofocus(true);
+						if (button) {
+							/**
+							 * Wait briefly to ensure that the listbox doesn't immediately
+							 * reopen if exit was triggered by selecting an option with
+							 * the `Enter` key.
+							 */
+							window.setTimeout(() => button.focus(), 10);
+						}
+					}}
+					matchWidth
+					{...args}
+				>
+					<Listbox
+						aria-label="Choose an animal"
+						selected={selected}
+						onChange={changeHandler}
+						focusableIndex={optionFocusIndex}
+						autofocus={autofocus}
+						ref={setListbox}
+						onOptionFocus={(_, i) => setOptionFocusIndex(i)}
+						style={{ backgroundColor: 'var(--nds-background-color)' }}
+					>
+						<Option value="dog">🐶 Dog</Option>
+						<Option value="cat">🐱 Cat</Option>
+						<Option value="hamster">🐹 Hamster</Option>
+						<Option value="parrot">🦜 Parrot</Option>
+						<Option value="spider">🕷️ Spider</Option>
+						<Option value="fish">🐠 Fish</Option>
+					</Listbox>
+				</Popper>
+			</>
+		);
+	},
+} satisfies Story;

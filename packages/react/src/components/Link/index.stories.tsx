@@ -1,11 +1,12 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react-vite';
-import { BrowserRouter, Link as ReactLink } from 'react-router-dom';
-import { Link, LinkProps } from '.';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { BrowserRouter, Link as ReactRouterLink } from 'react-router-dom';
+import { LinkLikeProps } from 'packages/react/dist';
+import { Link } from '.';
 import { LinkContext } from '../../utilities/link';
 
-export default {
-	title: 'Link',
+const meta = {
+	title: 'Components/Link',
 	component: Link,
 	argTypes: {
 		external: {
@@ -14,28 +15,36 @@ export default {
 			},
 		},
 	},
-} as Meta;
+} satisfies Meta<typeof Link>;
 
-const Template: Story<LinkProps> = (args) => <Link {...args} />;
+export default meta;
 
-export const Default = Template.bind({});
-Default.args = {
-	children: 'Default link',
-	href: '?path=/story/link--default',
-	external: false,
-};
+type Story = StoryObj<typeof Link>;
 
-export const External = Template.bind({});
-External.args = {
-	children: 'Norton Design System GitHub',
-	href: 'https://github.com/wwnorton/design-system',
-	external: true,
-};
+export const Default = {
+	args: {
+		children: 'Default link',
+		href: '?path=/story/link--default',
+		external: false,
+	},
+} satisfies Story;
 
-export const ThirdPartyRouter = (): JSX.Element => (
-	<BrowserRouter>
-		<LinkContext.Provider value={ReactLink}>
-			<Link to="/">Norton Design System</Link>
-		</LinkContext.Provider>
-	</BrowserRouter>
-);
+export const External = {
+	args: {
+		children: 'Norton Design System GitHub',
+		href: 'https://github.com/wwnorton/design-system',
+		external: true,
+	},
+} satisfies Story;
+
+export const ThirdPartyRouter = {
+	render: (args) => (
+		<BrowserRouter>
+			<LinkContext.Provider value={ReactRouterLink as React.ComponentType<LinkLikeProps>}>
+				<Link {...args} to="/">
+					Norton Design System
+				</Link>
+			</LinkContext.Provider>
+		</BrowserRouter>
+	),
+} satisfies Story;

@@ -1,22 +1,14 @@
-import React from 'react';
-import { Spinner, SpinnerProps } from '.';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Spinner } from '.';
 
-export default {
-	title: 'Spinner',
+const meta = {
+	title: 'Components/Spinner',
 	component: Spinner,
 	parameters: {
 		layout: 'centered',
 	},
 	argTypes: {
 		hideLabel: { control: { type: 'boolean' } },
-		buffer: {
-			control: {
-				type: 'range',
-				min: 0,
-				max: 1,
-				step: 0.05,
-			},
-		},
 		progress: {
 			control: {
 				type: 'range',
@@ -26,24 +18,29 @@ export default {
 			},
 		},
 	},
-};
+} satisfies Meta<typeof Spinner>;
 
-const SpinnerTemplate = (args: SpinnerProps) => <Spinner {...args} />;
+export default meta;
 
-export const Default = SpinnerTemplate.bind({});
-Default.args = {
-	progress: undefined,
-	label: 'Loading...',
-};
+type Story = StoryObj<typeof Spinner>;
 
-export const Determinate = SpinnerTemplate.bind({});
-Determinate.args = {
-	progress: 0.8,
-	label: 'Almost there...',
-};
+export const Default = {
+	args: {
+		progress: undefined,
+		label: 'Loading...',
+	},
+} satisfies Story;
 
-export const LabelBelow = SpinnerTemplate.bind({});
-LabelBelow.args = {
-	labelPosition: 'bottom',
-	label: 'Loading...',
-};
+export const Determinate = {
+	args: {
+		progress: 0.8,
+		label: 'Almost there...',
+	},
+} satisfies Story;
+
+export const LabelBelow = {
+	args: {
+		labelPosition: 'bottom',
+		label: 'Loading...',
+	},
+} satisfies Story;

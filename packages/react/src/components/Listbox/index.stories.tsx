@@ -1,4 +1,6 @@
 import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import { Listbox, ListboxProps, Option } from '.';
 import { Icon } from '..';
 import { useSelect } from '../../utilities';
@@ -16,44 +18,57 @@ const defaultOptions: Record<Capitalize<OptionValues>, OptionValues> = {
 
 const optionValues = Object.values(defaultOptions);
 
-export default {
-	title: 'Listbox',
+const meta = {
+	title: 'Components/Listbox',
 	component: Listbox,
 	argTypes: {
-		disabled: {
-			control: {
-				type: 'inline-check',
-				options: Object.values(defaultOptions),
-			},
-		},
 		multiselectable: { control: { type: 'boolean' } },
 	},
-};
+} satisfies Meta<typeof Listbox>;
+export default meta;
 
-export const Default = (args: ListboxProps) => (
-	<Listbox {...args}>
-		<Option value="dog">🐶 Dog</Option>
-		<Option value="cat">🐱 Cat</Option>
-		<Option value="hamster">🐹 Hamster</Option>
-		{/* label is rendered when children aren't provided. */}
-		<Option value="parrot" label="🦜 Parrot" />
-		{/* label is preferred over children if both are provided. */}
-		<Option value="spider" label="🕷️ Spider">
-			🕷️
-		</Option>
-		{/* if neither label nor children are provided, the value is rendered. */}
-		<Option value="🐠 Fish" />
-	</Listbox>
-);
-Default.args = {
-	'aria-label': 'Pets (Default story)',
-	multiselectable: false,
-	focusWrap: false,
-};
+type Story = StoryObj<typeof Listbox>;
+
+export const Default = {
+	render: (args: ListboxProps) => (
+		<Listbox {...args}>
+			<Option value="dog">🐶 Dog</Option>
+			<Option value="cat">🐱 Cat</Option>
+			<Option value="hamster">🐹 Hamster</Option>
+			{/* label is rendered when children aren't provided. */}
+			<Option value="parrot" label="🦜 Parrot" />
+			{/* label is preferred over children if both are provided. */}
+			<Option value="spider" label="🕷️ Spider">
+				🕷️
+			</Option>
+			{/* if neither label nor children are provided, the value is rendered. */}
+			<Option value="🐠 Fish" />
+		</Listbox>
+	),
+	args: {
+		'aria-label': 'Pets (Default story)',
+		multiselectable: false,
+		focusWrap: false,
+	},
+	play: async ({ canvas, userEvent }) => {
+		const dog = await canvas.findByRole('option', { name: /🐶 Dog$/ });
+		const cat = await canvas.findByRole('option', { name: /🐱 Cat$/ });
+
+		expect(dog).toHaveAttribute('aria-selected', 'false');
+		expect(cat).toHaveAttribute('aria-selected', 'false');
+
+		await userEvent.click(cat);
+		expect(dog).toHaveAttribute('aria-selected', 'false');
+		expect(cat).toHaveAttribute('aria-selected', 'true');
+
+		await userEvent.click(dog);
+		expect(dog).toHaveAttribute('aria-selected', 'true');
+		expect(cat).toHaveAttribute('aria-selected', 'false');
+	},
+} satisfies Story;
 
 type WithDisabledOptions = ListboxProps & { disabled: OptionValues[] };
-
-export const DisabledOptions = ({ disabled, multiselectable, ...args }: WithDisabledOptions) => {
+const ListboxWithDisable = ({ disabled, multiselectable, ...args }: WithDisabledOptions) => {
 	const { selected, toggle } = useSelect(multiselectable);
 
 	return (
@@ -69,11 +84,15 @@ export const DisabledOptions = ({ disabled, multiselectable, ...args }: WithDisa
 		/>
 	);
 };
-DisabledOptions.args = {
-	'aria-label': 'Pets (Disabled options story)',
-	disabled: ['dog', 'cat', 'spider'],
-	multiselectable: false,
-};
+
+export const DisabledOptions = {
+	render: (args) => <ListboxWithDisable {...args} />,
+	args: {
+		'aria-label': 'Pets (Disabled options story)',
+		disabled: ['dog', 'cat', 'spider'],
+		multiselectable: false,
+	},
+} satisfies StoryObj<typeof ListboxWithDisable>;
 
 type MarkerProps = { checked: boolean };
 const Marker = ({ checked }: MarkerProps) => {
@@ -99,32 +118,34 @@ const Marker = ({ checked }: MarkerProps) => {
 	);
 };
 
-export const CustomMarker = ({ multiselectable, ...args }: ListboxProps) => {
-	const { selected, toggle } = useSelect(multiselectable);
+export const CustomMarker = {
+	render: ({ multiselectable, ...args }: ListboxProps) => {
+		const { selected, toggle } = useSelect(multiselectable);
 
-	const optionRender = React.useCallback(
-		(i) => ({
-			marker: (
-				<span className="nds-option__marker">
-					<Marker checked={selected.includes(optionValues[i])} />
-				</span>
-			),
-		}),
-		[selected],
-	);
+		const optionRender = React.useCallback(
+			(i: number) => ({
+				marker: (
+					<span className="nds-option__marker">
+						<Marker checked={selected.includes(optionValues[i])} />
+					</span>
+				),
+			}),
+			[selected],
+		);
 
-	return (
-		<Listbox
-			multiselectable={multiselectable}
-			selected={selected}
-			onChange={({ value }) => toggle(value)}
-			options={defaultOptions}
-			optionProps={optionRender}
-			{...args}
-		/>
-	);
-};
-CustomMarker.args = {
-	'aria-label': 'Pets (Custom marker story)',
-	multiselectable: false,
-};
+		return (
+			<Listbox
+				multiselectable={multiselectable}
+				selected={selected}
+				onChange={({ value }) => toggle(value)}
+				options={defaultOptions}
+				optionProps={optionRender}
+				{...args}
+			/>
+		);
+	},
+	args: {
+		'aria-label': 'Pets (Custom marker story)',
+		multiselectable: false,
+	},
+} satisfies Story;
