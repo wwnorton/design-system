@@ -2,9 +2,8 @@ import test from 'ava';
 import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button, IconButton } from '.';
+import { Button, ButtonProps, IconButton } from '.';
 import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
-import { ChangingContent } from './Button.stories';
 import { BUTTON_NO_NAME } from './errors';
 
 test.afterEach(cleanup);
@@ -113,6 +112,19 @@ test('icon-only buttons are labelled by their tooltip when it exists', async (t)
 
 test('changing content is added to a live region', async (t) => {
 	const user = userEvent.setup();
+
+	const ChangingContent = () => {
+		const [favorite, setFavorite] = React.useState(false);
+
+		const toggleFavorite = (): void => setFavorite(!favorite);
+
+		const buttonProps: Pick<ButtonProps, 'children' | 'icon'> = React.useMemo(() => {
+			if (favorite) return { children: 'Unfavorite', icon: 'heart' };
+			return { children: 'Favorite', icon: 'heart-outline' };
+		}, [favorite]);
+
+		return <Button onClick={toggleFavorite} {...buttonProps} />;
+	};
 
 	render(<ChangingContent />);
 	const button = screen.getByRole('button');
