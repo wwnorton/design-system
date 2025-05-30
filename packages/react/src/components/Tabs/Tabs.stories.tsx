@@ -5,17 +5,14 @@ import { Tabs, Tab, TabList, TabPanel, TabPanels } from '.';
 
 const BASE_TABS = ['Tab 1', 'Tab 2', 'Tab 3', 'Long Text "Tab 4"', 'Tab 5'];
 
-const meta: Meta<typeof Tabs> = {
-	title: 'Tabs',
+const meta = {
+	title: 'Components/Tabs',
 	component: Tabs,
 	parameters: { controls: { sort: 'requiredFirst' } },
 	argTypes: {
 		children: {
 			table: {
 				disable: true,
-			},
-			control: {
-				type: null,
 			},
 		},
 		selectedIndex: {
@@ -35,9 +32,6 @@ const meta: Meta<typeof Tabs> = {
 			if: { arg: 'onChange', exists: false },
 		},
 		onChange: {
-			control: {
-				type: 'none',
-			},
 			type: {
 				required: false,
 				name: 'function',
@@ -45,12 +39,6 @@ const meta: Meta<typeof Tabs> = {
 			action: 'changed',
 		},
 	},
-};
-export default meta;
-
-type Story = StoryObj<typeof Tabs>;
-
-const TabsTemplate: Story = {
 	render: ({ ...args }) => (
 		<Tabs {...args}>
 			<TabList>
@@ -73,19 +61,21 @@ const TabsTemplate: Story = {
 			</TabPanels>
 		</Tabs>
 	),
-};
+} satisfies Meta<typeof Tabs>;
 
-export const Default: Story = {
-	...TabsTemplate,
+export default meta;
+
+type Story = StoryObj<typeof Tabs>;
+
+export const Default = {
 	args: {
 		defaultSelectedIndex: 0,
 		onChange: undefined,
 	},
-};
+} satisfies Story;
 
-export const Controlled: Story = {
-	...Default,
+export const Controlled = {
 	args: {
 		selectedIndex: 0,
 	},
-};
+} satisfies Story;

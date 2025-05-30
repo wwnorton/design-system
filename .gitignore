@@ -119,3 +119,4 @@ website/static/storybook
 sassdoc
 .docusaurus
 .cache-loader
+storybook-static

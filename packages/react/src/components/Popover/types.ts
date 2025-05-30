@@ -45,7 +45,7 @@ export interface PopoverProps extends PopoverPropsBase {
 	 * A list of actions or React Fragment that will be set inside an action bar
 	 * at the bottom of the Modal dialog.
 	 */
-	actions?: React.ReactElement<ButtonProps>[] | React.ReactFragment;
+	actions?: React.ReactElement<ButtonProps>[] | React.ReactNode;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
 	/** A className for the popover's header. Default will be `${baseName}__header`. */

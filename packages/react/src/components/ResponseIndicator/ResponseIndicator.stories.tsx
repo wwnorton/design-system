@@ -1,53 +1,45 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ResponseIndicator } from './index';
 
-const meta: Meta<typeof ResponseIndicator> = {
-	title: 'Response Indicator',
+const meta = {
+	title: 'Components/Response Indicator',
 	component: ResponseIndicator,
-};
+} satisfies Meta<typeof ResponseIndicator>;
+
 export default meta;
 
 type Story = StoryObj<typeof ResponseIndicator>;
 
-const Template: Story = {
-	render: ({ ...args }) => <ResponseIndicator {...args} />,
-};
-
 // With Icon and Label
-export const Default: Story = {
-	...Template,
+export const Default = {
 	args: {
 		variant: 'correct',
 		withIcon: true,
 		placementIcon: 'left',
 	},
-};
+} satisfies Story;
 
 // Label Only
-export const LabelOnly: Story = {
-	...Template,
+export const LabelOnly = {
 	args: {
 		withIcon: false,
 	},
-};
+} satisfies Story;
 
 // Custom Label with icon only
-export const CustomLabelWithIconOnly: Story = {
-	...Template,
+export const CustomLabelWithIconOnly = {
 	args: {
 		variant: 'correct',
 		withIcon: true,
 		label: 'You are alright',
 	},
-};
+} satisfies Story;
 
 // Vertical Variant
-export const VerticalVariant: Story = {
-	...Template,
+export const VerticalVariant = {
 	args: {
 		variant: 'incorrect',
 		withIcon: true,
 		placementIcon: 'top',
 	},
-};
+} satisfies Story;
