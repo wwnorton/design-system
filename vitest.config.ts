@@ -47,7 +47,7 @@ export default defineConfig({
 					}),
 				],
 				test: {
-					name: "storybook",
+					name: "nds-storybook",
 					browser: {
 						enabled: true,
 						headless: true,

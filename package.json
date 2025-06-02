@@ -34,7 +34,8 @@
     "prettier": "prettier '**/!(react)/!(package-lock)*.{html,xhtml,md,json,yaml,yml}' --ignore-path .gitignore",
     "serve:docs": "npm run serve -w website",
     "storybook": "storybook dev -p 9009",
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ava --serial"
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' ava --serial",
+    "test:storybook": "vitest --project=storybook"
   },
   "lint-staged": {
     "!(package-lock)*.{html,xhtml,md,json,yaml,yml}": [
