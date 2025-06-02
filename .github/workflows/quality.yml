@@ -91,9 +91,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [16, 18, 20]
-    env:
-      COVERAGE_VERSION: 20
+        node: [16, 18, 20, 22]
     steps:
       - uses: actions/checkout@v4
       - name: Prepare ✅
@@ -107,7 +105,7 @@ jobs:
         uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        if: ${{ matrix.node == env.COVERAGE_VERSION }}
+        if: ${{ matrix.node == env.NODE_VERSION_PRIMARY }}
         with:
           directory: coverage
 
