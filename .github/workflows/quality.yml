@@ -121,10 +121,12 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.52.0-noble
     steps:
       - uses: actions/checkout@v4
-      - name: Prepare ✅
-        uses: ./.github/actions/prepare
+      - name: Setup Node ✅
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION_PRIMARY }}
+      - name: Install 📦
+        run: npm ci
 
       - name: Test 🧪
         run: npm run test:storybook
