@@ -7,6 +7,9 @@ on:
       - release
   pull_request:
 
+permissions:
+  contents: read
+
 env:
   # We're testing with many versions of Node, but only one will be used for coverage
   # and other canonical artifacts. That's this version.
