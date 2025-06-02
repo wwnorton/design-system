@@ -86,12 +86,12 @@ const config = {
 					},
 					// { to: 'blog', label: 'Blog', position: 'left' },
 					{
-						href: "https://wwnorton.github.io/design-system/sassdoc/",
+						href: "pathname://sassdoc/",
 						label: "Sassdoc",
 						position: "right",
 					},
 					{
-						href: "https://wwnorton.github.io/design-system/storybook/",
+						href: "pathname://storybook/",
 						label: "Storybook",
 						position: "right",
 					},
