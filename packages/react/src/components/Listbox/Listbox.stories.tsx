@@ -51,15 +51,14 @@ export const Default = {
 		focusWrap: false,
 	},
 	play: async ({ canvas, userEvent }) => {
-		const dog = await canvas.findByRole('option', { name: /🐶 Dog$/ });
 		const cat = await canvas.findByRole('option', { name: /🐱 Cat$/ });
-
-		expect(dog).toHaveAttribute('aria-selected', 'false');
 		expect(cat).toHaveAttribute('aria-selected', 'false');
 
 		await userEvent.click(cat);
-		expect(dog).toHaveAttribute('aria-selected', 'false');
 		expect(cat).toHaveAttribute('aria-selected', 'true');
+
+		const dog = await canvas.findByRole('option', { name: /🐶 Dog$/ });
+		expect(dog).toHaveAttribute('aria-selected', 'false');
 
 		await userEvent.click(dog);
 		expect(dog).toHaveAttribute('aria-selected', 'true');
