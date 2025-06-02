@@ -110,6 +110,16 @@ dist
 .vscode/*
 !.vscode/extensions.json
 
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon[]
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
 # Distribution files
 dist
 
