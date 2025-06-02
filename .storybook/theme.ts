@@ -20,6 +20,7 @@ export default create({
 
 	// UI
 	appBg: "#f2f5f8", // navy-10
-	appBorderColor: "#e2e8ee", // navy-20
+	appContentBg: "#f2f5f8", // navy-10
+	appBorderColor: "#ced7e0", // navy-30
 	appBorderRadius: 2, // radius-base
 });
