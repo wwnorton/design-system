@@ -10,7 +10,7 @@ import { TableCell } from './TableCell/TableCell';
 import { tableData } from './data';
 
 const meta = {
-	title: 'Table',
+	title: 'Components/Table',
 	component: Table,
 } satisfies Meta<typeof Table>;
 
@@ -18,28 +18,28 @@ export default meta;
 
 type Story = StoryObj<typeof Table>;
 
-export const DataTable: Story = {
+export const DataTable = {
 	args: {
 		data: tableData,
 	},
-};
+} satisfies Story;
 
-export const UncontrolledSortableDataTable: Story = {
+export const UncontrolledSortableDataTable = {
 	args: {
 		isSortable: true,
 		data: tableData,
 	},
-};
+} satisfies Story;
 
-export const ControlledSortableDataTable: Story = {
+export const ControlledSortableDataTable = {
 	args: {
 		isSortable: true,
 		onSort: action('onSort'),
 		data: tableData,
 	},
-};
+} satisfies Story;
 
-export const ComposableTable: Story = {
+export const ComposableTable = {
 	render(args) {
 		return (
 			<Table {...args}>
@@ -67,9 +67,9 @@ export const ComposableTable: Story = {
 			</Table>
 		);
 	},
-};
+} satisfies Story;
 
-export const UncontrolledSortableComposableTable: Story = {
+export const UncontrolledSortableComposableTable = {
 	args: {
 		isSortable: true,
 	},
@@ -102,9 +102,9 @@ export const UncontrolledSortableComposableTable: Story = {
 			</Table>
 		);
 	},
-};
+} satisfies Story;
 
-export const ControlledSortableComposableTable: Story = {
+export const ControlledSortableComposableTable = {
 	args: {
 		isSortable: true,
 		onSort: action('onSort'),
@@ -153,4 +153,4 @@ export const ControlledSortableComposableTable: Story = {
 			</Table>
 		);
 	},
-};
+} satisfies Story;

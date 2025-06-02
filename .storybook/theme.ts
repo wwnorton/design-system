@@ -2,20 +2,25 @@ import { create } from "storybook/theming";
 // @ts-ignore
 import seagull from "./seagull.svg";
 
+// Defaults: https://github.com/storybookjs/storybook/blob/main/code/core/src/theming/themes/light.ts
 export default create({
 	base: "light",
-	brandImage: seagull,
-	brandTitle: "The Norton Design System Storybook",
-	brandUrl: "https://wwnorton.github.io/design-system",
 
-	// colorPrimary: 'var(--nds-primary)',
-	// colorSecondary: 'var(--nds-base)',
-	// appBg: 'var(--nds-body-bg)',
-	// appContentBg: 'var(--nds-base-10)',
-	// textColor: 'var(--nds-body-text)',
-	// textInverseColor: 'var(--nds-body-bg)',
-	// appBorderColor: 'var(--nds-base-20)',
-	// appBorderRadius: 'var(--nds-radius-base)',
-	// fontBase: 'var(--nds-font-family-base)',
-	// fontCode: 'var(--nds-font-family-mono)',
+	// Typography
+	fontBase:
+		"system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji, sans-serif", // system-sans
+
+	brandTitle: "Norton Design System",
+	brandUrl: "https://wwnorton.github.io/design-system",
+	brandImage: seagull,
+
+	// Storybook-specific color palette
+	colorPrimary: "#1a8082", // teal-60
+	colorSecondary: "#32475e", // navy-80
+
+	// UI
+	appBg: "#f2f5f8", // navy-10
+	appContentBg: "#f2f5f8", // navy-10
+	appBorderColor: "#ced7e0", // navy-30
+	appBorderRadius: 2, // radius-base
 });
