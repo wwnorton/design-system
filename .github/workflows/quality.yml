@@ -129,4 +129,4 @@ jobs:
         run: npm ci
 
       - name: Test 🧪
-        run: npm run test:storybook
+        run: npm run test:storybook -- --coverage

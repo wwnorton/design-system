@@ -12,6 +12,9 @@ const dirname =
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
 	test: {
+		coverage: {
+			include: ["packages/react/src/**"],
+		},
 		workspace: [
 			{
 				extends: true,
