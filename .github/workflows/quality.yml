@@ -113,7 +113,7 @@ jobs:
           directory: coverage
 
   storybook-test:
-    name: Storybook Tests | Node ${{ env.NODE_VERSION_PRIMARY }}
+    name: Storybook Tests
     runs-on: ubuntu-latest
     container:
       # Make sure to grab the latest version of the Playwright image
