@@ -7,6 +7,11 @@ on:
       - release
   pull_request:
 
+env:
+  # We're testing with many versions of Node, but only one will be used for coverage
+  # and other canonical artifacts. That's this version.
+  NODE_VERSION_PRIMARY: 22
+
 jobs:
   build:
     name: Build library
@@ -105,3 +110,16 @@ jobs:
         if: ${{ matrix.node == env.COVERAGE_VERSION }}
         with:
           directory: coverage
+
+  storybook-test:
+    name: Storybook Tests | Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare ✅
+        uses: ./.github/actions/prepare
+        with:
+          node-version: ${{ env.NODE_VERSION_PRIMARY }}
+
+      - name: Test 🧪
+        run: npm run test:storybook
