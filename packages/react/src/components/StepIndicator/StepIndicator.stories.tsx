@@ -26,7 +26,7 @@ const StepIndicatorStory = ({
 			{steps.map((_, i) => {
 				const step = i + 1;
 				return (
-					<Step isCurrent={currentStep === step} isCompleted={step <= completedSteps}>
+					<Step key={step} isCurrent={currentStep === step} isCompleted={step <= completedSteps}>
 						{stepNameFn(step)}
 					</Step>
 				);

@@ -10,6 +10,7 @@
 	--nds-tag-background-color-hover: var(--nds-#{tokens.$color}-#{tokens.$background-grade-hover});
 	--nds-tag-background-color-active: var(--nds-#{tokens.$color}-#{tokens.$background-grade-active});
 	--nds-tag-border-radius: var(--nds-radius-base);
+	--nds-link-color: var(--nds-primary-color-dark);
 
 	position: relative;
 	display: inline-flex;
@@ -52,6 +53,7 @@
 	&:not(.nds-tag--dismissible) {
 		&:hover {
 			--nds-tag-background-color: var(--nds-tag-background-color-hover);
+			--nds-link-color: var(--nds-primary-color-darker);
 		}
 
 		&.active,

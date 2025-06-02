@@ -7,6 +7,14 @@ on:
       - release
   pull_request:
 
+permissions:
+  contents: read
+
+env:
+  # We're testing with many versions of Node, but only one will be used for coverage
+  # and other canonical artifacts. That's this version.
+  NODE_VERSION_PRIMARY: 22
+
 jobs:
   build:
     name: Build library
@@ -86,9 +94,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [16, 18, 20]
-    env:
-      COVERAGE_VERSION: 20
+        node: [16, 18, 20, 22]
     steps:
       - uses: actions/checkout@v4
       - name: Prepare ✅
@@ -102,6 +108,25 @@ jobs:
         uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        if: ${{ matrix.node == env.COVERAGE_VERSION }}
+        if: ${{ matrix.node == env.NODE_VERSION_PRIMARY }}
         with:
           directory: coverage
+
+  storybook-test:
+    name: Storybook Tests | Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    container:
+      # Make sure to grab the latest version of the Playwright image
+      # https://playwright.dev/docs/docker#pull-the-image
+      image: mcr.microsoft.com/playwright:v1.52.0-noble
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node ✅
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION_PRIMARY }}
+      - name: Install 📦
+        run: npm ci
+
+      - name: Test 🧪
+        run: npm run test:storybook
