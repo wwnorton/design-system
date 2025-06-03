@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.9.2 (2025-06-03)</small>
+
+- fix: improve link contrast when in a tag ([63658e2](https://github.com/wwnorton/design-system/commit/63658e2))
+- fix: solve tabs appearing on top of fixed elements when focused ([ccb54b5](https://github.com/wwnorton/design-system/commit/ccb54b5))
+- fix: solve visual bug where table labels appear overlapping content in XS ([1048a55](https://github.com/wwnorton/design-system/commit/1048a55))
+
 ## <small>1.9.1 (2024-12-17)</small>
 
 - chore: align mixed declarations with CSS nesting ([a342abf](https://github.com/wwnorton/design-system/commit/a342abf))
