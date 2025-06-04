@@ -3,22 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## <small>1.9.2 (2025-06-03)</small>
+## [1.9.2](https://github.com/wwnorton/design-system/compare/v1.9.1...v1.9.2) (2025-06-03)
 
-- chore: add missing list item key ([68ae487](https://github.com/wwnorton/design-system/commit/68ae487))
-- chore: npm update ([0683a36](https://github.com/wwnorton/design-system/commit/0683a36))
-- chore: upgrade storybook to v9 ([7114210](https://github.com/wwnorton/design-system/commit/7114210))
-- fix: <label> elements cannot have their role overridden ([c085006](https://github.com/wwnorton/design-system/commit/c085006))
-- fix: allow modal dialogs to be aria-describedby (#389) ([9828b9d](https://github.com/wwnorton/design-system/commit/9828b9d)), closes [#389](https://github.com/wwnorton/design-system/issues/389)
-- fix: ensure that tooltips & popovers hide when not hovered ([4d9217e](https://github.com/wwnorton/design-system/commit/4d9217e))
-- fix: solve visual bug where table labels appear overlapping content in XS ([1048a55](https://github.com/wwnorton/design-system/commit/1048a55))
-- docs: upgrade storybook to v9 ([c2f20bb](https://github.com/wwnorton/design-system/commit/c2f20bb))
-- refactor: eliminate deprecation warnings for ReactDOM.findDOMNode ([3a76cf1](https://github.com/wwnorton/design-system/commit/3a76cf1))
-- refactor: remove defaultProps from function components ([b09b7bd](https://github.com/wwnorton/design-system/commit/b09b7bd))
+### 🐛 Bug Fixes
 
-## <small>1.9.1 (2024-12-17)</small>
+- &lt;label&gt; elements cannot have their role overridden ([c085006](https://github.com/wwnorton/design-system/commit/c08500670f045303179065d2e63971d5fc5fa214))
+- allow modal dialogs to be aria-describedby ([#389](https://github.com/wwnorton/design-system/issues/389)) ([9828b9d](https://github.com/wwnorton/design-system/commit/9828b9d1078f756b277c250204056417e00feea2))
+- ensure that tooltips & popovers hide when not hovered ([4d9217e](https://github.com/wwnorton/design-system/commit/4d9217e321fa3608d747a760386a2bdb775d4637))
+- solve visual bug where table labels appear overlapping content in XS ([1048a55](https://github.com/wwnorton/design-system/commit/1048a55e2bb7628abcda150b680c82a9143dba54))
 
-- fix: fix type react types mismatch ([0d4dfb3](https://github.com/wwnorton/design-system/commit/0d4dfb3))
+## [1.9.1](https://github.com/wwnorton/design-system/compare/v1.9.0...v1.9.1) (2024-12-17)
+
+### 🐛 Bug Fixes
+
+- fix type react types mismatch ([0d4dfb3](https://github.com/wwnorton/design-system/commit/0d4dfb3c7bb66092b634d30015f1dbb1b0b5e210))
 
 ## [1.8.0](https://github.com/wwnorton/design-system/compare/v1.7.1...v1.8.0) (2023-12-14)
 

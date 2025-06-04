@@ -3,16 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## <small>1.9.2 (2025-06-03)</small>
+## [1.9.2](https://github.com/wwnorton/design-system/compare/v1.9.1...v1.9.2) (2025-06-03)
 
-- fix: improve link contrast when in a tag ([63658e2](https://github.com/wwnorton/design-system/commit/63658e2))
-- fix: solve tabs appearing on top of fixed elements when focused ([ccb54b5](https://github.com/wwnorton/design-system/commit/ccb54b5))
-- fix: solve visual bug where table labels appear overlapping content in XS ([1048a55](https://github.com/wwnorton/design-system/commit/1048a55))
+### 🐛 Bug Fixes
 
-## <small>1.9.1 (2024-12-17)</small>
+- improve link contrast when in a tag ([63658e2](https://github.com/wwnorton/design-system/commit/63658e281c2216bb8e5d81e130a94a02cac600fb))
+- solve tabs appearing on top of fixed elements when focused ([ccb54b5](https://github.com/wwnorton/design-system/commit/ccb54b59d9d95cd1d51db380b9bcbb2c4341ba8c))
+- solve visual bug where table labels appear overlapping content in XS ([1048a55](https://github.com/wwnorton/design-system/commit/1048a55e2bb7628abcda150b680c82a9143dba54))
 
-- chore: align mixed declarations with CSS nesting ([a342abf](https://github.com/wwnorton/design-system/commit/a342abf))
-- chore: vendor @material css ([3b33b76](https://github.com/wwnorton/design-system/commit/3b33b76))
+## [1.9.1](https://github.com/wwnorton/design-system/compare/v1.9.0...v1.9.1) (2024-12-17)
+
+**Note:** Version bump only for package core
+
+## [1.9.0](https://github.com/wwnorton/design-system/compare/v1.8.1-alpha.0...v1.9.0) (2024-12-16)
+
+### ✨ Features
+
+- **react,core:** add Table component ([cfbc194](https://github.com/wwnorton/design-system/commit/cfbc194161ca8b0b247c7300cf52a4dc17ea9469))
 
 ## [1.8.0](https://github.com/wwnorton/design-system/compare/v1.7.1...v1.8.0) (2023-12-14)
 

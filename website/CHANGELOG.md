@@ -3,20 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## <small>1.9.2 (2025-06-03)</small>
+## [1.9.2](https://github.com/wwnorton/design-system/compare/v1.9.1...v1.9.2) (2025-06-03)
 
-- docs: disclosure anatomy and usage updates ([1dc1a36](https://github.com/wwnorton/design-system/commit/1dc1a36))
-- docs: upgrade storybook to v9 ([c2f20bb](https://github.com/wwnorton/design-system/commit/c2f20bb))
-- chore: add missing beta notice ([5baec85](https://github.com/wwnorton/design-system/commit/5baec85))
-- chore: add missing import ([f885b6e](https://github.com/wwnorton/design-system/commit/f885b6e))
-- chore: clarify on/off usage ([25a4958](https://github.com/wwnorton/design-system/commit/25a4958))
-- chore: don't auto-open docusaurus ([7e8b6de](https://github.com/wwnorton/design-system/commit/7e8b6de))
-- chore: fix broken whocanuse color contrast links ([09a4f4f](https://github.com/wwnorton/design-system/commit/09a4f4f))
-- chore: npm update ([0683a36](https://github.com/wwnorton/design-system/commit/0683a36))
+**Note:** Version bump only for package website
 
-## <small>1.9.1 (2024-12-17)</small>
+## [1.9.1](https://github.com/wwnorton/design-system/compare/v1.9.0...v1.9.1) (2024-12-17)
 
-- fix: fix type react types mismatch ([0d4dfb3](https://github.com/wwnorton/design-system/commit/0d4dfb3))
+**Note:** Version bump only for package website
+
+## [1.9.0](https://github.com/wwnorton/design-system/compare/v1.8.1-alpha.0...v1.9.0) (2024-12-16)
+
+**Note:** Version bump only for package website
 
 ## [1.8.0](https://github.com/wwnorton/design-system/compare/v1.7.1...v1.8.0) (2023-12-14)
 
