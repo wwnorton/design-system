@@ -92,7 +92,7 @@ export function useRegisterHeader(colId: string, th: React.RefObject<HTMLTableCe
 	const headers = useContext(HeadersContext);
 
 	useEffect(() => {
-		if (!colId) {
+		if (!colId || colId === '') {
 			return;
 		}
 
@@ -102,5 +102,5 @@ export function useRegisterHeader(colId: string, th: React.RefObject<HTMLTableCe
 		}
 		// We want to register the header only on mount, even if something changes
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [colId]);
 }
