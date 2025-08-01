@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.3](https://github.com/wwnorton/design-system/compare/v1.9.2...v1.9.3) (2025-08-01)
+
+### 🐛 Bug Fixes
+
+- **react:** solve composable table bug with React 17 ([932f839](https://github.com/wwnorton/design-system/commit/932f83950f8b9b50b8150b031471efe426f782ec))
+
 ## [1.9.2](https://github.com/wwnorton/design-system/compare/v1.9.1...v1.9.2) (2025-06-03)
 
 ### 🐛 Bug Fixes
