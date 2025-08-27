@@ -43,6 +43,13 @@ export interface BaseTableProps extends React.TableHTMLAttributes<HTMLTableEleme
 	variant?: 'ghost' | 'outline' | 'solid';
 
 	/**
+	 * if a caption is provided, can be used to describe the table's content.
+	 * This will be rendered as a `<caption>` element.
+	 * It can be null, undefined, a string or a component, hence we use ReactNode.
+	 */
+caption?: React.ReactNode;
+
+	/**
 	 * Whether the rows will render without an alternating striped background.
 	 */
 	isNotStriped?: boolean;

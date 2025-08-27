@@ -16,6 +16,8 @@ export const BaseTable = forwardRef<HTMLTableElement, BaseTableProps>(
 			color = 'navy',
 			className,
 			stickyHeader = false,
+			caption,
+			children,
 			...others
 		},
 		ref,
@@ -33,6 +35,11 @@ export const BaseTable = forwardRef<HTMLTableElement, BaseTableProps>(
 			className,
 		);
 
-		return <table ref={ref} className={resolvedClassName} {...others} />;
+		return (
+			<table ref={ref} className={resolvedClassName} {...others}>
+				{caption && <caption>{caption}</caption>}
+				{children}
+			</table>
+		);
 	},
 );

@@ -13,6 +13,11 @@ import { TableHeaderCellProps, TableProps } from './types';
 const meta = {
 	title: 'Components/Table',
 	component: Table,
+	  argTypes: {
+    caption: {
+      control: 'text', // ✅ force Storybook to treat it as a string input
+    },
+},
 } satisfies Meta<typeof Table>;
 
 export default meta;
