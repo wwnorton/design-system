@@ -251,7 +251,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			'nds-stuck': stickyHeader && stuckHeader,
 		});
 		return (
-			<header
+			<div
 				className={classes}
 				ref={(el): void => {
 					this.header = el;
@@ -259,7 +259,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			>
 				{this.Title}
 				{this.CloseButton}
-			</header>
+			</div>
 		);
 	}
 
@@ -276,14 +276,14 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 			'nds-stuck': stickyActionBar && stuckFooter,
 		});
 		return (
-			<footer
+			<div
 				className={classes}
 				ref={(el): void => {
 					this.footer = el;
 				}}
 			>
 				{actions}
-			</footer>
+			</div>
 		);
 	}
 
