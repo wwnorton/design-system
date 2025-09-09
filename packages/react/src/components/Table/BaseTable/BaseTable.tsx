@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { BaseTableProps } from '../types';
+import { BaseTableCaption } from '../TableCaption/BaseTableCaption';
 
 const css = {
 	base: 'nds-table',
@@ -16,7 +17,9 @@ export const BaseTable = forwardRef<HTMLTableElement, BaseTableProps>(
 			color = 'navy',
 			className,
 			stickyHeader = false,
-			caption,
+			captionContent,
+			captionClassName,
+			captionIsVisuallyHidden,
 			children,
 			...others
 		},
@@ -37,7 +40,13 @@ export const BaseTable = forwardRef<HTMLTableElement, BaseTableProps>(
 
 		return (
 			<table ref={ref} className={resolvedClassName} {...others}>
-				{caption && <caption>{caption}</caption>}
+				{captionContent && (
+					<BaseTableCaption
+						captionContent={captionContent}
+						captionClassName={captionClassName}
+						captionIsVisuallyHidden={captionIsVisuallyHidden}
+					/>
+				)}
 				{children}
 			</table>
 		);

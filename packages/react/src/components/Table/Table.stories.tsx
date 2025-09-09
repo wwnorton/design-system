@@ -14,8 +14,8 @@ const meta = {
 	title: 'Components/Table',
 	component: Table,
 	  argTypes: {
-    caption: {
-      control: 'text', // ✅ force Storybook to treat it as a string input
+    captionContent: {
+      control: 'text',
     },
 },
 } satisfies Meta<typeof Table>;
