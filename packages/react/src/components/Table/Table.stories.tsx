@@ -13,11 +13,11 @@ import { TableHeaderCellProps, TableProps } from './types';
 const meta = {
 	title: 'Components/Table',
 	component: Table,
-	  argTypes: {
-    captionContent: {
-      control: 'text',
-    },
-},
+	argTypes: {
+		captionContent: {
+			control: 'text',
+		},
+	},
 } satisfies Meta<typeof Table>;
 
 export default meta;
