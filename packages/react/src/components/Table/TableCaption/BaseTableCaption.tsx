@@ -11,15 +11,13 @@ export const BaseTableCaption: React.FunctionComponent<BaseTableCaptionProps> = 
 	captionClassName,
 	captionIsVisuallyHidden = false,
 }: BaseTableCaptionProps) => {
-	if (!captionContent) return null;
-
 	const resolvedClassName = classNames(captionClassName, {
 		'nds-sr-only': captionIsVisuallyHidden,
 	});
 
-	// Memoize to avoid unnecessary re-renders when the caption is static
-	return useMemo(
-		() => <caption className={resolvedClassName}>{captionContent}</caption>,
-		[captionContent, resolvedClassName],
-	);
+	// Memoize to avoid unnecessary re-renders
+	return useMemo(() => {
+		if (!captionContent) return null;
+		return <caption className={resolvedClassName}>{captionContent}</caption>;
+	}, [captionContent, resolvedClassName]);
 };
