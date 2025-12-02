@@ -20,7 +20,7 @@ jobs:
     name: Build library
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Prepare ✅
         uses: ./.github/actions/prepare
 
@@ -31,7 +31,7 @@ jobs:
     name: Build docs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Prepare ✅
         uses: ./.github/actions/prepare
 
@@ -48,7 +48,7 @@ jobs:
     name: Spell check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Prepare ✅
         uses: ./.github/actions/prepare
 
@@ -59,7 +59,7 @@ jobs:
     name: ESLint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Prepare ✅
         uses: ./.github/actions/prepare
 
@@ -70,7 +70,7 @@ jobs:
     name: Stylelint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Prepare ✅
         uses: ./.github/actions/prepare
 
@@ -81,7 +81,7 @@ jobs:
     name: Prettier
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Prepare ✅
         uses: ./.github/actions/prepare
 
@@ -96,7 +96,7 @@ jobs:
       matrix:
         node: [16, 18, 20, 22]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Prepare ✅
         uses: ./.github/actions/prepare
         with:
@@ -120,7 +120,7 @@ jobs:
       # https://playwright.dev/docs/docker#pull-the-image
       image: mcr.microsoft.com/playwright:v1.52.0-noble
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node ✅
         uses: actions/setup-node@v4
         with:
