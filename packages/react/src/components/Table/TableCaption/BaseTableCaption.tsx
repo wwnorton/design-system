@@ -8,7 +8,7 @@ interface BaseTableCaptionProps {
 }
 export const BaseTableCaption: React.FunctionComponent<BaseTableCaptionProps> = ({
 	captionContent,
-	captionClassName,
+	captionClassName = 'nds-table__caption',
 	captionIsVisuallyHidden = false,
 }: BaseTableCaptionProps) => {
 	const resolvedClassName = classNames(captionClassName, {

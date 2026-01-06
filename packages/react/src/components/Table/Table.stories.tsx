@@ -30,6 +30,14 @@ export const DataTable = {
 	},
 } satisfies Story;
 
+export const DataTableWithCaption = {
+	args: {
+		data: tableData,
+		captionContent:
+			'Insert optional table caption description here optional descriptive text lorem ipsum lorem ipsum dolor sit amet.',
+	},
+} satisfies Story;
+
 export const UncontrolledSortableDataTable = {
 	args: {
 		isSortable: true,

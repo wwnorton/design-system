@@ -150,6 +150,11 @@
 			}
 		}
 
+		.nds-table__caption {
+			padding: var(--nds-spacing-6) 0;
+			line-height: var(--nds-line-height-3);
+		}
+
 		.nds-table-xs-sort-controls {
 			display: flex;
 			align-items: center;
@@ -270,8 +275,4 @@
 			}
 		}
 	}
-}
-
-caption {
-	background-color: lime;
 }
