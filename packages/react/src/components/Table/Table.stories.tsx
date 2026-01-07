@@ -13,6 +13,11 @@ import { TableHeaderCellProps, TableProps } from './types';
 const meta = {
 	title: 'Components/Table',
 	component: Table,
+	argTypes: {
+		captionContent: {
+			control: 'text',
+		},
+	},
 } satisfies Meta<typeof Table>;
 
 export default meta;
@@ -22,6 +27,14 @@ type Story = StoryObj<typeof Table>;
 export const DataTable = {
 	args: {
 		data: tableData,
+	},
+} satisfies Story;
+
+export const DataTableWithCaption = {
+	args: {
+		data: tableData,
+		captionContent:
+			'Insert optional table caption description here optional descriptive text lorem ipsum lorem ipsum dolor sit amet.',
 	},
 } satisfies Story;
 
