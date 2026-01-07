@@ -28,11 +28,6 @@ export interface ChoiceProps
 	inputClass?: string;
 	/** The className for the Checkbox's thumbnail element. */
 	thumbnailClass?: string;
-	/**
-	 * A className that will be applied to the root of the component when it is
-	 * checked.
-	 */
-	checkedClass?: string;
 }
 
 export interface ChoicesProps extends ChoiceProps {

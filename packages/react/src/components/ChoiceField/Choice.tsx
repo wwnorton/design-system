@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { BaseInput } from '../BaseInput';
 import { Icon } from '../Icon';
 import { FieldInfo, FieldFeedback } from '../Field';
-import { useForwardedRef, useId, useIsomorphicLayoutEffect } from '../../utilities';
+import { useForwardedRef, useId } from '../../utilities';
 import { ChoiceProps } from './types';
 
 /**
@@ -16,7 +16,7 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(
 		{
 			// options
 			type = 'radio',
-			checked: checkedProp = false,
+			checked: checkedProp,
 			indeterminate: indeterminateProp,
 			optionalIndicator,
 			requiredIndicator,
@@ -35,7 +35,6 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(
 			descriptionClass,
 			inputClass = classNames(`${baseName}__input`, `${baseName}__input--${type}`),
 			thumbnailClass = `${baseName}__thumbnail`,
-			checkedClass = `${baseName}--checked`,
 			labelClass,
 			errorsClass,
 
@@ -60,7 +59,6 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(
 		ref,
 	) => {
 		const [input, setInput] = useForwardedRef(ref);
-		const [checked, setChecked] = React.useState(checkedProp);
 		const [indeterminate, setIndeterminate] = React.useState(indeterminateProp);
 		const [errors, setErrors] = React.useState(errorsProp);
 
@@ -72,7 +70,6 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(
 
 		// treat prop versions of internal state as source of truth
 		React.useEffect(() => setErrors(errorsProp), [errorsProp]);
-		useIsomorphicLayoutEffect(() => setChecked(checkedProp), [checkedProp]);
 		React.useEffect(() => setIndeterminate(indeterminateProp), [indeterminateProp]);
 
 		const indicator = React.useMemo(() => {
@@ -109,7 +106,6 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(
 		const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
 			if (onChange) onChange(e);
 			else {
-				setChecked(e.currentTarget.checked);
 				setIndeterminate(false);
 			}
 		};
@@ -128,10 +124,10 @@ export const Choice = React.forwardRef<HTMLInputElement, ChoiceProps>(
 		}, [input, type, indeterminate]);
 
 		return (
-			<div className={classNames(className, { [checkedClass]: checked })}>
+			<div className={className}>
 				<BaseInput
 					type={type}
-					checked={checked}
+					checked={checkedProp}
 					ref={setInput}
 					id={inputId}
 					className={inputClass}
