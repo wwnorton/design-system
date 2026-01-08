@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Disclosure } from '.';
+import { ResponseIndicator } from '../ResponseIndicator';
 
 const defaultContents = (
 	<p>
@@ -70,5 +71,16 @@ export const Controlled = {
 				{contents}
 			</Disclosure>
 		);
+	},
+} satisfies Story;
+
+export const CustomSummary = {
+	args: {
+		summary: (
+			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+				<span>1st Attempt</span>
+				<ResponseIndicator variant="correct" />
+			</div>
+		),
 	},
 } satisfies Story;
