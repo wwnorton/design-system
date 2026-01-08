@@ -1,19 +1,32 @@
 ---
 title: Accordion
-description: An accordion allows the user to show and hide sections within a list.
+description: An accordion allows the user to show and hide content across multiple collapsable sections.
 ---
 
-> An accordion allows the user to show and hide sections within a list.
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+> An accordion allows the user to show and hide content across multiple collapsable sections.
 
 ## Anatomy
 
 An accordion includes two or more vertically stacked [disclosures](disclosure).
 
+<img
+	alt="An accordion containing three disclosures with the first disclosure expanded and the option to expand all."
+	src={useBaseUrl('/img/Anatomy_accordion.png')}
+/>
+1. **Accordion Label** (_optional_) - a short name that describes what to expect from the content within the accordion.
+1. **Expand/Collapse All** (_optional_) - a button that allows to open or close all disclosures within the accordion.
+1. **Body** – two or more vertically stacked disclosures. 
+
 ## Usage
 
-- Use an accordion to allow users to expand/collapse related sections of content.
-- <kbd>Down Arrow</kbd>/<kbd>Up Arrow</kbd> moves focus to the next/previous section summaries, respectively.
-<kbd>Home</kbd> and <kbd>End</kbd> move focus to the first/last section summaries, respectively.
+- Use an accordion to present large amounts of information in a space-efficient way to allow the user to scan top-level information.
+- If all sections are expanded on load or need to be expanded consider using regular text with normal heading text.
+	:::note Why
+	If all content is meant to be read, using an accordion adds unnecessary interaction.
+	:::
+- If users only need to view one section at a time, use [tabs](tabs).
 
 :::tip Do
 - Do use accordions if users only need to see specific section(s) of content on the page.
@@ -21,11 +34,10 @@ An accordion includes two or more vertically stacked [disclosures](disclosure).
 :::
 
 :::danger Don't
-- Don’t display all disclosures within an accordion in an expanded state by default.
+- Don't nest accordions within each other. Nested accordions are difficult to navigate and not easily accessible.
 :::
 
-:::warning Caution
-- Use an accordion if users might need to view more than one section at a time.
-- If users are likely to want all sections open most of the time, consider using standard document structure (headings and paragraphs) instead.
-- If users only need to view one section at a time, consider using tabs.
+:::warning Consider using a disclosure if... 
+- You want to show or hide a single content section. 
+- The content requires multiple single sections side-by-side, such as in columns rather than stacking vertically. 
 :::
