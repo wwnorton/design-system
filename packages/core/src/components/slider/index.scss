@@ -1,0 +1,37 @@
+@use '../../util';
+
+@mixin base {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+// @mixin input {}
+
+@mixin input-vertical {
+	writing-mode: vertical-lr;
+	direction: ltr;
+}
+
+// @mixin label {}
+
+@mixin style {
+	@include util.declare('slider') {
+		.nds-slider {
+			@include base;
+
+			&__input {
+				@include input;
+			}
+
+			&__label {
+				@include label;
+			}
+
+			&--vertical &__input {
+				@include input-vertical;
+			}
+		}
+	}
+}

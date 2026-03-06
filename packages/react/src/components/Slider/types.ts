@@ -1,0 +1,25 @@
+export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'>, 'type'> {
+	/** The base `className` according to BEM conventions. */
+	baseName?: string;
+
+	/**
+	 * The label for the slider.
+	 */
+	label: React.ReactNode;
+
+	/**
+	 * Indicates whether the slider should be displayed vertically.
+	 * @default false
+	 */
+	isVertical?: boolean;
+
+	/**
+	 * The class name for the label.
+	 */
+	labelClass?: string;
+
+	/**
+	 * The class name for the input.
+	 */
+	inputClass?: string;
+}
