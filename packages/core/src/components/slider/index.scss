@@ -7,11 +7,20 @@
 	justify-content: center;
 }
 
-// @mixin input {}
+@mixin input {
+	width: 100%;
+}
 
 @mixin input-vertical {
 	writing-mode: vertical-lr;
 	direction: ltr;
+}
+
+@mixin markers {
+	display: flex;
+	width: 100%;
+	font-size: var(--nds-font-size-12);
+	line-height: var(--nds-line-height-3);
 }
 
 // @mixin label {}
@@ -25,8 +34,12 @@
 				@include input;
 			}
 
-			&__label {
-				@include label;
+			// &__label {
+			// 	// @include label;
+			// }
+
+			&__markers {
+				@include markers;
 			}
 
 			&--vertical &__input {

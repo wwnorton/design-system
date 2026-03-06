@@ -22,4 +22,15 @@ export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'
 	 * The class name for the input.
 	 */
 	inputClass?: string;
+
+	/**
+	 * The class name for the markers.
+	 */
+	markersClass?: string;
+
+	/**
+	 * Indicates whether the slider should display markers.
+	 * @default false
+	 */
+	showMarkers?: boolean;
 }
