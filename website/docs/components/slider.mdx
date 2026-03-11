@@ -1,0 +1,110 @@
+---
+title: Slider (WIP)
+description: A slider allows users to increase or decrease values along a horizontal or vertical track.
+---
+
+A slider allows users to increase or decrease values along a horizontal or vertical track.
+
+## Anatomy
+
+- **Label** – Visual text describing what the slider controls.
+- **Selected Value** – Text that describes what the selected value is.
+- **Track** – Visual representation of the slider’s full value range.
+  - **Active Track** – Portion representing the selected value.
+  - **Inactive Track** – Remaining unselected portion.
+- **Value Indicators (optional)** – Visual labels and/or cues for available values.
+- **Handle** – Interactive control that represents the current value and allows adjustment.
+- **Input Field (optional)** – Text field allowing users to manually enter a value.
+- **Supporting Text (optional)** – Additional text that can be used to add clarity on the selected value or range of values.
+
+---
+
+## Continuous vs. Discrete
+
+### Continuous sliders
+
+Continuous sliders allow users to make any selection between the start and end values.
+
+**Tip:**
+Best used when users are adjusting a value across a smooth range where approximate control is sufficient and real-time feedback makes the change understandable.
+
+### Discrete sliders
+
+Discrete sliders allow users to make a selection among predetermined options between the start and end values. Discrete sliders may use value indicators to denote the value options.
+
+**Tip:**
+Best used when users need to choose from a fixed set of meaningful values where each step has a clear purpose or label.
+
+---
+
+## Usage
+
+- Labels should be **clear and concise** to avoid ambiguity about what is being adjusted.
+
+- Avoid using sliders for **extremely large or extremely small ranges**.
+
+  **Why:**
+  Alternative input methods such as numeric fields, dropdowns, or steppers are better suited.
+
+- Provide **instant confirmation** of the selected value as the user adjusts the slider.
+
+  **Why:**
+  Immediate feedback helps users understand the effect of their input, reduces uncertainty, and prevents over- or under-adjusting.
+
+- Display the **minimum and maximum input values** when values are not clear or conventional.
+
+- Use **supporting text** when further explanation of value choices is needed.
+
+- <mark>Avoid sliders with too many discrete steps, as they become difficult to control and may frustrate users.</mark>
+
+---
+
+## Responsive Design Usage Guidelines
+
+### Vertical Slider
+
+Vertical sliders should only be used when:
+
+- a vertical adjustment makes sense, or
+- horizontal space is limited and a slider is still the right input.
+
+When using vertical sliders:
+
+- the **lower value should be placed at the bottom**
+
+- the **higher value at the top**
+
+- <mark>Ensure the direction of value change is clear. In most cases, values should increase when moving upward and decrease when moving downward.</mark>
+
+---
+
+## Dos and Don’ts
+
+✔ **Do** pair the slider with an optional numeric input when users may want finer precision.
+
+✔ **Do** use a default or load value that reflects the most common or recommended choice.
+
+✔ **Don’t** use sliders when users must enter precise numeric values.
+
+✔ **Don’t** use sliders with too many discrete steps, as they become difficult to control.
+
+---
+
+## Accessibility
+
+<mark>**Clarification:** Clarification: The audience of this section becomes unclear here. Some of these accessibility requirements should be implemented by the component itself rather than by end developers.</mark>
+
+- <mark>Ensure the slider has an **accessible name provided by a visible label, aria-labelledby, or aria-label**.</mark>
+
+- Ensure the slider is **fully operable with a keyboard**, supporting standard accessibility interactions such as:
+
+  - Arrow keys → incremental changes
+  - Page Up / Page Down → larger steps
+  - Home / End → jump to limits
+
+- <mark>Ensure the slider handle provides a **touch target of at least 44×44 pixels**.</mark>
+
+- Position any labels so they are **not obstructed by the user’s finger during mobile interactions**.
+
+---
+
