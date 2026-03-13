@@ -1,4 +1,10 @@
 export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'>, 'type'> {
+	/** The value of the slider. */
+	value?: number;
+
+	/** The maximum value of the slider. */
+	max?: number;
+
 	/** The base `className` according to BEM conventions. */
 	baseName?: string;
 

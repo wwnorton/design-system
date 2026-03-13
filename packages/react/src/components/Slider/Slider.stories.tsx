@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Slider } from '.';
 
@@ -11,6 +12,13 @@ const meta = {
 		label: 'Volume',
 	},
 	argTypes: {},
+	decorators: [
+		(Story) => (
+			<div style={{ width: '300px' }}>
+				<Story />
+			</div>
+		),
+	],
 } satisfies Meta<typeof Slider>;
 
 export default meta;
@@ -18,7 +26,9 @@ export default meta;
 type Story = StoryObj<typeof Slider>;
 
 export const Default = {
-	args: {},
+	args: {
+		max: 2,
+	},
 } satisfies Story;
 
 export const Vertical = {

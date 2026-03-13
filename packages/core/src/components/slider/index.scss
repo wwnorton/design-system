@@ -1,14 +1,89 @@
+@use '../../a11y';
 @use '../../util';
 
+// TODO: add tokens
+$debug: false;
+
 @mixin base {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	--thumb-left: 0%;
+	--thumb-size: 1.5rem;
+	--rail-height: 0.5rem;
+	--input-z-index: 20;
+	--thumb-z-index: 10;
+	--input-top-offset: -5px;
+	--min-width: 100px;
+	--rail-top: calc(50% - var(--rail-height) / 2);
+	--animation: transform 0.1s ease-out;
+
+	min-width: var(--min-width);
+}
+
+@mixin thumb-container {
+	--thumb-left: 0;
+
+	position: relative;
+	top: -100%;
+	left: 0;
+	z-index: var(--thumb-z-index);
+	width: calc(100% - var(--thumb-size));
+	transition: var(--animation);
+	transform: translateX(var(--thumb-left));
+	transform-origin: center left;
+}
+
+@mixin thumb {
+	width: var(--thumb-size);
+	height: var(--thumb-size);
+	background-color: var(--nds-white);
+	border: 2px solid var(--nds-teal-60);
+	border-radius: 50%;
+}
+
+@mixin rail-container {
+	position: relative;
+}
+
+@mixin rail {
+	position: absolute;
+	top: var(--rail-top);
+	display: block;
+	width: 100%;
+	height: var(--rail-height);
+	cursor: pointer;
+	background-color: var(--nds-navy-30);
+	border-radius: var(--nds-radius-pill);
+}
+
+@mixin rail-fill-container {
+	position: absolute;
+	top: var(--rail-top);
+	left: 0;
+	width: calc(100% - var(--thumb-size) / 2);
+	height: var(--rail-height);
+	overflow: hidden;
+	border-radius: var(--nds-radius-pill);
+}
+
+@mixin rail-fill {
+	width: 100%;
+	height: 100%;
+	background-color: var(--nds-teal-60);
+	transition: var(--animation);
+	transform: scaleX(var(--thumb-left));
+	transform-origin: left center;
 }
 
 @mixin input {
+	position: absolute;
+	top: calc(var(--rail-top) + var(--input-top-offset));
+	z-index: var(--input-z-index);
 	width: 100%;
+
+	@if $debug {
+		opacity: 0.5;
+	} @else {
+		opacity: 0;
+	}
 }
 
 @mixin input-vertical {
@@ -34,6 +109,18 @@
 				@include input;
 			}
 
+			&__rail {
+				@include rail;
+			}
+
+			&__thumb-container {
+				@include thumb-container;
+			}
+
+			&__thumb {
+				@include thumb;
+			}
+
 			// &__label {
 			// 	// @include label;
 			// }
@@ -44,6 +131,26 @@
 
 			&--vertical &__input {
 				@include input-vertical;
+			}
+
+			&__rail-container {
+				@include rail-container;
+			}
+
+			&__rail-fill-container {
+				@include rail-fill-container;
+			}
+
+			&__rail-fill {
+				@include rail-fill;
+			}
+
+			&:hover &__thumb {
+				background-color: var(--nds-navy-20);
+			}
+
+			&:focus-within &__thumb {
+				@include a11y.focus-halo;
 			}
 		}
 	}
