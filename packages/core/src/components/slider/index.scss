@@ -15,6 +15,12 @@ $debug: false;
 	--rail-top: calc(50% - var(--rail-height) / 2);
 	--animation: transform 0.1s ease-out;
 
+	// This is the width of the outline of the handle
+	// when the slider is focused.
+	// We use this to add padding to the rail container
+	// so that the outline is not cut off.
+	--thumb-outline-width: 3px;
+
 	min-width: var(--min-width);
 }
 
@@ -41,14 +47,22 @@ $debug: false;
 
 @mixin rail-container {
 	position: relative;
+
+	// We need to add a padding and a negative margin to the rail container
+	// so that the outline of the handle is not cut off.
+	padding: var(--thumb-outline-width);
+	margin: calc(var(--thumb-outline-width) * -1);
+	overflow: hidden;
 }
 
 @mixin rail {
 	position: absolute;
 	top: var(--rail-top);
+	left: 0;
 	display: block;
-	width: 100%;
+	width: calc(100% - var(--thumb-outline-width) * 2);
 	height: var(--rail-height);
+	margin: 0 var(--thumb-outline-width);
 	cursor: pointer;
 	background-color: var(--nds-navy-30);
 	border-radius: var(--nds-radius-pill);
@@ -60,6 +74,7 @@ $debug: false;
 	left: 0;
 	width: calc(100% - var(--thumb-size) / 2);
 	height: var(--rail-height);
+	margin: 0 var(--thumb-outline-width);
 	overflow: hidden;
 	border-radius: var(--nds-radius-pill);
 }
