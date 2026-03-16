@@ -92,6 +92,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 						type="range"
 						className={inputClassName}
 						{...props}
+						id={id}
 						list={markersId}
 						value={value}
 						onChange={handleChange}
