@@ -32,10 +32,11 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 			label,
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			isVertical = false,
-			showMarkers,
+			valueIndicators,
 			labelClass,
 			inputClass,
 			markersClass,
+			step = 1,
 			...props
 		}: SliderProps,
 		ref,
@@ -46,7 +47,6 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 		const id = props.id || generatedId;
 		const [value, setValue] = useState<number>(props.value || 0);
 		const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-			console.log(e.target.value);
 			setValue(Number(e.target.value));
 		}, []);
 		const thumbLeft = useMemo(() => {
@@ -66,16 +66,18 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 		const markerTextClassName = classNames(css.markerText);
 
 		const max = props.max || 100;
-		const markersId = showMarkers ? `${id}-markers` : undefined;
+		const markersLabelsId = valueIndicators ? `${id}-markers` : undefined;
 		let markersLabels = null;
 		let markers = null;
-		if (showMarkers) {
+		if (valueIndicators) {
 			const markersLabelsClassName = classNames(css.markersLabels, markersClass);
 			const markersContainerClassName = classNames(css.markersContainer);
-			const stepSize = Number(max) / DEFAULT_NUMBER_OF_MARKERS;
+			const numberOfMarkers = Math.min(Math.floor(max / Number(step)), DEFAULT_NUMBER_OF_MARKERS);
+			const stepSize = max / numberOfMarkers;
+			const numberOfRenderedMarkers = numberOfMarkers + 1;
 			markersLabels = (
-				<datalist id={markersId} className={markersLabelsClassName}>
-					{Array.from({ length: DEFAULT_NUMBER_OF_MARKERS + 1 }, (_, i) => {
+				<datalist id={markersLabelsId} className={markersLabelsClassName}>
+					{Array.from({ length: numberOfRenderedMarkers }, (_, i) => {
 						const v = i * stepSize;
 						const valueStr = v.toString();
 						return (
@@ -94,19 +96,14 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 			);
 			markers = (
 				<div className={markersContainerClassName}>
-					{Array.from({ length: DEFAULT_NUMBER_OF_MARKERS + 1 }, (_, i) => {
+					{Array.from({ length: numberOfRenderedMarkers }, (_, i) => {
 						const v = i * stepSize;
-						const isInRange = v < value;
-						const markerContainerClassName = classNames(css.markerContainer);
+						const isInRange = v <= value;
 						const markerClassName = classNames(css.marker, {
 							[css.markerInRange]: isInRange,
 						});
 
-						return (
-							<div key={i} className={markerContainerClassName}>
-								<div className={markerClassName} />
-							</div>
-						);
+						return <div key={i} className={markerClassName} />;
 					})}
 				</div>
 			);
@@ -137,7 +134,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 						className={inputClassName}
 						{...props}
 						id={id}
-						list={markersId}
+						list={markersLabelsId}
 						value={value}
 						onChange={handleChange}
 					/>

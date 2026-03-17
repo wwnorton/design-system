@@ -39,13 +39,15 @@ export const Vertical = {
 
 export const WithMarkers = {
 	args: {
-		showMarkers: true,
+		valueIndicators: true,
+		max: 3,
+		step: 1,
 	},
 } satisfies Story;
 
 export const WithMarkersVertical = {
 	args: {
-		showMarkers: true,
+		valueIndicators: true,
 		isVertical: true,
 	},
 } satisfies Story;

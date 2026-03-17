@@ -35,8 +35,12 @@ export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'
 	markersClass?: string;
 
 	/**
-	 * Indicates whether the slider should display markers.
-	 * @default false
+	 * Indicates whether the slider should display value indicators.
 	 */
-	showMarkers?: boolean;
+	valueIndicators?:
+		| boolean
+		| Array<{
+				value: number;
+				label: string;
+		  }>;
 }
