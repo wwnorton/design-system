@@ -60,6 +60,26 @@ export interface BaseTextFieldProps extends FieldInfoCoreProps, FieldFeedbackCor
 	 * only works when multiline prop it's `enable`
 	 */
 	autoSize?: boolean;
+
+	/**
+	 * If `true` the feedback will be floating anchored to the input.
+	 * The position of the feedback is controlled by the `feedbackPosition` prop.
+	 */
+	feedbackFloating?: boolean;
+
+	/**
+	 * The position of the feedback, relative to the input.
+	 * It only affects the position of the feedback when `feedbackFloating` is `true`.
+	 *
+	 * @default 'auto'
+	 */
+	feedbackPosition?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
+
+	/**
+	 * The id of the label element.
+	 * When set, the `TextField` won't render any label element, and pass this id to the input element as `aria-labelledby`.
+	 */
+	labelId?: string;
 }
 
 export type TextFieldProps = BaseTextFieldProps & BaseTextAreaProps & BaseInputProps;

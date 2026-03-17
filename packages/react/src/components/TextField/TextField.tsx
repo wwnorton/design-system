@@ -11,6 +11,10 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 		{
 			// options
 			counterStart = 25,
+			counter = ({ remaining, max }) => {
+				if (remaining < 0) return null;
+				return `${remaining}/${max} characters remaining`;
+			},
 			validators,
 			validateOnChange,
 			validateOnDOMChange,
@@ -25,12 +29,9 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 			addonBefore,
 			addonAfter,
 			feedback,
+			feedbackFloating = false,
+			feedbackPosition = 'auto',
 			errors: errorsProp,
-			counter = ({ remaining, max }) => {
-				if (remaining < 0) return null;
-				return `${remaining}/${max} characters remaining`;
-			},
-
 			// classes
 			baseName = 'nds-field',
 			className = classNames(baseName, `${baseName}--text`),
@@ -104,6 +105,19 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 
 		const isValid = React.useMemo(() => Boolean(!errors || errors.length === 0), [errors]);
 
+		const isFeedbackFloating = Boolean(feedbackFloating);
+		const feedbackPositionClass = isFeedbackFloating
+			? `${baseName}__feedback--floating-${feedbackPosition || 'auto'}`
+			: undefined;
+		const feedbackFloatingClass = classNames({
+			[`${baseName}__feedback--floating`]: isFeedbackFloating,
+			[feedbackPositionClass as string]: Boolean(feedbackPositionClass),
+		});
+		const rootClass = classNames(className, {
+			[invalidClass]: !isValid,
+			[`${baseName}--feedback-floating`]: isFeedbackFloating,
+		});
+
 		const validateHandler = (e: string[]): void => {
 			if (onValidate) onValidate(e);
 			setErrors(e);
@@ -167,7 +181,7 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 		};
 
 		return (
-			<div className={classNames(className, { [invalidClass]: !isValid })} id={idProp}>
+			<div className={rootClass} id={idProp}>
 				<FieldInfo
 					htmlFor={inputId}
 					label={children}
@@ -195,7 +209,7 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 					)}
 				</div>
 				<FieldFeedback
-					className={feedbackClass}
+					className={classNames(feedbackClass, feedbackFloatingClass)}
 					errorsId={errId}
 					errors={errors}
 					errorsClass={errorsClass}
