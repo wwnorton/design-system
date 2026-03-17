@@ -108,11 +108,44 @@ $debug: false;
 	direction: ltr;
 }
 
+@mixin markers-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+@mixin marker-container {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin marker {
+
+	// TODO: use a token for this
+	width: 4px;
+	height: 4px;
+	background-color: var(--nds-navy-80);
+	border-radius: 50%;
+
+	&--in-range {
+		background-color: var(--nds-white);
+	}
+}
+
 @mixin markers {
 	display: flex;
 	width: 100%;
 	font-size: var(--nds-font-size-12);
 	line-height: var(--nds-line-height-3);
+}
+
+@mixin marker-text {
+	text-align: center;
 }
 
 // @mixin label {}
@@ -144,6 +177,22 @@ $debug: false;
 
 			&__markers {
 				@include markers;
+			}
+
+			&__marker-container {
+				@include marker-container;
+			}
+
+			&__marker-text {
+				@include marker-text;
+			}
+
+			&__markers-container {
+				@include markers-container;
+			}
+
+			&__marker {
+				@include marker;
 			}
 
 			&--vertical &__input {
