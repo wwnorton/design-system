@@ -21,6 +21,7 @@ $debug: false;
 	--rail-in-range-color: var(--nds-teal-60);
 	--marker-color: var(--nds-navy-80);
 	--marker-in-range-color: var(--nds-white);
+	--marker-size: 4px;
 
 	// This is the width of the outline of the handle
 	// when the slider is focused.
@@ -116,31 +117,30 @@ $debug: false;
 }
 
 @mixin markers-container {
+	--marker-padding: calc(var(--thumb-size) / 2 - var(--marker-size) / 2);
+	--markers-container-width: calc(var(--rail-width) - var(--marker-padding) * 2);
+
 	position: absolute;
 	top: 0;
 	left: 0;
 	display: flex;
+	width: var(--markers-container-width);
+	height: 100%;
+	margin-left: calc(var(--thumb-outline-width) + var(--marker-padding));
 	justify-content: space-between;
 	align-items: center;
-	width: var(--rail-width);
-	height: 100%;
-	margin: 0 var(--thumb-outline-width);
 }
 
-@mixin marker-container {
-	flex: 1;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+@mixin markers-container-custom {
+	// Readjust the width so that when `left` is 100% the marker is aligned with the
+	// center of the thumb.
+	width: calc(var(--markers-container-width) - var(--marker-size));
 }
 
 @mixin marker {
-	width: 4px;
-	height: 4px;
-	// TODO: use a token for this
-	box-sizing: content-box;
+	width: var(--marker-size);
+	height: var(--marker-size);
 	background-color: var(--marker-color);
-	border: 2px solid var(--rail-color);
 	border-radius: 50%;
 	transition: var(--marker-animation);
 
@@ -148,6 +148,13 @@ $debug: false;
 		background-color: var(--marker-in-range-color);
 		border-color: var(--rail-in-range-color);
 	}
+}
+
+@mixin marker-custom {
+	--marker-left: 0;
+
+	position: absolute;
+	left: calc(var(--marker-left));
 }
 
 @mixin markers {
@@ -192,20 +199,24 @@ $debug: false;
 				@include markers;
 			}
 
-			&__marker-container {
-				@include marker-container;
-			}
-
 			&__marker-text {
 				@include marker-text;
 			}
 
 			&__markers-container {
 				@include markers-container;
+
+				&--custom {
+					@include markers-container-custom;
+				}
 			}
 
 			&__marker {
 				@include marker;
+			}
+
+			&__marker--custom {
+				@include marker-custom;
 			}
 
 			&--vertical &__input {

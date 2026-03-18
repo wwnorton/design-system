@@ -17,10 +17,11 @@ function generateClassNames(baseName: string) {
 		railFill: `${baseName}__rail-fill`,
 		markerText: `${baseName}__marker-text`,
 		markersContainer: `${baseName}__markers-container`,
+		markersContainerCustom: `${baseName}__markers-container--custom`,
 		markersLabels: `${baseName}__markers-labels`,
-		markerContainer: `${baseName}__marker-container`,
 		marker: `${baseName}__marker`,
 		markerInRange: `${baseName}__marker--in-range`,
+		markerCustom: `${baseName}__marker--custom`,
 	};
 }
 
@@ -66,34 +67,13 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 		const markerTextClassName = classNames(css.markerText);
 
 		const max = props.max || 100;
-		const markersLabelsId = valueIndicators ? `${id}-markers` : undefined;
 		let markersLabels = null;
 		let markers = null;
-		if (valueIndicators) {
-			const markersLabelsClassName = classNames(css.markersLabels, markersClass);
+		if (valueIndicators === true) {
 			const markersContainerClassName = classNames(css.markersContainer);
 			const numberOfMarkers = Math.min(Math.floor(max / Number(step)), DEFAULT_NUMBER_OF_MARKERS);
 			const stepSize = max / numberOfMarkers;
 			const numberOfRenderedMarkers = numberOfMarkers + 1;
-			markersLabels = (
-				<datalist id={markersLabelsId} className={markersLabelsClassName}>
-					{Array.from({ length: numberOfRenderedMarkers }, (_, i) => {
-						const v = i * stepSize;
-						const valueStr = v.toString();
-						return (
-							<option
-								key={i}
-								value={v}
-								label={valueStr}
-								style={{ width: `${100 / (DEFAULT_NUMBER_OF_MARKERS + 1)}%` }}
-								className={markerTextClassName}
-							>
-								{v}
-							</option>
-						);
-					})}
-				</datalist>
-			);
 			markers = (
 				<div className={markersContainerClassName}>
 					{Array.from({ length: numberOfRenderedMarkers }, (_, i) => {
@@ -106,6 +86,61 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 						return <div key={i} className={markerClassName} />;
 					})}
 				</div>
+			);
+		} else if (valueIndicators) {
+			const markersContainerClassName = classNames(
+				css.markersContainer,
+				css.markersContainerCustom,
+			);
+			const markersLabelsClassName = classNames(css.markersLabels, markersClass);
+			const numberOfMarkers = valueIndicators.length;
+
+			markers = (
+				<div
+					className={markersContainerClassName}
+					style={{ display: 'flex', justifyContent: 'flex-start' }}
+				>
+					{Array.from({ length: numberOfMarkers }, (_, i) => {
+						const v = valueIndicators[i].value;
+						const isInRange = v <= value;
+						const left = (v / max) * 100;
+						const markerClassName = classNames(css.marker, css.markerCustom, {
+							[css.markerInRange]: isInRange,
+						});
+
+						return (
+							<div
+								key={i}
+								className={markerClassName}
+								style={
+									{
+										'--marker-left': `${left}%`,
+									} as React.CSSProperties
+								}
+							/>
+						);
+					})}
+				</div>
+			);
+
+			markersLabels = (
+				<datalist className={markersLabelsClassName}>
+					{Array.from({ length: numberOfMarkers }, (_, i) => {
+						const v = valueIndicators[i].value;
+						const valueStr = v.toString();
+						return (
+							<option
+								key={i}
+								value={v}
+								label={valueStr}
+								style={{ width: `${100 / (DEFAULT_NUMBER_OF_MARKERS + 1)}%` }}
+								className={markerTextClassName}
+							>
+								{valueIndicators[i].label}
+							</option>
+						);
+					})}
+				</datalist>
 			);
 		}
 
@@ -134,7 +169,6 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 						className={inputClassName}
 						{...props}
 						id={id}
-						list={markersLabelsId}
 						value={value}
 						onChange={handleChange}
 					/>

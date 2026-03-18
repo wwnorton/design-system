@@ -45,6 +45,18 @@ export const WithMarkers = {
 	},
 } satisfies Story;
 
+export const WithCustomIndicators = {
+	args: {
+		max: 10,
+		step: 1,
+		valueIndicators: [
+			{ value: 1, label: 'Low' },
+			{ value: 2, label: 'Medium' },
+			{ value: 8, label: 'High' },
+		],
+	},
+} satisfies Story;
+
 export const WithMarkersVertical = {
 	args: {
 		valueIndicators: true,
