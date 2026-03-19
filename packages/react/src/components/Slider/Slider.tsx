@@ -11,8 +11,8 @@ function generateClassNames(baseName: string) {
 		railContainer: `${baseName}__rail-container`,
 		rail: `${baseName}__rail`,
 		railVertical: `${baseName}__rail--vertical`,
-		thumb: `${baseName}__thumb`,
-		thumbContainer: `${baseName}__thumb-container`,
+		handle: `${baseName}__handle`,
+		handleContainer: `${baseName}__handle-container`,
 		railFillContainer: `${baseName}__rail-fill-container`,
 		railFill: `${baseName}__rail-fill`,
 		markerText: `${baseName}__marker-text`,
@@ -50,7 +50,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 		const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 			setValue(Number(e.target.value));
 		}, []);
-		const thumbLeft = useMemo(() => {
+		const handleLeft = useMemo(() => {
 			return `${(value * 100) / (props.max || 100)}%`;
 		}, [value, props.max]);
 
@@ -59,9 +59,9 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 		const inputClassName = classNames(css.input, inputClass);
 		const railContainerClassName = classNames(css.railContainer);
 		const railClassName = classNames(css.rail);
-		// TODO: add thumb className
-		const thumbClassName = classNames(css.thumb);
-		const thumbContainerClassName = classNames(css.thumbContainer);
+		// TODO: add handle className
+		const handleClassName = classNames(css.handle);
+		const handleContainerClassName = classNames(css.handleContainer);
 		const railFillContainerClassName = classNames(css.railFillContainer);
 		const railFillClassName = classNames(css.railFill);
 		const markerTextClassName = classNames(css.markerText);
@@ -152,15 +152,15 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 				<div className={railContainerClassName}>
 					<div className={railClassName} />
 					<div
-						className={thumbContainerClassName}
-						style={{ '--thumb-left': thumbLeft } as React.CSSProperties}
+						className={handleContainerClassName}
+						style={{ '--handle-left': handleLeft } as React.CSSProperties}
 					>
-						<div className={thumbClassName} />
+						<div className={handleClassName} />
 					</div>
 					<div className={railFillContainerClassName}>
 						<div
 							className={railFillClassName}
-							style={{ '--thumb-left': thumbLeft } as React.CSSProperties}
+							style={{ '--handle-left': handleLeft } as React.CSSProperties}
 						/>
 					</div>
 					<input

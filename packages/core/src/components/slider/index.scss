@@ -5,56 +5,55 @@
 $debug: false;
 
 @mixin base {
-	--thumb-left: 0%;
-	--thumb-size: 1.5rem;
+	// This is the width of the outline of the handle
+	// when the slider is focused.
+	// We use this to add padding to the rail container
+	// so that the outline is not cut off.
+	--handle-outline-width: 3px;
+	--handle-left: 0%;
+	--handle-size: 1.5rem;
 	--rail-height: 0.5rem;
 	--input-z-index: 20;
-	--thumb-z-index: 10;
+	--handle-z-index: 10;
 	--input-top-offset: -5px;
 	--min-width: 100px;
 	--rail-top: calc(50% - var(--rail-height) / 2);
 	--animation-duration: 0.1s;
 	--animation: transform var(--animation-duration) ease-out;
 	--marker-animation: background-color var(--animation-duration) ease-out;
-	--rail-width: calc(100% - var(--thumb-outline-width) * 2);
+	--rail-width: calc(100% - var(--handle-outline-width) * 2);
 	--rail-color: var(--nds-navy-30);
 	--rail-in-range-color: var(--nds-teal-60);
 	--marker-color: var(--nds-navy-80);
 	--marker-in-range-color: var(--nds-white);
 	--marker-size: 4px;
-	--marker-padding: calc(var(--thumb-size) / 2 - var(--marker-size) / 2);
+	--marker-padding: calc(var(--handle-size) / 2 - var(--marker-size) / 2);
 	--markers-container-width: calc(var(--rail-width) - var(--marker-padding) * 2);
 	--markers-container-custom-width: calc(var(--markers-container-width) - var(--marker-size));
 
 	// Offset to align the markers container with the center of the thumb.
-	--markers-container-offset: calc(var(--thumb-outline-width) + var(--marker-padding));
-	--labels-container-width: calc(100% - var(--thumb-outline-width) * 2);
-
-	// This is the width of the outline of the handle
-	// when the slider is focused.
-	// We use this to add padding to the rail container
-	// so that the outline is not cut off.
-	--thumb-outline-width: 3px;
+	--markers-container-offset: calc(var(--handle-outline-width) + var(--marker-padding));
+	--labels-container-width: calc(100% - var(--handle-outline-width) * 2);
 
 	min-width: var(--min-width);
 }
 
-@mixin thumb-container {
-	--thumb-left: 0;
+@mixin handle-container {
+	--handle-left: 0;
 
 	position: relative;
 	top: -100%;
 	left: 0;
-	z-index: var(--thumb-z-index);
-	width: calc(100% - var(--thumb-size));
+	z-index: var(--handle-z-index);
+	width: calc(100% - var(--handle-size));
 	transition: var(--animation);
-	transform: translateX(var(--thumb-left));
+	transform: translateX(var(--handle-left));
 	transform-origin: center left;
 }
 
-@mixin thumb {
-	width: var(--thumb-size);
-	height: var(--thumb-size);
+@mixin handle {
+	width: var(--handle-size);
+	height: var(--handle-size);
 	background-color: var(--nds-white);
 	border: 2px solid var(--nds-teal-60);
 	border-radius: 50%;
@@ -65,8 +64,8 @@ $debug: false;
 
 	// We need to add a padding and a negative margin to the rail container
 	// so that the outline of the handle is not cut off.
-	padding: var(--thumb-outline-width);
-	margin: calc(var(--thumb-outline-width) * -1);
+	padding: var(--handle-outline-width);
+	margin: calc(var(--handle-outline-width) * -1);
 	overflow: hidden;
 }
 
@@ -77,7 +76,7 @@ $debug: false;
 	display: block;
 	width: var(--rail-width);
 	height: var(--rail-height);
-	margin: 0 var(--thumb-outline-width);
+	margin: 0 var(--handle-outline-width);
 	cursor: pointer;
 	background-color: var(--rail-color);
 	border-radius: var(--nds-radius-pill);
@@ -87,9 +86,9 @@ $debug: false;
 	position: absolute;
 	top: var(--rail-top);
 	left: 0;
-	width: calc(100% - var(--thumb-size) / 2);
+	width: calc(100% - var(--handle-size) / 2);
 	height: var(--rail-height);
-	margin: 0 var(--thumb-outline-width);
+	margin: 0 var(--handle-outline-width);
 	overflow: hidden;
 	border-radius: var(--nds-radius-pill);
 }
@@ -99,7 +98,7 @@ $debug: false;
 	height: 100%;
 	background-color: var(--rail-in-range-color);
 	transition: var(--animation);
-	transform: scaleX(var(--thumb-left));
+	transform: scaleX(var(--handle-left));
 	transform-origin: left center;
 }
 
@@ -109,7 +108,7 @@ $debug: false;
 	left: 0;
 	z-index: var(--input-z-index);
 	width: var(--rail-width);
-	margin: 0 var(--thumb-outline-width);
+	margin: 0 var(--handle-outline-width);
 
 	@if $debug {
 		opacity: 0.5;
@@ -137,7 +136,7 @@ $debug: false;
 
 @mixin markers-container-custom {
 	// Readjust the width so that when `left` is 100% the marker is aligned with the
-	// center of the thumb.
+	// center of the handle.
 	width: var(--markers-container-custom-width);
 }
 
@@ -169,7 +168,7 @@ $debug: false;
 	margin-left: var(--markers-container-offset);
 
 	// width: var(--markers-container-custom-width);
-	// width: calc(var(--markers-container-width) - var(--thumb-outline-width) * 2);
+	// width: calc(var(--markers-container-width) - var(--handle-outline-width) * 2);
 	font-size: var(--nds-font-size-12);
 	line-height: var(--nds-line-height-3);
 }
@@ -199,12 +198,12 @@ $debug: false;
 				@include rail;
 			}
 
-			&__thumb-container {
-				@include thumb-container;
+			&__handle-container {
+				@include handle-container;
 			}
 
-			&__thumb {
-				@include thumb;
+			&__handle {
+				@include handle;
 			}
 
 			// &__label {
@@ -251,11 +250,11 @@ $debug: false;
 				@include rail-fill;
 			}
 
-			&:hover &__thumb {
+			&:hover &__handle {
 				background-color: var(--nds-navy-20);
 			}
 
-			&:focus-within &__thumb {
+			&:focus-within &__handle {
 				@include a11y.focus-halo;
 			}
 		}
