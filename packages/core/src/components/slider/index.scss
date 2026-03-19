@@ -59,6 +59,10 @@ $debug: false;
 	border-radius: 50%;
 }
 
+@mixin handle-active {
+	background-color: var(--nds-navy-30);
+}
+
 @mixin rail-container {
 	position: relative;
 
@@ -190,6 +194,7 @@ $debug: false;
 		.nds-slider {
 			@include base;
 
+
 			&__input {
 				@include input;
 			}
@@ -205,10 +210,6 @@ $debug: false;
 			&__handle {
 				@include handle;
 			}
-
-			// &__label {
-			// 	// @include label;
-			// }
 
 			&__markers-labels {
 				@include markers-labels;
@@ -256,6 +257,10 @@ $debug: false;
 
 			&:focus-within &__handle {
 				@include a11y.focus-halo;
+			}
+
+			&:has(&__input:active) &__handle {
+				@include handle-active;
 			}
 		}
 	}
