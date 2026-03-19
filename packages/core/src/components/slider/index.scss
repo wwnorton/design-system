@@ -186,7 +186,19 @@ $debug: false;
 	transform: translateX(-50%);
 }
 
-// @mixin label {}
+// The body of the slider contains the left and right icons, the rail, and the handle.
+@mixin body {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--nds-spacing-1);
+}
+
+@mixin icon {
+	display: flex;
+	height: calc(var(--handle-size));
+	color: var(--nds-navy-70);
+	align-items: center;
+}
 
 @mixin style {
 	@include util.declare('slider') {
@@ -232,6 +244,14 @@ $debug: false;
 
 			&__indicator--custom {
 				@include indicator-custom;
+			}
+
+			&__body {
+				@include body;
+			}
+
+			&__icon {
+				@include icon;
 			}
 
 			&--vertical &__input {

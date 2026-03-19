@@ -57,3 +57,34 @@ export const WithCustomIndicators = {
 		],
 	},
 } satisfies Story;
+
+export const WithLeftIcon = {
+	args: {
+		leftIcon: 'minus',
+	},
+} satisfies Story;
+
+export const WithLeftIconWithCustomIndicators = {
+	args: {
+		leftIcon: 'minus',
+		max: 10,
+		step: 1,
+		valueIndicators: [
+			{ value: 0, label: 'Min' },
+			{ value: 10, label: 'Max' },
+		],
+	},
+} satisfies Story;
+
+export const WithRightIcon = {
+	args: {
+		rightIcon: 'plus',
+	},
+} satisfies Story;
+
+export const WithLeftAndRightIcons = {
+	args: {
+		leftIcon: 'minus',
+		rightIcon: 'plus',
+	},
+} satisfies Story;

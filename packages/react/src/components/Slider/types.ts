@@ -1,3 +1,5 @@
+import { IconVariant, SVGIcon } from '../Icon';
+
 export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'>, 'type'> {
 	/** The value of the slider. */
 	value?: number;
@@ -35,6 +37,11 @@ export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'
 	indicatorsClass?: string;
 
 	/**
+	 * The class name for the icons.
+	 */
+	iconClass?: string;
+
+	/**
 	 * Indicates whether the slider should display value indicators.
 	 * If set to `true`, the slider will display an indicator for each step up to the maximum number of indicators.
 	 * In this setting the indicators won't have labels.
@@ -60,4 +67,14 @@ export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'
 	 * @default DEFAULT_MAX_NUMBER_OF_INDICATORS
 	 */
 	maxNumberOfIndicators?: number;
+
+	/**
+	 * The icon to display on the left of the slider.
+	 */
+	leftIcon?: IconVariant | SVGIcon;
+
+	/**
+	 * The icon to display on the right of the slider.
+	 */
+	rightIcon?: IconVariant | SVGIcon;
 }

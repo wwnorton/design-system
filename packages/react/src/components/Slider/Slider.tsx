@@ -2,6 +2,7 @@ import React, { useCallback, useId, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { SliderProps } from './types';
 import { DEFAULT_MAX_NUMBER_OF_INDICATORS, ROOT_CLASS } from './constants';
+import { Icon } from '../Icon';
 
 function generateClassNames(baseName: string) {
 	return {
@@ -22,6 +23,8 @@ function generateClassNames(baseName: string) {
 		indicator: `${baseName}__indicator`,
 		indicatorInRange: `${baseName}__indicator--in-range`,
 		indicatorCustom: `${baseName}__indicator--custom`,
+		body: `${baseName}__body`,
+		icon: `${baseName}__icon`,
 	};
 }
 
@@ -37,6 +40,9 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 			labelClass,
 			inputClass,
 			indicatorsClass,
+			iconClass,
+			leftIcon,
+			rightIcon,
 			step = 1,
 			maxNumberOfIndicators = DEFAULT_MAX_NUMBER_OF_INDICATORS,
 			...props
@@ -65,7 +71,35 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 		const handleContainerClassName = classNames(css.handleContainer);
 		const railFillContainerClassName = classNames(css.railFillContainer);
 		const railFillClassName = classNames(css.railFill);
-		const markerTextClassName = classNames(css.indicatorText);
+		const indicatorTextClassName = classNames(css.indicatorText);
+		const bodyClassName = classNames(css.body);
+		const iconClassName = classNames(css.icon, iconClass);
+
+		const [LeftIcon, RightIcon] = React.useMemo(() => {
+			const baseProps = {
+				className: iconClass,
+			};
+
+			let lIcon = null;
+			if (leftIcon) {
+				const iconProps =
+					typeof leftIcon === 'string'
+						? { ...baseProps, variant: leftIcon }
+						: { ...baseProps, icon: leftIcon };
+				lIcon = <Icon {...iconProps} />;
+			}
+
+			let rIcon = null;
+			if (rightIcon) {
+				const iconProps =
+					typeof rightIcon === 'string'
+						? { ...baseProps, variant: rightIcon }
+						: { ...baseProps, icon: rightIcon };
+				rIcon = <Icon {...iconProps} />;
+			}
+
+			return [lIcon, rIcon];
+		}, [leftIcon, rightIcon, iconClass]);
 
 		const max = props.max || 100;
 		let markersLabels = null;
@@ -135,7 +169,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 								value={v}
 								label={valueIndicators[i].label}
 								style={{ '--left': `${left}%` } as React.CSSProperties}
-								className={markerTextClassName}
+								className={indicatorTextClassName}
 							>
 								{valueIndicators[i].label || v}
 							</option>
@@ -150,32 +184,38 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 				<label className={labelClassName} htmlFor={id}>
 					{label}
 				</label>
-				<div className={railContainerClassName}>
-					<div className={railClassName} />
-					<div
-						className={handleContainerClassName}
-						style={{ '--handle-left': handleLeft } as React.CSSProperties}
-					>
-						<div className={handleClassName} />
+				<div className={bodyClassName}>
+					<div className={iconClassName}>{LeftIcon}</div>
+					<div style={{ flex: 1 }}>
+						<div className={railContainerClassName}>
+							<div className={railClassName} />
+							<div
+								className={handleContainerClassName}
+								style={{ '--handle-left': handleLeft } as React.CSSProperties}
+							>
+								<div className={handleClassName} />
+							</div>
+							<div className={railFillContainerClassName}>
+								<div
+									className={railFillClassName}
+									style={{ '--handle-left': handleLeft } as React.CSSProperties}
+								/>
+							</div>
+							<input
+								ref={ref}
+								type="range"
+								className={inputClassName}
+								{...props}
+								id={id}
+								value={value}
+								onChange={handleChange}
+							/>
+							{markers}
+						</div>
+						{markersLabels}
 					</div>
-					<div className={railFillContainerClassName}>
-						<div
-							className={railFillClassName}
-							style={{ '--handle-left': handleLeft } as React.CSSProperties}
-						/>
-					</div>
-					<input
-						ref={ref}
-						type="range"
-						className={inputClassName}
-						{...props}
-						id={id}
-						value={value}
-						onChange={handleChange}
-					/>
-					{markers}
+					<div className={iconClassName}>{RightIcon}</div>
 				</div>
-				{markersLabels}
 			</div>
 		);
 	},
