@@ -50,10 +50,10 @@ export const WithCustomIndicators = {
 		max: 10,
 		step: 1,
 		valueIndicators: [
-			{ value: 0, label: '0' },
+			{ value: 0 },
 			{ value: 2, label: '20' },
 			{ value: 8, label: '8' },
-			{ value: 10, label: '10' },
+			{ value: 10 },
 		],
 	},
 } satisfies Story;

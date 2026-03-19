@@ -32,8 +32,8 @@ $debug: false;
 	--markers-container-custom-width: calc(var(--markers-container-width) - var(--marker-size));
 
 	// Offset to align the markers container with the center of the thumb.
-	--markers-container-offset: calc(var(--handle-outline-width) + var(--marker-padding));
-	--labels-container-width: calc(100% - var(--handle-outline-width) * 2);
+	--markers-container-offset: calc(var(--handle-size) / 2);
+	--labels-container-width: calc(100% - var(--markers-container-offset) * 2);
 
 	min-width: var(--min-width);
 }

@@ -1,7 +1,7 @@
 import React, { useCallback, useId, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { SliderProps } from './types';
-import { DEFAULT_NUMBER_OF_MARKERS, ROOT_CLASS } from './constants';
+import { DEFAULT_MAX_NUMBER_OF_INDICATORS, ROOT_CLASS } from './constants';
 
 function generateClassNames(baseName: string) {
 	return {
@@ -36,8 +36,9 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 			valueIndicators,
 			labelClass,
 			inputClass,
-			markersClass,
+			indicatorsClass: markersClass,
 			step = 1,
+			maxNumberOfIndicators = DEFAULT_MAX_NUMBER_OF_INDICATORS,
 			...props
 		}: SliderProps,
 		ref,
@@ -71,7 +72,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 		let markers = null;
 		if (valueIndicators === true) {
 			const markersContainerClassName = classNames(css.markersContainer);
-			const numberOfMarkers = Math.min(Math.floor(max / Number(step)), DEFAULT_NUMBER_OF_MARKERS);
+			const numberOfMarkers = Math.min(Math.floor(max / Number(step)), maxNumberOfIndicators);
 			const stepSize = max / numberOfMarkers;
 			const numberOfRenderedMarkers = numberOfMarkers + 1;
 			markers = (
@@ -136,7 +137,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 								style={{ '--marker-left': `${left}%` } as React.CSSProperties}
 								className={markerTextClassName}
 							>
-								{valueIndicators[i].label}
+								{valueIndicators[i].label || v}
 							</option>
 						);
 					})}

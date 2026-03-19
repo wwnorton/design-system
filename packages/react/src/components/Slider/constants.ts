@@ -5,6 +5,6 @@
 export const ROOT_CLASS = 'nds-slider';
 
 /**
- * The default number of markers to display.
+ * The default maximum number of indicators to display.
  */
-export const DEFAULT_NUMBER_OF_MARKERS = 5;
+export const DEFAULT_MAX_NUMBER_OF_INDICATORS = 5;
