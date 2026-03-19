@@ -127,13 +127,13 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
 				<datalist className={markersLabelsClassName}>
 					{Array.from({ length: numberOfMarkers }, (_, i) => {
 						const v = valueIndicators[i].value;
-						const valueStr = v.toString();
+						const left = (v / max) * 100;
 						return (
 							<option
 								key={i}
 								value={v}
-								label={valueStr}
-								style={{ width: `${100 / (DEFAULT_NUMBER_OF_MARKERS + 1)}%` }}
+								label={valueIndicators[i].label}
+								style={{ '--marker-left': `${left}%` } as React.CSSProperties}
 								className={markerTextClassName}
 							>
 								{valueIndicators[i].label}

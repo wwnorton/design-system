@@ -22,6 +22,13 @@ $debug: false;
 	--marker-color: var(--nds-navy-80);
 	--marker-in-range-color: var(--nds-white);
 	--marker-size: 4px;
+	--marker-padding: calc(var(--thumb-size) / 2 - var(--marker-size) / 2);
+	--markers-container-width: calc(var(--rail-width) - var(--marker-padding) * 2);
+	--markers-container-custom-width: calc(var(--markers-container-width) - var(--marker-size));
+
+	// Offset to align the markers container with the center of the thumb.
+	--markers-container-offset: calc(var(--thumb-outline-width) + var(--marker-padding));
+	--labels-container-width: calc(100% - var(--thumb-outline-width) * 2);
 
 	// This is the width of the outline of the handle
 	// when the slider is focused.
@@ -117,16 +124,13 @@ $debug: false;
 }
 
 @mixin markers-container {
-	--marker-padding: calc(var(--thumb-size) / 2 - var(--marker-size) / 2);
-	--markers-container-width: calc(var(--rail-width) - var(--marker-padding) * 2);
-
 	position: absolute;
 	top: 0;
 	left: 0;
 	display: flex;
 	width: var(--markers-container-width);
 	height: 100%;
-	margin-left: calc(var(--thumb-outline-width) + var(--marker-padding));
+	margin-left: var(--markers-container-offset);
 	justify-content: space-between;
 	align-items: center;
 }
@@ -134,7 +138,7 @@ $debug: false;
 @mixin markers-container-custom {
 	// Readjust the width so that when `left` is 100% the marker is aligned with the
 	// center of the thumb.
-	width: calc(var(--markers-container-width) - var(--marker-size));
+	width: var(--markers-container-custom-width);
 }
 
 @mixin marker {
@@ -157,15 +161,27 @@ $debug: false;
 	left: calc(var(--marker-left));
 }
 
-@mixin markers {
-	display: flex;
-	width: 100%;
+@mixin markers-labels {
+	position: relative;
+	display: block;
+	width: calc(var(--labels-container-width));
+	height: 1rem;
+	margin-left: var(--markers-container-offset);
+
+	// width: var(--markers-container-custom-width);
+	// width: calc(var(--markers-container-width) - var(--thumb-outline-width) * 2);
 	font-size: var(--nds-font-size-12);
 	line-height: var(--nds-line-height-3);
 }
 
 @mixin marker-text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	left: calc(var(--marker-left));
+	padding: 0;
 	text-align: center;
+	transform: translateX(-50%);
 }
 
 // @mixin label {}
@@ -195,8 +211,8 @@ $debug: false;
 			// 	// @include label;
 			// }
 
-			&__markers {
-				@include markers;
+			&__markers-labels {
+				@include markers-labels;
 			}
 
 			&__marker-text {
