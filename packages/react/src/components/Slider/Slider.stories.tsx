@@ -37,7 +37,7 @@ export const Vertical = {
 	},
 } satisfies Story;
 
-export const WithMarkers = {
+export const WithIndicators = {
 	args: {
 		valueIndicators: true,
 		max: 3,
@@ -55,12 +55,5 @@ export const WithCustomIndicators = {
 			{ value: 8, label: '8' },
 			{ value: 10 },
 		],
-	},
-} satisfies Story;
-
-export const WithMarkersVertical = {
-	args: {
-		valueIndicators: true,
-		isVertical: true,
 	},
 } satisfies Story;
