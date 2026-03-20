@@ -1,7 +1,16 @@
 import React, { useEffect } from 'react';
-import { usePopper } from 'react-popper';
+import {
+	arrow,
+	autoPlacement,
+	autoUpdate,
+	flip,
+	type MiddlewareState,
+	offset as floatingOffset,
+	shift,
+	size,
+	useFloating,
+} from '@floating-ui/react';
 import { CSSTransition } from 'react-transition-group';
-import { arrowMod, flipMod, matchWidthMod, offsetMod, preventOverflowMod } from './modifiers';
 import { PopperProps } from './types';
 import { useForwardedRef, useLayoutEffect } from '../../utilities';
 
@@ -60,6 +69,7 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 		const [popper, setPopper] = useForwardedRef(ref);
 		const [arrowElement, setArrowElement] = React.useState<HTMLDivElement | null>(null);
 		const [distanceToken, setDistanceToken] = React.useState<number>();
+		const firstUpdateCalled = React.useRef(false);
 
 		/**
 		 * Fix for https://github.com/reactjs/react-transition-group/issues/918
@@ -74,6 +84,11 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 			nodeRef.current = popper;
 		}, [popper]);
 
+		const resolvedPlacement = React.useMemo(() => {
+			if (placement === 'auto' || placement.startsWith('auto-')) return 'bottom';
+			return placement as Exclude<PopperProps['placement'], 'auto' | 'auto-start' | 'auto-end'>;
+		}, [placement]);
+
 		const distance = React.useMemo(() => {
 			if (offset) {
 				if (typeof offset === 'function') {
@@ -81,7 +96,7 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 						return offset({
 							popper: popper.getBoundingClientRect(),
 							reference: reference.getBoundingClientRect(),
-							placement,
+							placement: resolvedPlacement || 'bottom',
 						})[1];
 					}
 					return 0;
@@ -90,7 +105,7 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 			}
 			if (distanceProp !== undefined) return distanceProp;
 			return distanceToken ?? 0;
-		}, [distanceProp, distanceToken, offset, placement, popper, reference]);
+		}, [distanceProp, distanceToken, offset, popper, reference, resolvedPlacement]);
 
 		// check if distance is set with a CSS variable (a design token)
 		useLayoutEffect(() => {
@@ -109,67 +124,190 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 			}
 		}, [distance, popper]);
 
-		const modifiers = React.useMemo(
-			() => [
-				// https://popper.js.org/docs/v2/modifiers/arrow/
-				{
-					...arrowMod,
-					enabled: enableArrow,
-					options: {
-						element: arrowProp || arrowElement,
-						padding: arrowPadding,
-					},
+		const parsedModifiers = React.useMemo(() => {
+			const next = {
+				arrowEnabled: enableArrow,
+				arrowOptions: {
+					element: arrowProp || arrowElement,
+					padding: arrowPadding,
 				},
-				// https://popper.js.org/docs/v2/modifiers/flip/
-				{
-					...flipMod,
-					enabled: enableFlip,
-					options: flipOptions,
-				},
-				// https://popper.js.org/docs/v2/modifiers/offset/
-				{
-					...offsetMod,
-					enabled: true,
-					options: {
-						offset: offset ?? [0, distance],
-					},
-				},
-				// https://popper.js.org/docs/v2/modifiers/prevent-overflow/
-				{
-					...preventOverflowMod,
-					enabled: enablePreventOverflow,
-					options: preventOverflowOptions ?? { boundary },
-				},
-				// https://popper.js.org/docs/v2/modifiers/community-modifiers/
-				{
-					...matchWidthMod,
-					enabled: matchWidth,
-				},
-				...(modifiersProp || []),
-			],
-			[
-				arrowElement,
-				arrowPadding,
-				arrowProp,
-				boundary,
-				distance,
-				enableArrow,
-				enableFlip,
-				enablePreventOverflow,
+				flipEnabled: enableFlip,
 				flipOptions,
-				matchWidth,
-				modifiersProp,
-				offset,
-				preventOverflowOptions,
-			],
-		);
+				offsetOptions: {
+					offset: offset ?? [0, distance],
+				},
+				preventOverflowEnabled: enablePreventOverflow,
+				preventOverflowOptions: preventOverflowOptions ?? { boundary },
+				matchWidthEnabled: matchWidth,
+			};
 
-		const { styles, attributes } = usePopper(reference, popper, {
-			placement,
+			(modifiersProp || []).forEach((modifier) => {
+				if (!modifier?.name) return;
+				switch (modifier.name) {
+					case 'arrow':
+						next.arrowEnabled = modifier.enabled ?? next.arrowEnabled;
+						next.arrowOptions = { ...next.arrowOptions, ...(modifier.options || {}) };
+						break;
+					case 'flip':
+						next.flipEnabled = modifier.enabled ?? next.flipEnabled;
+						next.flipOptions = { ...(next.flipOptions || {}), ...(modifier.options || {}) };
+						break;
+					case 'offset':
+						next.offsetOptions = { ...next.offsetOptions, ...(modifier.options || {}) };
+						break;
+					case 'preventOverflow':
+						next.preventOverflowEnabled = modifier.enabled ?? next.preventOverflowEnabled;
+						next.preventOverflowOptions = {
+							...next.preventOverflowOptions,
+							...(modifier.options || {}),
+						};
+						break;
+					case 'matchWidth':
+						next.matchWidthEnabled = modifier.enabled ?? next.matchWidthEnabled;
+						break;
+					default:
+						break;
+				}
+			});
+
+			return next;
+		}, [
+			arrowElement,
+			arrowPadding,
+			arrowProp,
+			boundary,
+			distance,
+			enableArrow,
+			enableFlip,
+			enablePreventOverflow,
+			flipOptions,
+			matchWidth,
+			modifiersProp,
+			offset,
+			preventOverflowOptions,
+		]);
+
+		const resolvedBoundary = React.useMemo(() => {
+			if (boundary === 'clippingParents') return 'clippingAncestors';
+			return boundary;
+		}, [boundary]);
+
+		const middleware = React.useMemo(() => {
+			const offsetOption = parsedModifiers.offsetOptions.offset;
+			const computedOffset =
+				typeof offsetOption === 'function'
+					? (state: MiddlewareState) => {
+							const referenceRect = {
+								...state.rects.reference,
+								top: state.rects.reference.y,
+								left: state.rects.reference.x,
+								right: state.rects.reference.x + state.rects.reference.width,
+								bottom: state.rects.reference.y + state.rects.reference.height,
+							};
+							const resolved = offsetOption({
+								popper: state.elements.floating.getBoundingClientRect(),
+								reference: referenceRect,
+								placement: state.placement,
+							});
+							return { mainAxis: resolved[1] ?? 0, crossAxis: resolved[0] ?? 0 };
+					  }
+					: { mainAxis: offsetOption[1] ?? 0, crossAxis: offsetOption[0] ?? 0 };
+
+			const resolvedArrowElement =
+				typeof parsedModifiers.arrowOptions.element === 'string'
+					? popper?.querySelector(parsedModifiers.arrowOptions.element) || null
+					: parsedModifiers.arrowOptions.element;
+
+			const middlewares = [floatingOffset(computedOffset)];
+
+			if (placement === 'auto' || placement.startsWith('auto-')) {
+				let alignment: 'start' | 'end' | undefined;
+				if (placement === 'auto-start') alignment = 'start';
+				if (placement === 'auto-end') alignment = 'end';
+
+				middlewares.push(
+					autoPlacement({
+						alignment,
+					}),
+				);
+			}
+
+			if (parsedModifiers.flipEnabled) {
+				middlewares.push(flip(parsedModifiers.flipOptions as Parameters<typeof flip>[0]));
+			}
+
+			if (parsedModifiers.preventOverflowEnabled) {
+				middlewares.push(
+					shift({
+						...parsedModifiers.preventOverflowOptions,
+						boundary:
+							parsedModifiers.preventOverflowOptions?.boundary === 'clippingParents'
+								? 'clippingAncestors'
+								: parsedModifiers.preventOverflowOptions?.boundary || resolvedBoundary,
+					}),
+				);
+			}
+
+			if (parsedModifiers.arrowEnabled && resolvedArrowElement) {
+				middlewares.push(
+					arrow({
+						...parsedModifiers.arrowOptions,
+						element: resolvedArrowElement,
+					}),
+				);
+			}
+
+			if (parsedModifiers.matchWidthEnabled) {
+				middlewares.push(
+					size({
+						apply(state) {
+							const floatingElement = state.elements.floating;
+							floatingElement.style.width = `${state.rects.reference.width}px`;
+						},
+					}),
+				);
+			}
+
+			return middlewares;
+		}, [parsedModifiers, placement, popper, resolvedBoundary]);
+
+		const {
+			refs,
+			floatingStyles,
+			middlewareData,
+			update,
+			placement: computedPlacement,
+		} = useFloating({
+			placement: resolvedPlacement,
 			strategy,
-			onFirstUpdate,
-			modifiers,
+			middleware,
+			whileElementsMounted: autoUpdate,
 		});
+
+		useEffect(() => {
+			refs.setReference(reference || null);
+		}, [reference, refs]);
+
+		useEffect(() => {
+			if (!isOpen) {
+				firstUpdateCalled.current = false;
+				return;
+			}
+			if (!onFirstUpdate || firstUpdateCalled.current !== false) return;
+			if (!popper || !reference) return;
+			firstUpdateCalled.current = true;
+			onFirstUpdate({
+				elements: {
+					popper,
+					reference,
+				},
+				placement: computedPlacement,
+			});
+		}, [computedPlacement, isOpen, onFirstUpdate, popper, reference]);
+
+		useEffect(() => {
+			if (isOpen && update) update();
+		}, [distance, isOpen, update]);
 
 		const timingProps = React.useMemo(() => {
 			if (addEndListener) return { addEndListener };
@@ -206,13 +344,24 @@ export const Popper = React.forwardRef<HTMLDivElement, PopperProps>(
 				<div
 					{...props}
 					className={className}
-					style={{ ...style, ...styles.popper }}
-					{...attributes.popper}
-					ref={setPopper}
+					style={{ ...style, ...floatingStyles }}
+					data-popper-placement={computedPlacement}
+					ref={(node) => {
+						setPopper(node);
+						refs.setFloating(node);
+					}}
 				>
 					{children}
 					{!arrowProp && enableArrow && (
-						<div data-popper-arrow style={styles.arrow} ref={setArrowElement} />
+						<div
+							data-popper-arrow
+							style={{
+								position: 'absolute',
+								left: middlewareData.arrow?.x ?? '',
+								top: middlewareData.arrow?.y ?? '',
+							}}
+							ref={setArrowElement}
+						/>
 					)}
 				</div>
 			</CSSTransition>

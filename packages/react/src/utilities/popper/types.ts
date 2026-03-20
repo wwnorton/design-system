@@ -1,4 +1,4 @@
-import { Options, VirtualElement } from '@popperjs/core';
+import { ReferenceElement } from '@floating-ui/react';
 
 export interface PopperCoreProps {
 	/**
@@ -6,16 +6,11 @@ export interface PopperCoreProps {
 	 *
 	 * [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
 	 */
-	reference?: Element | VirtualElement | null;
+	reference?: ReferenceElement | null;
 	/**
 	 * The popper element, which will be attached to the reference element.
 	 *
 	 * [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
 	 */
 	popper?: HTMLElement | null;
-}
-
-export interface UsePopperProps extends Partial<Options>, PopperCoreProps {
-	/** The contents of the popper. */
-	children?: React.ReactNode;
 }
