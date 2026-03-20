@@ -45,7 +45,7 @@ test("uses React 18's useId when it's available", (t) => {
 			t.true(id0.startsWith(':r'));
 			break;
 		case 19:
-			t.true(id0.startsWith('«r'));
+			t.true(id0.startsWith('_r'));
 			break;
 		default:
 			t.true(id0.startsWith('nds-'));
