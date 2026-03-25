@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://github.com/wwnorton/design-system/compare/v1.9.4...v2.0.0) (2026-03-25)
+
+### ✨ Features
+
+- add support for react 19 ([8c70f48](https://github.com/wwnorton/design-system/commit/8c70f481488fc3b5cd0ba59bc80764b9b5616804))
+- **react:** add react 19 support ([e464983](https://github.com/wwnorton/design-system/commit/e464983b736a445691c0b14a4adfb7c175c3227c))
+
+### ♻️ Refactor
+
+- update tests to use latest testing-library packages ([ddbc48e](https://github.com/wwnorton/design-system/commit/ddbc48e0e88750b4faf7eaef229549688c2fd806))
+- use react-is comparison ([b9ca436](https://github.com/wwnorton/design-system/commit/b9ca436758ed9fa9a05d09420a687c673d9613d0))
+
 ## [1.9.4](https://github.com/wwnorton/design-system/compare/v1.9.3...v1.9.4) (2026-03-25)
 
 ### 🐛 Bug Fixes

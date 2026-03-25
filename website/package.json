@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "1.9.4",
+  "version": "2.0.0",
   "private": true,
   "author": "Evan Yamanishi <eyamanishi@wwnorton.com>",
   "contributors": [
@@ -44,8 +44,8 @@
     "@docusaurus/preset-classic": "3.9.2",
     "@docusaurus/theme-live-codeblock": "3.9.2",
     "@mdx-js/react": "^3.1.0",
-    "@wwnds/core": "^1.9.4",
-    "@wwnds/react": "^1.9.4",
+    "@wwnds/core": "^2.0.0",
+    "@wwnds/react": "^2.0.0",
     "colorable": "^1.0.5",
     "docusaurus-lunr-search": "^3.6.0",
     "markdown-to-jsx": "^7.7.6",
