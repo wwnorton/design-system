@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.4](https://github.com/wwnorton/design-system/compare/v1.9.3...v1.9.4) (2026-03-25)
+
+### 🐛 Bug Fixes
+
+- code logic ([362e0fd](https://github.com/wwnorton/design-system/commit/362e0fd1a753c40eaaf203b03e7fdbb6d7590757))
+- table storybook file for prettier ([b424e01](https://github.com/wwnorton/design-system/commit/b424e01f3d3ade09c09669f0dc305df362133b2a))
+
+### 📝 Documentation
+
+- **react:** include story with custom summary for Disclosure ([b89ad9b](https://github.com/wwnorton/design-system/commit/b89ad9bad522b7a1d3e03038280abcc35e5c50b1))
+
 ## [1.9.3](https://github.com/wwnorton/design-system/compare/v1.9.2...v1.9.3) (2025-08-01)
 
 ### 🐛 Bug Fixes

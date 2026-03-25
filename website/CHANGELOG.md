@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.4](https://github.com/wwnorton/design-system/compare/v1.9.3...v1.9.4) (2026-03-25)
+
+### 📝 Documentation
+
+- **website:** add accordion documentation ([5b6d9a1](https://github.com/wwnorton/design-system/commit/5b6d9a10a5454b186082ae7a7b35d8d063cd953d))
+- **website:** fix accordion docs ([347a881](https://github.com/wwnorton/design-system/commit/347a8810b9d8371d41999f0dd98ff47c87de7c31))
+
 ## [1.9.3](https://github.com/wwnorton/design-system/compare/v1.9.2...v1.9.3) (2025-08-01)
 
 **Note:** Version bump only for package website
