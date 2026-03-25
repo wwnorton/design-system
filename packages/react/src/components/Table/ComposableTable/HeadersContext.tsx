@@ -88,7 +88,10 @@ export function useHeadersText(): string[] {
 /**
  * Registers the header passed in `th`.
  */
-export function useRegisterHeader(colId: string, th: React.RefObject<HTMLTableCellElement>): void {
+export function useRegisterHeader(
+	colId: string,
+	th: React.RefObject<HTMLTableCellElement | null>,
+): void {
 	const headers = useContext(HeadersContext);
 
 	useEffect(() => {

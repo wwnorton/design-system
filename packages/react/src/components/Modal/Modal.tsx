@@ -210,7 +210,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		}
 	}
 
-	private get CloseButton(): JSX.Element | null {
+	private get CloseButton(): React.JSX.Element | null {
 		const {
 			hideCloseButton,
 			closeButtonClass = `${this.baseName}__${Modal.bemElements.closeButton}`,
@@ -227,7 +227,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		);
 	}
 
-	private get Title(): JSX.Element | null {
+	private get Title(): React.JSX.Element | null {
 		const {
 			titleClass = `${this.baseName}__${Modal.bemElements.title}`,
 			title,
@@ -241,7 +241,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		);
 	}
 
-	private get Header(): JSX.Element | null {
+	private get Header(): React.JSX.Element | null {
 		const { headerClass = `${this.baseName}__${Modal.bemElements.header}`, stickyHeader } =
 			this.props;
 		if (!this.Title && !this.CloseButton) return null;
@@ -263,7 +263,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		);
 	}
 
-	private get ActionBar(): JSX.Element | null {
+	private get ActionBar(): React.JSX.Element | null {
 		const {
 			actionBarClass = `${this.baseName}__${Modal.bemElements.actionBar}`,
 			stickyActionBar,
@@ -287,7 +287,7 @@ export class Modal extends React.PureComponent<ModalProps, ModalState> {
 		);
 	}
 
-	private get Dialog(): JSX.Element | null {
+	private get Dialog(): React.JSX.Element | null {
 		const {
 			title,
 			hideTitle,

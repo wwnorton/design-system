@@ -141,7 +141,7 @@ test("the character counter doesn't appear until the `counterStart` threshold is
 test("a programmatically-set value overwrites the user's input", async (t) => {
 	const user = userEvent.setup();
 	const CURRENT_PAGE_ID = 'current-page';
-	const TwoWayBinding = (): JSX.Element => {
+	const TwoWayBinding = (): React.JSX.Element => {
 		const [pageNumber, setPageNumber] = React.useState('');
 
 		const handleChange = React.useCallback(

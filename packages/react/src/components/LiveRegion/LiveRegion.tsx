@@ -42,7 +42,7 @@ export const LiveRegion: React.FunctionComponent<LiveRegionProps> = ({
 	const [liveText, setLiveText] = React.useState<React.ReactNode>('');
 	const [shouldRender, setShouldRender] = React.useState(false);
 	const prevChildren = React.useRef(children);
-	const renderTimeout = React.useRef<number>();
+	const renderTimeout = React.useRef<number>(undefined);
 
 	/** Hide the live region. */
 	const hide = (): void => {

@@ -115,8 +115,8 @@ export const ComplexOptions = {
 
 export const DifferentChildrenTypes = {
 	render: (args) => {
-		const [selected, setSelected] = React.useState<React.ReactText>();
-		const changeHandler = ({ value }: { value: React.ReactText }): void => setSelected(value);
+		const [selected, setSelected] = React.useState<string | number>();
+		const changeHandler = ({ value }: { value: string | number }): void => setSelected(value);
 		return (
 			<Dropdown {...args} label="My dropdown" selected={selected} onChange={changeHandler}>
 				{/* explicit value ("foo"); explicit rendered contents ("Foo"); recommended. */}
@@ -175,8 +175,8 @@ export const FullyControlled = {
 
 /* TODO: implement a listbox and demo the multiselect variant
 export const MultiselectListbox: React.FunctionComponent = () => {
-	const [selected, setSelected] = React.useState<React.ReactText[]>(['foo']);
-	const changeHandler = ({ value }: { value: React.ReactText }): void => {
+	const [selected, setSelected] = React.useState<string | number[]>(['foo']);
+	const changeHandler = ({ value }: { value: string | number }): void => {
 		const index = selected.indexOf(value);
 		if (index > -1) {
 			const newSelected = selected.slice();

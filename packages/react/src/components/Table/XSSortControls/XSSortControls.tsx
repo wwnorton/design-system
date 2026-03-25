@@ -18,7 +18,7 @@ export interface XSSortControlsProps {
 export const XSSortControls = ({ onChange, options }: XSSortControlsProps) => {
 	const children = useMemo(() => {
 		const noneValue = '0|none';
-		return options.reduce<React.ReactChild[]>(
+		return options.reduce<Array<React.ReactElement | number | string>>(
 			(acc, curr, idx) => {
 				const ascValue = `${idx}|asc`;
 				const descValue = `${idx}|desc`;

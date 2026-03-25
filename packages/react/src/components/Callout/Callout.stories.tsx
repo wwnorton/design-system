@@ -6,7 +6,7 @@ const meta = {
 	title: 'Components/Callout',
 	component: Callout,
 	decorators: [
-		(StoryComponent): JSX.Element => (
+		(StoryComponent): React.JSX.Element => (
 			<div style={{ maxWidth: '30rem' }}>
 				<StoryComponent />
 			</div>

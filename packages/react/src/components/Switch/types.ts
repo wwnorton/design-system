@@ -2,7 +2,9 @@ import { ButtonProps } from '../Button';
 import { FieldInfoCoreProps } from '../Field';
 import { TooltipCoreProps } from '../Tooltip/types';
 
-export interface SwitchProps extends FieldInfoCoreProps, Omit<ButtonProps, 'children'> {
+export interface SwitchProps
+	extends FieldInfoCoreProps,
+		Omit<ButtonProps, 'children' | 'onToggle'> {
 	/** The name of the Switch. Required. */
 	label: React.ReactNode;
 	/**

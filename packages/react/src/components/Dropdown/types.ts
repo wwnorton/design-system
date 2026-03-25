@@ -24,11 +24,11 @@ export interface DropdownProps extends FieldInfoCoreProps, PopperInherited, Base
 	 * component. When specifying an option as an `OptionProps` object,
 	 * the option's value must be the `OptionProps['children']`.
 	 */
-	children: React.ReactChild[];
+	children: Array<React.ReactElement | number | string>;
 	/** Sort options by value. `undefined` will leave the options unsorted. */
 	sort?: 'ascending' | 'descending';
 	/** A list of selected options. */
-	selected?: React.ReactText;
+	selected?: string | number;
 	/**
 	 * The contents of the button. Default is 'Select' on load and then it will
 	 * match the contents of the currently selected option if no `onChange`
@@ -98,7 +98,7 @@ export interface DropdownProps extends FieldInfoCoreProps, PopperInherited, Base
 	 */
 	onChange?: (payload: {
 		/** The value of the selected option. */
-		value: React.ReactText;
+		value: string | number;
 		/** The child contents of the selected option. */
 		contents: React.ReactNode;
 	}) => void;

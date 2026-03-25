@@ -3,7 +3,7 @@ export interface BaseSummaryProps extends React.ComponentPropsWithoutRef<'summar
 	 * A marker or icon that indicates the summary's state or action, typically
 	 * a caret or chevron.
 	 */
-	marker?: JSX.Element;
+	marker?: React.JSX.Element;
 	/** The marker's position relative to the summary's text. */
 	markerPosition?: 'left' | 'right';
 }

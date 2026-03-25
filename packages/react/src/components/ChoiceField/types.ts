@@ -36,8 +36,8 @@ export interface ChoiceProps
 }
 
 export interface ChoicesProps extends ChoiceProps {
-	choices: (React.ReactText | ChoiceProps)[];
-	selected?: React.ReactText[] | React.ReactText;
+	choices: (string | number | ChoiceProps)[];
+	selected?: Array<string | number> | string | number;
 }
 
 export interface ChoiceFieldProps

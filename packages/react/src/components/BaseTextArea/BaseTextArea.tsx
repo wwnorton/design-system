@@ -74,7 +74,7 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, BaseTextAreaPr
 		 * value, such as entering a letter in a `type="number"` field, so run
 		 * validation here to catch the `ValidityState.badInput` errors.
 		 */
-		const inputHandler = (e: React.FormEvent<HTMLTextAreaElement>): void => {
+		const inputHandler = (e: React.InputEvent<HTMLTextAreaElement>): void => {
 			if (onInput) onInput(e);
 			if (autoSize) onResize();
 			if (validateOnChange) validate(e.currentTarget);
