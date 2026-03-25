@@ -1,7 +1,14 @@
-import { Boundary, Options, Placement, Rect, VirtualElement } from '@popperjs/core';
-import { Options as ArrowOptions } from '@popperjs/core/lib/modifiers/arrow';
-import { Options as FlipOptions } from '@popperjs/core/lib/modifiers/flip';
-import { Options as PreventOverflowOptions } from '@popperjs/core/lib/modifiers/preventOverflow';
+import {
+	ArrowOptions,
+	ClientRectObject,
+	Boundary,
+	ComputePositionReturn,
+	FlipOptions,
+	Placement,
+	ReferenceElement,
+	ShiftOptions,
+	Strategy,
+} from '@floating-ui/react';
 import { TransitionProps as TP } from 'react-transition-group/Transition';
 import { CSSTransitionClassNames } from 'react-transition-group/CSSTransition';
 
@@ -16,22 +23,36 @@ type OmittedProps = 'children' | 'in' | 'nodeRef' | 'mountOnEnter' | 'unmountOnE
 type TransitionProps<R extends HTMLElement | undefined> = Omit<RemoveIndex<TP<R>>, OmittedProps>;
 
 type OffsetsFunction = (options: {
-	popper: Rect;
-	reference: Rect;
+	popper: ClientRectObject;
+	reference: ClientRectObject;
 	placement: Placement;
 }) => [skidding?: number, distance?: number];
 
 export type PopperPropsBase = React.ComponentPropsWithoutRef<'div'> & PopperOptions;
 
 export interface PopperOptions {
-	/** The [Popper.js placement option](https://popper.js.org/docs/v2/constructors/#placement). */
-	placement?: Options['placement'];
-	/** The [Popper.js modifiers option](https://popper.js.org/docs/v2/constructors/#modifiers). */
-	modifiers?: Options['modifiers'];
-	/** The [Popper.js strategy option](https://popper.js.org/docs/v2/constructors/#strategy). */
-	strategy?: Options['strategy'];
-	/** The [Popper.js onFirstUpdate option](https://popper.js.org/docs/v2/constructors/#onFirstUpdate). */
-	onFirstUpdate?: Options['onFirstUpdate'];
+	/** The [Floating UI placement option](https://floating-ui.com/docs/usefloating#placement). */
+	placement?: Placement | 'auto' | 'auto-start' | 'auto-end';
+	/**
+	 * Legacy Popper modifier objects.
+	 *
+	 * Supported names: `arrow`, `flip`, `offset`, `preventOverflow`, and `matchWidth`.
+	 */
+	modifiers?: Array<{
+		name?: string;
+		enabled?: boolean;
+		options?: Record<string, unknown>;
+	}>;
+	/** The [Floating UI strategy option](https://floating-ui.com/docs/usefloating#strategy). */
+	strategy?: Strategy;
+	/** Called after the popper receives its first computed position while open. */
+	onFirstUpdate?: (state: {
+		elements: {
+			popper: HTMLElement;
+			reference: ReferenceElement;
+		};
+		placement: ComputePositionReturn['placement'];
+	}) => void;
 }
 
 export type PopperProps = PopperPropsBase &
@@ -73,9 +94,9 @@ export type PopperProps = PopperPropsBase &
 		/**
 		 * The reference element that the popper will be attached to.
 		 *
-		 * [Popper.js - `createPopper`](https://popper.js.org/docs/v2/constructors/#createpopper)
+		 * [Floating UI - `useFloating`](https://floating-ui.com/docs/usefloating#elements)
 		 */
-		reference?: Element | VirtualElement | null;
+		reference?: ReferenceElement | null;
 		/**
 		 * When set, an arrow pointing to the reference element will be used.
 		 *
@@ -88,7 +109,7 @@ export type PopperProps = PopperPropsBase &
 		 * See the [`arrow` modifier's `element` option](https://popper.js.org/docs/v2/modifiers/arrow/#element)
 		 * for more details.
 		 */
-		arrowElement?: ArrowOptions['element'];
+		arrowElement?: ArrowOptions['element'] | string;
 		/**
 		 * The arrow's padding, which can be used to prevent it from reaching the
 		 * very edge of the popper.
@@ -103,7 +124,7 @@ export type PopperProps = PopperPropsBase &
 		 * [Popper.js - `flip` modifier](https://popper.js.org/docs/v2/modifiers/flip/).
 		 */
 		enableFlip?: boolean;
-		/** Popper.js [`flip` modifier options](https://popper.js.org/docs/v2/modifiers/flip/#options). */
+		/** Floating UI [`flip` middleware options](https://floating-ui.com/docs/flip). */
 		flipOptions?: FlipOptions;
 		/**
 		 * The [`offset` option](https://popper.js.org/docs/v2/modifiers/offset/#options)
@@ -128,9 +149,9 @@ export type PopperProps = PopperPropsBase &
 		 * See the [`preventOverflow` modifier's `boundary` option](https://popper.js.org/docs/v2/modifiers/prevent-overflow/#boundary)
 		 * for more details.
 		 */
-		boundary?: Boundary;
-		/** Popper.js [`preventOverflow` modifier options](https://popper.js.org/docs/v2/modifiers/prevent-overflow/#options). */
-		preventOverflowOptions?: PreventOverflowOptions;
+		boundary?: Boundary | 'clippingParents';
+		/** Floating UI [`shift` middleware options](https://floating-ui.com/docs/shift). */
+		preventOverflowOptions?: ShiftOptions;
 		/** When set, the popper will match the width of its reference element. */
 		matchWidth?: boolean;
 	};

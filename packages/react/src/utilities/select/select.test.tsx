@@ -3,7 +3,6 @@ import React from 'react';
 import { cleanup, render, renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useSelect } from './hook';
-import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 
 test.afterEach(cleanup);
 
@@ -59,22 +58,13 @@ test('an initial value is selected', async (t) => {
 });
 
 test('passing an array of initial values when in single-select throws an error', async (t) => {
-	// suppress JSDOM errors in the log
-	window.onerror = () => true;
-
 	const InvalidSelect = () => {
 		useSelect(false, ['apple', 'banana']);
 		return <div />;
 	};
-	render(
-		<ErrorBoundary>
-			<InvalidSelect />
-		</ErrorBoundary>,
-	);
-
-	t.truthy(screen.queryByText(useSelect.SELECT_OVERLOAD));
-
-	window.onerror = null;
+	t.throws(() => render(<InvalidSelect />), {
+		message: useSelect.SELECT_OVERLOAD,
+	});
 });
 
 test('selecting a value updates the selected list', async (t) => {

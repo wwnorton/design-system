@@ -3,7 +3,6 @@ import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Listbox, Option } from '.';
-import { ErrorBoundary } from '../../../test/helpers/ErrorBoundary';
 import { useSelect } from '../../utilities';
 
 test.afterEach(cleanup);
@@ -32,30 +31,16 @@ test('a list of option props renders as Options', async (t) => {
 });
 
 test('a list of option props with a missing label throws an error', async (t) => {
-	// suppress JSDOM errors in the log
-	window.onerror = () => true;
-	render(
-		<ErrorBoundary>
-			<Listbox options={[{ value: 'dog' }]} />
-		</ErrorBoundary>,
-	);
-	t.truthy(screen.queryByText((el) => el.startsWith('The <Listbox> options prop')));
-	t.falsy(screen.queryByRole('listbox'));
-	window.onerror = null;
+	t.throws(() => render(<Listbox options={[{ value: 'dog' }]} />), {
+		message: /Missing props: label.$/,
+	});
 });
 
 test('a list of option props with a missing value throws an error', async (t) => {
-	// suppress JSDOM errors in the log
-	window.onerror = () => true;
-	render(
-		<ErrorBoundary>
-			{/* @ts-ignore */}
-			<Listbox options={[{ label: 'Dog' }]} />
-		</ErrorBoundary>,
-	);
-	t.truthy(screen.queryByText((el) => el.startsWith('The <Listbox> options prop')));
-	t.falsy(screen.queryByRole('listbox'));
-	window.onerror = null;
+	// @ts-ignore
+	t.throws(() => render(<Listbox options={[{ label: 'Dog' }]} />), {
+		message: /Missing props: value.$/,
+	});
 });
 
 test('a record of options renders as Options', async (t) => {
@@ -138,41 +123,39 @@ test('selected options can be controlled via the options', async (t) => {
 });
 
 test('throws an error when the selected prop length is greater than 1 in non-multiselectable mode', async (t) => {
-	// suppress JSDOM errors in the log
-	window.onerror = () => true;
-	render(
-		<ErrorBoundary>
-			<Listbox multiselectable={false} selected={['dog', 'hamster']}>
-				<Option value="dog">🐶 Dog</Option>
-				<Option value="cat">🐱 Cat</Option>
-				<Option value="hamster">🐹 Hamster</Option>
-			</Listbox>
-		</ErrorBoundary>,
+	t.throws(
+		() =>
+			render(
+				<Listbox multiselectable={false} selected={['dog', 'hamster']}>
+					<Option value="dog">🐶 Dog</Option>
+					<Option value="cat">🐱 Cat</Option>
+					<Option value="hamster">🐹 Hamster</Option>
+				</Listbox>,
+			),
+		{
+			message: useSelect.SELECT_OVERLOAD,
+		},
 	);
-	t.truthy(screen.queryByText(useSelect.SELECT_OVERLOAD));
-	t.falsy(screen.queryByRole('listbox'));
-	window.onerror = null;
 });
 
 test('throws an error when multiple options are selected in non-multiselectable mode', async (t) => {
-	// suppress JSDOM errors in the log
-	window.onerror = () => true;
-	render(
-		<ErrorBoundary>
-			<Listbox multiselectable={false}>
-				<Option value="dog" selected>
-					🐶 Dog
-				</Option>
-				<Option value="cat">🐱 Cat</Option>
-				<Option value="hamster" selected>
-					🐹 Hamster
-				</Option>
-			</Listbox>
-		</ErrorBoundary>,
+	t.throws(
+		() =>
+			render(
+				<Listbox multiselectable={false}>
+					<Option value="dog" selected>
+						🐶 Dog
+					</Option>
+					<Option value="cat">🐱 Cat</Option>
+					<Option value="hamster" selected>
+						🐹 Hamster
+					</Option>
+				</Listbox>,
+			),
+		{
+			message: useSelect.SELECT_OVERLOAD,
+		},
 	);
-	t.truthy(screen.queryByText(useSelect.SELECT_OVERLOAD));
-	t.falsy(screen.queryByRole('listbox'));
-	window.onerror = null;
 });
 
 test('clicking an option does nothing when selected is controlled', async (t) => {
