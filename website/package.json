@@ -37,12 +37,12 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^3.1.1",
-    "@docusaurus/module-type-aliases": "^3.1.1",
-    "@docusaurus/plugin-content-docs": "^3.1.1",
-    "@docusaurus/plugin-pwa": "^3.8.0",
-    "@docusaurus/preset-classic": "^3.8.0",
-    "@docusaurus/theme-live-codeblock": "^3.8.0",
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/plugin-content-docs": "3.9.2",
+    "@docusaurus/plugin-pwa": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
+    "@docusaurus/theme-live-codeblock": "3.9.2",
     "@mdx-js/react": "^3.1.0",
     "@wwnds/core": "^1.9.4",
     "@wwnds/react": "^1.9.4",
@@ -53,9 +53,9 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.1.1",
-    "@docusaurus/tsconfig": "^3.8.0",
-    "@docusaurus/types": "3.1.1",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/tsconfig": "3.9.2",
+    "@docusaurus/types": "3.9.2",
     "gauge": "^3.0.2",
     "lunr": "^2.3.9",
     "react-docgen-typescript-plugin": "^1.0.8",
