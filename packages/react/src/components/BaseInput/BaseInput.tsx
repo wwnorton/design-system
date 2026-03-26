@@ -67,7 +67,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
 		 * value, such as entering a letter in a `type="number"` field, so run
 		 * validation here to catch the `ValidityState.badInput` errors.
 		 */
-		const inputHandler = (e: React.FormEvent<HTMLInputElement>): void => {
+		const inputHandler = (e: React.InputEvent<HTMLInputElement>): void => {
 			if (onInput) onInput(e);
 
 			if (validateOnChange) validate(e.currentTarget);

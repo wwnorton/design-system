@@ -26,7 +26,7 @@ export const toElements = <P extends Record<string, any> = any>(
 	required: string[] = [],
 ): React.ReactElement<P>[] => {
 	type ChildArray =
-		| (React.ReactChild | React.ReactPortal | React.ReactFragment | P)[]
+		| (React.ReactElement | number | string | React.ReactPortal | Iterable<React.ReactNode> | P)[]
 		| React.ReactNode[];
 	const childMap: React.ReactElement<P>[] = [];
 	let nodes: ChildArray = [];
@@ -56,12 +56,11 @@ export const toElements = <P extends Record<string, any> = any>(
 			if (child === null) return 0;
 			if (ReactIs.isElement(child)) {
 				if (ReactIs.typeOf(child) === ReactIs.Fragment) {
-					return childMap.push(...toElements<P>(child.props.children, required));
+					return childMap.push(...toElements<P>((child.props as P).children, required));
 				}
-				if (hasRequiredProps(child.props)) {
-					return childMap.push(child);
+				if (hasRequiredProps(child.props as P)) {
+					return childMap.push(child as React.ReactElement<P>);
 				}
-				throw new Error(toElements.MISSING_PROPS(missingProps(child.props)));
 			}
 			// React.ReactNodeArray (React.ReactNode[])
 			if (Array.isArray(child)) {

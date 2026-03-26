@@ -22,7 +22,7 @@ export const Choices: React.FunctionComponent<ChoicesProps> = ({
 	const ChoiceElements = React.useMemo(() => {
 		let selectedValid = false;
 		const choicesMap = choices.map((choice, i) => {
-			let value: React.ReactText;
+			let value: string | number;
 			let choiceProps: ChoiceProps;
 			if (typeof choice === 'object') {
 				value = (choice.value || choice.children || '').toString();

@@ -14,7 +14,7 @@ function isAtMinScroll(el: HTMLDivElement) {
  * This hook controls the state of the Tabs scroll.
  */
 export function useTabListScroll(
-	ref: React.RefObject<HTMLDivElement>,
+	ref: React.RefObject<HTMLDivElement | null>,
 	scrollDelta = DEFAULT_SCROLL_DELTA,
 ) {
 	const [atMinScroll, setAtMinScroll] = useState(true);

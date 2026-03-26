@@ -83,7 +83,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 				return React.Children.map(children, (child) => {
 					if (Array.isArray(child)) return childMap(child);
 					const baseProps: ChoiceProps = { name: name || id, type };
-					let value: React.ReactText;
+					let value: string | number;
 					let props: ChoiceProps;
 					if (typeof child === 'string' || typeof child === 'number') {
 						value = child;

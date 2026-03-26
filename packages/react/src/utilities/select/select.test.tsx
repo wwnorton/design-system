@@ -18,7 +18,7 @@ const Fixture = ({
 	initialValue?: string[];
 	callSetSelected?: string;
 	useDefaults?: boolean;
-}): JSX.Element => {
+}): React.JSX.Element => {
 	const parameters: Parameters<typeof useSelect> = useDefaults ? [] : [multiple, initialValue];
 	const { selected, select, formChangeHandler } = useSelect(...parameters);
 

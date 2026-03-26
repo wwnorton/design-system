@@ -18,12 +18,12 @@ export const usePopperTriggers = ({
 	onRequestOpen,
 	onRequestClose,
 }: UsePopperTriggersProps): void => {
-	const openTrigger = useRef<PopperTriggersOpen>();
+	const openTrigger = useRef<PopperTriggersOpen>(undefined);
 	const awaitingHideDelay = useRef(false);
 	const keyboardClick = useRef(false);
 	const spaceClick = useRef(false);
-	const showTimer = useRef<number>();
-	const hideTimer = useRef<number>();
+	const showTimer = useRef<number>(undefined);
+	const hideTimer = useRef<number>(undefined);
 
 	const clearShowTimer = (): void => window.clearTimeout(showTimer.current);
 	const clearHideTimer = (): void => window.clearTimeout(hideTimer.current);

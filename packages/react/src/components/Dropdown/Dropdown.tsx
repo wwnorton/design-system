@@ -62,7 +62,7 @@ export const Dropdown = ({
 		const opts = React.Children.map(children, (child) => {
 			let props: OptionProps;
 			if (React.isValidElement<OptionProps>(child)) {
-				let value: React.ReactText = '';
+				let value: string | number = '';
 				if (typeof child.props.value === 'number' || child.props.value !== undefined) {
 					value = child.props.value;
 				} else if (child.props.children) {

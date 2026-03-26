@@ -47,7 +47,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 			...props
 		}: DisclosureProps,
 		ref,
-	): JSX.Element => {
+	): React.JSX.Element => {
 		const [isOpen, setOpen] = React.useState(propOpen);
 		const [height, setHeight] = React.useState<number>();
 		const [state, setState] = React.useState<'opening' | 'closing'>();

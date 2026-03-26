@@ -121,7 +121,7 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 			return React.Children.map(addons, (child) => {
 				if (React.isValidElement(child)) {
 					if (child.type === React.Fragment) {
-						return createFieldAddons(child.props.children);
+						return createFieldAddons((child.props as any).children);
 					}
 				}
 				return <FieldAddon className={addonClass}>{child}</FieldAddon>;
@@ -215,7 +215,7 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
  * values are submitted with native APIs like
  * [HTMLFormElement.submit()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit).
  */
-export const TextFieldUncontrolled = (props: Omit<TextFieldProps, 'value'>): JSX.Element => {
+export const TextFieldUncontrolled = (props: Omit<TextFieldProps, 'value'>): React.JSX.Element => {
 	const [value, setValue] = React.useState('');
 	return (
 		<TextField

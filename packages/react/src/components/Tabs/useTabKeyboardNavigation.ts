@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { TabKeyboardNavigation } from './TabKeyboardNavigation';
 
-export function useTabKeyboardNavigation(tabListRef: React.RefObject<HTMLElement>) {
+export function useTabKeyboardNavigation(tabListRef: React.RefObject<HTMLElement | null>) {
 	useEffect(() => {
 		const { current } = tabListRef;
 		if (!current) {
