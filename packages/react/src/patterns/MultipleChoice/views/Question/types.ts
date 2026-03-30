@@ -1,4 +1,4 @@
-import { RadioProps } from 'packages/react/src/components';
+import { RadioProps } from '../../../../components/Radio';
 import { Instructions } from './QuestionInstructions';
 import { QuestionFraming } from './QuestionFraming';
 import { QuestionStem } from './QuestionStem';

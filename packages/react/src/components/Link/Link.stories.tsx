@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { BrowserRouter, Link as ReactRouterLink } from 'react-router-dom';
-import { LinkLikeProps } from 'packages/react/dist';
+import { LinkLikeProps } from '../../utilities/link/types';
 import { Link } from '.';
 import { LinkContext } from '../../utilities/link';
 
