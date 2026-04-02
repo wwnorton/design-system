@@ -42,7 +42,7 @@
     "build": "microbundle --name NDSCore"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.18.1"
   },
   "peerDependencies": {
     "sass": ">=1.33.0"
