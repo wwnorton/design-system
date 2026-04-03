@@ -1,0 +1,286 @@
+@use '../../a11y';
+@use '../../util';
+
+// TODO: add tokens
+$debug: false;
+
+@mixin base {
+	// This is the width of the outline of the handle
+	// when the slider is focused.
+	// We use this to add padding to the rail container
+	// so that the outline is not cut off.
+	--handle-outline-width: 3px;
+	--handle-left: 0%;
+	--handle-size: 1.5rem;
+	--rail-height: 0.5rem;
+	--input-z-index: 20;
+	--handle-z-index: 10;
+	--input-top-offset: -5px;
+	--min-width: 100px;
+	--rail-top: calc(50% - var(--rail-height) / 2);
+	--animation-duration: 0.1s;
+	--animation: transform var(--animation-duration) ease-out;
+
+	// This animation is necessary to prevent a color change while the animation of the handle is running.
+	--indicator-animation: background-color var(--animation-duration) ease-out;
+	--rail-width: calc(100% - var(--handle-outline-width) * 2);
+	--rail-color: var(--nds-navy-30);
+	--rail-in-range-color: var(--nds-teal-60);
+	--indicator-color: var(--nds-navy-80);
+	--indicator-in-range-color: var(--nds-white);
+	--indicator-size: 4px;
+	--indicator-x-offset: calc(var(--handle-size) / 2 - var(--indicator-size) / 2);
+	--indicators-container-width: calc(var(--rail-width) - var(--indicator-x-offset) * 2);
+	--indicators-container-custom-width: calc(var(--indicators-container-width) - var(--indicator-size));
+
+	// Offset to align the indicators container with the center of the thumb.
+	--indicators-container-offset: calc(var(--handle-size) / 2);
+	--labels-container-width: calc(100% - var(--indicators-container-offset) * 2);
+
+	min-width: var(--min-width);
+}
+
+@mixin handle-container {
+	--handle-left: 0;
+
+	position: relative;
+	top: -100%;
+	left: 0;
+	z-index: var(--handle-z-index);
+	width: calc(100% - var(--handle-size));
+	transition: var(--animation);
+	transform: translateX(var(--handle-left));
+	transform-origin: center left;
+}
+
+@mixin handle {
+	width: var(--handle-size);
+	height: var(--handle-size);
+	background-color: var(--nds-white);
+	border: 2px solid var(--nds-teal-60);
+	border-radius: 50%;
+}
+
+@mixin handle-active {
+	background-color: var(--nds-navy-30);
+}
+
+@mixin rail-container {
+	position: relative;
+
+	// We need to add a padding and a negative margin to the rail container
+	// so that the outline of the handle is not cut off.
+	padding: var(--handle-outline-width);
+	margin: calc(var(--handle-outline-width) * -1);
+	overflow: hidden;
+}
+
+@mixin rail {
+	position: absolute;
+	top: var(--rail-top);
+	left: 0;
+	display: block;
+	width: var(--rail-width);
+	height: var(--rail-height);
+	margin: 0 var(--handle-outline-width);
+	cursor: pointer;
+	background-color: var(--rail-color);
+	border-radius: var(--nds-radius-pill);
+}
+
+@mixin rail-fill-container {
+	position: absolute;
+	top: var(--rail-top);
+	left: 0;
+	width: calc(100% - var(--handle-size) / 2);
+	height: var(--rail-height);
+	margin: 0 var(--handle-outline-width);
+	overflow: hidden;
+	border-radius: var(--nds-radius-pill);
+}
+
+@mixin rail-fill {
+	width: 100%;
+	height: 100%;
+	background-color: var(--rail-in-range-color);
+	transition: var(--animation);
+	transform: scaleX(var(--handle-left));
+	transform-origin: left center;
+}
+
+@mixin input {
+	position: absolute;
+	top: calc(var(--rail-top) + var(--input-top-offset));
+	left: 0;
+	z-index: var(--input-z-index);
+	width: var(--rail-width);
+	margin: 0 var(--handle-outline-width);
+
+	@if $debug {
+		opacity: 0.5;
+	} @else {
+		opacity: 0;
+	}
+}
+
+@mixin input-vertical {
+	writing-mode: vertical-lr;
+	direction: ltr;
+}
+
+@mixin indicators-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: var(--indicators-container-width);
+	height: 100%;
+	margin-left: var(--indicators-container-offset);
+	justify-content: space-between;
+	align-items: center;
+}
+
+@mixin indicators-container-custom {
+	// Readjust the width so that when `left` is 100% the indicator is aligned with the
+	// center of the handle.
+	width: var(--indicators-container-custom-width);
+}
+
+@mixin indicator {
+	width: var(--indicator-size);
+	height: var(--indicator-size);
+	background-color: var(--indicator-color);
+	border-radius: 50%;
+	transition: var(--indicator-animation);
+
+	&--in-range {
+		background-color: var(--indicator-in-range-color);
+		border-color: var(--rail-in-range-color);
+	}
+}
+
+@mixin indicator-custom {
+	--left: 0;
+
+	position: absolute;
+	left: calc(var(--left));
+}
+
+@mixin indicators-labels {
+	position: relative;
+	display: block;
+	width: calc(var(--labels-container-width));
+	height: 1rem;
+	margin-left: var(--indicators-container-offset);
+	font-size: var(--nds-font-size-12);
+	line-height: var(--nds-line-height-3);
+}
+
+@mixin indicator-text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	left: calc(var(--left));
+	padding: 0;
+	text-align: center;
+	transform: translateX(-50%);
+}
+
+// The body of the slider contains the left and right icons, the rail, and the handle.
+@mixin body {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--nds-spacing-1);
+}
+
+@mixin icon {
+	display: flex;
+	height: calc(var(--handle-size));
+	color: var(--nds-navy-70);
+	align-items: center;
+}
+
+@mixin style {
+	@include util.declare('slider') {
+		.nds-slider {
+			@include base;
+
+
+			&__input {
+				@include input;
+			}
+
+			&__rail {
+				@include rail;
+			}
+
+			&__handle-container {
+				@include handle-container;
+			}
+
+			&__handle {
+				@include handle;
+			}
+
+			&__indicators-labels {
+				@include indicators-labels;
+			}
+
+			&__indicator-text {
+				@include indicator-text;
+			}
+
+			&__indicators-container {
+				@include indicators-container;
+
+				&--custom {
+					@include indicators-container-custom;
+				}
+			}
+
+			&__indicator {
+				@include indicator;
+			}
+
+			&__indicator--custom {
+				@include indicator-custom;
+			}
+
+			&__body {
+				@include body;
+			}
+
+			&__icon {
+				@include icon;
+			}
+
+			&--vertical &__input {
+				@include input-vertical;
+			}
+
+			&__rail-container {
+				@include rail-container;
+			}
+
+			&__rail-fill-container {
+				@include rail-fill-container;
+			}
+
+			&__rail-fill {
+				@include rail-fill;
+			}
+
+			&:hover &__handle {
+				background-color: var(--nds-navy-20);
+			}
+
+			&:focus-within &__handle {
+				@include a11y.focus-halo;
+			}
+
+			&:has(&__input:active) &__handle {
+				@include handle-active;
+			}
+		}
+	}
+}
