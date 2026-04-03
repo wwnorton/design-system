@@ -17,6 +17,11 @@ const meta = {
 		},
 		validateOnChange: { control: { type: 'boolean' } },
 		validateOnDOMChange: { control: { type: 'boolean' } },
+		feedbackFloating: { control: { type: 'boolean' } },
+		feedbackPosition: {
+			control: { type: 'select' },
+			options: ['top', 'bottom', 'left', 'right', 'auto'],
+		},
 	},
 } satisfies Meta<typeof TextField>;
 
@@ -82,6 +87,36 @@ export const WithAddonAfter = {
 	args: {
 		addonAfter: <Button variant="outline">Do something else</Button>,
 		children: 'Text field with a button addon after the input',
+	},
+} satisfies Story;
+
+export const FloatingFeedback = {
+	render: (args) => (
+		<div
+			style={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				minHeight: '60vh',
+				padding: '1rem',
+				boxSizing: 'border-box',
+			}}
+		>
+			<div style={{ width: '320px', textAlign: 'center' }}>
+				<TextField {...args} />
+				<p style={{ marginTop: '1rem', color: 'var(--nds-text-color)' }}>
+					Floating feedback is in the middle and visible in all positions.
+				</p>
+			</div>
+		</div>
+	),
+	args: {
+		children: 'Floating feedback text field',
+		description: 'Use feedback floating when invalid to show an overlay message.',
+		validateOnChange: true,
+		feedbackFloating: true,
+		errors: ['Invalid input; please choose another value.'],
+		feedbackPosition: 'bottom',
 	},
 } satisfies Story;
 

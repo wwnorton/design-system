@@ -279,8 +279,60 @@
 			@include feedback;
 		}
 
+		.nds-field--feedback-floating {
+			position: relative;
+		}
+
+		.nds-field__feedback--floating {
+			position: absolute;
+			z-index: 2;
+			max-width: 100%;
+			padding: 0.15rem var(--nds-spacing-2);
+			color: var(--nds-white);
+			background-color: var(--nds-error-color);
+			border-radius: var(--nds-radius-sm);
+			box-shadow: 0 0 8px rgb(0 0 0 / 12%);
+		}
+
+		.nds-field__feedback--floating-top {
+			bottom: 100%;
+			left: 0;
+			margin-bottom: 0.35rem;
+		}
+
+		.nds-field__feedback--floating-bottom,
+		.nds-field__feedback--floating-auto {
+			top: 100%;
+			left: 0;
+			margin-top: 0.35rem;
+		}
+
+		.nds-field__feedback--floating-left {
+			top: 0;
+			right: 100%;
+			margin-right: 0.35rem;
+		}
+
+		.nds-field__feedback--floating-right {
+			top: 0;
+			left: 100%;
+			margin-left: 0.35rem;
+		}
+
 		.nds-field__errors {
 			@include errors;
+
+			padding-left: 0;
+			margin: 0;
+			color: var(--nds-white);
+			list-style-type: none;
+		}
+
+		.nds-field__errors li {
+			font-size: var(--nds-font-size-xs);
+			font-style: italic;
+			font-weight: var(--nds-font-weight-bold);
+			color: var(--nds-white);
 		}
 	}
 }
