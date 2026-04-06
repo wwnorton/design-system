@@ -1,0 +1,93 @@
+---
+title: Slider
+description: A slider allows users to increase or decrease values along a horizontal or vertical track.
+---
+
+import { PropsTable } from '@website/components';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+> A slider allows users to increase or decrease values along a horizontal or vertical track.
+
+## Anatomy
+
+<img
+	alt="A slider component with numbered callouts identifying its anatomy: a title (‘Title: Value’) above the control; a horizontal track with a filled portion indicating progress; a draggable thumb at the current value (around 3 on a 1–5 scale); tick marks and labels beneath the track; a numeric input field showing the current value; optional supporting text with bullet points below; and speaker icons on both ends representing minimum and maximum levels."
+	src={useBaseUrl('/img/Anatomy_slider.png')}
+/>
+
+1. **Label** - Visual text describing what the slider controls.
+1. **Selected Value** - Text that describes what the selected value is.
+1. **Track** - Visual representation of the slider’s full value range.
+    1. **Active Track** – Portion representing the selected value.
+    1. **Inactive Track** – Remaining unselected portion.
+1. **Value Indicators** (_optional_) - Visual labels and/or cues for available values.
+1. **Handle** - Interactive control that represents the current value and allows adjustment.
+1. **Input Field** (_optional__) - Text field allowing users to manually enter a value.
+1. **Supporting Text** (_optional__) - additional text that can be used to add clarity on the selected value or range of values.
+1. **Icons** (_optional__) - Icons that can be used to add visual clarity to the slider’s intended purpose.
+
+## Continuous vs. Discrete
+
+### Continuous sliders
+
+Allow users to make any selection between the start and end values.
+
+:::info Tips
+Best used when users are adjusting a value across a smooth range where approximate control is sufficient and real time feedback makes the change understandable.
+:::
+
+### Discrete sliders
+
+Allow users to make a selection among predetermined options between the start and end values.
+
+**Discrete sliders** may use value indicators to denote the value options.
+
+:::info Tips
+Best used when users need to choose from a fixed set of meaningful values where each step has a clear purpose or label.
+:::
+
+---
+
+## Usage
+
+- Labels should be clear and concise to avoid ambiguity as to what is being adjusted.
+- Avoid using sliders for extremely large or extremely small ranges.
+	- **Why:** : Alternative input methods such as numeric fields, dropdowns, or steppers are
+better suited.
+- Provide instant confirmation of the selected value as the user adjusts the slider.
+	- **Why:** Immediate feedback helps users understand the effect of their input, reduces uncertainty, and prevents over or under adjusting.
+- Display the minimum and maximum input values when values are not clear or conventional.
+		- Use supporting text when further explanation of value choices is needed.
+
+---
+
+## Responsive Design Usage Guidelines
+
+### Vertical Slider
+
+Vertical sliders should only be used when a vertical adjustment makes sense or when horizontal space is limited and a slider is still the right input.
+
+When using vertical sliders, the lower value should be placed at the bottom and the higher value at the top for consistency and clarity.
+
+---
+
+## Dos and Don’ts
+
+:::tip Do
+- **Do** pair the slider with an optional numeric input when users may want finer precision.
+- **Do** use a default or load value that reflects the most common or recommended choice.
+:::
+
+ :::danger Don't
+- **Don’t** use sliders when users must enter precise numeric values.
+- **Don’t** use sliders with too many discrete steps, as they become difficult to control.
+:::
+
+---
+
+## Accessibility
+
+- Keyboard interactions:
+	- Arrow keys for incremental changes.
+	- Page Up/Down for larger steps.
+	- Home/End to jump to limits.

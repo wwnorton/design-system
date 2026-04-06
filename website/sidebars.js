@@ -55,6 +55,7 @@ const sidebars = {
 		"components/popover",
 		"components/progress-bar",
 		"components/radio-group",
+		"components/slider",
 		"components/spinner",
 		"components/step-indicator",
 		"components/switch",
