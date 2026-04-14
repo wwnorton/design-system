@@ -46,7 +46,7 @@
 		box-shadow: none;
 	}
 
-	&:focus-within {
+	&:focus-visible {
 		@include a11y.focus-halo;
 	}
 
@@ -71,6 +71,10 @@
 
 	&:focus {
 		box-shadow: none;
+	}
+
+	&:focus-visible {
+		@include a11y.focus-halo;
 	}
 
 	&:hover,
