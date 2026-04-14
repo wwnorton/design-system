@@ -12,8 +12,7 @@
 		box-shadow: $-inner-ring;
 	}
 
-	.focus + &,
-	:focus + & {
+	:focus-visible + & {
 		@include a11y.focus-halo($-inner-ring);
 	}
 }
