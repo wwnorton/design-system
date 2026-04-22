@@ -23,6 +23,7 @@ $debug: false;
 
 	// This animation is necessary to prevent a color change while the animation of the handle is running.
 	--indicator-animation: background-color var(--animation-duration) ease-out;
+	--handle-color: var(--nds-teal-60);
 	--rail-width: calc(100% - var(--handle-outline-width) * 2);
 	--rail-color: var(--nds-navy-30);
 	--rail-in-range-color: var(--nds-teal-60);
@@ -57,7 +58,7 @@ $debug: false;
 	width: var(--handle-size);
 	height: var(--handle-size);
 	background-color: var(--nds-white);
-	border: 2px solid var(--nds-teal-60);
+	border: 2px solid var(--handle-color);
 	border-radius: 50%;
 }
 
