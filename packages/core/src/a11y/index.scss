@@ -10,13 +10,19 @@
 
 /// Create a focus halo from an inner and outer ring color.
 @function focus-halo(
+	$is-inset: false,
 	$inner-color: var(--nds-background-color),
 	$outer-color: var(--nds-focus-color),
 ) {
-	@return (
-		0 0 0 1px #{$inner-color},
-		0 0 0 3px #{$outer-color},
-	);
+	$inner-shadow: 0 0 0 1px #{$inner-color};
+	$outer-shadow: 0 0 0 3px #{$outer-color};
+
+	@if $is-inset {
+		$inner-shadow: $inner-shadow;
+		$outer-shadow: inset 0 0 0 2px $outer-color;
+	}
+
+	@return $inner-shadow, $outer-shadow;
 }
 
 // Create a focus ring with the specified color.
@@ -61,6 +67,13 @@
 /// to be applied in addition to the focus indicator.
 @mixin focus-halo($current-shadows...) {
 	@include -focus(focus-halo(), $current-shadows...);
+}
+
+/// A box shadow focus indicator that is inset from the focused element.
+/// @param {box-shadow[]} $current-shadows... - Zero or more additional shadows
+/// to be applied in addition to the focus indicator.
+@mixin focus-inset-halo($current-shadows...) {
+	@include -focus(focus-halo(true), $current-shadows...);
 }
 
 /// A box shadow focus indicator that is directly attached to the focused element.
