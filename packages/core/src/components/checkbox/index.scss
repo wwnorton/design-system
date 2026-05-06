@@ -15,8 +15,7 @@
 		border-color: transparent;
 	}
 
-	.focus + &,
-	:focus + & {
+	:focus-visible + & {
 		@include a11y.focus-halo;
 	}
 
