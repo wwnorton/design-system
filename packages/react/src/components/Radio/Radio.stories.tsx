@@ -65,6 +65,16 @@ export const RadioGroup = {
 	},
 } satisfies GroupStory;
 
+export const RadioGroupWithArray = {
+	render: (args) => (
+		<RadioGroupComp {...args}>{fruits.map(({ children }) => children)}</RadioGroupComp>
+	),
+	args: {
+		label: 'Choose your favorite fruit',
+		name: 'fruit',
+	},
+} satisfies GroupStory;
+
 export const ControlledRadioGroup = {
 	render: (args) => {
 		const { selected, formChangeHandler } = useSelect();

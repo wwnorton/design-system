@@ -51,7 +51,6 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 		ref,
 	) => {
 		const [errors, setErrors] = React.useState(errorsProp);
-
 		const type = React.useMemo(() => {
 			if (multiple) return 'checkbox';
 			return 'radio';
@@ -72,6 +71,11 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 			return null;
 		}, [requiredIndicator, optionalIndicator, required]);
 
+		/**
+		 * The indexes of the checked choices. An empty object if no choice is checked.
+		 */
+		const [checkedIndexes, setCheckedIndexes] = React.useState<Record<number, boolean>>({});
+
 		const childMap = React.useCallback(
 			(children: React.ReactNode): React.ReactNode => {
 				// if it's a `<Choices>` element, use it with our `multiple`
@@ -80,24 +84,45 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 				}
 
 				// coerce into a list of `<Choice>` elements
-				return React.Children.map(children, (child) => {
+				return React.Children.map(children, (child, idx) => {
 					if (Array.isArray(child)) return childMap(child);
-					const baseProps: ChoiceProps = { name: name || id, type };
+					const baseProps: ChoiceProps = {
+						name: name || id,
+						type,
+						onChange: () =>
+							setCheckedIndexes((prev) => {
+								if (multiple) {
+									return {
+										...prev,
+										[idx]: !prev[idx],
+									};
+								}
+								return { [idx]: true };
+							}),
+					};
 					let value: React.ReactText;
 					let props: ChoiceProps;
 					if (typeof child === 'string' || typeof child === 'number') {
 						value = child;
-						props = { ...baseProps, children: child };
+						props = { ...baseProps, children: child, checked: checkedIndexes[idx] };
 					} else if (React.isValidElement<ChoiceProps>(child)) {
 						value = (child.props.value || child.props.children || '').toString();
-						props = { ...child.props, ...baseProps };
+
+						let isChecked: boolean | undefined;
+						if (checkedIndexes !== null) {
+							isChecked = checkedIndexes[idx];
+						} else {
+							isChecked = child.props.defaultChecked || child.props.checked;
+						}
+
+						props = { ...child.props, ...baseProps, checked: isChecked };
 					} else {
 						throw new Error('invalid children');
 					}
 					return <Choice key={value} {...props} value={value} />;
 				});
 			},
-			[multiple, name, id, type],
+			[multiple, name, id, type, checkedIndexes],
 		);
 
 		const ChoiceElements = React.useMemo(() => childMap(childrenProp), [childrenProp, childMap]);

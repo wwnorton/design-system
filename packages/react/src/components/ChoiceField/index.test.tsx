@@ -1,6 +1,7 @@
 import test from 'ava';
 import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ChoiceField, Choice, Choices } from '.';
 
 // TODO: use something other than classes to select the control/thumbnail
@@ -97,6 +98,58 @@ test('when the label is not explicitly provided, the value is used for choice la
 	t.truthy(screen.getByLabelText('A'));
 	t.truthy(screen.getByLabelText('B'));
 	t.truthy(screen.getByLabelText('C'));
+});
+
+test('`ChoiceField` controls the checked state of radio choices', async (t) => {
+	const user = userEvent.setup();
+
+	render(<ChoiceField label={defaultLabel}>{defaultChoices}</ChoiceField>);
+
+	const [apple, banana, greenBean, tomato] = defaultChoiceLabels.map(
+		(label) => screen.getByLabelText(label) as HTMLInputElement,
+	);
+
+	t.false(apple.checked);
+	t.false(banana.checked);
+	t.false(greenBean.checked);
+	t.false(tomato.checked);
+
+	await user.click(banana);
+	t.false(apple.checked);
+	t.true(banana.checked);
+	t.false(greenBean.checked);
+	t.false(tomato.checked);
+
+	await user.click(tomato);
+	t.false(apple.checked);
+	t.false(banana.checked);
+	t.false(greenBean.checked);
+	t.true(tomato.checked);
+});
+
+test('`ChoiceField` controls the checked state of checkbox choices', async (t) => {
+	const user = userEvent.setup();
+
+	render(
+		<ChoiceField multiple label={defaultLabel}>
+			{defaultChoices}
+		</ChoiceField>,
+	);
+
+	const [apple, banana, greenBean, tomato] = defaultChoiceLabels.map(
+		(label) => screen.getByLabelText(label) as HTMLInputElement,
+	);
+
+	await user.click(apple);
+	await user.click(banana);
+	t.true(apple.checked);
+	t.true(banana.checked);
+	t.false(greenBean.checked);
+	t.false(tomato.checked);
+
+	await user.click(apple);
+	t.false(apple.checked);
+	t.true(banana.checked);
 });
 
 test('choice objects are rendered as choices', (t) => {
