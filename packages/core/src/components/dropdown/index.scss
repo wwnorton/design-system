@@ -4,14 +4,13 @@
 @use '../../spacing';
 @use '../../type';
 @use '../../util';
+@use '../../a11y';
 
 @mixin base {
 	--nds-dropdown-border-width: #{tokens.$border-width};
 	--nds-dropdown-listbox-shadow: #{tokens.$listbox-shadow};
 	--nds-dropdown-options-max-display: #{tokens.$options-max-display};
 	--nds-dropdown-option-hover-color: #{tokens.$option-hover-color};
-	--nds-dropdown-option-hover-focus-color: #{tokens.$option-hover-focus-color};
-	--nds-dropdown-option-focus-color: #{tokens.$option-focus-color};
 	--nds-dropdown-option-padding-y: #{tokens.$option-padding-y};
 	--nds-dropdown-option-padding-x: #{tokens.$option-padding-x};
 	--nds-dropdown-option-font-size: #{tokens.$option-font-size};
@@ -68,8 +67,6 @@
 
 @mixin listbox {
 	--nds-option-hover-color: var(--nds-base-color-20);
-	--nds-option-hover-focus-color: var(--nds-base-color-30);
-	--nds-option-focus-color: var(--nds-focus-color-background);
 	--nds-option-padding-y: var(--nds-spacing-2);
 	--nds-option-padding-x: var(--nds-spacing-3);
 	--nds-option-marker-padding-x: calc(var(--nds-option-padding-x) / 2);
@@ -91,13 +88,8 @@
 	outline: none;
 	align-items: center;
 
-	&:focus {
-		background-color: var(--nds-dropdown-option-focus-color);
-		box-shadow: none;
-	}
-
-	&:hover:focus {
-		background-color: var(--nds-dropdown-option-hover-focus-color);
+	&:focus-visible {
+		@include a11y.focus-inset-halo;
 	}
 
 	&:not(:disabled):not([aria-disabled='true']):hover {
