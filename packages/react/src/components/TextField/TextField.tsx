@@ -7,7 +7,7 @@ import { BaseTextArea } from '../BaseTextArea';
 import { TextFieldProps } from './types';
 import { useForwardedRef, useId } from '../../utilities';
 
-export const TextField = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, TextFieldProps>(
+export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TextFieldProps>(
 	(
 		{
 			// options
@@ -149,7 +149,6 @@ export const TextField = React.forwardRef<HTMLInputElement | HTMLTextAreaElement
 		}, [requiredIndicator, optionalIndicator, required]);
 
 		const sharedProps = {
-			ref,
 			value,
 			errors,
 			onChange: changeHandler,
@@ -204,7 +203,7 @@ export const TextField = React.forwardRef<HTMLInputElement | HTMLTextAreaElement
 					{multiline ? (
 						<BaseTextArea
 							{...sharedProps}
-							ref={setInnerRef}
+							ref={setInnerRef as React.Ref<HTMLTextAreaElement>}
 							className={classNames(groupClass, inputClass)}
 							multiline={multiline}
 							autoSize={autoSize}
@@ -216,7 +215,7 @@ export const TextField = React.forwardRef<HTMLInputElement | HTMLTextAreaElement
 							<BaseInput
 								{...sharedProps}
 								type={type}
-								ref={setInnerRef}
+								ref={setInnerRef as React.Ref<HTMLInputElement>}
 								aria-labelledby={externalLabelId}
 							/>
 							{createFieldAddons(addonAfter)}
