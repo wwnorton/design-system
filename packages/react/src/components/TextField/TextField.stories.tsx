@@ -17,6 +17,23 @@ const meta = {
 		},
 		validateOnChange: { control: { type: 'boolean' } },
 		validateOnDOMChange: { control: { type: 'boolean' } },
+		feedbackPosition: {
+			control: 'select',
+			options: [
+				'top',
+				'right',
+				'bottom',
+				'left',
+				'top-start',
+				'top-end',
+				'right-start',
+				'right-end',
+				'bottom-start',
+				'bottom-end',
+				'left-start',
+				'left-end',
+			],
+		},
 	},
 } satisfies Meta<typeof TextField>;
 
@@ -281,5 +298,13 @@ export const MultilineWithMaxLength = {
 		counterStart: 8,
 		children: 'Multiline Text Field with Max Length',
 		description: 'This field',
+	},
+} satisfies Story;
+
+export const FloatingFeedback = {
+	args: {
+		feedbackFloating: true,
+		errors: ['An error message'],
+		// feedbackPosition: 'bottom-start',
 	},
 } satisfies Story;

@@ -50,7 +50,7 @@ export interface FieldFeedbackCoreProps {
 	errorsId?: string;
 }
 
-type FBBaseProps = 'className' | 'children' | 'id';
+type FBBaseProps = 'className' | 'children' | 'id' | 'style';
 export interface FieldFeedbackProps
 	extends FieldFeedbackCoreProps,
 		Pick<React.ComponentPropsWithoutRef<'div'>, FBBaseProps> {
@@ -62,21 +62,13 @@ export interface FieldFeedbackProps
 	liveErrors?: boolean;
 	/** The base class name according to BEM conventions. */
 	baseName?: string;
-}
 
-export interface FloatingFieldFeedbackProps extends Pick<FieldFeedbackCoreProps, 'errors'> {
 	/**
-	 * A reference to the field that the feedback should be positioned relative to.
+	 * Indicates whether the feedback is floating.
+	 * If `true`, the feedback will be displayed as a floating element.
+	 * If `true`, `children` will not be displayed.
 	 */
-	fieldRef: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>;
-
-	style?: React.CSSProperties;
-
-	id?: string;
-
-	className?: string;
-
-	baseName?: string;
+	isFloating?: boolean;
 }
 
 export interface FieldAddonProps extends React.ComponentPropsWithoutRef<'span'> {

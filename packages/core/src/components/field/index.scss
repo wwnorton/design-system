@@ -212,6 +212,10 @@
 
 @mixin feedback-floating {
 	@include type.ui-base;
+
+	padding: var(--nds-spacing-1) var(--nds-spacing-2);
+	background-color: var(--nds-error-color);
+	border-radius: var(--nds-radius-sm);
 }
 
 // The field errors list, which should be an unordered list (`ul`).
@@ -229,6 +233,12 @@
 		margin-left: -1rem;
 		list-style-type: none;
 	}
+}
+
+@mixin errors-floating {
+	@include errors;
+
+	color: var(--nds-text-color-inverse);
 }
 
 
@@ -285,18 +295,14 @@
 
 		.nds-field__feedback--floating {
 			@include feedback-floating;
-
-			padding: var(--nds-spacing-1) var(--nds-spacing-2);
-			font-size: var(--nds-font-size-sm);
-			font-style: italic;
-			font-weight: var(--nds-font-weight-bold);
-			color: var(--nds-text-color-inverse);
-			background-color: var(--nds-error-color);
-			border-radius: var(--nds-radius-sm);
 		}
 
 		.nds-field__errors {
 			@include errors;
+		}
+
+		.nds-field__errors--floating {
+			@include errors-floating;
 		}
 	}
 }
