@@ -64,6 +64,21 @@ export interface FieldFeedbackProps
 	baseName?: string;
 }
 
+export interface FloatingFieldFeedbackProps extends Pick<FieldFeedbackCoreProps, 'errors'> {
+	/**
+	 * A reference to the field that the feedback should be positioned relative to.
+	 */
+	fieldRef: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>;
+
+	style?: React.CSSProperties;
+
+	id?: string;
+
+	className?: string;
+
+	baseName?: string;
+}
+
 export interface FieldAddonProps extends React.ComponentPropsWithoutRef<'span'> {
 	baseName?: string;
 }

@@ -210,6 +210,10 @@
 	@include type.ui-base;
 }
 
+@mixin feedback-floating {
+	@include type.ui-base;
+}
+
 // The field errors list, which should be an unordered list (`ul`).
 // Default: `.field__errors`
 @mixin errors {
@@ -277,6 +281,18 @@
 	@include util.declare('field-feedback') {
 		.nds-field__feedback {
 			@include feedback;
+		}
+
+		.nds-field__feedback--floating {
+			@include feedback-floating;
+
+			padding: var(--nds-spacing-1) var(--nds-spacing-2);
+			font-size: var(--nds-font-size-sm);
+			font-style: italic;
+			font-weight: var(--nds-font-weight-bold);
+			color: var(--nds-text-color-inverse);
+			background-color: var(--nds-error-color);
+			border-radius: var(--nds-radius-sm);
 		}
 
 		.nds-field__errors {
