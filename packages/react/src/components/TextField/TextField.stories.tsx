@@ -309,4 +309,11 @@ export const FloatingFeedback = {
 		description: 'This field will display a floating feedback message when there are errors.',
 		externalLabelId: 'floating-feedback-label',
 	},
+	render: (args) => (
+		<>
+			{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+			<label id={args.externalLabelId}>Floating Feedback Label</label>
+			<TextField {...args}>{args.children}</TextField>
+		</>
+	),
 } satisfies Story;
