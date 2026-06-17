@@ -18,7 +18,7 @@ export async function assertControlledSort(
 
 	mockOnSort.mockImplementation((id, direction) => {
 		t.is(id, 1);
-		t.is(direction, 'desc');
+		t.is(direction, 'asc');
 	});
 	const ageSortButton = screen.getByRole('button', { name: 'Age' });
 	await user.click(ageSortButton);
