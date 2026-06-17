@@ -91,7 +91,12 @@ export const SortableDataTable = forwardRef<HTMLTableElement, DataTableProps>(
 
 		return (
 			<>
-				<XSSortControls onChange={handleXSControl} options={headersContent} />
+				<XSSortControls
+					onChange={handleXSControl}
+					options={headersContent}
+					sortedIndex={sortState.index}
+					sortedDirection={sortState.order}
+				/>
 				<BaseDataTable
 					ref={ref}
 					headersData={data.headers}
