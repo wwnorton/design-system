@@ -181,8 +181,9 @@ export const TextField = React.forwardRef<HTMLInputElement | HTMLTextAreaElement
 			whileElementsMounted: autoUpdate,
 		});
 
-		return (
-			<div className={classNames(className, { [invalidClass]: !isValid })} id={idProp}>
+		let Info: React.ReactNode | null = null;
+		if (!externalLabelId) {
+			Info = (
 				<FieldInfo
 					htmlFor={inputId}
 					label={children}
@@ -193,6 +194,12 @@ export const TextField = React.forwardRef<HTMLInputElement | HTMLTextAreaElement
 					descriptionId={descId}
 					description={description}
 				/>
+			);
+		}
+
+		return (
+			<div className={classNames(className, { [invalidClass]: !isValid })} id={idProp}>
+				{Info}
 				<div className={!multiline ? groupClass : ''}>
 					{multiline ? (
 						<BaseTextArea
@@ -201,11 +208,17 @@ export const TextField = React.forwardRef<HTMLInputElement | HTMLTextAreaElement
 							className={classNames(groupClass, inputClass)}
 							multiline={multiline}
 							autoSize={autoSize}
+							aria-labelledby={externalLabelId}
 						/>
 					) : (
 						<>
 							{createFieldAddons(addonBefore)}
-							<BaseInput {...sharedProps} type={type} ref={setInnerRef} />
+							<BaseInput
+								{...sharedProps}
+								type={type}
+								ref={setInnerRef}
+								aria-labelledby={externalLabelId}
+							/>
 							{createFieldAddons(addonAfter)}
 						</>
 					)}

@@ -305,6 +305,8 @@ export const FloatingFeedback = {
 	args: {
 		feedbackFloating: true,
 		errors: ['An error message'],
-		// feedbackPosition: 'bottom-start',
+		children: 'Floating Feedback Text Field',
+		description: 'This field will display a floating feedback message when there are errors.',
+		externalLabelId: 'floating-feedback-label',
 	},
 } satisfies Story;
