@@ -133,9 +133,11 @@ export const Dropdown = ({
 	};
 
 	React.useEffect(() => {
-		if (selectedProp !== selected[0]) {
+		if (selectedProp) {
+			const selectedLabel = options.find((option) => option.value === selectedProp)?.children;
+
 			select(selectedProp);
-			setButtonContents(contentsProp);
+			setButtonContents(selectedLabel || selectedProp);
 			setOptionFocusIndex(findFocusedIndex(selectedProp));
 		}
 		// only update if the selected option is being controlled

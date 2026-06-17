@@ -13,6 +13,11 @@ import { TableHeaderCellProps, TableProps } from './types';
 const meta = {
 	title: 'Components/Table',
 	component: Table,
+	parameters: {
+		docs: {
+			codePanel: true,
+		},
+	},
 	argTypes: {
 		captionContent: {
 			control: 'text',

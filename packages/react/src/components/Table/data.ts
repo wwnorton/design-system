@@ -8,7 +8,7 @@ const ROWS = 50;
 export const tableData: TableData = {
 	headers: [
 		{ children: 'Name' },
-		{ children: 'Age', sorted: 'asc' },
+		{ children: 'Age' },
 		{
 			children: 'Country',
 			sorted: 'desc',

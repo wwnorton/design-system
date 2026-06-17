@@ -30,6 +30,18 @@ export const ControlledSortableDataTable = forwardRef<
 		});
 	}, [data.headers, onSort]);
 
+	const sortState = useMemo(() => {
+		return data.headers.reduce(
+			(acc, header, index) => {
+				if (header.sorted) {
+					return [index, parseSortDirection(header.sorted)];
+				}
+				return acc;
+			},
+			[0, undefined],
+		);
+	}, [data.headers]);
+
 	const handleXSSortChange: XSSortControlsProps['onChange'] = useCallback(
 		(colIdx, direction) => {
 			onSort(colIdx, formatSortDirection(direction));
@@ -43,7 +55,12 @@ export const ControlledSortableDataTable = forwardRef<
 
 	return (
 		<>
-			<XSSortControls onChange={handleXSSortChange} options={xsOptions} />
+			<XSSortControls
+				onChange={handleXSSortChange}
+				options={xsOptions}
+				sortedIndex={sortState[0]}
+				sortedDirection={sortState[1]}
+			/>
 			<BaseDataTable
 				ref={ref}
 				headersData={data.headers}
