@@ -36,6 +36,35 @@ test('an optional checkbox renders its optional indicator as part of the label',
 	t.true(label.contains(indicator));
 });
 
+test('an external label id hides the internal label and description', async (t) => {
+	const externalLabelId = 'external-text-field-label';
+	const description = 'Helper text';
+
+	render(
+		<TextField externalLabelId={externalLabelId} description={description}>
+			{defaultLabel}
+		</TextField>,
+	);
+
+	t.falsy(screen.queryByText(defaultLabel));
+	t.falsy(screen.queryByText(description));
+});
+
+test('an external label id associates the input with an externally rendered label', async (t) => {
+	const externalLabelId = 'external-text-field-label';
+
+	render(
+		<>
+			{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+			<label id={externalLabelId}>External label</label>
+			<TextField externalLabelId={externalLabelId}>{defaultLabel}</TextField>
+		</>,
+	);
+
+	const input = screen.getByLabelText('External label') as HTMLInputElement;
+	t.is(input.getAttribute('aria-labelledby'), externalLabelId);
+});
+
 test('validation errors are rendered in the field feedback on DOM `change` by default', async (t) => {
 	const user = userEvent.setup();
 	const label = 'Email';
@@ -145,7 +174,7 @@ test("a programmatically-set value overwrites the user's input", async (t) => {
 		const [pageNumber, setPageNumber] = React.useState('');
 
 		const handleChange = React.useCallback(
-			(e) => {
+			(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 				const { value } = e.target;
 				setPageNumber(value.slice(0, 6));
 			},
@@ -258,4 +287,56 @@ test('text field renders as <textarea> element within onchange autoSize', async 
 	await user.keyboard('{Enter}');
 
 	t.notDeepEqual(textarea.rows, 2);
+});
+
+test('floating feedback applies floating modifier classes when feedbackFloating is true', async (t) => {
+	render(
+		<TextField feedbackFloating errors={['An error message']}>
+			{defaultLabel}
+		</TextField>,
+	);
+
+	const errList = screen.getByRole('list', { name: 'Errors' });
+	const feedback = errList.parentElement as HTMLElement;
+
+	t.true(feedback.classList.contains('nds-field__feedback--floating'));
+	t.true(errList.classList.contains('nds-field__errors--floating'));
+});
+
+test('floating feedback still renders validation errors on DOM change', async (t) => {
+	const user = userEvent.setup();
+	const label = 'Email';
+
+	render(
+		<TextField type="email" feedbackFloating>
+			{label}
+		</TextField>,
+	);
+
+	await user.tab();
+	await user.keyboard('abc');
+	await user.tab();
+
+	const errList = screen.getByRole('list', { name: 'Errors' });
+	t.is(queryAllByRole(errList, 'listitem').length, 1);
+});
+
+test('floating feedback hides custom feedback content and the character counter', async (t) => {
+	render(
+		<TextField
+			feedbackFloating
+			errors={['An error message']}
+			feedback="Custom hint"
+			maxLength={10}
+			counterStart={8}
+			value="abc"
+			onChange={noop}
+		>
+			{defaultLabel}
+		</TextField>,
+	);
+
+	t.truthy(screen.getByText('An error message'));
+	t.falsy(screen.queryByText('Custom hint'));
+	t.falsy(screen.queryByText('7/10 characters remaining'));
 });

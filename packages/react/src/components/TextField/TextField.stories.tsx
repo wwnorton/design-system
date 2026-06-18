@@ -17,6 +17,23 @@ const meta = {
 		},
 		validateOnChange: { control: { type: 'boolean' } },
 		validateOnDOMChange: { control: { type: 'boolean' } },
+		feedbackPosition: {
+			control: 'select',
+			options: [
+				'top',
+				'right',
+				'bottom',
+				'left',
+				'top-start',
+				'top-end',
+				'right-start',
+				'right-end',
+				'bottom-start',
+				'bottom-end',
+				'left-start',
+				'left-end',
+			],
+		},
 	},
 } satisfies Meta<typeof TextField>;
 
@@ -282,4 +299,21 @@ export const MultilineWithMaxLength = {
 		children: 'Multiline Text Field with Max Length',
 		description: 'This field',
 	},
+} satisfies Story;
+
+export const FloatingFeedback = {
+	args: {
+		feedbackFloating: true,
+		errors: ['An error message'],
+		children: 'Floating Feedback Text Field',
+		description: 'This field will display a floating feedback message when there are errors.',
+		externalLabelId: 'floating-feedback-label',
+	},
+	render: (args) => (
+		<>
+			{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+			<label id={args.externalLabelId}>Floating Feedback Label</label>
+			<TextField {...args}>{args.children}</TextField>
+		</>
+	),
 } satisfies Story;

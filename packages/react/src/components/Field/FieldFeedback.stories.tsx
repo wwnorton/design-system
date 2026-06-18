@@ -16,3 +16,11 @@ export const Feedback = {
 		children: 'Assorted additional feedback',
 	},
 } satisfies Story;
+
+export const FloatingFeedback = {
+	args: {
+		errors: ['Not allowed', 'A second error'],
+		isFloating: true,
+		children: 'Assorted additional feedback',
+	},
+} satisfies Story;
