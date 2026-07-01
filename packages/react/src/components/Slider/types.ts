@@ -16,10 +16,15 @@ export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'
 	label: React.ReactNode;
 
 	/**
-	 * Indicates whether the slider should be displayed vertically.
-	 * @default false
+	 * Additional text that can be used to add clarity on the
+	 * selected value or range of values.
 	 */
-	isVertical?: boolean;
+	supportingText?: React.ReactNode;
+	/**
+	 * Defines the visual variation of the slider.
+	 * @default 'default'
+	 */
+	variation?: 'default' | 'centered' | 'vertical';
 
 	/**
 	 * The class name for the label.
@@ -40,6 +45,12 @@ export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<'input'
 	 * The class name for the icons.
 	 */
 	iconClass?: string;
+
+	/**
+	 * Displays a numeric input synchronized with the slider value.
+	 * @default false
+	 */
+	showInput?: boolean;
 
 	/**
 	 * Indicates whether the slider should display value indicators.

@@ -30,9 +30,18 @@ $debug: false;
 	--indicator-color: var(--nds-navy-80);
 	--indicator-in-range-color: var(--nds-white);
 	--indicator-size: 4px;
-	--indicator-x-offset: calc(var(--handle-size) / 2 - var(--indicator-size) / 2);
-	--indicators-container-width: calc(var(--rail-width) - var(--indicator-x-offset) * 2);
-	--indicators-container-custom-width: calc(var(--indicators-container-width) - var(--indicator-size));
+	--indicator-x-offset:
+		calc(
+			var(--handle-size) / 2 - var(--indicator-size) / 2
+		);
+	--indicators-container-width:
+		calc(
+			var(--rail-width) - var(--indicator-x-offset) * 2
+		);
+	--indicators-container-custom-width:
+		calc(
+			var(--indicators-container-width) - var(--indicator-size)
+		);
 
 	// Offset to align the indicators container with the center of the thumb.
 	--indicators-container-offset: calc(var(--handle-size) / 2);
@@ -206,7 +215,6 @@ $debug: false;
 		.nds-slider {
 			@include base;
 
-
 			&__input {
 				@include input;
 			}
@@ -249,6 +257,19 @@ $debug: false;
 
 			&__body {
 				@include body;
+			}
+
+			&--vertical &__body {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			&--vertical &__label-container {
+				justify-content: center;
+			}
+
+			&--vertical &__supporting-text {
+				text-align: center;
 			}
 
 			&__icon {

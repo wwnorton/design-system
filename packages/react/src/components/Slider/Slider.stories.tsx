@@ -58,6 +58,42 @@ export const WithCustomIndicators = {
 	},
 } satisfies Story;
 
+export const WithSelectedValueLabel = {
+	args: {
+		max: 5,
+		step: 1,
+		valueIndicators: [
+			{ value: 1, label: 'Low' },
+			{ value: 2, label: 'Medium' },
+			{ value: 3, label: 'High' },
+			{ value: 4, label: 'Very High' },
+			{ value: 5, label: 'Maximum' },
+		],
+	},
+} satisfies Story;
+
+export const WithSupportingText = {
+	args: {
+		label: 'Volume',
+		supportingText: 'Choose a value between 0 and 100.',
+		max: 100,
+	},
+} satisfies Story;
+
+export const Centered = {
+	args: {
+		label: 'Volume',
+		variation: 'centered',
+		max: 100,
+		valueIndicators: [
+			{ value: 0, label: 'Off' },
+			{ value: 50, label: 'Medium' },
+			{ value: 100, label: 'Maximum' },
+		],
+		value: 50,
+	},
+} satisfies Story;
+
 export const WithLeftIcon = {
 	args: {
 		leftIcon: 'minus',
@@ -86,5 +122,12 @@ export const WithLeftAndRightIcons = {
 	args: {
 		leftIcon: 'minus',
 		rightIcon: 'plus',
+	},
+} satisfies Story;
+
+export const WithInput = {
+	args: {
+		showInput: true,
+		max: 100,
 	},
 } satisfies Story;
