@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.5](https://github.com/wwnorton/design-system/compare/v1.9.4...v1.9.5) (2026-07-07)
+
+### 🐛 Bug Fixes
+
+- fix focus ring visible when user interacts with mouse ([db8782a](https://github.com/wwnorton/design-system/commit/db8782a191cb941fd4f31062732c0c60e2bbe772))
+- remove focus highlight in dropdown options ([e4903a8](https://github.com/wwnorton/design-system/commit/e4903a850709febd35ddeb51331081b387c10b6c))
+
 ## [1.9.4](https://github.com/wwnorton/design-system/compare/v1.9.3...v1.9.4) (2026-03-25)
 
 **Note:** Version bump only for package @wwnds/core

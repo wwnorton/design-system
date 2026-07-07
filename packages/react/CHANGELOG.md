@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.5](https://github.com/wwnorton/design-system/compare/v1.9.4...v1.9.5) (2026-07-07)
+
+### 🐛 Bug Fixes
+
+- **react:** fix controlled dropdown content not updating ([3548e09](https://github.com/wwnorton/design-system/commit/3548e094470f8cb59398d67c96caaa8161713363))
+- **react:** fix out-of-sync XS sorting controls in Table ([a72b5c8](https://github.com/wwnorton/design-system/commit/a72b5c82ce885918e1c37a137c838f1c9b763c84))
+- **react:** solves broken selection in radio group ([48f6872](https://github.com/wwnorton/design-system/commit/48f687297f1f99ba111f33e812444de33d248d08))
+
 ## [1.9.4](https://github.com/wwnorton/design-system/compare/v1.9.3...v1.9.4) (2026-03-25)
 
 ### 🐛 Bug Fixes

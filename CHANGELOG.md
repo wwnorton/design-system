@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.5](https://github.com/wwnorton/design-system/compare/v1.9.4...v1.9.5) (2026-07-07)
+
+### 🐛 Bug Fixes
+
+- fix focus ring visible when user interacts with mouse ([db8782a](https://github.com/wwnorton/design-system/commit/db8782a191cb941fd4f31062732c0c60e2bbe772))
+- **react:** fix controlled dropdown content not updating ([3548e09](https://github.com/wwnorton/design-system/commit/3548e094470f8cb59398d67c96caaa8161713363))
+- **react:** fix out-of-sync XS sorting controls in Table ([a72b5c8](https://github.com/wwnorton/design-system/commit/a72b5c82ce885918e1c37a137c838f1c9b763c84))
+- **react:** solves broken selection in radio group ([48f6872](https://github.com/wwnorton/design-system/commit/48f687297f1f99ba111f33e812444de33d248d08))
+- remove focus highlight in dropdown options ([e4903a8](https://github.com/wwnorton/design-system/commit/e4903a850709febd35ddeb51331081b387c10b6c))
+
 ## [1.9.4](https://github.com/wwnorton/design-system/compare/v1.9.3...v1.9.4) (2026-03-25)
 
 ### 🐛 Bug Fixes
