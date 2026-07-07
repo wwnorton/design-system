@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://github.com/wwnorton/design-system/compare/v2.0.2...v2.1.0) (2026-07-07)
+
+### ✨ Features
+
+- **docs:** update dropdown anatomy image ([106517a](https://github.com/wwnorton/design-system/commit/106517a36e7548a15931b7c1401b48906fc19c48))
+- **react,core:** add floating feedback component ([250c05a](https://github.com/wwnorton/design-system/commit/250c05aec3e5f80a3111497f6ed6d0d9226b2b06))
+- **react,core:** update TextField to support floating feedback ([cd47815](https://github.com/wwnorton/design-system/commit/cd47815d41f1b9318b48061f0070493667be7186))
+- **react:** support external label in TextField ([5e29254](https://github.com/wwnorton/design-system/commit/5e29254b47d0aa8030922f73bbbfcc6cb3a20a15))
+
+### 🐛 Bug Fixes
+
+- fix focus ring visible when user interacts with mouse ([db8782a](https://github.com/wwnorton/design-system/commit/db8782a191cb941fd4f31062732c0c60e2bbe772))
+- **react:** fix controlled dropdown content not updating ([a28dc51](https://github.com/wwnorton/design-system/commit/a28dc51ab806d9d13f5e077ef5d14221a2c6e624))
+- **react:** fix out-of-sync XS sorting controls in Table ([5852522](https://github.com/wwnorton/design-system/commit/5852522a0fa7c3bb1425369373fc5081969814fc))
+- **react:** solves broken selection in radio group ([4bf9b1c](https://github.com/wwnorton/design-system/commit/4bf9b1c0f04fbd7dce5aec69550f25de44003bc6))
+- remove focus highlight in dropdown options ([ff8fb5a](https://github.com/wwnorton/design-system/commit/ff8fb5ad46796719816c051a2409445b447a145d))
+
 ## [2.0.2](https://github.com/wwnorton/design-system/compare/v2.0.1...v2.0.2) (2026-03-30)
 
 ### 🐛 Bug Fixes

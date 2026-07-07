@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://github.com/wwnorton/design-system/compare/v2.0.2...v2.1.0) (2026-07-07)
+
+### ✨ Features
+
+- **docs:** update dropdown anatomy image ([106517a](https://github.com/wwnorton/design-system/commit/106517a36e7548a15931b7c1401b48906fc19c48))
+
 ## [2.0.2](https://github.com/wwnorton/design-system/compare/v2.0.1...v2.0.2) (2026-03-30)
 
 **Note:** Version bump only for package website
