@@ -1,10 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
+import { autoUpdate, useFloating } from '@floating-ui/react';
 import { FieldInfo, FieldFeedback, FieldAddon } from '../Field';
 import { BaseInput } from '../BaseInput';
 import { BaseTextArea } from '../BaseTextArea';
 import { TextFieldProps } from './types';
-import { useId } from '../../utilities';
+import { useForwardedRef, useId } from '../../utilities';
 
 export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TextFieldProps>(
 	(
@@ -30,6 +31,9 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 				if (remaining < 0) return null;
 				return `${remaining}/${max} characters remaining`;
 			},
+			feedbackFloating = false,
+			feedbackPosition = 'bottom-start',
+			externalLabelId,
 
 			// classes
 			baseName = 'nds-field',
@@ -145,7 +149,6 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 		}, [requiredIndicator, optionalIndicator, required]);
 
 		const sharedProps = {
-			ref,
 			value,
 			errors,
 			onChange: changeHandler,
@@ -166,8 +169,20 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 			...inputProps,
 		};
 
-		return (
-			<div className={classNames(className, { [invalidClass]: !isValid })} id={idProp}>
+		const [innerRef, setInnerRef] = useForwardedRef(ref);
+
+		const { refs, floatingStyles } = useFloating({
+			elements: {
+				reference: innerRef,
+			},
+			placement: feedbackPosition,
+			open: errors && errors.length > 0,
+			whileElementsMounted: autoUpdate,
+		});
+
+		let Info: React.ReactNode | null = null;
+		if (!externalLabelId) {
+			Info = (
 				<FieldInfo
 					htmlFor={inputId}
 					label={children}
@@ -178,27 +193,44 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 					descriptionId={descId}
 					description={description}
 				/>
+			);
+		}
+
+		return (
+			<div className={classNames(className, { [invalidClass]: !isValid })} id={idProp}>
+				{Info}
 				<div className={!multiline ? groupClass : ''}>
 					{multiline ? (
 						<BaseTextArea
 							{...sharedProps}
+							ref={setInnerRef as React.Ref<HTMLTextAreaElement>}
 							className={classNames(groupClass, inputClass)}
 							multiline={multiline}
 							autoSize={autoSize}
+							aria-labelledby={externalLabelId}
 						/>
 					) : (
 						<>
 							{createFieldAddons(addonBefore)}
-							<BaseInput {...sharedProps} type={type} />
+							<BaseInput
+								{...sharedProps}
+								type={type}
+								ref={setInnerRef as React.Ref<HTMLInputElement>}
+								aria-labelledby={externalLabelId}
+							/>
 							{createFieldAddons(addonAfter)}
 						</>
 					)}
 				</div>
+
 				<FieldFeedback
+					ref={refs.setFloating}
 					className={feedbackClass}
 					errorsId={errId}
 					errors={errors}
 					errorsClass={errorsClass}
+					isFloating={feedbackFloating}
+					style={floatingStyles}
 				>
 					{feedback}
 					{Counter}
