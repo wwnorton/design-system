@@ -1,6 +1,10 @@
 import "./globals.scss";
 
 export const parameters = {
+	docs: {
+		codePanel: true,
+	},
+
 	controls: { expanded: true },
 
 	options: {
