@@ -72,9 +72,11 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 		}, [requiredIndicator, optionalIndicator, required]);
 
 		/**
-		 * The indexes of the checked choices. An empty object if no choice is checked.
+		 * The indexes of the checked choices. `null` if no choice has been selected yet.
 		 */
-		const [checkedIndexes, setCheckedIndexes] = React.useState<Record<number, boolean>>({});
+		const [checkedIndexes, setCheckedIndexes] = React.useState<Record<number, boolean> | null>(
+			null,
+		);
 
 		const childMap = React.useCallback(
 			(children: React.ReactNode): React.ReactNode => {
@@ -94,7 +96,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 								if (multiple) {
 									return {
 										...prev,
-										[idx]: !prev[idx],
+										[idx]: prev ? !prev[idx] : true,
 									};
 								}
 								return { [idx]: true };
@@ -105,7 +107,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 					let props: ChoiceProps;
 					if (typeof child === 'string' || typeof child === 'number') {
 						value = child;
-						props = { ...baseProps, children: child, checked: checkedIndexes[idx] };
+						props = { ...baseProps, children: child, checked: checkedIndexes?.[idx] };
 					} else if (React.isValidElement<ChoiceProps>(child)) {
 						value = (child.props.value || child.props.children || '').toString();
 
@@ -113,7 +115,7 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 						if (checkedIndexes !== null) {
 							isChecked = checkedIndexes[idx];
 						} else {
-							isChecked = child.props.defaultChecked || child.props.checked;
+							isChecked = child.props.checked;
 						}
 
 						props = { ...child.props, ...baseProps, checked: isChecked };
