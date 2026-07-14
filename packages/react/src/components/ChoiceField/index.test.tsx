@@ -75,6 +75,28 @@ test('selected choices are rendered as checked fields', (t) => {
 	t.true(input.checked);
 });
 
+test('uses the `checked` prop on initial render', (t) => {
+	const CHECKED_CHOICE = defaultChoiceLabels[1];
+	render(
+		<ChoiceField label={defaultLabel}>
+			{defaultChoiceLabels.map((label) => (
+				<Choice key={label} checked={label === CHECKED_CHOICE}>
+					{label}
+				</Choice>
+			))}
+		</ChoiceField>,
+	);
+
+	const [apple, banana, greenBean, tomato] = defaultChoiceLabels.map(
+		(label) => screen.getByLabelText(label) as HTMLInputElement,
+	);
+
+	t.false(apple.checked);
+	t.true(banana.checked);
+	t.false(greenBean.checked);
+	t.false(tomato.checked);
+});
+
 test('when the value is not explicitly provided, the label is used for choice values', (t) => {
 	render(
 		<ChoiceField label={defaultLabel}>
