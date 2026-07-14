@@ -88,26 +88,33 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 				// coerce into a list of `<Choice>` elements
 				return React.Children.map(children, (child, idx) => {
 					if (Array.isArray(child)) return childMap(child);
+					const updateCheckedIndexes = () => {
+						setCheckedIndexes((prev) => {
+							if (multiple) {
+								return {
+									...prev,
+									[idx]: prev ? !prev[idx] : true,
+								};
+							}
+							return { [idx]: true };
+						});
+					};
+
 					const baseProps: ChoiceProps = {
 						name: name || id,
 						type,
-						onChange: () =>
-							setCheckedIndexes((prev) => {
-								if (multiple) {
-									return {
-										...prev,
-										[idx]: prev ? !prev[idx] : true,
-									};
-								}
-								return { [idx]: true };
-							}),
 					};
 
 					let value: string | number;
 					let props: ChoiceProps;
 					if (typeof child === 'string' || typeof child === 'number') {
 						value = child;
-						props = { ...baseProps, children: child, checked: checkedIndexes?.[idx] };
+						props = {
+							...baseProps,
+							children: child,
+							checked: checkedIndexes?.[idx],
+							onChange: updateCheckedIndexes,
+						};
 					} else if (React.isValidElement<ChoiceProps>(child)) {
 						value = (child.props.value || child.props.children || '').toString();
 
@@ -118,7 +125,14 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 							isChecked = child.props.checked;
 						}
 
-						props = { ...child.props, ...baseProps, checked: isChecked };
+						const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+							if (child.props.onChange) {
+								child.props.onChange(e);
+							}
+							updateCheckedIndexes();
+						};
+
+						props = { ...child.props, ...baseProps, checked: isChecked, onChange: onChangeHandler };
 					} else {
 						throw new Error('invalid children');
 					}
