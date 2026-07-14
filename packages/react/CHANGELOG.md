@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.6](https://github.com/wwnorton/design-system/compare/v1.9.5...v1.9.6) (2026-07-14)
+
+### 🐛 Bug Fixes
+
+- **react:** fix radio and checkbox not selecting default value ([3c9fd40](https://github.com/wwnorton/design-system/commit/3c9fd40c3987805b065ec9043a30ba2ca826b56a))
+
 ## [1.9.5](https://github.com/wwnorton/design-system/compare/v1.9.4...v1.9.5) (2026-07-07)
 
 ### 🐛 Bug Fixes
