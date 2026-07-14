@@ -174,6 +174,25 @@ test('`ChoiceField` controls the checked state of checkbox choices', async (t) =
 	t.true(banana.checked);
 });
 
+test('calls the `onChange` prop when a choice value changes', async (t) => {
+	const user = userEvent.setup();
+	let onChangeCalled = false;
+	const onChange = () => {
+		onChangeCalled = true;
+	};
+
+	render(
+		<ChoiceField label={defaultLabel}>
+			{defaultChoices.map((choice) => (
+				<Choice key={choice.props.value} {...choice.props} onChange={onChange} />
+			))}
+		</ChoiceField>,
+	);
+
+	await user.click(screen.getByLabelText(defaultChoiceLabels[0]));
+	t.true(onChangeCalled);
+});
+
 test('choice objects are rendered as choices', (t) => {
 	const choiceObjects = defaultChoiceLabels.map((label, i) => ({
 		children: label,
