@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/wwnorton/design-system/compare/v2.1.2...v2.1.3) (2026-08-18)
+
+### 🐛 Bug Fixes
+
+- **react:** fix floating feedback when not selected in TextField ([674b9d4](https://github.com/wwnorton/design-system/commit/674b9d45722dc7464248563d061982c1bc88faa9))
+
 ## [2.1.2](https://github.com/wwnorton/design-system/compare/v2.1.1...v2.1.2) (2026-07-14)
 
 ### 🐛 Bug Fixes
