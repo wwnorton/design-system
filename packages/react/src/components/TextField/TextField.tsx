@@ -230,7 +230,7 @@ export const TextField = React.forwardRef<HTMLInputElement & HTMLTextAreaElement
 					errors={errors}
 					errorsClass={errorsClass}
 					isFloating={feedbackFloating}
-					style={floatingStyles}
+					style={feedbackFloating ? floatingStyles : undefined}
 				>
 					{feedback}
 					{Counter}
