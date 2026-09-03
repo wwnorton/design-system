@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 import { Button } from '../Button';
 import { Dropdown, DropdownProps } from '.';
+import { Icon } from '../Icon';
 
 /* cspell:disable */
 const options = [
@@ -140,7 +141,12 @@ export const FullyControlled = {
 		const [isOpen, setOpen] = React.useState(false);
 		const changeHandler: DropdownProps['onChange'] = ({ value, contents }): void => {
 			setSelected(value);
-			setButtonContents(contents || value);
+			setButtonContents(
+				<div>
+					<Icon variant="info" />
+					{contents || value}
+				</div>,
+			);
 		};
 		const closeHandler = (): void => setOpen(false);
 		const openHandler = (): void => setOpen(true);

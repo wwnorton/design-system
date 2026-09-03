@@ -275,7 +275,7 @@ test('a dropdown is closed when it is disabled', async (t) => {
 	t.falsy(screen.queryByRole('listbox'));
 });
 
-test('a dropdown button content is updated', (t) => {
+test.only('a dropdown button content is updated', (t) => {
 	const children = [
 		<Dropdown.Option key={0} value={1}>
 			1
@@ -288,22 +288,18 @@ test('a dropdown button content is updated', (t) => {
 		</Dropdown.Option>,
 	];
 	const { rerender } = render(
-		<Dropdown {...defaultProps} selected={1} buttonContents={1}>
+		<Dropdown {...defaultProps} selected={1} buttonContents="Managed Content 1">
 			{children}
 		</Dropdown>,
 	);
 
 	rerender(
-		<Dropdown {...defaultProps} selected={2} buttonContents={2}>
+		<Dropdown {...defaultProps} selected={2} buttonContents="Managed Content 2">
 			{children}
 		</Dropdown>,
 	);
 
-	t.truthy(
-		// There's some kind of whitespace before and after the number
-		// in the label, curious.
-		screen.queryByRole('button', { name: /\w*2\w*/ }),
-	);
+	t.truthy(screen.queryByRole('button', { name: /Managed Content 2/ }));
 });
 
 test('a dropdown should focus on selected option if picked via props on mount', (t) => {

@@ -30,7 +30,8 @@ export interface DropdownProps extends FieldInfoCoreProps, PopperInherited, Base
 	/** A list of selected options. */
 	selected?: string | number;
 	/**
-	 * The contents of the button. Default is 'Select' on load and then it will
+	 * The contents of the button. If specified, it will be used as the button contents.
+	 * Otherwise, it will default to 'Select' on load and then it will
 	 * match the contents of the currently selected option if no `onChange`
 	 * callback is provided.
 	 */
