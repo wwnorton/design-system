@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.8](https://github.com/wwnorton/design-system/compare/v1.9.7...v1.9.8) (2026-09-04)
+
+### 🐛 Bug Fixes
+
+- **core:** solve missing visited styles in Link ([a449652](https://github.com/wwnorton/design-system/commit/a449652811065133ffc12b5ce7914c610b8718eb))
+
 ## [1.9.6](https://github.com/wwnorton/design-system/compare/v1.9.5...v1.9.6) (2026-07-14)
 
 **Note:** Version bump only for package @wwnds/core

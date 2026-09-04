@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.8](https://github.com/wwnorton/design-system/compare/v1.9.7...v1.9.8) (2026-09-04)
+
+### 🐛 Bug Fixes
+
+- **react:** solve dropdown button contents not updating ([883f0fd](https://github.com/wwnorton/design-system/commit/883f0fda458b178c62987b5f57ae6a52c12a10ca))
+
+### 📝 Documentation
+
+- **react:** update Popper story to use different example ([8ebf7d4](https://github.com/wwnorton/design-system/commit/8ebf7d44b884c7d964d16d4ed8cd4ed5038e218c))
+
 ## [1.9.7](https://github.com/wwnorton/design-system/compare/v1.9.6...v1.9.7) (2026-07-14)
 
 ### 🐛 Bug Fixes
