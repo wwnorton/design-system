@@ -12,7 +12,7 @@ export const Dropdown = ({
 	label,
 	description,
 	selected: selectedProp = '',
-	buttonContents: contentsProp = 'Select',
+	buttonContents: contentsProp,
 	autofocus = true,
 	isOpen: isOpenProp = false,
 	matchWidth,
@@ -94,7 +94,8 @@ export const Dropdown = ({
 	const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
 	const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
 	const [listboxWidth, setListBoxWidth] = React.useState<number>();
-	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>(contentsProp);
+
+	const [buttonContents, setButtonContents] = React.useState<React.ReactNode>('Select');
 	const [shouldReturnFocus, setShouldReturnFocus] = React.useState(false);
 	const [transition, setTransition] = React.useState<typeof transitionProp | undefined>(
 		transitionProp,
@@ -292,7 +293,7 @@ export const Dropdown = ({
 				icon={getListboxWidth.current ? undefined : 'chevron-down'}
 				iconRight
 			>
-				<span id={currentId}>{buttonContents}</span>
+				<span id={currentId}>{contentsProp || buttonContents}</span>
 			</Button>
 			<Popper
 				placement={placement}
