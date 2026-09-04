@@ -76,6 +76,10 @@
 	&:active {
 		@include active;
 	}
+
+	&:visited {
+		@include visited;
+	}
 }
 
 @mixin style {
