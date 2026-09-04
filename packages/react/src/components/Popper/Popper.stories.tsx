@@ -1,12 +1,13 @@
 import React from 'react';
+import type { VirtualElement } from '@popperjs/core';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Listbox, Option } from '../..';
 import { Popper } from '.';
-import { useExternalClick, useSelect } from '../../utilities';
+import { useExternalClick } from '../../utilities';
 import { ListboxProps } from '../Listbox';
 
 const meta = {
-	title: 'Components/Popper',
+	title: 'Utilities/Popper',
 	component: Popper,
 	argTypes: {
 		enableArrow: { control: { type: 'boolean' } },
@@ -83,66 +84,80 @@ export const WithReference = {
 	},
 } satisfies Story;
 
-export const BasicDropdown = {
+export const ContextMenu = {
 	render: (args) => {
 		const [listbox, setListbox] = React.useState<HTMLUListElement | null>(null);
 		const [autofocus, setAutofocus] = React.useState(true);
 		const [isOpen, setIsOpen] = React.useState(false);
-		const [button, setButton] = React.useState<HTMLButtonElement | null>(null);
-		const { selected, toggle } = useSelect(false);
+		const [reference, setReference] = React.useState<VirtualElement | null>(null);
 		const [optionFocusIndex, setOptionFocusIndex] = React.useState(0);
-		const [buttonText, setButtonText] = React.useState<React.ReactNode>('Select');
+		const [lastAction, setLastAction] = React.useState<React.ReactNode>(null);
 
 		const close = () => setIsOpen(false);
 
-		const changeHandler: ListboxProps['onChange'] = ({ value, label }) => {
-			toggle(value);
-			close();
-			setButtonText(label);
+		const openAt = (clientX: number, clientY: number) => {
+			setReference({
+				getBoundingClientRect: () =>
+					DOMRect.fromRect({
+						x: clientX,
+						y: clientY,
+						width: 0,
+						height: 0,
+					}),
+			});
+			setIsOpen(true);
 		};
 
-		useExternalClick([button, listbox], close);
+		const changeHandler: ListboxProps['onChange'] = ({ label }) => {
+			close();
+			setLastAction(label);
+		};
+
+		useExternalClick([listbox], close);
+
+		React.useEffect(() => {
+			const onKeyDown = (e: KeyboardEvent) => {
+				if (e.key === 'Escape') close();
+			};
+			document.addEventListener('keydown', onKeyDown);
+			return () => document.removeEventListener('keydown', onKeyDown);
+		}, []);
 
 		return (
 			<>
-				<Button
-					variant="outline"
-					aria-haspopup="listbox"
-					aria-expanded={isOpen}
-					ref={setButton}
-					onClick={() => setIsOpen(!isOpen)}
-					icon="chevron-down"
-					iconRight
-					style={{ minWidth: 150, justifyContent: 'space-between' }}
+				<p>{lastAction ? <>Last action: {lastAction}</> : 'Right-click the area below.'}</p>
+				<div
+					onContextMenu={(e) => {
+						e.preventDefault();
+						openAt(e.clientX, e.clientY);
+					}}
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						minHeight: 200,
+						border: '1px dashed var(--nds-base-color-60)',
+						userSelect: 'none',
+					}}
 				>
-					{buttonText}
-				</Button>
+					Right-click here
+				</div>
 				<Popper
 					transition="fade"
 					placement="bottom-start"
-					reference={button}
+					reference={reference}
 					isOpen={isOpen}
-					distance={4}
+					distance={0}
 					onEntered={() => {
 						setAutofocus(false);
 					}}
 					onExited={() => {
 						setAutofocus(true);
-						if (button) {
-							/**
-							 * Wait briefly to ensure that the listbox doesn't immediately
-							 * reopen if exit was triggered by selecting an option with
-							 * the `Enter` key.
-							 */
-							window.setTimeout(() => button.focus(), 10);
-						}
 					}}
-					matchWidth
 					{...args}
 				>
 					<Listbox
-						aria-label="Choose an animal"
-						selected={selected}
+						aria-label="Context menu"
 						onChange={changeHandler}
 						focusableIndex={optionFocusIndex}
 						autofocus={autofocus}
@@ -150,12 +165,10 @@ export const BasicDropdown = {
 						onOptionFocus={(_, i) => setOptionFocusIndex(i)}
 						style={{ backgroundColor: 'var(--nds-background-color)' }}
 					>
-						<Option value="dog">🐶 Dog</Option>
-						<Option value="cat">🐱 Cat</Option>
-						<Option value="hamster">🐹 Hamster</Option>
-						<Option value="parrot">🦜 Parrot</Option>
-						<Option value="spider">🕷️ Spider</Option>
-						<Option value="fish">🐠 Fish</Option>
+						<Option value="cut">Cut</Option>
+						<Option value="copy">Copy</Option>
+						<Option value="paste">Paste</Option>
+						<Option value="delete">Delete</Option>
 					</Listbox>
 				</Popper>
 			</>
