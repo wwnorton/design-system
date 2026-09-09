@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.9](https://github.com/wwnorton/design-system/compare/v1.9.8...v1.9.9) (2026-09-09)
+
+### 🐛 Bug Fixes
+
+- **react:** solve multiple validation errors in field appearing as one ([f830deb](https://github.com/wwnorton/design-system/commit/f830debe37c89b1ccf970b954b93bdabf11a6f22))
+- **react:** solve render issue in table XS, and sort issues ([5e734dc](https://github.com/wwnorton/design-system/commit/5e734dc272ba694958f354f04ed020567d05d13c))
+
 ## [1.9.8](https://github.com/wwnorton/design-system/compare/v1.9.7...v1.9.8) (2026-09-04)
 
 ### 🐛 Bug Fixes
