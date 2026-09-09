@@ -9,6 +9,8 @@ import { TableRow } from './TableRow/TableRow';
 import { TableCell } from './TableCell/TableCell';
 import { tableData } from './data';
 import { TableHeaderCellProps, TableProps } from './types';
+import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 const meta = {
 	title: 'Components/Table',
@@ -93,16 +95,23 @@ export const UncontrolledSortableComposableTable = {
 		isSortable: true,
 	},
 	render(args) {
+		const [reference, setReference] = React.useState<any | null>(null);
 		return (
 			<Table {...args}>
 				<TableHeader>
 					{tableData.headers.map((header) => {
 						return (
-							<TableHeaderCell key={header.children as string} sorter={header.sorter}>
-								{header.children}
+							<TableHeaderCell
+								key={header.children as string}
+								sorter={header.sorter}
+								textValue={header.children?.toLocaleString()}
+							>
+								{header.children} <Icon variant="info" ref={setReference} />{' '}
+								<Tooltip reference={reference}>This is a tooltip</Tooltip>
 							</TableHeaderCell>
 						);
 					})}
+					<TableHeaderCell>Index</TableHeaderCell>
 				</TableHeader>
 				<TableBody>
 					{tableData.rows.map((row, index) => {
@@ -114,6 +123,9 @@ export const UncontrolledSortableComposableTable = {
 									{row[1].wrapper ? row[1].wrapper(row[1].value) : row[1].value}
 								</TableCell>
 								<TableCell value={row[2].value}>{row[2].value}</TableCell>
+								<TableCell value={index % 2 === 0 ? 0 : index}>
+									{index % 2 === 0 ? '-' : index}
+								</TableCell>
 							</TableRow>
 						);
 					})}

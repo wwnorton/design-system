@@ -139,6 +139,13 @@ export interface TableHeaderCellProps extends React.TableHTMLAttributes<HTMLTabl
 	 * Used for Controlled Sorting, defines the current sort state of the column.
 	 */
 	sorted?: 'asc' | 'desc' | undefined;
+
+	/**
+	 * The text value of the header cell.
+	 * When set, it's used to render the options in the dropdown for sorting in XS breakpoint.
+	 * If not set, the text content of the header cell is used instead.
+	 */
+	textValue?: string;
 }
 
 export interface TableBodyProps extends React.TableHTMLAttributes<HTMLTableSectionElement> {
