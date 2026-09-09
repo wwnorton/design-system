@@ -6,23 +6,33 @@ import {
 	TableCell,
 	TableHeader,
 	TableHeaderCell,
+	TableHeaderCellProps,
 	TableProps,
 	TableRow,
 } from '../index';
 import { tableData } from '../data';
 
-export function renderComposableTable(props: TableProps = {}) {
+export type RenderComposableTableOptions = {
+	headerCellProps?: Partial<TableHeaderCellProps>[];
+};
+
+export function renderComposableTable(
+	props: TableProps = {},
+	{ headerCellProps = [] }: RenderComposableTableOptions = {},
+) {
 	render(
 		<Table {...props}>
 			<TableHeader>
-				{tableData.headers.map((header) => {
+				{tableData.headers.map((header, index) => {
+					const { children: headerChildren, ...restHeaderCellProps } = headerCellProps[index] || {};
 					return (
 						<TableHeaderCell
 							key={header.children as string}
 							sorter={header.sorter}
 							sorted={header.sorted}
+							{...restHeaderCellProps}
 						>
-							{header.children}
+							{headerChildren ?? header.children}
 						</TableHeaderCell>
 					);
 				})}
