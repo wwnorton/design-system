@@ -1,3 +1,4 @@
+import { setToArray } from '../setToArray';
 import {
 	StateMessageFunction,
 	ValidationAttributes,
@@ -156,5 +157,5 @@ export const createValidator =
 				}
 			},
 		);
-		return Array.from(err);
+		return setToArray(err);
 	};
