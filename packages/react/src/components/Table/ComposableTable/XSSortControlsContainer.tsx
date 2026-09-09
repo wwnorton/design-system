@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { XSSortControls } from '../XSSortControls/XSSortControls';
 import { useSortingState } from './SortingContext';
-import { useHeadersText } from './HeadersContext';
+import { useHeadersTextValue } from './HeadersContext';
 import { useControlledOnSort } from './ControlledSortingContext';
 
 export const XSSortControlsContainer = () => {
-	const headers = useHeadersText();
+	const headers = useHeadersTextValue();
 
 	const controlledOnSort = useControlledOnSort();
 	const sortingState = useSortingState();

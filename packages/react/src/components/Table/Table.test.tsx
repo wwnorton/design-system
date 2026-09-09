@@ -1,6 +1,6 @@
 import React from 'react';
 import test from 'ava';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Table } from './Table';
 import { tableData } from './data';
@@ -51,6 +51,69 @@ test('ComposableTable + Controlled Sorting', async (t) => {
 	const mockOnSort = mockFn<NonNullable<DataTableProps['onSort']>>(() => {});
 	renderComposableTable({ isSortable: true, onSort: (...args) => mockOnSort.fn(...args) });
 	await assertControlledSort(mockOnSort, t, user);
+});
+
+test('Sortable ComposableTable (XS): renders header content alongside cell values', (t) => {
+	renderComposableTable({ isSortable: true });
+
+	const firstDataRow = screen.getAllByRole('row')[1];
+	const cells = firstDataRow.querySelectorAll('td');
+
+	// First column acts as the row title on XS, so it does not repeat the header.
+	t.is(cells[0].querySelector('.nds-table-cell__header'), null);
+	t.is(within(cells[0] as HTMLElement).getByRole('cell').textContent, tableData.rows[0][0].value);
+
+	t.is(cells[1].querySelector('.nds-table-cell__header')?.textContent, 'Age');
+	t.is(
+		within(cells[1] as HTMLElement).getByRole('cell').textContent,
+		tableData.rows[0][1].wrapper?.(tableData.rows[0][1].value),
+	);
+
+	t.is(cells[2].querySelector('.nds-table-cell__header')?.textContent, 'Country');
+	t.is(
+		within(cells[2] as HTMLElement).getByRole('cell').textContent,
+		String(tableData.rows[0][2].value),
+	);
+});
+
+test('Sortable ComposableTable (XS): sort dropdown uses textValue when set, otherwise header textContent', async (t) => {
+	const user = userEvent.setup();
+
+	renderComposableTable(
+		{ isSortable: true },
+		{
+			headerCellProps: [
+				{
+					textValue: 'Name Label',
+					children: (
+						<>
+							Name <span>extra</span>
+						</>
+					),
+				},
+				{
+					children: (
+						<>
+							Age <span>yrs</span>
+						</>
+					),
+				},
+			],
+		},
+	);
+
+	await user.click(screen.getByRole('button', { name: /Sort By/ }));
+
+	const options = screen.getAllByRole('option').map((option) => option.textContent);
+	t.deepEqual(options, [
+		'None',
+		'Name Label: Ascending',
+		'Name Label: Descending',
+		'Age yrs: Ascending',
+		'Age yrs: Descending',
+		'Country: Ascending',
+		'Country: Descending',
+	]);
 });
 
 [

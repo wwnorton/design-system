@@ -1,15 +1,22 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { HEADER_NO_TITLE } from './constants';
 
 export interface Header {
 	colId: string;
 	el: HTMLElement;
-	text: string;
+	content: React.ReactNode;
+	textValue: string;
+}
+
+interface HeaderToRegister {
+	colId: string;
+	el: HTMLElement;
+	content: React.ReactNode;
+	textValue?: string;
 }
 
 export interface HeadersState {
 	headers: Header[];
-	registerHeader: (colId: string, el: HTMLElement) => void;
+	registerHeader: (header: HeaderToRegister) => void;
 }
 
 export const HeadersContext = React.createContext<HeadersState>({
@@ -25,25 +32,29 @@ export const HeadersContext = React.createContext<HeadersState>({
 export const HeadersContextProvider = ({ children }: { children: React.ReactNode }) => {
 	const [headers, setHeaders] = useState<Header[]>([]);
 
-	const registerHeader: HeadersState['registerHeader'] = useCallback((colId, el) => {
-		setHeaders((prev) => {
-			if (prev.some((h) => h.el === el)) {
-				// Already registered, we won't register again.
-				// This shouldn't happen in the wild, but in strict + dev mode
-				// Hooks are executed more than once.
-				return prev;
-			}
+	const registerHeader: HeadersState['registerHeader'] = useCallback(
+		({ colId, el, content, textValue }) => {
+			setHeaders((prev) => {
+				if (prev.some((h) => h.el === el)) {
+					// Already registered, we won't register again.
+					// This shouldn't happen in the wild, but in strict + dev mode
+					// Hooks are executed more than once.
+					return prev;
+				}
 
-			return [
-				...prev,
-				{
-					colId,
-					el,
-					text: el.textContent || HEADER_NO_TITLE,
-				},
-			];
-		});
-	}, []);
+				return [
+					...prev,
+					{
+						colId,
+						el,
+						content,
+						textValue: textValue || el.textContent || '',
+					},
+				];
+			});
+		},
+		[],
+	);
 
 	const headersObj: HeadersState = useMemo(() => {
 		return {
@@ -56,11 +67,11 @@ export const HeadersContextProvider = ({ children }: { children: React.ReactNode
 };
 
 /**
- * Returns the header text for the column identified with the given `colIdx`.
- * Returns empty string if not found.
+ * Returns the header content for the column identified with the given `colIdx`.
+ * Returns null if not found.
  */
-export function useHeaderFor(colIdx: number): string {
-	return useContext(HeadersContext).headers[colIdx]?.text || '';
+export function useHeaderContent(colIdx: number): React.ReactNode | null {
+	return useContext(HeadersContext).headers[colIdx]?.content || null;
 }
 
 /**
@@ -79,16 +90,28 @@ export function useFindColIdx(): (colId: string) => number {
 }
 
 /**
- * Returns the text context of the registered headers.
+ * Returns the text value of the registered headers.
  */
-export function useHeadersText(): string[] {
-	return useContext(HeadersContext).headers.map((h) => h.text);
+export function useHeadersTextValue(): string[] {
+	return useContext(HeadersContext).headers.map((h) => h.textValue);
 }
+
+export type UseRegisterHeaderOptions = Omit<HeaderToRegister, 'el'> & {
+	/**
+	 * The reference to the header cell.
+	 */
+	th: React.RefObject<HTMLTableCellElement>;
+};
 
 /**
  * Registers the header passed in `th`.
  */
-export function useRegisterHeader(colId: string, th: React.RefObject<HTMLTableCellElement>): void {
+export function useRegisterHeader({
+	colId,
+	th,
+	content,
+	textValue,
+}: UseRegisterHeaderOptions): void {
 	const headers = useContext(HeadersContext);
 
 	useEffect(() => {
@@ -98,7 +121,12 @@ export function useRegisterHeader(colId: string, th: React.RefObject<HTMLTableCe
 
 		const { current: thEl } = th;
 		if (thEl) {
-			headers.registerHeader(colId, thEl);
+			headers.registerHeader({
+				colId,
+				el: thEl,
+				content,
+				textValue,
+			});
 		}
 		// We want to register the header only on mount, even if something changes
 		// eslint-disable-next-line react-hooks/exhaustive-deps

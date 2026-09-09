@@ -1,4 +1,5 @@
 import React, { ReactNode, useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { setToArray } from '../../../utilities/setToArray';
 import { SortableValue, SortDirection } from '../types';
 import { sortRows } from './sortRows';
 
@@ -71,7 +72,7 @@ export const SortingProvider = ({ children }: { children?: ReactNode }) => {
 	}, []);
 
 	const registerRow: SortingState['registerRow'] = useCallback((id) => {
-		const cellsToPush = [...tmpCells.current];
+		const cellsToPush = setToArray(tmpCells.current);
 		tmpCells.current = new Set();
 
 		setData((prevState) => {
