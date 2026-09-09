@@ -8,12 +8,18 @@ import { useControlledOnSort } from '../ComposableTable/ControlledSortingContext
 import { parseSortDirection } from '../utils/parseSortDirection';
 import { getNextDirection } from '../utils/getNextDirection';
 
-export const TableHeaderCell = ({ sorter, children, sorted, ...others }: TableHeaderCellProps) => {
+export const TableHeaderCell = ({
+	sorter,
+	children,
+	sorted,
+	textValue,
+	...others
+}: TableHeaderCellProps) => {
 	const colId = useId() || '';
 	const sortingState = useSortingState();
 
 	const ref = useRef<HTMLTableCellElement>(null);
-	useRegisterHeader(colId, ref);
+	useRegisterHeader({ colId, th: ref, content: children, textValue });
 
 	useEffect(() => {
 		if (sortingState) {
