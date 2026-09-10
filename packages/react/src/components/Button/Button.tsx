@@ -2,11 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import { useForwardedRef } from '../../utilities';
 import { BaseButton } from '../BaseButton';
-import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 import { LiveRegion, useContentMonitor } from '../LiveRegion';
 import { BUTTON_NO_NAME } from './errors';
 import { ButtonProps } from './types';
+import { useIcon } from '../../utilities/icon/useIcon';
 
 /** A button allows a user to perform an action. */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -35,15 +35,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 		const [button, setButton] = useForwardedRef(ref);
 		const liveText = useContentMonitor(button, children);
 
-		const BaseIcon = React.useMemo(() => {
-			if (!icon) return null;
-			const baseProps = {
-				className: iconClass,
-			};
-			const iconProps =
-				typeof icon === 'string' ? { ...baseProps, variant: icon } : { ...baseProps, icon };
-			return <Icon {...iconProps} />;
-		}, [icon, iconClass]);
+		const BaseIcon = useIcon({ icon, iconClass });
 
 		const Children = React.useMemo(() => {
 			if (icon && iconOnly) return null;
