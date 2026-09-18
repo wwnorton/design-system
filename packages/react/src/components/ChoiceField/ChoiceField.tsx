@@ -78,6 +78,21 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 			null,
 		);
 
+		// On first render, we need to check for options with `checked` prop and set the checked indexes accordingly
+		React.useEffect(() => {
+			if (checkedIndexes === null) {
+				const indexesToUpdate: Record<number, boolean> = {};
+				React.Children.forEach(childrenProp, (child, idx) => {
+					if (React.isValidElement<ChoiceProps>(child)) {
+						if (child.props.checked) {
+							indexesToUpdate[idx] = true;
+						}
+					}
+				});
+				setCheckedIndexes(indexesToUpdate);
+			}
+		}, [childrenProp, checkedIndexes]);
+
 		const childMap = React.useCallback(
 			(children: React.ReactNode): React.ReactNode => {
 				// if it's a `<Choices>` element, use it with our `multiple`
