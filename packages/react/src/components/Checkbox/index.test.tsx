@@ -99,3 +99,23 @@ test('a `CheckboxGroup` is rendered as a group of checkboxes with an accessible 
 	) as HTMLInputElement[];
 	t.true(inputs.every((el) => el.type === 'checkbox'));
 });
+
+test.only('in an uncontrolled `CheckboxGroup`, selecting a new value does not uncheck default checked values', async (t) => {
+	const user = userEvent.setup();
+
+	render(
+		<CheckboxGroup label="Choose your favorite fruits">
+			<Checkbox>Apple</Checkbox>
+			<Checkbox checked>Banana</Checkbox>
+			<Checkbox checked>Kiwi</Checkbox>
+			<Checkbox>Orange</Checkbox>
+		</CheckboxGroup>,
+	);
+
+	const inputs = screen.getAllByRole('checkbox') as HTMLInputElement[];
+	await user.click(inputs[0]);
+	t.is(inputs[0].checked, true);
+	t.is(inputs[1].checked, true);
+	t.is(inputs[2].checked, true);
+	t.is(inputs[3].checked, false);
+});
