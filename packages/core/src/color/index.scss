@@ -41,17 +41,17 @@
 	$map: ();
 
 	@for $n from 1 through 10 {
-		$grade: if($inverse, 110 - $n * 10, $n * 10);
+		$grade: if(sass($inverse): 110 - $n * 10; else: $n * 10);
 		$map: map.merge($map, ($grade: var(--nds-#{$ref-family}-#{$n * 10})));
 	}
 
 	@if $grade-root {
 		$shades: (
-			-20: if($inverse, 'darker', 'lighter'),
-			-10: if($inverse, 'dark', 'light'),
+			-20: if(sass($inverse): 'darker'; else: 'lighter'),
+			-10: if(sass($inverse): 'dark'; else: 'light'),
 			0: '#root',
-			10: if($inverse, 'light', 'dark'),
-			20: if($inverse, 'lighter', 'darker'),
+			10: if(sass($inverse): 'light'; else: 'dark'),
+			20: if(sass($inverse): 'lighter'; else: 'darker'),
 		);
 
 		@for $g from -2 through 2 {
@@ -153,8 +153,8 @@ $roles: (
 
 			@if $grade {
 				@each $step in $steps {
-					$token: if($step, '#{$name}-color-#{$step}', '#{$name}-color');
-					$class: if($step, '#{$name}-#{$step}', $name);
+					$token: if(sass($step): '#{$name}-color-#{$step}'; else: '#{$name}-color');
+					$class: if(sass($step): '#{$name}-#{$step}'; else: $name);
 
 					.nds-bg-#{$class} {
 						background-color: var(--nds-#{$token}) !important;
