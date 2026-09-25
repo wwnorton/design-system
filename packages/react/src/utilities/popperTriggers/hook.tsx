@@ -1,7 +1,9 @@
 import { useCallback, useMemo, useRef } from 'react';
 import { canUseDOM } from '../environment';
 import { useExternalClick } from '../externalClick';
+import { isFocusVisible } from '../focusVisible';
 import { useLayoutEffect } from '../isomorphicLayoutEffect';
+import { hasPopperTrigger } from './parseTrigger';
 import { UsePopperTriggersProps, PopperTriggersOpen, PopperTriggersClose } from './types';
 
 /**
@@ -103,6 +105,9 @@ export const usePopperTriggers = ({
 
 		// focus
 		const focusHandler = () => show('focus');
+		const focusVisibleHandler = ({ target }: FocusEvent) => {
+			if (target instanceof Element && isFocusVisible(target)) show('focus-visible');
+		};
 		const focusinHandler = () => show('focusin');
 		const blurHandler = () => {
 			spaceClick.current = false;
@@ -167,14 +172,21 @@ export const usePopperTriggers = ({
 		}
 
 		if (isHTMLorSVGElement(reference)) {
-			// focus & focusin
-			if (trigger.includes('focus')) {
+			// focus, focus-visible & focusin
+			if (hasPopperTrigger(trigger, 'focus')) {
 				reference.addEventListener('focus', focusHandler);
 			}
-			if (trigger.includes('focusin')) {
+			if (hasPopperTrigger(trigger, 'focus-visible')) {
+				reference.addEventListener('focus', focusVisibleHandler);
+			}
+			if (hasPopperTrigger(trigger, 'focusin')) {
 				reference.addEventListener('focusin', focusinHandler);
 			}
-			if (trigger.includes('focus') || trigger.includes('focusin')) {
+			if (
+				hasPopperTrigger(trigger, 'focus') ||
+				hasPopperTrigger(trigger, 'focus-visible') ||
+				hasPopperTrigger(trigger, 'focusin')
+			) {
 				reference.addEventListener('blur', blurHandler);
 			}
 
@@ -203,8 +215,9 @@ export const usePopperTriggers = ({
 				reference.removeEventListener('keydown', keydownHandler as EventListener);
 				reference.removeEventListener('keyup', keyupHandler as EventListener);
 
-				// focus & focusin
+				// focus, focus-visible & focusin
 				reference.removeEventListener('focus', focusHandler);
+				reference.removeEventListener('focus', focusVisibleHandler);
 				reference.removeEventListener('focusin', focusinHandler);
 				reference.removeEventListener('blur', blurHandler);
 

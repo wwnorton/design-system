@@ -112,8 +112,8 @@ export const DefaultTrigger = {
 			<>
 				{/* eslint-disable react/no-unescaped-entities */}
 				<Callout title="Default trigger" border="bottom" style={{ maxWidth: CALLOUT_WIDTH }}>
-					The default trigger is <code>"focus pointerenter"</code>, which ensures that the tooltip
-					opens and closes for both keyboard and pointer users in a reliable way.
+					The default trigger is <code>"focus-visible pointerenter"</code>, which ensures that the
+					tooltip opens for keyboard and pointer users without opening on programmatic focus.
 				</Callout>
 				<Button variant="solid" ref={setReference}>
 					Reference

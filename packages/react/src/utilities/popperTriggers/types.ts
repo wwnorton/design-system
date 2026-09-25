@@ -1,6 +1,11 @@
 import { PopperCoreProps } from '../popper';
 
-export type PopperTriggersOpen = 'click.reference' | 'focus' | 'focusin' | 'pointerenter';
+export type PopperTriggersOpen =
+	| 'click.reference'
+	| 'focus'
+	| 'focus-visible'
+	| 'focusin'
+	| 'pointerenter';
 
 export type PopperTriggersClose =
 	| 'click.reference'
@@ -19,6 +24,7 @@ export interface UsePopperTriggersProps extends PopperCoreProps {
 	 * following:
 	 * - `click`
 	 * - `focus`
+	 * - `focus-visible`
 	 * - `focusin`
 	 * - `mouseenter`
 	 * - `pointerenter`
@@ -41,6 +47,7 @@ export interface UsePopperTriggersProps extends PopperCoreProps {
 	 * - `"click.reference"` - the reference element was clicked.
 	 * - `"focus"` - the reference was focused.
 	 * See [focus event](https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event).
+	 * - `"focus-visible"` - the reference was focused and matches `:focus-visible`.
 	 * - `"focusin"` - the reference is about to be focused.
 	 * See [focusin event](https://developer.mozilla.org/en-US/docs/Web/API/Element/focusin_event).
 	 * - `"pointerenter"` - a pointer (mouse or touch) entered the bounding box of the reference.
