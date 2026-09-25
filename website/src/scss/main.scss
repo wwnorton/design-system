@@ -34,7 +34,7 @@
 		}
 
 		.#{$prefix}-#{$name} {
-  			#{$property}: $value if($important, !important, '');
+			#{$property}: $value if($important, !important, '');
 		}
 	}
 }
