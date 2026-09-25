@@ -24,7 +24,8 @@
 	$easing: var(--nds-easing-standard),
 ) {
 	$full-transition: ();
-	$prop-list: if(meta.type-of($properties) == 'string', ($properties), $properties);
+	/* stylelint-disable-next-line function-whitespace-after -- Sass if() conditions use a colon after sass(...). */
+	$prop-list: if(sass(meta.type-of($properties) == 'string'): ($properties); else: $properties);
 
 	@each $property in $prop-list {
 		$full-transition: list.join(

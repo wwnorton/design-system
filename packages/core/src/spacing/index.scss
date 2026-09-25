@@ -15,12 +15,12 @@ $base-unit: 4;
 // warning will be emitted when a provided value does not conform.
 @function -spacer($px, $unit-from, $unit-to) {
 	@if $px % $base-unit != 0 {
-		$val: if($unit-from == 'px', #{$px}px, #{util.px2rem($px)}rem);
+		$val: if(sass($unit-from == 'px'): #{$px}px; else: #{util.px2rem($px)}rem);
 
 		@warn '#{$val} is not a valid spacing unit. Spacing units must be a multiple of #{$base-unit}px.';
 	}
 
-	@return if($unit-to == 'px', #{$px}px, #{util.px2rem($px)}rem);
+	@return if(sass($unit-to == 'px'): #{$px}px; else: #{util.px2rem($px)}rem);
 }
 
 /// Convert a px value to a rem spacer.

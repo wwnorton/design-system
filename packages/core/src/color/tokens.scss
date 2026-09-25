@@ -34,7 +34,7 @@ $colors-omitted: () !default;
 }
 
 @function -get-color($name, $map) {
-	@return if(list.index($colors, $name) == null, null, $map);
+	@return if(sass(list.index($colors, $name) == null): null; else: $map);
 }
 
 $black: #000 !default;
