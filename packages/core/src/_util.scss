@@ -42,8 +42,7 @@ $-declared: ();
 
 	@each $key in map.keys($map) {
 		$val: map.get($map, $key);
-		/* stylelint-disable-next-line function-whitespace-after -- Sass if() conditions use a colon after sass(...). */
-		$full-key: if(sass($name): prefix($key, $name, $key-separator); else: $key);
+		$full-key: if(sass($name): prefix($key, $name, $key-separator) ; else: $key);
 
 		@if $key == '#root' {
 			$full-key: $name;
