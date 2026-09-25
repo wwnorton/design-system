@@ -1,6 +1,7 @@
 import test from 'ava';
 import React from 'react';
-import { cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import sinon from 'sinon';
+import { act, cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Tooltip, TooltipProps } from '.';
 
@@ -92,7 +93,9 @@ test('the focus trigger opens the tooltip on programmatic focus', (t) => {
 	render(<TooltipFixture trigger="focus" />);
 	const reference = screen.getByRole('button');
 
-	reference.focus();
+	act(() => {
+		reference.focus();
+	});
 
 	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
@@ -111,7 +114,19 @@ test('the focus-visible trigger does not open the tooltip on programmatic focus'
 	render(<TooltipFixture trigger="focus-visible" />);
 	const reference = screen.getByRole('button');
 
-	reference.focus();
+	// jsdom treats any focused element as :focus-visible; real UAs typically do not
+	// for programmatic focus. Stub the selector so this test matches browser behavior.
+	const matches = sinon
+		.stub(Element.prototype, 'matches')
+		.callsFake(function (this: Element, selectors: string) {
+			if (selectors === ':focus-visible') return false;
+			return matches.wrappedMethod.call(this, selectors);
+		});
+	t.teardown(() => matches.restore());
+
+	act(() => {
+		reference.focus();
+	});
 
 	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
 });
