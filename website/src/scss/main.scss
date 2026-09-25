@@ -34,7 +34,7 @@
 		}
 
 		.#{$prefix}-#{$name} {
-			#{$property}: $value if(sass($important): !important; else: '');
+  			#{$property}: $value if($important, !important, '');
 		}
 	}
 }
