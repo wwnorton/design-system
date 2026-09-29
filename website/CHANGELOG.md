@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.10](https://github.com/wwnorton/design-system/compare/v1.9.9...v1.9.10) (2026-09-29)
+
+**Note:** Version bump only for package website
+
 ## [1.9.9](https://github.com/wwnorton/design-system/compare/v1.9.8...v1.9.9) (2026-09-09)
 
 **Note:** Version bump only for package website

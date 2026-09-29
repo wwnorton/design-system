@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.10](https://github.com/wwnorton/design-system/compare/v1.9.9...v1.9.10) (2026-09-29)
+
+### 🐛 Bug Fixes
+
+- **react:** fix Disclosure cancel lifecycle events not working ([f55ff28](https://github.com/wwnorton/design-system/commit/f55ff285ed4cf4bb2f87baa10211891ec1a6a77b))
+- **react:** solve missing Disclosure lifecycle events with reduced motion ([e750340](https://github.com/wwnorton/design-system/commit/e7503403fd37ffe11dcddd7a90eb04872cadc79c))
+
 ## [1.9.9](https://github.com/wwnorton/design-system/compare/v1.9.8...v1.9.9) (2026-09-09)
 
 ### 🐛 Bug Fixes
