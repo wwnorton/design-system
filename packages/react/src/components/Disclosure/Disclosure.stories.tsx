@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 import { Disclosure } from '.';
 import { ResponseIndicator } from '../ResponseIndicator';
 
@@ -19,6 +20,12 @@ const meta = {
 		isOpen: false,
 		summary: 'More information',
 		children: defaultContents,
+		onOpenStart: fn(),
+		onOpenEnd: fn(),
+		onOpenCancel: fn(),
+		onCloseStart: fn(),
+		onCloseEnd: fn(),
+		onCloseCancel: fn(),
 	},
 	argTypes: {
 		panel: {

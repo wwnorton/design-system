@@ -70,22 +70,14 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 
 		const open = React.useCallback(async () => {
 			if (isOpen || state === 'opening') return;
-			if (state === 'closing') {
-				if (await proceed(onCloseCancel)) {
-					setState(shouldAnimate ? 'opening' : undefined);
-				}
-			} else if (await proceed(onOpenStart)) {
+			if (await proceed(onOpenStart)) {
 				setOpen(true);
 			}
-		}, [isOpen, state, shouldAnimate, onCloseCancel, onOpenStart]);
+		}, [isOpen, state, onOpenStart]);
 
 		const close = React.useCallback(async () => {
 			if (!isOpen || state === 'closing') return;
-			if (state === 'opening') {
-				if (await proceed(onOpenCancel)) {
-					setState(shouldAnimate ? 'closing' : undefined);
-				}
-			} else if (await proceed(onCloseStart)) {
+			if (await proceed(onCloseStart)) {
 				if (shouldAnimate) {
 					setStyle({ height });
 					window.requestAnimationFrame(() => {
@@ -93,20 +85,31 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 					});
 				} else {
 					setOpen(false);
+					if (onCloseEnd) onCloseEnd();
 				}
 			}
-		}, [isOpen, state, height, shouldAnimate, onOpenCancel, onCloseStart]);
+		}, [isOpen, state, height, shouldAnimate, onCloseEnd, onCloseStart]);
 
-		const summaryClickHandler = (e: React.MouseEvent<HTMLElement>): void => {
+		const summaryClickHandler = async (e: React.MouseEvent<HTMLElement>) => {
 			e.preventDefault();
+			if (state === 'closing') {
+				if (await proceed(onCloseCancel)) {
+					setState(shouldAnimate ? 'opening' : undefined);
+				}
+				return;
+			}
+			if (state === 'opening') {
+				if (await proceed(onOpenCancel)) {
+					setState(shouldAnimate ? 'closing' : undefined);
+				}
+				return;
+			}
+
 			if (isOpen) close();
 			else open();
 		};
 
 		const transitionEndHandler = (): void => {
-			setState(undefined);
-			setStyle(undefined);
-
 			if (state === 'opening') {
 				if (onOpenEnd) onOpenEnd();
 			}
@@ -114,6 +117,9 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 				setOpen(false);
 				if (onCloseEnd) onCloseEnd();
 			}
+
+			setState(undefined);
+			setStyle(undefined);
 		};
 
 		// control via `isOpen` prop
@@ -132,9 +138,14 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 					window.requestAnimationFrame(() => {
 						setState('opening');
 					});
+				} else if (onOpenEnd) {
+					// If we don't have to animate because of reduced motion
+					// either set via prop or animations disabled via
+					// CSS, then call the end callback immediately
+					onOpenEnd();
 				}
 			}
-		}, [isOpen, contents, shouldAnimate]);
+		}, [isOpen, contents, shouldAnimate, onOpenEnd]);
 
 		// set the style height when opening/closing
 		React.useEffect(() => {
