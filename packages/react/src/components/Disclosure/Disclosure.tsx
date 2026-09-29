@@ -110,9 +110,6 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		};
 
 		const transitionEndHandler = (): void => {
-			setState(undefined);
-			setStyle(undefined);
-
 			if (state === 'opening') {
 				if (onOpenEnd) onOpenEnd();
 			}
@@ -120,6 +117,9 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 				setOpen(false);
 				if (onCloseEnd) onCloseEnd();
 			}
+
+			setState(undefined);
+			setStyle(undefined);
 		};
 
 		// control via `isOpen` prop
