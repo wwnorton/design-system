@@ -331,6 +331,16 @@ test('onCloseCancel is called when the summary is clicked while closing', async 
 		await user.click(summary);
 		t.true(onCloseCancel.notCalled);
 
+		// Wait a tick before simulating the transition,
+		// to give time to the animation frame to trigger.
+		await waitFor(() => {
+			return new Promise((res) => {
+				window.requestAnimationFrame(() => {
+					res(undefined);
+				});
+			});
+		});
+
 		// Second click while still closing cancels the close animation.
 		await user.click(summary);
 		t.true(onCloseCancel.calledOnce);
