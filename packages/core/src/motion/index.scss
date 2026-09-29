@@ -24,7 +24,7 @@
 	$easing: var(--nds-easing-standard),
 ) {
 	$full-transition: ();
-	$prop-list: if(meta.type-of($properties) == 'string', ($properties), $properties);
+	$prop-list: if(sass(meta.type-of($properties) == 'string'): ($properties) ; else: $properties);
 
 	@each $property in $prop-list {
 		$full-transition: list.join(
