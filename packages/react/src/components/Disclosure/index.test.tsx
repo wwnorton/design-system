@@ -261,3 +261,73 @@ test('onCloseEnd is called when the contents `transition-duration` is 0', async 
 		getComputedStyle.restore();
 	}
 });
+
+test('onOpenCancel is called when the summary is clicked while opening', async (t) => {
+	const user = userEvent.setup();
+	const onOpenCancel = sinon.spy();
+
+	// Force `shouldAnimate` to be true by reporting a non-zero transition duration,
+	// so the disclosure enters the `opening` state instead of opening instantly.
+	const getComputedStyle = sinon.stub(window, 'getComputedStyle').callsFake(
+		() =>
+			({
+				getPropertyValue: () => '0.3s',
+				transitionDuration: '0.3s',
+			} as unknown as CSSStyleDeclaration),
+	);
+
+	try {
+		render(
+			<Disclosure summary={defaultSummary} onOpenCancel={onOpenCancel}>
+				{shortContent}
+			</Disclosure>,
+		);
+
+		const summary = screen.getByText(defaultSummary);
+
+		// First click starts opening the disclosure (enters the `opening` state).
+		await user.click(summary);
+		t.true(onOpenCancel.notCalled);
+
+		// Second click while still opening cancels the open animation.
+		await user.click(summary);
+		t.true(onOpenCancel.calledOnce);
+	} finally {
+		getComputedStyle.restore();
+	}
+});
+
+test('onCloseCancel is called when the summary is clicked while closing', async (t) => {
+	const user = userEvent.setup();
+	const onCloseCancel = sinon.spy();
+
+	// Force `shouldAnimate` to be true by reporting a non-zero transition duration,
+	// so the disclosure enters the `closing` state instead of closing instantly.
+	const getComputedStyle = sinon.stub(window, 'getComputedStyle').callsFake(
+		() =>
+			({
+				getPropertyValue: () => '0.3s',
+				transitionDuration: '0.3s',
+			} as unknown as CSSStyleDeclaration),
+	);
+
+	try {
+		render(
+			<Disclosure isOpen summary={defaultSummary} onCloseCancel={onCloseCancel}>
+				{shortContent}
+			</Disclosure>,
+		);
+
+		const summary = screen.getByText(defaultSummary);
+
+		// First click starts closing the disclosure (enters the `closing` state).
+		await user.click(summary);
+		t.true(onCloseCancel.notCalled);
+
+		// Second click while still closing cancels the close animation.
+		await user.click(summary);
+		t.true(onCloseCancel.calledOnce);
+	} finally {
+		getComputedStyle.restore();
+	}
+});

@@ -70,22 +70,14 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 
 		const open = React.useCallback(async () => {
 			if (isOpen || state === 'opening') return;
-			if (state === 'closing') {
-				if (await proceed(onCloseCancel)) {
-					setState(shouldAnimate ? 'opening' : undefined);
-				}
-			} else if (await proceed(onOpenStart)) {
+			if (await proceed(onOpenStart)) {
 				setOpen(true);
 			}
-		}, [isOpen, state, shouldAnimate, onCloseCancel, onOpenStart]);
+		}, [isOpen, state, onOpenStart]);
 
 		const close = React.useCallback(async () => {
 			if (!isOpen || state === 'closing') return;
-			if (state === 'opening') {
-				if (await proceed(onOpenCancel)) {
-					setState(shouldAnimate ? 'closing' : undefined);
-				}
-			} else if (await proceed(onCloseStart)) {
+			if (await proceed(onCloseStart)) {
 				if (shouldAnimate) {
 					setStyle({ height });
 					window.requestAnimationFrame(() => {
@@ -96,10 +88,23 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 					if (onCloseEnd) onCloseEnd();
 				}
 			}
-		}, [isOpen, state, height, shouldAnimate, onOpenCancel, onCloseEnd, onCloseStart]);
+		}, [isOpen, state, height, shouldAnimate, onCloseEnd, onCloseStart]);
 
-		const summaryClickHandler = (e: React.MouseEvent<HTMLElement>): void => {
+		const summaryClickHandler = async (e: React.MouseEvent<HTMLElement>) => {
 			e.preventDefault();
+			if (state === 'closing') {
+				if (await proceed(onCloseCancel)) {
+					setState(shouldAnimate ? 'opening' : undefined);
+				}
+				return;
+			}
+			if (state === 'opening') {
+				if (await proceed(onOpenCancel)) {
+					setState(shouldAnimate ? 'closing' : undefined);
+				}
+				return;
+			}
+
 			if (isOpen) close();
 			else open();
 		};
