@@ -93,9 +93,10 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 					});
 				} else {
 					setOpen(false);
+					if (onCloseEnd) onCloseEnd();
 				}
 			}
-		}, [isOpen, state, height, shouldAnimate, onOpenCancel, onCloseStart]);
+		}, [isOpen, state, height, shouldAnimate, onOpenCancel, onCloseEnd, onCloseStart]);
 
 		const summaryClickHandler = (e: React.MouseEvent<HTMLElement>): void => {
 			e.preventDefault();
@@ -132,9 +133,14 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 					window.requestAnimationFrame(() => {
 						setState('opening');
 					});
+				} else if (onOpenEnd) {
+					// If we don't have to animate because of reduced motion
+					// either set via prop or animations disabled via
+					// CSS, then call the end callback immediately
+					onOpenEnd();
 				}
 			}
-		}, [isOpen, contents, shouldAnimate]);
+		}, [isOpen, contents, shouldAnimate, onOpenEnd]);
 
 		// set the style height when opening/closing
 		React.useEffect(() => {

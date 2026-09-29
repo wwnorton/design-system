@@ -1,6 +1,7 @@
 import test from 'ava';
+import sinon from 'sinon';
 import React from 'react';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Disclosure } from '.';
 
@@ -89,4 +90,174 @@ test('setting a null marker results in no marker being rendered', async (t) => {
 		</Disclosure>,
 	);
 	t.falsy(screen.queryByRole('img', { hidden: true }));
+});
+
+test('onOpenEnd is called when reduced motion is set via props', async (t) => {
+	const user = userEvent.setup();
+	const onOpenEnd = sinon.spy();
+
+	render(
+		<Disclosure reducedMotion summary={defaultSummary} onOpenEnd={onOpenEnd}>
+			{shortContent}
+		</Disclosure>,
+	);
+	const summary = screen.getByText(defaultSummary);
+	await user.click(summary);
+
+	// With reduced motion there is no animation, so the end callback fires immediately.
+	t.true(onOpenEnd.calledOnce);
+});
+
+test('onOpenEnd is called when no reduced motion is set', async (t) => {
+	const user = userEvent.setup();
+	const onOpenEnd = sinon.spy();
+
+	// Force `shouldAnimate` to be true by reporting a non-zero transition duration,
+	// so the disclosure animates and defers `onOpenEnd` until the transition ends.
+	const getComputedStyle = sinon.stub(window, 'getComputedStyle').callsFake(
+		() =>
+			({
+				getPropertyValue: () => '0.3s',
+				transitionDuration: '0.3s',
+			} as unknown as CSSStyleDeclaration),
+	);
+
+	try {
+		render(
+			<Disclosure summary={defaultSummary} onOpenEnd={onOpenEnd}>
+				{shortContent}
+			</Disclosure>,
+		);
+		const summary = screen.getByText(defaultSummary);
+		await user.click(summary);
+
+		// The animation hasn't finished yet, so the callback should not have fired.
+		t.true(onOpenEnd.notCalled);
+
+		// Simulate the CSS transition completing.
+		const contents = screen.getByRole('group').querySelector(`.nds-disclosure__contents-outer`);
+		t.not(contents, null);
+		fireEvent.transitionEnd(contents as Element);
+
+		t.true(onOpenEnd.calledOnce);
+	} finally {
+		getComputedStyle.restore();
+	}
+});
+
+test('onOpenEnd is called when the contents `transition-duration` is 0', async (t) => {
+	const user = userEvent.setup();
+	const onOpenEnd = sinon.spy();
+
+	// Report a zero transition duration so `shouldAnimate` is false and the
+	// component treats it like reduced motion, firing the callback immediately.
+	const getComputedStyle = sinon.stub(window, 'getComputedStyle').callsFake(
+		() =>
+			({
+				getPropertyValue: () => '0s',
+				transitionDuration: '0s',
+			} as unknown as CSSStyleDeclaration),
+	);
+
+	try {
+		render(
+			<Disclosure summary={defaultSummary} onOpenEnd={onOpenEnd}>
+				{shortContent}
+			</Disclosure>,
+		);
+		const summary = screen.getByText(defaultSummary);
+		await user.click(summary);
+
+		t.true(onOpenEnd.calledOnce);
+	} finally {
+		getComputedStyle.restore();
+	}
+});
+
+test('onCloseEnd is called when reduced motion is set via props', async (t) => {
+	const user = userEvent.setup();
+	const onCloseEnd = sinon.spy();
+
+	render(
+		<Disclosure reducedMotion isOpen summary={defaultSummary} onCloseEnd={onCloseEnd}>
+			{shortContent}
+		</Disclosure>,
+	);
+	const details = screen.getByRole('group') as HTMLDetailsElement;
+	t.true(details.hasAttribute('open'));
+
+	const summary = screen.getByText(defaultSummary);
+	await user.click(summary);
+
+	// With reduced motion there is no animation, so the end callback fires immediately.
+	t.true(onCloseEnd.calledOnce);
+	t.false(details.hasAttribute('open'));
+});
+
+test('onCloseEnd is called when no reduced motion is set', async (t) => {
+	const user = userEvent.setup();
+	const onCloseEnd = sinon.spy();
+
+	// Force `shouldAnimate` to be true by reporting a non-zero transition duration,
+	// so the disclosure animates and defers `onCloseEnd` until the transition ends.
+	const getComputedStyle = sinon.stub(window, 'getComputedStyle').callsFake(
+		() =>
+			({
+				getPropertyValue: () => '0.3s',
+				transitionDuration: '0.3s',
+			} as unknown as CSSStyleDeclaration),
+	);
+
+	try {
+		render(
+			<Disclosure isOpen summary={defaultSummary} onCloseEnd={onCloseEnd}>
+				{shortContent}
+			</Disclosure>,
+		);
+		const summary = screen.getByText(defaultSummary);
+		await user.click(summary);
+
+		// The animation hasn't finished yet, so the callback should not have fired.
+		t.true(onCloseEnd.notCalled);
+
+		// Simulate the CSS transition completing.
+		const contents = screen.getByRole('group').querySelector(`.nds-disclosure__contents-outer`);
+		t.not(contents, null);
+		fireEvent.transitionEnd(contents as Element);
+
+		t.true(onCloseEnd.calledOnce);
+	} finally {
+		getComputedStyle.restore();
+	}
+});
+
+test('onCloseEnd is called when the contents `transition-duration` is 0', async (t) => {
+	const user = userEvent.setup();
+	const onCloseEnd = sinon.spy();
+
+	// Report a zero transition duration so `shouldAnimate` is false and the
+	// component treats it like reduced motion, firing the callback immediately.
+	const getComputedStyle = sinon.stub(window, 'getComputedStyle').callsFake(
+		() =>
+			({
+				getPropertyValue: () => '0s',
+				transitionDuration: '0s',
+			} as unknown as CSSStyleDeclaration),
+	);
+
+	try {
+		render(
+			<Disclosure isOpen summary={defaultSummary} onCloseEnd={onCloseEnd}>
+				{shortContent}
+			</Disclosure>,
+		);
+		const details = screen.getByRole('group') as HTMLDetailsElement;
+		const summary = screen.getByText(defaultSummary);
+		await user.click(summary);
+
+		t.true(onCloseEnd.calledOnce);
+		t.false(details.hasAttribute('open'));
+	} finally {
+		getComputedStyle.restore();
+	}
 });
