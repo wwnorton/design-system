@@ -1,11 +1,11 @@
 import test from 'ava';
 import sinon from 'sinon';
 import React from 'react';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Disclosure } from '.';
 
-test.afterEach(cleanup);
+test.afterEach.always(cleanup);
 
 const defaultSummary = 'More information';
 const shortContent = 'lorem ipsum';
@@ -130,6 +130,16 @@ test('onOpenEnd is called when no reduced motion is set', async (t) => {
 
 		// The animation hasn't finished yet, so the callback should not have fired.
 		t.true(onOpenEnd.notCalled);
+
+		// Wait a tick before simulating the transition,
+		// to give time to the animation frame to trigger.
+		await waitFor(() => {
+			return new Promise((res) => {
+				window.requestAnimationFrame(() => {
+					res(undefined);
+				});
+			});
+		});
 
 		// Simulate the CSS transition completing.
 		const contents = screen.getByRole('group').querySelector(`.nds-disclosure__contents-outer`);
