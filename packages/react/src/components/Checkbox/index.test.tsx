@@ -100,7 +100,7 @@ test('a `CheckboxGroup` is rendered as a group of checkboxes with an accessible 
 	t.true(inputs.every((el) => el.type === 'checkbox'));
 });
 
-test.only('in an uncontrolled `CheckboxGroup`, selecting a new value does not uncheck default checked values', async (t) => {
+test('in an uncontrolled `CheckboxGroup`, selecting a new value does not uncheck default checked values', async (t) => {
 	const user = userEvent.setup();
 
 	render(
