@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import { BaseDetails } from '../BaseDetails';
 import { BaseSummary } from '../BaseSummary';
@@ -72,6 +72,9 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 			if (isOpen || state === 'opening') return;
 			if (await proceed(onOpenStart)) {
 				setOpen(true);
+				window.requestAnimationFrame(() => {
+					setState('opening');
+				});
 			}
 		}, [isOpen, state, onOpenStart]);
 
@@ -85,6 +88,7 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 					});
 				} else {
 					setOpen(false);
+					setState(undefined);
 					if (onCloseEnd) onCloseEnd();
 				}
 			}
@@ -135,17 +139,22 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 				setHeight(contents.offsetHeight);
 				if (shouldAnimate) {
 					setStyle({ height: 0 });
-					window.requestAnimationFrame(() => {
-						setState('opening');
-					});
-				} else if (onOpenEnd) {
-					// If we don't have to animate because of reduced motion
-					// either set via prop or animations disabled via
-					// CSS, then call the end callback immediately
-					onOpenEnd();
 				}
 			}
-		}, [isOpen, contents, shouldAnimate, onOpenEnd]);
+		}, [isOpen, contents, shouldAnimate]);
+
+		useEffect(() => {
+			// If we don't have to animate because of reduced motion
+			// either set via prop or animations disabled via
+			// CSS, then call the end callback immediately
+			if (state === 'opening' && isOpen && !shouldAnimate) {
+				if (onOpenEnd) {
+					onOpenEnd();
+				}
+
+				setState(undefined);
+			}
+		}, [isOpen, onOpenEnd, shouldAnimate, state]);
 
 		// set the style height when opening/closing
 		React.useEffect(() => {
@@ -219,3 +228,5 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		);
 	},
 );
+
+Disclosure.displayName = 'Disclosure';

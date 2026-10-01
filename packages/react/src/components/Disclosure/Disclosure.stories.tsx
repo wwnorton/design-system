@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { Disclosure } from '.';
 import { ResponseIndicator } from '../ResponseIndicator';
+import { Button } from '../Button';
 
 const defaultContents = (
 	<p>
@@ -51,12 +52,14 @@ export const Panel = {
 
 export const Controlled = {
 	render: (args) => {
+		const counter = React.useState(0);
 		const summaryText = React.useRef('More information');
 		const [contents, setContents] = React.useState<React.ReactNode>();
 		const [summary, setSummary] = React.useState<string>(summaryText.current);
 
 		// load content asynchronously
 		const getContents = async (): Promise<void> => {
+			args.onOpenStart?.();
 			setSummary(`${summaryText.current} (retrieving...)`);
 			const newContent = await new Promise<React.ReactNode>((resolve) => {
 				window.setTimeout(() => {
@@ -68,15 +71,25 @@ export const Controlled = {
 		};
 
 		return (
-			<Disclosure
-				{...args}
-				panel
-				summary={summary}
-				onOpenStart={getContents}
-				onCloseEnd={(): void => setContents(undefined)}
-			>
-				{contents}
-			</Disclosure>
+			<div>
+				<Button onClick={() => counter[1]((c) => c + 1)}>Trigger rerender</Button>
+				<hr />
+				<Disclosure
+					{...args}
+					panel
+					summary={summary}
+					onOpenStart={getContents}
+					onOpenEnd={() => {
+						args.onOpenEnd?.();
+					}}
+					onCloseEnd={(): void => {
+						setContents(undefined);
+						args.onCloseEnd?.();
+					}}
+				>
+					{contents}
+				</Disclosure>
+			</div>
 		);
 	},
 } satisfies Story;

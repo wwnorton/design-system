@@ -7,6 +7,19 @@ import { Disclosure } from '.';
 
 test.afterEach.always(cleanup);
 
+/**
+ * Waits until the next animation frame is triggered.
+ */
+async function waitForAnimationFrame() {
+	await waitFor(() => {
+		return new Promise((res) => {
+			window.requestAnimationFrame(() => {
+				res(undefined);
+			});
+		});
+	});
+}
+
 const defaultSummary = 'More information';
 const shortContent = 'lorem ipsum';
 
@@ -100,6 +113,7 @@ test('onOpenEnd is called when reduced motion is set via props', async (t) => {
 	);
 	const summary = screen.getByText(defaultSummary);
 	await user.click(summary);
+	await waitForAnimationFrame();
 
 	// With reduced motion there is no animation, so the end callback fires immediately.
 	t.true(onOpenEnd.calledOnce);
@@ -131,15 +145,7 @@ test('onOpenEnd is called when no reduced motion is set', async (t) => {
 		// The animation hasn't finished yet, so the callback should not have fired.
 		t.true(onOpenEnd.notCalled);
 
-		// Wait a tick before simulating the transition,
-		// to give time to the animation frame to trigger.
-		await waitFor(() => {
-			return new Promise((res) => {
-				window.requestAnimationFrame(() => {
-					res(undefined);
-				});
-			});
-		});
+		await waitForAnimationFrame();
 
 		// Simulate the CSS transition completing.
 		const contents = screen.getByRole('group').querySelector(`.nds-disclosure__contents-outer`);
@@ -174,6 +180,7 @@ test('onOpenEnd is called when the contents `transition-duration` is 0', async (
 		);
 		const summary = screen.getByText(defaultSummary);
 		await user.click(summary);
+		await waitForAnimationFrame();
 
 		t.true(onOpenEnd.calledOnce);
 	} finally {
@@ -225,7 +232,9 @@ test('onCloseEnd is called when no reduced motion is set', async (t) => {
 		await user.click(summary);
 
 		// The animation hasn't finished yet, so the callback should not have fired.
-		t.true(onCloseEnd.notCalled);
+		await waitFor(() => {
+			t.true(onCloseEnd.notCalled);
+		});
 
 		// Simulate the CSS transition completing.
 		const contents = screen.getByRole('group').querySelector(`.nds-disclosure__contents-outer`);
@@ -331,15 +340,7 @@ test('onCloseCancel is called when the summary is clicked while closing', async 
 		await user.click(summary);
 		t.true(onCloseCancel.notCalled);
 
-		// Wait a tick before simulating the transition,
-		// to give time to the animation frame to trigger.
-		await waitFor(() => {
-			return new Promise((res) => {
-				window.requestAnimationFrame(() => {
-					res(undefined);
-				});
-			});
-		});
+		await waitForAnimationFrame();
 
 		// Second click while still closing cancels the close animation.
 		await user.click(summary);
