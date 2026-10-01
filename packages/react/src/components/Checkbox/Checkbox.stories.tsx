@@ -112,8 +112,8 @@ const CheckboxGroupTemplate = {
 	render: (args) => (
 		<CheckboxGroup {...args}>
 			<Checkbox>Apple</Checkbox>
-			<Checkbox>Banana</Checkbox>
-			<Checkbox>Kiwi</Checkbox>
+			<Checkbox checked>Banana</Checkbox>
+			<Checkbox checked>Kiwi</Checkbox>
 			<Checkbox>Orange</Checkbox>
 		</CheckboxGroup>
 	),
@@ -137,7 +137,7 @@ const fruits = [
 export const ControlledGroup = {
 	...CheckboxGroupTemplate,
 	render: (args) => {
-		const { selected, formChangeHandler } = useSelect(true);
+		const { selected, formChangeHandler } = useSelect(true, ['banana']);
 
 		React.useEffect(() => action('selection change')(selected), [selected]);
 
