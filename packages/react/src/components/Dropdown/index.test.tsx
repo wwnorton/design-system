@@ -189,7 +189,7 @@ test('tabbing out of an open dropdown closes it without selecting anything', asy
 	t.is(screen.getByRole('button').textContent, initialText);
 });
 
-test.only('closing the listbox returns focus to the dropdown button', async (t) => {
+test('closing the listbox returns focus to the dropdown button', async (t) => {
 	const user = userEvent.setup();
 
 	render(<Dropdown {...defaultProps} />);
@@ -275,7 +275,7 @@ test('a dropdown is closed when it is disabled', async (t) => {
 	t.falsy(screen.queryByRole('listbox'));
 });
 
-test.only('a dropdown button content is updated', (t) => {
+test('a dropdown button content is updated', (t) => {
 	const children = [
 		<Dropdown.Option key={0} value={1}>
 			1

@@ -82,7 +82,7 @@ test('Controlled: clicking on external controls, switches panels', async (t) => 
 	t.true(areTabAndPanelSelected('Cats'));
 });
 
-test.only('Tabs Keyboard Navigation', async (t) => {
+test('Tabs Keyboard Navigation', async (t) => {
 	const user = userEvent.setup();
 
 	render(
@@ -147,15 +147,15 @@ test('Tabbing order: No focus-able elements, focus goes to container', async (t)
 		</Tabs>,
 	);
 
-	const tab1 = screen.getByRole('tab', { name: 'Tab 1' });
-	const tabPanel1 = screen.getByRole('tabpanel', { name: 'Tab 1' });
+	const tab1 = await screen.findByRole('tab', { name: 'Tab 1' });
+	const tabPanel1 = await screen.findByRole('tabpanel', { name: 'Tab 1' });
 
 	// First tab event moves focus to First Tab
-	userEvent.tab();
+	await userEvent.tab();
 	t.is(document.activeElement, tab1);
 
 	// Second tab event should move the focus to the panel
-	userEvent.tab();
+	await userEvent.tab();
 	t.true(document.activeElement === tabPanel1);
 });
 
@@ -176,14 +176,14 @@ test('Tabbing order: with focus-able elements, focus goes to first element', asy
 		</Tabs>,
 	);
 
-	const tab1 = screen.getByRole('tab', { name: 'Tab 1' });
-	const button1 = screen.getByRole('button', { name: 'Button 1' });
+	const tab1 = await screen.findByRole('tab', { name: 'Tab 1' });
+	const button1 = await screen.findByRole('button', { name: 'Button 1' });
 
 	// First tab event moves focus to First Tab
-	userEvent.tab();
+	await userEvent.tab();
 	t.is(document.activeElement, tab1);
 
 	// Second tab event should move the focus to the first button
-	userEvent.tab();
+	await userEvent.tab();
 	t.true(document.activeElement === button1);
 });
