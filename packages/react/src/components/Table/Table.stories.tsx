@@ -8,9 +8,22 @@ import { TableBody } from './TableBody/TableBody';
 import { TableRow } from './TableRow/TableRow';
 import { TableCell } from './TableCell/TableCell';
 import { tableData } from './data';
-import { TableHeaderCellProps, TableProps } from './types';
+import { TableData, TableHeaderCellProps, TableProps } from './types';
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
+
+/**
+ * Helper component that renders a tooltip with an info icon.
+ */
+const TooltipIcon = () => {
+	const [reference, setReference] = React.useState<any | null>(null);
+	return (
+		<span>
+			<Icon color="gray" variant="info" ref={setReference} />
+			<Tooltip reference={reference}>This is a tooltip</Tooltip>
+		</span>
+	);
+};
 
 const meta = {
 	title: 'Components/Table',
@@ -31,24 +44,36 @@ export default meta;
 
 type Story = StoryObj<typeof Table>;
 
+const tableDataWithHeaderSuffix: TableData = {
+	...tableData,
+	headers: [
+		tableData.headers[0],
+		{
+			...tableData.headers[1],
+			suffix: <TooltipIcon />,
+		},
+		...tableData.headers.slice(2),
+	],
+};
+
 export const DataTable = {
 	args: {
-		data: tableData,
+		data: tableDataWithHeaderSuffix,
 	},
 } satisfies Story;
 
 export const DataTableWithCaption = {
 	args: {
-		data: tableData,
+		data: tableDataWithHeaderSuffix,
 		captionContent:
 			'Insert optional table caption description here optional descriptive text lorem ipsum lorem ipsum dolor sit amet.',
 	},
 } satisfies Story;
 
-export const UncontrolledSortableDataTable = {
+export const SortableDataTable = {
 	args: {
 		isSortable: true,
-		data: tableData,
+		data: tableDataWithHeaderSuffix,
 	},
 } satisfies Story;
 
@@ -56,7 +81,7 @@ export const ControlledSortableDataTable = {
 	args: {
 		isSortable: true,
 		onSort: action('onSort'),
-		data: tableData,
+		data: tableDataWithHeaderSuffix,
 	},
 } satisfies Story;
 
@@ -90,12 +115,11 @@ export const ComposableTable = {
 	},
 } satisfies Story;
 
-export const UncontrolledSortableComposableTable = {
+export const SortableComposableTable = {
 	args: {
 		isSortable: true,
 	},
 	render(args) {
-		const [reference, setReference] = React.useState<any | null>(null);
 		return (
 			<Table {...args}>
 				<TableHeader>
@@ -105,9 +129,9 @@ export const UncontrolledSortableComposableTable = {
 								key={header.children as string}
 								sorter={header.sorter}
 								textValue={header.children?.toLocaleString()}
+								suffix={<TooltipIcon />}
 							>
-								{header.children} <Icon variant="info" ref={setReference} />{' '}
-								<Tooltip reference={reference}>This is a tooltip</Tooltip>
+								{header.children}
 							</TableHeaderCell>
 						);
 					})}
@@ -148,7 +172,11 @@ export const ControlledSortableComposableTable = {
 					// TODO: improve typing to get generics
 					sorter: (a: string, b: string) => a.localeCompare(b) as any,
 				},
-				{ children: 'Age', sorter: (a: number, b: number) => a - b } as any,
+				{
+					children: 'Age',
+					sorter: (a: number, b: number) => a - b,
+					suffix: <TooltipIcon />,
+				} as any,
 				{
 					children: 'City',
 					sorter: (a: string, b: string) => a.localeCompare(b) as any,
@@ -210,8 +238,13 @@ export const ControlledSortableComposableTable = {
 				<TableHeader>
 					{data.headers.map((header, idx: number) => {
 						return (
-							// eslint-disable-next-line react/no-array-index-key
-							<TableHeaderCell key={idx} sorted={header.sorted} sorter={header.sorter}>
+							<TableHeaderCell
+								// eslint-disable-next-line react/no-array-index-key
+								key={idx}
+								sorted={header.sorted}
+								sorter={header.sorter}
+								suffix={header.suffix}
+							>
 								{header.children}
 							</TableHeaderCell>
 						);

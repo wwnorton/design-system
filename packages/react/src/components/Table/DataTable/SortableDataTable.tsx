@@ -63,6 +63,7 @@ export const SortableDataTable = forwardRef<HTMLTableElement, DataTableProps>(
 					key={index}
 					order={sortState.index === index ? sortState.order : 1}
 					onSort={() => onSort(index)}
+					suffix={header.suffix}
 				>
 					{header.children}
 				</BaseTableHeaderCell>

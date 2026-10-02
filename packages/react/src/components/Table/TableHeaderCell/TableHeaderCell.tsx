@@ -13,13 +13,14 @@ export const TableHeaderCell = ({
 	children,
 	sorted,
 	textValue,
+	suffix,
 	...others
 }: TableHeaderCellProps) => {
 	const colId = useId() || '';
 	const sortingState = useSortingState();
 
 	const ref = useRef<HTMLTableCellElement>(null);
-	useRegisterHeader({ colId, th: ref, content: children, textValue });
+	useRegisterHeader({ colId, th: ref, content: children, suffix, textValue });
 
 	useEffect(() => {
 		if (sortingState) {
@@ -54,7 +55,13 @@ export const TableHeaderCell = ({
 	}, [controlledOnSort, sortingState, colId, sortDirection]);
 
 	return (
-		<BaseTableHeaderCell ref={ref} {...others} order={sortDirection} onSort={onSort}>
+		<BaseTableHeaderCell
+			ref={ref}
+			{...others}
+			suffix={suffix}
+			order={sortDirection}
+			onSort={onSort}
+		>
 			{children}
 		</BaseTableHeaderCell>
 	);

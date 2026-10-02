@@ -7,6 +7,7 @@ import { SortDirection } from '../types';
 import { getSortDirectionARIA } from '../utils/getSortDirectionARIA';
 
 const css = {
+	content: 'nds-table-header-cell__content',
 	sortButton: {
 		accessibleName: 'nds-table-sort-button-a11y-name',
 		base: 'nds-table-sort-button',
@@ -77,7 +78,7 @@ export const SortButton = ({ direction, onClick, children }: SortButtonProps) =>
 };
 
 export const BaseTableHeaderCell = React.forwardRef<HTMLTableCellElement, BaseTableHeaderCellProps>(
-	({ order, onSort, children, ...other }, ref) => {
+	({ order, onSort, children, suffix, ...other }, ref) => {
 		let content = children;
 		if (onSort) {
 			content = (
@@ -89,7 +90,10 @@ export const BaseTableHeaderCell = React.forwardRef<HTMLTableCellElement, BaseTa
 
 		return (
 			<th ref={ref} {...other} aria-sort={getSortDirectionARIA(order)}>
-				{content}
+				<div className={css.content}>
+					{content}
+					{suffix}
+				</div>
 			</th>
 		);
 	},

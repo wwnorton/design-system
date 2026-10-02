@@ -23,6 +23,7 @@ export const ControlledSortableDataTable = forwardRef<
 					key={index}
 					order={currentDirection}
 					onSort={() => onSort(index, formatSortDirection(newDirection))}
+					suffix={header.suffix}
 				>
 					{header.children}
 				</BaseTableHeaderCell>
