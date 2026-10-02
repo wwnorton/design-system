@@ -7,12 +7,18 @@ const css = {
 };
 
 export const BaseTableCell = React.forwardRef<HTMLTableCellElement, BaseTableCellProps>(
-	({ header, children, ...tdProps }, ref) => {
+	({ headerContent, headerSuffix, children, ...tdProps }, ref) => {
+		/**
+		 * The header component renders the header content
+		 * and suffix and displays only in XS breakpoints
+		 * for better visual reference to the users.
+		 */
 		let headerComponent: React.ReactNode = null;
-		if (header) {
+		if (headerContent) {
 			headerComponent = (
 				<div className={css.header} aria-hidden>
-					{header}
+					{headerContent}
+					{headerSuffix}
 				</div>
 			);
 		}
