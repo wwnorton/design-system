@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.0](https://github.com/wwnorton/design-system/compare/v2.1.6...v2.2.0) (2026-10-05)
+
+### ✨ Features
+
+- **react:** support adding suffix component to table headers ([6f988af](https://github.com/wwnorton/design-system/commit/6f988af51f45b221fe28355e1d6583a4763a44a9))
+
 ## [2.1.4](https://github.com/wwnorton/design-system/compare/v2.1.3...v2.1.4) (2026-09-04)
 
 ### 🐛 Bug Fixes

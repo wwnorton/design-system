@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.0](https://github.com/wwnorton/design-system/compare/v2.1.6...v2.2.0) (2026-10-05)
+
+### ✨ Features
+
+- **react:** support adding suffix component to table headers ([6f988af](https://github.com/wwnorton/design-system/commit/6f988af51f45b221fe28355e1d6583a4763a44a9))
+
+### 🐛 Bug Fixes
+
+- **react:** fix Disclosure flickering when lifecycle props changes ([51e4c45](https://github.com/wwnorton/design-system/commit/51e4c456ac60320860d28c61d14a358400e8aca8))
+- **react:** solve default checked issue with CheckboxGroup ([161a3dd](https://github.com/wwnorton/design-system/commit/161a3dd0b3182e0c00b71074272161acdc23d2c3))
+
 ## [2.1.6](https://github.com/wwnorton/design-system/compare/v2.1.5...v2.1.6) (2026-09-29)
 
 ### 🐛 Bug Fixes
