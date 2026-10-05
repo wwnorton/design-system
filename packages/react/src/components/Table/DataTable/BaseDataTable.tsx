@@ -16,7 +16,9 @@ export const BaseDataTable = forwardRef<HTMLTableElement, BaseDataTableProps>(
 
 			return headersData.map((header, index) => (
 				// eslint-disable-next-line react/no-array-index-key
-				<BaseTableHeaderCell key={index}>{header.children}</BaseTableHeaderCell>
+				<BaseTableHeaderCell key={index} suffix={header.suffix}>
+					{header.children}
+				</BaseTableHeaderCell>
 			));
 		}, [headersData, headers]);
 
@@ -37,7 +39,8 @@ export const BaseDataTable = forwardRef<HTMLTableElement, BaseDataTableProps>(
 						}
 						return (
 							<BaseTableCell
-								header={cellIndex > 0 ? headersData[cellIndex].children : undefined}
+								headerContent={cellIndex > 0 ? headersData[cellIndex].children : undefined}
+								headerSuffix={cellIndex > 0 ? headersData[cellIndex].suffix : undefined}
 								// eslint-disable-next-line react/no-array-index-key
 								key={cellIndex}
 							>
