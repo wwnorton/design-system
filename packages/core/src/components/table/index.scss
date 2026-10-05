@@ -57,7 +57,10 @@
 		gap: var(--nds-spacing-2);
 
 		.nds-table-cell__header {
+			display: flex;
 			width: 33%;
+			align-items: center;
+			gap: var(--nds-spacing-1);
 		}
 
 		.nds-table-cell__content {
@@ -231,6 +234,14 @@
 				position: static;
 				height: auto;
 				opacity: 1;
+			}
+		}
+
+		.nds-table-header-cell {
+			&__content {
+				display: flex;
+				align-items: center;
+				gap: var(--nds-spacing-1);
 			}
 		}
 

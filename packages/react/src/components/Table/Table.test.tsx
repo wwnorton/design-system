@@ -116,6 +116,61 @@ test('Sortable ComposableTable (XS): sort dropdown uses textValue when set, othe
 	]);
 });
 
+test('DataTable: header Suffix renders in both XS and LG breakpoints', (t) => {
+	const suffix = <span data-testid="header-suffix">suffix</span>;
+	const dataWithSuffix: typeof tableData = {
+		...tableData,
+		headers: [
+			tableData.headers[0],
+			{ ...tableData.headers[1], suffix },
+			...tableData.headers.slice(2),
+		],
+	};
+
+	render(<Table data={dataWithSuffix} />);
+
+	// LG breakpoint: the suffix is rendered inside the visible header cell (`<th>`).
+	const headerCell = screen.getAllByRole('columnheader')[1];
+	t.not(within(headerCell).queryByTestId('header-suffix'), null);
+
+	// XS breakpoint: the suffix is rendered inside every data cell's header context
+	// for the matching column (column index > 0).
+	const dataRows = screen.getAllByRole('row').slice(1);
+	t.true(dataRows.length > 0);
+	dataRows.forEach((row) => {
+		const cells = row.querySelectorAll('td');
+		const cellHeader = cells[1].querySelector('.nds-table-cell__header');
+		t.not(cellHeader, null);
+		t.not(within(cellHeader as HTMLElement).queryByTestId('header-suffix'), null);
+	});
+});
+
+test('ComposableTable: header Suffix renders in both XS and LG breakpoints', (t) => {
+	const suffix = <span data-testid="header-suffix">suffix</span>;
+
+	renderComposableTable(
+		{},
+		{
+			headerCellProps: [{}, { suffix }],
+		},
+	);
+
+	// LG breakpoint: the suffix is rendered inside the visible header cell (`<th>`).
+	const headerCell = screen.getAllByRole('columnheader')[1];
+	t.not(within(headerCell).queryByTestId('header-suffix'), null);
+
+	// XS breakpoint: the suffix is rendered inside every data cell's header context
+	// for the matching column (column index > 0).
+	const dataRows = screen.getAllByRole('row').slice(1);
+	t.true(dataRows.length > 0);
+	dataRows.forEach((row) => {
+		const cells = row.querySelectorAll('td');
+		const cellHeader = cells[1].querySelector('.nds-table-cell__header');
+		t.not(cellHeader, null);
+		t.not(within(cellHeader as HTMLElement).queryByTestId('header-suffix'), null);
+	});
+});
+
 [
 	{
 		value: undefined,

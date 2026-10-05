@@ -4,6 +4,7 @@ export interface Header {
 	colId: string;
 	el: HTMLElement;
 	content: React.ReactNode;
+	suffix?: React.ReactNode;
 	textValue: string;
 }
 
@@ -11,6 +12,7 @@ interface HeaderToRegister {
 	colId: string;
 	el: HTMLElement;
 	content: React.ReactNode;
+	suffix?: React.ReactNode;
 	textValue?: string;
 }
 
@@ -33,7 +35,7 @@ export const HeadersContextProvider = ({ children }: { children: React.ReactNode
 	const [headers, setHeaders] = useState<Header[]>([]);
 
 	const registerHeader: HeadersState['registerHeader'] = useCallback(
-		({ colId, el, content, textValue }) => {
+		({ colId, el, content, suffix, textValue }) => {
 			setHeaders((prev) => {
 				if (prev.some((h) => h.el === el)) {
 					// Already registered, we won't register again.
@@ -48,6 +50,7 @@ export const HeadersContextProvider = ({ children }: { children: React.ReactNode
 						colId,
 						el,
 						content,
+						suffix,
 						textValue: textValue || el.textContent || '',
 					},
 				];
@@ -67,11 +70,11 @@ export const HeadersContextProvider = ({ children }: { children: React.ReactNode
 };
 
 /**
- * Returns the header content for the column identified with the given `colIdx`.
+ * Returns the registered Header for the column identified with the given `colIdx`.
  * Returns null if not found.
  */
-export function useHeaderContent(colIdx: number): React.ReactNode | null {
-	return useContext(HeadersContext).headers[colIdx]?.content || null;
+export function useHeader(colIdx: number): Header | null {
+	return useContext(HeadersContext).headers[colIdx] || null;
 }
 
 /**
@@ -111,6 +114,7 @@ export function useRegisterHeader({
 	th,
 	content,
 	textValue,
+	suffix,
 }: UseRegisterHeaderOptions): void {
 	const headers = useContext(HeadersContext);
 
@@ -126,6 +130,7 @@ export function useRegisterHeader({
 				el: thEl,
 				content,
 				textValue,
+				suffix,
 			});
 		}
 		// We want to register the header only on mount, even if something changes

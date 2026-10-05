@@ -1,3 +1,5 @@
+import { BaseTableHeaderCellProps } from './TableHeaderCell/types';
+
 export enum SortDirection {
 	DESC = 0,
 	NONE,
@@ -88,7 +90,7 @@ export interface TableData {
 
 export type SortableValue = string | number | boolean;
 
-export interface TableDataHeader {
+export type TableDataHeader = {
 	/**
 	 * The element to render inside the data cell
 	 */
@@ -103,7 +105,7 @@ export interface TableDataHeader {
 	 * Used for Controlled Sorting, defines the current sort state of the column.
 	 */
 	sorted?: 'asc' | 'desc' | undefined;
-}
+} & Pick<BaseTableHeaderCellProps, 'suffix'>;
 
 export interface TableDataCell {
 	/**
@@ -124,29 +126,30 @@ export interface TableHeaderProps extends React.TableHTMLAttributes<HTMLTableSec
 	className?: string;
 }
 
-export interface TableHeaderCellProps extends React.TableHTMLAttributes<HTMLTableCellElement> {
-	/**
-	 * Override or extend existing table style.
-	 */
-	className?: string;
+export type TableHeaderCellProps = Pick<BaseTableHeaderCellProps, 'suffix'> &
+	React.TableHTMLAttributes<HTMLTableCellElement> & {
+		/**
+		 * Override or extend existing table style.
+		 */
+		className?: string;
 
-	/**
-	 * Used for Uncontrolled Sorting, overrides the default sorting function for this column.
-	 */
-	sorter?: (a: SortableValue, b: SortableValue) => number;
+		/**
+		 * Used for Uncontrolled Sorting, overrides the default sorting function for this column.
+		 */
+		sorter?: (a: SortableValue, b: SortableValue) => number;
 
-	/**
-	 * Used for Controlled Sorting, defines the current sort state of the column.
-	 */
-	sorted?: 'asc' | 'desc' | undefined;
+		/**
+		 * Used for Controlled Sorting, defines the current sort state of the column.
+		 */
+		sorted?: 'asc' | 'desc' | undefined;
 
-	/**
-	 * The text value of the header cell.
-	 * When set, it's used to render the options in the dropdown for sorting in XS breakpoint.
-	 * If not set, the text content of the header cell is used instead.
-	 */
-	textValue?: string;
-}
+		/**
+		 * The text value of the header cell.
+		 * When set, it's used to render the options in the dropdown for sorting in XS breakpoint.
+		 * If not set, the text content of the header cell is used instead.
+		 */
+		textValue?: string;
+	};
 
 export interface TableBodyProps extends React.TableHTMLAttributes<HTMLTableSectionElement> {
 	/**
@@ -168,7 +171,13 @@ export interface BaseTableCellProps extends React.TableHTMLAttributes<HTMLTableC
 	 * This will only render in the XS breakpoint to give visual context
 	 * to users.
 	 */
-	header?: React.ReactNode;
+	headerContent?: React.ReactNode;
+
+	/**
+	 * The suffix of the header that corresponds to this cell.
+	 * This will only render in the XS breakpoint to give visual context to users.
+	 */
+	headerSuffix?: React.ReactNode;
 }
 
 export interface TableCellProps extends BaseTableCellProps {

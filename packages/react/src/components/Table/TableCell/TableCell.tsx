@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BaseTableCell } from './BaseTableCell';
 import { SortingCellData, useSortingState } from '../ComposableTable/SortingContext';
 import { TableCellProps } from '../types';
-import { useHeaderContent } from '../ComposableTable/HeadersContext';
+import { useHeader } from '../ComposableTable/HeadersContext';
 
 function getSiblingIndex(el: HTMLElement): number {
 	return Array.from(el.parentElement!.children).indexOf(el);
@@ -29,9 +29,12 @@ export const TableCell = ({ value, ...others }: TableCellProps) => {
 	}, []);
 
 	const [colIdx, setColIdx] = useState(-1);
-	let header: React.ReactNode | null = useHeaderContent(colIdx);
+	const header = useHeader(colIdx);
+	let headerContent = header?.content;
+	let headerSuffix = header?.suffix;
 	if (colIdx === 0) {
-		header = null;
+		headerContent = null;
+		headerSuffix = null;
 	}
 
 	useEffect(() => {
@@ -40,5 +43,12 @@ export const TableCell = ({ value, ...others }: TableCellProps) => {
 		}
 	}, []);
 
-	return <BaseTableCell ref={cellRef} header={header} {...others} />;
+	return (
+		<BaseTableCell
+			{...others}
+			ref={cellRef}
+			headerContent={headerContent}
+			headerSuffix={headerSuffix}
+		/>
+	);
 };
