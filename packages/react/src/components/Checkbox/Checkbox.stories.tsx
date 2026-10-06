@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 import { Checkbox, CheckboxGroup } from '.';
 import { Button } from '../Button';
 import { useSelect, useValidation } from '../../utilities';
-import { Choices } from '../ChoiceField';
 
 const meta = {
 	title: 'Components/Checkbox',
@@ -137,16 +136,22 @@ const fruits = [
 export const ControlledGroup = {
 	...CheckboxGroupTemplate,
 	render: (args) => {
-		const { selected, formChangeHandler } = useSelect(true, ['banana']);
+		const { selected, formChangeHandler, toggle } = useSelect(true, ['banana']);
 
 		React.useEffect(() => action('selection change')(selected), [selected]);
 
+		const selectKiwi = useCallback(() => {
+			toggle('kiwi');
+		}, [toggle]);
+
 		return (
-			<CheckboxGroup {...args} label="Choose your favorite fruits" onChange={formChangeHandler}>
-				<Choices choices={fruits} selected={selected} name="fruit" />
-				{/* Alternatively, choices could be mapped manually */}
-				{/* {
-					fruits.map(({ value, ...props }) => (
+			<section>
+				<Button onClick={selectKiwi}>Select Kiwi</Button>
+				<hr />
+				<CheckboxGroup {...args} label="Choose your favorite fruits" onChange={formChangeHandler}>
+					{/* <Choices choices={fruits} selected={selected} name="fruit" /> */}
+					{/* Alternatively, choices could be mapped manually */}
+					{fruits.map(({ value, ...props }) => (
 						<Checkbox
 							checked={selected.includes(value)}
 							value={value}
@@ -154,9 +159,9 @@ export const ControlledGroup = {
 							key={value}
 							{...props}
 						/>
-					))
-				} */}
-			</CheckboxGroup>
+					))}
+				</CheckboxGroup>
+			</section>
 		);
 	},
 } satisfies GroupStory;

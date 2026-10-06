@@ -121,3 +121,37 @@ test('in an uncontrolled `CheckboxGroup`, selecting a new value does not uncheck
 	t.is(inputs[2].checked, true);
 	t.is(inputs[3].checked, false);
 });
+
+test('in a controlled `CheckboxGroup`, changing a child `Checkbox` `checked` prop updates the checked state', (t) => {
+	const Group = ({ bananaChecked }: { bananaChecked: boolean }) => (
+		<CheckboxGroup label="Choose your favorite fruits">
+			<Checkbox checked={false}>Apple</Checkbox>
+			<Checkbox checked={bananaChecked}>Banana</Checkbox>
+			<Checkbox checked={false}>Kiwi</Checkbox>
+		</CheckboxGroup>
+	);
+
+	const { rerender } = render(<Group bananaChecked={false} />);
+
+	const apple = screen.getByLabelText('Apple') as HTMLInputElement;
+	const banana = screen.getByLabelText('Banana') as HTMLInputElement;
+	const kiwi = screen.getByLabelText('Kiwi') as HTMLInputElement;
+
+	t.false(apple.checked);
+	t.false(banana.checked);
+	t.false(kiwi.checked);
+
+	// change the controlled `checked` prop of the Banana checkbox
+	rerender(<Group bananaChecked />);
+
+	t.false(apple.checked);
+	t.true(banana.checked);
+	t.false(kiwi.checked);
+
+	// changing it back unchecks it again
+	rerender(<Group bananaChecked={false} />);
+
+	t.false(apple.checked);
+	t.false(banana.checked);
+	t.false(kiwi.checked);
+});
