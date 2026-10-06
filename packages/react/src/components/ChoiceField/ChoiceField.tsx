@@ -133,8 +133,12 @@ export const ChoiceField = React.forwardRef<HTMLFieldSetElement, ChoiceFieldProp
 					} else if (React.isValidElement<ChoiceProps>(child)) {
 						value = (child.props.value || child.props.children || '').toString();
 
+						const isControlled = child.props.checked !== undefined;
+
 						let isChecked: boolean | undefined;
-						if (checkedIndexes !== null) {
+						if (isControlled) {
+							isChecked = child.props.checked;
+						} else if (checkedIndexes !== null) {
 							isChecked = checkedIndexes[idx];
 						} else {
 							isChecked = child.props.checked;
