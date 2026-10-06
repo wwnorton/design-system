@@ -47,6 +47,7 @@ export const Default = {} satisfies Story;
 export const Panel = {
 	args: {
 		panel: true,
+		isOpen: true,
 	},
 } satisfies Story;
 
