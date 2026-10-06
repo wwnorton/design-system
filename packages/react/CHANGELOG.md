@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/wwnorton/design-system/compare/v1.10.0...v1.10.1) (2026-10-06)
+
+### 🐛 Bug Fixes
+
+- **react:** controlled checkbox group not updating with prop change ([458ff61](https://github.com/wwnorton/design-system/commit/458ff6162e84462987c90c7eab8ea3d1589fc95c))
+- **react:** disclosure contents not showing when isOpen by default ([e01262c](https://github.com/wwnorton/design-system/commit/e01262cd15e4e6c4ff0b5dbdcc60704d14a04f27))
+
 ## [1.10.0](https://github.com/wwnorton/design-system/compare/v1.9.10...v1.10.0) (2026-10-05)
 
 ### ✨ Features
