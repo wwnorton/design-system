@@ -139,6 +139,9 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 				setHeight(contents.offsetHeight);
 				if (shouldAnimate) {
 					setStyle({ height: 0 });
+					window.requestAnimationFrame(() => {
+						setState('opening');
+					});
 				}
 			}
 		}, [isOpen, contents, shouldAnimate]);

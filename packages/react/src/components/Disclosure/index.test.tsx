@@ -53,6 +53,22 @@ test('clicking the summary closes an open disclosure', async (t) => {
 	t.false(details.hasAttribute('open'));
 });
 
+test('renders its contents when `isOpen` is set to `true` by default', async (t) => {
+	render(
+		<Disclosure summary={defaultSummary} isOpen>
+			{shortContent}
+		</Disclosure>,
+	);
+
+	await waitForAnimationFrame();
+
+	const details = screen.getByRole('group') as HTMLDetailsElement;
+	t.true(details.hasAttribute('open'));
+
+	// The contents should be rendered and visible without any interaction.
+	t.not(screen.queryByText(shortContent), null);
+});
+
 test('returning false on a callback cancels the callback', async (t) => {
 	const user = userEvent.setup();
 
