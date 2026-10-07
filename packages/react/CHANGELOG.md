@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.0](https://github.com/wwnorton/design-system/compare/v1.10.1...v1.11.0) (2026-10-07)
+
+### ✨ Features
+
+- **react:** add focus-visible support to tooltips ([9490fad](https://github.com/wwnorton/design-system/commit/9490fad264fa103d72034a45ceb373f19462321b))
+
 ## [1.10.1](https://github.com/wwnorton/design-system/compare/v1.10.0...v1.10.1) (2026-10-06)
 
 ### 🐛 Bug Fixes
