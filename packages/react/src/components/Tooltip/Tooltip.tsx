@@ -29,7 +29,7 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(
 			contentClass,
 			arrowClass,
 			asLabel = false,
-			trigger = 'focus-visible pointerenter',
+			trigger = 'focus pointerenter',
 
 			// inherited from React.ComponentPropsWithoutRef<'div'>
 			children,
