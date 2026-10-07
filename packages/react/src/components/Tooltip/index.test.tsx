@@ -1,6 +1,7 @@
 import test from 'ava';
 import React from 'react';
-import { cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import sinon from 'sinon';
+import { act, cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Tooltip, TooltipProps } from '.';
 
@@ -88,6 +89,48 @@ test("the focus trigger toggles the tooltip's visibility on focus", async (t) =>
 	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
 });
 
+test('the focus trigger opens the tooltip on programmatic focus', (t) => {
+	render(<TooltipFixture trigger="focus" />);
+	const reference = screen.getByRole('button');
+
+	act(() => {
+		reference.focus();
+	});
+
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+});
+
+test("the focus-visible trigger toggles the tooltip's visibility when tabbing", async (t) => {
+	const user = userEvent.setup();
+
+	render(<TooltipFixture trigger="focus-visible" />);
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+
+	await user.tab();
+	t.truthy(screen.queryByRole('tooltip', { hidden: true }));
+});
+
+test('the focus-visible trigger does not open the tooltip on programmatic focus', (t) => {
+	render(<TooltipFixture trigger="focus-visible" />);
+	const reference = screen.getByRole('button');
+
+	// jsdom treats any focused element as :focus-visible; real UAs typically do not
+	// for programmatic focus. Stub the selector so this test matches browser behavior.
+	const matches = sinon
+		.stub(Element.prototype, 'matches')
+		.callsFake(function (this: Element, selectors: string) {
+			if (selectors === ':focus-visible') return false;
+			return matches.wrappedMethod.call(this, selectors);
+		});
+	t.teardown(() => matches.restore());
+
+	act(() => {
+		reference.focus();
+	});
+
+	t.falsy(screen.queryByRole('tooltip', { hidden: true }));
+});
+
 test("the focusin trigger toggles the tooltip's visibility on focusin", async (t) => {
 	const user = userEvent.setup();
 
@@ -129,14 +172,14 @@ test('unhovering the reference hides the tooltip after a delay when the trigger 
 });
 
 test("tooltip contents label the reference even when the tooltip isn't visible", async (t) => {
-	render(<TooltipFixture trigger="focus pointerenter" asLabel />);
+	render(<TooltipFixture trigger="focus-visible pointerenter" asLabel />);
 	t.truthy(screen.queryByRole('button', { name: defaultContents }));
 });
 
 test("complex tooltip contents are flattened and used as the reference's label even when the tooltip isn't visible", async (t) => {
 	const FLATTENED = 'lorem ipsum dolor sit amet consectetur adipisicing elit !1';
 	render(
-		<TooltipFixture trigger="focus pointerenter" asLabel>
+		<TooltipFixture trigger="focus-visible pointerenter" asLabel>
 			<p>
 				lorem <span>ipsum</span>{' '}
 			</p>
