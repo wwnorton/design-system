@@ -1,7 +1,34 @@
 ---
 title: Spacing
 ---
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
+export const SpacingPreview = ({ size }) => (
+  <span
+    aria-hidden="true"
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      width: '200px',
+      height: `${Math.max(size, 4)}px`,
+      backgroundColor: '#f2f7fc',
+    }}
+  >
+    {size > 0 && (
+      <span
+        style={{
+          display: 'block',
+          boxSizing: 'border-box',
+          flexShrink: 0,
+          width: `${size}px`,
+          height: `${size}px`,
+          backgroundColor: '#6BCDCF',
+          border: '1px dashed #485B6F',
+        }}
+      />
+    )}
+  </span>
+);
 
 The Norton spacing system uses a scale based on 4px increments to create consistent spacing within and between components. Use the scale to establish hierarchy, group related elements, and create clear, readable layouts.
 
@@ -42,7 +69,7 @@ Choose spacing based on the relationship between elements. Smaller values keep r
 
 Use smaller spacing values for closely related elements, such as an icon and label. Follow existing component specifications for internal padding and gaps.
 <img
-	alt="a button and dropdown component, closed and opened with spacing tokens highlighted and called out within the components."
+	alt="a button and dropdown component, closed Sand opened with spacing tokens highlighted and called out within the components."
 	src={useBaseUrl('/img/Spacing_component.png')}
 />
 
@@ -51,7 +78,7 @@ Use smaller spacing values for closely related elements, such as an icon and lab
 Use moderate spacing values to separate components within the same group, such as form fields, cards, or stacked content.
 <img
 	alt="a modal component with spacing tokens highlighted and calling out vertical and horizontal space between all elements within it."
-	src={useBaseUrl('img/spacing_larger.png')}
+	src={useBaseUrl('/img/spacing_larger.png')}
 />
 
 ### Between sections
