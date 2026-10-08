@@ -15,7 +15,9 @@ type PopperInherited = Pick<
 	| 'onFirstUpdate'
 >;
 
-type UsePopperTriggersInherited = Pick<UsePopperTriggersProps, 'hideDelay' | 'showDelay'>;
+type UsePopperTriggersInherited = Partial<
+	Pick<UsePopperTriggersProps, 'trigger' | 'hideDelay' | 'showDelay'>
+>;
 
 export type TooltipCoreProps = PopperInherited & UsePopperTriggersInherited;
 
