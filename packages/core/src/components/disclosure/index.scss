@@ -36,11 +36,21 @@
 }
 
 @mixin contents-outer {
+	// The outer wrapper is height-animated between 0 and the measured content
+	// height. The inline `height` is driven by the Disclosure component; this
+	// mixin only supplies the transition timing.
+	box-sizing: content-box;
 	overflow-y: hidden;
-	transition: motion.transition(height, var(--nds-duration-expand));
 
+	// While opening (the element is `[open]` but not `.nds-closing`) use the
+	// expand duration.
 	[open] & {
-		box-sizing: content-box;
+		transition: motion.transition(height, var(--nds-duration-expand));
+	}
+
+	// While closing, the component keeps the `[open]` attribute set and adds the
+	// `.nds-closing` class. Use the collapse duration for that direction.
+	[open].nds-closing & {
 		transition: motion.transition(height, var(--nds-duration-collapse));
 	}
 }
