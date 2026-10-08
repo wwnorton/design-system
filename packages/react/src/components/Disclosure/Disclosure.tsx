@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { BaseDetails } from '../BaseDetails';
 import { BaseSummary } from '../BaseSummary';
@@ -13,10 +13,12 @@ const proceed = async (cb?: DisclosureProps['onCloseStart']): Promise<boolean> =
 	return true;
 };
 
+type DisclosureState = 'open' | 'closed' | 'opening' | 'closing';
+
 export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 	(
 		{
-			isOpen: propOpen = false,
+			isOpen: propOpen,
 			reducedMotion,
 			summary,
 			children,
@@ -48,16 +50,25 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 		}: DisclosureProps,
 		ref,
 	): JSX.Element => {
-		const [isOpen, setOpen] = React.useState(propOpen);
-		const [height, setHeight] = React.useState<number>();
-		const [state, setState] = React.useState<'opening' | 'closing'>();
-		const [style, setStyle] = React.useState<React.CSSProperties>();
+		const [state, setState] = React.useState<DisclosureState>(propOpen ? 'open' : 'closed');
 		const [contents, setContents] = React.useState<HTMLDivElement | null>(null);
 		const transform = React.useMemo<typeof markerTransform>(() => {
 			if (markerTransform) return markerTransform;
 			return panel ? 'flip-3d' : 'rotate-90';
 		}, [markerTransform, panel]);
 
+		// The native `open` attribute must remain set while the disclosure is
+		// animating closed, otherwise the browser removes the contents from the
+		// layout before the height transition can run.
+		const isOpen = state !== 'closed';
+		const isClosing = state === 'closing';
+
+		/**
+		 * Determines whether the contents element has a non-zero transition
+		 * duration. When reduced motion is requested, or when the computed
+		 * `transition-duration` is `0`, there's nothing to animate and the
+		 * open/close happens instantly.
+		 */
 		const shouldAnimate = React.useMemo(() => {
 			if (reducedMotion) return false;
 			if (!contents) return true;
@@ -68,110 +79,126 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 				.some((value) => parseFloat(value) > 0);
 		}, [reducedMotion, contents]);
 
-		const open = React.useCallback(async () => {
-			if (isOpen || state === 'opening') return;
+		const open = useCallback(async () => {
 			if (await proceed(onOpenStart)) {
-				setOpen(true);
-				window.requestAnimationFrame(() => {
-					setState('opening');
-				});
+				setState((prev) => (prev === 'open' || prev === 'opening' ? prev : 'opening'));
 			}
-		}, [isOpen, state, onOpenStart]);
+		}, [onOpenStart]);
 
-		const close = React.useCallback(async () => {
-			if (!isOpen || state === 'closing') return;
+		const close = useCallback(async () => {
 			if (await proceed(onCloseStart)) {
-				if (shouldAnimate) {
-					setStyle({ height });
-					window.requestAnimationFrame(() => {
-						setState('closing');
-					});
-				} else {
-					setOpen(false);
-					setState(undefined);
-					if (onCloseEnd) onCloseEnd();
-				}
+				setState((prev) => (prev === 'closed' || prev === 'closing' ? prev : 'closing'));
 			}
-		}, [isOpen, state, height, shouldAnimate, onCloseEnd, onCloseStart]);
+		}, [onCloseStart]);
 
 		const summaryClickHandler = async (e: React.MouseEvent<HTMLElement>) => {
 			e.preventDefault();
-			if (state === 'closing') {
-				if (await proceed(onCloseCancel)) {
-					setState(shouldAnimate ? 'opening' : undefined);
-				}
-				return;
+			switch (state) {
+				case 'open':
+					close();
+					break;
+				case 'closed':
+					open();
+					break;
+				case 'opening':
+					// Interrupt an in-progress open and begin closing.
+					if (await proceed(onOpenCancel)) {
+						close();
+					}
+					break;
+				case 'closing':
+					// Interrupt an in-progress close and begin opening.
+					if (await proceed(onCloseCancel)) {
+						open();
+					}
+					break;
+				default:
+					break;
 			}
-			if (state === 'opening') {
-				if (await proceed(onOpenCancel)) {
-					setState(shouldAnimate ? 'closing' : undefined);
-				}
-				return;
-			}
-
-			if (isOpen) close();
-			else open();
 		};
 
-		const transitionEndHandler = (): void => {
-			if (state === 'opening') {
-				if (onOpenEnd) onOpenEnd();
-			}
-			if (state === 'closing') {
-				setOpen(false);
-				if (onCloseEnd) onCloseEnd();
-			}
-
-			setState(undefined);
-			setStyle(undefined);
-		};
-
-		// control via `isOpen` prop
+		// control via `isOpen` prop. Skip the initial mount so the lifecycle
+		// callbacks only fire on updates (or on a summary click). The initial
+		// `state` is already derived from `propOpen` in the `useState` initializer.
+		const isFirstRender = React.useRef(true);
 		React.useEffect(() => {
+			if (isFirstRender.current) {
+				isFirstRender.current = false;
+				return;
+			}
+			if (propOpen === undefined) {
+				return;
+			}
+
 			if (propOpen) open();
 			else close();
 		}, [propOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
-		// open start effect: discover height, set height to 0, then trigger 'opening'
+		/**
+		 * Drives the height animation for the two transitional states. When
+		 * `opening`, the outer wrapper animates from `0` up to the measured
+		 * content height; when `closing`, it animates from the measured content
+		 * height back down to `0`. After the animation starts the wrapper's height
+		 * is left to settle on `auto` (open) via the `transitionend` handler.
+		 */
 		useLayoutEffect(() => {
-			if (!isOpen) setState(undefined);
-			if (isOpen && contents) {
-				setHeight(contents.offsetHeight);
-				if (shouldAnimate) {
-					setStyle({ height: 0 });
-					window.requestAnimationFrame(() => {
-						setState('opening');
-					});
+			if (!contents) return undefined;
+
+			if (state === 'opening') {
+				if (!shouldAnimate) {
+					setState('open');
+					return undefined;
 				}
+				// Start collapsed, then expand to the content height on the next frame.
+				contents.style.height = '0px';
+				const frame = window.requestAnimationFrame(() => {
+					contents.style.height = `${contents.scrollHeight}px`;
+				});
+				return () => window.cancelAnimationFrame(frame);
 			}
-		}, [isOpen, contents, shouldAnimate]);
 
-		useEffect(() => {
-			// If we don't have to animate because of reduced motion
-			// either set via prop or animations disabled via
-			// CSS, then call the end callback immediately
-			if (state === 'opening' && isOpen && !shouldAnimate) {
-				if (onOpenEnd) {
-					onOpenEnd();
+			if (state === 'closing') {
+				if (!shouldAnimate) {
+					setState('closed');
+					return undefined;
 				}
-
-				setState(undefined);
+				// Start from the current content height, then collapse to 0.
+				contents.style.height = `${contents.scrollHeight}px`;
+				const frame = window.requestAnimationFrame(() => {
+					contents.style.height = '0px';
+				});
+				return () => window.cancelAnimationFrame(frame);
 			}
-		}, [isOpen, onOpenEnd, shouldAnimate, state]);
 
-		// set the style height when opening/closing
+			if (state === 'open') {
+				// Allow the contents to grow/shrink naturally once fully open.
+				contents.style.height = '';
+			}
+
+			if (state === 'closed') {
+				contents.style.height = '';
+			}
+
+			return undefined;
+		}, [state, contents, shouldAnimate]);
+
+		/**
+		 * Fire the open/close lifecycle end callbacks. When animating, these are
+		 * deferred to the `transitionend` handler below. When not animating, the
+		 * state jumps straight to its resting value and the callback fires here.
+		 */
+		const prevResting = React.useRef<DisclosureState>(state);
 		React.useEffect(() => {
-			if (shouldAnimate) {
-				if (state === 'opening' && height) {
-					setStyle({ height });
-				}
-				if (state === 'closing') {
-					setStyle({ height: 0 });
-				}
-			} else {
-				setStyle(undefined);
+			if (state === 'open' && prevResting.current !== 'open') {
+				if (!shouldAnimate) onOpenEnd?.();
 			}
-		}, [state, height, shouldAnimate]);
+			if (state === 'closed' && prevResting.current !== 'closed') {
+				if (!shouldAnimate) onCloseEnd?.();
+			}
+			if (state === 'open' || state === 'closed') {
+				prevResting.current = state;
+			}
+		}, [state, shouldAnimate, onOpenEnd, onCloseEnd]);
 
 		const getMarkerIcon = React.useCallback(
 			(m: typeof marker): Pick<IconProps, 'variant' | 'icon'> | undefined => {
@@ -201,10 +228,32 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 			return markerPosition;
 		}, [markerPosition, panel]);
 
-		const classes = classNames(className, baseName, state && `nds-${state}`, {
+		const classes = classNames(className, baseName, {
 			[`${baseName}--panel`]: panel,
+			'nds-closing': isClosing,
 			'nds-reduced-motion': !shouldAnimate,
 		});
+
+		/**
+		 * Completes a transitional state once the height transition finishes.
+		 * Guards against bubbling `transitionend` events from descendants and from
+		 * properties other than `height`.
+		 */
+		const transitionEndHandler = (e: React.TransitionEvent<HTMLDivElement>) => {
+			// Only react to the outer wrapper's own height transition. `propertyName`
+			// may be empty in some environments (e.g. jsdom), so only reject it when
+			// it's explicitly set to a different property.
+			if (e.target !== contents) return;
+			if (e.propertyName && e.propertyName !== 'height') return;
+
+			if (state === 'opening') {
+				setState('open');
+				onOpenEnd?.();
+			} else if (state === 'closing') {
+				setState('closed');
+				onCloseEnd?.();
+			}
+		};
 
 		return (
 			<BaseDetails ref={ref} className={classes} open={isOpen} {...props}>
@@ -217,16 +266,13 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 				>
 					<span className={`${baseName}__title`}>{summary}</span>
 				</BaseSummary>
-				{isOpen && (
-					<div
-						style={style}
-						className={contentsOuterClass}
-						ref={setContents}
-						onTransitionEnd={transitionEndHandler}
-					>
-						<div className={contentsInnerClass}>{children}</div>
-					</div>
-				)}
+				<div
+					className={contentsOuterClass}
+					ref={setContents}
+					onTransitionEnd={transitionEndHandler}
+				>
+					<div className={contentsInnerClass}>{children}</div>
+				</div>
 			</BaseDetails>
 		);
 	},

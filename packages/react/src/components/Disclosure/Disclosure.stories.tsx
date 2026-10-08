@@ -44,6 +44,12 @@ type Story = StoryObj<typeof Disclosure>;
 
 export const Default = {} satisfies Story;
 
+export const NoAnimation = {
+	args: {
+		reducedMotion: true,
+	},
+} satisfies Story;
+
 export const Panel = {
 	args: {
 		panel: true,

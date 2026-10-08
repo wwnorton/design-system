@@ -365,3 +365,106 @@ test('onCloseCancel is called when the summary is clicked while closing', async 
 		getComputedStyle.restore();
 	}
 });
+
+test('lifecycle callbacks do not fire on initial mount when closed by default', async (t) => {
+	const onOpenStart = sinon.spy();
+	const onOpenEnd = sinon.spy();
+	const onCloseStart = sinon.spy();
+	const onCloseEnd = sinon.spy();
+
+	render(
+		<Disclosure
+			summary={defaultSummary}
+			onOpenStart={onOpenStart}
+			onOpenEnd={onOpenEnd}
+			onCloseStart={onCloseStart}
+			onCloseEnd={onCloseEnd}
+		>
+			{shortContent}
+		</Disclosure>,
+	);
+
+	// Allow any deferred effects/animation frames to settle.
+	await waitForAnimationFrame();
+
+	const details = screen.getByRole('group') as HTMLDetailsElement;
+	t.false(details.hasAttribute('open'));
+
+	// No lifecycle callback should fire from merely mounting the component.
+	t.true(onOpenStart.notCalled);
+	t.true(onOpenEnd.notCalled);
+	t.true(onCloseStart.notCalled);
+	t.true(onCloseEnd.notCalled);
+});
+
+test('lifecycle callbacks do not fire on initial mount when open by default', async (t) => {
+	const onOpenStart = sinon.spy();
+	const onOpenEnd = sinon.spy();
+	const onCloseStart = sinon.spy();
+	const onCloseEnd = sinon.spy();
+
+	render(
+		<Disclosure
+			isOpen
+			summary={defaultSummary}
+			onOpenStart={onOpenStart}
+			onOpenEnd={onOpenEnd}
+			onCloseStart={onCloseStart}
+			onCloseEnd={onCloseEnd}
+		>
+			{shortContent}
+		</Disclosure>,
+	);
+
+	// Allow any deferred effects/animation frames to settle.
+	await waitForAnimationFrame();
+
+	const details = screen.getByRole('group') as HTMLDetailsElement;
+	t.true(details.hasAttribute('open'));
+
+	// No lifecycle callback should fire from merely mounting the component.
+	t.true(onOpenStart.notCalled);
+	t.true(onOpenEnd.notCalled);
+	t.true(onCloseStart.notCalled);
+	t.true(onCloseEnd.notCalled);
+});
+
+test('lifecycle callbacks fire when the `isOpen` prop changes after mount', async (t) => {
+	const onOpenStart = sinon.spy();
+	const onOpenEnd = sinon.spy();
+
+	const { rerender } = render(
+		<Disclosure
+			reducedMotion
+			summary={defaultSummary}
+			onOpenStart={onOpenStart}
+			onOpenEnd={onOpenEnd}
+		>
+			{shortContent}
+		</Disclosure>,
+	);
+
+	await waitForAnimationFrame();
+	t.true(onOpenStart.notCalled);
+
+	// Flipping `isOpen` to true after mount should drive the open lifecycle.
+	rerender(
+		<Disclosure
+			reducedMotion
+			isOpen
+			summary={defaultSummary}
+			onOpenStart={onOpenStart}
+			onOpenEnd={onOpenEnd}
+		>
+			{shortContent}
+		</Disclosure>,
+	);
+
+	await waitForAnimationFrame();
+
+	const details = screen.getByRole('group') as HTMLDetailsElement;
+	t.true(details.hasAttribute('open'));
+	t.true(onOpenStart.calledOnce);
+	// With reduced motion there is no animation, so the end callback fires too.
+	t.true(onOpenEnd.calledOnce);
+});
