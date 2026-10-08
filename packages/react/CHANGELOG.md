@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.0](https://github.com/wwnorton/design-system/compare/v1.11.0...v1.12.0) (2026-10-08)
+
+### 🐛 Bug Fixes
+
+- **react:** allow to override trigger in tooltipProps ([99d0ea3](https://github.com/wwnorton/design-system/commit/99d0ea3193f9ca223d9770fa599561327ceac94d))
+
 ## [1.11.0](https://github.com/wwnorton/design-system/compare/v1.10.1...v1.11.0) (2026-10-07)
 
 ### ✨ Features
