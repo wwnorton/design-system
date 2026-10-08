@@ -1,8 +1,103 @@
 ---
 title: Spacing
 ---
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
-:::warning Work in progress
-This page still being written.
-Please [submit feedback on GitHub](https://github.com/wwnorton/design-system/issues) if you would like to contribute.
-:::
+export const SpacingPreview = ({ size }) => (
+  <span
+    aria-hidden="true"
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      width: '200px',
+      height: `${Math.max(size, 4)}px`,
+      backgroundColor: '#f2f7fc',
+    }}
+  >
+    {size > 0 && (
+      <span
+        style={{
+          display: 'block',
+          boxSizing: 'border-box',
+          flexShrink: 0,
+          width: `${size}px`,
+          height: `${size}px`,
+          backgroundColor: '#6BCDCF',
+          border: '1px dashed #485B6F',
+        }}
+      />
+    )}
+  </span>
+);
+
+The Norton spacing system uses a scale based on 4px increments to create consistent spacing within and between components. Use the scale to establish hierarchy, group related elements, and create clear, readable layouts.
+
+## Design Tokens
+
+The Norton spacing system uses a shared scale of system tokens. Token names follow the pattern: `spacing-{step}`, where the step represents a multiple of the 4px base unit. For example, `spacing-4` corresponds to 16px, or 1rem at a 16px root font size.
+
+### System Tokens
+
+The following table lists the spacing tokens and their equivalent values. Pixel equivalents assume a root font size of 16px.
+
+| Pixels | Preview | Token | Rem |
+| --- | --- | --- | --- |
+| 0px | <SpacingPreview size={0} /> | `spacing-0` | 0 |
+| 4px | <SpacingPreview size={4} /> | `spacing-1` | 0.25rem |
+| 8px | <SpacingPreview size={8} /> | `spacing-2` | 0.5rem |
+| 12px | <SpacingPreview size={12} /> | `spacing-3` | 0.75rem |
+| 16px | <SpacingPreview size={16} /> | `spacing-4` | 1rem |
+| 20px | <SpacingPreview size={20} /> | `spacing-5` | 1.25rem |
+| 24px | <SpacingPreview size={24} /> | `spacing-6` | 1.5rem |
+| 32px | <SpacingPreview size={32} /> | `spacing-8` | 2rem |
+| 40px | <SpacingPreview size={40} /> | `spacing-10` | 2.5rem |
+| 48px | <SpacingPreview size={48} /> | `spacing-12` | 3rem |
+| 64px | <SpacingPreview size={64} /> | `spacing-16` | 4rem |
+| 80px | <SpacingPreview size={80} /> | `spacing-20` | 5rem |
+| 96px | <SpacingPreview size={96} /> | `spacing-24` | 6rem |
+| 128px | <SpacingPreview size={128} /> | `spacing-32` | 8rem |
+
+## Usage
+
+Choose spacing based on the relationship between elements. Smaller values keep related content together and build components; larger values separate groups, sections, and overall product layout.
+<img
+	alt="a horizontal ruler calling out spacing tokens with 'small', 'medium', and 'large' under the ruler followed by building blocks starting with multiple small blocks and increasing in size to the right."
+	src={useBaseUrl('/img/spacing_scale.png')}
+/>
+
+### Within components
+
+Use smaller spacing values for closely related elements, such as an icon and label. Follow existing component specifications for internal padding and gaps.
+<img
+	alt="a button and dropdown component, closed Sand opened with spacing tokens highlighted and called out within the components."
+	src={useBaseUrl('/img/Spacing_component.png')}
+/>
+
+### Between components
+
+Use moderate spacing values to separate components within the same group, such as form fields, cards, or stacked content.
+<img
+	alt="a modal component with spacing tokens highlighted and calling out vertical and horizontal space between all elements within it."
+	src={useBaseUrl('/img/spacing_larger.png')}
+/>
+
+### Between sections
+
+Use larger spacing values to distinguish major sections and give page and product layouts room to breathe.
+
+### Hierarchy
+
+Use spacing to create visual hierarchy between content and elements. Keep related components close together and use larger spacing or gaps between groups or sections. Consistent spacing helps users scan the page and understand its structure, especially when products become complex or dense.
+
+## Accessibility
+
+Spacing helps users distinguish related content, identify separate sections, and interact with controls. While spacing between controls supports usability, designs should always include adequate target sizes.
+
+- Keep related elements close together and use more space between separate groups.
+- Leave enough space between interactive elements to reduce accidental selections.
+- Allow layouts to adapt when text wraps, users zoom, or screen sizes change.
+- Avoid fixed heights that clip content when text size or text spacing increases.
+
+### Target size
+
+Aim for clickable or tappable areas of at least 44 × 44 CSS pixels to make controls easier to use. WCAG 2.2 Level AA requires at least 24 × 24 CSS pixels, unless a defined exception applies. Use padding to increase the target area without enlarging the visible icon or label.
