@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.0](https://github.com/wwnorton/design-system/compare/v1.12.0...v1.13.0) (2026-10-08)
+
+### ✨ Features
+
+- **react:** rewrite of Disclosure component to better handle lifecycle events ([d535456](https://github.com/wwnorton/design-system/commit/d535456e7886980ad6a02566f3c6b2bbb1e1f38f))
+
 ## [1.12.0](https://github.com/wwnorton/design-system/compare/v1.11.0...v1.12.0) (2026-10-08)
 
 ### 🐛 Bug Fixes
