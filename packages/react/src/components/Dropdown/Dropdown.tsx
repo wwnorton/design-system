@@ -134,7 +134,7 @@ export const Dropdown = ({
 	};
 
 	React.useEffect(() => {
-		if (selectedProp) {
+		if (selectedProp !== '') {
 			const selectedLabel = options.find((option) => option.value === selectedProp)?.children;
 
 			select(selectedProp);
@@ -293,7 +293,7 @@ export const Dropdown = ({
 				icon={getListboxWidth.current ? undefined : 'chevron-down'}
 				iconRight
 			>
-				<span id={currentId}>{contentsProp || buttonContents}</span>
+				<span id={currentId}>{contentsProp === undefined ? buttonContents : contentsProp}</span>
 			</Button>
 			<Popper
 				placement={placement}
