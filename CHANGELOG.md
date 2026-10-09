@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.1](https://github.com/wwnorton/design-system/compare/v1.13.0...v1.13.1) (2026-10-09)
+
+### 🐛 Bug Fixes
+
+- **react:** dropdown button contents should render empty string ([2b4dab7](https://github.com/wwnorton/design-system/commit/2b4dab7bc01004c6eed4a0c7a60f7d9a8bb1bd45))
+
 ## [1.13.0](https://github.com/wwnorton/design-system/compare/v1.12.0...v1.13.0) (2026-10-08)
 
 ### ✨ Features
