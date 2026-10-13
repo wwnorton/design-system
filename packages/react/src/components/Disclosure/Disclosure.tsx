@@ -117,21 +117,21 @@ export const Disclosure = React.forwardRef<HTMLDetailsElement, DisclosureProps>(
 			}
 		};
 
-		// control via `isOpen` prop. Skip the initial mount so the lifecycle
-		// callbacks only fire on updates (or on a summary click). The initial
-		// `state` is already derived from `propOpen` in the `useState` initializer.
-		const isFirstRender = React.useRef(true);
+		/**
+		 * Update the state when the component is controlled.
+		 */
 		React.useEffect(() => {
-			if (isFirstRender.current) {
-				isFirstRender.current = false;
-				return;
-			}
 			if (propOpen === undefined) {
 				return;
 			}
 
-			if (propOpen) open();
-			else close();
+			if (propOpen && state !== 'open') {
+				open();
+			}
+
+			if (propOpen === false && state !== 'closed') {
+				close();
+			}
 		}, [propOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		/**
