@@ -1,0 +1,441 @@
+@use 'sass:map';
+@use '../../color';
+@use '../../a11y';
+@use '../../util';
+
+@mixin base {
+	// Theme variables
+	--track-color: var(--nds-slider-color-60);
+	--track-inactive-color: var(--nds-base-color-30);
+	--handle-color: var(--nds-slider-color-70);
+	--handle-background-color: var(--nds-background-color);
+	--handle-background-color-active: var(--nds-base-color-30);
+	--handle-background-color-hover: var(--nds-base-color-20);
+	--handle-size: 1.5rem;
+	--handle-focus-outline-width: 4px;
+
+	// Variable that determines the progress of the slider (how "filled" the slider is)
+	// between 0 and 1
+	--progress: 0;
+	--progress-transition: transform 0.1s ease-out;
+
+	// Body container variables
+	--body-container-flex-direction: row;
+
+	// Body variables
+	--body-flex-direction: column;
+
+	// Slider variables
+	--slider-horizontal-height: var(--handle-size);
+	--slider-horizontal-width: 100%;
+	--slider-content-width: calc(100% - var(--handle-focus-outline-width) * 2);
+	--slider-height: var(--slider-horizontal-height);
+	--slider-width: var(--slider-horizontal-width);
+
+	// Track variables
+	--track-horizontal-height: 0.5rem;
+	--track-horizontal-width: var(--slider-content-width);
+	--track-horizontal-left: var(--handle-focus-outline-width);
+	--track-horizontal-top: calc(50% - (var(--track-horizontal-height) / 2));
+	--track-height: var(--track-horizontal-height);
+	--track-width: var(--track-horizontal-width);
+	--track-left: var(--track-horizontal-left);
+	--track-top: var(--track-horizontal-top);
+
+	// Active track variables
+	--active-track-transform: translateX(calc(-100% + var(--progress) * 100%));
+
+	// Handle container variables
+	--handle-container-horizontal-left: var(--handle-focus-outline-width);
+	--handle-container-horizontal-top: calc(50% - (var(--handle-size) / 2));
+	--handle-container-horizontal-width: calc(var(--slider-content-width) - var(--handle-size));
+	--handle-container-horizontal-height: var(--handle-size);
+	--handle-container-transform: translateX(calc(var(--progress) * 100%));
+	--handle-container-width: var(--handle-container-horizontal-width);
+	--handle-container-height: var(var(--handle-container-horizontal-height));
+	--handle-container-left: var(--handle-container-horizontal-left);
+	--handle-container-top: var(--handle-container-horizontal-top);
+
+	// Mark variables
+	--mark-size: 0.25rem;
+	--marks-container-horizontal-width: calc(var(--slider-content-width) - var(--handle-size));
+	--marks-container-horizontal-height: var(--track-horizontal-height);
+	--marks-container-width: var(--marks-container-horizontal-width);
+	--marks-container-height: var(--marks-container-horizontal-height);
+	--marks-container-horizontal-left:
+		calc(
+			var(--handle-focus-outline-width) + var(--handle-size) / 2 - var(--mark-size) / 2
+		);
+	--marks-container-horizontal-top: calc(var(--track-horizontal-top) + (var(--mark-size) / 2));
+	--marks-container-left: var(--marks-container-horizontal-left);
+	--marks-container-top: var(--marks-container-horizontal-top);
+	--mark-left-enabled: 1;
+	--mark-top-enabled: 0;
+
+	// Value indicators container variables
+	--value-indicators-container-horizontal-width: calc(100% - var(--handle-size));
+	--value-indicators-container-horizontal-height: 1rem;
+	--value-indicators-container-horizontal-left:
+		calc(
+			var(--handle-focus-outline-width) + var(--handle-size) / 2 - var(--mark-size) - 1px
+		);
+	--value-indicators-container-horizontal-top: var(--nds-spacing-2);
+	--value-indicators-container-left: var(--value-indicators-container-horizontal-left);
+	--value-indicators-container-top: var(--value-indicators-container-horizontal-top);
+	--value-indicators-container-width: var(--value-indicators-container-horizontal-width);
+	--value-indicators-container-height: var(--value-indicators-container-horizontal-height);
+
+	// Value indicator variables
+	--value-indicator-horizontal-top: calc(var(--mark-size) + 1rem);
+	--value-indicator-horizontal-left: 0;
+	--value-indicator-top: var(--value-indicator-horizontal-top);
+	--value-indicator-left: var(--value-indicator-horizontal-left);
+	--value-indicator-transform: translateX(-50%);
+
+	// Icon variables
+	--icon-size: 1.5rem;
+	--icon-color: var(--nds-base-color-70);
+
+	// Header variables
+	--header-flex-direction: row;
+	--header-align: flex-start;
+
+	// Footer variables
+	--footer-text-align: left;
+
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	gap: var(--nds-spacing-2);
+
+	&--vertical {
+		// Body container variables
+		--body-container-flex-direction: column;
+
+		// Body variables
+		--body-flex-direction: row;
+
+		// Slider variables
+		--slider-height: var(--slider-horizontal-width);
+		--slider-width: var(--slider-horizontal-height);
+
+		// Track variables
+		--track-width: var(--track-horizontal-height);
+		--track-height: var(--track-horizontal-width);
+		--track-left: var(--track-horizontal-top);
+		--track-top: var(--track-horizontal-left);
+
+		// Active track variables
+		--active-track-transform: translateY(calc(100% - var(--progress) * 100%));
+
+		// Handle container variables
+		--handle-container-transform: translateY(calc(100% - var(--progress) * 100%));
+		--handle-container-height: var(--handle-container-horizontal-width);
+		--handle-container-width: var(--handle-container-horizontal-height);
+		--handle-container-top: var(--handle-container-horizontal-left);
+		--handle-container-left: var(--handle-container-horizontal-top);
+
+		// Mark variables
+		--marks-container-width: var(--marks-container-horizontal-height);
+		--marks-container-height: var(--marks-container-horizontal-width);
+		--marks-container-left: var(--marks-container-horizontal-top);
+		--marks-container-top: var(--marks-container-horizontal-left);
+		--mark-left-enabled: 0;
+		--mark-top-enabled: 1;
+
+		// Mark value variables
+		--value-indicator-top: var(--value-indicator-horizontal-left);
+		--value-indicator-left: var(--value-indicator-horizontal-top);
+		--value-indicator-transform: translateY(calc(-50% + var(--mark-size) / 2));
+		--value-indicators-container-left: var(--value-indicators-container-horizontal-top);
+		--value-indicators-container-top: var(--value-indicators-container-horizontal-left);
+		--value-indicators-container-width: var(--value-indicators-container-horizontal-height);
+		--value-indicators-container-height: var(--value-indicators-container-horizontal-width);
+
+		height: 100%;
+		align-items: center;
+	}
+
+	&--horizontal-centered {
+		// Header variables
+		--header-flex-direction: column;
+		--header-align: center;
+
+		// Footer variables
+		--footer-text-align: center;
+	}
+
+	&--disabled {
+		--track-color: var(--nds-slider-color-40);
+		--track-inactive-color: var(--nds-slider-color-20);
+		--handle-background-color: var(--nds-slider-color-40);
+		--handle-background-color-active: var(--nds-slider-color-40);
+		--handle-background-color-hover: var(--nds-slider-color-40);
+		--handle-color: var(--nds-slider-color-40);
+	}
+}
+
+@mixin label {
+	font-size: var(--nds-font-size-sm);
+	font-weight: var(--nds-font-weight-bold);
+	line-height: var(--nds-line-height-4);
+}
+
+@mixin value {
+	font-size: var(--nds-font-size-sm);
+	line-height: var(--nds-line-height-4);
+}
+
+@mixin header {
+	display: flex;
+	flex-direction: var(--header-flex-direction);
+	align-items: var(--header-align);
+}
+
+@mixin footer {
+	margin-top: var(--nds-spacing-2);
+	font-size: var(--nds-font-size-xs);
+	line-height: var(--nds-line-height-3);
+	text-align: var(--footer-text-align);
+}
+
+@mixin body-container {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: var(--body-container-flex-direction);
+	gap: var(--nds-spacing-2);
+}
+
+@mixin body {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: var(--body-flex-direction);
+}
+
+@mixin icon {
+	display: block;
+	width: var(--icon-size);
+	height: var(--icon-size);
+	color: var(--icon-color);
+	fill: var(--icon-color);
+}
+
+@mixin slider {
+	position: relative;
+	width: var(--slider-width);
+	height: var(--slider-height);
+	box-sizing: content-box;
+	padding: var(--handle-focus-outline-width);
+	margin: calc(var(--handle-focus-outline-width) * -1);
+	overflow: clip;
+	user-select: none;
+	touch-action: none;
+}
+
+@mixin active-track {
+	width: 100%;
+	height: 100%;
+	background-color: var(--track-color);
+	transition: var(--progress-transition);
+	transform: var(--active-track-transform);
+}
+
+@mixin track {
+	position: absolute;
+	top: var(--track-top);
+	left: var(--track-left);
+	width: var(--track-width);
+	height: var(--track-height);
+	overflow: hidden;
+	background-color: var(--track-inactive-color);
+	border-radius: var(--nds-radius-md);
+}
+
+@mixin handle-container {
+	position: absolute;
+	top: 0;
+	top: var(--handle-container-top);
+	left: var(--handle-container-left);
+	width: var(--handle-container-width);
+	height: var(--handle-container-height);
+	transition: var(--progress-transition);
+	transform: var(--handle-container-transform);
+}
+
+@mixin handle {
+	width: var(--handle-size);
+	height: var(--handle-size);
+	background-color: var(--handle-background-color);
+	border: 2px solid var(--handle-color);
+	border-radius: 50%;
+
+	&--active {
+		background-color: var(--handle-background-color-active);
+	}
+
+	&:hover {
+		background-color: var(--handle-background-color-hover);
+	}
+
+	&:has(input:focus-visible) {
+		@include a11y.focus-halo;
+	}
+}
+
+@mixin range-input {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	pointer-events: none;
+	border: 0;
+	direction: ltr;
+
+	&--vertical {
+		direction: ltr;
+		writing-mode: vertical-lr;
+	}
+}
+
+@mixin marks-container {
+	position: absolute;
+	top: var(--marks-container-top);
+	left: var(--marks-container-left);
+	width: var(--marks-container-width);
+	height: var(--marks-container-height);
+}
+
+@mixin mark {
+	position: absolute;
+	top: 0;
+	top: calc(var(--mark-top-enabled) * var(--mark-position));
+	left: calc(var(--mark-left-enabled) * var(--mark-position));
+	width: var(--mark-size);
+	height: var(--mark-size);
+	background-color: var(--nds-base-color-90);
+	border-radius: 50%;
+	transition: var(--progress-transition);
+	transition-property: background-color;
+
+	&--active {
+		background-color: var(--nds-background-color);
+	}
+}
+
+@mixin value-indicators-container {
+	position: relative;
+	top: var(--value-indicators-container-top);
+	left: var(--value-indicators-container-left);
+	width: var(--value-indicators-container-width);
+	height: var(--value-indicators-container-height);
+}
+
+@mixin value-indicator {
+	position: absolute;
+	top: calc(var(--mark-top-enabled) * var(--mark-position));
+	left: calc(var(--mark-left-enabled) * var(--mark-position));
+	display: inline-block;
+	font-size: var(--nds-font-size-sm);
+	line-height: var(--nds-line-height-2);
+	color: var(--nds-base-color-90);
+	transform: var(--value-indicator-transform);
+}
+
+@mixin style {
+	@include util.declare('slider') {
+		.nds-slider {
+			@include base;
+
+			&__label {
+				@include label;
+			}
+
+			&__value {
+				@include value;
+			}
+
+			&__header {
+				@include header;
+			}
+
+			&__footer {
+				@include footer;
+			}
+
+			&__icon {
+				@include icon;
+			}
+
+			&__body-container {
+				@include body-container;
+			}
+
+			&__body {
+				@include body;
+			}
+
+			&__slider {
+				@include slider;
+			}
+
+			&__handle-container {
+				@include handle-container;
+			}
+
+			&__handle {
+				@include handle;
+			}
+
+			&__range-input {
+				@include range-input;
+			}
+
+			&__active-track {
+				@include active-track;
+			}
+
+			&__track {
+				@include track;
+			}
+
+			&__marks-container {
+				@include marks-container;
+			}
+
+			&__mark {
+				@include mark;
+			}
+
+			&__value-indicators-container {
+				@include value-indicators-container;
+			}
+
+			&__value-indicator {
+				@include value-indicator;
+			}
+		}
+
+		@each $name, $val in color.$families {
+			.nds-slider--#{$name} {
+				@include util.set(
+					$nds-slider-color: color.family('slider-color', $name, color.$primary-grade),
+				);
+			}
+		}
+
+		@each $map in color.$roles {
+			$name: map.get($map, 'name');
+			$grade: map.get($map, 'grade');
+
+			.nds-slider--#{$name} {
+				@include util.set(
+					$nds-slider-color: color.family('slider-color', '#{$name}-color', $grade),
+				);
+			}
+		}
+	}
+}
