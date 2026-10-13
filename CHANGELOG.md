@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.2](https://github.com/wwnorton/design-system/compare/v1.13.1...v1.13.2) (2026-10-13)
+
+### 🐛 Bug Fixes
+
+- **react:** disclosure does not trigger lifecycle event on mount ([1f6a5f8](https://github.com/wwnorton/design-system/commit/1f6a5f895fd6562899946885e99e61438c7bb2f1))
+
 ## [1.13.1](https://github.com/wwnorton/design-system/compare/v1.13.0...v1.13.1) (2026-10-09)
 
 ### 🐛 Bug Fixes
