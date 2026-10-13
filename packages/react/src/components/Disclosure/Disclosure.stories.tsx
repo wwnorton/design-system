@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { Disclosure } from '.';
@@ -59,6 +59,7 @@ export const Panel = {
 
 export const Controlled = {
 	render: (args) => {
+		const [open, setOpen] = useState(false);
 		const counter = React.useState(0);
 		const summaryText = React.useRef('More information');
 		const [contents, setContents] = React.useState<React.ReactNode>();
@@ -75,24 +76,30 @@ export const Controlled = {
 			});
 			setContents(newContent);
 			setSummary(summaryText.current);
+			setOpen(true);
+		};
+
+		const onCloseEnd = async () => {
+			setOpen(false);
+			setContents(undefined);
+			args.onCloseEnd?.();
 		};
 
 		return (
 			<div>
 				<Button onClick={() => counter[1]((c) => c + 1)}>Trigger rerender</Button>
+				<Button onClick={() => setOpen((prev) => !prev)}>Toggle disclosure</Button>
 				<hr />
 				<Disclosure
 					{...args}
+					isOpen={open}
 					panel
 					summary={summary}
 					onOpenStart={getContents}
 					onOpenEnd={() => {
 						args.onOpenEnd?.();
 					}}
-					onCloseEnd={(): void => {
-						setContents(undefined);
-						args.onCloseEnd?.();
-					}}
+					onCloseEnd={onCloseEnd}
 				>
 					{contents}
 				</Disclosure>
