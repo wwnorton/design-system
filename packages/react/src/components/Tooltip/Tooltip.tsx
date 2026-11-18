@@ -93,8 +93,8 @@ export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(
 				>
 					<div className={contentClass || bodyClass}>{children}</div>
 				</Popper>
-				{/* a persistent, hidden div that is used for the accessible name or description */}
-				<div hidden aria-hidden="true" id={labelId}>
+				{/* a persistent div, visually hidden but kept in the accessibility tree so it can be the description/label target in every navigation mode */}
+				<div className="nds-sr-only" id={labelId}>
 					{children}
 				</div>
 			</>
